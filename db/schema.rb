@@ -11,18 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130617075716) do
+ActiveRecord::Schema.define(:version => 20130617104826) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "user_id"
     t.integer  "website_id"
-    t.integer  "owner_id"
     t.integer  "role"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   add_index "accounts", ["user_id"], :name => "index_accounts_on_user_id"
+  add_index "accounts", ["website_id"], :name => "index_accounts_on_website_id"
+
+  create_table "settings", :force => true do |t|
+    t.string   "var",         :null => false
+    t.text     "value"
+    t.integer  "target_id",   :null => false
+    t.string   "target_type", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "settings", ["target_type", "target_id", "var"], :name => "index_settings_on_target_type_and_target_id_and_var", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -52,11 +63,12 @@ ActiveRecord::Schema.define(:version => 20130617075716) do
     t.string   "url"
     t.string   "name"
     t.string   "api_key"
-    t.text     "settings"
+    t.integer  "owner_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   add_index "websites", ["api_key"], :name => "index_websites_on_api_key"
+  add_index "websites", ["owner_id"], :name => "index_websites_on_owner_id"
 
 end
