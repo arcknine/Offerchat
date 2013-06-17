@@ -64,18 +64,23 @@ describe Website do
     it "should generate API key" do
       @website.api_key.should_not be_nil
       @website.api_key.should_not be_blank
-      # expect(@website.api_key).not_to be_nil
-      # expect(@website.api_key).not_to be_blank
     end
 
     it "should create a new account" do
       @website.accounts.count.should eq(1)
     end
 
-    it "should create 30 rosters" do
+    it "should generate 1 job to create 30 rosters for website owner" do
       expect {
         Fabricate(:website)
-      }.to change(GenerateRostersWorker.jobs, :size).by(30)
+      }.to change(GenerateRostersWorker.jobs, :size).by(1)
+    end
+  end
+
+  describe "when running methods from sidekiq" do
+    it "should generate correct visitor id for website" do
+      @website = Fabricate(:website)
+      @website.generate_visitor_id.should =~ /^visitor_[0-9]*_\d{6}/
     end
   end
 end
