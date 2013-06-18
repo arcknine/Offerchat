@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Website do
 
   it { should have_many(:accounts) }
+  it { should have_many(:rosters) }
   it { should belong_to(:owner) }
 
   describe "website creation" do
@@ -57,9 +58,17 @@ describe Website do
 
   describe "after create" do
     it "should create a new account" do
+      website = Fabricate(:website)
+      website.accounts.count.should eq(1)
+      # expect {
+      #   Fabricate(:website)
+      # }.to change { website.accounts.count }.by(1)
+    end
+
+    it "should create 30 rosters" do
       expect {
         Fabricate(:website)
-      }.to change { Account.all.count }.by(1)
+      }.to change(GenerateRostersWorker.jobs, :size).by(30)
     end
   end
 end

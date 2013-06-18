@@ -1,10 +1,11 @@
 class Website < ActiveRecord::Base
-  attr_accessible :api_key, :name, :url, :owner_id
+  attr_accessible :api_key, :name, :url, :owner_id, :owner
 
   before_create :generate_api_key
   after_create :generate_account
 
   has_many :accounts
+  has_many :rosters
   belongs_to :owner, :foreign_key => "owner_id", :class_name => "User"
 
   validates_presence_of :url
@@ -31,5 +32,9 @@ class Website < ActiveRecord::Base
     account.user = self.owner
     account.role = Account::OWNER
     account.save
+
+    (1..30).each do |r|
+      GenerateRostersWorker.perform_async(self.id, self.url, account.role)
+    end
   end
 end

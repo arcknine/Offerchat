@@ -36,6 +36,7 @@ Dashboard::Application.configure do
   config.assets.debug = true
 
   # Openfire Config
+  SERVER_NAME = "local.offerchat.com"
   CHAT_SERVER_URL = "http://local.offerchat.com:9090/"
   CHAT_SERVER_SECRET = "0ff3rch@t"
   USER_SERVICE_ENDPOINT = "plugins/userService/userservice?"
