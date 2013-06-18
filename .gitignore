@@ -19,3 +19,6 @@ config/database.yml
 
 # Simplecov
 coverage/
+
+# Ignore Schema
+db/schema.rb
