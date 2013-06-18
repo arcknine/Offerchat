@@ -1,5 +1,23 @@
 Dashboard::Application.routes.draw do
+  get "home/index"
+
   devise_for :users
+
+
+
+  match 'users/sign_in' => redirect('/login')
+  match 'users/sign_out' => redirect('/logout')
+  match 'users/password/new' => redirect('/forgot')
+
+  as :user do
+    match '/user/confirmation' => 'confirmations#update', :via => :put, :as => :update_user_confirmation
+    get "/login" => "devise/sessions#new"
+    post "/login" => "devise/sessions#create"
+    get "/signup" => "devise/registrations#new"
+    post "/signup" => "devise/registrations#create"
+    match "/forgot" => "devise/passwords#new"
+    match "/logout" => "devise/sessions#destroy"
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -50,7 +68,7 @@ Dashboard::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'home#index'
 
   # See how all your routes lay out with "rake routes"
 
