@@ -4,9 +4,11 @@ class CreateWebsites < ActiveRecord::Migration
       t.string :url
       t.string :name
       t.string :api_key
-      t.text :settings
+      t.integer :owner_id
 
       t.timestamps
     end
+
+    add_index :websites, :api_key
   end
 end

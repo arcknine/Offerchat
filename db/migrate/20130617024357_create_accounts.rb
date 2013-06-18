@@ -3,11 +3,12 @@ class CreateAccounts < ActiveRecord::Migration
     create_table :accounts do |t|
       t.references :user
       t.integer :website_id
-      t.integer :owner_id
       t.integer :role
 
       t.timestamps
     end
+
     add_index :accounts, :user_id
+    add_index :accounts, :website_id
   end
 end
