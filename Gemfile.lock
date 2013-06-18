@@ -265,6 +265,10 @@ GEM
     rspec-sidekiq (0.4.0)
       rspec (~> 2.0)
       sidekiq (>= 2.4.0)
+    rspec_junit_formatter (0.1.6)
+      builder
+      rspec (~> 2.0)
+      rspec-core (!= 2.12.0)
     sass (3.2.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -346,6 +350,7 @@ DEPENDENCIES
   rails (= 3.2.13)
   rspec-rails (~> 2.0)
   rspec-sidekiq
+  rspec_junit_formatter
   sass-rails (~> 3.2.3)
   shoulda-matchers
   sidekiq
