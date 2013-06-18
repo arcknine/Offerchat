@@ -48,6 +48,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
+  gem 'rspec_junit_formatter'
   gem 'guard-rspec'
   gem 'rspec-sidekiq'
   gem 'shoulda-matchers'

@@ -1,1 +1,3 @@
 --color
+--format RspecJunitFormatter
+--out rspec.xml
