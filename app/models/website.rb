@@ -1,10 +1,12 @@
 class Website < ActiveRecord::Base
-  attr_accessible :api_key, :name, :url
+  attr_accessible :api_key, :name, :url, :owner
 
   before_create :generate_api_key
   after_create :generate_account
+  after_create :generate_rosters
 
   has_many :accounts
+  has_many :rosters
   belongs_to :owner, :foreign_key => "owner_id", :class_name => "User"
 
   validates_presence_of :url
@@ -16,6 +18,10 @@ class Website < ActiveRecord::Base
     s.key :pre_chat, :defaults => { :enabled => false, :message_required => false, :header => "Let me get to know you!", :description => "Fill out the form to start the chat." }
     s.key :post_chat, :defaults => { :enabled => true, :header => "Chat with me, I'm here to help", :description => "Please take a moment to rate this chat session" }
     s.key :offline, :defaults => { :enabled => true,  :header => "Contact Us", :description => "Leave a message and we will get back to you ASAP." }
+  end
+
+  def generate_visitor_id
+    "visitor_#{id}_#{(0..9).to_a.shuffle[0,6].join}"
   end
 
   private
@@ -31,5 +37,9 @@ class Website < ActiveRecord::Base
     account.user = self.owner
     account.role = Account::OWNER
     account.save
+  end
+
+  def generate_rosters
+    GenerateRostersWorker.perform_async(self.id)
   end
 end

@@ -8,6 +8,7 @@ gem 'devise'
 gem 'rabl'
 gem 'ledermann-rails-settings', :require => 'rails-settings'
 gem 'paperclip', '~> 3.4.2'
+gem 'nokogiri'
 
 # Admin
 gem 'activeadmin'
