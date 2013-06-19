@@ -8,7 +8,7 @@ describe GenerateRostersWorker do
 
   it "should create and subscribe roster" do
     expect {
-      GenerateRostersWorker.perform_async(@website.id, @website.url, Account::OWNER)
+      GenerateRostersWorker.perform_async(@website.id)
     }.to change( GenerateRostersWorker.jobs, :size ).by(1)
   end
 end
