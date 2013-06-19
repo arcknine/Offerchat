@@ -7,11 +7,5 @@ module ControllerMacros
       sign_in @user
     end
   end
-
-  def generate_invitation_page
-    before(:each) do
-      @user = Fabricate(:user)
-    end
-  end
 end
 
