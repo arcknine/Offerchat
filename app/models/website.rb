@@ -20,23 +20,6 @@ class Website < ActiveRecord::Base
     s.key :offline, :defaults => { :enabled => true,  :header => "Contact Us", :description => "Leave a message and we will get back to you ASAP." }
   end
 
-  def create_and_subscribe_rosters
-    (1..30).each do |i|
-      uniqueid = (0..9).to_a.shuffle[0,6].join
-      visitor  = "visitor_#{id}_#{uniqueid}"
-
-      password = (0..16).to_a.map{|a| rand(16).to_s(16)}.join
-      roster   = Roster.create(:jabber_user => visitor, :jabber_password => password, :website_id => id)
-
-      sleep(5)
-      OpenfireApi.create_user(roster.jabber_user, roster.jabber_password)
-      sleep(5)
-      OpenfireApi.subcribe_roster(owner.jabber_user, visitor, name, url)
-      sleep(5)
-      OpenfireApi.subcribe_roster(visitor, owner.jabber_user, name, url)
-    end
-  end
-
   def generate_visitor_id
     "visitor_#{id}_#{(0..9).to_a.shuffle[0,6].join}"
   end
