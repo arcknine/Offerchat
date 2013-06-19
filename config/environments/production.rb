@@ -66,6 +66,7 @@ Dashboard::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Openfire Config
+  CHAT_SERVER_NAME = "realtime.offerchat.com"
   CHAT_SERVER_URL = "https://realtime.offerchat.com:9091"
   CHAT_SERVER_SECRET = "0ff3rch@t"
   USER_SERVICE_ENDPOINT = "plugins/userService/userservice?"
