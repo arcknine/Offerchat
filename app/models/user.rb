@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
       :secret_access_key => 'Le5ayiN5wOgkrLeWhcOcXSDfgmyTjGGmX4oXNPw/'
     },
     :styles => { :small => "55x55>", :thumb => "40x40>" }
+
   validates_attachment_content_type :avatar, :content_type => [ "image/jpg", "image/jpeg", "image/png" ], :message => "Only image files are allowed."
 
   private

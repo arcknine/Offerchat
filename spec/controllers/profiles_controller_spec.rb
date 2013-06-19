@@ -17,7 +17,16 @@ describe ProfilesController do
 
     let(:valid_put) do
       {
-        "avatar" => File.new(Rails.root + 'spec/support/images/avatar.png')
+        "email" => "mksgamon@yahoo.com",
+        "avatar" => File.new(Rails.root + 'spec/support/images/avatar.png'),
+        "display_name" => "Mark Gamzy Display Name",
+        "name" => "Mark Gamzy"
+      }
+    end
+    
+    let(:invalid_put) do
+      {
+        "email" => "mksgamon",
       }
     end
     
@@ -33,6 +42,18 @@ describe ProfilesController do
       it "should be able to update avatar" do
         xhr :put, :update, id: @user.id, profile: valid_put, format: :json
         assigns(:profile).avatar.instance_read(:file_name).should eq File.basename(File.new(Rails.root + 'spec/support/images/avatar.png')).downcase
+      end
+      
+      it "should be able to update profile" do
+        xhr :put, :update, id: @user.id, profile: valid_put, format: :json
+        assigns(:profile).email.should eq "mksgamon@yahoo.com"
+        assigns(:profile).display_name.should eq "Mark Gamzy Display Name"
+        assigns(:profile).name.should eq "Mark Gamzy"
+      end
+      
+      it "should not accept invalid data" do
+        xhr :put, :update, id: @user.id, profile: invalid_put, format: :json
+        #implement
       end
     end
   end
