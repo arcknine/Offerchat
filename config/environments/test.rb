@@ -36,6 +36,7 @@ Dashboard::Application.configure do
   config.active_support.deprecation = :stderr
 
   # Openfire Config
+  CHAT_SERVER_NAME = "local.offerchat.com"
   CHAT_SERVER_URL = "http://local.offerchat.com:9090/"
   CHAT_SERVER_SECRET = "0ff3rch@t"
   USER_SERVICE_ENDPOINT = "plugins/userService/userservice?"

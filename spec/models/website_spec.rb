@@ -57,12 +57,19 @@ describe Website do
   end
 
   describe "after create" do
+    before(:each) do
+      @website = Fabricate(:website)
+    end
+
+    it "should generate API key" do
+      @website.api_key.should_not be_nil
+      @website.api_key.should_not be_blank
+      # expect(@website.api_key).not_to be_nil
+      # expect(@website.api_key).not_to be_blank
+    end
+
     it "should create a new account" do
-      website = Fabricate(:website)
-      website.accounts.count.should eq(1)
-      # expect {
-      #   Fabricate(:website)
-      # }.to change { website.accounts.count }.by(1)
+      @website.accounts.count.should eq(1)
     end
 
     it "should create 30 rosters" do
