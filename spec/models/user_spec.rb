@@ -1,12 +1,13 @@
 require 'spec_helper'
 
 describe User do
-  it { should have_many :accounts }
-  it { should have_many :websites }
 
   before(:each) do
     @user = Fabricate(:user)
   end
+
+  it { should have_many :accounts }
+  it { should have_many :websites }
 
   describe "when creating a new user" do
     it "should have a jabber_user and jabber_password ready" do
@@ -19,5 +20,18 @@ describe User do
         Fabricate(:user)
       }.to change(JabberUserWorker.jobs, :size).by(1)
     end
+  end
+
+  it "should only have an avatar of valid image type" do
+    @user.avatar = File.new(Rails.root + 'spec/support/images/avatar.png')
+    @user.save
+    @user.avatar.should_not be_nil
+  end
+
+  it "should not accept image of invalid file types" do
+    expect{
+      @user.avatar = File.new(Rails.root + 'spec/support/images/avatar.pdf')
+      @user.save
+    }.to raise_exception
   end
 end

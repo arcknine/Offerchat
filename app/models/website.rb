@@ -1,5 +1,5 @@
 class Website < ActiveRecord::Base
-  attr_accessible :api_key, :name, :url, :owner_id, :owner
+  attr_accessible :api_key, :name, :url, :owner
 
   before_create :generate_api_key
   after_create :generate_account
