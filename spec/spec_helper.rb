@@ -46,6 +46,14 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  config.include Devise::TestHelpers, :type => :controller
+  config.extend ControllerMacros, :type => :controller
+end
+
+RSpec::Sidekiq.configure do |config|
+  # Clears all job queues before each example
+  config.clear_all_enqueued_jobs = false # default => true
 end
 
 RSpec::Sidekiq.configure do |config|
