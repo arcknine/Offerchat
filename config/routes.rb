@@ -1,8 +1,8 @@
 Dashboard::Application.routes.draw do
 
   devise_for :users, :controllers => {
-                      :registrations => "registrations"
-                     }
+    :registrations => "registrations"
+  }
 
   match 'users/sign_in' => redirect('/login')
   match 'users/sign_out' => redirect('/logout')
