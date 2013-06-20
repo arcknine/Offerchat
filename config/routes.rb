@@ -7,6 +7,7 @@ Dashboard::Application.routes.draw do
                      }
 
 
+
   match 'users/sign_in' => redirect('/login')
   match 'users/sign_out' => redirect('/logout')
   match 'users/password/new' => redirect('/forgot')
@@ -28,7 +29,7 @@ post 'signup_wizard/step_three' ,:controller => :signup_wizard, :action => 'crea
 
 
 
-# post 'signup_wizard/step_two' ,:controller => :signup_wizard, :action => 'create'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
