@@ -1,4 +1,5 @@
 Dashboard::Application.routes.draw do
+  resource :profiles
 
   devise_for :users, :controllers => {
                       :registrations => "registrations"

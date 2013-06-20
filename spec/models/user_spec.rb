@@ -8,6 +8,9 @@ describe User do
 
   it { should have_many :accounts }
   it { should have_many :websites }
+  #it { should have_attached_file(:avatar) }
+  #it { should validate_attachment_content_type(:avatar).allowing("image/jpg", "image/jpeg", "image/png").rejecting('text/plain', 'text/xml') }
+  #it { should validate_attachment_size(:avatar).less_than(1.megabyte) }
 
 
 
