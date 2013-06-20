@@ -34,7 +34,7 @@ gem 'sinatra', :require => nil
 
 # Amazon
 gem 'aws-sdk'
-
+gem 'wicked'
 # Openfire
 gem 'openfire_api', :git => 'git://github.com/paulasmuth/openfire_api.git'
 

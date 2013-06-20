@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-<<<<<<< HEAD
+
   has_many :accounts
   has_many :websites, :foreign_key => "owner_id"
 
@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
     :name, :display_name, :jabber_user, :jabber_password, :avatar
 
   after_create :create_jabber_account
-  before_create :generate_display_name
+  # before_create :generate_display_name
   has_attached_file :avatar,
     :storage => :s3,
     :bucket => Rails.env.production? ? 'offerchat' : 'offerchat-staging',
@@ -31,11 +31,11 @@ class User < ActiveRecord::Base
     JabberUserWorker.perform_async(self.id)
   end
 
-  def generate_display_name
-    if display_name.empty?
-      split = name.split(' ', 2)
-      self.display_name = split.first
-    end
-  end
+  # def generate_display_name
+  #   if self.display_name.blank?
+  #     split = self.name.split(' ', 2)
+  #     self.display_name = split.first
+  #   end
+  # end
 
 end

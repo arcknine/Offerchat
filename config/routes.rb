@@ -1,8 +1,10 @@
 Dashboard::Application.routes.draw do
   get "home/index"
 
-  devise_for :users
-
+  # devise_for :users
+  devise_for :users, :controllers => {
+                      :registrations => "registrations"
+                     }
 
 
   match 'users/sign_in' => redirect('/login')
@@ -19,6 +21,14 @@ Dashboard::Application.routes.draw do
     match "/logout" => "devise/sessions#destroy"
   end
 
+resources :signup_wizard
+
+post 'signup_wizard/step_one' ,:controller => :signup_wizard, :action => 'create'
+post 'signup_wizard/step_three' ,:controller => :signup_wizard, :action => 'create'
+
+
+
+# post 'signup_wizard/step_two' ,:controller => :signup_wizard, :action => 'create'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
