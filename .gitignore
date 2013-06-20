@@ -22,3 +22,6 @@ coverage/
 
 # Ignore Schema
 db/schema.rb
+
+# Ignore rspec.xml for Jenkins
+rspec.xml
