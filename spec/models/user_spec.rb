@@ -53,7 +53,7 @@ describe User do
         it "should enqueue the welcome email to sidekiq" do
           expect {
             account = [{ "role" => Account::ADMIN, "website_id" => @website.id }]
-            user = { :email => "#{Random.rand(11)}@email.com" }
+            user = { :email => "#{Random.rand(11)}user@email.com" }
             User.create_or_invite_agents(user, account)
           }.to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(1)
         end
@@ -63,7 +63,7 @@ describe User do
         it "should enqueue the welcome email to sidekiq" do
           expect {
             account = [{ "role" => Account::AGENT, "website_id" => @website.id }]
-            user = { :email => "#{Random.rand(11)}@email.com" }
+            user = { :email => "#{Random.rand(11)}user@email.com" }
             User.create_or_invite_agents(user, account)
           }.to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(1)
         end
@@ -129,7 +129,7 @@ describe User do
     end
 
     it "#create_or_invite_agents with a new user" do
-      user = { :email => "#{Random.rand(11)}@email.com" }
+      user = { :email => "#{Random.rand(11)}user@email.com" }
       result = User.create_or_invite_agents(user, @account)
       result.email.should eq(user[:email])
     end
