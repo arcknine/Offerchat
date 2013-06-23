@@ -49,6 +49,8 @@ class User < ActiveRecord::Base
     if user.new_record?
       user.password = password
       user.password_confirmation = password
+      user.name = user.email.split('@').first
+      user.display_name = "Support"
     end
 
     if user.save

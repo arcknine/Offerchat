@@ -15,7 +15,7 @@ describe UsersController do
     login_user
 
     let(:valid_user_post) do
-      { "email" => 'user001@offerchat.com' }
+      { "email" => "user001@offerchat.com" }
     end
 
     describe "GET 'index' user has no website" do
@@ -69,7 +69,7 @@ describe UsersController do
 
       it "should have email and password" do
         do_create
-        user = assigns(:result)
+        user = assigns(:user)
 
         user.email.should_not be_nil
         user.email.should_not be_empty
