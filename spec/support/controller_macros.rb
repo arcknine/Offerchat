@@ -7,5 +7,11 @@ module ControllerMacros
       sign_in @user
     end
   end
+
+  def generate_website
+    before(:each) do
+       @website = Fabricate(:website, :owner => @user)
+    end
+  end
 end
 

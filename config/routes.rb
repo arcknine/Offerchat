@@ -1,5 +1,6 @@
 Dashboard::Application.routes.draw do
   resource :profiles
+  resource :users
 
   devise_for :users, :controllers => {
     :registrations => "registrations"
@@ -25,4 +26,5 @@ Dashboard::Application.routes.draw do
 
   root :to => 'home#index'
 
+  resource :profiles
 end
