@@ -26,6 +26,9 @@ class User < ActiveRecord::Base
     :styles => { :small => "55x55>", :thumb => "40x40>" }
   validates_attachment_content_type :avatar, :content_type => [ "image/jpg", "image/jpeg", "image/png" ], :message => "Only image files are allowed."
 
+
+
+
   private
 
   def create_jabber_account
@@ -33,5 +36,7 @@ class User < ActiveRecord::Base
     # Create the account on Openfire
     JabberUserWorker.perform_async(self.id)
   end
+
+
 
 end

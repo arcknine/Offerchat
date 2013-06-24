@@ -6,6 +6,8 @@ class RegistrationsController < Devise::RegistrationsController
 
     if resource.save
       if resource.active_for_authentication?
+        UserMailer.delay.registration_welcome(params[:user][:email])
+
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
         redirect_to ( signup_wizard_path('step_three') )
@@ -29,11 +31,8 @@ class RegistrationsController < Devise::RegistrationsController
     resource.errors.full_messages.each do |item|
       flash[:alert] = item
     end
-    "#{root_path}signup"
+    # "#{root_path}signup"
     signup_wizard_path('step_two')
   end
-
-
-
 
 end

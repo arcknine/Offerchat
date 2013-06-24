@@ -1,5 +1,10 @@
 <h2>Step Four</h2>
-
-  <p>Preview of the site</p>
-  <div><%= link_to 'skip', next_wizard_path %></div>
+<p>Preview of the site</p>
+<%= form_for(@website, url: wizard_path, :method => "put") do |f| %>
+  <div><%= label_tag "Position" %><br />
+  <%= text_field_tag "settings[position]", @website.settings(:style).position %></div>
+  <div><%= label_tag "Theme" %><br />
+  <%= text_field_tag "settings[theme]", @website.settings(:style).theme %></div>
+  <div><%= f.submit "Continue" %></div>
 <% end %>
+<div><%= link_to 'skip', next_wizard_path %></div>

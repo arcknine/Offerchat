@@ -29,6 +29,15 @@ describe User do
 
   describe "User Registration" do
 
+    it "should be able to signup with valid data" do
+      user = Fabricate(:user)
+      expect{
+        # user.save
+        puts "testtttttttttttttt"
+        puts UserMailer.should_receive(:deliver_registration_welcome).with(user.email)
+      }
+    end
+
     it "should have email address" do
       @user.email.should_not be_blank
       @user.email.should_not be_nil

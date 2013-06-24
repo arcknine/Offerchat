@@ -27,7 +27,8 @@ describe SignupWizardController do
     end
   end
 
-  describe "GET 'show'" do
+  describe "GET 'show' not login" do
+
     it "should instantiate a new user" do
       get 'show', id:'step_one'
       assigns(:user).should be_new_record
@@ -35,23 +36,28 @@ describe SignupWizardController do
     end
     it "should instantiate a new user" do
       get 'show', id:'step_two'
-      assigns(:user).should be_new_record
+      # assigns(:user).should be_new_record
       response.code.should eq '200'
     end
+  end
 
+  describe "GET 'show' not login" do
+    login_user
     it "should instantiate a login user and a new website" do
       get 'show', id:'step_three'
-      # assigns(:user).should_not be_nil
       assigns(:website).should be_new_record
       response.code.should eq '200'
     end
 
     it "should instantiate a website preview" do
+
       get 'show', id:'step_four'
+      # dapat naay sud ang session[:new_website]
       response.code.should eq '200'
     end
 
     it "should instantiate a copy and pate APIkey code" do
+
       get 'show', id:'step_five'
       response.code.should eq '200'
     end
@@ -59,16 +65,18 @@ describe SignupWizardController do
 
   end
 
-  describe "POST 'create'" do
-    login_user
+  describe "POST 'create' not logged in" do
     it "should save user data email to session" do
-      post 'create', id:'step_one', user: user_data
+      put 'update', id:'step_one', user: user_data
       session[:user][:email].should eq 'test@test.com'
       response.should redirect_to signup_wizard_path('step_two')
     end
+  end
 
+  describe "POST 'create' logged in" do
+    login_user
     it "should save a new website data" do
-      post 'create', id:'step_three', website: website_data
+      put 'update', id:'step_three', website: website_data
       response.should redirect_to signup_wizard_path('step_four')
     end
 
