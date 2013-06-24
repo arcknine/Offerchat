@@ -4,14 +4,18 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+
   has_many :accounts
   has_many :websites, :foreign_key => "owner_id"
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
     :name, :display_name, :jabber_user, :jabber_password, :avatar
 
-  after_create :create_jabber_account
+  validates_presence_of :name
+  validates_length_of :name, :in => 4..15
 
+  after_create :create_jabber_account
+  # before_create :generate_display_name
   has_attached_file :avatar,
     :storage => :s3,
     :bucket => Rails.env.production? ? 'offerchat' : 'offerchat-staging',
@@ -22,6 +26,9 @@ class User < ActiveRecord::Base
     :styles => { :small => "55x55>", :thumb => "40x40>" }
   validates_attachment_content_type :avatar, :content_type => [ "image/jpg", "image/jpeg", "image/png" ], :message => "Only image files are allowed."
 
+
+
+
   private
 
   def create_jabber_account
@@ -29,4 +36,7 @@ class User < ActiveRecord::Base
     # Create the account on Openfire
     JabberUserWorker.perform_async(self.id)
   end
+
+
+
 end
