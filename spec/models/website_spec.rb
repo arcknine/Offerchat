@@ -77,6 +77,20 @@ describe Website do
     end
   end
 
+  it "#agents" do
+    owner   = Fabricate(:user)
+    website = Fabricate(:website, :owner => owner)
+    Fabricate(:account, :user => Fabricate(:user), :website => website, :role => Account::AGENT)
+    Fabricate(:account, :user => Fabricate(:user), :website => website, :role => Account::AGENT)
+    Fabricate(:account, :user => Fabricate(:user), :website => website, :role => Account::ADMIN)
+
+    website.agents.count.should eq(3)
+    website.agents.each do |a|
+      a.should_not be_nil
+      a.account(website.id).role.should_not eq(Account::OWNER)
+    end
+  end
+
   describe "when running methods from sidekiq" do
     it "should generate correct visitor id for website" do
       @website = Fabricate(:website)

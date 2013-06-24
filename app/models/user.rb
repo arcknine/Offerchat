@@ -20,7 +20,46 @@ class User < ActiveRecord::Base
       :secret_access_key => 'Le5ayiN5wOgkrLeWhcOcXSDfgmyTjGGmX4oXNPw/'
     },
     :styles => { :small => "55x55>", :thumb => "40x40>" }
+
   validates_attachment_content_type :avatar, :content_type => [ "image/jpg", "image/jpeg", "image/png" ], :message => "Only image files are allowed."
+  validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create }
+
+  def account(website_id)
+    accounts.where("website_id = ?", website_id).first
+  end
+
+  def pending?
+    created_at == updated_at
+  end
+
+  def my_agents
+    websites = self.websites.collect(&:id).join(",")
+    accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id IN (?) AND role != ?", websites, Account::OWNER)
+    accounts.collect(&:user)
+  end
+
+  def self.create_or_invite_agents(user, arr)
+    user = User.find_or_initialize_by_email(user[:email])
+
+    if user.new_record?
+      password = Devise.friendly_token[0,8]
+      user.password = password
+      user.password_confirmation = password
+    end
+
+    if user.save
+      arr.each do |p|
+        account = Account.new(:role => p[:role])
+        account.user = user
+        account.website = Website.find(p['website_id'])
+        account.save
+
+        # send mail here
+      end
+    end
+
+    user
+  end
 
   private
 

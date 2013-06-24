@@ -66,4 +66,5 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request', '0.2.1'
   gem 'letter_opener'
+  gem 'thin'
 end
