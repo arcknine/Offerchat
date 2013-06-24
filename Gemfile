@@ -34,7 +34,7 @@ gem 'sinatra', :require => nil
 
 # Amazon
 gem 'aws-sdk'
-
+gem 'wicked'
 # Openfire
 gem 'openfire_api', :git => 'git://github.com/paulasmuth/openfire_api.git'
 
@@ -56,6 +56,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'fabrication'
   gem 'simplecov', :require => false
+  gem 'email_spec'
 end
 
 group :development do
