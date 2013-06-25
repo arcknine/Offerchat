@@ -20,8 +20,17 @@ class Website < ActiveRecord::Base
     s.key :offline, :defaults => { :enabled => true,  :header => "Contact Us", :description => "Leave a message and we will get back to you ASAP." }
   end
 
+  # scope :as, ->(role) do
+  #   joins(:accounts).where('role = ?', role)
+  # end
+
   def generate_visitor_id
     "visitor_#{id}_#{(0..9).to_a.shuffle[0,6].join}"
+  end
+
+  def agents
+    accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id = ? AND role != ?", self.id, Account::OWNER)
+    accounts.collect(&:user)
   end
 
   private

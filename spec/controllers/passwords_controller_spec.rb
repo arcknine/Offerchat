@@ -30,14 +30,6 @@ describe PasswordsController do
       }
     end
 
-    let(:special_characters) do
-      {
-        "password" => "s\"\\?#{}*:%/ddddddddd",
-        "password_confirmation" => "s\"\\?#{}*:%/ddddddddd",
-        "current_password" => "password"
-      }
-    end
-
     let(:less_characters) do
       {
         "password" => "secre",
@@ -85,16 +77,6 @@ describe PasswordsController do
         response.code.should eq "401"
       end
     end
-
-    describe "update user password using special characters" do
-      it "should not change password" do
-        xhr :put, :update, user: special_characters, format: :json
-        assigns(:user).should_not be_nil
-        response.code.should eq "401"
-        # JSON.parse(response.body)["errors"][0].should eq "Password must not contain special characters"
-      end
-    end
-
 
     describe "update user password with less than 6 characters" do
       it "should not change password" do
