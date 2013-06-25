@@ -49,6 +49,8 @@ class User < ActiveRecord::Base
       password = Devise.friendly_token[0,8]
       user.password = password
       user.password_confirmation = password
+      user.name = user.email.split('@').first
+      user.display_name = "Support"
     end
 
     if user.save
