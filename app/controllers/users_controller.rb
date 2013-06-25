@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @result = User.create_or_invite_agents(params[:user], params[:account])
+    @user = User.create_or_invite_agents(params[:user], params[:account])
   end
 
   def destroy
