@@ -1,5 +1,4 @@
 Dashboard::Application.routes.draw do
-  get "users/index"
   resource :profiles
   resource :users
 
