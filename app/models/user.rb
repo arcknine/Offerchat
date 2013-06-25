@@ -44,9 +44,9 @@ class User < ActiveRecord::Base
 
   def self.create_or_invite_agents(user, arr)
     user = User.find_or_initialize_by_email(user[:email])
+    password = Devise.friendly_token[0,8]
 
     if user.new_record?
-      password = Devise.friendly_token[0,8]
       user.password = password
       user.password_confirmation = password
       user.name = user.email.split('@').first
@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
         account.website = Website.find(p['website_id'])
         account.save
 
-        # send mail here
+        UserMailer.delay.agent_welcome(account.website.owner, user)
       end
     end
 
@@ -74,7 +74,4 @@ class User < ActiveRecord::Base
     # Create the account on Openfire
     JabberUserWorker.perform_async(self.id)
   end
-
-
-
 end
