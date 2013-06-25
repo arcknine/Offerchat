@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ProfilesController do
-  
+
   context "when i'm not signed in" do
     describe "GET 'account'" do
       it "should not be acceptable" do
@@ -11,7 +11,7 @@ describe ProfilesController do
     end
   end
 
-  
+
   context "when user is signed in" do
     login_user
 
@@ -29,7 +29,7 @@ describe ProfilesController do
         "email" => "mksgamon",
       }
     end
-    
+
     describe "GET 'account'" do
       it "should be acceptable" do
         xhr :get, :show, format: :json
@@ -37,7 +37,7 @@ describe ProfilesController do
         assigns(:profile).should_not be_nil
       end
     end
-    
+
     describe "UPDATE 'account'" do
       it "should be able to update avatar" do
         xhr :put, :update, id: @user.id, profile: valid_put, format: :json

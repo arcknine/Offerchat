@@ -71,5 +71,69 @@ describe User do
 
   end
 
+  describe "Account functions" do
+    before(:each) do
+      @owner = Fabricate(:user)
+      @website = Fabricate(:website, :owner => @owner)
+      @account = [{ "role" => Account::AGENT, "website_id" => @website.id }]
+    end
 
+    let(:valid_user_post) do
+
+    end
+
+     it "#create_or_invite_agents" do
+      user = Fabricate(:user)
+      result = User.create_or_invite_agents(user, @account)
+      result.should eq(user)
+    end
+
+    it "should return agents under my account" do
+      user = Fabricate(:user)
+      User.create_or_invite_agents(user, @account)
+
+      @owner.my_agents.each do |a|
+        a.account(@website.id).role.should_not eq(Account::OWNER)
+      end
+    end
+
+    it "should return as pending" do
+      user = Fabricate(:user)
+      User.create_or_invite_agents(user, @account)
+      user.pending?.should eq(true)
+    end
+  end
+
+  describe "Account functions" do
+    before(:each) do
+      @owner = Fabricate(:user)
+      @website = Fabricate(:website, :owner => @owner)
+      @account = [{ "role" => Account::AGENT, "website_id" => @website.id }]
+    end
+
+    let(:valid_user_post) do
+
+    end
+
+     it "#create_or_invite_agents" do
+      user = Fabricate(:user)
+      result = User.create_or_invite_agents(user, @account)
+      result.should eq(user)
+    end
+
+    it "should return agents under my account" do
+      user = Fabricate(:user)
+      User.create_or_invite_agents(user, @account)
+
+      @owner.my_agents.each do |a|
+        a.account(@website.id).role.should_not eq(Account::OWNER)
+      end
+    end
+
+    it "should return as pending" do
+      user = Fabricate(:user)
+      User.create_or_invite_agents(user, @account)
+      user.pending?.should eq(true)
+    end
+  end
 end

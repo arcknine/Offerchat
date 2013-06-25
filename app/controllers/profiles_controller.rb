@@ -5,7 +5,7 @@ class ProfilesController < ApplicationController
   def show
     @profile = current_user
   end
-  
+
   def update
     @profile = current_user
     unless @profile.update_attributes(params[:profile])
