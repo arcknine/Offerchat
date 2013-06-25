@@ -11,6 +11,10 @@ class UsersController < ApplicationController
     @user = User.create_or_invite_agents(params[:user], params[:account])
   end
 
+  def update
+    @user = User.update_roles_and_websites(params[:user], params[:account])
+  end
+
   def destroy
     User.find(params[:id]).destroy
 

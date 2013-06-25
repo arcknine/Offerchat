@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
     accounts.collect(&:user)
   end
 
-  def self.create_or_invite_agents(user, arr)
+  def self.create_or_invite_agents(user, account_array)
     user = User.find_or_initialize_by_email(user[:email])
     password = Devise.friendly_token[0,8]
 
@@ -54,8 +54,9 @@ class User < ActiveRecord::Base
     end
 
     if user.save
-      arr.each do |p|
-        account = Account.new(:role => p[:role])
+      account_array.each do |p|
+        role = p[:role] ? Account::ADMIN : Account::AGENT
+        account = Account.new(:role => role)
         account.user = user
         account.website = Website.find(p['website_id'])
         account.save
@@ -65,6 +66,19 @@ class User < ActiveRecord::Base
     end
 
     user
+  end
+
+  def update_roles_and_websites(user, account_array)
+    user = User.find(user[:id])
+    user.accounts.delete_all
+
+    account_array.each do |p|
+      role = p[:role] ? Account::ADMIN : Account::AGENT
+      account         = Account.new(:role => role)
+      account.user    = user
+      account.website = Website.find(p['website_id'])
+      account.save
+    end
   end
 
   private
