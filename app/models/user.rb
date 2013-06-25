@@ -26,8 +26,7 @@ class User < ActiveRecord::Base
     :styles => { :small => "55x55>", :thumb => "40x40>" }
   validates_attachment_content_type :avatar, :content_type => [ "image/jpg", "image/jpeg", "image/png" ], :message => "Only image files are allowed."
 
-
-
+  validates_format_of :password, :with => /^[A-Za-z0-9.&]*\z/, :message => "must not contain special characters"
 
   private
 

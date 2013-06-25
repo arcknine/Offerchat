@@ -12,7 +12,12 @@ describe User do
   #it { should validate_attachment_content_type(:avatar).allowing("image/jpg", "image/jpeg", "image/png").rejecting('text/plain', 'text/xml') }
   #it { should validate_attachment_size(:avatar).less_than(1.megabyte) }
 
-
+  describe "when updating user password" do
+    it "should have existing password" do
+      @user.password.should_not be_blank
+      @user.password.should_not be_nil
+    end
+  end
 
   describe "when creating a new user" do
     it "should have a jabber_user and jabber_password ready" do
