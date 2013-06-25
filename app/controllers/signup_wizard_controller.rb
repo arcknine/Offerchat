@@ -14,7 +14,6 @@ class SignupWizardController < ApplicationController
         redirect_to signup_wizard_path('step_one')
       end
     when :step_three
-      # @user = current_user
       @website = Website.new
     when :step_four
       @website = Website.where(:owner_id => current_user.id).last

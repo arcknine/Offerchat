@@ -15,7 +15,8 @@ describe SignupWizardController do
   let(:website_data) do
     {
       'url' => 'www.mangapanda.net',
-      'owner_id' => 1
+      'owner_id' => 1,
+      'api_key' => 'abcdefghijk'
     }
   end
 
@@ -35,14 +36,15 @@ describe SignupWizardController do
       response.code.should eq '200'
     end
     it "should instantiate a new user" do
+      session[:user] = {:email => 'test@test.com'}
       get 'show', id:'step_two'
-      # assigns(:user).should be_new_record
       response.code.should eq '200'
     end
   end
 
-  describe "GET 'show' not login" do
+  describe "GET 'show' login users" do
     login_user
+
     it "should instantiate a login user and a new website" do
       get 'show', id:'step_three'
       assigns(:website).should be_new_record
@@ -50,14 +52,13 @@ describe SignupWizardController do
     end
 
     it "should instantiate a website preview" do
-
+      Fabricate(:website, :owner => @user)
       get 'show', id:'step_four'
-      # dapat naay sud ang session[:new_website]
       response.code.should eq '200'
     end
 
     it "should instantiate a copy and pate APIkey code" do
-
+      Fabricate(:website, :owner => @user)
       get 'show', id:'step_five'
       response.code.should eq '200'
     end
