@@ -4,4 +4,5 @@
     template: "navigation/show/nav"
     
     triggers:
-      "click .profile-status a"     : "profile:status:clicked"
+      "click .profile-status a"                   : "profile:status:toggled"
+      "click .profile-settings.header-settings a" : "profile:settings:toggled"

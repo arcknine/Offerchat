@@ -21,7 +21,7 @@
                 %img{src: '{{avatar}}'}
               %span.status.online
                 %i.icon.icon-check-small
-          %ul.profile-status-dropdown.hide
+          %ul.profile-status-dropdown.hide.dropdowns
             %li
               %a 
                 %span.status
@@ -36,7 +36,7 @@
         %li.profile-settings.header-settings
           %a
             %i.icon.icon-gear-large
-          %ul.settings-dropdown.hide
+          %ul.settings-dropdown.hide.dropdowns
             %li
               %a
                 Chat settings
