@@ -1,0 +1,24 @@
+%a.site-selector#siteSelector
+  .message-tick.animated.bounce
+    %span
+      6
+  %span
+    BuyRealMarketingBuyRealMarketing
+  %i.icon.icon-arrow-down
+%ul.site-selector-options
+  %li
+    %a.new 
+      %span.msg-count-unread
+        4
+      Offerchat
+  %li
+    %a.new 
+      %span.msg-count-unread
+        2
+      SpringRank
+  %li
+    %a CebuJobs.ph
+  %li
+    %a All websites
+  %li
+    %a.new-website-link + New website

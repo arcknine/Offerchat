@@ -1,0 +1,9 @@
+%h4
+  Visitors (12)
+%a.chat-item-tab.new
+  .message-tick.animated.bounce
+    %span
+      6
+  Visitor 1
+  .small-help-block
+    Offerchat - Hire an agent

@@ -2,18 +2,37 @@
   
   class List.Controller extends App.Controllers.Base
     
-    initialize: ->
+    initialize: (options)->
       sites = App.request "site:entities"
-      console.log sites 
-      
-      @layout = @getLayoutView
-      
-      @listenTo @layout, "show", =>
-        @siteSelectorRegion sites
-        #@groupsRegion()
-        #@visitorsRegion()
+      App.execute "when:fetched", sites, =>
+        
+        @layout = @getLayoutView()
+        
+        @listenTo @layout, "show", =>
+          @siteSelectorRegion()
+          @visitorsRegion()
 
-      @show @layout
+        console.log @show @layout
+    
+    visitorsRegion: ->
+      visitorsView = @getVisitorsView()
+      @layout.visitorsRegion.show visitorsView
     
     siteSelectorRegion: (sites)->
+      siteSelectorView = @getSiteSelectorView sites
+
+      @listenTo siteSelectorView, "siteselector:clicked", (child) ->
+        $(child.view.el).parent().toggleClass('open')
+        console.log $(child.view.el).find('.site-selector').toggleClass('active')
+        #$(child.view.el).find('.site-selector').toggleClass('active')
+      @layout.siteSelectorRegion.show(siteSelectorView)
       
+    getVisitorsView: ->
+      new List.Visitors
+      
+    getSiteSelectorView: (sites)->
+      new List.SiteSelector
+        collection: sites
+        
+    getLayoutView: ->
+      new List.Layout
