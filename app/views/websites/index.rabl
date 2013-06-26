@@ -1,0 +1,2 @@
+@websites
+extends "websites/attributes"

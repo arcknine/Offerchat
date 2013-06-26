@@ -1,6 +1,9 @@
 Dashboard::Application.routes.draw do
+  get "websites/index"
+
   resource :profiles
   resource :users
+  resource :websites
 
   devise_for :users, :controllers => {
     :registrations => "registrations"
