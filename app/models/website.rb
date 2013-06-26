@@ -33,6 +33,11 @@ class Website < ActiveRecord::Base
     accounts.collect(&:user)
   end
 
+  def owner_and_agents
+    accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id = ?", self.id)
+    accounts.collect(&:user)
+  end
+
   private
 
   def generate_api_key
