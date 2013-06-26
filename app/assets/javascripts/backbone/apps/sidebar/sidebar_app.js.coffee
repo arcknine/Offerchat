@@ -1,3 +1,10 @@
 @Offerchat.module "SidebarApp", (SidebarApp, App, Backbone, Marionette, $, _) ->
+  @startWithParent = false
   
-  class SidebarApp.Router extends Marionette.AppRouter
+  API =
+    show: ->
+      new SidebarApp.List.Controller
+        region: App.sidebarRegion
+  
+  SidebarApp.on "start", ->
+    API.show()

@@ -27,34 +27,6 @@
 .chats-sidebar-container#sidebarAuxHeight
   .chats-sidebar
     %h4
-      Group (5)
-    %a.chat-item-tab.group-item-tab.group
-      .profile-image-container
-        .profile-image
-          =image_tag "avatar.jpg"
-        %span.status.online
-          %i.icon.icon-check-small
-      .profile-image-container
-        .profile-image
-          =image_tag "avatar-1.jpg"
-        %span.status.online
-          %i.icon.icon-check-small
-      .profile-image-container
-        .profile-image
-          =image_tag "avatar-2.jpg"
-        %span.status.online
-          %i.icon.icon-check-small
-      .profile-image-container
-        .profile-image
-          =image_tag "avatar-2.jpg"
-        %span.status.online
-          %i.icon.icon-check-small
-      .more.right
-        %span
-        %span
-        %span
-
-    %h4
       Visitors (12)
     %a.chat-item-tab.new
       .message-tick.animated.bounce
