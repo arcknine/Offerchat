@@ -1,0 +1,178 @@
+.iframe-cover
+  position: absolute
+  overflow: hidden
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+  z-index: 1000
+
+#mySite
+  position: absolute
+  top: 0
+  bottom: 0
+  right: 0
+  left: 0
+  width: 100%
+  height: 100%
+  outline: none
+  border: none
+
+.control-wrapper
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  z-index: 1100
+  width: 100%
+  height: 100%
+
+.control-modal
+  background: #fff
+  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.4)
+  position: absolute
+  bottom: 20px
+  left: 50%
+  margin-left: -280px
+  width: 560px
+  border-radius: 5px
+  overflow: hidden
+  .control-header
+    border-top-left-radius: 5px
+    border-top-right-radius: 5px
+    background: #cccccc
+  .control-body
+    padding: 20px
+    border-bottom: 1px solid $default-border-color
+    height: 350px
+    overflow: hidden
+    position: relative
+    h3
+      font-size: 18px
+  .control-footer
+    padding: 20px
+    text-align: right
+
+.widget-position-selector
+  margin-top: 20px
+  text-align: center
+  a
+    padding: 15px
+    border-radius: 5px
+    display: inline-block
+    margin: 0 10px
+    color: $text-color
+    border: 1px solid transparent
+    label
+      display: block
+      margin-top: 5px
+    &.active
+      background-color: #60cba1
+      color: #fff
+      border-color: darken(#60cba1, 15%)
+  .widget-screen
+    width: 120px
+    height: 70px
+    border: 1px solid #ccc
+    border-top: 8px solid #ccc
+    background-color: #fff
+    border-radius: 5px
+    padding: 5px
+    position: relative
+    .widget-sampler
+      width: 30px
+      height: 40px
+      background-color: #ccc
+      position: absolute
+      bottom: 0
+      border-top-left-radius: 2px
+      border-top-right-radius: 2px
+      &.widget-sampler-left
+        left: 5px
+      &.widget-sampler-right
+        right: 5px
+
+.control-breadcrumbs
+  list-style: none
+  overflow: hidden
+  background: #cccccc
+  li
+    float: left
+    white-space: nowrap
+    &:first-child a
+      padding-left: 20px
+    &:last-child a
+      padding-right: 20px
+      &:after
+        border: 0
+    &.active 
+      a
+        background: #343434
+        color: #fff
+        text-shadow: 0 -1px 0 #232323
+        &:after
+          border-left: 30px solid #343434
+    a
+      padding: 10px 0 10px 65px
+      width: 130px
+      position: relative
+      display: block
+      text-align: center
+      float: left
+      background: #ccc
+      color: #333
+      text-shadow: 0 1px 0 #f1f1f1
+      &:after
+        content: " "
+        display: block
+        width: 0
+        height: 0
+        border-top: 50px solid transparent
+        border-bottom: 50px solid transparent
+        border-left: 30px solid #ccc
+        position: absolute
+        top: 50%
+        margin-top: -50px
+        left: 100%
+        z-index: 2
+      &:before
+        content: " "
+        display: block
+        width: 0
+        height: 0
+        border-top: 50px solid transparent
+        border-bottom: 50px solid transparent
+        border-left: 30px solid white
+        position: absolute
+        top: 50%
+        margin-top: -50px
+        margin-left: 1px
+        left: 100%
+        z-index: 1
+
+/* COLOR TILES
+.widget-color-selector
+  margin: 20px 0
+  a
+    display: block
+    width: 24px
+    height: 24px
+    margin: 2px
+    float: left
+    border: 2px solid transparent
+    &.active
+      border-color: #121212
+  &.small
+    a
+      width: 15px
+      height: 15px
+      margin: 1px
+
+/* Attention grabbers
+.widget-banner-selector
+  overflow-y: auto
+  height: 305px
+  margin-top: 20px
+  width: 100%
+  border: 1px solid #e1e1e1

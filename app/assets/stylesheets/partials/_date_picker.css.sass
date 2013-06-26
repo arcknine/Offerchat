@@ -1,0 +1,215 @@
+.calendar-picker-wrapper
+  display: inline-block
+.history-date-wrapper
+  background: #f7f7f7
+  border: 1px solid #d1d1d1
+  
+  border-radius: 5px
+  position: absolute
+  margin-top: 5px
+  padding: 10px 10px 10px 10px
+  z-index: 110
+.date-control
+  text-align: right
+  border-top: 1px solid #ccc
+  padding-top: 10px
+  padding-right: 20px
+div.datepicker
+  position: relative
+  font-family: Arial, Helvetica, sans-serif
+  font-size: 12px
+  width: 196px
+  height: 147px
+  position: absolute
+  cursor: default
+  top: 0
+  left: 0
+  display: none
+
+.datepickerBorderT
+  position: absolute
+  left: 10px
+  top: 0
+  right: 10px
+  height: 10px
+
+.datepickerBorderB
+  position: absolute
+  left: 10px
+  bottom: 0
+  right: 10px
+  
+
+.datepickerBorderL
+  position: absolute
+  left: 0
+  bottom: 10px
+  top: 10px
+  width: 10px
+
+.datepickerBorderR
+  position: absolute
+  right: 0
+  bottom: 10px
+  top: 10px
+  width: 10px
+  
+
+.datepickerBorderTL
+  position: absolute
+  top: 0
+  left: 0
+  width: 10px
+  
+
+
+.datepickerBorderTR
+  position: absolute
+  top: 0
+  right: 0
+  width: 10px
+  
+
+
+.datepickerBorderBL
+  position: absolute
+  bottom: 0
+  left: 0
+  width: 10px
+  
+
+
+.datepickerBorderBR
+  position: absolute
+  bottom: 0
+  right: 0
+  width: 10px
+  
+
+
+.datepickerHidden
+  display: none
+
+div.datepicker
+  table
+    border-collapse: collapse
+  a
+    color: #333
+    text-decoration: none
+    cursor: pointer
+    outline: none
+
+  table td
+    text-align: right
+    padding: 2px
+    margin: 0
+  th
+    text-align: center
+    color: $light-text-color
+    font-weight: normal
+  tbody
+    th
+      text-align: center
+    a
+      display: block
+th.datepickerMonth
+  position: relative
+  top: -3px
+  font-size: 11px
+  a
+    font-weight: bold
+
+.datepickerDays a
+  width: 20px
+  line-height: 16px
+  height: 16px
+  padding: 2px
+  text-align: center
+
+
+.datepickerYears a, .datepickerMonths a
+  width: 44px
+  line-height: 36px
+  height: 36px
+  text-align: center
+
+td.datepickerNotInMonth a
+  color: #919191
+
+th.datepickerWeek
+  a
+    font-size: 11px
+    font-weight: bold
+    color: #e84b4b
+tbody
+  &.datepickerDays td
+    &.datepickerSelected
+      background: #299adb
+      a
+        color: #fff
+    &.datepickerNotInMonth.datepickerSelected
+      background: darken(#299adb, 10%)
+      a
+        color: #fff
+  &.datepickerYears td.datepickerSelected, &.datepickerMonths td.datepickerSelected
+    background: #17384d
+
+div.datepicker
+  a:hover
+    color: #299adb
+  td.datepickerNotInMonth a:hover
+    color: #999
+  tbody th
+    text-align: center
+
+.datepickerSpace div
+  width: 20px
+
+.datepickerGoNext a, .datepickerGoPrev a, .datepickerMonth a
+  text-align: center
+  height: 20px
+  line-height: 20px
+
+.datepickerGoNext a
+  float: right
+  width: 20px
+
+.datepickerGoPrev a
+  float: left
+  width: 20px
+
+table
+  &.datepickerViewDays tbody
+    &.datepickerMonths, &.datepickerYears
+      display: none
+  &.datepickerViewMonths
+    tbody
+      &.datepickerDays, &.datepickerYears
+        display: none
+    tr.datepickerDoW
+      display: none
+  &.datepickerViewYears
+    tbody
+      &.datepickerDays, &.datepickerMonths
+        display: none
+    tr.datepickerDoW
+      display: none
+
+td
+  &.datepickerDisabled
+    a, &.datepickerNotInMonth a, a:hover
+      color: #676767
+  &.datepickerSpecial
+    a
+      background: #700
+    &.datepickerSelected a
+      background: #a00
+tr.datepickerDoW
+  
+
+  th
+    span
+      display: inline-block
+      padding: 2px
+      font-size: 11px
+      font-weight: bold

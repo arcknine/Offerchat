@@ -1,19 +1,20 @@
 @Offerchat = do (Backbone, Marionette) ->
 
   App = new Marionette.Application
-  App.rootRoute = "school"
-  App.version = "v1"
+  
+  App.on "initialize:before", (options) ->
+    App.currentUser = options.currentUser
   
   App.addRegions
-    navigationRegion: "#navigation-region"
+    navigationRegion: "#header-region"
     sidebarRegion:    "#sidebar-region"
     mainRegion:       "#main-region"
 
   App.addInitializer ->
     App.module("NavigationApp").start()
     
-  App.reqres.setHandler "get:current:user", ->
-    App.currentUser
+  App.reqres.setHandler "get:current:user:json", ->
+    $.parseJSON App.currentUser
   
   App.reqres.setHandler "csrf-token", ->
     $("meta[name='csrf-token']").attr('content')
@@ -22,8 +23,7 @@
     App.mainRegion
 
   App.on "initialize:after", ->
-    if Backbone.history
-      Backbone.history.start()
-      @navigate(@rootRoute, trigger: true) if @getCurrentRoute() is ""
+    @startHistory()
+    @navigate(@rootRoute, trigger: true) unless @getCurrentRoute()
 
   App

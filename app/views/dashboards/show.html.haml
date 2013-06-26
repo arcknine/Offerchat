@@ -6,6 +6,6 @@
 :javascript
   $(function(){
     Offerchat.start({
-      currentUser: gon.current_user
+      currentUser: '#{current_user.to_json}'
     });
   });

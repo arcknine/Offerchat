@@ -1,0 +1,90 @@
+$saddlebrown: #8b4513
+$darkslategrey: #2F4F4F
+$gold: #e2bb32
+$black: #000
+$keylime: #b4cc2a
+$salemgreen: #08935a
+$hibiscus: #a52173
+$hiblight: #df73b6
+$astroblue: #00405D
+$goldenbell: #d36800
+$endeavor: #0060A3
+$midblue: #003366
+$blueribbon: #053eff
+$sushi: #97B538
+$eggplant: #613854
+$mandy: #E54A4F
+$nandor: #4E6252
+$grey: #858585
+$cadmiumreddeep: #e3170d
+$cobaltviolet: #ca48d9
+$aureolineyellow: #ffa824
+$cadmiumorange: #ff6103
+$fadedorange: #ea864a
+$greengrass: #31b017
+$picassoblue: #64a0ea
+$aqua: #65c7eb
+$aquablue: #2ab2ea
+$rustorange: #c84e3d
+$velvetpink: #f22a75
+$darkchoco: #493029
+$fblue: #5073ea
+$faintred: #c97d7d
+$deepskyblue: #009ACD
+$gray34: #8B8682
+$gray77: #c4c4c4
+$gray93: #ededed
+$white: #ffffff
+$brightgray: #C5C1AA
+$olivedrab: #8E8E38
+$chartreuse: #71C671
+$teal: #388E8E
+$lightblue: #7D9EC0
+$slateblue: #7171C6
+$maroon: #800000
+$rosypink: #FFC1C1
+$salmon: #FA8072
+$burntumber: #8A3324
+$sandybrown: #F4A460
+$seashell4: #8B8682
+$navajowhite2: #EECFA1
+$brightyellow: #fee939
+$lightgoldenrod2: #EEDC82
+$mudyellow: #8B8B00
+$green4: #008B00
+$springgreen: #00FF7F
+$aquamarine: #76EEC6
+$manganesegreen: #03A89E
+$cyan: #00EEEE
+$peacock: #33A1C9
+$steelblue: #63B8FF
+$royalblue: #3A5FCD
+$mediumpurple: #9F79EE
+$darkviolet: #9400D3
+$magenta: #FF00FF
+$deeppink: #CD1076
+$pink3: #FFAEB9
+
+@mixin themePaletteHead($background, $color)
+  background-color: $background
+  color: $color
+@mixin themePaletteText($color)
+  color: $color
+@mixin themePaletteBg($background)
+  background-color: $background
+@mixin themePaletteHeadBorder($borderColor)
+  border: 1px solid darken($borderColor, 10%)
+  border-bottom: none
+@mixin themePaletteGradient($background)
+  background: $background
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten($background, 15%)', endColorstr='$background')
+  background: -webkit-gradient(linear, left top, left bottom, from(lighten($background, 15%)), to($background))
+  background: -moz-linear-gradient(top, lighten($background, 15%), $background)
+  background-image: linear-gradient(to bottom, lighten($background, 10%), $background)
+  
+
+@mixin themePaletteWrap($background)
+  background: $background
+  border-left: 1px solid darken($background, 10%)
+  border-right: 1px solid darken($background, 10%)
+

@@ -12,7 +12,8 @@ do (Backbone) ->
       entity._fetch = sync
   
   methods =
-    beforeSend: ->
+    beforeSend: (xhr)->
+      xhr.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'))
       @trigger "sync:start", @
     
     complete: ->
