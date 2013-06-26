@@ -1,0 +1,11 @@
+#header-region.header-wrapper
+.content-container
+  #sidebar-region
+  #main-region
+
+:javascript
+  $(function(){
+    Offerchat.start({
+      currentUser: gon.current_user
+    });
+  });

@@ -1,0 +1,1 @@
+@Offerchat.module "NavigationApp.Show", (Show, App, Backbone, Marionette, $, _) ->

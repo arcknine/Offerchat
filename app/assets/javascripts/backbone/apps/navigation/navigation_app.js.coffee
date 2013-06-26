@@ -1,0 +1,1 @@
+@Offerchat.module "NavigationApp", (NavigationApp, App, Backbone, Marionette, $, _) ->

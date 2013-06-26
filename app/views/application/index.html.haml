@@ -1,0 +1,10 @@
+.wrap
+  #header-region
+  #sidebar-region
+
+:javascript
+  $(function() {
+    @Offerchat.start({
+      environment: "#{Rails.env}"
+    });
+  });
