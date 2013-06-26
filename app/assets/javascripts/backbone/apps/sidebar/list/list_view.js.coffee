@@ -5,7 +5,7 @@
 
     regions:
       siteSelectorRegion:     "#site-selector-region"
-      visitorsRegion:         ".visitors-region"
+      visitorsRegion:         "#visitors-region"
     
   class List.SiteSelector extends App.Views.ItemView
     template: "sidebar/list/site_selector"
