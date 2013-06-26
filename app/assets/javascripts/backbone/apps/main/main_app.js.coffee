@@ -2,7 +2,7 @@
 
   class MainApp.Router extends Marionette.AppRouter
     appRoutes:
-      ""            : "show"
+      "" : "show"
 
   API =
     show: ->

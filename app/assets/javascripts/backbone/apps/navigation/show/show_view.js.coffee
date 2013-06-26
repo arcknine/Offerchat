@@ -2,6 +2,7 @@
   
   class Show.Nav extends App.Views.ItemView
     template: "navigation/show/nav"
+    className: "header-wrapper"
     
     triggers:
       "click .profile-status a"                   : "profile:status:toggled"

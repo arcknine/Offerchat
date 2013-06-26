@@ -22,9 +22,9 @@
       siteSelectorView = @getSiteSelectorView sites
 
       @listenTo siteSelectorView, "siteselector:clicked", (child) ->
-        $(child.view.el).parent().toggleClass('open')
-        console.log $(child.view.el).find('.site-selector').toggleClass('active')
-        #$(child.view.el).find('.site-selector').toggleClass('active')
+        $(child.view.el).toggleClass('open')
+        $(child.view.el).find('.site-selector').toggleClass('active')
+
       @layout.siteSelectorRegion.show(siteSelectorView)
       
     getVisitorsView: ->
