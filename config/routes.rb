@@ -19,7 +19,8 @@ Dashboard::Application.routes.draw do
     match "/forgot" => "devise/passwords#new"
     match "/logout" => "devise/sessions#destroy"
   end
-
+  
+  resources :websites
   resources :signup_wizard
   # post 'signup_wizard/step_one' ,:controller => :signup_wizard, :action => 'create'
   # post 'signup_wizard/step_three' ,:controller => :signup_wizard, :action => 'create'
