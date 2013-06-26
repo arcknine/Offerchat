@@ -1,0 +1,1 @@
+@Offerchat.module "SidebarApp.List", (List, App, Backbone, Marionette, $, _) ->

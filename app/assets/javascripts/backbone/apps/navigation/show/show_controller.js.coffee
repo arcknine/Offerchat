@@ -7,7 +7,16 @@
       user = App.request "set:current:user", user_json
 
       navView = @getNavView user
-      console.log App.navigationRegion
+      
+      @listenTo navView, "profile:status:clicked", (child) ->
+        dropdown = $(child.view.el).find(".profile-status-dropdown")
+        if dropdown.hasClass("hide")
+          dropdown.removeClass("hide")
+        else
+          dropdown.addClass("hide")
+          
+        
+        
       App.navigationRegion.show navView
       
     getNavView: (user)->

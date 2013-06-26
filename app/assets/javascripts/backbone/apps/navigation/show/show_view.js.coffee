@@ -2,3 +2,6 @@
   
   class Show.Nav extends App.Views.ItemView
     template: "navigation/show/nav"
+    
+    triggers:
+      "click .profile-status a"     : "profile:status:clicked"
