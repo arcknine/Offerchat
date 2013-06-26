@@ -8,13 +8,9 @@ class PasswordsController < ApplicationController
 
   def update
     @user = User.find(current_user.id)
-    # puts params[:user]
-
 
     if params[:user][:password].blank? or params[:user][:password_confirmation].blank? or params[:user][:current_password].blank?
       render json: {errors: ["All fields are required"]}, status: 401
-    # elsif params[:user][:password]
-
     else
       if @user.valid_password?(params[:user][:current_password])
         if params[:user][:password] == params[:user][:password_confirmation]
