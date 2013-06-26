@@ -153,8 +153,20 @@ describe UsersController do
         }]
       end
 
-      def do_update
-        xhr :put, :update, id: @user1.id, account: valid_put, format: :json
+      let(:invalid_put) do
+        [{
+          "is_admin"   => true,
+          "website_id" => nil,
+          "account_id" => @account.id
+        }]
+      end
+
+      def do_update(type = "valid")
+        if type == "valid"
+          xhr :put, :update, id: @user1.id, account: valid_put, format: :json
+        else
+          xhr :put, :update, id: @user1.id, account: invalid_put, format: :json
+        end
       end
 
       it "should return user" do
@@ -167,6 +179,12 @@ describe UsersController do
         user = assigns(:user)
         assigns(:user).accounts.first.role.should eq(Account::ADMIN)
         assigns(:user).accounts.first.website_id.should eq(@website.id)
+      end
+
+      it "should not update user if no website is checked" do
+        do_update("invalid")
+        JSON.parse(response.body)["errors"].should_not be_blank
+        response.code.should eq "401"
       end
     end
   end

@@ -37,9 +37,9 @@ class User < ActiveRecord::Base
   end
 
   def my_agents
-    websites = self.websites.collect(&:id).join(",")
-    accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id IN (?) AND role != ?", websites, Account::OWNER)
-    accounts.collect(&:user)
+    owner_websites = self.websites.collect(&:id).join(",")
+    owner_accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id IN (?) AND role != ?", owner_websites, Account::OWNER)
+    owner_accounts.collect(&:user)
   end
 
   def self.create_or_invite_agents(user, account_array)
@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
 
     has_checked_website = false
     account_array.each do |p|
-      unless p['website_id'].blank? && p['website_id'].nil? && p['website_id'].empty?
+      unless p['website_id'].blank? && p['website_id'].nil?
         role            = p["is_admin"] ? Account::ADMIN : Account::AGENT
         account         = Account.new(:role => role)
         account.user    = user
@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
     end
 
     user.errors[:base] << "No website is checked" unless has_checked_website
-    UserMailer.delay.agent_welcome(user.accounts.last.website.owner, user) unless user.accounts.empty? && !has_checked_website
+    UserMailer.delay.agent_welcome(user.accounts.last.website.owner, user) unless user.errors.any?
 
     user
   end
@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
 
     has_checked_website = false
     account_array.each do |p|
-      unless p['website_id'].blank? && p['website_id'].nil? && p['website_id'].empty?
+      unless p['website_id'].blank? && p['website_id'].nil?
         account      = Account.find(p['account_id'])
         account.role = p["is_admin"] ? Account::ADMIN : Account::AGENT
         account.save
