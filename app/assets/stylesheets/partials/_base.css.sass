@@ -1,0 +1,471 @@
+// @import "http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic"
+@import "http://fonts.googleapis.com/css?family=Roboto:400,700,400italic,700italic"
+
+
+@import "../modules/all"
+
+$base-font-family: "Roboto", "Helvetica Neue", "Helvetica", Arial, sans-serif
+// $base-font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif
+$base-font-weight: normal
+$base-font-size: 14px
+$base-line-height: 1.5
+
+body
+  font:
+    family: $base-font-family
+    weight: $base-font-weight
+    size: $base-font-size
+  line-height: $base-line-height
+  color: $text-color
+  background-color: #fff
+  overflow: hidden
+  -webkit-font-smoothing: antialiased
+  -webkit-text-size-adjust: 100%
+p
+  margin: 0 0 15px 0
+
+strong
+  font-weight: bold
+a
+  color: $link-color
+  text-decoration: none
+  cursor: pointer
+  &.hovered
+    text-decoration: underline
+  &.logo
+    display: inline-block
+    float: left
+    width: 123px
+    height: 27px
+    background-image: image-url("logo.png")
+    position: relative
+    margin: 10px
+  &.item-block
+    padding: 10px
+    display: block
+    color: $light-text-color
+
+h2
+  font-size: 18px
+
+h4
+  font-size: 10px
+  font-weight: bold
+  text-transform: uppercase
+  &.label
+    color: $light-text-color
+.hide
+  display: none
+.fade
+  -webkit-transition: all .2s
+  -moz-transition: all .2s
+  -ms-transition: all .2s
+  -o-transition: all .2s
+  transition: all .2s
+#wrapper
+ 
+  width: 100%
+  top: 0
+  bottom: 0
+  position: absolute
+.text-center
+  text-align: center
+.content
+  position: relative
+.main-inner
+  height: 100%
+.main-content-view
+  position: absolute
+  left: 270px
+  right: 0
+  bottom: 0
+  top: 0
+  background-color: #fff
+  min-width: 830px
+  overflow-x: auto
+  
+  &.tour-content-view
+    left: 321px
+    width: 550px
+.terms-text
+  font-size: 12px
+  color: $light-text-color
+  display: inline
+.content-container
+  position: absolute
+  top: 45px
+  width: 100%
+  height: 100%
+  
+.block
+  padding: $padding-10
+  position: relative
+  &.large
+    padding: $padding-20
+  &.inline
+    display: inline-block
+  &.bordered-top
+    border-top: 1px solid #e1e1e1
+
+.block-message
+  a.close
+    float: right
+    font-size: 20px
+    font-weight: bold
+    line-height: 1
+    color: black
+    opacity: .4
+    @include transition(.2s)
+    &:hover
+      opacity: .7
+  padding: 10px 20px
+  background-color: #f4efd1
+  font-size: 14px
+
+.profile-image-container
+  position: relative
+  top: 3px
+  display: inline-block
+  cursor: pointer
+  .profile-image 
+    display: block
+    position: relative
+    top: -4px
+    img
+      border-radius: 50%
+      -moz-border-radius: 50%
+      -webkit-border-radius: 50%
+      border: 2px solid $default-border-color
+      width: 33px
+      height: 33px
+  .status
+    position: absolute
+    bottom: 4px
+    right: -2px
+
+.thumbnail-upload-container
+  float: left
+  img
+    width: 85px
+    height: 85px
+    border-radius: 50%
+    border: 2px solid $default-border-color
+    background-color: #f8f8f8
+
+.agent-calc
+  position: relative
+  margin-top: 10px
+  .agent-seat
+    display: inline-block
+    opacity: .3
+    &.ok
+      opacity: 1
+
+
+.settings-pull-left
+  float: left
+.more
+  display: inline-block
+  vertical-align: middle
+  &.right
+    float: right
+  span
+    width: 4px
+    height: 4px
+    border-radius: 50%
+    display: inline-block
+    background-color: $default-border-color
+.small-help-block
+  font:
+    style: italic
+    size: 11px
+    weight: normal
+  margin-top: 7px
+  color: $light-text-color
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+.status
+  display: inline-block
+  position: relative
+  width: 16px
+  height: 16px
+  border-radius: 50%
+  background: #c4c4c4
+  overflow: hidden
+  text-align: center
+  vertical-align: top
+  &.online
+    background-color: #67cc73
+  &.signout
+    background-color: #ee5c5c
+  &.site-list-status
+    top: 2px
+    left: 5px
+  .icon
+    top: 3px
+
+.status-item
+  display: inline-block
+  font-size: 12px
+  background-color: #ccc
+  border-radius: 3px
+  padding: 1px 5px
+  color: #fff
+  &.green
+    background-color: #53bb84
+  &.red
+    background-color:  #e13d3d
+  
+.msg-count
+  display: inline-block
+  padding: 1px 0
+  width: 20px
+  text-align: center
+  background-color: #e1e1e1
+  text-shadow: 0 1px 0 #fff
+  border-radius: 3px
+  color: $light-text-color
+  font-size: 11px
+  font-weight: bold
+
+.link-list
+  a
+    display: inline-block
+
+::-webkit-scrollbar
+  width: 6px
+  background-color: #ffffff
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece
+  -webkit-border-radius: 10px
+  border-radius: 10px
+  background-color: transparent
+  border: none
+
+::-webkit-scrollbar-thumb
+  -webkit-border-radius: 10px
+  border-radius: 10px
+  background: #ccc
+
+::-webkit-scrollbar-thumb:window-inactive
+  background: #ccc
+
+::-webkit-scrollbar-corner
+  background-color: transparent
+
+.chats-sidebar-container::-webkit-scrollbar
+  background-color: transparent
+.chats-sidebar-container::-webkit-scrollbar-thumb
+  background-color: #75889a
+
+
+
+.tour-content-inner
+  .block
+    padding: 20px
+.widget-preview-form
+  margin: 20px 0
+  label
+    margin-right: 15px
+
+.go-right
+  float: right
+.go-left
+  float: left
+
+.column-content-container
+  float: none
+  height: 100%
+  overflow-y: auto
+
+
+.column-50
+  width: 50%
+  float: left
+.column-footer-actions
+  &.bordered
+    border-top: 1px solid #e5e5e5
+.middot
+  width: 2px
+  height: 2px
+  display: inline-block
+  vertical-align: middle
+  margin: 0 10px
+  background-color: $light-text-color
+
+.section-sub-menu
+  background-color: #e7e7e7
+  li
+    float: left
+  a
+    display: inline-block
+    padding: 10px 20px
+    color: $text-color
+    text-shadow: 0 1px 0 #fff
+    &.active
+      font-weight: bold
+      background-color: #fff
+.section-desc
+  margin: 10px 0
+  &.child-desc
+    margin-bottom: 30px
+
+.trigger-form
+  padding: 10px 20px
+  border-radius: 5px
+  background-color: #f4f4f4
+  border-bottom: 1px solid #e1e1e1
+  display: inline-block
+  &.hide
+    display: none
+
+.trigger-item
+  @include transition(.1s)
+  white-space: nowrap
+  border-bottom: 1px solid #f1f1f1
+  .icon-lightning
+    top: -1px
+.trigger-value
+  font-weight: bold
+  color: $text-color
+.linkable
+  cursor: pointer
+
+.graphic-selector
+  a.ag-select
+    display: inline-block
+    width: 150px
+    height: 85px
+    border: 3px solid #ccc
+    overflow: hidden
+    vertical-align: top
+    margin: 10px
+    border-radius: 5px
+    &.selected
+      border-color: #2599dc
+    img
+      max-width: 100%
+      
+
+.modal
+  position: absolute
+  z-index: 1101
+  background-color: #f4f4f4
+  width: 560px
+  left: 50%
+  top: 10%
+  margin-left: -280px
+  border-radius: 5px
+  box-shadow: 0 0 20px rgba(0,0,0,.3)
+  h2
+    margin-bottom: 5px
+  .modal-body,
+  .modal-header
+    padding: 10px 15px
+    h2
+      margin-bottom: 0
+      text-shadow: 0 1px 0 #fff
+  .modal-footer
+    padding: 15px
+    height: 35px
+    &.bordered
+      border-top: 1px solid $border-color
+  .modal-header
+    .close
+      color: #999
+      position: absolute
+      top: 10px
+      right: 15px
+      font-size: 28px
+      text-shadow: 0 1px 0 #fff
+      width: 24px
+      height: 24px
+      line-height: 24px
+      text-align: center
+      border: 1px solid #e1e1e1
+      border-radius: 3px
+      box-shadow: 0 1px 0 #fff
+      @include transition(.2s)
+      &:hover
+        color: #676767
+  &.history-modal
+    width: 840px
+    margin-left: -420px
+  &.attention-grabber-modal
+    width: 755px
+    margin-left: -378px
+
+.block-list
+  li
+    position: relative
+a.block-list-item
+  display: block
+  padding: 15px 0
+  
+  &.bordered
+    border-top: 1px solid #e1e1e1
+.site-block-list
+  button.trash-btn
+    position: absolute
+    right: 15px
+    top: 28px
+    
+.url-desc,
+.invoice-desc
+  color: #b1b1b1
+  font-size: 12px
+  display: block
+
+.plans
+  a.plan
+    display: block
+    padding: 25px 15px
+    font-size: 18px
+    
+    @include transition(.2s)
+    .plan-agents,
+    .plan-price
+      display: inline-block
+    .plan-agents
+      color: $light-text-color
+      font-size: 14px
+      margin-left: 15px
+    .plan-price
+      float: right
+      color: $text-color
+      text-align: right
+      sub
+        display: inline-block
+        font-size: 14px
+    &:hover
+      background-color: #f1f1f1
+    &.selected
+      background-color: #61c6ab
+      border-bottom: 1px solid #61c6ab
+      color: #fff
+      .plan-price,
+      .plan-agents
+        color: #fff
+      .icon-check-2
+        margin-right: 5px
+        top: -2px
+    
+
+.modal-inner-container
+  height: 300px
+  overflow-y: auto
+  border: 1px solid #e1e1e1
+
+.modal-backdrop
+  background-color: black
+  opacity: .7
+  position: fixed
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  z-index: 1100

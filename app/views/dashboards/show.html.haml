@@ -1,0 +1,11 @@
+#header-region.header-wrapper
+.content-container
+  #sidebar-region
+  #main-region
+
+:javascript
+  $(function(){
+    Offerchat.start({
+      currentUser: '#{current_user.to_json}'
+    });
+  });

@@ -1,0 +1,205 @@
+.btn
+  border-radius: $button-radius
+  background-color: $button-bg-color
+  border: 1px solid transparent
+  font-family: $base-font-family
+  font-size: $base-font-size
+  font-weight: $bold
+  color: $text-color
+  display: inline-block
+  text-decoration: none
+  line-height: 1.4em
+  position: relative
+  outline: none
+  padding: $button-padding
+  cursor: pointer
+  text-shadow: 0 1px 0 lighten($button-bg-color, 10%)
+  box-shadow: 0 1px 0 darken($button-bg-color, 15%)
+  &:active, &.active
+    background-color: darken($button-bg-color, 5%)
+    box-shadow: 0 1px 1px darken($button-bg-color, 15%) inset
+    border-top: 1px solid darken($button-bg-color, 20%)
+    top: 1px
+  &.action
+    background-color: $button-bg-action-color
+    box-shadow: 0 1px 0 darken($button-bg-action-color, 15%)
+    text-shadow: 0 -1px 0 darken($button-bg-action-color, 20%)
+    color: #fff
+    &:active
+      background-color: darken($button-bg-action-color, 5%)
+      box-shadow: 0 1px 1px darken($button-bg-action-color, 15%) inset
+      border-top: 1px solid darken($button-bg-action-color, 20%)
+  &.warning
+    background-color: $button-bg-warning-color
+    box-shadow: 0 1px 0 darken($button-bg-warning-color, 15%)
+    text-shadow: 0 -1px 0 darken($button-bg-warning-color, 20%)
+    color: #fff
+    &:active
+      background-color: darken($button-bg-warning-color, 5%)
+      box-shadow: 0 1px 1px darken($button-bg-warning-color, 15%) inset
+      border-top: 1px solid darken($button-bg-warning-color, 20%)
+  &.left
+    float: left
+  &.right
+    float: right
+  &.hide
+    display: none
+  &.btn-large
+    width: 250px
+  &.small
+    font-size: 12px
+
+
+.btn-group
+  a.btn
+    float: left
+    border-radius: 0
+    border-right: 1px solid darken($button-bg-color, 10%)
+    &:first-child
+      border-top-left-radius: 3px
+      border-bottom-left-radius: 3px
+    &:last-child
+      border-top-right-radius: 3px
+      border-bottom-right-radius: 3px
+      border-right: none
+
+.button-selector
+  a
+    border-radius: 30px
+    padding: 7px 15px
+    display: inline-block
+    font-size: 12px
+    
+    font-weight: bold
+    &.selected
+      
+      background-color: $sidebar-color
+      color: #fff
+      
+    
+
+.transcript-action-selector
+  width: 130px
+.calendar-picker-btn
+  padding: 7px
+  .icon-arrow-down
+    position: absolute
+    right: 10px
+    top: 14px
+  
+a.trash-btn
+  vertical-align: top
+  width: 30px
+  text-align: center
+  padding: 8px 15px 7px 15px
+.btn-selector-wrapper
+  position: relative
+  display: inline-block
+  vertical-align: top
+  &.full
+    width: 100%
+    display: block
+  &.agent-selector-wrapper
+    left: -15px
+    top: -4px
+  &.upload-tool-btn-wrapper
+    margin-left: 20px
+    top: 20px
+  .caret
+    border-color: transparent transparent #a0c7ff transparent
+    border-width: 7px
+    border-style: solid
+    position: absolute
+    top: -13px
+    right: 10px
+    width: 0
+    height: 0
+    &.caret-dark
+      border-color: transparent transparent $sidebar-color transparent
+      &.bottom
+        border-color: $sidebar-color transparent transparent transparent 
+    &.bottom
+      bottom: -13px
+      top: auto
+  .dropdown-options
+    position: absolute
+    width: 100%
+    padding: 7px 0
+    box-sizing: border-box
+    -moz-box-sizing: border-box
+    opacity: 0
+    display: block
+    visibility: hidden
+    border-radius: 3px
+    z-index: 110
+    @include transition(.2s)
+    &.top
+      top: -137px
+
+    & > ul
+      overflow-y: auto
+      max-height: 150px
+      & > li
+        position: relative
+    &.dark
+      background-color: $sidebar-color
+      li
+        &:hover
+          background-color: darken($sidebar-color, 5%)
+      a
+        color: #fff    
+    a
+      display: block
+      padding: 7px 17px
+      @include transition(.2s)
+  .icon-arrow-down
+    right: 10px
+    top: 14px
+    position: absolute
+  .btn-action-selector
+    text-overflow: ellipsis
+    padding: 8px 35px 7px 15px
+    overflow: hidden
+    &.site-selector
+      width: 155px
+    &.agent-row-selector
+      width: 90%
+      padding: 5px 11px 4px 11px
+      .icon-arrow-down
+        top: 12px
+  &.left
+    float: left
+    margin-right: 5px
+
+.dropdown-options ul::-webkit-scrollbar
+  background-color: transparent
+.dropdown-options ul::-webkit-scrollbar-thumb
+  background-color: #75889a
+
+.open > .dropdown-options
+  margin-top: 10px
+  opacity: 1
+  visibility: visible
+
+button.trash-btn
+  width: 16px
+  height: 16px
+  background: none
+  border: none
+  outline: none
+  padding: 0
+  cursor: pointer
+  z-index: 10
+  & > .trash-lid
+    display: block
+    @include icon(16px, 4px, -73px, -99px)
+    -webkit-transform-origin: -7% 100%
+    -webkit-transition: -webkit-transform 150ms
+  &:hover
+    .trash-lid
+      -webkit-transform: rotate(-25deg)
+      -webkit-transition: -webkit-transform 250ms
+  & > .trash-bin
+    display: block
+    @include icon(16px, 13px, -73px, -103px)
+

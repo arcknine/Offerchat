@@ -1,0 +1,8 @@
+.panel.radius
+  #form-content-region
+  {{#if buttons}}
+  .buttons
+    {{#each buttons}}
+    <button data-form-button="{{type}}" class="{{className}}">{{text}}</button>
+    {{/each}}
+  {{/if}}

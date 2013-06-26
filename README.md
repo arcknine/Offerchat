@@ -1,7 +1,7 @@
-Offerchat Dashboard
+@Offerchat Dashboard
 ===================
 
-Repository for the Offerchat dashboard.
+Repository for the @Offerchat dashboard.
 
 Setup
 -----
