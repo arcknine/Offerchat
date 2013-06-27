@@ -6,9 +6,11 @@ class SignupWizardController < ApplicationController
   def show
     case step
     when :step_one
+      # email
       @user = User.new
       render_wizard
     when :step_two
+      # name and password
       session[:user] ||= {:email => nil}
       unless session[:user][:email].nil?
         @user = User.new
@@ -17,9 +19,11 @@ class SignupWizardController < ApplicationController
         redirect_to signup_wizard_path('step_one')
       end
     when :step_three
+      # website url
       @website = Website.new
       render_wizard
     when :step_four
+      # update website settings position & theme
       @website = Website.where(:owner_id => current_user.id).last
       if @website.nil?
         redirect_to signup_wizard_path('step_three')
@@ -27,6 +31,7 @@ class SignupWizardController < ApplicationController
         render_wizard
       end
     when :step_five
+      # show api key code
       @website = Website.where(:owner_id => current_user.id).last
       if @website.nil?
         redirect_to signup_wizard_path('step_three')
@@ -68,8 +73,6 @@ class SignupWizardController < ApplicationController
       @website.settings(:style).position = params[:settings]['position']
       if @website.save
         redirect_to signup_wizard_path('step_five')
-      else
-        redirect_to signup_wizard_path('step_four'), :notice => 'Something went wrong!'
       end
     end
   end
