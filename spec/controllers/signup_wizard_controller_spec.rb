@@ -14,7 +14,7 @@ describe SignupWizardController do
 
   let(:user_data_invalid) do
     {
-      'email' => ''
+      'email' => 'asdf'
     }
   end
 
@@ -67,7 +67,10 @@ describe SignupWizardController do
 
   describe "GET 'show' login users" do
     login_user
-
+    it "should redirect to step three on viewing step one" do
+      get 'show', id:'step_one'
+      response.should redirect_to signup_wizard_path('step_three')
+    end
     it "should instantiate a login user and a new website" do
       get 'show', id:'step_three'
       assigns(:website).should be_new_record
@@ -104,7 +107,7 @@ describe SignupWizardController do
     end
   end
 
-  describe "POST 'update' not logged in" do
+  describe "POST 'update' user is not logged in" do
     it "should display error on email invalid" do
       put 'update', id:'step_one', user: user_data_invalid
       flash[:alert].should == 'Email should be valid'
@@ -112,6 +115,15 @@ describe SignupWizardController do
       user.should be_nil
       response.should redirect_to signup_wizard_path('step_one')
     end
+
+    it "should display error on email nil" do
+      put 'update', id:'step_one', user: {:email => nil}
+      flash[:alert].should == 'Email should be valid'
+      user = assigns(:user)
+      user.should be_nil
+      response.should redirect_to signup_wizard_path('step_one')
+    end
+
     it "should go to step one when email exist" do
       user = Fabricate(:user)
       put 'update', id:'step_one', user: {:email=> user.email}
@@ -127,7 +139,7 @@ describe SignupWizardController do
     end
   end
 
-  describe "POST 'update' logged in" do
+  describe "POST 'update' user is currenlty logged in" do
     login_user
     it "should save a new website data" do
       put 'update', id:'step_three', website: website_data
