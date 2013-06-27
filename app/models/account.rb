@@ -8,7 +8,7 @@ class Account < ActiveRecord::Base
   belongs_to :user
   belongs_to :website
 
-  after_create :add_rosters_to_agent_or_admin
+  after_create :add_rosters_to_agent_or_admin, :if => lambda { |account| account.try(:role) == AGENT || account.try(:role) == ADMIN }
 
   def is_owner?
     role == Account::OWNER
@@ -25,8 +25,9 @@ class Account < ActiveRecord::Base
   private
 
   def add_rosters_to_agent_or_admin
-    if self.role == Account::ADMIN || self.role == Account::AGENT
-      SubscribeRostersWorker.perform_async(id)
-    end
+    # Add the visitor rosters
+    SubscribeRostersWorker.perform_async(id)
+    # Add the agent rosters
+    AgentRostersWorker.perform_async(id)
   end
 end

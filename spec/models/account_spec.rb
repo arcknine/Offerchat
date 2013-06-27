@@ -40,5 +40,23 @@ describe Account do
         Fabricate(:admin, :user => @user, :website => @website)
       }.to change(SubscribeRostersWorker.jobs, :size).by(1)
     end
+
+    it "should add existing agents to the new agent's roster" do
+      Fabricate(:agent, :user => Fabricate(:user), :website => @website)
+      Fabricate(:admin, :user => Fabricate(:user), :website => @website)
+
+      expect{
+        Fabricate(:agent, :user => Fabricate(:user), :website => @website)
+      }.to change(AgentRostersWorker.jobs, :size).by(1)
+    end
+
+    it "should add existing agents to the new admin's roster" do
+      Fabricate(:agent, :user => Fabricate(:user), :website => @website)
+      Fabricate(:admin, :user => Fabricate(:user), :website => @website)
+
+      expect{
+        Fabricate(:admin, :user => Fabricate(:user), :website => @website)
+      }.to change(AgentRostersWorker.jobs, :size).by(1)
+    end
   end
 end

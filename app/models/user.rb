@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   validates_length_of :name, :in => 4..50
 
   after_create :create_jabber_account
-  # before_create :generate_display_name
+
   has_attached_file :avatar,
     :storage => :s3,
     :bucket => Rails.env.production? ? 'offerchat' : 'offerchat-staging',
