@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class AgentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :current_user_has_website?
   respond_to :json
