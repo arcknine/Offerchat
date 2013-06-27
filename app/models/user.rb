@@ -12,10 +12,10 @@ class User < ActiveRecord::Base
     :name, :display_name, :jabber_user, :jabber_password, :avatar
 
   validates_presence_of :name
-  validates_length_of :name, :in => 4..15
+  validates_length_of :name, :in => 4..50
 
   after_create :create_jabber_account
-  # before_create :generate_display_name
+
   has_attached_file :avatar,
     :storage => :s3,
     :bucket => Rails.env.production? ? 'offerchat' : 'offerchat-staging',
@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
     :default_url => '/assets/avatar.jpg'
 
   validates_attachment_content_type :avatar, :content_type => [ "image/jpg", "image/jpeg", "image/png" ], :message => "Only image files are allowed."
-  validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create }
+  validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
 
   def account(website_id)
     accounts.where("website_id = ?", website_id).first
@@ -38,32 +38,59 @@ class User < ActiveRecord::Base
   end
 
   def my_agents
-    websites = self.websites.collect(&:id).join(",")
-    accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id IN (?) AND role != ?", websites, Account::OWNER)
-    accounts.collect(&:user)
+    owner_websites = self.websites.collect(&:id).join(",")
+    owner_accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id IN (?) AND role != ?", owner_websites, Account::OWNER)
+    owner_accounts.collect(&:user)
   end
 
-  def self.create_or_invite_agents(user, arr)
+  def self.create_or_invite_agents(user, account_array)
     user = User.find_or_initialize_by_email(user[:email])
-    password = Devise.friendly_token[0,8]
 
     if user.new_record?
-      user.password = password
+      password                   = Devise.friendly_token[0,8]
+      user.password              = password
       user.password_confirmation = password
-      user.name = user.email.split('@').first
-      user.display_name = "Support"
+      user.name                  = user.email.split('@').first
+      user.display_name          = "Support"
+      user.save
     end
 
-    if user.save
-      arr.each do |p|
-        account = Account.new(:role => p[:role])
-        account.user = user
+    has_checked_website = false
+    account_array.each do |p|
+      unless p['website_id'].blank? && p['website_id'].nil?
+        role            = p["is_admin"] ? Account::ADMIN : Account::AGENT
+        account         = Account.new(:role => role)
+        account.user    = user
         account.website = Website.find(p['website_id'])
         account.save
 
-        UserMailer.delay.agent_welcome(account.website.owner, user)
+        has_checked_website = true
       end
     end
+
+    user.errors[:base] << "No website is checked" unless has_checked_website
+    UserMailer.delay.agent_welcome(user.accounts.last.website.owner, user) unless user.errors.any?
+
+    user
+  end
+
+  def self.update_roles_and_websites(id, account_array)
+    # websites = current_user.accounts.where("role != ?", Account::AGENT).collect(&:website_id).join(",")
+    # user.accounts.where("website_id IN (?)", websites).delete_all
+
+    has_checked_website = false
+    account_array.each do |p|
+      unless p['website_id'].blank? && p['website_id'].nil?
+        account      = Account.find(p['account_id'])
+        account.role = p["is_admin"] ? Account::ADMIN : Account::AGENT
+        account.save
+
+        has_checked_website = true
+      end
+    end
+
+    user = User.find(id)
+    user.errors[:base] << "No website is checked" unless has_checked_website
 
     user
   end

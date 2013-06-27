@@ -9,6 +9,16 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create_or_invite_agents(params[:user], params[:account])
+    if @user.errors.any?
+      render :json => {errors: @user.errors.full_messages}, status: 401
+    end
+  end
+
+  def update
+    @user = User.update_roles_and_websites(params[:id], params[:account])
+    if @user.errors.any?
+      render :json => {errors: @user.errors.full_messages}, status: 401
+    end
   end
 
   def destroy

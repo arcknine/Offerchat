@@ -111,15 +111,11 @@ describe User do
     end
   end
 
-  describe "Account functions" do
+  describe "User functions" do
     before(:each) do
       @owner = Fabricate(:user)
       @website = Fabricate(:website, :owner => @owner)
-      @account = [{ "role" => Account::AGENT, "website_id" => @website.id }]
-    end
-
-    let(:valid_user_post) do
-
+      @account = [{ "is_admin" => true, "website_id" => @website.id }]
     end
 
     it "#create_or_invite_agents with an existing user"  do
@@ -132,6 +128,16 @@ describe User do
       user = { :email => "#{Random.rand(11)}user@email.com" }
       result = User.create_or_invite_agents(user, @account)
       result.email.should eq(user[:email])
+    end
+
+    it "#update_roles_and_websites" do
+      user = Fabricate(:user)
+      account = Fabricate(:account, :user => user, :website => @website, :role => Account::ADMIN)
+      account = [{ "is_admin" => true, "website_id" => @website.id, "account_id" => account.id }]
+
+      expect {
+        User.update_roles_and_websites(user.id, account)
+      }.to_not change(Account, :count)
     end
 
     it "should return agents under my account" do

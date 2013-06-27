@@ -7,37 +7,49 @@ class SignupWizardController < ApplicationController
     case step
     when :step_one
       @user = User.new
+      render_wizard
     when :step_two
-      if session[:user][:email]
+      session[:user] ||= {:email => nil}
+      unless session[:user][:email].nil?
         @user = User.new
+        render_wizard
       else
         redirect_to signup_wizard_path('step_one')
       end
     when :step_three
       @website = Website.new
+      render_wizard
     when :step_four
       @website = Website.where(:owner_id => current_user.id).last
       if @website.nil?
         redirect_to signup_wizard_path('step_three')
+      else
+        render_wizard
       end
     when :step_five
       @website = Website.where(:owner_id => current_user.id).last
       if @website.nil?
         redirect_to signup_wizard_path('step_three')
+      else
+        render_wizard
       end
     end
-    render_wizard
   end
 
   def update
     case step
     when :step_one
-      @user = User.find_by_email(params[:user]['email'])
-      if @user.nil?
-        session[:user] = {:email => params[:user]['email'] }
-        redirect_to signup_wizard_path('step_two')
+      unless is_a_valid_email?(params[:user]['email'])
+        flash[:alert] = 'Email should be valid'
+        redirect_to signup_wizard_path('step_one')
       else
-        redirect_to signup_wizard_path('step_one'), :notice => 'Email already exist'
+        @user = User.find_by_email(params[:user]['email'])
+        if @user.nil?
+          session[:user] = {:email => params[:user]['email'] }
+          redirect_to signup_wizard_path('step_two')
+        else
+          redirect_to signup_wizard_path('step_one'), :alert => 'Email already exist'
+        end
       end
 
     when :step_three
@@ -47,7 +59,7 @@ class SignupWizardController < ApplicationController
       if @website.save
         redirect_to signup_wizard_path('step_four')
       else
-        redirect_to signup_wizard_path('step_three'), :notice => 'Please select a website that you own'
+        redirect_to signup_wizard_path('step_three'), :alert => 'Please select a website that you own'
       end
 
     when :step_four
@@ -74,6 +86,19 @@ class SignupWizardController < ApplicationController
       authenticate_user!
     end
   end
+
+  def is_a_valid_email?(email)
+    unless email.nil? || email.empty?
+      if email =~ /^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i then
+        return true
+      else
+        return false
+      end
+    else
+      return false
+    end
+  end
+
 
 end
 
