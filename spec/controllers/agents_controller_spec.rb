@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UsersController do
+describe AgentsController do
 
   context "when not signed in" do
     describe "GET 'index'" do

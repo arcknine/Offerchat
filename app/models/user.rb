@@ -23,7 +23,8 @@ class User < ActiveRecord::Base
       :access_key_id => 'AKIAI4KRAOR4GE6GES7Q',
       :secret_access_key => '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'
     },
-    :styles => { :small => "55x55>", :thumb => "40x40>" }
+    :styles => { :small => "55x55>", :thumb => "40x40>" },
+    :default_url => '/assets/avatar.jpg'
 
   validates_attachment_content_type :avatar, :content_type => [ "image/jpg", "image/jpeg", "image/png" ], :message => "Only image files are allowed."
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }

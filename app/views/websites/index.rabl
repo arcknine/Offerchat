@@ -1,2 +1,1 @@
-@websites
-extends "websites/attributes"
+collection @websites

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe WebsitesController do
-
   context "when not login" do
     it "'index' should not be acceptable" do
       xhr :get, :index, format: :json

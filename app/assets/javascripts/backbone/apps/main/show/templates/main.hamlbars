@@ -1,0 +1,183 @@
+#main-region.main-content-view
+  .main-inner
+    .block.chat-header
+      .chat-image
+      %ul.chat-list-info
+        %li.visitor-name
+          %a
+            Visitor 11015
+        %li
+          .flag-icon.flag-PH
+          Cebu, Philippines
+        %li
+          Windows / Google Chrome
+      .chat-right-sidebar
+        .link-list
+          %a.btn
+            %i.icon.icon-notes
+            Notes
+          %a.btn
+            %i.icon.icon-spring-notes
+            Knowledgebase
+    
+    .chat-pane-container
+      %div{ :style => "padding: 0 5px" }
+        .chat-section-pane.chat-viewer-wrapper#chatAuxViewer
+          .chat-viewer-content
+            .chat-viewer-inner
+              .chat-item.group.small
+                .chat-table.chat-left-table
+                  %i.icon.icon-alarm-clock
+                .chat-table.chat-container-table.chat-show-history-filter
+                  %span.show-prev-chats-label
+                    show previous chats from: 
+                  %a.active
+                    Today
+                  %span.middot
+                  %a Yesterday
+                  %span.middot
+                  %a A week ago
+                
+              .chat-item.group.small
+                .chat-table.chat-left-table
+                  %i.icon.icon-flag
+                .chat-table.chat-container-table
+                  arrived from
+                  %a http://www.buzzednow.com
+                .chat-time
+                  4:00pm
+
+              
+              .chat-item.group.small
+                .chat-table.chat-left-table
+                  &nbsp;
+                .chat-table.chat-container-table
+                  .viewing-current-url
+                    viewing
+                    %a http://blog.offerchat.com/touchdown-at-self-service-portal-where-answetouchdown-at-self-service-portal-where-answe
+                .chat-time
+                  4:02pm
+              .chat-item.group
+                .chat-table.chat-left-table
+                  .chat-user.agent
+                    Harvey
+                .chat-table.chat-container-table
+                  %p
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, explicabo sapiente debitis quaerat veritatis a.
+                .chat-time
+                  4:45pm
+
+              .chat-item.group
+                .chat-table.chat-left-table
+                  .chat-user.agent
+                    Harvey
+                .chat-table.chat-container-table
+                  %p
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, explicabo sapiente debitis quaerat veritatis a.
+                .chat-time
+                  4:45pm
+              .chat-item.group.small
+                .chat-table.chat-left-table
+                  &nbsp;
+                .chat-table.chat-container-table
+                  .viewing-current-url
+                    viewing
+                    %a http://blog.offerchat.com/touchdown-at-self-service-portal-where-answetouchdown-at-self-service-portal-where-answe
+                .chat-time
+                  4:53pm
+              .chat-item.group
+                .chat-table.chat-left-table
+                  .chat-user.visitor
+                    visitor11015
+                .chat-table.chat-container-table
+                  %p
+                    Lorem ipsum dolor sit amet.
+                .chat-time
+                  4:55pm
+              .chat-item.group
+                .chat-table.chat-left-table
+                  .chat-user.agent
+                    Harvey
+                .chat-table.chat-container-table
+                  %p
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, asperiores ut non dicta delectus rerum fuga assumenda hic labore nam sint dolore eveniet unde obcaecati.
+                .chat-time
+                  4:58pm
+              .chat-item.group
+                .chat-table.chat-left-table
+                  .chat-user.visitor
+                    visitor11015
+                .chat-table.chat-container-table
+                  Lorem ipsum dolor.
+                .chat-time
+                  5:00pm
+              .chat-item.group
+                .chat-table.chat-left-table
+                  .chat-user.visitor
+                    visitor11015
+                .chat-table.chat-container-table
+                  %p
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, minus, est molestias vitae cupiditate fugiat suscipit eligendi magni repellat perferendis?
+                  %p
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, porro.
+                .chat-time
+                  5:00pm
+              .chat-item.group
+                .chat-table.chat-left-table
+                  .chat-user.agent
+                    Harvey
+                .chat-table.chat-container-table
+                  %p
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, nisi, autem, nulla magnam eaque repudiandae possimus sapiente minima a reprehenderit necessitatibus quo alias voluptatem ipsum voluptas laudantium consequuntur fuga minus quia maiores quaerat. Ex, provident, animi. Numquam, cum, perspiciatis, doloremque veniam possimus debitis corrupti magni nisi perferendis error sunt ipsam.
+                .chat-time
+                  5:23pm
+              .chat-item.group
+                .chat-table.chat-left-table
+                  .chat-user.visitor
+                    visitor11015
+                .chat-table.chat-container-table
+                  %p
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, atque, ipsa harum alias perspiciatis reprehenderit possimus neque corrupti.
+                .chat-time
+                  5:30pm
+              .chat-item.group
+                .chat-table.chat-left-table
+                  .chat-user.agent
+                    Harvey
+                .chat-table.chat-container-table
+                  %p
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet veritatis in rerum autem numquam quae eum aut odio consequatur voluptate. Cumque, rerum in laborum cupiditate minima similique earum aspernatur sint voluptate voluptatibus.
+                .chat-time
+                  5:45pm
+              .chat-item.group
+                .chat-table.chat-left-table
+                  .chat-user.agent
+                    Harvey
+                .chat-table.chat-container-table
+                  %p
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem, corrupti.
+                .chat-time
+                  5:50pm
+      .chat-section-pane.chat-response-wrapper
+        .group
+          .btn-selector-wrapper.left
+            .btn-selector
+              .btn.btn-action-selector.site-selector
+                %i.icon.icon-arrow-down
+                %span.current-selection
+                  Actions
+              .dropdown-options.top.dark
+                
+                %ul
+                  %li 
+                    %a Transfer Chat
+                  %li 
+                    %a Export Transcript
+                  %li 
+                    %a Ban User
+                .caret.caret-dark.bottom
+                  
+          %a.btn.warning.left
+            End Chat
+        .chat-response
+          %textarea{ :placeholder => "Enter your message and press enter" }

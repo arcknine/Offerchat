@@ -1,13 +1,10 @@
 @Offerchat.module "NavigationApp", (NavigationApp, App, Backbone, Marionette, $, _) ->
+  @startWithParent = false
   
-  class NavigationApp.Router extends Marionette.AppRouter
-    appRoutes:
-      ""        : "showNavigation"
-
   API =
-    showNavigation: ->
+    show: ->
       new NavigationApp.Show.Controller
-
-  App.addInitializer ->
-    new NavigationApp.Router
-      controller: API
+        region: App.navigationRegion
+  
+  NavigationApp.on "start", ->
+    API.show()

@@ -12,6 +12,8 @@
 
   App.addInitializer ->
     App.module("NavigationApp").start()
+    App.module("SidebarApp").start()
+    App.module("MainApp").start()
     
   App.reqres.setHandler "get:current:user:json", ->
     $.parseJSON App.currentUser
