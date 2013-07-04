@@ -1,0 +1,18 @@
+.block.large
+  %h2
+    Account Settings
+
+%ul.nav-sidebar-block
+  %li
+    %a.selected Profile
+  %li
+    %a Password
+  %li
+    %a Notifications
+  %li
+    %a Agents
+  %li
+    %a Websites
+  %li
+    %a Invoices
+

@@ -13,6 +13,29 @@
         
       @listenTo navView, "profile:settings:toggled", (child) ->
         @toggleDropdowns(child, ".settings-dropdown")
+      
+      @listenTo navView, "account:menu:clicked", (child) ->
+        App.navigate Routes.profiles_path(), trigger: true
+        
+      @listenTo navView, "chat:history:menu:clicked", (child) ->
+        console.log child
+        
+      @listenTo navView, "history:menu:clicked", (child) ->
+        console.log child
+        
+      @listenTo navView, "agent:menu:clicked", (child) ->
+        console.log child
+        
+      @listenTo navView, "knowlegdebase:menu:clicked", (child) ->
+        console.log child
+        
+      @listenTo navView, "integrations:menu:clicked", (child) ->
+        console.log child
+        
+      @listenTo navView, "labs:menu:clicked", (child) ->
+        console.log child
+        
+      
         
       App.navigationRegion.show navView
 

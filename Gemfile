@@ -32,6 +32,8 @@ gem 'jquery-rails'
 gem 'sidekiq'
 gem 'sinatra', :require => nil
 
+gem "js-routes"
+
 # Amazon
 gem 'aws-sdk'
 gem 'wicked'
