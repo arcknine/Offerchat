@@ -3,26 +3,25 @@
   class Show.Controller extends App.Controllers.Base
 
     initialize: (options)->
+      console.log options
       @account = App.request "get:current:profile"
-        
       App.execute "when:fetched", @account, =>
         @layout = @getLayoutView()
-
+        
         @listenTo @layout, "show", =>
           @sidebarRegion(options.section)
           @getMainRegion(options.section)
-          
+          @setSelectedNav(options.section)
+
         @show @layout
 
     sidebarRegion: (section)->
       navView = @getSidebarNavs()
-
-      @listenTo navView, "show", (item) =>
-        @setSelectedNav(navView, section)
-
+      #@setSelectedNav(navView, section)
+      
       @listenTo navView, "nav:accounts:clicked", (item) =>
         App.navigate Routes.profiles_path(), trigger: true
-
+        
       @listenTo navView, "nav:password:clicked", (item) =>
         App.navigate '#profiles/passwords', trigger: true
 
@@ -43,9 +42,9 @@
       #  App.navigate '#profiles/invoices', trigger: true
       #
       @layout.accountSidebarRegion.show navView
-      
 
     getMainRegion: (section) ->
+
       if section is "profile"
         @getProfileRegion()
       else if section is "password"
@@ -79,6 +78,7 @@
       new Show.Notifications
         model: @account
 
+
     getProfileRegion: ->
       profileView = @getProfileView()
       @listenTo profileView, "account:profile:form:submit", (item) =>
@@ -95,15 +95,16 @@
       passwordView = @getPasswordView()
       formView = App.request "form:wrapper", passwordView
       passwordView.model.url = Routes.passwords_path()
+      element.set args.model.attributes
       @layout.accountRegion.show formView
       
-    getPasswordView: ->
+    getPasswordView: (model)->
      new Show.Password
-       model: @account
+       model: model
     
-    getProfileView: ->
+    getProfileView: (model)->
       new Show.Profile
-        model: @account
+        model: model
 
     getSidebarNavs: ->
       new Show.Navs
