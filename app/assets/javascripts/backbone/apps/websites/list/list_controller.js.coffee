@@ -3,10 +3,15 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: ->
-      websiteView = @getMainView()
+      sites = App.request "site:entities"
 
-      console.log websiteView
-      App.mainRegion.show websiteView
+      sitesView = @getWebsitesView(sites)
+      @listenTo sitesView, "childview:click:delete:website", (site) =>
+        if confirm("Are you sure you want to delete this website?")
+          site.model.destroy()
 
-    getMainView: ->
+      App.mainRegion.show sitesView
+
+    getWebsitesView: (sites) ->
       new List.Websites
+        collection: sites
