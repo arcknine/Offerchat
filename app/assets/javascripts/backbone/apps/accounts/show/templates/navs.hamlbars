@@ -4,15 +4,15 @@
 
 %ul.nav-sidebar-block
   %li
-    %a.selected Profile
+    %a.profile{href: ""} Profile
   %li
-    %a Password
+    %a.password{href: ""} Password
   %li
-    %a Notifications
+    %a.notifications{href: ""} Notifications
   %li
-    %a Agents
+    %a.agents{href: ""} Agents
   %li
-    %a Websites
+    %a.websites{href: ""} Websites
   %li
-    %a Invoices
+    %a.invoices{href: ""} Invoices
 

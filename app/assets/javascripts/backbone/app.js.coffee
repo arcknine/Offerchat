@@ -8,14 +8,14 @@
     App.currentUser = options.currentUser
   
   App.addRegions
-    navigationRegion:     "#header-region"
-    siteSelectorRegion:   "#site-selector-region"
-    chatSidebarRegion:    "#chat-sidebar-region"
-    mainRegion:           "#main-region"
+    navigationRegion:       "#header-region"
+    selectorSidebarRegion:  "#site-selector-region"
+    chatSidebarRegion:      "#chat-sidebar-region"
+    mainRegion:             "#main-region"
 
   App.addInitializer ->
     App.module("NavigationApp").start()
-    App.module("SelectorApp").start()
+    App.module("SidebarApp").start()
     
   App.reqres.setHandler "get:current:user:json", ->
     $.parseJSON App.currentUser

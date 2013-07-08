@@ -1,0 +1,4 @@
+%a.new.unread
+  %span.msg-count-unread
+    {{unread}}
+  {{name}}
