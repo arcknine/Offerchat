@@ -7,6 +7,10 @@ class SignupWizardController < ApplicationController
 
   end
 
+  def index
+
+  end
+
   def show
     case step
     when :step_one
