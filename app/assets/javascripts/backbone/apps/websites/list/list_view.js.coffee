@@ -2,3 +2,4 @@
 
   class List.Websites extends App.Views.ItemView
     template: "websites/list/websites"
+    className: "column-content-container"

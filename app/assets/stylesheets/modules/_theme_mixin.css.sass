@@ -68,6 +68,8 @@ $pink3: #FFAEB9
 @mixin themePaletteHead($background, $color)
   background-color: $background
   color: $color
+
+
 @mixin themePaletteText($color)
   color: $color
 @mixin themePaletteBg($background)
@@ -77,10 +79,10 @@ $pink3: #FFAEB9
   border-bottom: none
 @mixin themePaletteGradient($background)
   background: $background
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten($background, 15%)', endColorstr='$background')
-  background: -webkit-gradient(linear, left top, left bottom, from(lighten($background, 15%)), to($background))
-  background: -moz-linear-gradient(top, lighten($background, 15%), $background)
-  background-image: linear-gradient(to bottom, lighten($background, 10%), $background)
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lighten($background, 13%)', endColorstr='$background')
+  background: -webkit-gradient(linear, left top, left bottom, from(lighten($background, 13%)), to($background))
+  background: -moz-linear-gradient(top, lighten($background, 13%), $background)
+  background-image: linear-gradient(to bottom, lighten($background, 13%), $background)
   
 
 @mixin themePaletteWrap($background)
