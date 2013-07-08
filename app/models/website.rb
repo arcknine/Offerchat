@@ -38,6 +38,8 @@ class Website < ActiveRecord::Base
     accounts.collect(&:user)
   end
 
+  def unread; 0; end
+  
   private
 
   def generate_api_key
@@ -56,4 +58,5 @@ class Website < ActiveRecord::Base
   def generate_rosters
     GenerateRostersWorker.perform_async(self.id)
   end
+
 end

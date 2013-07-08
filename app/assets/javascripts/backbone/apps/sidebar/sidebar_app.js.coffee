@@ -2,9 +2,16 @@
   @startWithParent = false
   
   API =
-    show: ->
-      new SidebarApp.List.Controller
-        region: App.sidebarRegion
+    showSelector: ->
+      console.log 1
+      new SidebarApp.Selector.Controller
+        region: App.selectorSidebarRegion
+
+    showVisitors: ->
+      new SidebarApp.Visitors.Controller
+        region: App.chatSidebarRegion
+
   
   SidebarApp.on "start", ->
-    API.show()
+    API.showSelector()
+    #API.showVisitors()
