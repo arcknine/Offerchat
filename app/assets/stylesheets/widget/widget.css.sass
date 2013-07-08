@@ -1,0 +1,2482 @@
+@import "modules/theme_mixin"
+/* custom scrollbar
+.widget-body::-webkit-scrollbar
+  width: 6px
+  background-color: transparent
+.widget-body::-webkit-scrollbar-track,
+.widget-body::-webkit-scrollbar-track-piece
+  -webkit-border-radius: 10px
+  border-radius: 10px
+  background-color: transparent
+  border: none
+.widget-body::-webkit-scrollbar-thumb
+  -webkit-border-radius: 10px
+  border-radius: 10px
+  background: #999
+.widget-body::-webkit-scrollbar-thumb:window-inactive
+  background: #999
+.widget-body::-webkit-scrollbar-corner
+  background-color: transparent
+
+.group:before,
+.group:after
+  content: ""
+  display: table
+.group:after
+  clear: both
+.group 
+  zoom: 1
+
+i.widget
+  &.icon
+    background-image: image-url("widget-sprite.png")
+    display: inline-block
+    position: relative
+    &.icon-chat
+      width: 17px
+      height: 16px
+      background-position: 0 0
+      top: 11px
+      left: 5px
+      z-index: 110
+    &.icon-thumbs-up
+      width: 16px
+      height: 16px
+      background-position: 0 -25px
+    &.icon-thumbs-up-green
+      width: 16px
+      height: 16px
+      background-position: -18px -25px
+    &.icon-thumbs-down-red
+      width: 16px
+      height: 16px
+      background-position: -34px -25px
+    &.icon-gear
+      width: 16px
+      height: 16px
+      background-position: 0 -41px
+    &.icon-widget-down
+      width: 22px
+      height: 16px
+      background-position: -23px 0
+    &.icon-widget-up
+      width: 22px
+      height: 16px
+      background-position: -46px 0
+/* RESET
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
+  margin: 0
+  padding: 0
+  border: 0
+  font-size: 100%
+  font: inherit
+  vertical-align: baseline
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section
+  display: block
+body
+  line-height: 1
+ol, ul
+  list-style: none
+blockquote, q
+  quotes: none
+blockquote
+  &:before, &:after
+    content: ''
+    content: none
+q
+  &:before, &:after
+    content: ''
+    content: none
+table
+  border-collapse: collapse
+  border-spacing: 0
+
+
+
+
+body .widget-box, .widget-box
+  font-family: "lucida sans", "lucida grande",tahoma,verdana,arial,sans-serif
+  font-size: 11px
+  line-height: 1.4
+  color: #434343
+  overflow: hidden
+  a
+    cursor: pointer
+.widget-box
+  position: absolute
+  height: 100%
+  width: 100%
+  
+.widget-head
+  position: relative
+  display: block
+  height: 45px
+  background-color: #e55a5a
+  overflow: hidden
+  border-bottom: none
+  &.widget-rounded-head
+    border-top-left-radius: 5px
+    border-top-right-radius: 5px
+  img.agent-thumbnail
+    width: 45px
+    height: 45px
+    float: left
+    border-top-left-radius: 5px
+    margin-right: 10px
+  .widget-agent-name
+    margin-top: 6px
+    font-size: 12px
+    font-weight: bold
+.widget-msg-count
+  background: -webkit-gradient(linear, left top, left bottom, from(#fc5858), to(#de3838))
+  background: -moz-linear-gradient(top, #fc5858, #de3838)
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fc5858',endColorstr='#de3838')
+  width: 8px
+  height: 8px
+  border-radius: 30px
+  position: absolute
+  display: inline-block
+  text-align: center
+  left: 3px
+  bottom: 3px
+  padding: 4px 
+  box-shadow: 0 1px 3px rgba(0,0,0,.3)
+  text-shadow: 0 -1px 0 rgba(0,0,0,.2)
+  span
+    font-size: 9px
+    font-weight: bold
+    color: #fff
+    position: relative
+    top: -1px
+
+.widget-body
+  background-color: #ededed
+  height: 339px
+  overflow-y: auto
+  border-right: 1px solid #e1e1e1
+  border-left: 1px solid #e1e1e1
+.message-item
+  padding: 10px
+  border-bottom: 1px solid #d1d1d1
+  &:last-item
+    border-bottom: none
+  .message-author
+    float: left
+    font-weight: bold
+    font-size: 12px
+  .message-date
+    color: #9f9f9f
+    float: right
+    font-size: 9px
+  .message
+    margin-top: 3px
+
+.widget-block-head
+  padding: 8px 8px 8px 43px
+
+.widget-first-msg
+  background-color: #fff
+  margin-left: 10px
+  position: relative
+  input
+    width: 100%
+    height: 100%
+    padding: 15px 15px 15px 28px
+    border-radius: 5px
+    position: absolute
+    border: none
+    top: 0
+    left: 0
+    outline: none
+    font-family: "lucida sans", "lucida grande",tahoma,verdana,arial,sans-serif
+    font-size: 11px
+  i.icon.icon-chat
+    position: absolute
+    left: 7px 
+    top: 8px
+.widget-input
+  border: 1px solid #e1e1e1
+  height: 35px
+  position: relative
+input[type='text'].widget-input-text
+  width: 100%
+  height: 100%
+  padding: 0 45px  0 27px
+  position: absolute
+  border: none
+  top: 0
+  left: 0
+  outline: none
+  font-family: "lucida sans", "lucida grande",tahoma,verdana,arial,sans-serif
+  font-size: 11px
+
+
+a.widget-head-control
+  position: absolute
+  right: 7px
+  top: 7px
+
+a.chat-rating,
+a.chat-settings
+  float: right
+  cursor: pointer
+  position: relative
+  margin: 7px 0 0 0
+  display: inline-block
+  padding: 3px
+
+.tooltip-options
+  position: absolute
+  width: 160px
+  padding: 7px 0
+  top: -77px
+  right: 0
+  box-sizing: border-box
+  -moz-box-sizing: border-box
+  opacity: 0
+  display: block
+  visibility: hidden
+  border-radius: 3px
+  z-index: 110
+  background-color: #445362
+  
+  & > li
+    font-size: 12px
+    list-style: none
+  
+    a
+      color: #fff
+      display: block
+      padding: 5px 10px 
+      cursor: pointer
+      &:hover
+        background-color: darken(#445362, 5%)
+  &.open
+    margin-top: 10px
+    opacity: 1
+    visibility: visible
+  &.rating-options
+    right: 15px
+    width: auto
+    .caret
+      right: 11px
+  &.settings-options
+    right: 0px
+    top: -97px
+.footer-credits
+  font-size: 10px
+  color: #c2ccd7
+  padding: 5px 10px 0
+  text-align: right
+  border-top: 1px solid #596c7f
+  a
+    color: #269efa
+    &:hover
+      text-decoration: underline
+.caret
+  border-color: #445362 transparent transparent transparent
+  border-width: 7px
+  border-style: solid
+  position: absolute
+  bottom: -13px
+  top: auto
+  right: 5px
+  width: 0
+  height: 0
+    
+
+
+.offerchat-widget-wrapper
+  -webkit-box-sizing: content-box
+  -moz-box-sizing: content-box
+  box-sizing: content-box
+  overflow: hidden
+  width: 100%
+  a img
+    border: 0
+.offerchat-inner-content
+  background: #e9e9e9
+.offerchat-agent-thumbnail
+  border: 2px solid #fff
+  box-shadow: 0 1px 3px rgba(0,0,0,.3)
+  border-radius: 50%
+  -webkit-background-size: cover!important
+  -moz-background-size: cover!important
+  background-size: cover!important
+  width: 45px
+  height: 45px
+  overflow: hidden
+  background: url('40x40-ico.png')
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='person1.jpg', sizingMethod='scale')
+  -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='person1.jpg', sizingMethod='scale')"
+
+.offerchat-agent-thumbnail-2
+  -webkit-background-size: cover!important
+  -moz-background-size: cover!important
+  background-size: cover!important
+  width: 55px
+  height: 55px
+  overflow: hidden
+  background: url('50x50-ico.png')
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='person1.jpg', sizingMethod='scale')
+  -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='person1.jpg', sizingMethod='scale')"
+
+.offerchat-widget-wrapper
+  a, button, input[type="submit"]
+    cursor: pointer
+  .offerchat-widget-head
+    min-height: 14px
+    padding: 7px 10px
+    position: relative
+    overflow: hidden
+.offerchat-message-notifier
+  position: absolute
+  top: 5px
+  right: 7px
+  border-radius: 50%
+  width: 14px
+  height: 14px
+  background-color: #ed2e2e
+  border: 1px solid #fff
+  text-align: center
+  padding: 3px
+  box-shadow: 0 1px 3px rgba(0,0,0,.4)
+  span.offerchat-message-count
+    font-size: 11px
+    position: relative
+    top: -2px
+    text-shadow: 0 -1px 0 darken(#ed2e2e, 10%)
+    color: #fff
+
+
+.offerchat-rounded-corner
+  .offerchat-widget-head
+    border-top-left-radius: 7px
+    border-top-right-radius: 7px
+ 
+
+.offerchat-widget-wrapper
+  line-height: 1.6em
+  /* font-family: 'lucida grande',tahoma,verdana,arial,sans-serif
+  font-family: Arial, sans-serif
+  font-size: 12px
+  text-shadow: none
+  letter-spacing: 0
+  padding: 0
+  margin: 0
+  color: #434343
+  text-align: left
+  z-index: 9999
+  &.offerchat-widget-pos
+    position: absolute
+    bottom: 0
+    height: 420px
+  &.offerchat-position-left
+    left: 20px
+  .offerchat-widget-head.offerchat-wstyle2
+    padding: 0
+    overflow: hidden
+
+
+.offerchat-static-container
+  height: 346px
+
+.offerchat-block
+  padding: 5px
+
+.offerchat-widget-head, .offerchat-widget-head-main
+  background: #2bb2ea
+  color: #fff
+  font-weight: bold
+  cursor: pointer
+
+.offerchat-is-typing
+  color: #000
+  padding: 3px 0
+  opacity: .3
+  font-size: 11px
+  float: left
+  &.hide
+    visibility: hidden
+
+.offerchat-agent-style-2
+  height: 55px
+  .offerchat-agent-details
+    text-shadow: none
+    position: relative
+    top: 10px
+    left: 5px
+    color: #fff
+
+.offerchat-alert
+  padding: 2px 4px 2px 4px
+  margin: 5px 0
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5)
+  background-color: #fcf8e3
+  border: 1px solid #fbeed5
+  font-size: 11px
+
+.offerchat-alert-error
+  color: #b94a48
+  background-color: #f2dede
+  border-color: #eed3d7
+
+.offerchat-alert-success
+  color: #468847
+  background-color: #dff0d8
+  border-color: #d6e9c6
+
+.offerchat-ico-chat-bubble
+  vertical-align: -2px
+  padding-right: 3px
+
+.offerchat-agent-style-2
+  .offerchat-agent-name
+    color: #fff
+  .offerchat-agent-position
+    color: #fff
+    font-weight: normal
+
+.offerchat-agent-show
+  position: relative
+  z-index: 99
+  padding: 5px 5px 2px 5px
+  height: 52px
+  border-bottom: 1px solid #f6f6f6
+  box-shadow: 0 2px 4px rgba(0,0,0,.1)
+  
+
+.offerchat-agent-thumbnail, .offerchat-agent-details, .offerchat-agent-thumbnail-2
+  display: inline-block
+
+.offerchat-notification
+  text-align: center
+  padding: 5px 0
+  background: #676767
+  color: #eee
+  &.hide
+    display: none!important
+
+.offerchat-agent-details
+  vertical-align: top
+  font-size: 13px
+  text-shadow: 0 1px 0 #fff
+  margin: 0 0 0 5px
+
+.offerchat-agent-tag
+  color: #787878
+
+.offerchat-agent-name
+  font-weight: bold
+  display: inline
+  color: #2ab2ea
+
+.offerchat-inner-wrap
+  background: #fff
+
+.offerchat-field-wrap
+  margin: 0 0 5px 0
+  zoom: 1
+  &:after
+    content: ""
+    display: table
+    content: ""
+    display: table
+    clear: both
+
+.offerchat-inner-wrap .hide
+  display: none
+
+input[type=text].offerchat-input
+  height: 28px
+  border: 1px solid #ccc
+  width: 100%
+  box-sizing: border-box
+  -moz-box-sizing: border-box
+  font-family: 'lucida grande',tahoma,verdana,arial,sans-serif
+  font-size: 12px
+  padding: 5px
+  outline: 0
+  display: block
+  resize: none
+  border-radius: 0
+  background: #fff
+  line-height: 1.6em
+
+textarea.offerchat-input
+  border: 1px solid #ccc
+  width: 100%
+  box-sizing: border-box
+  -moz-box-sizing: border-box
+  font-family: 'lucida grande',tahoma,verdana,arial,sans-serif
+  font-size: 12px
+  padding: 5px
+  outline: 0
+  display: block
+  resize: none
+  border-radius: 0
+  background: #fff
+  line-height: 1.6em
+  height: 45px
+
+.offerchat-response-wrapper
+  padding: 5px
+  
+
+.offerchat-attention-grabber
+  margin-bottom: 5px
+  img
+    max-width: 295px
+
+input[type=submit]
+  &.offerchat-submit-form
+    margin: 0
+    padding: 4px 12px
+    cursor: pointer
+    font-weight: bold
+    background: #2bb2ea
+    border: 0
+    color: #fff
+    line-height: normal
+    height: auto
+    text-shadow: none
+    font-family: Arial, sans-serif
+    font-size: 12px
+    width: auto
+    text-transform: none
+    border-radius: 3px
+  &:hover.offerchat-submit-form
+    opacity: .9
+
+.offerchat-footer
+  color: #676767
+  font-size: 11px
+  height: 40px
+  text-align: right
+  background: #f4f4f4
+  overflow: hidden
+  a
+    color: #4097e1
+    text-decoration: none
+
+a.offerchat-logo-link
+  font-weight: bold
+
+.offerchat-chat-wrapper
+  max-height: 200px
+  overflow-y: auto
+  height: 200px
+.offerchat-chat-parent
+  padding: 1px 3px 
+  /* border-top: 1px solid #ccc 
+  /* border-bottom: 1px solid #ccc
+.offerchat-chat
+  padding: 5px 
+.offerchat-user-message
+  font-size: 12px
+  margin: 3px 0
+  padding: 5px
+  background: #fff
+  border-radius: 5px
+  box-shadow: 0 1px 3px rgba(0,0,0,.2)
+  position: relative
+  .offerchat-user-tooltip-tail
+    position: absolute
+    top: -5px
+    left: 15px
+    right: auto
+    width: 10px
+    height: 8px
+    background-image: image-url("tooltip-tail.png")
+    background-repeat: no-repeat
+    &.right
+      background-image: image-url("tooltip-tail-right.png")
+
+.offerchat-chat
+  &.offerchat-visitor
+    .offerchat-user
+      text-align: right
+      color: #000
+      text-shadow: 0 1px 0 #fff
+    .offerchat-user-timestamp
+      float: left
+    .offerchat-user-message
+      text-align: right
+    .offerchat-user-tooltip-tail
+      right: 15px !important
+      left: auto
+    
+
+.offerchat-agent .offerchat-user
+  color: #2bb2ea
+  text-shadow: 0 1px 0 #fff
+
+.offerchat-user
+  font-weight: bold
+
+.offerchat-user-timestamp
+  color: #a0a0a0
+  text-shadow: 0 1px 0 #fff
+  font-size: 10px
+  float: right
+
+.offerchat-lfloat
+  float: left
+
+.offerchat-rfloat
+  float: right
+
+.offerchat-sound-on
+  background: url("/assets/widget/sound-on.png") no-repeat
+  display: block
+  width: 12px
+  height: 12px
+  margin-top: 4px
+
+.offerchat-sound-off
+  background: url("/assets/widget/sound-off.png") no-repeat
+  display: block
+  width: 12px
+  height: 12px
+  margin-top: 4px
+
+.offerchat-icon-script
+  cursor: pointer
+  position: relative
+  right: 5px
+  top: 7px
+  z-index: 100
+
+.offerchat-response-wrapper .offerchat-field-wrap input[type="submit"]
+  margin-left: 0
+  padding: 3px 6px
+
+.offerchat-footer .offerchat-alert
+  text-align: left
+
+.offerchat-block form
+  margin: 5px 0
+
+ul.offerchat-option-menu
+  right: 6px
+  display: none
+  margin: 0
+  padding: 0
+  background: white
+  border-color: #BBB
+  color: #333
+  font-size: 10px
+  text-align: left
+  line-height: 22px
+  border-style: solid
+  border-width: 1px
+  -webkit-user-select: none
+  position: absolute
+  bottom: 43px
+  visibility: visible
+  z-index: 1
+  li
+    list-style: none
+    padding: 0 5px
+    &:hover
+      background: #f4f4f4
+      cursor: pointer
+    a
+      color: #333
+      text-decoration: none
+
+/* Post chat
+
+p.offerchat-label
+  font-size: 11px
+
+.offerchat-group
+  zoom: 1
+  &:before
+    content: ""
+    display: table
+  &:after
+    content: ""
+    display: table
+    clear: both
+
+a
+  &.offerchat-postchat-close
+    margin-top: -5px
+    font-size: 16px
+    font-family: "Arial",sans-serif
+    margin-right: 1px
+    font-weight: bold
+    text-decoration: none
+    float: right
+    color: #999
+  &:hover.offerchat-postchat-close
+    color: #333
+  &.offerchat-rate
+    padding: 3px 10px
+    border: 1px solid #ccc
+    display: inline-block
+    float: left
+    background: #5386bb
+    background: -webkit-gradient(linear, left top, left bottom, from(whitesmoke), to(#f1f1f1))
+    background: -moz-linear-gradient(top, whitesmoke, #f1f1f1)
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5',endColorstr='#f1f1f1')
+    text-shadow: 0 1px 0 white
+    box-shadow: 0 1px 0 white inset
+    color: #333
+    &.offerchat-rate-up
+      border-top-left-radius: 3px
+      border-bottom-left-radius: 3px
+    &.offerchat-rate-down
+      border-top-right-radius: 3px
+      border-bottom-right-radius: 3px
+      border-left: none
+    &:active
+      background: #f1f1f1
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset
+    &.active
+      background: #d8d8d8
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset
+      text-shadow: 0 1px 0 #e6e6e6
+      border-top: 1px solid #a1a1a1
+    .offerchat-rate-up-icon
+      width: 16px
+      height: 16px
+      display: inline-block
+      vertical-align: middle
+      position: relative
+      top: -1px
+      background-image: url("/assets/widget/thumbs.png")
+      background-repeat: no-repeat
+      background-position: 0 0
+    .offerchat-rate-down-icon
+      width: 16px
+      height: 16px
+      display: inline-block
+      vertical-align: middle
+      position: relative
+      top: -1px
+      background-image: url("/assets/widget/thumbs.png")
+      background-repeat: no-repeat
+      background-position: 0 0
+      background-position: -18px 0
+
+.offerchat-agent-rating
+  position: relative
+  display: block
+a.offerchat-rate-btn
+  float: left
+  padding: 1px 7px
+  color: #676767
+  border: 1px solid #ccc
+  border-bottom: 1px solid #b8b8b8
+  height: 23px
+  font-size: 11px
+  font-weight: bold
+  background: #999
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f1f1', endColorstr='#e7e7e7')
+  background: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#e7e7e7))
+  background: -moz-linear-gradient(top,  #f1f1f1,  #e7e7e7)
+  box-shadow: 0 1px 0 #fff inset
+  &.offerchat-rate-up
+    border-top-left-radius: 3px
+    border-bottom-left-radius: 3px
+  &.offerchat-rate-down
+    border-top-right-radius: 3px
+    border-bottom-right-radius: 3px
+    margin-left: -1px
+  .widget-rate
+    width: 16px
+    height: 16px
+    display: inline-block
+    position: relative
+    opacity: .7
+    top: 4px
+    background:
+      image: image-url('widget-rating-icon.png')
+      repeat: no-repeat
+    &.widget-rate-up
+      background-position: -3px -2px
+    &.widget-rate-down
+      background-position: -3px -22px
+
+.widget-theme
+  &.theme-saddlebrown
+    .widget-head
+      @include themePaletteHead($saddlebrown,#fff)
+  &.theme-darkslategrey
+    .widget-head
+      @include themePaletteHead($darkslategrey,#fff)
+  &.theme-gold
+    .widget-head
+      @include themePaletteHead($gold,#fff)
+  &.theme-black
+    .widget-head
+      @include themePaletteHead($black,#fff)
+  &.theme-keylime
+    .widget-head
+      @include themePaletteHead($keylime,#fff)
+  &.theme-salemgreen
+    .widget-head
+      @include themePaletteHead($salemgreen,#fff)
+  &.theme-hibiscus
+    .widget-head
+      @include themePaletteHead($hibiscus,#fff)
+  &.theme-hiblight
+    .widget-head
+      @include themePaletteHead($hiblight,#fff)
+  &.theme-astroblue
+    .widget-head
+      @include themePaletteHead($astroblue,#fff)
+  &.theme-goldenbell
+    .widget-head
+      @include themePaletteHead($goldenbell,#fff)
+  &.theme-endeavor
+    .widget-head
+      @include themePaletteHead($endeavor,#fff)
+  &.theme-midblue
+    .widget-head
+      @include themePaletteHead($midblue,#fff)
+  &.theme-blueribbon
+    .widget-head
+      @include themePaletteHead($blueribbon,#fff)
+  &.theme-sushi
+    .widget-head
+      @include themePaletteHead($sushi,#fff)
+  &.theme-eggplant
+    .widget-head
+      @include themePaletteHead($eggplant,#fff)
+  &.theme-mandy
+    .widget-head
+      @include themePaletteHead($mandy,#fff)
+  &.theme-nandor
+    .widget-head
+      @include themePaletteHead($nandor,#fff)
+  &.theme-grey
+    .widget-head
+      @include themePaletteHead($grey,#fff)
+  &.theme-cadmiumreddeep
+    .widget-head
+      @include themePaletteHead($cadmiumreddeep,#fff)
+  &.theme-cobaltviolet
+    .widget-head
+      @include themePaletteHead($cobaltviolet,#fff)
+  &.theme-aureolineyellow
+    .widget-head
+      @include themePaletteHead($aureolineyellow,#fff)
+  &.theme-cadmiumorange
+    .widget-head
+      @include themePaletteHead($cadmiumorange,#fff)
+  &.theme-fadedorange
+    .widget-head
+      @include themePaletteHead($fadedorange,#fff)
+  &.theme-greengrass
+    .widget-head
+      @include themePaletteHead($greengrass,#fff)
+  &.theme-picassoblue
+    .widget-head
+      @include themePaletteHead($picassoblue,#fff)
+  &.theme-aqua
+    .widget-head
+      @include themePaletteHead($aqua,#fff)
+  &.theme-aquablue
+    .widget-head
+      @include themePaletteHead($aquablue,#fff)
+  &.theme-rustorange
+    .widget-head
+      @include themePaletteHead($rustorange,#fff)
+  &.theme-velvetpink
+    .widget-head
+      @include themePaletteHead($velvetpink,#fff)
+  &.theme-darkchoco
+    .widget-head
+      @include themePaletteHead($darkchoco,#fff)
+  &.theme-fblue
+    .widget-head
+      @include themePaletteHead($fblue,#fff)
+  &.theme-faintred
+    .widget-head
+      @include themePaletteHead($faintred,#fff)
+  &.theme-deepskyblue
+    .widget-head
+      @include themePaletteHead($deepskyblue,#fff)
+  &.theme-gray34
+    .widget-head
+      @include themePaletteHead($gray34,#fff)
+  &.theme-gray77
+    .widget-head
+      @include themePaletteHead($gray77,#343434)
+  &.theme-gray93
+    .widget-head
+      @include themePaletteHead($gray93,#343434)
+  &.theme-white
+    .widget-head
+      @include themePaletteHead($white,#343434)
+      border: 1px solid #e5e5e5
+  &.theme-brightgray
+    .widget-head
+      @include themePaletteHead($brightgray,#262626)
+  &.theme-olivedrab
+    .widget-head
+      @include themePaletteHead($olivedrab,#fff)
+  &.theme-chartreuse
+    .widget-head
+      @include themePaletteHead($chartreuse,#fff)
+  &.theme-teal
+    .widget-head
+      @include themePaletteHead($teal,#fff)
+  &.theme-lightblue
+    .widget-head
+      @include themePaletteHead($lightblue,#fff)
+  &.theme-slateblue
+    .widget-head
+      @include themePaletteHead($slateblue,#fff)
+  &.theme-maroon
+    .widget-head
+      @include themePaletteHead($maroon,#fff)
+  &.theme-rosypink
+    .widget-head
+      @include themePaletteHead($rosypink,#262626)
+  &.theme-salmon
+    .widget-head
+      @include themePaletteHead($salmon,#fff)
+  &.theme-burntumber
+    .widget-head
+      @include themePaletteHead($burntumber,#fff)
+  &.theme-sandybrown
+    .widget-head
+      @include themePaletteHead($sandybrown,#fff)
+  &.theme-seashell4
+    .widget-head
+      @include themePaletteHead($seashell4,#fff)
+  &.theme-navajowhite2
+    .widget-head
+      @include themePaletteHead($navajowhite2,#262626)
+  &.theme-brightyellow
+    .widget-head
+      @include themePaletteHead($brightyellow,#262626)
+  &.theme-lightgoldenrod2
+    .widget-head
+      @include themePaletteHead($lightgoldenrod2,#262626)
+  &.theme-mudyellow
+    .widget-head
+      @include themePaletteHead($mudyellow,#fff)
+  &.theme-green4
+    .widget-head
+      @include themePaletteHead($green4,#fff)
+  &.theme-springgreen
+    .widget-head
+      @include themePaletteHead($springgreen,#262626)
+  &.theme-aquamarine
+    .widget-head
+      @include themePaletteHead($aquamarine,#262626)
+  &.theme-manganesegreen
+    .widget-head
+      @include themePaletteHead($manganesegreen,#fff)
+  &.theme-cyan
+    .widget-head
+      @include themePaletteHead($cyan,#262626)
+  &.theme-peacock
+    .widget-head
+      @include themePaletteHead($peacock,#fff)
+  &.theme-steelblue
+    .widget-head
+      @include themePaletteHead($steelblue,#fff)
+  &.theme-royalblue
+    .widget-head
+      @include themePaletteHead($royalblue,#fff)
+  &.theme-mediumpurple
+    .widget-head
+      @include themePaletteHead($mediumpurple,#fff)
+  &.theme-darkviolet
+    .widget-head
+      @include themePaletteHead($darkviolet,#fff)
+  &.theme-magenta
+    .widget-head
+      @include themePaletteHead($magenta,#fff)
+  &.theme-deeppink
+    .widget-head
+      @include themePaletteHead($deeppink,#fff)
+  &.theme-pink3
+    .widget-head
+      @include themePaletteHead($pink3,#262626)
+      
+
+
+/* COLOR THEMES
+
+
+.offerchat-theme-saddlebrown
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($saddlebrown)
+    box-shadow: 0 1px 0 lighten($saddlebrown, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($saddlebrown,#fff)
+    @include themePaletteHeadBorder($saddlebrown)
+    text-shadow: 0 -1px 0 darken($saddlebrown, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($saddlebrown,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($saddlebrown)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($saddlebrown)
+.saddlebrown
+  background-color: $saddlebrown
+
+.offerchat-theme-darkslategrey
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($darkslategrey)
+    box-shadow: 0 1px 0 lighten($darkslategrey, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($darkslategrey,#fff)
+    @include themePaletteHeadBorder($darkslategrey)
+    text-shadow: 0 -1px 0 darken($darkslategrey, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($darkslategrey,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($darkslategrey)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($darkslategrey)
+.darkslategrey
+  background-color: $darkslategrey
+
+.offerchat-theme-gold
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($gold)
+    box-shadow: 0 1px 0 lighten($gold, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($gold,#534600)
+    @include themePaletteHeadBorder($gold)
+    text-shadow: 0 1px 0 lighten($gold, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($gold,#534600)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    /* @include themePaletteText($gold)
+    color: darken($gold, 20%)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($gold)
+.gold
+  background-color: $gold
+
+.offerchat-theme-black
+  &.offerchat-theme-gradient .offerchat-widget-head
+    background: #646464
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#646464',endColorstr='#000')
+    background: -webkit-gradient(linear, left top, left bottom, from(#646464), to(black))
+    background: -moz-linear-gradient(top, #646464, black)
+    background-image: linear-gradient(to bottom, #646464, black)
+    color: #fff
+    box-shadow: 0 1px 0 rgba(255,255,255,.20) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($black,#fff)
+    @include themePaletteHeadBorder($black)
+    text-shadow: 0 -1px 0 $black
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($black,#534600)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    /* @include themePaletteText($gold)
+    color: darken($black, 20%)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($black)
+.black
+  background-color: $black
+
+.offerchat-theme-keylime
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($keylime)
+    box-shadow: 0 1px 0 lighten($keylime, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($keylime,#534600)
+    @include themePaletteHeadBorder($keylime)
+    text-shadow: 0 1px 0 lighten($keylime, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($keylime,#534600)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    /* @include themePaletteText($gold)
+    color: darken($keylime, 20%)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($keylime)
+.keylime
+  background-color: $keylime
+
+.offerchat-theme-salemgreen
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($salemgreen)
+    box-shadow: 0 1px 0 lighten($salemgreen, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($salemgreen,#fff)
+    @include themePaletteHeadBorder($salemgreen)
+    text-shadow: 0 -1px 0 darken($salemgreen, 5%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($salemgreen,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($salemgreen)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($salemgreen)
+.salemgreen
+  background-color: $salemgreen
+
+.offerchat-theme-hibiscus
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($hibiscus)
+    box-shadow: 0 1px 0 lighten($hibiscus, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($hibiscus,#fff)
+    @include themePaletteHeadBorder($hibiscus)
+    text-shadow: 0 -1px 0 darken($hibiscus, 5%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($hibiscus,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($hibiscus)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($hibiscus)
+.hibiscus
+  background-color: $hibiscus
+
+.offerchat-theme-hiblight
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($hiblight)
+    box-shadow: 0 1px 0 lighten($hiblight, 20%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($hiblight,#fff)
+    @include themePaletteHeadBorder($hiblight)
+    text-shadow: 0 -1px 0 darken($hiblight, 5%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($hiblight,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($hiblight)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($hiblight)
+.hiblight
+  background-color: $hiblight
+
+.offerchat-theme-astroblue
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($astroblue)
+    box-shadow: 0 1px 0 lighten($astroblue, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($astroblue,#fff)
+    @include themePaletteHeadBorder($astroblue)
+    text-shadow: 0 -1px 0 darken($astroblue, 5%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($astroblue,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($astroblue)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($astroblue)
+.astroblue
+  background-color: $astroblue
+
+.offerchat-theme-goldenbell
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($goldenbell)
+    box-shadow: 0 1px 0 lighten($goldenbell, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($goldenbell,#fff)
+    @include themePaletteHeadBorder($goldenbell)
+    text-shadow: 0 -1px 0 darken($goldenbell, 5%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($goldenbell,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($goldenbell)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($goldenbell)
+.goldenbell
+  background-color: $goldenbell
+
+.offerchat-theme-endeavor
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($endeavor)
+    box-shadow: 0 1px 0 lighten($endeavor, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($endeavor,#fff)
+    @include themePaletteHeadBorder($endeavor)
+    text-shadow: 0 -1px 0 darken($endeavor, 5%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($endeavor,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($endeavor)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($endeavor)
+.endeavor
+  background-color: $endeavor
+
+.offerchat-theme-midblue
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($midblue)
+    box-shadow: 0 1px 0 lighten($midblue, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($midblue,#fff)
+    @include themePaletteHeadBorder($midblue)
+    text-shadow: 0 -1px 0 darken($midblue, 5%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($midblue,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($midblue)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($midblue)
+
+
+.offerchat-theme-blueribbon
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($blueribbon)
+    box-shadow: 0 1px 0 lighten($blueribbon, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($blueribbon,#fff)
+    @include themePaletteHeadBorder($blueribbon)
+    text-shadow: 0 -1px 0 darken($blueribbon, 5%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($blueribbon,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($blueribbon)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($blueribbon)
+
+.offerchat-theme-sushi
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($sushi)
+    box-shadow: 0 1px 0 lighten($sushi, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($sushi,#fff)
+    @include themePaletteHeadBorder($sushi)
+    text-shadow: 0 -1px 0 darken($sushi, 5%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($sushi,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($sushi)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($sushi)
+
+.offerchat-theme-fadedorange
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($fadedorange)
+    box-shadow: 0 1px 0 lighten($fadedorange, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($fadedorange,#fff)
+    @include themePaletteHeadBorder($fadedorange)
+    text-shadow: 0 -1px 0 darken($fadedorange, 5%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($fadedorange,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($fadedorange)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($fadedorange)
+.fadedorange
+  background-color: $fadedorange
+
+.offerchat-theme-eggplant
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($eggplant)
+    box-shadow: 0 1px 0 lighten($eggplant, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($eggplant,#fff)
+    @include themePaletteHeadBorder($eggplant)
+    text-shadow: 0 -1px 0 darken($eggplant, 5%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($eggplant,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($eggplant)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($eggplant)
+
+.offerchat-theme-mandy
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($mandy)
+    box-shadow: 0 1px 0 lighten($mandy, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($mandy,#fff)
+    @include themePaletteHeadBorder($mandy)
+    text-shadow: 0 -1px 0 darken($mandy, 5%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($mandy,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($mandy)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($mandy)
+
+
+.offerchat-theme-nandor
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($nandor)
+    box-shadow: 0 1px 0 lighten($nandor, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($nandor,#fff)
+    @include themePaletteHeadBorder($nandor)
+    text-shadow: 0 -1px 0 darken($nandor, 5%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($nandor,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($nandor)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($nandor)
+
+
+.offerchat-theme-nandor
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($nandor)
+    box-shadow: 0 1px 0 lighten($nandor, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($nandor,#fff)
+    @include themePaletteHeadBorder($nandor)
+    text-shadow: 0 -1px 0 darken($nandor, 5%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($nandor,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($nandor)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($nandor)
+
+
+.offerchat-theme-cadmiumreddeep
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($cadmiumreddeep)
+    box-shadow: 0 1px 0 lighten($cadmiumreddeep, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($cadmiumreddeep,#fff)
+    @include themePaletteHeadBorder($cadmiumreddeep)
+    text-shadow: 0 -1px 0 darken($cadmiumreddeep, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($cadmiumreddeep,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($cadmiumreddeep)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($cadmiumreddeep)
+
+.offerchat-theme-cobaltviolet
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($cobaltviolet)
+    box-shadow: 0 1px 0 lighten($cobaltviolet, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($cobaltviolet,#fff)
+    @include themePaletteHeadBorder($cobaltviolet)
+    text-shadow: 0 -1px 0 darken($cobaltviolet, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($cobaltviolet,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($cobaltviolet)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($cobaltviolet)
+
+.offerchat-theme-aureolineyellow
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($aureolineyellow)
+    box-shadow: 0 1px 0 lighten($aureolineyellow, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($aureolineyellow,#fff)
+    @include themePaletteHeadBorder($aureolineyellow)
+    text-shadow: 0 -1px 0 darken($aureolineyellow, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($aureolineyellow,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($aureolineyellow)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($aureolineyellow)
+
+.offerchat-theme-cobaltviolet
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($cobaltviolet)
+    box-shadow: 0 1px 0 lighten($cobaltviolet, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($cobaltviolet,#fff)
+    @include themePaletteHeadBorder($cobaltviolet)
+    text-shadow: 0 -1px 0 darken($cobaltviolet, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($cobaltviolet,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($cobaltviolet)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($cobaltviolet)
+
+.offerchat-theme-cadmiumorange
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($cadmiumorange)
+    box-shadow: 0 1px 0 lighten($cadmiumorange, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($cadmiumorange,#fff)
+    @include themePaletteHeadBorder($cadmiumorange)
+    text-shadow: 0 -1px 0 darken($cadmiumorange, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($cadmiumorange,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($cadmiumorange)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($cadmiumorange)
+
+.offerchat-theme-greengrass
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($greengrass)
+    box-shadow: 0 1px 0 lighten($greengrass, 35%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($greengrass,#fff)
+    @include themePaletteHeadBorder($greengrass)
+    text-shadow: 0 -1px 0 darken($greengrass, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($greengrass,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($greengrass)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($greengrass)
+
+.offerchat-theme-picassoblue
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($picassoblue)
+    box-shadow: 0 1px 0 lighten($picassoblue, 20%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($picassoblue,#fff)
+    @include themePaletteHeadBorder($picassoblue)
+    text-shadow: 0 -1px 0 darken($picassoblue, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($picassoblue,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($picassoblue)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($picassoblue)
+
+.offerchat-theme-aqua
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($aqua)
+    box-shadow: 0 1px 0 lighten($aqua, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($aqua,#1d4858)
+    @include themePaletteHeadBorder($aqua)
+    text-shadow: 0 1px 0 lighten($aqua, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($aqua,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    color: #459fc0
+  .offerchat-inner-wrap
+    @include themePaletteWrap($aqua)
+
+.offerchat-theme-aquablue
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($aquablue)
+    box-shadow: 0 1px 0 lighten($aquablue, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($aquablue,#fff)
+    @include themePaletteHeadBorder($aquablue)
+    text-shadow: 0 -1px 0 darken($aquablue, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($aquablue,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($aquablue)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($aquablue)
+
+.offerchat-theme-rustorange
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($rustorange)
+    box-shadow: 0 1px 0 lighten($rustorange, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($rustorange,#fff)
+    @include themePaletteHeadBorder($rustorange)
+    text-shadow: 0 -1px 0 darken($rustorange, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($rustorange,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($rustorange)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($rustorange)
+
+.offerchat-theme-velvetpink
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($velvetpink)
+    box-shadow: 0 1px 0 lighten($velvetpink, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($velvetpink,#fff)
+    @include themePaletteHeadBorder($velvetpink)
+    text-shadow: 0 -1px 0 darken($velvetpink, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($velvetpink,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($velvetpink)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($velvetpink)
+.velvetpink
+  background-color: $velvetpink
+
+.offerchat-theme-darkchoco
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($darkchoco)
+    box-shadow: 0 1px 0 lighten($darkchoco, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($darkchoco,#fff)
+    @include themePaletteHeadBorder($darkchoco)
+    text-shadow: 0 -1px 0 darken($darkchoco, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($darkchoco,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($darkchoco)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($darkchoco)
+.darkchoco
+  background-color: $darkchoco
+
+.offerchat-theme-fblue
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($fblue)
+    box-shadow: 0 1px 0 lighten($fblue, 25%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($fblue,#fff)
+    @include themePaletteHeadBorder($fblue)
+    text-shadow: 0 -1px 0 darken($fblue, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($fblue,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($fblue)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($fblue)
+.fblue
+  background-color: $fblue
+
+.offerchat-theme-faintred
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($faintred)
+    box-shadow: 0 1px 0 lighten($faintred, 25%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($faintred,#fff)
+    @include themePaletteHeadBorder($faintred)
+    text-shadow: 0 -1px 0 darken($faintred, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($faintred,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($faintred)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($faintred)
+.faintred
+  background-color: $faintred
+
+
+
+.offerchat-theme-mediumpurple
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($mediumpurple)
+    box-shadow: 0 1px 0 lighten($mediumpurple, 20%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($mediumpurple,#fff)
+    @include themePaletteHeadBorder($mediumpurple)
+    text-shadow: 0 -1px 0 darken($mediumpurple, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($mediumpurple,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($mediumpurple)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($mediumpurple)
+.mediumpurple
+  background-color: $mediumpurple
+
+.offerchat-theme-magenta
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($magenta)
+    box-shadow: 0 1px 0 lighten($magenta, 35%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($magenta,#fff)
+    @include themePaletteHeadBorder($magenta)
+    text-shadow: 0 -1px 0 darken($magenta, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($magenta,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($magenta)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($magenta)
+.magenta
+  background-color: $magenta
+
+
+.offerchat-theme-darkviolet
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($darkviolet)
+    box-shadow: 0 1px 0 lighten($darkviolet, 35%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($darkviolet,#fff)
+    @include themePaletteHeadBorder($darkviolet)
+    text-shadow: 0 -1px 0 darken($darkviolet, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($darkviolet,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($darkviolet)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($darkviolet)
+.darkviolet
+  background-color: $darkviolet
+
+.offerchat-theme-royalblue
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($royalblue)
+    box-shadow: 0 1px 0 lighten($royalblue, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($royalblue,#fff)
+    @include themePaletteHeadBorder($royalblue)
+    text-shadow: 0 -1px 0 darken($royalblue, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($royalblue,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($royalblue)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($royalblue)
+.royalblue
+  background-color: $royalblue
+
+.offerchat-theme-peacock
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($peacock)
+    box-shadow: 0 1px 0 lighten($peacock, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($peacock,#fff)
+    @include themePaletteHeadBorder($peacock)
+    text-shadow: 0 -1px 0 darken($peacock, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($peacock,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($peacock)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($peacock)
+.peacock
+  background-color: $peacock
+
+.offerchat-theme-steelblue
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($steelblue)
+    box-shadow: 0 1px 0 lighten($steelblue, 20%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($steelblue,#fff)
+    @include themePaletteHeadBorder($steelblue)
+    text-shadow: 0 -1px 0 darken($steelblue, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($steelblue,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($steelblue)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($steelblue)
+.steelblue
+  background-color: $steelblue
+
+.offerchat-theme-deepskyblue
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($deepskyblue)
+    box-shadow: 0 1px 0 lighten($deepskyblue, 35%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($deepskyblue,#fff)
+    @include themePaletteHeadBorder($deepskyblue)
+    text-shadow: 0 -1px 0 darken($deepskyblue, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($deepskyblue,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($deepskyblue)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($deepskyblue)
+.deepskyblue
+  background-color: $deepskyblue
+
+.offerchat-theme-deeppink
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($deeppink)
+    box-shadow: 0 1px 0 lighten($deeppink, 35%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($deeppink,#fff)
+    @include themePaletteHeadBorder($deeppink)
+    text-shadow: 0 -1px 0 darken($deeppink, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($deeppink,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($deeppink)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($deeppink)
+.deeppink
+  background-color: $deeppink
+
+.offerchat-theme-pink3
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($pink3)
+    box-shadow: 0 1px 0 lighten($pink3, 35%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($pink3,#925a5a)
+    @include themePaletteHeadBorder($pink3)
+    text-shadow: 0 1px 0 lighten($pink3, 10%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($pink3,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    color: #925a5a
+  .offerchat-inner-wrap
+    @include themePaletteWrap($pink3)
+.pink3
+  background-color: $pink3
+
+.offerchat-theme-gray34
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($gray34)
+    box-shadow: 0 1px 0 lighten($gray34, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($gray34,#fff)
+    @include themePaletteHeadBorder($gray34)
+    text-shadow: 0 -1px 0 darken($gray34, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($gray34,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($gray34)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($gray34)
+.gray34
+  background-color: $gray34
+
+.offerchat-theme-gray77
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($gray77)
+    box-shadow: 0 1px 0 lighten($gray77, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($gray77,#565656)
+    @include themePaletteHeadBorder($gray77)
+    text-shadow: 0 1px 0 lighten($gray77, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($gray77,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    color: #565656
+  .offerchat-inner-wrap
+    @include themePaletteWrap($gray77)
+.gray77
+  background-color: $gray77
+
+.offerchat-theme-gray93
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($gray93)
+    box-shadow: 0 1px 0 lighten($gray93, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($gray93,#565656)
+    @include themePaletteHeadBorder($gray93)
+    text-shadow: 0 1px 0 lighten($gray93, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($gray93,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    color: #565656
+  .offerchat-inner-wrap
+    @include themePaletteWrap($gray93)
+.gray93
+  background-color: $gray93
+
+.offerchat-theme-white
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($white)
+    box-shadow: 0 1px 0 lighten($white, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($white,#676767)
+    border: 1px solid #ccc
+    border-bottom: none
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($white,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    color: #676767
+  .offerchat-inner-wrap
+    border-left: 1px solid #ccc
+    border-right: 1px solid #ccc
+.white
+  background-color: $white
+
+.offerchat-theme-brightgray
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($brightgray)
+    box-shadow: 0 1px 0 lighten($brightgray, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($brightgray,#6c6853)
+    @include themePaletteHeadBorder($brightgray)
+    text-shadow: 0 1px 0 lighten($brightgray, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($brightgray,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    color: #6c6853
+  .offerchat-inner-wrap
+    @include themePaletteWrap($brightgray)
+.brightgray
+  background-color: $brightgray
+
+.offerchat-theme-olivedrab
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($olivedrab)
+    box-shadow: 0 1px 0 lighten($olivedrab, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($olivedrab,#fff)
+    @include themePaletteHeadBorder($olivedrab)
+    text-shadow: 0 -1px 0 darken($olivedrab, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($olivedrab,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($olivedrab)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($olivedrab)
+.olivedrab
+  background-color: $olivedrab
+
+.offerchat-theme-chartreuse
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($chartreuse)
+    box-shadow: 0 1px 0 lighten($chartreuse, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($chartreuse,#fff)
+    @include themePaletteHeadBorder($chartreuse)
+    text-shadow: 0 -1px 0 darken($chartreuse, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($chartreuse,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    color: #549e54
+  .offerchat-inner-wrap
+    @include themePaletteWrap($chartreuse)
+.chartreuse
+  background-color: $chartreuse
+
+.offerchat-theme-teal
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($teal)
+    box-shadow: 0 1px 0 lighten($teal, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($teal,#fff)
+    @include themePaletteHeadBorder($teal)
+    text-shadow: 0 -1px 0 darken($teal, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($teal,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($teal)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($teal)
+.teal
+  background-color: $teal
+
+.offerchat-theme-lightblue
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($lightblue)
+    box-shadow: 0 1px 0 lighten($lightblue, 25%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($lightblue,#fff)
+    @include themePaletteHeadBorder($lightblue)
+    text-shadow: 0 -1px 0 darken($lightblue, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($lightblue,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($lightblue)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($lightblue)
+.lightblue
+  background-color: $lightblue
+
+.offerchat-theme-slateblue
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($slateblue)
+    box-shadow: 0 1px 0 lighten($slateblue, 25%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($slateblue,#fff)
+    @include themePaletteHeadBorder($slateblue)
+    text-shadow: 0 -1px 0 darken($slateblue, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($slateblue,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($slateblue)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($slateblue)
+.slateblue
+  background-color: $slateblue
+
+.offerchat-theme-maroon
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($maroon)
+    box-shadow: 0 1px 0 lighten($maroon, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($maroon,#fff)
+    @include themePaletteHeadBorder($maroon)
+    text-shadow: 0 -1px 0 darken($maroon, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($maroon,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($maroon)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($maroon)
+.maroon
+  background-color: $maroon
+
+.offerchat-theme-rosypink
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($rosypink)
+    box-shadow: 0 1px 0 lighten($rosypink, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($rosypink,#925a5a)
+    @include themePaletteHeadBorder($rosypink)
+    text-shadow: 0 1px 0 lighten($rosypink, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($rosypink,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    color: #925a5a
+  .offerchat-inner-wrap
+    @include themePaletteWrap($rosypink)
+.rosypink
+  background-color: $rosypink
+
+.offerchat-theme-salmon
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($salmon)
+    box-shadow: 0 1px 0 lighten($salmon, 20%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($salmon,#fff)
+    @include themePaletteHeadBorder($salmon)
+    text-shadow: 0 -1px 0 darken($salmon, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($salmon,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($salmon)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($salmon)
+.salmon
+  background-color: $salmon
+
+.offerchat-theme-burntumber
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($burntumber)
+    box-shadow: 0 1px 0 lighten($burntumber, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($burntumber,#fff)
+    @include themePaletteHeadBorder($burntumber)
+    text-shadow: 0 -1px 0 darken($burntumber, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($burntumber,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($burntumber)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($burntumber)
+.burntumber
+  background-color: $burntumber
+
+.offerchat-theme-sandybrown
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($sandybrown)
+    box-shadow: 0 1px 0 lighten($sandybrown, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($sandybrown,#fff)
+    @include themePaletteHeadBorder($sandybrown)
+    text-shadow: 0 -1px 0 darken($sandybrown, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($sandybrown,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($sandybrown)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($sandybrown)
+.sandybrown
+  background-color: $sandybrown
+
+.offerchat-theme-navajowhite2
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($navajowhite2)
+    box-shadow: 0 1px 0 lighten($navajowhite2, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($navajowhite2,#987b4f)
+    @include themePaletteHeadBorder($navajowhite2)
+    text-shadow: 0 1px 0 lighten($navajowhite2, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($navajowhite2,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    color: #987b4f
+  .offerchat-inner-wrap
+    @include themePaletteWrap($navajowhite2)
+.navajowhite2
+  background-color: $navajowhite2
+
+.offerchat-theme-brightyellow
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($brightyellow)
+    box-shadow: 0 1px 0 lighten($brightyellow, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($brightyellow,#706612)
+    @include themePaletteHeadBorder($brightyellow)
+    text-shadow: 0 1px 0 lighten($brightyellow, 25%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($brightyellow,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    color: #706612
+  .offerchat-inner-wrap
+    @include themePaletteWrap($brightyellow)
+.brightyellow
+  background-color: $brightyellow
+
+.offerchat-theme-lightgoldenrod2
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($lightgoldenrod2)
+    box-shadow: 0 1px 0 lighten($lightgoldenrod2, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($lightgoldenrod2,#756b37)
+    @include themePaletteHeadBorder($lightgoldenrod2)
+    text-shadow: 0 1px 0 lighten($lightgoldenrod2, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($lightgoldenrod2,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    color: #756b37
+  .offerchat-inner-wrap
+    @include themePaletteWrap($lightgoldenrod2)
+.lightgoldenrod2
+  background-color: $lightgoldenrod2
+
+
+.offerchat-theme-mudyellow
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($mudyellow)
+    box-shadow: 0 1px 0 lighten($mudyellow, 20%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($mudyellow,#fff)
+    @include themePaletteHeadBorder($mudyellow)
+    text-shadow: 0 -1px 0 darken($mudyellow, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($mudyellow,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($mudyellow)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($mudyellow)
+.mudyellow
+  background-color: $mudyellow
+
+.offerchat-theme-green4
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($green4)
+    box-shadow: 0 1px 0 lighten($green4, 20%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($green4,#fff)
+    @include themePaletteHeadBorder($green4)
+    text-shadow: 0 -1px 0 darken($green4, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($green4,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($green4)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($green4)
+.green4
+  background-color: $green4
+
+.offerchat-theme-springgreen
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($springgreen)
+    box-shadow: 0 1px 0 lighten($springgreen, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($springgreen,#008542)
+    @include themePaletteHeadBorder($springgreen)
+    text-shadow: 0 1px 0 lighten($springgreen, 25%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($springgreen,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    color: #008542
+  .offerchat-inner-wrap
+    @include themePaletteWrap($springgreen)
+.springgreen
+  background-color: $springgreen
+
+.offerchat-theme-aquamarine
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($aquamarine)
+    box-shadow: 0 1px 0 lighten($aquamarine, 25%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($aquamarine,#317760)
+    @include themePaletteHeadBorder($aquamarine)
+    text-shadow: 0 1px 0 lighten($aquamarine, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($aquamarine,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    color: #317760
+  .offerchat-inner-wrap
+    @include themePaletteWrap($aquamarine)
+.aquamarine
+  background-color: $aquamarine
+
+.offerchat-theme-manganesegreen
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($manganesegreen)
+    box-shadow: 0 1px 0 lighten($manganesegreen, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($manganesegreen,#fff)
+    @include themePaletteHeadBorder($manganesegreen)
+    text-shadow: 0 -1px 0 darken($manganesegreen, 5%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($manganesegreen,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    @include themePaletteText($manganesegreen)
+  .offerchat-inner-wrap
+    @include themePaletteWrap($manganesegreen)
+.manganesegreen
+  background-color: $manganesegreen
+
+
+.offerchat-theme-cyan
+  &.offerchat-theme-gradient .offerchat-widget-head
+    @include themePaletteGradient($cyan)
+    box-shadow: 0 1px 0 lighten($cyan, 30%) inset
+  .offerchat-widget-head, 
+  .offerchat-widget-head-main, 
+    @include themePaletteHead($cyan,#008383)
+    @include themePaletteHeadBorder($cyan)
+    text-shadow: 0 1px 0 lighten($cyan, 15%)
+  input[type=submit].offerchat-submit-form
+    @include themePaletteHead($cyan,#fff)
+  .offerchat-agent .offerchat-user, .offerchat-agent-name
+    color: #008383
+  .offerchat-inner-wrap
+    @include themePaletteWrap($cyan)
+.cyan
+  background-color: $cyan
+
+/* WIDGET SWATCHES
+
+
+
+
+
+
+
+
+
+.midblue
+  background-color: $midblue
+.blueribbon
+  background-color: $blueribbon
+.sushi
+  background-color: $sushi
+
+.eggplant
+  background-color: $eggplant
+.mandy
+  background-color: $mandy
+.nandor
+  background-color: $nandor
+
+.cadmiumreddeep
+  background-color: $cadmiumreddeep
+.cobaltviolet
+  background-color: $cobaltviolet
+.aureolineyellow
+  background-color: $aureolineyellow
+.cadmiumorange
+  background-color: $cadmiumorange
+.greengrass
+  background-color: $greengrass
+.picassoblue
+  background-color: $picassoblue
+.aqua
+  background-color: $aqua
+.aquablue
+  background-color: $aquablue
+.rustorange
+  background-color: $rustorange
+
+
+
+
+
+
+
+
+
+
+
+
+/*Powered by Tooltip
+
+.offerchat-form-tip
+  left: 0
+  position: absolute
+  background: #424242
+  color: #eee
+  font-size: 10px
+  padding: 3px 10px
+  top: -34px
+  border-radius: 3px
+  font-weight: normal
+  a
+    color: #fff
+    font-weight: bold
+    text-decoration: none
+    &:hover
+      color: #ededed
+      text-decoration: underline
+  &.offerchat-tip
+    display: block
+
+.offerchat-tip-tail
+  position: absolute
+  bottom: -15px
+  left: 10px
+  width: 0
+  height: 0
+  border-color: #424242 transparent transparent transparent
+  border-width: 10px
+  border-style: solid
+  border-radius: 3px
+
+.offerchat-hide
+  display: none !important
+
+/*ajax loader - added by keenan 04-16-13
+
+.ajax-loader
+  display: none
+  height: 450px
+  width: 100%
+  background-color: #fff
+  img
+    width: 32px
+    margin: 0 auto
+    padding-top: 100px
+    display: block
+  p
+    text-align: center
+    font-size: 14px
+    font-weight: bold
+    padding-top: 100px
+
+.offerchat-field-wrap
+  margin: 0 0 5px 0
+  position: relative
+  zoom: 1
+  &:after
+    content: ""
+    display: table
+    content: ""
+    display: table
+    clear: both
+
+/*Powered by Tooltip
+
+.offerchat-form-tip
+  left: 0
+  position: absolute
+  background: #424242
+  color: #eee
+  font-size: 10px
+  padding: 3px 10px
+  top: -34px
+  border-radius: 3px
+  font-weight: normal
+  a
+    color: #fff
+    font-weight: bold
+    text-decoration: none
+    &:hover
+      color: #ededed
+      text-decoration: underline
+  &.offerchat-tip
+    display: block
+
+.offerchat-tip-tail
+  position: absolute
+  bottom: -15px
+  left: 10px
+  width: 0
+  height: 0
+  border-color: #424242 transparent transparent transparent
+  border-width: 10px
+  border-style: solid
+  border-radius: 3px
+
+.offerchat-hide
+  display: none !important
+
+/*alert Tooltip
+
+.offerchat-alert-tip
+  left: 0
+  position: absolute
+  background: #424242
+  color: #eee
+  font-size: 10px
+  padding: 2px 5px 2px 5px
+  top: -25px
+  border-radius: 3px
+  font-weight: normal
+  a
+    color: #fff
+    font-weight: bold
+    text-decoration: none
+    &:hover
+      color: #ededed
+      text-decoration: underline
+  &.offerchat-tip
+    display: block
+
+.offerchat-alert-tail
+  position: absolute
+  bottom: -15px
+  left: 10px
+  width: 0
+  height: 0
+  border-color: #424242 transparent transparent transparent
+  border-width: 10px
+  border-style: solid
+  border-radius: 3px
+
+.offerchat-hide
+  display: none !important
+
+/*Error tip
+
+.offerchat-alert-tip.offerchat-alert-tip-red
+  background: #b94a48
+  color: #f2dede
+  > .offerchat-alert-tail
+    position: absolute
+    bottom: -14px
+    left: 3px
+    width: 0
+    height: 0
+    border-color: #b94a48 transparent transparent transparent
+    border-width: 10px
+    border-style: solid
+    border-radius: 3px
+
+.offerchat-offline-message
+  height: 322px
+
+@-webkit-keyframes progress-bar-stripes
+  from
+    background-position: 40px 0
+  to
+    background-position: 0 0
+@-moz-keyframes progress-bar-stripes
+  from
+    background-position: 40px 0
+  to
+    background-position: 0 0
+@-ms-keyframes progress-bar-stripes
+  from
+    background-position: 40px 0
+  to
+    background-position: 0 0
+@-o-keyframes progress-bar-stripes
+  from
+    background-position: 0 0
+  to
+    background-position: 40px 0
+@keyframes progress-bar-stripes
+  from
+    background-position: 40px 0
+  to
+    background-position: 0 0
+
+
+/* ANIMATE 
+.offerchat-animated
+  -webkit-animation-fill-mode: both
+  -moz-animation-fill-mode: both
+  -ms-animation-fill-mode: both
+  -o-animation-fill-mode: both
+  animation-fill-mode: both
+  -webkit-animation-duration: 1s
+  -moz-animation-duration: 1s
+  -ms-animation-duration: 1s
+  -o-animation-duration: 1s
+  animation-duration: 1s
+  -webkit-animation-iteration-count: 6
+  -moz-animation-iteration-count: 6
+  -ms-animation-iteration-count: 6
+  -o-animation-iteration-count: 6
+  animation-iteration-count: 6
+  -webkit-animation-delay: 2s
+  -moz-animation-delay: 2s
+  -ms-animation-delay: 2s
+  -o-animation-delay: 2s
+  animation-delay: 2s
+ 
+
+@-webkit-keyframes bounce
+  0%, 20%, 50%, 80%, 100%
+    -webkit-transform: translateY(0)
+  40%
+    -webkit-transform: translateY(-4px)
+  60%
+    -webkit-transform: translateY(-3px)
+
+
+@-moz-keyframes bounce
+  0%, 20%, 50%, 80%, 100%
+    -moz-transform: translateY(0)
+  40%
+    -moz-transform: translateY(-4px)
+  60%
+    -moz-transform: translateY(-3px)
+
+
+@-o-keyframes bounce
+  0%, 20%, 50%, 80%, 100%
+    -o-transform: translateY(0)
+  40%
+    -o-transform: translateY(-4px)
+  60%
+    -o-transform: translateY(-3px)
+
+
+@keyframes bounce
+  0%, 20%, 50%, 80%, 100%
+    transform: translateY(0)
+  40%
+    transform: translateY(-4px)
+  60%
+    transform: translateY(-3px)
+
+
+.offerchat-bounce
+  -webkit-animation-name: bounce
+  -moz-animation-name: bounce
+  -o-animation-name: bounce
+  animation-name: bounce

@@ -1,0 +1,212 @@
+.sidebar
+  width: 246px
+  height: 100%
+  border-right: 1px solid #e5e5e5
+  position: relative
+  top: 0
+  overflow: hidden
+  display: inline-block
+.site-selector-container
+  position: absolute
+  width: 270px
+  z-index: 100
+  left: 0
+  top: 0
+a.site-selector
+  background: #e7e7e7
+  text-shadow: 0 1px 0 lighten($button-bg-color, 10%)
+  color: $text-color
+  font-weight: bold
+  display: block
+  border-bottom: 2px solid darken($button-bg-color, 20%)
+  padding: 13px 45px 13px 15px
+  border-right: 1px solid darken($button-bg-color, 10%)
+  position: relative
+  overflow: hidden
+  text-overflow: ellipsis
+  &.active
+    box-shadow: 0 1px 3px darken(#e7e7e7, 5%)
+    
+  .message-tick
+    position: absolute
+    top: 12px
+    right: 10px
+    z-index: 10
+  span
+    white-space: nowrap
+  .icon-arrow-down
+    position: absolute
+    right: 18px
+    top: 23px
+
+
+.site-selector-options
+  @include transition(.2s)
+  position: absolute
+  width: 100%
+  background: #fff
+  box-shadow: 0 1px 3px rgba(0,0,0,.2)
+  z-index: 90
+  opacity: 0
+  visibility: hidden
+  
+  span.msg-count-unread
+    float: right
+    margin-right: 5px
+  li
+    display: block
+    border-bottom: 1px solid $border-color
+    &:last-child
+      border-bottom: none
+    a
+      display: block
+      padding: 10px 15px
+      color: $text-color
+      @include transition(.2s)
+      &:hover
+        background-color: #f1f1f1
+      &.new
+        font-weight: $bold
+        color: darken($text-color, 30%)
+    a.new-website-link
+      color: $link-color
+
+.open .site-selector-options
+  opacity: 1
+  visibility: visible
+
+.chat-item-tab
+  .message-tick
+    position: absolute
+    top: -5px
+    right: -5px
+.group-item-tab
+  .profile-image-container
+    margin-right: 10px
+    float: left
+  .more
+    margin-top: 8px
+
+.column.sidebar
+  float: left
+  overflow-y: auto
+
+.message-tick
+  width: 12px
+  height: 12px
+  border-radius: 50%
+  text-align: center
+  background-color: #e13d3d
+  text-shadow: 0 -1px 0 darken(#e13d3d, 10%)
+  padding: 3px
+  line-height: 1
+  border: 2px solid #fff
+  position: relative
+  box-shadow: 0 1px 2px rgba(0,0,0,.4)
+  span
+    position: relative
+    top: 1px
+    color: #fff
+    font-size: 11px
+
+.chats-sidebar-container
+  position: absolute
+  overflow: auto
+  overflow-x: hidden
+  height: 100%
+  width: 270px
+  background-color: $sidebar-color
+  top: 48px
+
+  a.chat-item-tab
+    @include transition(.2s)
+    padding: $padding-10
+    background: #fff
+    border-radius: $button-radius
+    color: $light-text-color
+    margin: 10px 0
+    display: block
+    line-height: 1.3
+    position: relative
+    box-shadow: 0 2px 0 #bebebe
+    
+    font-weight: bold
+    &:hover
+      background: #e8e8e8
+      color: $text-color
+    &.new
+      font-weight: bold
+      color: $text-color
+    &.active
+      background-color: #299adb
+      color: #fff
+      box-shadow: 0 1px 1px rgba(0,0,0,.4) inset
+      .message-tick
+        display: none
+      .small-help-block
+        color: #fff
+    .small-help-block
+      font-style: normal
+      font-size: 12px
+.chats-sidebar
+  padding: 10px
+  color: #fff
+  h4
+    color: lighten($sidebar-color, 30%)
+
+/* SECOND SIDEBAR
+.nav-sidebar-block
+  a
+    display: block
+    padding: 15px 20px
+    color: $text-color
+    
+    &.selected
+      
+      cursor: default
+      font-weight: bold
+      background-color: #f1f1f1
+
+
+
+/* TOUR SIDEBAR
+
+.tour-sidebar
+  position: absolute
+  width: 320px
+  height: 100%
+  color: #fff
+  background-color: #445362
+  .block
+    padding: 20px
+.tour-steps-list
+  li
+    margin: 20px 0
+    color: #fff
+    .checklist
+      width: 40px
+      height: 40px
+      display: inline-block
+      border: 2px solid $border-color
+      border-radius: 50%
+      text-align: center
+      position: relative
+      vertical-align: middle
+      margin-right: 10px
+      .value
+        position: absolute
+        top: 9px
+        left: 17px
+        
+
+    &.checked
+     
+      .checklist
+        background-color: #54c694
+        border-color: darken(#54c694, 10%)
+        .value
+          left: 11px
+          top: 13px
+    
+
+

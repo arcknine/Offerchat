@@ -1,0 +1,82 @@
+.table-data-wrapper
+  position: relative
+.table-data
+  margin-top: 20px
+
+  .table-row
+    display: block
+    padding: 10px 20px
+    border-bottom: 1px solid #e1e1e1
+    position: relative
+    &.table-head
+      font-weight: bold
+      &.shadow
+        box-shadow: 0 1px 2px rgba(0,0,0,.1)
+      
+  .td-container
+    display: inline-block
+    float: left
+    margin-right: 10px
+    white-space: nowrap
+    position: relative
+    &.td-small
+      width: 20px
+    &.td-visitor
+      width: 10%
+    &.td-agent
+      width: 24%
+    &.td-time
+      width: 100px
+    &.td-message
+      width: 40%
+    &.td-invoice-number
+      width: 210px
+    &.td-status-item
+      width: 80px
+  .td-content-message
+    text-overflow: ellipsis
+    white-space: nowrap
+    overflow: hidden
+.td-content
+  position: relative
+.table-history-viewer-content
+  height: 100%
+  overflow-y: auto
+  position: relative
+
+.table-nav
+  position: absolute
+  right: 10px
+  top: 5px
+  font-size: 12px
+  font-weight: $bold
+  .nav-link-inline
+    display: inline-block
+    vertical-align: middle
+    margin-left: 5px
+  a.nav-link
+    padding: 7px 10px
+    background-color: $button-bg-color
+    text-shadow: 0 1px 0 lighten($button-bg-color, 10%)
+    box-shadow: 0 1px 0 darken($button-bg-color, 15%)
+    position: relative
+    display: inline-block
+    float: left
+
+    .icon
+      top: 0px
+    &:first-child
+      border-top-left-radius: 3px
+      border-bottom-left-radius: 3px
+    &:last-child
+      border-top-right-radius: 3px
+      border-bottom-right-radius: 3px
+    &.nav-prev
+      border-right: 1px solid darken($button-bg-color, 12%)
+
+    &:active
+      background-color: darken($button-bg-color, 5%)
+      box-shadow: 0 1px 1px darken($button-bg-color, 15%) inset
+      border-top: 1px solid darken($button-bg-color, 20%)
+      top: 1px
+

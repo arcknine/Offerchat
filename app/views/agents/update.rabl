@@ -1,0 +1,2 @@
+@user
+extends "users/attributes"

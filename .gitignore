@@ -6,7 +6,7 @@
 
 # Ignore bundler config
 /.bundle
-
+.ruby-version
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
@@ -19,3 +19,9 @@ config/database.yml
 
 # Simplecov
 coverage/
+
+# Ignore Schema
+db/schema.rb
+
+# Ignore rspec.xml for Jenkins
+rspec.xml

@@ -1,0 +1,109 @@
+.header-wrapper
+  
+  left: 0
+  position: absolute
+  right: 0
+  top: 0
+
+.global-notification
+  text-align: center
+  .notify
+    padding: 10px
+    background-color: #47c2ac
+  .alert
+    padding: 10px
+    background-color: #e55454
+  color: #fff
+  a
+    color: #fff
+    text-decoration: underline
+.header
+  background-color: #363d45
+  color: #fff
+  height: 45px
+  position: relative
+  z-index: 100
+.header-inline-list
+  float: right
+  & > li
+    padding: 0
+    float: left
+    position: relative
+    
+    &.profile-settings
+      & > a
+        padding: 12px
+        margin-bottom: 2px
+    & > a
+      display: block
+      padding: 12px 15px 12px 45px
+      color: #fff
+      opacity: .7
+      @include transition(.2s)
+      &:hover
+        opacity: 1
+      &.active
+        background-color: darken(#363d45, 10%)
+        opacity: 1
+        box-shadow: 0 1px 3px black inset
+      &.header-nav-reports
+        background-image: image-url("image-sprite.png")
+        background-repeat: none
+        background-position: 10px -118px
+      &.header-nav-history
+        background-image: image-url("image-sprite.png")
+        background-repeat: none
+        background-position: 10px -156px
+  .profile-status
+    margin-top: -6px
+    & > a
+      opacity: 1
+      padding: 7px 13px
+      
+    .profile-status-dropdown
+      margin-top: 7px
+    .profile-image-container
+      top: 7px
+
+
+.profile-status-dropdown
+  position: absolute
+  background-color: $sidebar-color
+  @include transition(.2s)
+  box-shadow: 0 1px 3px rgba(0,0,0,.2)
+  margin-top: 5px
+  min-width: 150px
+  left: -94px
+  padding: 7px 0
+  border-radius: 5px
+  & > li
+    display: block
+    overflow: hidden
+  a
+    @include transition(.1s)
+    padding: 7px 10px
+    display: block
+    color: #fff
+    vertical-align: middle
+    
+    &:hover
+      background-color: darken($sidebar-color, 5%)
+  .status
+    top: 1px
+    margin-right: 10px
+    float: left
+
+  .dropdown-pointer
+    position: absolute
+    top: -12px
+    right: 18px
+    width: 0
+    height: 0
+    border-color: transparent transparent $sidebar-color transparent 
+    border-width: 6px
+    border-style: solid
+.settings-dropdown
+  @extend .profile-status-dropdown
+  left: -112px
+  .dropdown-pointer
+    right: 12px

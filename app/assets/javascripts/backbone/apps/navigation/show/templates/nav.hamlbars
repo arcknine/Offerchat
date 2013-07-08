@@ -1,0 +1,60 @@
+.header-wrapper-inner
+  .global-notification.hide
+    .notify
+      Great! Your chat widget is installed successfully, you’re ready to chat. 
+      %a Change your chat preferences here
+  .header.group
+    
+    %a.logo
+    %ul.header-inline-list.primary-user-nav
+      %li
+        %a.header-nav-reports
+          Reports
+      %li
+        %a.header-nav-history
+          History
+      %li.profile-status
+        %a
+          .profile-image-container
+            .profile-image
+              %img{src: '{{avatar}}'}
+            %span.status.online
+              %i.icon.icon-check-small
+        %ul.profile-status-dropdown.hide.dropdowns
+          %li
+            %a 
+              %span.status
+                %i.icon.icon-check-small
+              Away
+          %li
+            %a 
+              %span.status.signout
+                %i.icon.icon-small-x
+              Signout
+          .dropdown-pointer
+      %li.profile-settings.header-settings
+        %a
+          %i.icon.icon-gear-large
+        %ul.settings-dropdown.hide.dropdowns
+          %li
+            %a#chat-history-menu-link
+              Chat settings
+          %li
+            %a#history-menu-link
+              History
+          %li
+            %a#agent-menu-link
+              Agent Management
+          %li
+            %a#knowlegdebase-menu-link
+              Knowledgebase
+          %li
+            %a#integrations-menu-link
+              Integrations
+          %li
+            %a#labs-menu-link
+              Labs
+          %li
+            %a#account-menu-link
+              Account
+          .dropdown-pointer

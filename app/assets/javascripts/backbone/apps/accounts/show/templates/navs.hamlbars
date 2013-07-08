@@ -1,0 +1,18 @@
+.block.large
+  %h2
+    Account Settings
+
+%ul.nav-sidebar-block
+  %li
+    %a.profile{href: ""} Profile
+  %li
+    %a.password{href: ""} Password
+  %li
+    %a.notifications{href: ""} Notifications
+  %li
+    %a.agents{href: ""} Agents
+  %li
+    %a.websites{href: ""} Websites
+  %li
+    %a.invoices{href: ""} Invoices
+

@@ -8,6 +8,7 @@ gem 'devise'
 gem 'rabl'
 gem 'ledermann-rails-settings', :require => 'rails-settings'
 gem 'paperclip', '~> 3.4.2'
+gem 'nokogiri'
 
 # Admin
 gem 'activeadmin'
@@ -31,9 +32,11 @@ gem 'jquery-rails'
 gem 'sidekiq'
 gem 'sinatra', :require => nil
 
+gem "js-routes"
+
 # Amazon
 gem 'aws-sdk'
-
+gem 'wicked'
 # Openfire
 gem 'openfire_api', :git => 'git://github.com/paulasmuth/openfire_api.git'
 
@@ -47,6 +50,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
+  gem 'rspec_junit_formatter'
   gem 'guard-rspec'
   gem 'rspec-sidekiq'
   gem 'shoulda-matchers'
@@ -54,6 +58,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'fabrication'
   gem 'simplecov', :require => false
+  gem 'email_spec'
 end
 
 group :development do
@@ -64,4 +69,5 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request', '0.2.1'
   gem 'letter_opener'
+  gem 'thin'
 end
