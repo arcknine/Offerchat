@@ -3,6 +3,10 @@ class SignupWizardController < ApplicationController
   before_filter :check_restrictions
   steps :step_one, :step_two, :step_three, :step_four, :step_five
 
+  def index
+
+  end
+
   def show
     case step
     when :step_one
