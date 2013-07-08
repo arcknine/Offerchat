@@ -25,6 +25,11 @@
   class Show.Password extends App.Views.ItemView
     template: "accounts/show/password"
 
+    form:
+      buttons:
+        primary: "Save Changes"
+        cancel: false
+
   class Show.Notifications extends App.Views.ItemView
     template:  "accounts/show/notifications"
     className: "column-content-container"
@@ -43,4 +48,3 @@
     itemViewContainer:  "div"
     className:          "table-history-viewer-content"
     itemView:            Show.Invoice
-

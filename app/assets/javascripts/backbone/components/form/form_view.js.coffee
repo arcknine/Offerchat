@@ -51,6 +51,7 @@
       @$(".error").removeClass("error").find("small").remove()
     
     addErrors: (errors = {}) ->
+      console.log errors
       for name, array of errors
         @addError name, array[0]
     

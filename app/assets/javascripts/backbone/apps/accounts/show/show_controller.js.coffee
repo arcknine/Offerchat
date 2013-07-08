@@ -4,7 +4,7 @@
 
     initialize: (options)->
       @account = App.request "get:current:profile"
-
+        
       App.execute "when:fetched", @account, =>
         @layout = @getLayoutView()
 
@@ -16,8 +16,7 @@
 
     sidebarRegion: (section)->
       navView = @getSidebarNavs()
-      #@setSelectedNav(navView, section)
-      
+
       @listenTo navView, "show", (item) =>
         @setSelectedNav(navView, section)
 
@@ -80,7 +79,6 @@
       new Show.Notifications
         model: @account
 
-
     getProfileRegion: ->
       profileView = @getProfileView()
       @listenTo profileView, "account:profile:form:submit", (item) =>
@@ -95,26 +93,24 @@
 
     getPasswordRegion: ->
       passwordView = @getPasswordView()
-      @layout.accountRegion.show passwordView
-
+      formView = App.request "form:wrapper", passwordView
+      passwordView.model.url = Routes.passwords_path()
+      @layout.accountRegion.show formView
+      
     getPasswordView: ->
      new Show.Password
        model: @account
-
-
+    
+    getProfileView: ->
+      new Show.Profile
+        model: @account
 
     getSidebarNavs: ->
       new Show.Navs
 
     getLayoutView: ->
       new Show.Layout
-<<<<<<< HEAD
 
-    setSelectedNav: (section) ->
-      $("ul li a."+section+"").addClass("selected")
-=======
-      
     setSelectedNav: (nav, section) ->
       $(nav.el).find("ul li a").removeClass("selected")
       $(nav.el).find("ul li a." + section).addClass("selected")
->>>>>>> Set selected nav in accounts to active when selected
