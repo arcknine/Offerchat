@@ -26,7 +26,7 @@ Dashboard::Application.routes.draw do
   # post 'signup_wizard/step_one' ,:controller => :signup_wizard, :action => 'create'
   # post 'signup_wizard/step_three' ,:controller => :signup_wizard, :action => 'create'
 
-  root :to => 'home#index'
+  root :to => 'dashboards#show'
 
   resource :dashboard, :only => [:show]
 end
