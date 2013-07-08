@@ -4,6 +4,6 @@
 
 %ul.nav-sidebar-block
   %li
-    %a.profile{href: ""} Profile
+    %a.profiles{href: ""} Profile
   %li
     %a.password{href: ""} Password

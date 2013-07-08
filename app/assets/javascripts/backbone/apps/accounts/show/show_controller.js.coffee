@@ -11,12 +11,15 @@
         @listenTo @layout, "show", =>
           @sidebarRegion(options.section)
           @getMainRegion(options.section)
-          @setSelectedNav(options.section)
-
+          
         @show @layout
 
     sidebarRegion: (section)->
       navView = @getSidebarNavs()
+      #@setSelectedNav(navView, section)
+      
+      @listenTo navView, "show", (item) =>
+        @setSelectedNav(navView, section)
 
       @listenTo navView, "nav:accounts:clicked", (item) =>
         App.navigate Routes.profiles_path(), trigger: true
@@ -30,7 +33,18 @@
       @listenTo navView, "nav:invoices:clicked", (item) =>
         App.navigate '#profiles/invoices', trigger: true
 
+      #  
+      #@listenTo navView, "agents", (item) =>
+      #  App.navigate '#profiles/agents', trigger: true
+      #  
+      #@listenTo navView, "websites", (item) =>
+      #  App.navigate '#profiles/websites', trigger: true
+      #  
+      #@listenTo navView, "invoices", (item) =>
+      #  App.navigate '#profiles/invoices', trigger: true
+      #
       @layout.accountSidebarRegion.show navView
+      
 
     getMainRegion: (section) ->
       if section is "profile"
@@ -94,6 +108,13 @@
 
     getLayoutView: ->
       new Show.Layout
+<<<<<<< HEAD
 
     setSelectedNav: (section) ->
       $("ul li a."+section+"").addClass("selected")
+=======
+      
+    setSelectedNav: (nav, section) ->
+      $(nav.el).find("ul li a").removeClass("selected")
+      $(nav.el).find("ul li a." + section).addClass("selected")
+>>>>>>> Set selected nav in accounts to active when selected
