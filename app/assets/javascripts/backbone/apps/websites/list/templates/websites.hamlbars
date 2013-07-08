@@ -1,0 +1,5 @@
+.block.large
+  %a.btn.action.go-right New website
+  %h2 Websites
+  %p.section-desc
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, aut.
