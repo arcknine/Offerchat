@@ -41,7 +41,17 @@
 
 
 
-
+.note
+  font-style: italic
+  
+  padding: 10px
+  float: left
+  &.fixed
+    width: 545px
+  .date
+    font-size: 12px
+    margin-top: 10px
+    color: $light-text-color
 .chat-header
   border-bottom: 1px solid $default-border-color
   height: 105px
@@ -89,22 +99,35 @@
   width: 100%
   height: 100%
   bottom: 0
+
+    
 .chat-item
   border-bottom: 1px solid #f1f1f1
   padding: 10px 0
+  position: relative
   p
     margin: 0 0 10px 0
     &:last-child
       margin-bottom: 0
   &.small
     color: $light-text-color
+  
+  a.chat-block-btn
+    text-align: center
+    display: block
+    padding: 5px
+    margin: 0 10px
+    border-radius: 3px
+    color: $text-color
+    
+    font-size: 12px
   .chat-table
     float: left
     &.chat-left-table
-      width: 115px
+      width: 145px
       text-align: right
     &.chat-container-table
-      width: 70%
+      width: 69%
       padding-left: 20px
   .viewing-current-url
     overflow: hidden

@@ -21,6 +21,8 @@ body
   overflow: hidden
   -webkit-font-smoothing: antialiased
   -webkit-text-size-adjust: 100%
+  &.body-dark
+    background-color: $sidebar-color
 p
   margin: 0 0 15px 0
 
@@ -44,6 +46,125 @@ a
     padding: 10px
     display: block
     color: $light-text-color
+  &.add-more-btn
+    font-size: 11px
+    font-weight: bold
+    display: inline-block
+    padding: 3px 5px
+    background: #ec2972
+    color: #fff
+    border-radius: 3px
+    border: 1px solid darken(#ec2972, 10%)
+    position: relative
+    top: -2px
+    margin-right: 5px
+    text-shadow: 0 -1px 0 darken(#ec2972, 10%)
+    
+.align-right
+  text-align: right
+.item
+  margin: 15px 0
+.item-desc
+  color: $light-text-color
+  &.small
+    font-size: 12px
+.mark-admin
+  margin-top: 18px
+.website-items-list
+  .profile-image-container
+    vertical-align: top
+  h3
+    font-weight: $bold
+  & > li
+    padding: 15px 0
+
+    border-bottom: 1px solid #e1e1e1
+
+  a.btn-add-agent
+    position: relative
+    display: inline-block
+    text-align: center
+    border-radius: 50%
+    width: 33px
+    height: 33px
+    vertical-align: top
+    border: 2px solid $link-color
+    @include transition(.2s)
+    &:hover
+      background-color: $link-color
+      color: #fff
+    & > span
+      position: relative
+      top: 0px
+      font-size: 22px
+      left: -1px
+      font-weight: 400
+
+      
+
+.checklist-admin
+  display: inline-block
+  position: relative
+
+  width: 65px
+  vertical-align: top
+.website-agent-list
+  li
+    display: inline-block
+    margin-right: 10px
+    vertical-align: top
+a.agent-selection-item
+  width: 180px
+  height: 120px
+  padding: 40px 20px 20px 20px
+  border-radius: 10px
+  display: block
+  text-align: center
+  border: 2px solid transparent
+  color: $text-color
+  overflow: hidden
+  @include transition(.2s)
+  &:hover
+    border-color: #e1e1e1
+  .nickname
+    font-size: 12px
+    color: $light-text-color
+  h3
+    font-weight: $bold
+    text-overflow: ellipsis
+    white-space: nowrap
+    overflow: hidden
+  .profile-image-container
+    margin-bottom: 15px
+  &.agent-selection-new
+    margin-bottom: 15px
+    color: $link-color
+    border: 2px dashed #e1e1e1
+    box-sizing: content-box
+    .profile-image
+      width: 55px
+      height: 55px
+      border: 2px solid #e1e1e1
+      border-radius: 27%
+      @include transition(.2s)
+    &:hover
+      .profile-image
+        border-color: $link-color
+    .icon-add-agent
+      top: 15px
+
+.text-message
+
+  &.error
+    color: #e74c3c
+
+.logo-large
+  display: block
+  width: 220px
+  height: 47px
+  background-image: image-url("logo-large.png")
+  &.centered
+    margin: 0 auto
 
 h2
   font-size: 18px
@@ -121,34 +242,80 @@ h4
   padding: 10px 20px
   background-color: #f4efd1
   font-size: 14px
+  &.small
+    font-size: 12px
+    a.close
+      margin-top: -2px
 
 .profile-image-container
   position: relative
   top: 3px
   display: inline-block
   cursor: pointer
+  text-align: center
+  &:hover
+    .profile-user-tooltip
+      opacity: 1
+      visibility: visible
+      top: -40px
   .profile-image 
     display: block
     position: relative
     top: -4px
     img
-      border-radius: 50%
-      -moz-border-radius: 50%
-      -webkit-border-radius: 50%
+      border-radius: 27%
       border: 2px solid $default-border-color
       width: 33px
       height: 33px
+  &.large
+    img
+      width: 55px
+      height: 55px
+    .status
+      width: 22px
+      height: 22px
+      .icon
+        top: 6px
+
+  &.inactive
+    .profile-image
+      opacity: .5
   .status
     position: absolute
     bottom: 4px
-    right: -2px
+    right: 0
+  .profile-user-tooltip
+    background-color: $sidebar-color
+    padding: 5px 7px
+    font-size: 12px
+    border-radius: 3px
+    position: absolute
+    top: -45px
+    z-index: 110
+    color: #fff
+    white-space: nowrap
+    opacity: 0
+    visibility: hidden
+
+    @include transition(.2s)
+    .caret
+      border-color: $sidebar-color transparent transparent transparent 
+      border-width: 7px
+      border-style: solid
+      position: absolute
+      bottom: -13px
+      left: 10px
+      width: 0
+      height: 0
+
+
 
 .thumbnail-upload-container
   float: left
   img
     width: 85px
     height: 85px
-    border-radius: 50%
+    border-radius: 27%
     border: 2px solid $default-border-color
     background-color: #f8f8f8
 
@@ -188,8 +355,8 @@ h4
 .status
   display: inline-block
   position: relative
-  width: 16px
-  height: 16px
+  width: 14px
+  height: 14px
   border-radius: 50%
   background: #c4c4c4
   overflow: hidden
@@ -202,8 +369,9 @@ h4
   &.site-list-status
     top: 2px
     left: 5px
+    margin-right: 15px
   .icon
-    top: 3px
+    top: 2px
 
 .status-item
   display: inline-block
@@ -354,6 +522,7 @@ h4
   z-index: 1101
   background-color: #f4f4f4
   width: 560px
+
   left: 50%
   top: 10%
   margin-left: -280px
@@ -361,18 +530,22 @@ h4
   box-shadow: 0 0 20px rgba(0,0,0,.3)
   h2
     margin-bottom: 5px
+  
   .modal-body,
   .modal-header
     padding: 10px 15px
     h2
       margin-bottom: 0
       text-shadow: 0 1px 0 #fff
+    .chat-header
+      border-bottom: none
   .modal-footer
     padding: 15px
-    height: 35px
     &.bordered
       border-top: 1px solid $border-color
-  .modal-header
+    .btn
+      margin-right: 10px
+  .modal-header, 
     .close
       color: #999
       position: absolute
@@ -387,20 +560,38 @@ h4
       border: 1px solid #e1e1e1
       border-radius: 3px
       box-shadow: 0 1px 0 #fff
+      z-index: 100
       @include transition(.2s)
       &:hover
         color: #676767
   &.history-modal
     width: 840px
     margin-left: -420px
-  &.attention-grabber-modal
+  &.attention-grabber-modal,
+  &.modal-large
     width: 755px
     margin-left: -378px
+    // .agent-inline-block
+    //   width: 325px
 
 .block-list
   li
     position: relative
-a.block-list-item
+    &.list-head
+      border-top: 1px solid #e1e1e1
+      color: #999
+      .checklist-admin
+        top: 0px
+
+     
+    
+  &.manage-agent-modal-list
+    li
+      padding: 10px
+      overflow: hidden
+      border-top: 1px solid #e1e1e1
+      
+a.block-list-item, .block-list-item
   display: block
   padding: 15px 0
   
@@ -410,13 +601,16 @@ a.block-list-item
   button.trash-btn
     position: absolute
     right: 15px
-    top: 28px
-    
+    top: 17px
+.agent-list-container
+  height: 350px
+  overflow-y: auto
 .url-desc,
 .invoice-desc
   color: #b1b1b1
   font-size: 12px
-  display: block
+  &.full
+    display: block
 
 .plans
   a.plan
@@ -451,7 +645,102 @@ a.block-list-item
       .icon-check-2
         margin-right: 5px
         top: -2px
+
+.login-wrapper    
+  margin-top: 8%
+.login-form
+  background-color: #fff
+  width: 320px
+  padding: 35px
+  border-radius: 10px
+  margin: 35px auto 35px auto
+  input[type=text],
+  input[type=password]
+    width: 100%
     
+    padding: 10px
+    font-size: 18px
+
+.sidebar-modal-fixed
+  position: absolute
+  opacity: 0
+  visibility: hidden
+  @include transition(.2s)
+  height: 100%
+  width: 420px
+  right: -20px
+  top: 0
+  z-index: 1110
+  background-color: #f4f4f4
+  box-shadow: 3px 0 20px rgba(0,0,0,.3)
+  
+  &.show
+    right: 0
+    opacity: 1
+    visibility: visible
+  .close
+    color: #999
+    position: absolute
+    top: 10px
+    right: 15px
+    font-size: 28px
+    text-shadow: 0 1px 0 #fff
+    width: 24px
+    height: 24px
+    line-height: 24px
+    text-align: center
+    border: 1px solid #e1e1e1
+    border-radius: 3px
+    box-shadow: 0 1px 0 #fff
+    z-index: 100
+    @include transition(.2s)
+    &:hover
+      color: #676767
+
+.notes-sidebar
+  .agent-inline-block
+    position: absolute
+  .note
+    padding-left: 100px
+  .profile-image-container
+    cursor: default
+.note-group
+  margin-top: 5px
+  overflow-y: auto
+  overflow-x: hidden
+  background-color: #fff
+
+.agent-inline-block
+  display: inline-block
+  padding: 10px
+  float: left
+  &.fixed
+    text-align: center
+    width: 145px
+  &.full
+    float: none
+    display: block
+  label
+    vertical-align: top
+    display: inline-block
+  .profile-image-container
+    margin: -7px 5px 0 0
+    vertical-align: top
+  .profile-label-name
+    &.for-large
+      margin-top: 12px
+  a.error
+    margin-top: 12px
+    &:hover
+      text-decoration: underline
+
+.settings-widget-selector
+  padding: 10px
+  border-radius: 5px
+  border: 1px solid $border-color
+  width: 289px
+  float: left
+  margin: 0 !important
 
 .modal-inner-container
   height: 300px
