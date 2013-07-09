@@ -4,7 +4,6 @@ class WebsitesController < ApplicationController
   respond_to :json
 
   def index
-    sleep 3
     @websites = current_user.websites
   end
 
