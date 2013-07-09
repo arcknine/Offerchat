@@ -1,0 +1,9 @@
+%button.trash-btn
+  %span.trash-lid
+  %span.trash-bin
+%a.block-list-item.bordered
+  {{name}}
+  %span.status.online.site-list-status
+    %i.icon.icon-check-small
+  %span.url-desc
+    {{url}}
