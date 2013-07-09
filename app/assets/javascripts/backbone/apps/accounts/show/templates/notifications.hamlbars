@@ -1,0 +1,75 @@
+.block-message
+  %a.close
+    &times;
+  Your changes have been saved
+
+.block.large.group
+  %h2
+    Email Notifications
+  .section-desc.child-desc
+    Receive emails when
+  .form
+    %fieldset
+      %label.checkbox.checked.inline{ :for => 'checkbox1' }
+        %span.icon
+          .icon-check
+        Someone leaves an offline message
+
+    %fieldset
+      %label.checkbox.checked.inline{ :for => 'checkbox1' }
+        %span.icon
+          .icon-check
+        Admin sends me a message
+    %fieldset
+      %label.checkbox.checked.inline{ :for => 'checkbox1' }
+        %span.icon
+          .icon-check
+        Offerchat latest news and updates
+
+.block.large.group.bordered-top
+  %h2
+    Sound Notifications
+  .section-desc.child-desc
+    Get sound alerts when
+  .form
+    %fieldset
+      %label.checkbox.checked.inline{ :for => 'checkbox1' }
+        %span.icon
+          .icon-check
+        Visitor sends a message
+    %fieldset
+      %label.checkbox.checked.inline{ :for => 'checkbox1' }
+        %span.icon
+          .icon-check
+        Incoming Visitor
+
+.block.large.group.bordered-top
+  %h2
+    Desktop Notifications
+  .section-desc.child-desc
+    Receive notifications right on your desktop screen
+  .form
+
+    %fieldset
+      %label.checkbox.checked.inline{ :for => 'checkbox1' }
+        %span.icon
+          .icon-check
+        New Message
+
+    %fieldset
+      %label.checkbox.checked.inline{ :for => 'checkbox1' }
+        %span.icon
+          .icon-check
+        New Visitor
+
+
+    %fieldset
+      %label.checkbox.checked.inline{ :for => 'checkbox1' }
+        %span.icon
+          .icon-check
+        Returning Visitor
+
+.column-footer-actions.bordered
+  .block.large
+    %button.btn.action{ :type => "submit" }
+      Save Changes

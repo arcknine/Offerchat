@@ -20,6 +20,9 @@ textarea
   &.rounded
     border-radius: 20px
     padding: 8px 12px 8px 12px
+  &.full
+    width: 100%
+    display: block
 textarea
   resize: none
   &.large
@@ -50,6 +53,17 @@ label
   &.inline
     display: inline-block !important
     margin-right: 20px
+  &.website-label-block
+    display: inline-block
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+    .url-desc
+      margin-left: 5px
+  &.disabled
+    cursor: default
+    color: $light-text-color
+  
 
 .transcript-actions-form
   .transcript-actions,
@@ -68,6 +82,20 @@ label
     .icon-check
       opacity: 1
       filter: alpha(opacity=10)
+    &.red
+      .icon
+        background-color: #e13d3d
+        box-shadow: 0 1px 0 darken(#e13d3d, 10%)
+  &.disabled
+    .icon
+      background-color: #c9d2d6
+      box-shadow: 0 1px 0 darken(#c9d2d6, 10%)
+      cursor: default
+    .icon-check
+      opacity: 1
+      filter: alpha(opacity=10)
+
+
   .icon-check
     @include icon(16px, 16px, -28px, -9px)
     opacity: 0
@@ -94,6 +122,8 @@ label
     margin: 5px 0 20px 0
     &:last-child
       margin-bottom: 5px
+    &.smaller
+      margin-bottom: 5px
   label
     margin-bottom: 5px
     display: block
@@ -103,7 +133,8 @@ label
     &.label-top-fix
       vertical-align: top
       padding-top: 10px
-
+  &.invite-user-form
+    padding: 10px
     
   &.form-inline
     .input-container,
@@ -113,6 +144,8 @@ label
       &.block
         display: block
         padding: 0
+  &.hero-form
+    padding: 20px 0
 
 .field-error
   input[type=text],
@@ -180,7 +213,7 @@ label
 // Toggle
 .toggle
   background-color: $sidebar-color
-  box-shadow: 0 1px 2px darken(#34495e, 10%) inset
+  
   border-radius: 60px
   color: #fff
   height: 29px
@@ -197,7 +230,7 @@ label
   // Common style -----------------------------
   &.toggle-off
     background-color: #cbd2d8
-    box-shadow: 0 1px 2px darken(#cbd2d8, 10%) inset
+    
     .toggle-radio
       background-image: image-url('toggle/icon-off.png')
       background-position: 0 0
@@ -222,7 +255,7 @@ label
     text-align: center
     z-index: 2
     +transition(.25s)
-
+    
     &:first-child
       margin-bottom: -29px
       left: 0
@@ -232,7 +265,7 @@ label
     position: absolute
     outline: none !important
     // Radios in IE should be always visible in order to work
-    display: block\9
+    display: block
     opacity: .01
 
 .language-selector

@@ -1,2 +1,2 @@
-@account
+object @profile
 extends "profiles/attributes"
