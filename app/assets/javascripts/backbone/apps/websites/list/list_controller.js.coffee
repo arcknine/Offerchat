@@ -5,12 +5,14 @@
     initialize: ->
       sites = App.request "site:entities"
 
-      sitesView = @getWebsitesView(sites)
-      @listenTo sitesView, "childview:click:delete:website", (site) =>
-        if confirm("Are you sure you want to delete this website?")
-          site.model.destroy()
+      App.execute "when:fetched", sites, =>
+        sitesView = @getWebsitesView sites
 
-      App.mainRegion.show sitesView
+        @listenTo sitesView, "childview:click:delete:website", (site) =>
+          if confirm("Are you sure you want to delete this website?")
+            site.model.destroy()
+
+        App.mainRegion.show sitesView
 
     getWebsitesView: (sites) ->
       new List.Websites
