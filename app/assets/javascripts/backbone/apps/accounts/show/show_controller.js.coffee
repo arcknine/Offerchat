@@ -49,6 +49,7 @@
     getPasswordRegion: ->
       passwordView = @getPasswordView(@profile)
       formView = App.request "form:wrapper", passwordView
+      @profile.url = Routes.passwords_path()
       @layout.accountRegion.show formView
       
     getPasswordView: (model)->

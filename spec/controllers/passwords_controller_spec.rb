@@ -98,7 +98,7 @@ describe PasswordsController do
 
     describe "update user password with valid password" do
       it "should change password to new one" do
-        xhr :put, :update, user: valid_password, format: :json
+        xhr :put, :update, valid_password, format: :json
         assigns(:user).should_not be_nil
         response.code.should eq "200"
         # JSON.parse(response.body)["msg"].should eq "Your changes have been saved"
