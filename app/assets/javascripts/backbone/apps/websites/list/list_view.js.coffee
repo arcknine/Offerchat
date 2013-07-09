@@ -10,4 +10,3 @@
     template: "websites/list/websites"
     itemView: List.Website
     itemViewContainer: "ul"
-

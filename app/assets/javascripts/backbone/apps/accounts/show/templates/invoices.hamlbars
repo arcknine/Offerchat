@@ -1,0 +1,34 @@
+.column-content-container
+  .block.large
+    %h2
+      Invoices
+
+  .table-data-wrapper
+    .table-data
+      .table-row.table-head.shadow.group
+
+        .td-container.td-invoice-number
+          .td-content
+            Invoice
+        .td-container.td-time
+          .td-content
+            Date
+        .td-container.td-time
+          .td-content
+            Amount
+        .td-container.td-status-item
+          .td-content
+            Status
+
+        .table-nav
+          1-10 of 50
+          .nav-link-inline
+            %a.nav-link.nav-prev
+
+              %i.icon.icon-arrow-left
+            %a.nav-link.nav-next
+              %i.icon.icon-arrow-right
+
+      .table-history-viewer
+        .table-history-viewer-content#historyTableViewer
+          .table-row.group
