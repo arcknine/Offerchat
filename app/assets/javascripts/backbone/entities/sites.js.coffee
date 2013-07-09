@@ -10,7 +10,7 @@
   API =
     getSites: ->
       site = new Entities.SiteCollection
-      site .fetch
+      site.fetch
         reset: true
       site
 
