@@ -19,7 +19,7 @@
     
     modelEvents:
       "change:_errors"   : "changeErrors"
-      "sync:start"      :  "syncStart"
+      "sync:start"       :  "syncStart"
       "sync:stop"        :  "syncStop"
     
     initialize: ->
@@ -48,17 +48,16 @@
         if _.isEmpty(errors) then @removeErrors() else @addErrors errors
     
     removeErrors: ->
-      @$(".error").removeClass("error").find("small").remove()
+      @$(".field-error").removeClass("field-error").find("span").remove()
     
     addErrors: (errors = {}) ->
-      console.log errors
       for name, array of errors
         @addError name, array[0]
     
     addError: (name, error) ->
       el = @$("[name='#{name}']")
-      sm = $("<small>").text(error)
-      el.after(sm).closest(".row").addClass("error")
+      sm = $("<span>", class: 'inline-label-message').text(error)
+      el.closest("fieldset").addClass("field-error").children().first().append(sm)
     
     syncStart: (model) ->
       @addOpacityWrapper() if @config.syncing
