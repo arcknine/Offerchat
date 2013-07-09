@@ -8,7 +8,7 @@ class ProfilesController < ApplicationController
 
   def update
     @profile = current_user
-    unless @profile.update_attributes(params[:profile])
+    unless @profile.update_attributes(params[:profile].except(:id))
       render :json => {errors: @profile.errors.full_messages}, status: 401
     end
   end

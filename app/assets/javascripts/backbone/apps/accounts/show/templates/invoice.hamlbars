@@ -1,0 +1,15 @@
+.td-container.td-invoice-number
+  .td-content
+    5649030023
+    .invoice-desc
+      Startup Plan (2-5 agents)
+.td-container.td-time
+  .td-content
+    Jan 28, 2013
+.td-container.td-time
+  .td-content
+    $29
+.td-container.td-status-item
+  .td-content
+    .status-item
+      waiting
