@@ -44,6 +44,12 @@ class User < ActiveRecord::Base
     owner_accounts.collect(&:user)
   end
 
+  def agents
+    owner_websites = self.websites.collect(&:id).join(",")
+    owner_accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id IN (?)", owner_websites)
+    owner_accounts.collect(&:user)
+  end
+
   def self.create_or_invite_agents(user, account_array)
     user = User.find_or_initialize_by_email(user[:email])
 

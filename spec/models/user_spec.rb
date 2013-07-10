@@ -89,13 +89,13 @@ describe User do
       @user.name.should_not be_nil
       @user.name.length.should <= 25
     end
-    
+
     it "should have a display name" do
       @user.display_name.should_not be_blank
       @user.display_name.should_not be_nil
       @user.display_name.length.should <= 25
     end
-    
+
 
     it "should have a default display name" do
       @user.display_name.should_not be_blank
@@ -154,6 +154,17 @@ describe User do
       @owner.my_agents.each do |a|
         a.account(@website.id).role.should_not eq(Account::OWNER)
       end
+    end
+
+    it "should return all agents including the owner" do
+      user = Fabricate(:user)
+      User.create_or_invite_agents(user, @account)
+
+      @owner.agents.should_not be_empty
+      @owner.agents.should_not be_nil
+      # @owner.my_agents.each do |a|
+      #   a.account(@website.id).role.should_not eq(Account::OWNER)
+      # end
     end
 
     it "should return as pending" do

@@ -1,2 +1,2 @@
-@user
-extends "users/attributes"
+object @user
+extends "agents/attributes"
