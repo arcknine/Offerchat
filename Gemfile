@@ -37,6 +37,7 @@ gem "js-routes"
 # Amazon
 gem 'aws-sdk'
 gem 'wicked'
+
 # Openfire
 gem 'openfire_api', :git => 'git://github.com/paulasmuth/openfire_api.git'
 
@@ -70,4 +71,10 @@ group :development do
   gem 'meta_request', '0.2.1'
   gem 'letter_opener'
   gem 'thin'
+
+  # Deployment
+  gem 'capistrano'
+  gem 'capistrano_colors'
+  gem 'capistrano-ext'
+  gem 'rvm-capistrano'
 end
