@@ -24,11 +24,11 @@ set :repository, "git@bitbucket.org:offerchat/dashboard.git"
 
 # Run migrations
 after  'deploy:update_code', 'deploy:migrate'
+before 'deploy:assets:precompile', 'deploy:setup_db'
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
   after 'deploy:create_symlink', 'deploy:pictures:symlink'
-  after 'deploy:pictures:symlink', 'deploy:setup_db'
 
   namespace :pictures do
     desc "Link images from shared to common"
