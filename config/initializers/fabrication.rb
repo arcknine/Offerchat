@@ -1,4 +1,4 @@
-unless Rails.env.production?
+unless Rails.env.production? || Rails.env.staging?
   Fabrication.configure do |config|
     config.fabricator_path = '/spec/fabricators'
     config.path_prefix = Rails.root
