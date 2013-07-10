@@ -28,6 +28,10 @@
         App.navigate Routes.websites_path(), trigger: true
         @hideDropdowns child
 
+      @listenTo navView, "agent:menu:clicked", (child) ->
+        App.navigate Routes.agents_path(), trigger: true
+        @hideDropdowns child
+
       @listenTo navView, "history:menu:clicked", (child) ->
         @hideDropdowns child
 
