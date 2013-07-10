@@ -11,6 +11,7 @@
     navigationRegion:       "#header-region"
     selectorSidebarRegion:  "#site-selector-region"
     chatSidebarRegion:      "#chat-sidebar-region"
+    tourSidebarRegion:      "#tour-sidebar-region"
     mainRegion:             "#main-region"
     modalRegion:            ModalRegion
 

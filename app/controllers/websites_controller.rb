@@ -1,14 +1,27 @@
 class WebsitesController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :current_user_has_website?
+  # before_filter :current_user_has_website?
   respond_to :json
 
   def index
     @websites = current_user.websites
   end
 
+  def new
+    @website = current_user.websites.new
+  end
+
   def show
     @website = current_user.websites.find params[:id]
+  end
+
+  def create
+    @website = Website.new(params)
+    if @website.save
+      format.json { render json: @website, status: :created, location: @website }
+    else
+      format.json { render json: @website.errors, status: :unprocessable_entity }
+    end
   end
 
   def update
