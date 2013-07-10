@@ -42,10 +42,6 @@
         item.model.save()
       @layout.accountRegion.show profileView
 
-    getProfileView: ->
-      new Show.Profile
-        model: @profile
-
     getPasswordRegion: ->
       passwordView = @getPasswordView(@profile)
       formView = App.request "form:wrapper", passwordView
