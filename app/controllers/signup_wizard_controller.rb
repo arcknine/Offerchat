@@ -4,13 +4,6 @@ class SignupWizardController < ApplicationController
   steps :step_one, :step_two, :step_three, :step_four, :step_five
   respond_to :json
 
-  def index
-
-  end
-
-  def index
-
-  end
 
   def show
     case step

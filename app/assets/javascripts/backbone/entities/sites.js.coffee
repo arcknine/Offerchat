@@ -21,6 +21,7 @@
         reset: true
       site
 
+
     getMySites: ->
       site = new Entities.MySiteCollection
       site.fetch
@@ -36,8 +37,6 @@
   App.reqres.setHandler "site:new:entity", ->
     API.newSite()
 
-  App.reqres.setHandler "new:site:entities", ->
-    API.newSites()
-
   App.reqres.setHandler "my:sites:entities", ->
     API.getMySites()
+
