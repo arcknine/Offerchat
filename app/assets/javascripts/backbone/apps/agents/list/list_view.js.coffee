@@ -7,13 +7,15 @@
       agentsRegion: "#agents-region"
 
   class List.Agent extends App.Views.ItemView
-    template: "agents/list/agent"
-    tagName:  "li"
+    template:  "agents/list/agent"
+    tagName:   "a"
+    className: "agent-selection-item"
 
   class List.Agents extends App.Views.CompositeView
     template:          "agents/list/agents"
     className:         "block large group"
     itemView:          List.Agent
+    itemViewContainer: "div#agent-list"
 
   class List.Seats extends App.Views.CompositeView
     template:  "agents/list/seats"

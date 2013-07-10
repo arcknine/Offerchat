@@ -7,7 +7,7 @@
       agents = App.request "agents:entities"
 
       @layout.on "show", =>
-        @showSeats agents # temporary seats set
+        # @showSeats agents # temporary seats set
         @showAgents agents
 
       App.mainRegion.show @layout
@@ -24,8 +24,8 @@
       new List.Layout
 
     getAgentsView: (agents) ->
-      new List.Agents agents
+      new List.Agents
+        collection: agents
 
     getSeatsView: (seats) ->
-      new List.Seats
-        collection: seats
+      new List.Seats seats

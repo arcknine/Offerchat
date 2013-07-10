@@ -4,7 +4,7 @@
     urlRoot: Routes.agents_path()
 
   class Entities.AgentsCollection extends App.Entities.Collection
-    model: Entities.Site
+    model: Entities.Agents
     url: Routes.agents_path()
 
   API =
