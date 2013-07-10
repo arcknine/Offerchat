@@ -1,0 +1,10 @@
+%a.agent-selection-item#testAgentTrigger
+  .profile-image-container.large
+    .profile-image
+      =image_tag "avatar-large.jpg"
+    %span.status.online
+      %i.icon.icon-check-small
+  %h3
+    Kathleen Nelson
+  .nickname
+    Kath

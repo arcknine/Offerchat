@@ -1,0 +1,11 @@
+%ul.website-agent-list
+  %li
+    %a.agent-selection-item.agent-selection-new#addAgentBtn
+      .profile-image-container.large
+        .profile-image
+          %i.icon.icon-add-agent
+      %h3
+        Add New Agent
+
+  %li
+    %ul#agent-list

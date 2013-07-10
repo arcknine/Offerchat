@@ -59,7 +59,7 @@ a
     top: -2px
     margin-right: 5px
     text-shadow: 0 -1px 0 darken(#ec2972, 10%)
-
+    
 .align-right
   text-align: right
 .item
@@ -99,6 +99,8 @@ a
       font-size: 22px
       left: -1px
       font-weight: 400
+
+      
 
 .checklist-admin
   display: inline-block
@@ -182,7 +184,7 @@ h4
   -o-transition: all .2s
   transition: all .2s
 #wrapper
-
+ 
   width: 100%
   top: 0
   bottom: 0
@@ -202,7 +204,7 @@ h4
   background-color: #fff
   min-width: 830px
   overflow-x: auto
-
+  
   &.tour-content-view
     left: 321px
     width: 550px
@@ -215,7 +217,7 @@ h4
   top: 45px
   width: 100%
   height: 100%
-
+  
 .block
   padding: $padding-10
   position: relative
@@ -247,6 +249,7 @@ h4
 
 .profile-image-container
   position: relative
+  line-height: .6
   top: 3px
   display: inline-block
   cursor: pointer
@@ -256,13 +259,10 @@ h4
       opacity: 1
       visibility: visible
       top: -40px
-
-  .profile-image
+  .profile-image 
     display: block
     position: relative
     top: -4px
-    width: 33px
-    height: 33px
     img
       border-radius: 27%
       border: 2px solid $default-border-color
@@ -283,9 +283,8 @@ h4
       opacity: .5
   .status
     position: absolute
-    bottom: 0
-    right: -4px
-
+    bottom: 4px
+    right: 0
   .profile-user-tooltip
     background-color: $sidebar-color
     padding: 5px 7px
@@ -301,7 +300,7 @@ h4
 
     @include transition(.2s)
     .caret
-      border-color: $sidebar-color transparent transparent transparent
+      border-color: $sidebar-color transparent transparent transparent 
       border-width: 7px
       border-style: solid
       position: absolute
@@ -387,7 +386,7 @@ h4
     background-color: #53bb84
   &.red
     background-color:  #e13d3d
-
+  
 .msg-count
   display: inline-block
   padding: 1px 0
@@ -518,7 +517,7 @@ h4
       border-color: #2599dc
     img
       max-width: 100%
-
+      
 
 .modal
   position: absolute
@@ -533,7 +532,7 @@ h4
   box-shadow: 0 0 20px rgba(0,0,0,.3)
   h2
     margin-bottom: 5px
-
+  
   .modal-body,
   .modal-header
     padding: 10px 15px
@@ -548,8 +547,7 @@ h4
       border-top: 1px solid $border-color
     .btn
       margin-right: 10px
-
-  .modal-header,
+  .modal-header, 
     .close
       color: #999
       position: absolute
@@ -587,16 +585,18 @@ h4
       .checklist-admin
         top: 0px
 
+     
+    
   &.manage-agent-modal-list
     li
       padding: 10px
       overflow: hidden
       border-top: 1px solid #e1e1e1
-
+      
 a.block-list-item, .block-list-item
   display: block
   padding: 15px 0
-
+  
   &.bordered
     border-top: 1px solid #e1e1e1
 .site-block-list
@@ -619,7 +619,7 @@ a.block-list-item, .block-list-item
     display: block
     padding: 25px 15px
     font-size: 18px
-
+    
     @include transition(.2s)
     .plan-agents,
     .plan-price
@@ -648,7 +648,7 @@ a.block-list-item, .block-list-item
         margin-right: 5px
         top: -2px
 
-.login-wrapper
+.login-wrapper    
   margin-top: 8%
 .login-form
   background-color: #fff
@@ -659,6 +659,7 @@ a.block-list-item, .block-list-item
   input[type=text],
   input[type=password]
     width: 100%
+    
     padding: 10px
     font-size: 18px
 
@@ -674,6 +675,7 @@ a.block-list-item, .block-list-item
   z-index: 1110
   background-color: #f4f4f4
   box-shadow: 3px 0 20px rgba(0,0,0,.3)
+  
   &.show
     right: 0
     opacity: 1
@@ -742,6 +744,9 @@ a.block-list-item, .block-list-item
   float: left
   margin: 0 !important
 
+
+
+
 .modal-inner-container
   height: 300px
   overflow-y: auto
@@ -758,3 +763,4 @@ a.block-list-item, .block-list-item
   right: 0
   bottom: 0
   z-index: 1100
+
