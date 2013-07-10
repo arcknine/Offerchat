@@ -23,6 +23,7 @@ Dashboard::Application.routes.draw do
 
   resources :websites
   resources :signup_wizard
+  resource :passwords
   # post 'signup_wizard/step_one' ,:controller => :signup_wizard, :action => 'create'
   # post 'signup_wizard/step_three' ,:controller => :signup_wizard, :action => 'create'
 

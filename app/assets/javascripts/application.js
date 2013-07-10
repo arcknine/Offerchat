@@ -18,8 +18,9 @@
 
 //= require backbone.wreqr
 //= require backbone.marionette.handlebars
-//= require_tree ./backbone/config
 //= require js-routes
+//= require_tree ./vendor
+//= require_tree ./backbone/config
 //= require backbone/app
 //= require_tree ./backbone/controllers
 //= require_tree ./backbone/views

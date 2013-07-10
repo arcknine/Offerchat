@@ -3,91 +3,58 @@
   class Show.Controller extends App.Controllers.Base
 
     initialize: (options)->
-      @account = App.request "get:current:profile"
+      console.log options
+      @profile = App.request "get:current:profile"
 
-      App.execute "when:fetched", @account, =>
+      @listenTo @profile, "changeErrors", =>
+        alert 1
+      
+      App.execute "when:fetched", @profile, =>
         @layout = @getLayoutView()
-
+        
         @listenTo @layout, "show", =>
           @sidebarRegion(options.section)
           @getMainRegion(options.section)
-          @setSelectedNav(options.section)
-
+          
         @show @layout
 
     sidebarRegion: (section)->
       navView = @getSidebarNavs()
-
+      
       @listenTo navView, "nav:accounts:clicked", (item) =>
         App.navigate Routes.profiles_path(), trigger: true
-
+        
       @listenTo navView, "nav:password:clicked", (item) =>
         App.navigate '#profiles/passwords', trigger: true
 
-      @listenTo navView, "nav:notifications:clicked", (item) =>
-        App.navigate '#profiles/notifications', trigger: true
-
-      @listenTo navView, "nav:invoices:clicked", (item) =>
-        App.navigate '#profiles/invoices', trigger: true
-
       @layout.accountSidebarRegion.show navView
+      @setSelectedNav(navView, section)
 
     getMainRegion: (section) ->
       if section is "profile"
         @getProfileRegion()
       else if section is "password"
         @getPasswordRegion()
-      else if section is "notifications"
-        @getNotificationsRegion()
-      else if section is "invoices"
-        @getInvoicesRegion()
-
-    getInvoicesRegion: ->
-      @invoices = App.request "get:user:invoices"
-
-      App.execute "when:fetched", @invoices, =>
-        invoicesView = @getInvoicesView()
-        @layout.accountRegion.show invoicesView
-
-    getInvoicesView: ->
-      new Show.Invoices
-        collection: @invoices
-
-
-    getNotificationsRegion: ->
-      notificationsView = @getNotificationsView()
-      @listenTo notificationsView, "notification:checkbox:clicked", (item) =>
-        # handle checkbox click event
-        console.log item
-
-      @layout.accountRegion.show notificationsView
-
-    getNotificationsView: ->
-      new Show.Notifications
-        model: @account
-
 
     getProfileRegion: ->
-      profileView = @getProfileView()
+      profileView = @getProfileView(@profile)
       @listenTo profileView, "account:profile:form:submit", (item) =>
-        console.log item
         item.model.save()
       @layout.accountRegion.show profileView
 
-    getProfileView: ->
-      new Show.Profile
-        model: @account
-
-
     getPasswordRegion: ->
-      passwordView = @getPasswordView()
-      @layout.accountRegion.show passwordView
-
-    getPasswordView: ->
+      passwordView = @getPasswordView(@profile)
+      formView = App.request "form:wrapper", passwordView
+      @profile.url = Routes.passwords_path()
+      @layout.accountRegion.show formView
+      
+    getPasswordView: (model)->
      new Show.Password
-       model: @account
-
-
+       model: model
+    
+    getProfileView: (model)->
+      new Show.Profile
+        model: model
 
     getSidebarNavs: ->
       new Show.Navs
@@ -95,5 +62,5 @@
     getLayoutView: ->
       new Show.Layout
 
-    setSelectedNav: (section) ->
-      $("ul li a."+section+"").addClass("selected")
+    setSelectedNav: (nav, section) ->
+      $(nav.el).find("ul li a." + section).addClass('selected')

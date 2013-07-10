@@ -1,2 +1,2 @@
-@account
+@user
 extends "profiles/attributes"
