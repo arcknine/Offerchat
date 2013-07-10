@@ -71,5 +71,5 @@ group :development do
   gem 'meta_request', '0.2.1'
   gem 'letter_opener'
   gem 'thin'
-  gem 'mina'
+  gem 'capistrano'
 end
