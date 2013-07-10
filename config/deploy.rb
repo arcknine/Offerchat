@@ -23,7 +23,7 @@ set :scm, :git
 set :repository, "git@bitbucket.org:offerchat/dashboard.git"
 
 # Run migrations
-before 'deploy:setup_db'
+before 'deploy:migrate', 'deploy:setup_db'
 after  'deploy:update_code', 'deploy:migrate'
 
 # If you are using Passenger mod_rails uncomment this:
@@ -38,7 +38,7 @@ namespace :deploy do
   end
 
   task :setup_db do
-    run "cp #{shared_path}/../../shared/database.yml.deploy #{release_path}/config/database.yml"
+    run "cp #{current_path}/config/database.yml.deploy #{release_path}/config/database.yml"
   end
 
   task :start do ; end
