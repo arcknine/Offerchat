@@ -38,9 +38,9 @@
 
     getProfileRegion: ->
       profileView = @getProfileView(@profile)
-      @listenTo profileView, "account:profile:form:submit", (item) =>
-        item.model.save()
-      @layout.accountRegion.show profileView
+      formView = App.request "form:wrapper", profileView
+      @profile.url = Routes.profiles_path()
+      @layout.accountRegion.show formView
 
     getPasswordRegion: ->
       passwordView = @getPasswordView(@profile)

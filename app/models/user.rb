@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
     :name, :display_name, :jabber_user, :jabber_password, :avatar
 
   validates_presence_of :name
+  validates_presence_of :display_name
   validates_length_of :name, :in => 4..50
 
   after_create :create_jabber_account

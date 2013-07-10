@@ -89,6 +89,13 @@ describe User do
       @user.name.should_not be_nil
       @user.name.length.should <= 25
     end
+    
+    it "should have a display name" do
+      @user.display_name.should_not be_blank
+      @user.display_name.should_not be_nil
+      @user.display_name.length.should <= 25
+    end
+    
 
     it "should have a default display name" do
       @user.display_name.should_not be_blank

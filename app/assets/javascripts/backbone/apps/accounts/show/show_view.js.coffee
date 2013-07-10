@@ -18,8 +18,10 @@
 
   class Show.Profile extends App.Views.ItemView
     template: "accounts/show/profile"
-    triggers:
-      "click .column-footer-actions button" :     "account:profile:form:submit"
+    form:
+      buttons:
+        primary: "Save Changes"
+        cancel: false
 
   class Show.Password extends App.Views.ItemView
     template: "accounts/show/password"

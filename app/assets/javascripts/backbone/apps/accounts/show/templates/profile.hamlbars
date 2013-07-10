@@ -13,7 +13,7 @@
           %span.inline-label-message
 
         .input-container
-          %input.large{ :type => 'text', :value => '{{email}}' }
+          %input.large{ :type => 'text', :value => '{{email}}', name: 'email'}
       %fieldset
         %label
           Photo
@@ -45,7 +45,7 @@
           %span.inline-label-message
 
         .input-container
-          %input.large{ :type => 'text', :value => '{{display_name}}' }
+          %input.large{ :type => 'text', :value => '{{display_name}}', name: 'display_name' }
 
   .block.bordered-top.large.group
     .form
@@ -53,7 +53,7 @@
         %label
           Full Name
         .input-container
-          %input.large{ :type => 'text', :value => '{{name}}' }
+          %input.large{ :type => 'text', :value => '{{name}}', name: 'name' }
       %fieldset
         %label
           Language
@@ -75,8 +75,3 @@
         .input-container
           %select
             %option Philippines
-
-  .column-footer-actions.bordered
-    .block.large
-      %button.btn.action{ :type => "submit" }
-        Save Changes
