@@ -22,11 +22,16 @@ set :deploy_via, :remote_cache
 set :scm, :git
 set :repository, "git@bitbucket.org:offerchat/dashboard.git"
 
+# DB Config
+after 'deploy:finalize_update', 'db:update_config'
+namespace :db do
+  task :update_config do
+    run "cp -f #{release_path}/config/database.yml.deploy #{release_path}/config/database.yml"
+  end
+end
+
 # Run migrations
 after  'deploy:update_code', 'deploy:migrate'
-before 'deploy:assets:precompile', 'deploy:setup_db'
-
-# If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
   after 'deploy:create_symlink', 'deploy:pictures:symlink'
 
@@ -35,10 +40,6 @@ namespace :deploy do
     task :symlink do
       run "cd #{current_path}/public; rm -rf system; ln -s #{shared_path}/system ."
     end
-  end
-
-  task :setup_db do
-    run "cp #{current_path}/config/database.yml.deploy #{current_path}/config/database.yml"
   end
 
   task :start do ; end
