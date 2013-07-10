@@ -109,6 +109,8 @@
 
 
 .profile-status-dropdown
+  z-index: 110
+  
   position: absolute
   background-color: $sidebar-color
   @include transition(.2s)
@@ -146,7 +148,7 @@
     border-style: solid
 .settings-dropdown
   @extend .profile-status-dropdown
-  z-index: 110
+
   left: -112px
   .dropdown-pointer
     right: 12px
