@@ -4,17 +4,14 @@
 
     initialize: (options)->
       console.log options
-      @profile = App.request "get:current:profile"
-
-      @listenTo @profile, "changeErrors", =>
-        alert 1
+      profile = App.request "get:current:profile"
       
-      App.execute "when:fetched", @profile, =>
+      App.execute "when:fetched", profile, =>
         @layout = @getLayoutView()
         
         @listenTo @layout, "show", =>
           @sidebarRegion(options.section)
-          @getMainRegion(options.section)
+          @getMainRegion(profile, options.section)
           
         @show @layout
 
@@ -30,22 +27,22 @@
       @layout.accountSidebarRegion.show navView
       @setSelectedNav(navView, section)
 
-    getMainRegion: (section) ->
+    getMainRegion: (profile, section) ->
       if section is "profile"
-        @getProfileRegion()
+        @getProfileRegion(profile)
       else if section is "password"
-        @getPasswordRegion()
+        @getPasswordRegion(profile)
 
-    getProfileRegion: ->
-      profileView = @getProfileView(@profile)
+    getProfileRegion: (profile)->
+      profileView = @getProfileView(profile)
       formView = App.request "form:wrapper", profileView
-      @profile.url = Routes.profiles_path()
+      profile.url = Routes.profiles_path()
       @layout.accountRegion.show formView
 
-    getPasswordRegion: ->
-      passwordView = @getPasswordView(@profile)
+    getPasswordRegion: (profile)->
+      passwordView = @getPasswordView(profile)
       formView = App.request "form:wrapper", passwordView
-      @profile.url = Routes.passwords_path()
+      profile.url = Routes.passwords_path()
       @layout.accountRegion.show formView
       
     getPasswordView: (model)->
