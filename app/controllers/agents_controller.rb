@@ -4,7 +4,7 @@ class AgentsController < ApplicationController
   respond_to :json
 
   def index
-    @agents = current_user.my_agents
+    @agents = current_user.agents
   end
 
   def create
