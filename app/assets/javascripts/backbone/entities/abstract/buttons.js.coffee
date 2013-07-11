@@ -29,3 +29,6 @@
 
   App.reqres.setHandler "form:button:entities", (buttons = {}, model) ->
     API.getFormButtons buttons, model
+    
+  App.reqres.setHandler "modal:button:entities", (buttons = {}, model) ->
+    API.getFormButtons buttons, model

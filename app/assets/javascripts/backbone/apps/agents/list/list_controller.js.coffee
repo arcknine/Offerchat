@@ -4,10 +4,19 @@
 
     initialize: ->
       @layout = @getLayoutView()
+      user = App.request("get:current:user:json")
       agents = App.request "agents:entities"
+      @websites = App.request "site:entities"
+      @sites = App.request "new:site:entities"
+      
+
+      App.execute "when:fetched", @websites, =>
+        self = @
+        @websites.each (item) ->
+          if item.get("owner_id") is user.id
+            self.sites.add item
 
       @layout.on "show", =>
-        # @showSeats agents # temporary seats set
         @showAgents agents
 
       App.mainRegion.show @layout
@@ -18,6 +27,16 @@
 
     showAgents: (agents) ->
       agentsView = @getAgentsView agents
+      @listenTo agentsView, "childview:agent:selection:clicked", (item)->
+        
+        showAgentView = @getShowAgentView(item.model, @sites)
+        modalAgentView = App.request "modal:wrapper", showAgentView
+
+        @listenTo modalAgentView, "modal:close", (item)->
+          modalAgentView.close()
+        
+        App.modalRegion.show modalAgentView
+        
       @layout.agentsRegion.show agentsView
 
     getLayoutView: ->
@@ -29,3 +48,9 @@
 
     getSeatsView: (seats) ->
       new List.Seats seats
+      
+    getShowAgentView: (model, websites) ->
+      new List.ShowAgent
+        model: model
+        websites: websites
+    
