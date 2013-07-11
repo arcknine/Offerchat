@@ -16,11 +16,10 @@ class WebsitesController < ApplicationController
   end
 
   def create
-    @website = Website.new(params)
-    if @website.save
-      format.json { render json: @website, status: :created, location: @website }
-    else
-      format.json { render json: @website.errors, status: :unprocessable_entity }
+    @website = current_user.websites.new(params[:website])
+
+    unless @website.save
+      respond_with @website
     end
   end
 

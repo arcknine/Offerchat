@@ -4,7 +4,7 @@
     appRoutes:
       "websites" : "list"
       "websites/new" : "show"
-      "websites/preview" : "show"
+      "websites/preview" : "editSettings"
 
   API =
     list: ->
@@ -12,9 +12,14 @@
         region: App.mainRegion
 
     show: ->
-      console.log "showwwww"
       new WebsitesApp.Show.Controller
         region: App.mainRegion
+        section: "new"
+
+    editSettings:  ->
+      new WebsitesApp.Show.Controller
+        region: App.mainRegion
+        section: 'preview'
 
   App.addInitializer ->
     new WebsitesApp.Router

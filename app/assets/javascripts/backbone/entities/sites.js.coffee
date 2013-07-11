@@ -2,10 +2,15 @@
 
   class Entities.Site extends App.Entities.Model
     urlRoot: "/websites"
+    defaults:
+      url: ''
+      name: ''
 
   class Entities.SiteCollection extends App.Entities.Collection
     model: Entities.Site
     url: "/websites"
+
+
 
   API =
     getSites: ->
