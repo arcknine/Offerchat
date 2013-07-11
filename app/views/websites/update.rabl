@@ -1,2 +1,2 @@
-@website
+object @website
 extends "websites/attributes"
