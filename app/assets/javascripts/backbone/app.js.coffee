@@ -12,7 +12,7 @@
     selectorSidebarRegion:  "#site-selector-region"
     chatSidebarRegion:      "#chat-sidebar-region"
     mainRegion:             "#main-region"
-    modalRegion:            ModalRegion
+    modalRegion:            "#modal-region"
 
   App.addInitializer ->
     App.module("NavigationApp").start()

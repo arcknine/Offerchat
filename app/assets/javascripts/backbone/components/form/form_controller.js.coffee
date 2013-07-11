@@ -33,10 +33,13 @@
       @show @contentView
     
     getFormLayout: (options = {}) ->
+      
       config = @getDefaultConfig _.result(@contentView, "form")
       _.extend config, options
-      
-      buttons = @getButtons config.buttons
+      console.log config
+
+      if typeof config.buttons isnt "undefined"
+        buttons = @getButtons config.buttons
 
       new Form.FormWrapper
         config: config
@@ -44,6 +47,7 @@
         buttons: buttons
     
     getDefaultConfig: (config = {}) ->
+      console.log config
       _.defaults config,
         footer: true
         focusFirstInput: true

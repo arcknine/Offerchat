@@ -3,7 +3,7 @@
   class Show.Controller extends App.Controllers.Base
 
     initialize: (options)->
-      console.log options
+
       profile = App.request "get:current:profile"
       
       App.execute "when:fetched", profile, =>
@@ -35,6 +35,7 @@
 
     getProfileRegion: (profile)->
       profileView = @getProfileView(profile)
+      console.log profileView 
       formView = App.request "form:wrapper", profileView
       profile.url = Routes.profiles_path()
       @layout.accountRegion.show formView
