@@ -19,9 +19,6 @@
           App.modalRegion.hideModal modalView
 
         App.modalRegion.showModal formView
-         # @listenTo modalView, "close:modal", =>
-         #  App.modalRegion.hideModal modalView
-
 
       App.mainRegion.show sitesView
 
