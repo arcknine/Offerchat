@@ -2,11 +2,9 @@
 
   class WebsitesApp.Router extends Marionette.AppRouter
     appRoutes:
-
       "websites"         : "list"
       "websites/new"     : "new"
       "websites/preview" : "preview"
-
 
   API =
     list: ->

@@ -2,14 +2,19 @@
 
   class Entities.Site extends App.Entities.Model
     urlRoot: "/websites"
+    defaults:
+      url: ''
+      name: ''
 
   class Entities.SiteCollection extends App.Entities.Collection
     model: Entities.Site
     url: "/websites"
 
+
   class Entities.MySiteCollection extends App.Entities.Collection
     model: Entities.Site
     url: Routes.my_sites_websites_path()
+
 
   API =
     newSites: ->
