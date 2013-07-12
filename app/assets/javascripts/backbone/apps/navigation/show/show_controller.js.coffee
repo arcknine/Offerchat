@@ -59,6 +59,10 @@
       @listenTo navView, "agent:menu:clicked", (child) ->
         @hideDropdowns child
 
+      @listenTo navView, "settings:menu:clicked", (child) ->
+        App.navigate Routes.settings_path(), trigger: true
+        @hideDropdowns child
+
       # @listenTo navView, "knowlegdebase:menu:clicked", (child) ->
       #   console.log child
 
