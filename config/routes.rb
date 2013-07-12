@@ -3,6 +3,8 @@ Dashboard::Application.routes.draw do
   resource :profiles
   resources :agents
 
+  resource :settings
+
   devise_for :users, :controllers => {
     :registrations => "registrations"
   }
