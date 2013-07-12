@@ -11,7 +11,11 @@
 
   class Show.SecondStep extends App.Views.ItemView
     template: "websites/show/preview"
-    className: "main-content-view"
+    triggers:
+      "click a.btn":                        "click:back:preview"
+      # "click a#widgetPositionLeft":         "click:widgetposition:left"
+      # "click a#widgetPositionRight":        "click:widgetposition:right"
+      "click .widget-position-selector a":   "click:widget:toggle"
     form:
       buttons:
         primary: false

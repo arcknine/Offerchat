@@ -16,6 +16,7 @@
 
 
 
+
       console.log "done initializing website controller....."
 
 
@@ -28,9 +29,16 @@
         App.mainRegion.show formView
       else if section is "preview"
         secondView = @fourthStepView model
-        formView = App.request "form:wrapper", secondView
-        console.log formView
-        App.mainRegion.show formView
+
+        @listenTo secondView , "click:back:preview", (item) =>
+          App.modalRegion.hideModal secondView
+          App.navigate '#websites/new', trigger: true
+
+        @listenTo secondView, "click:widget:toggle", (item) =>
+          @toggleWidgetPoistion(item,'right')
+
+        App.modalRegion.showModal secondView
+
 
     thirdStepView: (model) ->
       new Show.FirstStep
@@ -39,5 +47,18 @@
     fourthStepView: (model) ->
       new Show.SecondStep
         model: model
+
+
+    toggleWidgetPoistion: (item,direction) ->
+
+      item.view.$el.find(".widget-position-selector > a").removeClass("active")
+      if direction is "left"
+        item.view.$el.find("a#widgetPositionLeft").addClass("active")
+      else
+        item.view.$el.find("a#widgetPositionRight").addClass("active")
+
+      # item.view.$el.addClass("active")
+      console.log "e toggle na bai!"
+
 
 
