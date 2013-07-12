@@ -15,7 +15,9 @@
     itemViewContainer: "ul"
 
   class List.ModalWebsite extends App.Views.ItemView
-    template: "websites/list/modal_website"
-    className: "modal"
-    triggers:
-      "click a.close" : "click:close:modal"
+    template: "websites/list/modal"
+    className: "form form-inline"
+    form:
+      buttons:
+        primary: "Save changes"
+        cancel:  "Cancel"

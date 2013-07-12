@@ -13,12 +13,16 @@
 
       @listenTo sitesView, "childview:click:edit:website", (site) =>
         modalView = @getEditWebsiteModalView site
-        formView  = App.request "form:wrapper", modalView
+        formView  = App.request "modal:wrapper", modalView
 
-        @listenTo modalView, "click:close:modal", =>
-          App.modalRegion.hideModal modalView
+        @listenTo formView, "modal:close", (item)->
+          formView.close()
 
-        App.modalRegion.showModal formView
+        App.modalRegion.show formView
+        # @listenTo modalView, "click:close:modal", =>
+        #   App.modalRegion.hideModal modalView
+
+        # App.modalRegion.showModal formView
 
       App.mainRegion.show sitesView
 
