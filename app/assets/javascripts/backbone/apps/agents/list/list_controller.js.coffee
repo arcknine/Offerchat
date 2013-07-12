@@ -30,7 +30,8 @@
       @listenTo agentsView, "childview:agent:selection:clicked", (item)->
         
         showAgentView = @getShowAgentView(item.model, @sites)
-        modalAgentView = App.request "modal:wrapper", showAgentView
+        formAgentView = App.request "form:wrapper", showAgentView
+        modalAgentView = App.request "modal:wrapper", formAgentView
 
         @listenTo modalAgentView, "modal:close", (item)->
           modalAgentView.close()
