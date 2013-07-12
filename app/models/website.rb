@@ -46,6 +46,7 @@ class Website < ActiveRecord::Base
     settings.style
   end
 
+
   def save_settings(params)
     components = params.keys
     components.each do |c|
@@ -57,6 +58,7 @@ class Website < ActiveRecord::Base
 
     self.save
   end
+
 
   private
 
@@ -77,7 +79,9 @@ class Website < ActiveRecord::Base
     GenerateRostersWorker.perform_async(self.id)
   end
 
+
   def delete_accounts
     accounts.destroy_all
   end
+
 end

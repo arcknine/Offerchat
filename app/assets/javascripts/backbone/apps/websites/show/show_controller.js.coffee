@@ -10,6 +10,7 @@
       @getMainRegion(options.section, website)
 
       @listenTo website, "updated", (model) =>
+        console.log model
         step = model.get('id')
         if step is "step_three"
           App.navigate '#websites/preview', trigger: true
@@ -31,13 +32,13 @@
         secondView = @fourthStepView model
 
         @listenTo secondView , "click:back:preview", (item) =>
-          App.modalRegion.hideModal secondView
+          App.previewRegion.hideModal secondView
           App.navigate '#websites/new', trigger: true
 
         @listenTo secondView, "click:widget:toggle", (item) =>
           @toggleWidgetPoistion(item,'right')
 
-        App.modalRegion.showModal secondView
+        App.previewRegion.showModal secondView
 
 
     thirdStepView: (model) ->

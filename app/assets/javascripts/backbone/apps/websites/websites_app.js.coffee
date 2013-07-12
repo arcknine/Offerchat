@@ -11,7 +11,6 @@
       new WebsitesApp.List.Controller
         region: App.mainRegion
 
-
     new: ->
       new WebsitesApp.New.Controller
         region: App.mainRegion

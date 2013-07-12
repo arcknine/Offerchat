@@ -1,10 +1,10 @@
 @Offerchat.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
   class Entities.Site extends App.Entities.Model
-    urlRoot: "/websites"
-    defaults:
-      url: ''
-      name: ''
+    url: "/website"
+
+  class Entities.NewSite extends App.Entities.Model
+    url: "/websites/new"
 
   class Entities.SiteCollection extends App.Entities.Collection
     model: Entities.Site
