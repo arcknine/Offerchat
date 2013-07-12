@@ -3,9 +3,14 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: ->
-      sites = App.request "site:entities"
-
+      @newSite  = App.request "new:site:entities"
+      sites     = App.request "site:entities"
       sitesView = @getWebsitesView sites
+
+      App.mainRegion.show sitesView
+
+      @listenTo sitesView, "click:new:website", =>
+        console.log "transfer to another page"
 
       @listenTo sitesView, "childview:click:delete:website", (site) =>
         if confirm("Are you sure you want to delete this website?")
@@ -19,12 +24,6 @@
           formView.close()
 
         App.modalRegion.show formView
-        # @listenTo modalView, "click:close:modal", =>
-        #   App.modalRegion.hideModal modalView
-
-        # App.modalRegion.showModal formView
-
-      App.mainRegion.show sitesView
 
     getWebsitesView: (sites) ->
       new List.Websites
