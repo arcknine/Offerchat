@@ -13,3 +13,10 @@
   class Preview.Settings extends App.Views.ItemView
     template:  "websites/preview/settings"
     className: "control-modal"
+
+  class Preview.Widget extends App.Views.ItemView
+    template: "websites/preview/widget"
+    className: "widget-box widget-theme theme-darkslategrey"
+
+  class Preview.Color extends App.Views.ItemView
+    template: "websites/preview/color"

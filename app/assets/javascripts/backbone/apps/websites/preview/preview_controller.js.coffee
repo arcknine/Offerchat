@@ -11,6 +11,7 @@
       @listenTo @layout, "show", =>
         @iframeRegion website
         @settingsRegion website
+        @widgetRegion website
         # @getMainRegion(profile, options.section)
 
       App.previewRegion.show @layout
@@ -21,10 +22,23 @@
       iframeView = @getIframeView website
       @layout.iframeRegion.show iframeView
 
+    widgetRegion: (website) ->
+      widgetView = @getWidgetView website
+      @layout.widgetRegion.show widgetView
+
     settingsRegion: (website) ->
+
       settingsView = @getSettingsView website
+      # settingsView = @getColorView website
       formSettings = App.request "form:wrapper", settingsView
+
+      @listenTo website, "updated", (model) =>
+
+
       @layout.settingsRegion.show formSettings
+
+    getColorView: ->
+      new Preview.Color
 
     getLayoutView: ->
       new Preview.Layout
@@ -36,3 +50,6 @@
     getSettingsView: (website) ->
       new Preview.Settings
         model: website
+
+    getWidgetView: ->
+      new Preview.Widget
