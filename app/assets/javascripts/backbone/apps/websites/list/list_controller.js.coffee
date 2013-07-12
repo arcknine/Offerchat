@@ -11,10 +11,10 @@
       @listenTo sitesView, "click:new:website", =>
          App.navigate Routes.new_website_path(), trigger: true
 
-
       @listenTo sitesView, "childview:click:delete:website", @deleteSite
 
       @listenTo sitesView, "childview:click:edit:website", @showModal
+
 
 
     getWebsitesView: (sites) ->
