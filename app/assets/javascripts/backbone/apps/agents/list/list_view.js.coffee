@@ -22,9 +22,11 @@
       "click .agent-selection-new": "new:agent:clicked"
 
 
+
   class List.Seats extends App.Views.CompositeView
     template:  "agents/list/seats"
     className: "go-right align-right"
+
 
   class List.Show extends App.Views.ItemView
     template:  "agents/list/show"
@@ -46,3 +48,4 @@
         cancel: false
         placement: "right"
       title: "Invite a user to be an agent"
+
