@@ -19,8 +19,7 @@
       "click #controlColorContent a" : "changeColor"
 
     changeColor: (e) ->
-      $("#controlColorContent a").removeClass("active")
-      $(e.currentTarget).addClass("active")
+      @trigger "style:color:clicked", e
     form:
       buttons:
         primary: "Save Changes"
