@@ -1,0 +1,13 @@
+.block
+  %h2 Welcome {{user.name}}, let's try out your chat widget
+  %p Match the look of your widget to your website. Set position or add attention grabbers
+
+  .widget-preview-form.form.form-inline
+    %fieldset.widget-preview-form
+      %label
+        %strong Enter url
+
+      %input.large{ :placeholder => "http://www.yourwebsite.com", :type => "text", :name => "url" }
+
+      %button.btn.action#create-new-website{ :type => "submit" }
+        Try it

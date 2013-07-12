@@ -39,7 +39,12 @@ class Website < ActiveRecord::Base
   end
 
   def unread; 0; end
-  
+
+  def style
+    settings.style
+  end
+
+
   private
 
   def generate_api_key
@@ -58,5 +63,4 @@ class Website < ActiveRecord::Base
   def generate_rosters
     GenerateRostersWorker.perform_async(self.id)
   end
-
 end

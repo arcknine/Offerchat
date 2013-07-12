@@ -18,6 +18,7 @@ class WebsitesController < ApplicationController
   end
 
   def create
+    # params[:website] = { :name => params[:website]["name"], :url => parans[:] }
     @website = current_user.websites.new(params[:website])
 
     unless @website.save

@@ -1,5 +1,5 @@
  var ModalRegion = Backbone.Marionette.Region.extend({
-  el: "#modal",
+  el: "#preview-region",
 
   constructor: function(){
     _.bindAll(this);
@@ -14,6 +14,7 @@
   },
 
   showModal: function(view){
+    console.log(view);
     this.show(view)
     view.on("close", this.hideModal, this);
     // this.$el.modal('show');

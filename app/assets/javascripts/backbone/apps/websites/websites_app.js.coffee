@@ -2,14 +2,22 @@
 
   class WebsitesApp.Router extends Marionette.AppRouter
     appRoutes:
-      "websites" : "list"
-      "websites/new" : "show"
-      "websites/preview" : "editSettings"
+      "websites"         : "list"
+      "websites/new"     : "new"
+      "websites/preview" : "preview"
 
   API =
     list: ->
       new WebsitesApp.List.Controller
         region: App.mainRegion
+
+    new: ->
+      new WebsitesApp.New.Controller
+        region: App.mainRegion
+
+    preview: ->
+      new WebsitesApp.Preview.Controller
+        region: App.previewRegion
 
     show: ->
       new WebsitesApp.Show.Controller
