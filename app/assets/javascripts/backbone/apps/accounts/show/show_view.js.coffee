@@ -18,6 +18,10 @@
 
   class Show.Profile extends App.Views.ItemView
     template: "accounts/show/profile"
+    triggers:
+      "click div.btn-action-selector"   : "change:photo:clicked"
+      "change input.file-input"         : "upload:button:change"
+      "blur input.file-input"           : "upload:button:blur"
     form:
       buttons:
         primary: "Save Changes"
@@ -33,16 +37,16 @@
   class Show.Notifications extends App.Views.ItemView
     template:  "accounts/show/notifications"
     className: "column-content-container"
-  
+
     triggers:
       "click label.checkbox" :                    "notification:checkbox:clicked"
-  
-  
+
+
   class Show.Invoice extends App.Views.ItemView
     template:   "accounts/show/invoice"
     tagName:    "div"
     className:  "table-row group"
-  
+
   class Show.Invoices extends App.Views.CompositeView
     template: "accounts/show/invoices"
     itemViewContainer: "div"

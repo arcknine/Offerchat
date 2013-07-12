@@ -84,10 +84,6 @@
       @include transition(.2s)
       &:hover
         opacity: 1
-      &.active
-        background-color: darken(#363d45, 10%)
-        opacity: 1
-        box-shadow: 0 1px 3px black inset
       &.header-nav-reports
         background-image: image-url("image-sprite.png")
         background-repeat: none
@@ -96,6 +92,16 @@
         background-image: image-url("image-sprite.png")
         background-repeat: none
         background-position: 10px -156px
+    &.open
+      & > a
+        background-color: darken(#363d45, 10%)
+        opacity: 1
+        box-shadow: 0 1px 3px black inset
+      .profile-status-dropdown
+        visibility: visible
+        opacity: 1
+        margin-top: 7px
+      
   .profile-status
     margin-top: -6px
     & > a
@@ -103,14 +109,15 @@
       padding: 7px 13px
       
     .profile-status-dropdown
-      margin-top: 7px
+      margin-top: 0px
     .profile-image-container
       top: 7px
 
 
 .profile-status-dropdown
   z-index: 110
-  
+  opacity: 0
+  visibility: hidden
   position: absolute
   background-color: $sidebar-color
   @include transition(.2s)
@@ -148,7 +155,7 @@
     border-style: solid
 .settings-dropdown
   @extend .profile-status-dropdown
-
+  
   left: -112px
   .dropdown-pointer
     right: 12px

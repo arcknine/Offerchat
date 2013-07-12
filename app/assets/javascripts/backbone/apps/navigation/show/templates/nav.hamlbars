@@ -1,25 +1,30 @@
-.global-notification.hide
+.global-notification
   .notify
+    %a.close
+      &times;
     Great! Your chat widget is installed successfully, you’re ready to chat.
     %a Change your chat preferences here
 
 .header.group
   %a#root-path-link.logo
   %ul.header-inline-list.primary-user-nav
-    %li
+
+    %li.reports-menu-link
       %a.header-nav-reports
         Reports
-    %li
-      %a.header-nav-history#history-menu-link
+
+    %li.history-menu-link
+      %a.header-nav-history
         History
+
     %li.profile-status
-      %a#profile-status-toggle
+      %a
         .profile-image-container
           .profile-image
             %img{src: '{{avatar}}'}
           %span.status.online
             %i.icon.icon-check-small
-      %ul.profile-status-dropdown.hide.dropdowns
+      %ul.profile-status-dropdown
         %li
           %a
             %span.status
@@ -31,10 +36,11 @@
               %i.icon.icon-small-x
             Signout
         .dropdown-pointer
+
     %li.profile-settings.header-settings
-      %a#settings-dropdown-toggle
+      %a
         %i.icon.icon-gear-large
-      %ul.settings-dropdown.hide.dropdowns
+      %ul.settings-dropdown
         %li
           %a#settings-menu-link
             Settings
