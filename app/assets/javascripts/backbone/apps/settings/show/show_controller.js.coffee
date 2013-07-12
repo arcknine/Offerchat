@@ -41,9 +41,8 @@
     getStyleRegion: ->
       styleView = @getStyleView(@websites.first())
 
-      @listenTo styleView, "style:color:clicked", (element) =>
-        $("#controlColorContent a").removeClass("active")
-        $(element.currentTarget).addClass("active")
+      @listenTo styleView, "style:color:clicked", (item) =>
+        console.log(item)
 
       formView = App.request "form:wrapper", styleView
       @layout.settingsRegion.show formView
