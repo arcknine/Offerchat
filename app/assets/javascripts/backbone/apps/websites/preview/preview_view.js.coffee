@@ -26,11 +26,10 @@
       $('#greeting-count').text(greetingLenght)
       @trigger "keyup:change:greeting", greetingValue
 
+
   class Preview.Widget extends App.Views.ItemView
     template: "websites/preview/widget"
     className: "widget-box widget-theme theme-darkslategrey"
-
-
 
   class Preview.Colors extends App.Views.CompositeView
     template: "websites/preview/colors"
@@ -96,6 +95,7 @@
         $('.widget-wrapper').addClass('widget-fixed-right')
 
       @trigger "select:position", positionValue
+
 
 
 

@@ -15,6 +15,7 @@
         @settingsRegion website
         @widgetRegion website
 
+
       App.previewRegion.show @layout
 
 
@@ -27,6 +28,7 @@
       @layout.widgetRegion.show widgetView
 
     settingsRegion: (website) ->
+<<<<<<< HEAD
       @showSettingsView website
       @listenTo website, "updated", (model) =>
 
@@ -58,6 +60,9 @@
       new Preview.Position
         model: website
 
+    getColorView: ->
+      new Preview.Color
+
     getLayoutView: ->
       new Preview.Layout
 
@@ -71,7 +76,6 @@
 
     getWidgetView: ->
       new Preview.Widget
-
 
     showSettingsView:(model) ->
       settingsView = @getSettingsView model
@@ -130,14 +134,3 @@
       counterValue = $("#greeting").val()
       remainLength = 33 - counterValue.length
       $("#greeting-count").text(remainLength)
-
-
-
-
-
-
-
-
-
-
-
