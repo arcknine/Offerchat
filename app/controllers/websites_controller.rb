@@ -11,7 +11,9 @@ class WebsitesController < ApplicationController
     @website = current_user.websites.new
   end
 
+
   def show
+
     @website = current_user.websites.find params[:id]
   end
 
