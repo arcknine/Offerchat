@@ -17,8 +17,10 @@
     template: "settings/show/style"
     events:
       "click #controlColorContent a" : "changeColor"
+
     changeColor: (e) ->
       @trigger "style:color:clicked", e
+
     form:
       buttons:
         primary: "Save Changes"
