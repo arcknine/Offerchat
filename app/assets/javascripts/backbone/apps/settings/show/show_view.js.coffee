@@ -20,6 +20,7 @@
 
     changeColor: (e) ->
       @trigger "style:color:clicked", e
+
     form:
       buttons:
         primary: "Save Changes"
