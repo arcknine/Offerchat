@@ -6,6 +6,8 @@ describe Website do
   it { should have_many(:rosters) }
   it { should belong_to(:owner) }
 
+  it { should validate_presence_of :name }
+
   describe "website creation" do
     before(:each) do
       @website = Fabricate(:website)

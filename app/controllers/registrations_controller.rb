@@ -10,6 +10,8 @@ class RegistrationsController < Devise::RegistrationsController
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
         redirect_to ( signup_wizard_path('step_three') )
+        #redirect_to root_path, :anchor => '#step_three'
+
       end
     else
       clean_up_passwords resource

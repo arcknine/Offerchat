@@ -12,8 +12,8 @@
       buttons = @getDefaultButtons buttons, model
 
       array = []
-      array.push { type: "cancel",   className: "button small secondary radius btn", text: buttons.cancel                         } unless buttons.cancel is false
-      array.push { type: "primary", className: "button radius btn action", text: buttons.primary, buttonType: "submit" } unless buttons.primary is false
+      array.push { type: "primary", className: "btn action", text: buttons.primary, buttonType: "submit" } unless buttons.primary is false
+      array.push { type: "cancel", className: "btn", text: buttons.cancel } unless buttons.cancel is false
 
       array.reverse() if buttons.placement is "left"
 
@@ -29,6 +29,6 @@
 
   App.reqres.setHandler "form:button:entities", (buttons = {}, model) ->
     API.getFormButtons buttons, model
-    
+
   App.reqres.setHandler "modal:button:entities", (buttons = {}, model) ->
     API.getFormButtons buttons, model

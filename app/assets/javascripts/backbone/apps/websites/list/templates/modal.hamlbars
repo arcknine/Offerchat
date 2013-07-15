@@ -1,0 +1,15 @@
+%fieldset
+  %label.label-top-fix Website Name
+  .input-container
+    %input.large{ :name => "name", :type => "text", :value => "{{name}}"}
+
+%fieldset
+  %label.label-top-fix URL
+  .input-container
+    %input.large{ :name => "url", :type => "text", :value => "{{url}}"}
+
+%fieldset
+  %label.label-top-fix Javascript code
+  .input-container
+    %textarea.large.widget-text-format{ :style => "height: 90px", :readonly => "" }
+      {{api_key}}

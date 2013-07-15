@@ -1,0 +1,175 @@
+.iframe-wrapper
+  .iframe-cover
+  %iframe#mySite{:src => "http://marionettejs.com/"}
+.control-wrapper{:style => "position: fixed;  padding: 0; background-color: transparent; overflow: hidden; z-index: 9999999999;"}
+  .control-modal
+    .control-header.group
+      %ul.control-breadcrumbs
+        %li.active
+          %a Greeting
+        %li
+          %a Color
+        %li
+          %a Position
+    .control-body
+      / #controlAttentionGrabbers{ :style => 'display: none' }
+      #controlGreeting
+        %h3
+          Set your welcome greeting
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi, deserunt distinction
+        .form.form-inline.hero-form
+          %fieldset
+            .input-container
+              .input-append
+                %input.large{:type => "text", :value => "Hello, How can I help you today?"}
+                  %span.add-on 33
+      #controlPositionContent{:style => "display: none"}
+        %h2
+          Align your widget
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi, deserunt distinction
+        .widget-position-selector
+          %a#widgetPositionLeft
+            .widget-screen
+              .widget-sampler.widget-sampler-left
+            %label
+              left
+          %a#widgetPositionRight.active
+            .widget-screen
+              .widget-sampler.widget-sampler-right
+            %label
+              right
+      #controlColorContent{:style => "display: none"}
+        %h2
+          Pick your color
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi, deserunt distinction
+        .widget-color-selector.group
+          %a.maroon
+          %a.cadmiumreddeep.active
+          %a.faintred
+          %a.rosypink
+          %a.pink3
+          %a.salmon
+          %a.mandy
+          %a.burntumber
+          %a.rustorange
+          %a.cadmiumorange
+          %a.fadedorange
+          %a.goldenbell
+          %a.aureolineyellow
+          %a.sandybrown
+          %a.navajowhite2
+          %a.saddlebrown
+          %a.darkchoco
+          %a.black
+          %a.gray34
+          %a.gray77
+          %a.gray93
+          %a.white
+          %a.brightgray
+          %a.lightgoldenrod2
+          %a.brightyellow
+          %a.gold
+          %a.olivedrab
+          %a.mudyellow
+          %a.darkslategrey
+          %a.nandor
+          %a.green4
+          %a.springgreen
+          %a.greengrass
+          %a.keylime
+          %a.chartreuse
+          %a.salemgreen
+          %a.sushi
+          %a.teal
+          %a.aquamarine
+          %a.cyan
+          %a.manganesegreen
+          %a.astroblue
+          %a.midblue
+          %a.peacock
+          %a.blueribbon
+          %a.royalblue
+          %a.deepskyblue
+          %a.lightblue
+          %a.fblue
+          %a.steelblue
+          %a.endeavor
+          %a.picassoblue
+          %a.slateblue
+          %a.aqua
+          %a.aquablue
+          %a.eggplant
+          %a.hibiscus
+          %a.darkviolet
+          %a.cobaltviolet
+          %a.magenta
+          %a.hiblight
+          %a.mediumpurple
+          %a.velvetpink
+          %a.deeppink
+        .widget-color-selector.group
+          %label#checkboxGradient.inline.checkbox{:for => "checkbox1"}
+            %span.icon
+              .icon-check
+            Gradient
+          %label#checkboxRadius.inline.checkbox{:for => "checkbox1"}
+            %span.icon
+              .icon-check
+            Rounded Corners
+    .control-footer
+      %a.btn
+        Back
+      %a.btn.action
+        Next
+%div{:style => "position: fixed; bottom: 0px; right: 10px; margin: 0; padding: 0; background-color: transparent; overflow: hidden; z-index: 9999999999; height: 421px; width: 306px"}
+  .widget-box.widget-theme.theme-darkslategrey
+    .widget-head.widget-rounded-head.group.widget-gradient
+      %img.agent-thumbnail{:alt => "Avatar-large", :src => "/assets/avatar-large.jpg"}/
+      .widget-agent-name
+        Katie
+      .widget-welcome-msg
+        Hello! How can I help you today?
+    .widget-body
+      .message-item
+        .group
+          .message-author.agent-author
+            Jill
+          .message-date
+            8:00am
+        .message
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, eligendi temporibus sint amet.
+      .message-item
+        .group
+          .message-author
+            You
+          .message-date
+            8:03am
+        .message
+          yes, can you help me?
+    .widget-input
+      %ul.tooltip-options.settings-options
+        %li
+          %a
+            Download transcript
+        %li
+          %a
+            Turn off sound
+        .footer-credits
+          powered by
+          %a
+            Offerchat
+        .caret
+      %ul.tooltip-options.rating-options
+        %li
+          %a
+            %i.widget.icon.icon-thumbs-up-green
+        %li
+          %a
+            %i.widget.icon.icon-thumbs-down-red
+        .caret
+      %i.widget.icon.icon-chat
+      %input.widget-input-text{:placeholder => "Type your question and hit enter", :type => "text"}
+        %a.chat-settings
+          %i.widget.icon.icon-gear
+        %a.chat-rating
+          %i.widget.icon.icon-thumbs-up

@@ -42,4 +42,11 @@ Dashboard::Application.configure do
   USER_SERVICE_ENDPOINT = "plugins/userService/userservice?"
 
   config.action_mailer.delivery_method = :letter_opener
+
+  config.to_prepare do
+    Devise::SessionsController.layout "devise"
+    Devise::ConfirmationsController.layout "devise"
+    Devise::UnlocksController.layout "devise"
+    Devise::PasswordsController.layout "devise"
+  end
 end

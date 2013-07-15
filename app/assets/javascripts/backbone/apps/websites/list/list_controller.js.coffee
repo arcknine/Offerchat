@@ -3,27 +3,17 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: ->
-      sites = App.request "site:entities"
-
-      sitesView = @getWebsitesView sites
-
-      @listenTo sitesView, "childview:click:delete:website", (site) =>
-        if confirm("Are you sure you want to delete this website?")
-          site.model.destroy()
-
-      @listenTo sitesView, "childview:click:edit:website", (site) =>
-        modalView = @getEditWebsiteModalView site
-        formView  = App.request "form:wrapper", modalView
-
-        @listenTo modalView, "click:close:modal", =>
-          App.modalRegion.hideModal modalView
-
-        App.modalRegion.showModal formView
-         # @listenTo modalView, "close:modal", =>
-         #  App.modalRegion.hideModal modalView
-
+      @sites     = App.request "site:entities"
+      sitesView = @getWebsitesView @sites
 
       App.mainRegion.show sitesView
+
+      @listenTo sitesView, "click:new:website", =>
+         App.navigate Routes.new_website_path(), trigger: true
+
+      @listenTo sitesView, "childview:click:delete:website", @deleteSite
+
+      @listenTo sitesView, "childview:click:edit:website", @showModal
 
     getWebsitesView: (sites) ->
       new List.Websites
@@ -32,3 +22,24 @@
     getEditWebsiteModalView: (site) ->
       new List.ModalWebsite
         model: site.model
+
+    deleteSite: (site) ->
+      if confirm("Are you sure you want to delete this website?")
+        site.model.destroy()
+
+    showModal: (site) ->
+      modalView = @getEditWebsiteModalView site
+      formView  = App.request "modal:wrapper", modalView
+
+      @listenTo formView, "modal:close", (item)->
+        formView.close()
+
+      @listenTo formView, "modal:cancel", (item)->
+        formView.close()
+
+      @listenTo @sites, "updated", (site) =>
+        formView.close()
+
+      console.log "formView", formView
+
+      App.modalRegion.show formView

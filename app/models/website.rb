@@ -10,6 +10,7 @@ class Website < ActiveRecord::Base
   belongs_to :owner, :foreign_key => "owner_id", :class_name => "User"
 
   validates_presence_of :url
+  validates_presence_of :name
   validates :url, :format => /^(http(s?):\/\/)?(www\.)+[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,3})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/
 
   has_settings do |s|
@@ -39,7 +40,12 @@ class Website < ActiveRecord::Base
   end
 
   def unread; 0; end
-  
+
+  def style
+    settings.style
+  end
+
+
   private
 
   def generate_api_key
@@ -58,5 +64,4 @@ class Website < ActiveRecord::Base
   def generate_rosters
     GenerateRostersWorker.perform_async(self.id)
   end
-
 end

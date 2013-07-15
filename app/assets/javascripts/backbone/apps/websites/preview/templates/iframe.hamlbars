@@ -1,0 +1,2 @@
+.iframe-cover
+%iframe#mySite{:src => "http://www.dribbble.com"}
