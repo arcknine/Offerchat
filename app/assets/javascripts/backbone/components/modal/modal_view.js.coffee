@@ -3,7 +3,7 @@
   class Modal.ModalWrapper extends App.Views.Layout
     template: "modal/modal"
 
-    tagName: "modal"
+    tagName: "form"
     attributes: ->
       "data-type": @getModalDataType()
 
@@ -14,8 +14,8 @@
       buttonContainer: "ul.inline-list"
 
     triggers:
-      "submit"                              : "modal:submit"
-      "click [data-modal-button='cancel']"  : "modal:cancel"
+      "click [data-form-button='primary']" : "modal:submit"
+      "click [data-form-button='cancel']"  : "modal:cancel"
       "click  a.close"                      : "modal:close"
 
     modelEvents:
