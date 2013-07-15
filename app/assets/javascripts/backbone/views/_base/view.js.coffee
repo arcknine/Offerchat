@@ -17,7 +17,6 @@
 
     toggleDropDown: (options) ->
       open_elem = $(options.element.view.el).find("."+options.openClass)
-      console.log options.element.view.el
 
       @closeDropDown open_elem
       @setActiveObject options
