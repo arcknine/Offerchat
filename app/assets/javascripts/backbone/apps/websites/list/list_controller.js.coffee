@@ -3,8 +3,8 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: ->
-      sites     = App.request "site:entities"
-      sitesView = @getWebsitesView sites
+      @sites     = App.request "site:entities"
+      sitesView = @getWebsitesView @sites
 
       App.mainRegion.show sitesView
 
@@ -37,7 +37,9 @@
       @listenTo formView, "modal:cancel", (item)->
         formView.close()
 
+      @listenTo @sites, "updated", (site) =>
+        formView.close()
+
       console.log "formView", formView
 
       App.modalRegion.show formView
-
