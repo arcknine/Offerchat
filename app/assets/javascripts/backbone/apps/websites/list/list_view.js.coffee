@@ -23,3 +23,4 @@
       buttons:
         primary: "Save changes"
         cancel:  "Cancel"
+      title: "Edit Website"
