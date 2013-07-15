@@ -4,7 +4,7 @@
 
     initialize: (options = {}) ->
       @contentView = options.view
-
+      console.log options.config
       @modalLayout = @getModalLayout options.config
       @listenTo @modalLayout, "show", @modalContentRegion
       @listenTo @modalLayout, "modal:submit", @modalSubmit
@@ -40,14 +40,19 @@
       if typeof config.buttons isnt "undefined"
         buttons = @getButtons config.buttons
 
+      if typeof config.title isnt "undefined"
+        title = config.title
+
       new Modal.ModalWrapper
         config: config
         model: @contentView.model
         buttons: buttons
+        title: title
 
     getDefaultConfig: (config = {}) ->
       console.log config
       _.defaults config,
+        title: "New"
         footer: true
         focusFirstInput: true
         errors: true

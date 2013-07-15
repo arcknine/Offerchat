@@ -18,16 +18,28 @@
     className:         "block large group"
     itemView:          List.Agent
     itemViewContainer: "div#agent-list"
+    triggers:
+      "click .agent-selection-new": "new:agent:clicked"
 
 
   class List.Seats extends App.Views.CompositeView
     template:  "agents/list/seats"
     className: "go-right align-right"
 
-  class List.ShowAgent extends App.Views.ItemView
-    template:  "agents/list/show_agent"
+  class List.Show extends App.Views.ItemView
+    template:  "agents/list/show"
     form:
       buttons:
         primary: "Save Changes"
         cancel: false
         placement: "right"
+
+  class List.New extends App.Views.ItemView
+    template:  "agents/list/new"
+    form:
+      buttons:
+        primary: "Save Changes"
+        cancel: false
+        placement: "right"
+    form:
+      title: "New Agent"

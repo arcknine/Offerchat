@@ -9,7 +9,6 @@
       @websites = App.request "site:entities"
       @sites = App.request "new:site:entities"
 
-
       App.execute "when:fetched", @websites, =>
         self = @
         @websites.each (item) ->
@@ -22,11 +21,22 @@
       App.mainRegion.show @layout
 
     showSeats: (seats) ->
-      seatsView = @getSeatsView seats
+      seatsView = @getSeatsView seatsView
       @layout.seatsRegion.show seatsView
 
     showAgents: (agents) ->
       agentsView = @getAgentsView agents
+      
+      @listenTo agentsView, "new:agent:clicked", (item) ->
+        agent = App.request "new:agent:entity"
+        addAgentView = @getAddAgentView(agent, @sites)
+        modalAgentView = App.request "modal:wrapper", addAgentView
+        
+        @listenTo modalAgentView, "modal:close", (item)->
+          modalAgentView.close()
+          
+        App.modalRegion.show modalAgentView
+      
       @listenTo agentsView, "childview:agent:selection:clicked", (item)->
 
         showAgentView = @getShowAgentView(item.model, @sites)
@@ -51,5 +61,10 @@
 
     getShowAgentView: (model, websites) ->
       new List.ShowAgent
+        model: model
+        websites: websites
+
+    getAddAgentView: (model, websites) ->
+      new List.New
         model: model
         websites: websites

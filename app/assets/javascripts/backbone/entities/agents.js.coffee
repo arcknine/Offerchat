@@ -1,13 +1,16 @@
 @Offerchat.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
-  class Entities.Agents extends App.Entities.Model
+  class Entities.Agent extends App.Entities.Model
     urlRoot: Routes.agents_path()
 
   class Entities.AgentsCollection extends App.Entities.Collection
-    model: Entities.Agents
+    model: Entities.Agent
     url: Routes.agents_path()
 
   API =
+    newAgent: ->
+      new Entities.Agent
+      
     getAgents: ->
       agents = new Entities.AgentsCollection
       agents.fetch
@@ -16,3 +19,6 @@
 
   App.reqres.setHandler "agents:entities", ->
     API.getAgents()
+
+  App.reqres.setHandler "new:agent:entity", ->
+    API.newAgent()

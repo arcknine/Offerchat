@@ -27,6 +27,7 @@
       @setInstancePropertiesFor "config", "buttons"
 
     serializeData: ->
+      title: @config.title
       footer: @config.footer
       buttons: @buttons?.toJSON() ? false
 

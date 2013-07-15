@@ -23,3 +23,5 @@
       buttons:
         primary: "Save changes"
         cancel:  "Cancel"
+    form:
+      title: "Edit Website"

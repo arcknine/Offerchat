@@ -3,7 +3,7 @@
     %a.close
       &times;
     %h2
-      Edit website
+      {{title}}
   .modal-body
     #modal-content-region
   .modal-footer.bordered
