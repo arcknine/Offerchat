@@ -9,7 +9,6 @@
       @listenTo @modalLayout, "show", @modalContentRegion
       @listenTo @modalLayout, "modal:submit", @modalSubmit
       @listenTo @modalLayout, "modal:cancel", @modalCancel
-
     modalCancel: ->
       @contentView.triggerMethod "modal:cancel"
 

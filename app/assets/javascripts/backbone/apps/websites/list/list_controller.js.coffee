@@ -28,16 +28,18 @@
         site.model.destroy()
 
     showModal: (site) ->
+
       modalView = @getEditWebsiteModalView site
+
+      @listenTo site.model, "updated", (site) =>
+        formView.trigger "modal:close"
+
       formView  = App.request "modal:wrapper", modalView
 
       @listenTo formView, "modal:close", (item)->
         formView.close()
 
       @listenTo formView, "modal:cancel", (item)->
-        formView.close()
-
-      @listenTo @sites, "updated", (site) =>
         formView.close()
 
       console.log "formView", formView

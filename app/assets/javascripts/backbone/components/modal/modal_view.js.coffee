@@ -14,9 +14,9 @@
       buttonContainer: "ul.inline-list"
 
     triggers:
-      "submit"                            : "modal:submit"
-      "click [data-form-button='cancel']" : "modal:cancel"
-      "click  a.close"                    : "modal:close"
+      "click [data-form-button='primary']" : "modal:submit"
+      "click [data-form-button='cancel']"  : "modal:cancel"
+      "click  a.close"                      : "modal:close"
 
     modelEvents:
       "change:_errors"   : "changeErrors"
