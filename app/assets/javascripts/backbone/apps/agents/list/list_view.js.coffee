@@ -36,6 +36,9 @@
         cancel: false
         placement: "right"
 
+  class List.New extends App.Views.ItemView
+    template: "agents/list/new"
+
   class List.NewLayout extends App.Views.Layout
     template:  "agents/list/new_layout"
     className: "form form-inline invite-user-form"
