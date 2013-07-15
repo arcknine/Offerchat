@@ -7,7 +7,7 @@
       user = App.request("get:current:user:json")
       agents = App.request "agents:entities"
       @websites = App.request "site:entities"
-      @sites = App.request "site:new:entity"
+      @sites = App.request "new:site:entities"
 
 
       App.execute "when:fetched", @websites, =>
@@ -30,8 +30,7 @@
       @listenTo agentsView, "childview:agent:selection:clicked", (item)->
 
         showAgentView = @getShowAgentView(item.model, @sites)
-        formAgentView = App.request "form:wrapper", showAgentView
-        modalAgentView = App.request "modal:wrapper", formAgentView
+        modalAgentView = App.request "modal:wrapper", showAgentView
 
         @listenTo modalAgentView, "modal:close", (item)->
           modalAgentView.close()
