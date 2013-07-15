@@ -13,9 +13,13 @@
     template: "websites/list/websites"
     itemView: List.Website
     itemViewContainer: "ul"
+    triggers:
+      "click a#new-website" : "click:new:website"
 
   class List.ModalWebsite extends App.Views.ItemView
-    template: "websites/list/modal_website"
-    className: "modal"
-    triggers:
-      "click a.close" : "click:close:modal"
+    template: "websites/list/modal"
+    className: "form form-inline"
+    form:
+      buttons:
+        primary: "Save changes"
+        cancel:  "Cancel"

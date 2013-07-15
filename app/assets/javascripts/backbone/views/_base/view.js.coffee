@@ -17,7 +17,6 @@
 
     toggleDropDown: (options) ->
       open_elem = $(options.element.view.el).find("."+options.openClass)
-      console.log options.element.view.el
 
       @closeDropDown open_elem
       @setActiveObject options
@@ -39,7 +38,7 @@
         active_elem.toggleClass "active"
 
     remove: (args...) ->
-      console.log "removing", @
+      # console.log "removing", @
       if @model?.isDestroyed?()
 
         wrapper = @$el.toggleWrapper

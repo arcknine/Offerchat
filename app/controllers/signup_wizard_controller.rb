@@ -2,6 +2,11 @@ class SignupWizardController < ApplicationController
   include Wicked::Wizard
   before_filter :check_restrictions
   steps :step_one, :step_two, :step_three, :step_four, :step_five
+  respond_to :json
+
+  def index
+
+  end
 
   def show
     case step
@@ -59,13 +64,17 @@ class SignupWizardController < ApplicationController
 
     when :step_three
       @website = Website.new
-      @website.url = params[:website]['url']
-      @website.owner_id = current_user.id
-      if @website.save
-        redirect_to signup_wizard_path('step_four')
+      @website.url = params['url']
+      # @website.owner_id = current_user.id
+      session[:website] = {:url => params['url'] }
+      unless @website.valid?
+        respond_with @website
       else
-        redirect_to signup_wizard_path('step_three'), :alert => 'Please select a website that you own'
+        head :no_content
       end
+
+
+
 
     when :step_four
       @website = Website.where(:owner_id => current_user.id).last

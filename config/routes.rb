@@ -15,7 +15,8 @@ Dashboard::Application.routes.draw do
     match '/user/confirmation' => 'confirmations#update', :via => :put, :as => :update_user_confirmation
     get "/login" => "devise/sessions#new"
     post "/login" => "devise/sessions#create"
-    get "/signup" => "devise/registrations#new"
+    get "/signup" => "signup_wizard#show"
+    # get "/signup" => "devise/registrations#new"
     post "/signup" => "devise/registrations#create"
     match "/forgot" => "devise/passwords#new"
     match "/logout" => "devise/sessions#destroy"
@@ -24,6 +25,7 @@ Dashboard::Application.routes.draw do
   resources :websites
   resources :signup_wizard
   resource :passwords
+
   # post 'signup_wizard/step_one' ,:controller => :signup_wizard, :action => 'create'
   # post 'signup_wizard/step_three' ,:controller => :signup_wizard, :action => 'create'
 

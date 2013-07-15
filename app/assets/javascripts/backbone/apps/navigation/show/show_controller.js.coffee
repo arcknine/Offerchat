@@ -68,8 +68,6 @@
       # @listenTo navView, "labs:menu:clicked", (child) ->
       #   console.log child
 
-
-
       App.navigationRegion.show navView
 
     getNavView: (user)->

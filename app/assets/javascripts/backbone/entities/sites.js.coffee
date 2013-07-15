@@ -8,11 +8,23 @@
     url: "/websites"
 
   API =
+    newSites: ->
+      new Entities.SiteCollection
+
     getSites: ->
       site = new Entities.SiteCollection
       site.fetch
         reset: true
       site
 
+    newSite: ->
+      new Entities.Site
+
   App.reqres.setHandler "site:entities", ->
     API.getSites()
+
+  App.reqres.setHandler "site:new:entity", ->
+    API.newSite()
+
+  App.reqres.setHandler "new:site:entities", ->
+    API.newSites()

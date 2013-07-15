@@ -11,8 +11,10 @@
     navigationRegion:       "#header-region"
     selectorSidebarRegion:  "#site-selector-region"
     chatSidebarRegion:      "#chat-sidebar-region"
+    tourSidebarRegion:      "#tour-sidebar-region"
     mainRegion:             "#main-region"
-    modalRegion:            ModalRegion
+    modalRegion:            "#modal-region"
+    previewRegion:          ModalRegion
 
   App.addInitializer ->
     App.module("NavigationApp").start()

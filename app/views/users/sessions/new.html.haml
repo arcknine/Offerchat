@@ -1,0 +1,16 @@
+.login-wrapper
+  .logo-large.centered
+  .login-form.form
+    = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      %fieldset.field-error
+        %label
+          Email
+        = f.email_field :email, :autofocus => true
+      %fieldset
+        %label
+          Password
+        %input{:type => "password"}
+      %fieldset
+        %button.btn.action{:type => "submit"}
+          Login
+        = link_to "I forgot my password", new_password_path(resource_name), :class =>"go-right", :style => "margin-top: 9px"
