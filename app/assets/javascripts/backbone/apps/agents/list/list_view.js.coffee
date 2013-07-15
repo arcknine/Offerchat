@@ -34,12 +34,15 @@
         cancel: false
         placement: "right"
 
-  class List.New extends App.Views.ItemView
-    template:  "agents/list/new"
+  class List.NewLayout extends App.Views.Layout
+    template:  "agents/list/new_layout"
+    className: "form form-inline invite-user-form"
+    regions:
+      agentRegion: "#new-agent-region"
+      sitesRegion: "#new-agent-sites-region"
     form:
       buttons:
         primary: "Save Changes"
         cancel: false
         placement: "right"
-    form:
-      title: "New Agent"
+      title: "Invite a user to be an agent"
