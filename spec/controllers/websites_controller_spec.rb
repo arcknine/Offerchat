@@ -72,7 +72,7 @@ describe WebsitesController do
         do_update("invalid")
 
         JSON.parse(response.body)["errors"].should_not be_blank
-        response.code.should eq "401"
+        response.code.should eq "422"
       end
 
       def do_destroy
