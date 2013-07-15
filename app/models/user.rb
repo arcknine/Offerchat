@@ -34,10 +34,6 @@ class User < ActiveRecord::Base
     accounts.where("website_id = ?", website_id).first
   end
 
-  def pending?
-    created_at == updated_at
-  end
-
   def my_agents
     owner_websites = self.websites.collect(&:id).join(",")
     owner_accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id IN (?) AND role != ?", owner_websites, Account::OWNER)

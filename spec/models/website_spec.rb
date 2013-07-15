@@ -110,4 +110,16 @@ describe Website do
       @website.generate_visitor_id.should =~ /^visitor_[0-9]*_\d{6}/
     end
   end
+
+  describe "after delete of website" do
+    before(:each) do
+      @website = Fabricate(:website)
+      Fabricate(:account, :website => @website)
+    end
+
+    it "should also delete accounts" do
+      @website.destroy
+      @website.accounts.should be_empty
+    end
+  end
 end
