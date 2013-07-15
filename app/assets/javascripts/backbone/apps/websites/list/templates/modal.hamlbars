@@ -1,10 +1,10 @@
 %fieldset
-  %label Website Name
+  %label.label-top-fix Website Name
   .input-container
     %input.large{ :name => "name", :type => "text", :value => "{{name}}"}
 
 %fieldset
-  %label URL
+  %label.label-top-fix URL
   .input-container
     %input.large{ :name => "url", :type => "text", :value => "{{url}}"}
 

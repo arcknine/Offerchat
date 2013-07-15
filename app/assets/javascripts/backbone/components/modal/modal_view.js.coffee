@@ -57,8 +57,9 @@
 
     addError: (name, error) ->
       el = @$("[name='#{name}']")
-      sm = $("<span>", class: 'inline-label-message').text(error)
-      el.closest("fieldset").addClass("field-error").children().first().append(sm)
+      sm = $("<div>", class: 'block-text-message').text(error)
+      el.closest("fieldset").addClass("field-error")
+      el.parent().append(sm)
 
     syncStart: (model) ->
       @addOpacityWrapper() if @config.syncing

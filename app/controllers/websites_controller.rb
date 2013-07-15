@@ -30,10 +30,8 @@ class WebsitesController < ApplicationController
     @website = Website.find(params[:id])
 
     website = params[:website]
-    if @website.update_attributes(:name => website["name"], :url => website["url"])
-      @website
-    else
-      render :json => {errors: @website.errors.full_messages}, status: 401
+    unless @website.update_attributes(:name => website["name"], :url => website["url"])
+      respond_with @website
     end
   end
 
