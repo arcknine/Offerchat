@@ -40,3 +40,4 @@
       console.log "formView", formView
 
       App.modalRegion.show formView
+

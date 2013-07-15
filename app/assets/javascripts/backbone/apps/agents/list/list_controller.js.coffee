@@ -7,7 +7,7 @@
       user = App.request("get:current:user:json")
       agents = App.request "agents:entities"
       @websites = App.request "site:entities"
-      @sites = App.request "new:site:entities"
+      @sites = App.request "site:new:entity"
 
 
       App.execute "when:fetched", @websites, =>
