@@ -22,6 +22,10 @@ class Account < ActiveRecord::Base
     role == Account::AGENT
   end
 
+  def pending?
+    created_at == updated_at && role != Account::OWNER
+  end
+
   private
 
   def add_rosters_to_agent_or_admin

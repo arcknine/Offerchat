@@ -36,7 +36,7 @@ class WebsitesController < ApplicationController
   end
 
   def destroy
-    @website = Website.find(params[:id]).destroy
+    @website = Account.find_by_website_id(params[:id]).destroy
 
     respond_to do |format|
       format.json { head :no_content }
