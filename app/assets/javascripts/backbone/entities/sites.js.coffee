@@ -29,4 +29,3 @@
 
   App.reqres.setHandler "new:site:entities", ->
     API.newSites()
-

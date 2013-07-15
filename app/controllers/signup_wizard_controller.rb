@@ -3,9 +3,6 @@ class SignupWizardController < ApplicationController
   before_filter :check_restrictions
   steps :step_one, :step_two, :step_three, :step_four, :step_five
   respond_to :json
-  def index
-
-  end
 
   def index
 
