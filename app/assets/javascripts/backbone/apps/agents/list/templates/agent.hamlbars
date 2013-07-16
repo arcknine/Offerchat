@@ -6,4 +6,5 @@
 %h3
   {{name}}
 .nickname
-  {{display_name}}
+  {{#unless pending}}{{display_name}}{{/unless}}
+  {{#if pending}}Waiting{{/if}}
