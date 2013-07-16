@@ -3,6 +3,10 @@ class WebsitesController < ApplicationController
   before_filter :current_user_has_website?
   respond_to :json
 
+  def my_sites
+    @websites = current_user.websites
+  end
+
   def index
     @websites = current_user.websites
   end

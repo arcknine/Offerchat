@@ -24,7 +24,12 @@ Dashboard::Application.routes.draw do
     match "/logout" => "devise/sessions#destroy"
   end
 
-  resources :websites
+  resources :websites do
+    collection do
+      get "my_sites"
+    end
+  end
+
   resources :signup_wizard
   resource :passwords
 

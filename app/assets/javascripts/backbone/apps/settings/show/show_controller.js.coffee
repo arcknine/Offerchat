@@ -4,44 +4,22 @@
 
     initialize: (options) ->
       @layout = @getLayoutView()
+      sites = App.request "my:sites:entities"
 
-      @websites = App.request "site:entities"
-
-      App.execute "when:fetched", @websites, =>
+      App.execute "when:fetched", sites, =>
+        @currentSite = sites.first()
 
         @listenTo @layout, "show", =>
-          @initSidebarRegion(options.section)
-          @getMainRegion(options.section)
+          @sitesView sites
+
+        @listenTo @layout, "navigate:settings", (section) =>
+          console.log section
 
         @show @layout
 
-    getMainRegion: (section) ->
-      if section is "langauge"
-        @getLanguageRegion()
-      else if section is "style-and-color"
-        @getStyleRegion()
-
-    initSidebarRegion: (section) ->
-      @listenTo @layout, "nav:language:clicked", =>
-        console.log "language"
-
-      @listenTo @layout, "nav:style:clicked", =>
-        App.navigate '#settings/style', trigger: true
-
-    getLanguageRegion: ->
-      languageView = @getLanguageView
-      formView = App.request "form:wrapper", languageView
-      @layout.settingsRegion.show formView
-
-    getStyleRegion: ->
-      styleView = @getStyleView(@websites.first())
-
-      @listenTo styleView, "style:color:clicked", (element) =>
-        $("#controlColorContent a").removeClass("active")
-        $(element.currentTarget).addClass("active")
-
-      formView = App.request "form:wrapper", styleView
-      @layout.settingsRegion.show formView
+    sitesView: (sites) ->
+      sitesView = @getSitesView sites
+      @layout.sitesRegion.show sitesView
 
     getLayoutView: ->
       new Show.Layout
@@ -50,5 +28,13 @@
       new Show.Style
         model: website
 
+    getSitesView: (sites) ->
+      new Show.Sites
+        collection: sites
+        currentSite: @currentSite
+
     setSelectedNav: (nav, section) ->
       $(nav.el).find("ul li a." + section).addClass('selected')
+
+    showView: (view)->
+      @show view

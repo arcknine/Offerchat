@@ -2,3 +2,4 @@
 
   class Style.Layout extends App.Views.Layout
     template: "settings/style/layout"
+    className: "column-content-container"

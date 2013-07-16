@@ -44,6 +44,11 @@ describe WebsitesController do
         assigns(:websites).should_not be_nil
       end
 
+      it "GET 'index' should have websites" do
+        xhr :get, :my_sites, format: :json
+        assigns(:websites).should_not be_nil
+      end
+
       def do_update(type = "valid")
         if type == "valid"
           xhr :put, :update, id: @website.id, website: valid_put, format: :json

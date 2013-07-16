@@ -9,15 +9,22 @@
       #"settings/forms"              : "editForms"
       #"settings/triggers"           : "editTriggers"
 
-  API =
-    show: ->
-      new SettingsApp.Show.Controller
-        section: "settings"
+    API =
+      show: ->
+        new SettingsApp.Show.Controller
+          # section: "settings"
+          region: App.mainRegion
 
-    editStyle: ->
-      new SettingsApp.Style.Controller
-      region: App.mainRegion
+      editStyle: ->
+        show = API.show()
+        show.listenTo show.layout, "show", =>
+          new SettingsApp.Style.Controller
+            region: show.layout.settingsRegion
 
-  App.addInitializer ->
-    new SettingsApp.Router
-      controller: API
+    App.addInitializer ->
+      new SettingsApp.Router
+        controller: API
+
+
+    App.vent.on "show:settings:view", (section) ->
+      console.log section

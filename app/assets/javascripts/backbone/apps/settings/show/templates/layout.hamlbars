@@ -1,12 +1,12 @@
 .column.sidebar
-  .block.large#settings-websites
+  #settings-websites
   %ul.nav-sidebar-block
     %li
-      %a.style-and-color Style and Color
-      %a.position Widget Position
-      %a.chat-forms Chat Forms
-      %a.chat-triggers Chat Triggers
-      %a.attention-grabbers Attention Grabbers
-      %a.language Language and Labels
+      %a{data: {section: 'langauge'}}Language and Labels
+      %a{data: {section: 'style'}} Style and Color
+      %a{data: {section: 'position'}} Widget Position
+      %a{data: {section: 'attention-grabbers'}} Attention Grabbers
+      %a{data: {section: 'chat-forms'}} Chat Forms
+      %a{data: {section: 'chat-triggers'}} Chat Triggers
 
 #settings-main-region

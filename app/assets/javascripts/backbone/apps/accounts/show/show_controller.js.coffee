@@ -5,7 +5,7 @@
     initialize: (options)->
 
       profile = App.request "get:current:profile"
-      
+
       App.execute "when:fetched", profile, =>
         @layout = @getLayoutView()
 
