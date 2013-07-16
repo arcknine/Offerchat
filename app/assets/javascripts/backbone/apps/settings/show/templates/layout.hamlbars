@@ -2,11 +2,11 @@
   .block.large#settings-websites
   %ul.nav-sidebar-block
     %li
-      %a.language Language and Labels
       %a.style-and-color Style and Color
       %a.position Widget Position
-      %a.attention-grabbers Attention Grabbers
       %a.chat-forms Chat Forms
       %a.chat-triggers Chat Triggers
+      %a.attention-grabbers Attention Grabbers
+      %a.language Language and Labels
 
 #settings-main-region

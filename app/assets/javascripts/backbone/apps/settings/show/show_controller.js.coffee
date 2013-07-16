@@ -10,7 +10,7 @@
       App.execute "when:fetched", @websites, =>
 
         @listenTo @layout, "show", =>
-          # @getSidebarRegion(options.section)
+          @initSidebarRegion(options.section)
           @getMainRegion(options.section)
 
         @show @layout
@@ -20,6 +20,13 @@
         @getLanguageRegion()
       else if section is "style-and-color"
         @getStyleRegion()
+
+    initSidebarRegion: (section) ->
+      @listenTo @layout, "nav:language:clicked", =>
+        console.log "language"
+
+      @listenTo @layout, "nav:style:clicked", =>
+        App.navigate '#settings/style', trigger: true
 
     getLanguageRegion: ->
       languageView = @getLanguageView

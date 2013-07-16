@@ -3,7 +3,6 @@
   class SettingsApp.Router extends Marionette.AppRouter
     appRoutes:
       "settings"                    : "show"
-      "settings/language"           : "editLanguage"
       "settings/style"              : "editStyle"
       #"settings/position"           : "editPosition"
       #"settings/attention_grabbers" : "editAttentionGrabbers"
@@ -15,13 +14,9 @@
       new SettingsApp.Show.Controller
         section: "settings"
 
-    editLanguage: ->
-      new SettingsApp.Show.Controller
-        section: "language"
-
     editStyle: ->
-      new SettingsApp.Show.Controller
-        section: "style-and-color"
+      new SettingsApp.Style.Controller
+      region: App.mainRegion
 
   App.addInitializer ->
     new SettingsApp.Router
