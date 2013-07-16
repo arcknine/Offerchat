@@ -10,22 +10,10 @@
       App.execute "when:fetched", @websites, =>
 
         @listenTo @layout, "show", =>
-          @getSidebarRegion(options.section)
+          # @getSidebarRegion(options.section)
           @getMainRegion(options.section)
 
         @show @layout
-
-    getSidebarRegion: (section) ->
-      navView = @getSidebarNav()
-
-      @listenTo navView, "nav:language:clicked", (item) =>
-        App.navigate '#settings/language', trigger: true
-
-      @listenTo navView, "nav:style:clicked", (item) =>
-        App.navigate '#settings/style', trigger: true
-
-      @layout.settingsSidebarRegion.show navView
-      @setSelectedNav(navView, section)
 
     getMainRegion: (section) ->
       if section is "langauge"
@@ -47,9 +35,6 @@
 
       formView = App.request "form:wrapper", styleView
       @layout.settingsRegion.show formView
-
-    getSidebarNav: ->
-      new Show.Nav
 
     getLayoutView: ->
       new Show.Layout

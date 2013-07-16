@@ -2,19 +2,19 @@
 
   class Show.Layout extends App.Views.Layout
     template: "settings/show/layout"
+    tagName: "span"
 
     regions:
-      settingsSidebarRegion:                       "#settings-sidebar-region"
-      settingsRegion:                              "#settings-main-region"
+      sitesRegion:    "#settings-websites"
+      settingsRegion: "#settings-main-region"
 
-  class Show.Nav extends App.Views.ItemView
-    template: "settings/show/nav"
     triggers:
       "click a.language" : "nav:language:clicked"
       "click a.style-and-color"    : "nav:style:clicked"
 
   class Show.Style extends App.Views.ItemView
-    template: "settings/show/style"
+    template:  "settings/show/style"
+    className: "column-content-container"
     events:
       "click #controlColorContent a" : "changeColor"
 

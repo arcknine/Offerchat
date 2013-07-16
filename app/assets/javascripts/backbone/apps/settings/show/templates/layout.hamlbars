@@ -1,2 +1,12 @@
-#settings-sidebar-region.column.sidebar
-#settings-main-region.column-content-container
+.column.sidebar
+  .block.large#settings-websites
+  %ul.nav-sidebar-block
+    %li
+      %a.language Language and Labels
+      %a.style-and-color Style and Color
+      %a.position Widget Position
+      %a.attention-grabbers Attention Grabbers
+      %a.chat-forms Chat Forms
+      %a.chat-triggers Chat Triggers
+
+#settings-main-region
