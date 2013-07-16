@@ -20,6 +20,7 @@
         show.listenTo show.layout, "show", =>
           new SettingsApp.Style.Controller
             region: show.layout.settingsRegion
+            currentSite: show.currentSite
 
     App.addInitializer ->
       new SettingsApp.Router

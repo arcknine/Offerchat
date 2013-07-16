@@ -13,7 +13,8 @@
           @sitesView sites
 
         @listenTo @layout, "navigate:settings", (section) =>
-          console.log section
+          if section == "style"
+            App.navigate "#settings/style", trigger: true
 
         @show @layout
 
