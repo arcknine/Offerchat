@@ -8,7 +8,6 @@
       "data-type": @getFormDataType()
       "enctype": "multipart/form-data"
 
-
     regions:
       formContentRegion: "#form-content-region"
 
