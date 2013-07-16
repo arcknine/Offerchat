@@ -6,7 +6,7 @@
     tagName: "form"
     attributes: ->
       "data-type": @getFormDataType()
-      "multi-part": true
+      "enctype": "multipart/form-data"
 
 
     regions:

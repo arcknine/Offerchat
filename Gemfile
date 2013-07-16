@@ -47,6 +47,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'hamlbars', '~> 2.0'
   gem 'handlebars_assets'
+  gem 'jquery-fileupload-rails'
 end
 
 group :development, :test do

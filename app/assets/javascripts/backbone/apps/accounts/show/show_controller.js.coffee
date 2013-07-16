@@ -42,7 +42,7 @@
           openClass: "btn-selector"
           activeClass: "btn-action-selector"
 
-        profileView.toggleDropDown(params)
+        profileView.toggleDropDown params
 
         # App.request "toggle:dropdown", params
 
@@ -55,7 +55,7 @@
           openClass: "btn-selector"
           activeClass: "btn-action-selector"
 
-        profileView.toggleDropDown(params)
+        profileView.toggleDropDown params
         # true
 
       @listenTo profileView, "upload:button:blur", (item) =>

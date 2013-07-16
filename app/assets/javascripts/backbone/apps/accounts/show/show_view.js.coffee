@@ -27,6 +27,17 @@
         primary: "Save Changes"
         cancel: false
 
+    onShow: ->
+      @$el.fileupload
+        dataType: 'json'
+        add: (e, data) ->
+          console.log "adddinggggggggg"
+          console.log data
+          console.log data.form.context
+          console.log data.files[0]
+          $(data.form.context).find("button").click ->
+            data.submit()
+
   class Show.Password extends App.Views.ItemView
     template: "accounts/show/password"
     form:
