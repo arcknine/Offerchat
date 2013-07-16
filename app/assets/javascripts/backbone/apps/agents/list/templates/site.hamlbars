@@ -1,11 +1,13 @@
 .checklist-admin
-  %label.inline.checkbox.red{ :for => 'checkbox1' }
+  %label.inline.checkbox.red{ :for => 'admincheckbox{{id}}', data: {for: "admin"}}
     %span.icon
-      .icon-check
-%label.inline.checkbox{ :for => 'checkbox1' }
+      .icon-check.admin
+%label.inline.checkbox{ :for => 'websitecheckbox{{id}}', data: {for: "website"} }
   %span.icon
-    .icon-check
+    .icon-check.website
   %strong
     {{name}}
   %span.url-desc
     {{url}}
+%input{type: "checkbox", id: 'admincheckbox{{id}}', name: 'website[{{id}}][admin]'}
+%input{type: "checkbox", id: 'websitecheckbox{{id}}', name: 'website[{{id}}][website]'}

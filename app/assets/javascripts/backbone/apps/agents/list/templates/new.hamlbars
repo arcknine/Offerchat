@@ -1,5 +1,4 @@
-%fieldset
-  %label
-    Email
-  .input-container
-    %input.large{ :type => "text", name: "Email"}
+%label
+  Email
+.input-container
+  %input.large{ :type => "text", name: "email"}

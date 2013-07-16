@@ -72,6 +72,18 @@
     template: "agents/list/site"
     tagName: "li"
     className: "group"
+    events:
+      "click label.checkbox"               : "toggleCheckbox"
+
+    toggleCheckbox: (e)->
+      if $(e.currentTarget).hasClass "checked"
+        $(e.currentTarget).removeClass "checked"
+      else
+        $(e.currentTarget).addClass "checked"
+      if $(e.currentTarget).data("for") is "admin"
+        @$("label[data-for=website]").trigger "click"
+        
+      @trigger "checkbox:toggle", $(e.currentTarget)
 
     events:
       "click label.checkbox[data-for=admin]"   : "toggleAdminCheckbox"
