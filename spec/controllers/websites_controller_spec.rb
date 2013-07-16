@@ -76,13 +76,13 @@ describe WebsitesController do
       end
 
       def do_destroy
-        xhr :delete, :destroy, id: @website.id, format: :json
+        @web = Fabricate(:website)
+        xhr :delete, :destroy, id: @web.id, format: :json
       end
 
-      it "DELETE 'destroy' should remove 1 agent" do
-        expect {
-          do_destroy
-        }.to change(Website, :count).to(0)
+      it "DELETE 'destroy' should remove 1 website" do
+        do_destroy
+        Website.all.count.should eq(1)
       end
 
       it "DELETE 'destroy' should return json" do

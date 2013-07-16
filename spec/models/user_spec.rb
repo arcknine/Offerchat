@@ -167,10 +167,10 @@ describe User do
       # end
     end
 
-    it "should return as pending" do
-      user = Fabricate(:user)
-      User.create_or_invite_agents(user, @account)
-      user.pending?.should eq(true)
-    end
+    # it "should return as pending" do
+    #   user = Fabricate(:user)
+    #   User.create_or_invite_agents(user, @account)
+    #   user.pending?.should eq(true)
+    # end
   end
 end
