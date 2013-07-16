@@ -22,22 +22,23 @@
       "click .agent-selection-new": "new:agent:clicked"
 
 
-
   class List.Seats extends App.Views.CompositeView
     template:  "agents/list/seats"
     className: "go-right align-right"
 
-
   class List.Show extends App.Views.ItemView
     template:  "agents/list/show"
+    className: "group"
     form:
       buttons:
         primary: "Save Changes"
         cancel: false
         placement: "right"
+      title: "Manage Agent"
 
   class List.New extends App.Views.ItemView
     template: "agents/list/new"
+    tagName: "fieldset"
 
   class List.NewLayout extends App.Views.Layout
     template:  "agents/list/new_layout"
@@ -47,8 +48,58 @@
       sitesRegion: "#new-agent-sites-region"
     form:
       buttons:
-        primary: "Save Changes"
+        nosubmit: "Send Invite"
+        primary: false
         cancel: false
         placement: "right"
       title: "Invite a user to be an agent"
 
+  class List.ShowLayout extends App.Views.Layout
+    template:  "agents/list/new_layout"
+    className: "form form-inline invite-user-form"
+    regions:
+      agentRegion: "#new-agent-region"
+      sitesRegion: "#new-agent-sites-region"
+    form:
+      buttons:
+        nosubmit: "Save Changes"
+        primary: false
+        cancel: false
+        placement: "right"
+      title: "Manage agent"
+
+  class List.Site extends App.Views.ItemView
+    template: "agents/list/site"
+    tagName: "li"
+    className: "group"
+
+    events:
+      "click label.checkbox[data-for=admin]"   : "toggleAdminCheckbox"
+      "click label.checkbox[data-for=website]" : "toggleWebsiteCheckbox"
+
+    toggleAdminCheckbox: (e) ->
+      unless $(e.currentTarget).hasClass "checked"
+        $(e.currentTarget).addClass "checked adminchecked"
+        @$("#websitecheckbox" + $(e.currentTarget).data("id")).attr('checked', 'checked')
+        @$("label[data-for=website]").addClass "checked agentchecked"
+        @trigger "account:role:admin:checked"
+      else
+        $(e.currentTarget).removeClass "checked adminchecked"
+        @trigger "account:role:admin:unchecked"
+        
+    toggleWebsiteCheckbox: (e)->
+      unless $(e.currentTarget).hasClass "checked"
+        $(e.currentTarget).addClass "checked agentchecked"
+        @trigger "account:role:agent:checked"
+      else
+        $(e.currentTarget).removeClass "checked agentchecked"
+        @$("label[data-for=admin]").removeClass "checked adminchecked"
+        @$("#admincheckbox" + $(e.currentTarget).data("id")).attr('checked', false)
+        @trigger "account:role:agent:unchecked"
+
+
+  class List.Sites extends App.Views.CompositeView
+    template: "agents/list/sites"
+    itemView: List.Site
+    className: "block-list manage-agent-modal-list"
+    tagName: "ul"

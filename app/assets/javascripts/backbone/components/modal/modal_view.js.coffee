@@ -16,7 +16,7 @@
     triggers:
       "click [data-form-button='primary']" : "modal:submit"
       "click [data-form-button='cancel']"  : "modal:cancel"
-      "click  a.close"                      : "modal:close"
+      "click  a.close"                      : "modal:cancel"
 
     modelEvents:
       "change:_errors"   : "changeErrors"

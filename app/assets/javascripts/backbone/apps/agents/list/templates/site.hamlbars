@@ -1,0 +1,11 @@
+.checklist-admin
+  %label.inline.checkbox.red{ :for => 'checkbox1' }
+    %span.icon
+      .icon-check
+%label.inline.checkbox{ :for => 'checkbox1' }
+  %span.icon
+    .icon-check
+  %strong
+    {{name}}
+  %span.url-desc
+    {{url}}

@@ -1,6 +1,6 @@
 .profile-image-container.large
   .profile-image
-    %img{:src => ".{{avatar}}"}
+    %img{:src => "{{avatar}}"}
   %span.status.online
     %i.icon.icon-check-small
 %h3

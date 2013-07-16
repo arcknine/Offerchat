@@ -1,1 +1,10 @@
-asdfasdf adsf
+.agent-inline-block.full
+  .profile-image-container.large{ :style => 'cursor: default' }
+    .profile-image
+      %img{:src => "{{avatar}}"}
+    %span.status.online
+      %i.icon.icon-check-small
+  %a.text-message.error.go-right
+    Remove User
+  %label.profile-label-name.for-large
+    {{name}}

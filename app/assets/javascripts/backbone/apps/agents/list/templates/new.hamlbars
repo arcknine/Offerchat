@@ -1,7 +1,5 @@
-%fieldset.field-error
+%fieldset
   %label
     Email
-    %span.inline-label-message
-      is required
   .input-container
-    %input.large{ :type => "text" }
+    %input.large{ :type => "text", name: "Email"}
