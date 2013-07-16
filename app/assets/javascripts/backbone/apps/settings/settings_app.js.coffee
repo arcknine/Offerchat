@@ -2,24 +2,32 @@
 
   class SettingsApp.Router extends Marionette.AppRouter
     appRoutes:
-      "settings"                    : "show"
-      "settings/style"              : "editStyle"
-      #"settings/position"           : "editPosition"
+      "settings"                     : "show"
+      "settings/style/:id"           : "editStyle"
+      "settings/position/:id"        : "editPosition"
       #"settings/attention_grabbers" : "editAttentionGrabbers"
       #"settings/forms"              : "editForms"
       #"settings/triggers"           : "editTriggers"
 
     API =
-      show: ->
+      show: (id) ->
         new SettingsApp.Show.Controller
-          # section: "settings"
           region: App.mainRegion
+          id: id
 
-      editStyle: ->
-        show = API.show()
+      editStyle: (id) ->
+        show = API.show(id)
         show.listenTo show.layout, "show", =>
           new SettingsApp.Style.Controller
             region: show.layout.settingsRegion
+            currentSite: show.currentSite
+
+      editPosition: (id) ->
+        show = API.show(id)
+        # show.listenTo show.layout, "show", =>
+        #   new SettingsApp.Style.Controller
+        #     region: show.layout.settingsRegion
+        #     currentSite: show.currentSite
 
     App.addInitializer ->
       new SettingsApp.Router

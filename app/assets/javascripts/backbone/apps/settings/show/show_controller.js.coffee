@@ -3,22 +3,35 @@
   class Show.Controller extends App.Controllers.Base
 
     initialize: (options) ->
-      @layout = @getLayoutView()
-      sites = App.request "my:sites:entities"
+      { id }   = options
+      sites    = App.request "my:sites:entities"
+      @section = "style"
+      @layout  = @getLayoutView()
 
       App.execute "when:fetched", sites, =>
-        @currentSite = sites.first()
+        @currentSite = sites.get(id) or sites.first()
 
         @listenTo @layout, "show", =>
-          @sitesView sites
+          @sitesView sites, id
 
         @listenTo @layout, "navigate:settings", (section) =>
           console.log section
+          @section = section
+
+        # default path if no section or id
+        App.navigate "settings/style/#{@currentSite.get("id")}", trigger: true
 
         @show @layout
 
-    sitesView: (sites) ->
+    sitesView: (sites, id) ->
       sitesView = @getSitesView sites
+
+      @listenTo sitesView, "dropdown:sites", @dropdownSites
+
+      @listenTo sitesView, "childview:set:current:website", (child) =>
+        @currentSite = child.model
+        App.navigate "settings/#{@section}/#{@currentSite.get('id')}", trigger: true
+
       @layout.sitesRegion.show sitesView
 
     getLayoutView: ->
@@ -33,8 +46,13 @@
         collection: sites
         currentSite: @currentSite
 
+    dropdownSites: (e) ->
+      if $(e.currentTarget).find(".btn-selector").hasClass("open")
+        $(e.currentTarget).find(".btn-selector").removeClass("open")
+        $(e.currentTarget).find(".btn-action-selector.site-selector").removeClass("active")
+      else
+        $(e.currentTarget).find(".btn-selector").addClass("open")
+        $(e.currentTarget).find(".btn-action-selector.site-selector").addClass("active")
+
     setSelectedNav: (nav, section) ->
       $(nav.el).find("ul li a." + section).addClass('selected')
-
-    showView: (view)->
-      @show view

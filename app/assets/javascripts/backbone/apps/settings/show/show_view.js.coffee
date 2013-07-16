@@ -14,22 +14,12 @@
     navigateSettings: (e) ->
       @trigger "navigate:settings", $(e.currentTarget).data("section")
 
-  class Show.Style extends App.Views.ItemView
-    template:  "settings/show/style"
-    className: "column-content-container"
-    events:
-      "click #controlColorContent a" : "changeColor"
-
-    changeColor: (e) ->
-      @trigger "style:color:clicked", e
-
-    form:
-      buttons:
-        primary: "Save Changes"
-        cancel: false
-
   class Show.Site extends App.Views.ItemView
     template: "settings/show/site"
+
+    triggers:
+      "click li > a" : "set:current:website"
+      # "click li > a" : "setCurrentWebsite"
 
   class Show.Sites extends App.Views.CompositeView
     template:  "settings/show/sites"
@@ -41,12 +31,7 @@
       "click div#sites-dropdown-button" : "showSitesList"
 
     showSitesList: (e) ->
-      if $(e.currentTarget).find(".btn-selector").hasClass("open")
-        $(e.currentTarget).find(".btn-selector").removeClass("open")
-        $(e.currentTarget).find(".btn-action-selector.site-selector").removeClass("active")
-      else
-        $(e.currentTarget).find(".btn-selector").addClass("open")
-        $(e.currentTarget).find(".btn-action-selector.site-selector").addClass("active")
+      @trigger "dropdown:sites", e
 
     serializeData: ->
       currentSite: @options.currentSite.toJSON()
