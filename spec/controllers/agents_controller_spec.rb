@@ -62,15 +62,15 @@ describe AgentsController do
 
       let(:valid_account_post) do
         [{
-          "is_admin"   => true,
-          "website_id" => @website.id
+          :is_admin   => true,
+          :website_id => @website.id
         }]
       end
 
       let(:invalid_account_post) do
         [{
-          "is_admin"   => true,
-          "website_id" => nil
+          :is_admin   => true,
+          :website_id => nil
         }]
       end
 

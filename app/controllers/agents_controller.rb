@@ -8,13 +8,12 @@ class AgentsController < ApplicationController
   end
 
   def create
+    accounts = []
     params[:website].each_with_index do |website, index|
-      # user.push {
-      #   website[0]
-      puts website[1]["admin"]
-      puts website[1]["website"]
+      accounts.push website
     end
-    @user = User.create_or_invite_agents(params[:user], params[:agent])
+    puts accounts.inspect
+    @user = User.create_or_invite_agents(params[:agent], accounts)
     if @user.errors.any?
       respond_with @user
     end

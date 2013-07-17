@@ -73,17 +73,27 @@
     tagName: "li"
     className: "group"
     events:
-      "click label.checkbox"               : "toggleCheckbox"
+      "click label.checkbox[data-for=website]" : "toggleWebsiteCheckbox"
+      "click label.checkbox[data-for=admin]"   : "toggleAdminCheckbox"
 
-    toggleCheckbox: (e)->
+    toggleAdminCheckbox: (e) ->
       if $(e.currentTarget).hasClass "checked"
         $(e.currentTarget).removeClass "checked"
+        @$("label[data-for=website]").removeClass "checked" if @$("label[data-for=website]").hasClass "checked"
       else
         $(e.currentTarget).addClass "checked"
-      if $(e.currentTarget).data("for") is "admin"
-        @$("label[data-for=website]").trigger "click"
-        
+        @$("label[data-for=website]").addClass "checked"
       @trigger "checkbox:toggle", $(e.currentTarget)
+      console.log @model
+        
+    toggleWebsiteCheckbox: (e)->
+      if $(e.currentTarget).hasClass "checked"
+        $(e.currentTarget).removeClass "checked"
+        @$("label[data-for=admin]").removeClass "checked" if @$("label[data-for=admin]").hasClass "checked"
+      else
+        $(e.currentTarget).addClass "checked"
+      @trigger "checkbox:toggle", $(e.currentTarget)
+    
 
     events:
       "click label.checkbox[data-for=admin]"   : "toggleAdminCheckbox"

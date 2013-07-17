@@ -4,7 +4,9 @@
       %img{:src => "{{avatar}}"}
     %span.status.online
       %i.icon.icon-check-small
+  {{#unless is_admin}}
   %a.text-message.error.go-right
     Remove User
+  {{/unless}}
   %label.profile-label-name.for-large
     {{name}}

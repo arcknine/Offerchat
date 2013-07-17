@@ -74,12 +74,13 @@ class User < ActiveRecord::Base
     end
 
     has_checked_website = false
-    account_array.each do |p|
-      unless p['website_id'].blank? && p['website_id'].nil?
-        role            = p["is_admin"] ? Account::ADMIN : Account::AGENT
+    account_array.each do |account|
+      #puts account.inspect
+      unless account[:website_id].blank? && account[:website_id].nil?
+        role            = account[:is_admin] ? Account::ADMIN : Account::AGENT
         account         = Account.new(:role => role)
         account.user    = user
-        account.website = Website.find(p['website_id'])
+        account.website = Website.find(account[:website_id])
         account.save
 
         has_checked_website = true
