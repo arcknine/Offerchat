@@ -2,26 +2,26 @@
 
   class Show.Controller extends App.Controllers.Base
 
-    initialize: (options) ->
-      { id }   = options
+    initialize: (options = {}) ->
+      { id, @section } = options
       sites    = App.request "my:sites:entities"
-      @section = "style"
       @layout  = @getLayoutView()
+
 
       App.execute "when:fetched", sites, =>
         @currentSite = sites.get(id) or sites.first()
 
+        App.navigate "settings/style/#{@currentSite.get("id")}", trigger: true unless id
+
         @listenTo @layout, "show", =>
           @sitesView sites, id
 
-        @listenTo @layout, "navigate:settings", (section) =>
-          console.log section
-          @section = section
-
-        # default path if no section or id
-        App.navigate "settings/style/#{@currentSite.get("id")}", trigger: true
-
         @show @layout
+
+        @listenTo @layout, "navigate:settings", (section) =>
+          App.navigate "settings/#{section}/#{@currentSite.get('id')}", trigger: true
+
+        $(@layout.el).find("a[data-section='#{@section}']").addClass("selected")
 
     sitesView: (sites, id) ->
       sitesView = @getSitesView sites
@@ -36,6 +36,7 @@
 
     getLayoutView: ->
       new Show.Layout
+        section: @section
 
     getStyleView: (website) ->
       new Show.Style

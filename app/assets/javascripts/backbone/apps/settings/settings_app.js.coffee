@@ -10,29 +10,29 @@
       #"settings/triggers"           : "editTriggers"
 
     API =
-      show: (id) ->
+      show: (id, section) ->
         new SettingsApp.Show.Controller
           region: App.mainRegion
           id: id
+          section: section
 
       editStyle: (id) ->
-        show = API.show(id)
+        show = API.show(id, 'style')
         show.listenTo show.layout, "show", =>
           new SettingsApp.Style.Controller
             region: show.layout.settingsRegion
             currentSite: show.currentSite
 
       editPosition: (id) ->
-        show = API.show(id)
-        # show.listenTo show.layout, "show", =>
-        #   new SettingsApp.Style.Controller
-        #     region: show.layout.settingsRegion
-        #     currentSite: show.currentSite
+        show = API.show(id, 'position')
+        show.listenTo show.layout, "show", =>
+          new SettingsApp.Position.Controller
+            region: show.layout.settingsRegion
+            currentSite: show.currentSite
 
     App.addInitializer ->
       new SettingsApp.Router
         controller: API
-
 
     App.vent.on "show:settings:view", (section) ->
       console.log section

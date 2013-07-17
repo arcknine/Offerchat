@@ -14,6 +14,9 @@
     navigateSettings: (e) ->
       @trigger "navigate:settings", $(e.currentTarget).data("section")
 
+    serializeData: ->
+      section: @options.section
+
   class Show.Site extends App.Views.ItemView
     template: "settings/show/site"
 
