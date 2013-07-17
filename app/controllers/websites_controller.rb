@@ -1,7 +1,11 @@
 class WebsitesController < ApplicationController
   before_filter :authenticate_user!
-  # before_filter :current_user_has_website?
+  before_filter :current_user_has_website?
   respond_to :json
+
+  def my_sites
+    @websites = current_user.websites
+  end
 
   def index
     @websites = current_user.websites
@@ -36,10 +40,9 @@ class WebsitesController < ApplicationController
   end
 
   def destroy
-    @website = Website.find(params[:id]).destroy
-
-    respond_to do |format|
-      format.json { head :no_content }
+    @website = Website.find(params[:id])
+    if @website.destroy
+      head :no_content
     end
   end
 end

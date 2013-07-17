@@ -4,6 +4,7 @@ class Website < ActiveRecord::Base
   before_create :generate_api_key
   after_create :generate_account
   after_create :generate_rosters
+  after_destroy :delete_accounts
 
   has_many :accounts
   has_many :rosters
@@ -45,7 +46,6 @@ class Website < ActiveRecord::Base
     settings.style
   end
 
-
   private
 
   def generate_api_key
@@ -63,5 +63,9 @@ class Website < ActiveRecord::Base
 
   def generate_rosters
     GenerateRostersWorker.perform_async(self.id)
+  end
+
+  def delete_accounts
+    accounts.destroy_all
   end
 end

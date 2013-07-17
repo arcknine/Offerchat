@@ -44,6 +44,11 @@ describe WebsitesController do
         assigns(:websites).should_not be_nil
       end
 
+      it "GET 'index' should have websites" do
+        xhr :get, :my_sites, format: :json
+        assigns(:websites).should_not be_nil
+      end
+
       def do_update(type = "valid")
         if type == "valid"
           xhr :put, :update, id: @website.id, website: valid_put, format: :json
@@ -72,17 +77,17 @@ describe WebsitesController do
         do_update("invalid")
 
         JSON.parse(response.body)["errors"].should_not be_blank
-        response.code.should eq "401"
+        response.code.should eq "422"
       end
 
       def do_destroy
-        xhr :delete, :destroy, id: @website.id, format: :json
+        @web = Fabricate(:website)
+        xhr :delete, :destroy, id: @web.id, format: :json
       end
 
-      it "DELETE 'destroy' should remove 1 agent" do
-        expect {
-          do_destroy
-        }.to change(Website, :count).to(0)
+      it "DELETE 'destroy' should remove 1 website" do
+        do_destroy
+        Website.all.count.should eq(1)
       end
 
       it "DELETE 'destroy' should return json" do
