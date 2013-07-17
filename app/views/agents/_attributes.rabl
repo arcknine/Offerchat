@@ -3,6 +3,6 @@ attributes :id, :email, :password, :name, :display_name, :jabber_user, :jabber_p
 node do |user|
   {
     :pending => user.accounts.first.pending?,
-    :websites => user.accounts.select("role, website_id").to_json,
+    :websites => user.accounts.select("id, role, website_id").to_json,
   }
 end

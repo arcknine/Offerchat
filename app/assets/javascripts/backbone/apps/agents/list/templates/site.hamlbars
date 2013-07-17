@@ -9,6 +9,7 @@
     {{name}}
   %span.url-desc
     {{url}}
-%input{type: "hidden", id: 'websiteid{{id}}', name: 'website[website_id]', value: '{{id}}'}
-%input{type: "checkbox", id: 'admincheckbox{{id}}', name: 'website[is_admin]'}
-%input{type: "checkbox", id: 'websitecheckbox{{id}}', name: 'website[website]'}
+%input{type: "hidden", id: 'websiteid{{id}}', name: 'website[{{id}}][website_id]', value: '{{id}}'}
+%input{type: "text", id: 'accountid{{id}}', name: 'website[{{id}}][account_id]', value: '{{account_id}}'}
+%input{type: "checkbox", id: 'admincheckbox{{id}}', name: 'website[{{id}}][is_admin]'}
+%input{type: "checkbox", id: 'websitecheckbox{{id}}', name: 'website[{{id}}][website]'}
