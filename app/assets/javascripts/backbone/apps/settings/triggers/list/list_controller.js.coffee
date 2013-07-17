@@ -3,7 +3,6 @@
   class TriggersList.Controller extends App.Controllers.Base
 
     initialize: (options) ->
-      console.log options.currentSite
       triggers = App.request "get:user:triggers"
 
       @layout = @getLayoutView()
