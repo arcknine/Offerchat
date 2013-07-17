@@ -1,1 +1,21 @@
-test
+.block.large
+  %h2 Widget Position
+  Set the position of your widget from left to right
+
+.group.block.large
+  .control-body
+    .widget-position-selector{:style => "text-align: left"}
+      %a{data: {position: 'left'}}
+        .widget-screen
+          .widget-sampler.widget-sampler-left
+        %label left
+
+      %a{data: {position: 'right'}}
+        .widget-screen
+          .widget-sampler.widget-sampler-left
+        %label right
+
+.column-footer-actions.bordered
+  .block.large
+    %button.btn.action{ :type => "submit", "data-form-button" => "primary" }
+      Save Changes

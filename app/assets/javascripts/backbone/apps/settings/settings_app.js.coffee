@@ -2,11 +2,11 @@
 
   class SettingsApp.Router extends Marionette.AppRouter
     appRoutes:
-      "settings"                     : "show"
-      "settings/style/:id"           : "editStyle"
-      "settings/position/:id"        : "editPosition"
-      #"settings/attention_grabbers" : "editAttentionGrabbers"
-      #"settings/forms"              : "editForms"
+      "settings"                        : "show"
+      "settings/style/:id"              : "editStyle"
+      "settings/position/:id"           : "editPosition"
+      "settings/chat-forms/:id"         : "editForms"
+      "settings/chat-forms/:id/prechat" : "prechatForm"
       #"settings/triggers"           : "editTriggers"
 
     API =
@@ -30,9 +30,22 @@
             region: show.layout.settingsRegion
             currentSite: show.currentSite
 
+      editForms: (id) ->
+        show = API.show(id, 'chat-forms')
+        show.listenTo show.layout, "show", =>
+          new SettingsApp.ChatForms.Controller
+            region: show.layout.settingsRegion
+            currentSite: show.currentSite
+            section: 'offline'
+
+      prechatForm: (id) ->
+        show = API.show(id, 'chat-forms')
+        show.listenTo show.layout, "show", =>
+          new SettingsApp.ChatForms.Controller
+            region: show.layout.settingsRegion
+            currentSite: show.currentSite
+            section: 'prechat'
+
     App.addInitializer ->
       new SettingsApp.Router
         controller: API
-
-    App.vent.on "show:settings:view", (section) ->
-      console.log section

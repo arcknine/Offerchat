@@ -1,0 +1,9 @@
+%ul.section-sub-menu.group
+  %li
+    %a{data: {section: 'offline'}} Offline form
+  %li
+    %a{data: {section: 'prechat'}} Pre chat form
+  %li
+    %a{data: {section: 'postchat'}} Post chat form
+
+#chat-forms-region
