@@ -68,7 +68,7 @@ group :development do
   gem 'hirb'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'meta_request', '0.2.1'
+  gem 'meta_request'
   gem 'letter_opener'
   gem 'thin'
 
