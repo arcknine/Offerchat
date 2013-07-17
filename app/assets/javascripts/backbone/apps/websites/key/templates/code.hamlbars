@@ -11,12 +11,12 @@
       <!--start of Offerchat js code--><script type='text/javascript'>var ofc_key = '{{api_key}}';(function(){  var oc = document.createElement('script'); oc.type = 'text/javascript'; oc.async = true;  oc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'www.offerchat.com/offerchat_widget.min.js?r='+ Math.random();  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(oc, s);}());</script><!--end of Offerchat js code-->
 
 .block.large.bordered-top
-  %button.btn.action{:type => "submit"}
+  %button.btn.action{:type => "button"}
     Finish
   .go-right
     %p
-      %a
+      %a.webmaster-code
         Send this code to your webmaster
     %p
-      %a
+      %a.install-guide
         Offerchat Install Guide

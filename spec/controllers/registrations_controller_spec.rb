@@ -30,7 +30,7 @@ describe RegistrationsController do
       @request.env["devise.mapping"] = Devise.mappings[:user]
       session[:user]={:email => 'wiredots@yahoo.com'}
       post 'create', user: user_data
-      response.should redirect_to signup_wizard_path('step_three')
+      response.should redirect_to root_path
     end
 
     it "should redirect to step two when invalid data" do

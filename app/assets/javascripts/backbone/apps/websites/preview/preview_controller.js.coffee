@@ -29,8 +29,7 @@
     settingsRegion: (website) ->
       @showSettingsView website
       @listenTo website, "updated", (model) =>
-        console.log 'check ang data!!'
-        console.log model
+
         currentForm = model.get('step')
         if currentForm is 'greeting'
           model.set greeting: model.get('greeting')
@@ -54,17 +53,6 @@
     getColorView: (website)->
       new Preview.Colors
         model: website
-
-    initColorView:(model) ->
-      color = model.get('color')
-      gradient = model.get('gradient')
-      rounded = model.get('rounded_corners')
-      console.log 'awa: '+ color
-      $(".widget-color-selector a").removeClass("active")
-      $("#controlColorContent a.#{color}").addClass("active")
-      if( gradient == 'true')
-      $("#checkboxGradient#{color}").removeClass()
-      # $("#widget-header").addClass("widget-box widget-theme theme-#{website.attributes.settings.style.theme}")
 
     getPositionView: (website)->
       new Preview.Position
@@ -93,6 +81,9 @@
       @listenTo settingsView, "click:back:new", (item) ->
         App.previewRegion.close()
         App.navigate 'websites/new', trigger: true
+      @listenTo settingsView, "keyup:change:greeting", (item) ->
+
+      @initSettingsView()
 
     showColorView: (model) ->
 
@@ -103,7 +94,6 @@
       @initColorView(model)
 
       @listenTo colorView , "select:color", (item) ->
-        console.log "selected color: "+item
         model.set color: item
       @listenTo colorView, "gradient:toggle", (item) ->
         model.set gradient: item
@@ -124,6 +114,22 @@
 
       @listenTo positionView, "click:back:color", (item) ->
         @showColorView model
+
+    initColorView:(model) ->
+      color = model.get('color')
+      gradient = model.get('gradient')
+      rounded = model.get('rounded_corners')
+      $(".widget-color-selector a").removeClass("active")
+      $("#controlColorContent a.#{color}").addClass("active")
+      if gradient is 'true'
+        $("#checkboxGradient").addClass('checked')
+      if rounded is 'true'
+        $("#checkboxRadius").addClass('checked')
+
+    initSettingsView:(model) ->
+      counterValue = $("#greeting").val()
+      remainLength = 33 - counterValue.length
+      $("#greeting-count").text(remainLength)
 
 
 

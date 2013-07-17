@@ -38,7 +38,8 @@
       storage = JSON.parse(sessionStorage.getItem("newSite")) || {}
       new Entities.NewSite
         url: (if not storage.url then false else storage.url)
-        greeting: (if not storage.greeting then false else storage.greeting)
+        name: (if not storage.name then 'my website name' else storage.name)
+        greeting: (if not storage.greeting then 'Hello! How can I help you today?' else storage.greeting)
         color: (if not storage.greeting then 'cadmiumreddeep' else storage.color)
         position: (if not storage.greeting then 'right' else storage.position)
         api_key: (if not storage.api_key then false else storage.api_key)

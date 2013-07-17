@@ -51,6 +51,7 @@ class SignupWizardController < ApplicationController
     when :step_one
       unless is_a_valid_email?(params[:user]['email'])
         flash[:alert] = 'Email should be valid'
+
         redirect_to signup_wizard_path('step_one')
       else
         @user = User.find_by_email(params[:user]['email'])

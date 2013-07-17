@@ -1,4 +1,4 @@
-.widget-head.widget-rounded-head.group.widget-gradient
+.widget-head.group
   %img.agent-thumbnail{:alt => "Avatar-large", :src => "/assets/avatar-large.jpg"}/
   .widget-agent-name
     Katie

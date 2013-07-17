@@ -11,7 +11,7 @@
         %label
           Website Name
         .input-container
-          %input.large{:type => "text", :name => "name"}
+          %input.large{:type => "text", :name => "name", :value => "{{name}}"}
       %fieldset
         %label
           Website url

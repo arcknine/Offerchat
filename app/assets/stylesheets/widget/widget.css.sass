@@ -24,9 +24,23 @@
   display: table
 .group:after
   clear: both
-.group 
+.group
   zoom: 1
 
+.widget-wrapper
+  position: fixed
+  bottom: 0px
+  margin: 0
+  padding: 0
+  background-color: transparent
+  overflow: hidden
+  z-index: 9999999999
+  height: 421px
+  width: 306px
+  &.widget-fixed-left
+    left: 10px
+  &.widget-fixed-right
+    right: 10px
 i.widget
   &.icon
     background-image: image-url("widget-sprite.png")
@@ -136,7 +150,7 @@ body .widget-box, .widget-box
     width: 45px
     height: 45px
     float: left
-    
+
     margin-right: 10px
   .widget-agent-name
     margin-top: 6px
@@ -154,7 +168,7 @@ body .widget-box, .widget-box
   text-align: center
   left: 3px
   bottom: 3px
-  padding: 4px 
+  padding: 4px
   box-shadow: 0 1px 3px rgba(0,0,0,.3)
   text-shadow: 0 -1px 0 rgba(0,0,0,.2)
   span
@@ -194,6 +208,69 @@ body .widget-box, .widget-box
 .widget-tooltip
   position: absolute
   padding: 5px
+.widget-connection-status
+  text-align: center
+  position: absolute
+  top: 20%
+  width: 100%
+
+@-webkit-keyframes progress-bar-stripes
+  from
+    background-position: 40px 0
+  to
+    background-position: 0 0
+@-moz-keyframes progress-bar-stripes
+  from
+    background-position: 40px 0
+  to
+    background-position: 0 0
+@-ms-keyframes progress-bar-stripes
+  from
+    background-position: 40px 0
+  to
+    background-position: 0 0
+@-o-keyframes progress-bar-stripes
+  from
+    background-position: 0 0
+  to
+    background-position: 40px 0
+@keyframes progress-bar-stripes
+  from
+    background-position: 40px 0
+  to
+    background-position: 0 0
+
+.widget-progress
+  height: 12px
+  overflow: hidden
+  background-color: #f7f7f7
+  border-radius: 10px
+  width: 250px
+  display: block
+  margin: 10px auto
+
+  .widget-progress-bar
+    float: left
+    width: 100%
+    height: 100%
+    font-size: 12px
+    color: #fff
+    text-align: center
+    background-color: #149bdf
+    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent))
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+    background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+    -webkit-background-size: 40px 40px
+    -moz-background-size: 40px 40px
+    -o-background-size: 40px 40px
+    background-size: 40px 40px
+    -webkit-animation: progress-bar-stripes 2s linear infinite
+    -moz-animation: progress-bar-stripes 2s linear infinite
+    -ms-animation: progress-bar-stripes 2s linear infinite
+    -o-animation: progress-bar-stripes 2s linear infinite
+    animation: progress-bar-stripes 2s linear infinite
 .widget-block
   padding: 10px
   .widget-input-container
@@ -248,7 +325,7 @@ button.widget-button
     font-size: 11px
   i.icon.icon-chat
     position: absolute
-    left: 7px 
+    left: 7px
     top: 8px
 .widget-input
   border: 1px solid #e1e1e1
@@ -295,15 +372,15 @@ a.chat-settings
   border-radius: 3px
   z-index: 110
   background-color: #445362
-  
+
   & > li
     font-size: 12px
     list-style: none
-  
+
     a
       color: #fff
       display: block
-      padding: 5px 10px 
+      padding: 5px 10px
       cursor: pointer
       &:hover
         background-color: darken(#445362, 5%)
@@ -339,7 +416,7 @@ a.chat-settings
   right: 5px
   width: 0
   height: 0
-    
+
 
 
 .offerchat-widget-wrapper
@@ -409,7 +486,7 @@ a.chat-settings
   .offerchat-widget-head
     border-top-left-radius: 7px
     border-top-right-radius: 7px
- 
+
 
 .offerchat-widget-wrapper
   line-height: 1.6em
@@ -500,7 +577,7 @@ a.chat-settings
   height: 52px
   border-bottom: 1px solid #f6f6f6
   box-shadow: 0 2px 4px rgba(0,0,0,.1)
-  
+
 
 .offerchat-agent-thumbnail, .offerchat-agent-details, .offerchat-agent-thumbnail-2
   display: inline-block
@@ -577,7 +654,7 @@ textarea.offerchat-input
 
 .offerchat-response-wrapper
   padding: 5px
-  
+
 
 .offerchat-attention-grabber
   margin-bottom: 5px
@@ -623,11 +700,11 @@ a.offerchat-logo-link
   overflow-y: auto
   height: 200px
 .offerchat-chat-parent
-  padding: 1px 3px 
-  /* border-top: 1px solid #ccc 
+  padding: 1px 3px
+  /* border-top: 1px solid #ccc
   /* border-bottom: 1px solid #ccc
 .offerchat-chat
-  padding: 5px 
+  padding: 5px
 .offerchat-user-message
   font-size: 12px
   margin: 3px 0
@@ -661,7 +738,7 @@ a.offerchat-logo-link
     .offerchat-user-tooltip-tail
       right: 15px !important
       left: auto
-    
+
 
 .offerchat-agent .offerchat-user
   color: #2bb2ea
@@ -1042,7 +1119,7 @@ a.offerchat-rate-btn
     .widget-head
       @include themePaletteHead($white,#343434)
       border: 1px solid #e5e5e5
-      
+
   &.theme-brightgray
     .widget-head
       @include themePaletteHead($brightgray,#262626)
@@ -1189,7 +1266,7 @@ a.offerchat-rate-btn
       &.widget-gradient
         @include themePaletteGradient($pink3)
 
-      
+
 
 
 
@@ -1384,7 +1461,7 @@ a.offerchat-rate-btn
     background-position: 0 0
 
 
-/* ANIMATE 
+/* ANIMATE
 .offerchat-animated
   -webkit-animation-fill-mode: both
   -moz-animation-fill-mode: both
@@ -1406,7 +1483,7 @@ a.offerchat-rate-btn
   -ms-animation-delay: 2s
   -o-animation-delay: 2s
   animation-delay: 2s
- 
+
 
 @-webkit-keyframes bounce
   0%, 20%, 50%, 80%, 100%
