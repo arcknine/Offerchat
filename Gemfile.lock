@@ -379,11 +379,7 @@ DEPENDENCIES
   js-routes
   ledermann-rails-settings
   letter_opener
-<<<<<<< HEAD
-  meta_request
-=======
   meta_request (= 0.2.7)
->>>>>>> Show site and edit agent when agent is clicked
   meta_search (>= 1.1.0.pre)
   mocha
   mysql2
