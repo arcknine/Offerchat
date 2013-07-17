@@ -7,7 +7,7 @@
       %label
         %strong Enter url
 
-      %input.large{ :placeholder => "http://www.yourwebsite.com", :type => "text", :name => "url" }
+      %input.large{ :placeholder => "http://www.yourwebsite.com", :type => "text", :name => "url", :value => "{{url}}" }
 
       %button.btn.action#create-new-website{ :type => "submit" }
         Try it

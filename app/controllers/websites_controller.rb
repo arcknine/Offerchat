@@ -17,13 +17,16 @@ class WebsitesController < ApplicationController
 
 
   def show
-
     @website = current_user.websites.find params[:id]
   end
 
   def create
 
     @website = current_user.websites.new(params[:website])
+    @website.settings(:style).gradient = params['gradient']
+    @website.settings(:style).theme = params['theme']
+    @website.settings(:online).greeting = params['greeting']
+    @website.settings(:style).position = params['position']
 
     unless @website.save
       respond_with @website

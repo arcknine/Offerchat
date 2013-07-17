@@ -1,10 +1,11 @@
 @Offerchat.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
   class Entities.Site extends App.Entities.Model
-    url: "/website"
-
+    # urlRoot: Routes.websites_path()
   class Entities.NewSite extends App.Entities.Model
-    url: "/websites/new"
+    # defaults:
+    #   url: sessionStorage.getItem("url") ? sessionStorage.getItem("url") : null
+    #   position: sessionStorage.getItem("url") ? sessionStorage.getItem("url") : null
 
   class Entities.SiteCollection extends App.Entities.Collection
     model: Entities.Site
@@ -34,7 +35,13 @@
       site
 
     newSite: ->
-      new Entities.Site
+      storage = JSON.parse(sessionStorage.getItem("newSite")) || {}
+      new Entities.NewSite
+        url: (if not storage.url then false else storage.url)
+        greeting: (if not storage.greeting then false else storage.greeting)
+        color: (if not storage.greeting then 'cadmiumreddeep' else storage.color)
+        position: (if not storage.greeting then 'right' else storage.position)
+        api_key: (if not storage.api_key then false else storage.api_key)
 
   App.reqres.setHandler "site:entities", ->
     API.getSites()

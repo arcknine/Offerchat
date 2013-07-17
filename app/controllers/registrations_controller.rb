@@ -9,7 +9,8 @@ class RegistrationsController < Devise::RegistrationsController
         UserMailer.delay.registration_welcome(params[:user][:email])
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
-        redirect_to ( signup_wizard_path('step_three') )
+        # redirect_to ( root_path('#websites/new') )
+        redirect_to :controller => :home, :action=>:index, :anchor => "website/new"
         #redirect_to root_path, :anchor => '#step_three'
 
       end

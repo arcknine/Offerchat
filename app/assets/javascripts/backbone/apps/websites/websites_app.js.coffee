@@ -5,6 +5,8 @@
       "websites"         : "list"
       "websites/new"     : "new"
       "websites/preview" : "preview"
+      "websites/info"    : "info"
+      "websites/key"    : "key"
 
   API =
     list: ->
@@ -13,6 +15,14 @@
 
     new: ->
       new WebsitesApp.New.Controller
+        region: App.mainRegion
+
+    info: ->
+      new WebsitesApp.Info.Controller
+        region: App.mainRegion
+
+    key: ->
+      new WebsitesApp.Key.Controller
         region: App.mainRegion
 
     preview: ->

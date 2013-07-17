@@ -1,7 +1,7 @@
 class SignupWizardController < ApplicationController
   include Wicked::Wizard
   before_filter :check_restrictions
-  steps :step_one, :step_two, :step_three, :step_four, :step_five
+  steps :step_one, :step_two, :dashboard, :step_three, :step_four, :step_five
   respond_to :json
 
 
@@ -40,6 +40,9 @@ class SignupWizardController < ApplicationController
       else
         render_wizard
       end
+    when :get_key
+      # show api key code
+      @website = Website.where(:owner_id => current_user.id).last
     end
   end
 
@@ -63,7 +66,7 @@ class SignupWizardController < ApplicationController
       @website = Website.new
       @website.url = params['url']
       # @website.owner_id = current_user.id
-      session[:website] = {:url => params['url'] }
+      # session[:website] = {:url => params['url'] }
       unless @website.valid?
         respond_with @website
       else
@@ -74,11 +77,22 @@ class SignupWizardController < ApplicationController
 
 
     when :step_four
-      @website = Website.where(:owner_id => current_user.id).last
-      @website.settings(:style).theme = params[:settings]['theme']
-      @website.settings(:style).position = params[:settings]['position']
+      # @website = Website.where(:owner_id => current_user.id).last
+      @website = Website.new
+      @website.url = params['url']
+      @website.settings(:style).gradient = params['gradient']
+      @website.settings(:style).theme = params['theme']
+      @website.settings(:online).greeting = params['greeting']
+      @website.settings(:style).position = params['position']
+      # if @website.save
+      #   redirect_to signup_wizard_path('step_five')
+      # end
       if @website.save
-        redirect_to signup_wizard_path('step_five')
+        #head :no_contenth
+        respond_with @website
+      else
+        head :no_content
+        respond_with @website
       end
     end
   end
