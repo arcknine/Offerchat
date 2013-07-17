@@ -28,6 +28,9 @@ Dashboard::Application.routes.draw do
     collection do
       get "my_sites"
     end
+    member do
+      put "update_settings"
+    end
   end
 
   resources :signup_wizard
@@ -37,5 +40,4 @@ Dashboard::Application.routes.draw do
   # post 'signup_wizard/step_three' ,:controller => :signup_wizard, :action => 'create'
 
   root :to => 'home#index'
-
 end
