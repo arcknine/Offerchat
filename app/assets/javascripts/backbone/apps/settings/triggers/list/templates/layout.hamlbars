@@ -1,0 +1,8 @@
+.column-content-container
+  .block.large
+    %h2
+      Chat Triggers
+    Set triggers to automatically open the widget once a condition is met
+  .block.large
+
+    #triggers-region

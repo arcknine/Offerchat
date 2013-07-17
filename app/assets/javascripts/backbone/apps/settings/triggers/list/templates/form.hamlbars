@@ -1,0 +1,26 @@
+.trigger-form.form.form-inline
+
+  %fieldset
+    .input-container
+      %label.block
+        Condition
+      %select{:name => ""}
+        %option{:value => ""}
+          Visitor time on URL
+      +
+    .input-container
+      %label.block
+        Value
+      %input.large{ :type => "text", :placeholder => "value" }
+
+  %fieldset
+    %label.block
+      Message
+    %textarea.large{ :placeholder => "message" }
+      = "{{msg}}"
+
+  %fieldset.last
+    %a.btn
+      Save Changes
+    %a.btn.warning
+      Remove

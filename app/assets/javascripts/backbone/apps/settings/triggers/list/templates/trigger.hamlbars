@@ -1,0 +1,11 @@
+%a.item-block.trigger-item
+  %i.icon.icon-lightning
+  Visitor spends
+  %span.trigger-value
+    {{time}} secs
+  on
+  %span.trigger-value
+    {{loc}}
+  say
+  %span.trigger-value
+    {{msg}}
