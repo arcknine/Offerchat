@@ -46,6 +46,18 @@ class Website < ActiveRecord::Base
     settings.style
   end
 
+  def save_settings(params)
+    components = params.keys
+    components.each do |c|
+      attributes = params[c].keys
+      attributes.each do |a|
+        self.settings(c.to_sym).send("#{a}=", params[c][a])
+      end
+    end
+
+    self.save
+  end
+
   private
 
   def generate_api_key

@@ -33,8 +33,15 @@ class WebsitesController < ApplicationController
   def update
     @website = Website.find(params[:id])
 
-    website = params[:website]
-    unless @website.update_attributes(:name => website["name"], :url => website["url"])
+    unless @website.update_attributes(params[:website])
+      respond_with @website
+    end
+  end
+
+  def update_settings
+    @website = Website.find(params[:id])
+
+    unless @website.save_settings(params[:settings])
       respond_with @website
     end
   end
