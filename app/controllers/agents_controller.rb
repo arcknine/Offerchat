@@ -11,8 +11,8 @@ class AgentsController < ApplicationController
     accounts = []
     params[:website].each_with_index do |website, index|
       accounts.push website[1]
-    end
-    puts accounts.inspect
+    end unless params[:website].empty?
+
     @user = User.create_or_invite_agents(params[:agent], accounts)
     if @user.errors.any?
       respond_with @user
@@ -23,11 +23,11 @@ class AgentsController < ApplicationController
     accounts = []
     params[:website].each_with_index do |website, index|
       accounts.push website[1]
-    end
-    puts accounts.inspect
+    end unless params[:website].empty?
+
     @user = User.update_roles_and_websites(params[:id], accounts)
     if @user.errors.any?
-      render :json => {errors: @user.errors.full_messages}, status: 401
+      respond_with @user
     end
   end
 

@@ -61,14 +61,14 @@ describe AgentsController do
       generate_website
 
       let(:valid_account_post) do
-        [{
+        ["1", {
           :is_admin   => true,
           :website_id => @website.id
         }]
       end
 
       let(:invalid_account_post) do
-        [{
+        ["1", {
           :is_admin   => true,
           :website_id => nil
         }]
@@ -76,9 +76,9 @@ describe AgentsController do
 
       def do_create(type = 'valid')
         if type == 'valid'
-          xhr :post, :create, user: valid_user_post, account: valid_account_post, format: :json
+          xhr :post, :create, agent: valid_user_post, website: valid_account_post, format: :json
         else
-          xhr :post, :create, user: invalid_user_post, account: valid_account_post, format: :json
+          xhr :post, :create, agent: invalid_user_post, website: valid_account_post, format: :json
         end
       end
 
@@ -146,7 +146,7 @@ describe AgentsController do
       end
 
       let(:valid_put) do
-        [{
+        ["1", {
           "is_admin"   => true,
           "website_id" => @website.id,
           "account_id" => @account.id
@@ -154,7 +154,7 @@ describe AgentsController do
       end
 
       let(:invalid_put) do
-        [{
+        ["2", {
           "is_admin"   => true,
           "website_id" => nil,
           "account_id" => @account.id
@@ -163,9 +163,9 @@ describe AgentsController do
 
       def do_update(type = "valid")
         if type == "valid"
-          xhr :put, :update, id: @user1.id, account: valid_put, format: :json
+          xhr :put, :update, id: @user1.id, website: valid_put, format: :json
         else
-          xhr :put, :update, id: @user1.id, account: invalid_put, format: :json
+          xhr :put, :update, id: @user1.id, website: invalid_put, format: :json
         end
       end
 
@@ -184,7 +184,7 @@ describe AgentsController do
       it "should not update user if no website is checked" do
         do_update("invalid")
         JSON.parse(response.body)["errors"].should_not be_blank
-        response.code.should eq "401"
+        response.code.should eq "422"
       end
     end
   end
