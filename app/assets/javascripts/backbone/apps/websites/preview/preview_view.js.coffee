@@ -15,6 +15,7 @@
     className: "control-modal"
     triggers:
       "click .control-footer a.btn":                        "click:back:new"
+
     events:
       "keyup .input-append input": "greetings_count"
 
@@ -57,12 +58,10 @@
         $(e.currentTarget).removeClass "checked"
         $('.widget-head').removeClass('widget-gradient')
         gradientValue = "false"
-
       else
         $(e.currentTarget).addClass "checked"
         $('.widget-head').addClass('widget-gradient')
         gradientValue = "true"
-
 
       @trigger "gradient:toggle", gradientValue
     select_color: (e)->
@@ -86,6 +85,7 @@
       $(e.currentTarget).parent('div').find('a').removeClass('active')
       positionValue = $(e.currentTarget).attr('id')
       $(e.currentTarget).addClass('active')
+
       classStr = $('.widget-wrapper').attr('class')
       lastClass = classStr.substr( classStr.lastIndexOf(' ') + 1);
       $('.widget-wrapper').removeClass(lastClass)
@@ -95,9 +95,3 @@
         $('.widget-wrapper').addClass('widget-fixed-right')
 
       @trigger "select:position", positionValue
-
-
-
-
-
-

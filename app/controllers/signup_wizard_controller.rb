@@ -4,7 +4,6 @@ class SignupWizardController < ApplicationController
   steps :step_one, :step_two, :dashboard, :step_three, :step_four, :step_five
   respond_to :json
 
-
   def show
     case step
     when :step_one

@@ -11,6 +11,7 @@ class RegistrationsController < Devise::RegistrationsController
         sign_in(resource_name, resource)
         # redirect_to ( root_path('#websites/new') )
         redirect_to :controller => :home, :action=>:index, :anchor => "websites/new"
+
         #redirect_to root_path, :anchor => '#step_three'
 
       end

@@ -15,7 +15,6 @@
         @settingsRegion website
         @widgetRegion website
 
-
       App.previewRegion.show @layout
 
 
@@ -28,9 +27,33 @@
       @layout.widgetRegion.show widgetView
 
     settingsRegion: (website) ->
-<<<<<<< HEAD
       @showSettingsView website
       @listenTo website, "updated", (model) =>
+        console.log 'check ang data!!'
+        console.log model
+        currentForm = model.get('step')
+        if currentForm is 'greeting'
+          model.set greeting: model.get('greeting')
+          # @storage.greeting = model.get('greeting')
+          sessionStorage.setItem("newSite", JSON.stringify(@storage))
+          @showColorView model
+        else if currentForm is 'colors'
+          @storage.color = model.get('color')
+          sessionStorage.setItem("newSite", JSON.stringify(@storage))
+          @showPositionView model
+        else  if currentForm is 'position'
+          @storage.position = model.get('position')
+          # @storage.color = model.get('color')
+          # @storage.greeting = model.get('greeting')
+          sessionStorage.setItem("newSite", JSON.stringify(@storage))
+          # @listenTo website, "sync:stop", =>
+          App.previewRegion.close()
+          App.navigate 'websites/info', trigger: true
+
+
+    getColorView: (website)->
+      new Preview.Colors
+        model: website
 
         currentForm = model.get('step')
         if currentForm is 'greeting'
@@ -85,9 +108,11 @@
       @listenTo settingsView, "click:back:new", (item) ->
         App.previewRegion.close()
         App.navigate 'websites/new', trigger: true
+
       @listenTo settingsView, "keyup:change:greeting", (item) ->
 
       @initSettingsView()
+
 
     showColorView: (model) ->
 
@@ -98,6 +123,7 @@
       @initColorView(model)
 
       @listenTo colorView , "select:color", (item) ->
+
         model.set color: item
       @listenTo colorView, "gradient:toggle", (item) ->
         model.set gradient: item
@@ -134,3 +160,4 @@
       counterValue = $("#greeting").val()
       remainLength = 33 - counterValue.length
       $("#greeting-count").text(remainLength)
+
