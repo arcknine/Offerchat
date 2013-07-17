@@ -64,7 +64,7 @@
             region: show.layout.settingsRegion
             currentSite: show.currentSite
 
-      editTriggers: ->
+      editTriggers: (id) ->
         show = API.show(id, 'triggers')
         show.listenTo show.layout, "show", =>
           new SettingsApp.TriggersList.Controller
