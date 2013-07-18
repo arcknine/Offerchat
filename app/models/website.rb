@@ -4,6 +4,7 @@ class Website < ActiveRecord::Base
   before_create :generate_api_key
   after_create :generate_account
   after_create :generate_rosters
+  before_validation :generate_website_name
   after_destroy :delete_accounts
 
   has_many :accounts
@@ -82,6 +83,12 @@ class Website < ActiveRecord::Base
 
   def delete_accounts
     accounts.destroy_all
+  end
+
+  def generate_website_name
+    unless name.blank?
+      name = url.gsub('.', ' ')
+    end
   end
 
 end

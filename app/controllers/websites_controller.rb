@@ -1,6 +1,6 @@
 class WebsitesController < ApplicationController
   before_filter :authenticate_user!
-  # before_filter :current_user_has_website?
+  before_filter :current_user_has_website? , :except => [:create]
   respond_to :json
 
   def my_sites
