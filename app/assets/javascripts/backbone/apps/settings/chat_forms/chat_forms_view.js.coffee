@@ -109,4 +109,3 @@
     updateWidgetMessage: (ev) ->
       $(".widget-pre-message").html($(ev.currentTarget).val())
 
-

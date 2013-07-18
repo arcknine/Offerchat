@@ -102,3 +102,4 @@
         @settings.post_chat.email = $(ev.currentTarget).val()
 
       @currentUser.set settings: @settings
+
