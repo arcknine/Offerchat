@@ -1,8 +1,8 @@
 .checklist-admin
-  %label.inline.checkbox.red{ :for => 'admincheckbox{{id}}', data: {for: "admin", id: '{{id}}'}}
+  %label.inline.checkbox.red{class: '{{adminchecked}}', :for => 'admincheckbox{{id}}', data: {for: "admin", id: '{{id}}'}}
     %span.icon
       .icon-check.admin
-%label.inline.checkbox{ :for => 'websitecheckbox{{id}}', data: {for: "website", id: '{{id}}'} }
+%label.inline.checkbox{class: '{{agentchecked}}', :for => 'websitecheckbox{{id}}', data: {for: "website", id: '{{id}}'} }
   %span.icon
     .icon-check.website
   %strong
@@ -12,5 +12,5 @@
     {{role}}
 %input{type: "hidden", id: 'websiteid{{id}}', name: 'website[{{id}}][website_id]', value: '{{website_id}}'}
 %input{type: "text", id: 'accountid{{id}}', name: 'website[{{id}}][account_id]', value: '{{id}}'}
-%input{type: "checkbox", id: 'admincheckbox{{id}}', name: 'website[{{id}}][is_admin]', value: '{{is_admin}}'}
-%input{type: "checkbox", id: 'websitecheckbox{{id}}', name: 'website[{{id}}][website]', value: '{{is_agent}}'}
+%input{type: "checkbox", id: 'admincheckbox{{id}}', name: 'website[{{id}}][is_admin]', checked: '{{is_admin}}'}
+%input{type: "checkbox", id: 'websitecheckbox{{id}}', name: 'website[{{id}}][website]', checked: '{{is_agent}}'}
