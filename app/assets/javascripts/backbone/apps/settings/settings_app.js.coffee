@@ -5,7 +5,7 @@
       "settings"                         : "show"
       "settings/style/:id"               : "editStyle"
       "settings/position/:id"            : "editPosition"
-      "settings/language/:id"        : "editLanguage"
+      "settings/language/:id"            : "editLanguage"
       "settings/chat-forms/:id"          : "chatForms"
       "settings/chat-forms/:id/prechat"  : "prechatForm"
       "settings/chat-forms/:id/postchat" : "postChatForm"
