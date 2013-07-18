@@ -9,7 +9,7 @@ Gather visitors feedback about the chat session that has ended to measure chat e
 .group
   .widget-preview-sample
     .widget-box.widget-theme{class: "theme-{{site.settings.style.theme}}"}
-      .widget-head.widget-rounded-head.group.widget-gradient
+      .widget-head.widget-rounded-head.group
         %img.agent-thumbnail{src: "{{user.avatar}}"}
         .widget-agent-name {{user.display_name}}
         .widget-welcome-msg {{site.settings.online.agent_label}}

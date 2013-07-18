@@ -3,7 +3,8 @@
 
     initialize: (options) ->
       { @currentSite, region } = options
-      # @currentSite.url = "websites/save_settings/#{@currentSite.get('id')}"
+      @currentSite.url = Routes.update_settings_website_path(@currentSite.get('id'))
+
       @layout  = @getLayoutView()
       formView = App.request "form:wrapper", @layout
       settings = @currentSite.get('settings')
@@ -11,6 +12,12 @@
       @listenTo @layout, "settings:position", (position) =>
         settings.style.position = position
         @currentSite.set settings: settings
+
+      @listenTo @currentSite, "updated", (site) =>
+        $("#setting-notification").fadeIn()
+
+      @listenTo @layout, "hide:notification", =>
+        $("#setting-notification").fadeOut()
 
       @show formView
 

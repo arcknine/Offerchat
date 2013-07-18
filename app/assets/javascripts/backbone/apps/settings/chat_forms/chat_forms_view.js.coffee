@@ -6,6 +6,9 @@
     regions:
       chatFormsRegion: "#chat-forms-region"
 
+    triggers:
+      "click #setting-notification" : "hide:notification"
+
     events:
       "click ul.section-sub-menu a" : "navigateSubForms"
 
@@ -21,11 +24,12 @@
       site: @options.model.toJSON()
 
     events:
-      "blur .widget-label-form textarea"         : "getOfflineMessage"
-      "blur .widget-label-form input[type=text]" : "getOfflineMessage"
+      "blur .widget-label-form textarea"         : "getMessage"
+      "blur .widget-label-form input[type=text]" : "getMessage"
       "click #offline-toggle"                    : "toggleSlider"
+      "keyup .widget-label-form textarea"        : "updateWidgetMessage"
 
-    getOfflineMessage: (ev) ->
+    getMessage: (ev) ->
       @trigger "get:offline:form:event", ev
 
     toggleSlider: (ev) ->
@@ -36,6 +40,9 @@
         $(ev.currentTarget).removeClass("toggle-off")
         @trigger "get:toggle:offline", true
 
+    updateWidgetMessage: (ev) ->
+      $(".widget-pre-message").html($(ev.currentTarget).val())
+
   class ChatForms.PreChat extends App.Views.ItemView
     template:  "settings/chat_forms/prechat"
     className: "block large"
@@ -44,6 +51,36 @@
       user: @options.currentUser.toJSON()
       site: @options.model.toJSON()
 
+    events:
+      "blur .widget-label-form textarea"         : "getMessage"
+      "click #prechat-message-checkbox"          : "checkMessage"
+      "click #prechat-toggle"                    : "toggleSlider"
+      "keyup .widget-label-form textarea"        : "updateWidgetMessage"
+
+    getMessage: (ev) ->
+      @trigger "get:prechat:form:event", ev
+
+    checkMessage: (ev) ->
+      unless $(ev.currentTarget).hasClass("checked")
+        $(ev.currentTarget).addClass("checked")
+        @trigger "get:prechat:message:check", true
+        $(".widget-input-container > textarea").show()
+      else
+        $(ev.currentTarget).removeClass("checked")
+        @trigger "get:prechat:message:check", false
+        $(".widget-input-container > textarea").hide()
+
+    toggleSlider: (ev) ->
+      unless $(ev.currentTarget).hasClass("toggle-off")
+        @trigger "get:toggle:prechat", false
+        $(ev.currentTarget).addClass("toggle-off")
+      else
+        $(ev.currentTarget).removeClass("toggle-off")
+        @trigger "get:toggle:prechat", true
+
+    updateWidgetMessage: (ev) ->
+      $(".widget-pre-message").html($(ev.currentTarget).val())
+
   class ChatForms.PostChat extends App.Views.ItemView
     template:  "settings/chat_forms/postchat"
     className: "block large"
@@ -51,5 +88,25 @@
     serializeData: ->
       user: @options.currentUser.toJSON()
       site: @options.model.toJSON()
+
+    events:
+      "blur .widget-label-form textarea"         : "getMessage"
+      "blur .widget-label-form input[type=text]" : "getMessage"
+      "click #postchat-toggle"                   : "toggleSlider"
+      "keyup .widget-label-form textarea"        : "updateWidgetMessage"
+
+    getMessage: (ev) ->
+      @trigger "get:postchat:form:event", ev
+
+    toggleSlider: (ev) ->
+      unless $(ev.currentTarget).hasClass("toggle-off")
+        @trigger "get:toggle:postchat", false
+        $(ev.currentTarget).addClass("toggle-off")
+      else
+        $(ev.currentTarget).removeClass("toggle-off")
+        @trigger "get:toggle:postchat", true
+
+    updateWidgetMessage: (ev) ->
+      $(".widget-pre-message").html($(ev.currentTarget).val())
 
 

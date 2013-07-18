@@ -9,7 +9,7 @@ Enable the offline form so your visitors can easily reach you when you're not on
 .group
   .widget-preview-sample
     .widget-box.widget-theme{class: "theme-{{site.settings.style.theme}}"}
-      .widget-head.widget-rounded-head.group.widget-gradient
+      .widget-head.widget-rounded-head.group
         %img.agent-thumbnail{src: "{{user.avatar}}"}
         .widget-agent-name {{user.display_name}}
         .widget-welcome-msg {{site.settings.online.agent_label}}
@@ -37,7 +37,7 @@ Enable the offline form so your visitors can easily reach you when you're not on
       %fieldset
         %label Forward messages to email
         .input-container
-          %input{type: "text", placeholder: "admin@example.com", value: "{{site.settings.post_chat.email}}", data: {name: 'email'}}
+          %input{type: "text", placeholder: "admin@example.com", value: "{{site.settings.offline.email}}", data: {name: 'email'}}
 
       %fieldset
         %button.btn.action{type: "submit"} Save Changes

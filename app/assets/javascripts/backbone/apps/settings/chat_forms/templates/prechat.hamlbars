@@ -9,7 +9,7 @@ If you want to get to know your visitors first for a more personalized chat sess
 .group
   .widget-preview-sample
     .widget-box.widget-theme{class: "theme-{{site.settings.style.theme}}"}
-      .widget-head.widget-rounded-head.group.widget-gradient
+      .widget-head.widget-rounded-head.group
         %img.agent-thumbnail{src: "{{user.avatar}}"}
         .widget-agent-name {{user.display_name}}
         .widget-welcome-msg {{site.settings.online.agent_label}}
@@ -47,7 +47,7 @@ If you want to get to know your visitors first for a more personalized chat sess
               .icon-check
             Email
 
-          %label.checkbox.inline#prechat-message-checkbox
+          %label.checkbox.inline.checked#prechat-message-checkbox
             %span.icon
               .icon-check
             Message

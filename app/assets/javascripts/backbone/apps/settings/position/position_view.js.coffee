@@ -7,6 +7,9 @@
     events:
       "click .widget-position-selector > a" : "selectPosition"
 
+    triggers:
+      "click #setting-notification" : "hide:notification"
+
     selectPosition: (ev) ->
       position = $(ev.currentTarget).data("position")
 

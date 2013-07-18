@@ -2,6 +2,10 @@
   %h2 Widget Position
   Set the position of your widget from left to right
 
+.block-message#setting-notification{:style => "display: none"}
+  %a.close ×
+  Your changes have been saved
+
 .group.block.large
   .control-body
     .widget-position-selector{:style => "text-align: left"}
@@ -12,7 +16,7 @@
 
       %a{data: {position: 'right'}}
         .widget-screen
-          .widget-sampler.widget-sampler-left
+          .widget-sampler.widget-sampler-right
         %label right
 
 .column-footer-actions.bordered
