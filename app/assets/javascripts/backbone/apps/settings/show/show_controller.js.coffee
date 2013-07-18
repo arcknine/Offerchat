@@ -3,7 +3,7 @@
   class Show.Controller extends App.Controllers.Base
 
     initialize: (options = {}) ->
-      { id, @section } = options
+      { id, @section, @subForm } = options
       sites    = App.request "my:sites:entities"
       @layout  = @getLayoutView()
 
@@ -30,7 +30,8 @@
 
       @listenTo sitesView, "childview:set:current:website", (child) =>
         @currentSite = child.model
-        App.navigate "settings/#{@section}/#{@currentSite.get('id')}", trigger: true
+        subForm      = (if @subForm then "/#{@subForm}" else "")
+        App.navigate "settings/#{@section}/#{@currentSite.get('id')}#{subForm}", trigger: true
 
       @layout.sitesRegion.show sitesView
 

@@ -1,9 +1,9 @@
 %p.section-desc
-.toggle.group#offline-toggle
+.toggle.group#prechat-toggle
   %label.toggle-radio ON
   %label.toggle-radio OFF
 
-Enable the offline form so your visitors can easily reach you when you're not online.
+If you want to get to know your visitors first for a more personalized chat session.
 %p/
 
 .group
@@ -17,7 +17,7 @@ Enable the offline form so your visitors can easily reach you when you're not on
       .widget-body
         .widget-form
           .widget-block
-            .widget-pre-message {{site.settings.offline.description}}
+            .widget-pre-message {{site.settings.pre_chat.description}}
             .widget-input-container
               %input{ placeholder: "Name", type: "text" }
             .widget-input-container
@@ -30,14 +30,28 @@ Enable the offline form so your visitors can easily reach you when you're not on
   .block.inline
     .form.widget-label-form
       %fieldset
-        %label Offline Message
+        %label Message
         .input-container
-          %textarea{data: {name: 'description'}} {{site.settings.offline.description}}
+          %textarea{data: {name: 'description'}} {{site.settings.pre_chat.description}}
 
       %fieldset
-        %label Forward messages to email
-        .input-container
-          %input{type: "text", placeholder: "admin@example.com", value: "{{site.settings.post_chat.email}}", data: {name: 'email'}}
+        %label Required fields
+        .form{:style => "margin: 10px 0"}
+          %label.checkbox.inline.disabled.checked
+            %span.icon
+              .icon-check
+            Name
+
+          %label.checkbox.inline.disabled.checked
+            %span.icon
+              .icon-check
+            Email
+
+          %label.checkbox.inline#prechat-message-checkbox
+            %span.icon
+              .icon-check
+            Message
 
       %fieldset
         %button.btn.action{type: "submit"} Save Changes
+

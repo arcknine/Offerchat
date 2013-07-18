@@ -6,4 +6,8 @@
   %li
     %a{data: {section: 'postchat'}} Post chat form
 
+.block-message
+  %a.close ×
+  Your changes have been saved
+
 #chat-forms-region
