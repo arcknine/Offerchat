@@ -1,16 +1,6 @@
 @Offerchat.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
   class Entities.Site extends App.Entities.Model
-<<<<<<< HEAD
-    # urlRoot: Routes.websites_path()
-  class Entities.NewSite extends App.Entities.Model
-    # defaults:
-    #   url: sessionStorage.getItem("url") ? sessionStorage.getItem("url") : null
-    #   position: sessionStorage.getItem("url") ? sessionStorage.getItem("url") : null
-=======
-
-    urlRoot: "/websites"
->>>>>>> adding color views
 
     # urlRoot: Routes.websites_path()
   class Entities.NewSite extends App.Entities.Model

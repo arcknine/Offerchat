@@ -22,8 +22,8 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_fails_path_for(resource)
-    resource.errors.messages.each do |key,item|
-      flash[key] = item
+    resource.errors.messages.each do |key,msg|
+      flash[key] = msg
     end
 
 

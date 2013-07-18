@@ -54,7 +54,6 @@
       new Preview.Colors
         model: website
 
-<<<<<<< HEAD
         currentForm = model.get('step')
         if currentForm is 'greeting'
           model.set greeting: model.get('greeting')
@@ -79,14 +78,12 @@
       new Preview.Colors
         model: website
 
-=======
->>>>>>> added error trapping on registration
     getPositionView: (website)->
       new Preview.Position
         model: website
 
-    getColorView: ->
-      new Preview.Color
+    # getColorView: ->
+    #   new Preview.Color
 
     getLayoutView: ->
       new Preview.Layout
@@ -112,7 +109,7 @@
         App.navigate 'websites/new', trigger: true
       @listenTo settingsView, "keyup:change:greeting", (item) ->
 
-      @initSettingsView()
+      # @initSettingsView()
 
       @listenTo settingsView, "keyup:change:greeting", (item) ->
 
@@ -128,10 +125,6 @@
       @initColorView(model)
 
       @listenTo colorView , "select:color", (item) ->
-<<<<<<< HEAD
-
-=======
->>>>>>> added error trapping on registration
         model.set color: item
       @listenTo colorView, "gradient:toggle", (item) ->
         model.set gradient: item

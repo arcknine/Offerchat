@@ -35,7 +35,6 @@
 
     getProfileRegion: (profile)->
       profileView = @getProfileView(profile)
-<<<<<<< HEAD
 
       @listenTo profileView, "change:photo:clicked", (item) =>
         params =
@@ -63,9 +62,6 @@
         # # App.request "close:dropdowns"
         console.log "blur"
 
-=======
-      console.log profileView 
->>>>>>> Merge conflict
       formView = App.request "form:wrapper", profileView
       profile.url = Routes.profiles_path()
       @layout.accountRegion.show formView
