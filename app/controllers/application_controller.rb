@@ -4,4 +4,5 @@ class ApplicationController < ActionController::Base
   def current_user_has_website?
     head :unauthorized if current_user.websites.empty?
   end
+
 end

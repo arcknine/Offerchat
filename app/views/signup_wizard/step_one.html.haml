@@ -3,16 +3,17 @@
     .block
       %h2 Let's get you started
       %p
-        Create your account by entering your display name and your new password
+        Create your account by entering email
 
-      - if flash[:notice]
-        %p.notice= flash[:notice]
+
       = form_for(resource, :as => resource_name, url: wizard_path, :method => "put") do |f|
         .form.form-inline
-          %fieldset
+          %fieldset{:class => (flash[:alert] ? "field-error" : "")}
             %label
               Email name
             .input-container
-
               = f.email_field :email, :autofocus => true, :class => "large"
               %button.btn.action{:type => "submit"} Continue
+
+          %p.alert.alert-error{ :style =>"padding-left:150px;color:red"}
+            = flash[:alert]

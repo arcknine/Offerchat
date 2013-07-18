@@ -1,0 +1,22 @@
+
+.tour-content-inner
+  .block
+    %h2
+      Add it to your website
+    %p
+      Your almost done! Simply copy and paste your code to the website your entered
+  .block
+    .form.form-inline
+      %fieldset
+        %label
+          Website Name
+        .input-container
+          %input.large{:type => "text", :name => "name", :value => "{{name}}"}
+      %fieldset
+        %label
+          Website url
+        .input-container
+          %input.large{:type => "text", :name =>"url" , :value => "{{url}}"}
+.block.large.bordered-top
+  %button.btn.action{:type => "submit"}
+    Next

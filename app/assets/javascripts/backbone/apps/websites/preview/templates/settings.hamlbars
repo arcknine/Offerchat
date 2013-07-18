@@ -15,8 +15,10 @@
       %fieldset
         .input-container
           .input-append
-            %input.large{:type => "text", :value => "Hello, How can I help you today?", :name => "greetings"}
-              %span.add-on 33
+            %input.large{:type => "text", :value => "{{greeting}}", :name => "greeting", :maxlength =>"33", :id =>"greeting" }
+              %span#greeting-count.add-on 33
+
+%input{:name => "step", :type => "hidden", :value => "greeting"}
 .control-footer
   %a.btn
     Back

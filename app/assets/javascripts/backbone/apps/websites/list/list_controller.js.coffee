@@ -3,17 +3,21 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: ->
+
       @sites     = App.request "site:entities"
       sitesView = @getWebsitesView @sites
 
       App.mainRegion.show sitesView
+
 
       @listenTo sitesView, "click:new:website", =>
          App.navigate Routes.new_website_path(), trigger: true
 
       @listenTo sitesView, "childview:click:delete:website", @deleteSite
 
+
       @listenTo sitesView, "childview:click:edit:website", @showModal
+
 
     getWebsitesView: (sites) ->
       new List.Websites

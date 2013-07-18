@@ -1,0 +1,33 @@
+
+.control-header.group
+  %ul.control-breadcrumbs
+    %li
+      %a Greeting
+    %li
+      %a Color
+    %li.active
+      %a Position
+.control-body
+
+  #controlPositionContent
+    %h2
+      Align your widget
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi, deserunt distinction
+    .widget-position-selector
+      %a#left
+        .widget-screen
+          .widget-sampler.widget-sampler-left
+        %label
+          left
+      %a#right.active
+        .widget-screen
+          .widget-sampler.widget-sampler-right
+        %label
+          right
+
+%input{:name => "step", :type => "hidden", :value => "position"}
+.control-footer
+  %a.btn
+    Back
+  %button.btn.action
+    Next

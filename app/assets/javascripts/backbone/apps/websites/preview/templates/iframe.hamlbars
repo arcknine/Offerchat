@@ -1,2 +1,2 @@
 .iframe-cover
-%iframe#mySite{:src => "http://www.dribbble.com"}
+%iframe#mySite{:src => "http://{{url}}"}

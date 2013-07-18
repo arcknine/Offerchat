@@ -14,7 +14,7 @@
     tourSidebarRegion:      "#tour-sidebar-region"
     mainRegion:             "#main-region"
     modalRegion:            "#modal-region"
-    previewRegion:          "#preview-region"
+    previewRegion:          ModalRegion
 
   App.addInitializer ->
     App.module("NavigationApp").start()
