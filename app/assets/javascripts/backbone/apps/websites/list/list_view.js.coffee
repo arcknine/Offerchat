@@ -25,3 +25,9 @@
         cancel:  "Cancel"
       title: "Edit Website"
 
+    events:
+      "click textarea.widget-text-format" : "highlightCode"
+
+    highlightCode: (ev) ->
+      $(ev.currentTarget).select()
+
