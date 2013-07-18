@@ -5,10 +5,10 @@
       "settings"                         : "show"
       "settings/style/:id"               : "editStyle"
       "settings/position/:id"            : "editPosition"
+      "settings/language/:id"        : "editLanguage"
       "settings/chat-forms/:id"          : "chatForms"
       "settings/chat-forms/:id/prechat"  : "prechatForm"
       "settings/chat-forms/:id/postchat" : "postChatForm"
-      #"settings/triggers"           : "editTriggers"
 
     API =
       show: (id, section, sub_form) ->
@@ -55,6 +55,13 @@
             region: show.layout.settingsRegion
             currentSite: show.currentSite
             section: 'postchat'
+
+      editLanguage: (id) ->
+        show = API.show(id, 'language')
+        show.listenTo show.layout, "show", =>
+          new SettingsApp.Language.Controller
+            region: show.layout.settingsRegion
+            currentSite: show.currentSite
 
     App.addInitializer ->
       new SettingsApp.Router
