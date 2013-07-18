@@ -146,7 +146,7 @@ describe SignupWizardController do
     it "should save a new website data" do
       put 'update', id:'step_three', website: website_data
       website = assigns(:website)
-      response.should redirect_to signup_wizard_path('step_four')
+      response.code.should eq '406'
     end
 
     it "should not save a new website" do
@@ -154,13 +154,13 @@ describe SignupWizardController do
       website = assigns(:website)
       website.errors.should_not be_blank
       website.errors.should_not be_nil
-      response.should redirect_to signup_wizard_path('step_three')
+      response.code.should eq '406'
     end
 
     it "should update the new website data" do
       Fabricate(:website, :owner => @user)
       put :update, :id => 'step_four', :settings => {'theme' =>'test', 'position' =>'right'}
-      response.should eq '406'
+      response.code.should eq '406'
     end
   end
 
