@@ -5,6 +5,7 @@
       "settings"                     : "show"
       "settings/style/:id"           : "editStyle"
       "settings/position/:id"        : "editPosition"
+      "settings/language/:id"        : "editLanguage"
       #"settings/attention_grabbers" : "editAttentionGrabbers"
       #"settings/forms"              : "editForms"
       #"settings/triggers"           : "editTriggers"
@@ -27,6 +28,13 @@
         show = API.show(id, 'position')
         show.listenTo show.layout, "show", =>
           new SettingsApp.Position.Controller
+            region: show.layout.settingsRegion
+            currentSite: show.currentSite
+
+      editLanguage: (id) ->
+        show = API.show(id, 'language')
+        show.listenTo show.layout, "show", =>
+          new SettingsApp.Language.Controller
             region: show.layout.settingsRegion
             currentSite: show.currentSite
 
