@@ -52,4 +52,3 @@
 
   App.reqres.setHandler "my:sites:entities", ->
     API.getMySites()
-

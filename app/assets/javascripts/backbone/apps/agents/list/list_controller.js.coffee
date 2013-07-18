@@ -27,6 +27,7 @@
 
     showAgents: (agents) ->
       agentsView = @getAgentsView agents
+
       @listenTo agentsView, "new:agent:clicked", (item) ->
         agent = App.request "new:agent:entity"
         addAgentView = @getAddAgentView(agent, @sites)
@@ -36,6 +37,7 @@
           modalAgentView.close()
 
         App.modalRegion.show modalAgentView
+
 
       @listenTo agentsView, "childview:agent:selection:clicked", (item)->
         showAgentView = @getShowAgentView(item.model, @sites)
