@@ -12,6 +12,7 @@
       buttons = @getDefaultButtons buttons, model
 
       array = []
+      array.push { type: "nosubmit", className: "btn action", text: buttons.nosubmit, buttonType: "submit" } unless buttons.nosubmit is false
       array.push { type: "primary", className: "btn action", text: buttons.primary, buttonType: "submit" } unless buttons.primary is false
       array.push { type: "cancel", className: "btn", text: buttons.cancel } unless buttons.cancel is false
 
@@ -23,6 +24,7 @@
 
     getDefaultButtons: (buttons, model) ->
       _.defaults buttons,
+        nosubmit: if model.isNew() then "Create" else "Update"
         primary: if model.isNew() then "Create" else "Update"
         cancel: "Cancel"
         placement: "right"

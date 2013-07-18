@@ -1,15 +1,16 @@
 .checklist-admin
-  %label.inline.checkbox.red{ :for => 'admincheckbox{{id}}', data: {for: "admin"}}
+  %label.inline.checkbox.red{ :for => 'admincheckbox{{id}}', data: {for: "admin", id: '{{id}}'}}
     %span.icon
       .icon-check.admin
-%label.inline.checkbox{ :for => 'websitecheckbox{{id}}', data: {for: "website"} }
+%label.inline.checkbox{ :for => 'websitecheckbox{{id}}', data: {for: "website", id: '{{id}}'} }
   %span.icon
     .icon-check.website
   %strong
     {{name}}
   %span.url-desc
     {{url}}
-%input{type: "hidden", id: 'websiteid{{id}}', name: 'account[{{id}}][website_id]', value: '{{id}}'}
-%input{type: "text", id: 'accountid{{id}}', name: 'account[{{id}}][account_id]', value: '{{account_id}}'}
-%input{type: "checkbox", id: 'admincheckbox{{id}}', name: 'account[{{id}}][is_admin]'}
-%input{type: "checkbox", id: 'websitecheckbox{{id}}', name: 'account[{{id}}][website]'}
+    {{role}}
+%input{type: "hidden", id: 'websiteid{{id}}', name: 'website[{{id}}][website_id]', value: '{{website_id}}'}
+%input{type: "text", id: 'accountid{{id}}', name: 'website[{{id}}][account_id]', value: '{{id}}'}
+%input{type: "checkbox", id: 'admincheckbox{{id}}', name: 'website[{{id}}][is_admin]', value: '{{is_admin}}'}
+%input{type: "checkbox", id: 'websitecheckbox{{id}}', name: 'website[{{id}}][website]', value: '{{is_agent}}'}

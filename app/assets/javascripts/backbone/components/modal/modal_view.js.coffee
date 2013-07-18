@@ -13,6 +13,7 @@
     ui:
       buttonContainer: "ul.inline-list"
     triggers:
+      "click [data-form-button='nosubmit']" : "modal:unsubmit"
       "click [data-form-button='primary']" : "modal:submit"
       "click [data-form-button='cancel']"  : "modal:cancel"
       "click  a.close"                     : "modal:cancel"

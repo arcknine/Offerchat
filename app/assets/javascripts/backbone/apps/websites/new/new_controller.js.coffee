@@ -17,7 +17,7 @@
         $('#chat-sidebar-region').attr('class', 'tour-sidebar')
 
       currentUser = App.request "set:current:user", App.request "get:current:user:json"
-      newSite     = App.request "site:new:entity"
+      newSite     = App.request "new:site:entity"
       newSite.url = Routes.signup_wizard_path('step_three')
       newSite.set id:'step_three'
       console.log "new site", newSite

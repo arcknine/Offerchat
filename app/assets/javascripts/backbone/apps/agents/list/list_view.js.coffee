@@ -73,27 +73,29 @@
     tagName: "li"
     className: "group"
     events:
-      "click label.checkbox[data-for=website]" : "toggleWebsiteCheckbox"
       "click label.checkbox[data-for=admin]"   : "toggleAdminCheckbox"
+      "click label.checkbox[data-for=website]" : "toggleWebsiteCheckbox"
 
     toggleAdminCheckbox: (e) ->
-      if $(e.currentTarget).hasClass "checked"
-        $(e.currentTarget).removeClass "checked"
-        @$("label[data-for=website]").removeClass "checked" if @$("label[data-for=website]").hasClass "checked"
-      else
+      unless $(e.currentTarget).hasClass "checked"
         $(e.currentTarget).addClass "checked"
+        @$("#websitecheckbox" + $(e.currentTarget).data("id")).attr('checked', 'checked')
         @$("label[data-for=website]").addClass "checked"
-      @trigger "checkbox:toggle", $(e.currentTarget)
-      console.log @model
+        @trigger "account:role:admin:checked"
+      else
+        $(e.currentTarget).removeClass "checked"
+        @trigger "account:role:admin:unchecked"
         
     toggleWebsiteCheckbox: (e)->
-      if $(e.currentTarget).hasClass "checked"
-        $(e.currentTarget).removeClass "checked"
-        @$("label[data-for=admin]").removeClass "checked" if @$("label[data-for=admin]").hasClass "checked"
-      else
+      unless $(e.currentTarget).hasClass "checked"
         $(e.currentTarget).addClass "checked"
-      @trigger "checkbox:toggle", $(e.currentTarget)
-    
+        @trigger "account:role:agent:checked"
+      else
+        $(e.currentTarget).removeClass "checked"
+        @$("label[data-for=admin]").removeClass "checked"
+        @$("#admincheckbox" + $(e.currentTarget).data("id")).attr('checked', false)
+        @trigger "account:role:agent:unchecked"
+
 
     events:
       "click label.checkbox[data-for=admin]"   : "toggleAdminCheckbox"

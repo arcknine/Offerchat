@@ -61,17 +61,19 @@ describe AgentsController do
       generate_website
 
       let(:valid_account_post) do
-        ["1", {
-          :is_admin   => true,
-          :website_id => @website.id
-        }]
+        {
+          "role"        => 2, 
+          "website_id"  => @website.id, 
+          "url"         => "http://www.yahoo.com"
+        }
       end
 
       let(:invalid_account_post) do
-        ["1", {
-          :is_admin   => true,
-          :website_id => nil
-        }]
+        {
+          "role"        => 2, 
+          "website_id"  => nil, 
+          "url"         => "http://www.yahoo.com"
+        }
       end
 
       def do_create(type = 'valid')
@@ -99,7 +101,7 @@ describe AgentsController do
       it "should not create user if invalid email" do
         do_create("invalid")
         JSON.parse(response.body)["errors"].should_not be_blank
-        response.code.should eq "401"
+        response.code.should eq "422"
       end
 
       it "should create new user" do
@@ -146,19 +148,20 @@ describe AgentsController do
       end
 
       let(:valid_put) do
-        ["1", {
-          "is_admin"   => true,
-          "website_id" => @website.id,
-          "account_id" => @account.id
-        }]
+        {
+          "id"          => @account.id,
+          "role"        => 2, 
+          "website_id"  => @website.id, 
+          "url"         => "http://www.yahoo.com"
+        }
       end
-
       let(:invalid_put) do
-        ["2", {
-          "is_admin"   => true,
-          "website_id" => nil,
-          "account_id" => @account.id
-        }]
+        {
+          "id"          => @account.id,
+          "role"        => 2, 
+          "website_id"  => nil, 
+          "url"         => "http://www.yahoo.com"
+        }
       end
 
       def do_update(type = "valid")
