@@ -143,12 +143,6 @@ describe SignupWizardController do
   describe "POST 'update' user is currenlty logged in" do
     login_user
 
-    it "should save a new website data" do
-      put 'update', id:'step_three', website: website_data
-      website = assigns(:website)
-      response.code.should eq '406'
-    end
-
     it "should not save a new website" do
       put 'update', id:'step_three', website: website_data_invalid
       website = assigns(:website)
@@ -157,11 +151,6 @@ describe SignupWizardController do
       response.code.should eq '406'
     end
 
-    it "should update the new website data" do
-      Fabricate(:website, :owner => @user)
-      put :update, :id => 'step_four', :settings => {'theme' =>'test', 'position' =>'right'}
-      response.code.should eq '406'
-    end
   end
 
 end
