@@ -1,0 +1,57 @@
+%p.section-desc
+.toggle.group#prechat-toggle
+  %label.toggle-radio ON
+  %label.toggle-radio OFF
+
+If you want to get to know your visitors first for a more personalized chat session.
+%p/
+
+.group
+  .widget-preview-sample
+    .widget-box.widget-theme{class: "theme-{{site.settings.style.theme}}"}
+      .widget-head.widget-rounded-head.group
+        %img.agent-thumbnail{src: "{{user.avatar}}"}
+        .widget-agent-name {{user.display_name}}
+        .widget-welcome-msg {{site.settings.online.agent_label}}
+
+      .widget-body
+        .widget-form
+          .widget-block
+            .widget-pre-message {{site.settings.pre_chat.description}}
+            .widget-input-container
+              %input{ placeholder: "Name", type: "text" }
+            .widget-input-container
+              %input{ placeholder: "Email", type: "text" }
+            .widget-input-container
+              %textarea{ placeholder: "Message" }
+            .widget-input-container
+              %button.widget-button Submit
+
+  .block.inline
+    .form.widget-label-form
+      %fieldset
+        %label Message
+        .input-container
+          %textarea{data: {name: 'description'}} {{site.settings.pre_chat.description}}
+
+      %fieldset
+        %label Required fields
+        .form{:style => "margin: 10px 0"}
+          %label.checkbox.inline.disabled.checked
+            %span.icon
+              .icon-check
+            Name
+
+          %label.checkbox.inline.disabled.checked
+            %span.icon
+              .icon-check
+            Email
+
+          %label.checkbox.inline.checked#prechat-message-checkbox
+            %span.icon
+              .icon-check
+            Message
+
+      %fieldset
+        %button.btn.action{type: "submit"} Save Changes
+

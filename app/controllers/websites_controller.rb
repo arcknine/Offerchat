@@ -36,6 +36,7 @@ class WebsitesController < ApplicationController
 
   def update
     @website = Website.find(params[:id])
+    # @website.save_settings(params[:settings])
 
     unless @website.update_attributes(params[:website])
       respond_with @website

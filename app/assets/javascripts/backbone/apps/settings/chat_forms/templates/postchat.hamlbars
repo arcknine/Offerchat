@@ -1,0 +1,43 @@
+%p.section-desc
+.toggle.group#postchat-toggle
+  %label.toggle-radio ON
+  %label.toggle-radio OFF
+
+Gather visitors feedback about the chat session that has ended to measure chat effectivess and service quality.
+%p/
+
+.group
+  .widget-preview-sample
+    .widget-box.widget-theme{class: "theme-{{site.settings.style.theme}}"}
+      .widget-head.widget-rounded-head.group
+        %img.agent-thumbnail{src: "{{user.avatar}}"}
+        .widget-agent-name {{user.display_name}}
+        .widget-welcome-msg {{site.settings.online.agent_label}}
+
+      .widget-body
+        .widget-form
+          .widget-block
+            .widget-pre-message {{site.settings.post_chat.description}}
+            .widget-input-container
+              %input{ placeholder: "Name", type: "text" }
+            .widget-input-container
+              %input{ placeholder: "Email", type: "text" }
+            .widget-input-container
+              %textarea{ placeholder: "Message" }
+            .widget-input-container
+              %button.widget-button Submit
+
+  .block.inline
+    .form.widget-label-form
+      %fieldset
+        %label Message
+        .input-container
+          %textarea{data: {name: 'description'}} {{site.settings.post_chat.description}}
+
+      %fieldset
+        %label Forward messages to email
+        .input-container
+          %input{type: "text", placeholder: "admin@example.com", value: "{{site.settings.post_chat.email}}", data: {name: 'email'}}
+
+      %fieldset
+        %button.btn.action{type: "submit"} Save Changes

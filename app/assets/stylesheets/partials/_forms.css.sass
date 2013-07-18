@@ -2,6 +2,7 @@ input[type=text],
 input[type=password],
 input[type=email],
 textarea
+  box-sizing: border-box
   padding: 8px
   font-size: $base-font-size
   outline: none
@@ -15,6 +16,8 @@ textarea
     border-color: darken($border-color, 15%)
   &.large
     width: 350px
+  &.large-2
+    width: 280px
   &.short
     width: 60px
   &.rounded
@@ -72,6 +75,15 @@ label
     &.hide
       display: none
 
+.trigger-form
+  padding: 10px 20px
+  margin: 20px 0
+  border-radius: 5px
+  background-color: #f4f4f4
+  
+  display: inline-block
+  &.hide
+    display: none
 
 .checkbox
   position: relative

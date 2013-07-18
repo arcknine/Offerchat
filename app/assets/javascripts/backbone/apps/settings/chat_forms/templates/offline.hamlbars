@@ -1,0 +1,43 @@
+%p.section-desc
+.toggle.group#offline-toggle
+  %label.toggle-radio ON
+  %label.toggle-radio OFF
+
+Enable the offline form so your visitors can easily reach you when you're not online.
+%p/
+
+.group
+  .widget-preview-sample
+    .widget-box.widget-theme{class: "theme-{{site.settings.style.theme}}"}
+      .widget-head.widget-rounded-head.group
+        %img.agent-thumbnail{src: "{{user.avatar}}"}
+        .widget-agent-name {{user.display_name}}
+        .widget-welcome-msg {{site.settings.online.agent_label}}
+
+      .widget-body
+        .widget-form
+          .widget-block
+            .widget-pre-message {{site.settings.offline.description}}
+            .widget-input-container
+              %input{ placeholder: "Name", type: "text" }
+            .widget-input-container
+              %input{ placeholder: "Email", type: "text" }
+            .widget-input-container
+              %textarea{ placeholder: "Message" }
+            .widget-input-container
+              %button.widget-button Submit
+
+  .block.inline
+    .form.widget-label-form
+      %fieldset
+        %label Offline Message
+        .input-container
+          %textarea{data: {name: 'description'}} {{site.settings.offline.description}}
+
+      %fieldset
+        %label Forward messages to email
+        .input-container
+          %input{type: "text", placeholder: "admin@example.com", value: "{{site.settings.offline.email}}", data: {name: 'email'}}
+
+      %fieldset
+        %button.btn.action{type: "submit"} Save Changes

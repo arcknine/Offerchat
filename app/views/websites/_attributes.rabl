@@ -24,12 +24,14 @@ node do |website|
       :post_chat => {
         :enabled     => website.settings(:post_chat).enabled,
         :header      => website.settings(:post_chat).header,
-        :description => website.settings(:post_chat).description
+        :description => website.settings(:post_chat).description,
+        :email       => website.settings(:post_chat).email
       },
       :offline => {
         :enabled     => website.settings(:offline).enabled,
         :header      => website.settings(:offline).header,
-        :description => website.settings(:offline).description
+        :description => website.settings(:offline).description,
+        :email       => website.settings(:offline).email
       }
     }
   }

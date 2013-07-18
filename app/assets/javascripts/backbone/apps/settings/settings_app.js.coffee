@@ -2,19 +2,21 @@
 
   class SettingsApp.Router extends Marionette.AppRouter
     appRoutes:
-      "settings"                     : "show"
-      "settings/style/:id"           : "editStyle"
-      "settings/position/:id"        : "editPosition"
-      #"settings/attention_grabbers" : "editAttentionGrabbers"
-      #"settings/forms"              : "editForms"
+      "settings"                         : "show"
+      "settings/style/:id"               : "editStyle"
+      "settings/position/:id"            : "editPosition"
+      "settings/chat-forms/:id"          : "chatForms"
+      "settings/chat-forms/:id/prechat"  : "prechatForm"
+      "settings/chat-forms/:id/postchat" : "postChatForm"
       #"settings/triggers"           : "editTriggers"
 
     API =
-      show: (id, section) ->
+      show: (id, section, sub_form) ->
         new SettingsApp.Show.Controller
           region: App.mainRegion
           id: id
           section: section
+          subForm: sub_form
 
       editStyle: (id) ->
         show = API.show(id, 'style')
@@ -30,9 +32,30 @@
             region: show.layout.settingsRegion
             currentSite: show.currentSite
 
+      chatForms: (id) ->
+        show = API.show(id, 'chat-forms')
+        show.listenTo show.layout, "show", =>
+          new SettingsApp.ChatForms.Controller
+            region: show.layout.settingsRegion
+            currentSite: show.currentSite
+            section: 'offline'
+
+      prechatForm: (id) ->
+        show = API.show(id, 'chat-forms', 'prechat')
+        show.listenTo show.layout, "show", =>
+          new SettingsApp.ChatForms.Controller
+            region: show.layout.settingsRegion
+            currentSite: show.currentSite
+            section: 'prechat'
+
+      postChatForm: (id) ->
+        show = API.show(id, 'chat-forms', 'postchat')
+        show.listenTo show.layout, "show", =>
+          new SettingsApp.ChatForms.Controller
+            region: show.layout.settingsRegion
+            currentSite: show.currentSite
+            section: 'postchat'
+
     App.addInitializer ->
       new SettingsApp.Router
         controller: API
-
-    App.vent.on "show:settings:view", (section) ->
-      console.log section

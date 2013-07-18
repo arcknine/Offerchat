@@ -10,11 +10,11 @@
   %ul.header-inline-list.primary-user-nav
 
     %li.reports-menu-link
-      %a.header-nav-reports
+      %a
         Reports
 
     %li.history-menu-link
-      %a.header-nav-history
+      %a
         History
 
     %li.profile-status

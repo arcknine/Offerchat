@@ -14,15 +14,15 @@
   padding: $button-padding
   cursor: pointer
   text-shadow: 0 1px 0 lighten($button-bg-color, 10%)
-  box-shadow: 0 1px 0 darken($button-bg-color, 15%)
+  // box-shadow: 0 1px 0 darken($button-bg-color, 15%)
   &:active, &.active
     background-color: darken($button-bg-color, 5%)
-    box-shadow: 0 1px 1px darken($button-bg-color, 15%) inset
+    // box-shadow: 0 1px 1px darken($button-bg-color, 15%) inset
     border-top: 1px solid darken($button-bg-color, 20%)
-    top: 1px
+    
   &.action
     background-color: $button-bg-action-color
-    box-shadow: 0 1px 0 darken($button-bg-action-color, 15%)
+    // box-shadow: 0 1px 0 darken($button-bg-action-color, 15%)
     text-shadow: 0 -1px 0 darken($button-bg-action-color, 20%)
     color: #fff
     &:active
@@ -31,7 +31,7 @@
       border-top: 1px solid darken($button-bg-action-color, 20%)
   &.warning
     background-color: $button-bg-warning-color
-    box-shadow: 0 1px 0 darken($button-bg-warning-color, 15%)
+    // box-shadow: 0 1px 0 darken($button-bg-warning-color, 15%)
     text-shadow: 0 -1px 0 darken($button-bg-warning-color, 20%)
     color: #fff
     &:active
@@ -49,7 +49,9 @@
     width: 250px
   &.small
     font-size: 12px
-
+  .icon
+    top: -2px
+    margin-right: 2px
 
 .btn-group
   a.btn
@@ -160,11 +162,13 @@ a.trash-btn
     position: absolute
   .btn-action-selector
     text-overflow: ellipsis
-    padding: $button-padding
+    padding: 6px 25px 5px 15px
     overflow: hidden
-    
+    &.chat-action-selector
+      width: 165px
     &.site-selector
-      width: 155px
+      width: 165px
+      margin-top: 5px
     &.agent-row-selector
       width: 90%
       padding: 5px 11px 4px 11px

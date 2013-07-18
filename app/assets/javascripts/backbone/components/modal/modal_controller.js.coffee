@@ -9,6 +9,9 @@
       @listenTo @modalLayout, "show", @modalContentRegion
       @listenTo @modalLayout, "modal:submit", @modalSubmit
       @listenTo @modalLayout, "modal:cancel", @modalCancel
+
+      $("#wrapper").addClass("blur")
+
     modalCancel: ->
       @contentView.triggerMethod "modal:cancel"
 
@@ -25,6 +28,7 @@
         collection: collection
 
     onClose: ->
+      $("#wrapper").removeClass("blur")
       console.log "onClose", @
 
     modalContentRegion: ->
