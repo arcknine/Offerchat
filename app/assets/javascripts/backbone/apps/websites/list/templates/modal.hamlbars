@@ -12,4 +12,4 @@
   %label.label-top-fix Javascript code
   .input-container
     %textarea.large.widget-text-format{ :style => "height: 90px", :readonly => "" }
-      {{api_key}}
+      <!--start of Offerchat js code--><script type='text/javascript'>var ofc_key = '{{api_key}}';(function(){  var oc = document.createElement('script'); oc.type = 'text/javascript'; oc.async = true;  oc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'www.offerchat.com/offerchat_widget.min.js?r='+ Math.random();  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(oc, s);}());</script><!--end of Offerchat js code-->
