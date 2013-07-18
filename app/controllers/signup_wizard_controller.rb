@@ -65,6 +65,7 @@ class SignupWizardController < ApplicationController
     when :step_three
       @website = Website.new
       @website.url = params['url']
+      @website.name = params['name']
       # @website.owner_id = current_user.id
       # session[:website] = {:url => params['url'] }
       unless @website.valid?

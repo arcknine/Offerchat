@@ -86,7 +86,9 @@ class Website < ActiveRecord::Base
   end
 
   def generate_website_name
-    unless name.blank?
+    puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    if name.blank?
+      puts "ni suddddddddddddddddd"
       name = url.gsub('.', ' ')
     end
   end
