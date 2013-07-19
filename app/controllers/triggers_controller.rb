@@ -10,10 +10,6 @@ class TriggersController < ApplicationController
     end
   end
 
-  def this_website
-    @triggers = Trigger.where(:website_id => params[:website_id])
-  end
-
   def new
     website = Website.find_by_id(params[:website_id])
     @trigger = website.triggers.new

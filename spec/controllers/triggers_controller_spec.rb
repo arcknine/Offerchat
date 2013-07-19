@@ -44,13 +44,6 @@ describe TriggersController do
         assigns(:triggers).should_not be_nil
       end
 
-      it "GET 'this_website' should have triggers" do
-        @website = Fabricate(:website)
-        @triggers = Fabricate(:trigger, :website => @website)
-        xhr :get, :this_website, website_id: @website.id, format: :json
-        assigns(:triggers).should_not be_nil
-      end
-
       let(:valid_put) do
         {
           "rule_type"  => 3,

@@ -50,9 +50,6 @@
     getFormView: (model, wid) ->
       the_form = @createForm model
 
-      @listenTo model, "updated", (trigger) ->
-        console.log trigger
-
       @listenTo model, "created", (trigger) =>
         @removeInlineForms()
         @triggers.add trigger

@@ -3,10 +3,6 @@
   class Entities.Trigger extends App.Entities.Model
     urlRoot: "/triggers"
 
-  class Entities.TriggersCollection extends App.Entities.Collection
-    model: Entities.Trigger
-    url: "/triggers/this_website/1" # route to get website triggers
-
   API =
     newTrigger: ->
       new Entities.Trigger
