@@ -5,7 +5,7 @@
     %span.status.online
       %i.icon.icon-check-small
   {{#unless is_admin}}
-  %a.text-message.error.go-right
+  %a.text-message.error.go-right.remove-agent
     Remove User
   {{/unless}}
   %label.profile-label-name.for-large

@@ -42,7 +42,7 @@ class AgentsController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    Account.find(params[:id]).destroy
 
     respond_to do |format|
       format.json { head :no_content }

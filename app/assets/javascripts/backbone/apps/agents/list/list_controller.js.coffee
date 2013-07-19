@@ -13,13 +13,15 @@
         App.execute "when:fetched", agents , =>
           self = @
           agents.each (agent, index) ->
+            if agent.get("id") is self.currentUser.id
+              agent.set
+                is_admin: true
             _.each agent.get("websites"), (owned_site) ->
               website = self.websites.get(owned_site.website_id)
               owned_site["url"] = website.get('url')
               owned_site["adminchecked"] = if owned_site["role"] isnt 3 then "adminchecked"
               owned_site["agentchecked"] = if website isnt null then "agentchecked"
 
-      
       @layout.on "show", =>
         @showAgents agents
 
@@ -35,7 +37,7 @@
       agent = App.request "new:agent:entity"
       
       @listenTo agentsView, "new:agent:clicked", (item) ->
-        addAgentViewLayout = @getNewAgentViewLayout(agent, @sites)
+        addAgentViewLayout = @getNewAgentViewLayout(agent)
         modalAgentView = App.request "modal:wrapper", addAgentViewLayout
         
         modalAgentView.on "show", =>
@@ -60,8 +62,11 @@
           showAgentView = @getShowAgentView(item.model)
           showAgentViewLayout.agentRegion.show showAgentView
           sites = App.request "new:site:entities"
-
           sites.add item.model.get("websites")
+          
+          @listenTo showAgentView, "remove:agent:clicked", (item) ->
+            item.model.destroy()
+            modalAgentView.close()
 
           if item.model.get("id") isnt @currentUser.id
             sitesView = @getSitesView(sites)
@@ -112,10 +117,9 @@
     getSeatsView: (seats) ->
       new List.Seats seats
 
-    getShowAgentView: (model, websites) ->
+    getShowAgentView: (model) ->
       new List.Show
         model: model
-        websites: websites
 
     getShowAgentViewLayout: (model, websites)->
       new List.ShowLayout

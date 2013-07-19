@@ -29,6 +29,8 @@
   class List.Show extends App.Views.ItemView
     template:  "agents/list/show"
     className: "group"
+    triggers:
+      "click .remove-agent" : "remove:agent:clicked"
     form:
       buttons:
         primary: "Save Changes"
@@ -72,56 +74,32 @@
     template: "agents/list/site"
     tagName: "li"
     className: "group"
+    modelEvents:
+      "updated" : "render"
 
     events:
       "click label.checkbox[data-for=admin]"   : "toggleAdminCheckbox"
       "click label.checkbox[data-for=website]" : "toggleWebsiteCheckbox"
 
     toggleAdminCheckbox: (e) ->
-      unless $(e.currentTarget).hasClass "checked"
-        $(e.currentTarget).addClass "checked adminchecked"
+      unless $(e.currentTarget).hasClass "adminchecked"
+        $(e.currentTarget).addClass "adminchecked"
         @$("#websitecheckbox" + $(e.currentTarget).data("id")).attr('checked', 'checked')
-        @$("label[data-for=website]").addClass "checked agentchecked"
+        @$("label[data-for=website]").addClass "agentchecked"
         @trigger "account:role:admin:checked"
       else
-        $(e.currentTarget).removeClass "checked adminchecked"
+        $(e.currentTarget).removeClass "adminchecked"
         @trigger "account:role:admin:unchecked"
         
     toggleWebsiteCheckbox: (e)->
-      unless $(e.currentTarget).hasClass "checked"
-        $(e.currentTarget).addClass "checked agentchecked"
+      unless $(e.currentTarget).hasClass "agentchecked"
+        $(e.currentTarget).addClass "agentchecked"
         @trigger "account:role:agent:checked"
       else
-        $(e.currentTarget).removeClass "checked agentchecked"
-        @$("label[data-for=admin]").removeClass "checked adminchecked"
+        $(e.currentTarget).removeClass "agentchecked"
+        @$("label[data-for=admin]").removeClass "adminchecked"
         @$("#admincheckbox" + $(e.currentTarget).data("id")).attr('checked', false)
         @trigger "account:role:agent:unchecked"
-
-
-    events:
-      "click label.checkbox[data-for=admin]"   : "toggleAdminCheckbox"
-      "click label.checkbox[data-for=website]" : "toggleWebsiteCheckbox"
-
-    toggleAdminCheckbox: (e) ->
-      unless $(e.currentTarget).hasClass "checked"
-        $(e.currentTarget).addClass "checked adminchecked"
-        @$("#websitecheckbox" + $(e.currentTarget).data("id")).attr('checked', 'checked')
-        @$("label[data-for=website]").addClass "checked agentchecked"
-        @trigger "account:role:admin:checked"
-      else
-        $(e.currentTarget).removeClass "checked adminchecked"
-        @trigger "account:role:admin:unchecked"
-        
-    toggleWebsiteCheckbox: (e)->
-      unless $(e.currentTarget).hasClass "checked"
-        $(e.currentTarget).addClass "checked agentchecked"
-        @trigger "account:role:agent:checked"
-      else
-        $(e.currentTarget).removeClass "checked agentchecked"
-        @$("label[data-for=admin]").removeClass "checked adminchecked"
-        @$("#admincheckbox" + $(e.currentTarget).data("id")).attr('checked', false)
-        @trigger "account:role:agent:unchecked"
-
 
   class List.Sites extends App.Views.CompositeView
     template: "agents/list/sites"
