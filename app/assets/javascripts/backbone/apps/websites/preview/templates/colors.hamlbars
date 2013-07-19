@@ -82,10 +82,6 @@
         %span.icon
           .icon-check
         Gradient
-      %label#checkboxRadius.inline.checkbox{:for => "checkbox1"}
-        %span.icon
-          .icon-check
-        Rounded Corners
 
 %input{:name => "step", :type => "hidden", :value => "colors"}
 .control-footer

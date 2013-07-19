@@ -24,8 +24,9 @@ class WebsitesController < ApplicationController
 
     @website = current_user.websites.new(params[:website])
     @website.settings(:style).gradient = params['gradient']
-    @website.settings(:style).theme = params['theme']
-    @website.settings(:online).greeting = params['greeting']
+    @website.settings(:style).theme = params['color']
+    @website.settings(:style).rounded = true
+    @website.settings(:online).agent_label = params['greeting']
     @website.settings(:style).position = params['position']
 
     unless @website.save

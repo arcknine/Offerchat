@@ -42,8 +42,10 @@
         url: (if not storage.url then false else storage.url)
         name: (if not storage.name then 'my website name' else storage.name)
         greeting: (if not storage.greeting then 'Hello! How can I help you today?' else storage.greeting)
-        color: (if not storage.greeting then 'cadmiumreddeep' else storage.color)
-        position: (if not storage.greeting then 'right' else storage.position)
+        color: (if not storage.color then 'cadmiumreddeep' else storage.color)
+        position: (if not storage.position then 'right' else storage.position)
+        gradient: (if not storage.gradient then false else storage.gradient)
+        rounded: (if not storage.rounded then false else storage.rounded)
         api_key: (if not storage.api_key then false else storage.api_key)
 
   App.reqres.setHandler "site:entities", ->

@@ -1,7 +1,7 @@
-.widget-head.group
+.widget-head.group.widget-rounded-head
   %img.agent-thumbnail{:alt => "Avatar-large", :src => "/assets/avatar-large.jpg"}/
   .widget-agent-name
-    Katie
+    {{display_name}}
   .widget-welcome-msg
     Hello! How can I help you today?
 .widget-body

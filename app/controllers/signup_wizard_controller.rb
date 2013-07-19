@@ -83,7 +83,7 @@ class SignupWizardController < ApplicationController
       @website.url = params['url']
       @website.settings(:style).gradient = params['gradient']
       @website.settings(:style).theme = params['theme']
-      @website.settings(:online).greeting = params['greeting']
+      @website.settings(:online).greeting = params['agent_label']
       @website.settings(:style).position = params['position']
       # if @website.save
       #   redirect_to signup_wizard_path('step_five')
