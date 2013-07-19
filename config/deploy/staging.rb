@@ -8,4 +8,4 @@ set :use_sudo, false
 set :branch, "staging"
 set :rails_env, "staging"
 
-server "54.249.110.86", :app, :web, :db, :primary => true
+server "54.250.148.163", :app, :web, :db, :primary => true
