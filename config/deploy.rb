@@ -13,7 +13,6 @@ set :keep_releases, 5
 # SSH Options
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
-ssh_options[:keys] = ["~/.ssh/offerchat.pem"]
 
 # Deploy Config
 set :deploy_to, "/home/ubuntu/apps/offerchat"
