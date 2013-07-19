@@ -3,12 +3,16 @@ class WebsitesController < ApplicationController
   before_filter :current_user_has_website? , :except => [:create]
   respond_to :json
 
-  def my_sites
+  def index
+    @websites = current_user.all_sites
+  end
+
+  def owned
     @websites = current_user.websites
   end
 
-  def index
-    @websites = current_user.websites
+  def managed
+    @websites = current_user.admin_sites
   end
 
   def new
@@ -40,7 +44,7 @@ class WebsitesController < ApplicationController
   end
 
   def update
-    @website = Website.find(params[:id])
+    @website = current_user.websites.find(params[:id])
     # @website.save_settings(params[:settings])
 
     unless @website.update_attributes(params[:website])
@@ -49,7 +53,7 @@ class WebsitesController < ApplicationController
   end
 
   def update_settings
-    @website = Website.find(params[:id])
+    @website = current_user.find_managed_sites(params[:id])
 
     unless @website.save_settings(params[:settings])
       respond_with @website

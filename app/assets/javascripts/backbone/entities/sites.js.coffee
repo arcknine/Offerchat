@@ -2,13 +2,6 @@
 
   class Entities.Site extends App.Entities.Model
 
-    # urlRoot: Routes.websites_path()
-  class Entities.NewSite extends App.Entities.Model
-    # defaults:
-    #   url: sessionStorage.getItem("url") ? sessionStorage.getItem("url") : null
-    #   position: sessionStorage.getItem("url") ? sessionStorage.getItem("url") : null
-
-
   class Entities.SiteTriggers extends App.Entities.Model
     urlRoot: "/triggers"
 
@@ -16,13 +9,12 @@
     model: Entities.Site
     url: "/websites"
 
-
-  class Entities.MySiteCollection extends App.Entities.Collection
-    model: Entities.Site
-    url: Routes.my_sites_websites_path()
-
   class Entities.WebsiteTriggers extends App.Entities.Collection
     model: Entities.SiteTriggers
+
+  class Entities.SiteCollection extends App.Entities.Collection
+    model: Entities.Site
+    url:   Routes.websites_path()
 
   API =
     newSites: ->
@@ -36,9 +28,12 @@
 
 
     getMySites: ->
-      sites = new Entities.MySiteCollection
+      sites = new Entities.SiteCollection
+      sites.url = Routes.managed_websites_path()
       sites.fetch
         reset: true
+        success: ->
+          sites.url = Routes.websites_path()
       sites
 
     newSite: ->
@@ -66,8 +61,8 @@
   App.reqres.setHandler "site:new:entity", ->
     API.newSite()
 
-  App.reqres.setHandler "my:sites:entities", ->
-    API.getMySites()
-
   App.reqres.setHandler "get:website:triggers", (website_id) ->
     API.getWebsiteTriggers website_id
+
+  App.reqres.setHandler "manage:sites:entities", ->
+    API.getMySites()

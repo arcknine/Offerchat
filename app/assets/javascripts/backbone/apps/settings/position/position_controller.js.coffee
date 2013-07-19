@@ -2,6 +2,7 @@
   class Position.Controller extends App.Controllers.Base
 
     initialize: (options) ->
+      console.log options
       { @currentSite, region } = options
       @currentSite.url = Routes.update_settings_website_path(@currentSite.get('id'))
 

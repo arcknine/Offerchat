@@ -46,6 +46,21 @@ class User < ActiveRecord::Base
     owner_accounts.collect(&:user)
   end
 
+  def find_managed_sites(website_id)
+    site = self.accounts.keep_if do |e|
+      (e.role == Account::OWNER || e.role == Account::ADMIN) && (e.website_id == website_id.to_i)
+    end
+    site.try(:first).try(:website)
+  end
+
+  def admin_sites
+    accounts.where("role = ? OR role = ?", Account::ADMIN, Account::OWNER).collect(&:website)
+  end
+
+  def all_sites
+    accounts.collect(&:website)
+  end
+
   def self.create_or_invite_agents(user, account_array)
     user = User.find_or_initialize_by_email(user[:email])
 
