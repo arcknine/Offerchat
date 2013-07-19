@@ -36,10 +36,10 @@
 
 
     getMySites: ->
-      site = new Entities.MySiteCollection
-      site.fetch
+      sites = new Entities.MySiteCollection
+      sites.fetch
         reset: true
-      site
+      sites
 
     newSite: ->
       storage = JSON.parse(sessionStorage.getItem("newSite")) || {}
