@@ -29,6 +29,9 @@
   class TriggersList.Trigger extends App.Views.ItemView
     template: "settings/triggers/list/trigger"
 
+    modelEvents:
+      "created" : "render"
+
     triggers:
       "click .trigger-item"      : "trigger:item:clicked"
 

@@ -3,12 +3,12 @@
   class TriggersList.Controller extends App.Controllers.Base
 
     initialize: (options) ->
-      triggers = App.request "get:website:triggers", options.currentSite.get("id")
+      @triggers = App.request "get:website:triggers", options.currentSite.get("id")
 
       @layout = @getLayoutView()
 
       @listenTo @layout, "show", =>
-        @showTriggersList triggers, options.currentSite.get("id")
+        @showTriggersList @triggers, options.currentSite.get("id")
 
       @listenTo @layout, "add:trigger:clicked", (e) ->
         trigger = App.request "new:trigger"
@@ -34,7 +34,11 @@
         $(e.el).append(triggerForm.render().$el)
 
     removeInlineForms: (item) ->
-      $(item).parents("#triggers-region").find(".form-inline").parent("div").remove()
+      if item
+        $(item).parents("#triggers-region").find(".form-inline").parent("div").remove()
+      else
+        $("#triggers-region").find(".form-inline").parent("div").remove()
+        $("#addTriggerBtn").removeClass("hide")
 
     getTriggersView: (triggers) ->
       new TriggersList.Triggers
@@ -48,6 +52,10 @@
 
       @listenTo model, "updated", (trigger) ->
         console.log trigger
+
+      @listenTo model, "created", (trigger) =>
+        @removeInlineForms()
+        @triggers.add trigger
 
       @listenTo the_form, "save:trigger:clicked", (item) ->
         @saveEntry item, wid
@@ -89,24 +97,26 @@
             obj.rule_type = $(elem).val()
 
         if $(elem).attr("name") is "time"
-          if $(elem).val() is ""
-            @showError("time", "can't be blank!")
-            noError = false
-          else if !@is_number $(elem).val()
-            @showError("time", "is invalid!")
-            noError = false
-          else
-            obj.time = $(elem).val()
+          if obj.rule_type is "1" or obj.rule_type is "2"
+            if $(elem).val() is ""
+              @showError("time", "can't be blank!")
+              noError = false
+            else if !@is_number $(elem).val()
+              @showError("time", "is invalid!")
+              noError = false
+            else
+              obj.time = $(elem).val()
 
         if $(elem).attr("name") is "url"
-          if $(elem).val() is ""
-            @showError("url", "can't be blank!")
-            noError = false
-          else if !@isValidUrl $(elem).val()
-            @showError("url", "is invalid!")
-            noError = false
-          else
-            obj.url = $(elem).val()
+          if obj.rule_type is "2" or obj.rule_type is "3"
+            if $(elem).val() is ""
+              @showError("url", "can't be blank!")
+              noError = false
+            else if !@isValidUrl $(elem).val()
+              @showError("url", "is invalid!")
+              noError = false
+            else
+              obj.url = $(elem).val()
 
         if $(elem).attr("name") is "message"
           if $(elem).val() is ""

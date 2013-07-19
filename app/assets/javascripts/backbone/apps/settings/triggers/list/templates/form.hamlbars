@@ -41,7 +41,7 @@
         secs
 
   %fieldset
-    .input-container#url
+    .input-container.hide#url
       %label.block
         URL
       %input.large{ :type => "text", :placeholder => "http://", :value => "{{params.url}}", name: "url" }
