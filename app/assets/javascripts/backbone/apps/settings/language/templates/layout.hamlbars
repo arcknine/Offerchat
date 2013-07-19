@@ -1,0 +1,89 @@
+.block-message#setting-notification{:style => "display: none"}
+  %a.close ×
+  Your changes have been saved
+
+.block.large
+  %h2
+    Languange and Labels
+  Take the time to customize the widget's language and labels to be more effective in your marketing and support.
+.language-selector
+  %a.set-language.selected
+    = image_tag "lang/english.png"
+    %label
+      English
+  %a.set-language
+    = image_tag "lang/deutsch.png"
+    %label
+      Deutsch
+  %a.set-language
+    = image_tag "lang/french.png"
+    %label
+      French
+  %a.set-language
+    = image_tag "lang/espanol.png"
+    %label
+      Espanol
+  %a.set-language
+    = image_tag "lang/portuguese.png"
+    %label
+      Portuguese
+  %a.set-language
+    = image_tag "lang/polish.png"
+    %label
+      Polish
+
+/ WIDGET PREVIEW FOR SETTINGS
+.group.block.large
+
+  .widget-preview-sample
+
+    .widget-box.widget-theme.theme-pink3#widget-header
+      .widget-head.widget-rounded-head.group
+        = image_tag "avatar-large5.jpg", :class => "agent-thumbnail"
+
+        .widget-agent-name
+          Jill
+        .widget-welcome-msg
+          Hello! How can I help you today?
+      .widget-body
+        .message-item
+          .group
+            .message-author.agent-author
+              Jill
+            .message-date
+              8:00am
+          .message
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, eligendi temporibus sint amet.
+        .message-item
+          .group
+            .message-author
+              You
+            .message-date
+              8:03am
+          .message
+            yes, can you help me?
+      .widget-input
+
+        %i.widget.icon.icon-chat
+        %input.widget-input-text{ :type => "text", :placeholder => "Type your question and hit enter" }
+        %a.chat-settings
+          %i.widget.icon.icon-gear
+        %a.chat-rating
+          %i.widget.icon.icon-thumbs-up
+
+
+
+  .block.inline
+    .form.widget-label-form
+      %fieldset
+        %label
+          Widget Label
+        .input-container
+          .input-append
+            %input{ :type => "text", :id => "widget-label", :value => "Hello! How can I help you today?", :maxlength => 33 }
+            %span.add-on#widget-label-count
+              33
+
+      %fieldset
+        %button.btn.action{ :type => "submit" }
+          Save Changes
