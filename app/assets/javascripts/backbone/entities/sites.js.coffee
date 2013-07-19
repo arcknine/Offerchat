@@ -1,13 +1,29 @@
 @Offerchat.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
   class Entities.Site extends App.Entities.Model
+<<<<<<< HEAD
     urlRoot: Routes.websites_path()
+=======
+
+    # urlRoot: Routes.websites_path()
+  class Entities.NewSite extends App.Entities.Model
+    # defaults:
+    #   url: sessionStorage.getItem("url") ? sessionStorage.getItem("url") : null
+    #   position: sessionStorage.getItem("url") ? sessionStorage.getItem("url") : null
+
+<<<<<<< HEAD
+>>>>>>> Only owner and admin can update settings
 
   class Entities.SiteTriggers extends App.Entities.Model
     urlRoot: "/triggers"
 
   class Entities.WebsiteTriggers extends App.Entities.Collection
     model: Entities.SiteTriggers
+=======
+  class Entities.SiteCollection extends App.Entities.Collection
+    model: Entities.Site
+    url:   Routes.websites_path()
+>>>>>>> Only owner and admin can update settings
 
   class Entities.SiteCollection extends App.Entities.Collection
     model: Entities.Site
@@ -23,7 +39,12 @@
         reset: true
       site
 
+<<<<<<< HEAD
     getManageSites: ->
+=======
+
+    getMySites: ->
+>>>>>>> Only owner and admin can update settings
       sites = new Entities.SiteCollection
       sites.url = Routes.managed_websites_path()
       sites.fetch
@@ -64,4 +85,8 @@
     API.getWebsiteTriggers website_id
 
   App.reqres.setHandler "manage:sites:entities", ->
+<<<<<<< HEAD
     API.getManageSites()
+=======
+    API.getMySites()
+>>>>>>> Only owner and admin can update settings
