@@ -15,6 +15,9 @@
 
         @show @layout
 
+      App.reqres.setHandler "get:sites:count", ->
+        sites
+
     getLayoutView: ->
       new Selector.Layout
 
@@ -48,3 +51,6 @@
       else
         $(view.el).parent().addClass("active")
         $(@region.currentView.el).parent().addClass("open")
+
+
+

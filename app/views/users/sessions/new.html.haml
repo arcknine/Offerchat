@@ -2,7 +2,7 @@
   .logo-large.centered
   .login-form.form
     = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-      %fieldset.field-error
+      %fieldset
         %label
           Email
         = f.email_field :email, :autofocus => true

@@ -33,7 +33,6 @@
         currentForm = model.get('step')
         if currentForm is 'greeting'
           model.set greeting: model.get('greeting')
-          # @storage.greeting = model.get('greeting')
           sessionStorage.setItem("newSite", JSON.stringify(@storage))
           @showColorView model
         else if currentForm is 'colors'
@@ -42,10 +41,7 @@
           @showPositionView model
         else  if currentForm is 'position'
           @storage.position = model.get('position')
-          # @storage.color = model.get('color')
-          # @storage.greeting = model.get('greeting')
           sessionStorage.setItem("newSite", JSON.stringify(@storage))
-          # @listenTo website, "sync:stop", =>
           App.previewRegion.close()
           App.navigate 'websites/info', trigger: true
 

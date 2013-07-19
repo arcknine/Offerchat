@@ -1,0 +1,26 @@
+.block
+  %h2
+    Get Started
+  %p
+    Hey, you’re almost done. Complete the next
+    steps to start using Offerchat.
+  %ul.tour-steps-list
+    %li.checked
+      .checklist
+        %span.value
+          %i.icon.icon-check-large
+      Profile
+    %li#preview-checklist
+      .checklist
+        %span.value
+          2
+        %span#second-check.value.hide
+          %i.icon.icon-check-large
+      Preview widget
+    %li#install-checklist
+      .checklist
+        %span.value
+          3
+        %span#third-check.value.hide
+          %i.icon.icon-check-large
+      Install
