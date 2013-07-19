@@ -3,6 +3,8 @@
   class Preview.Controller extends App.Controllers.Base
 
     initialize: ->
+      currentUser = App.request "set:current:user", App.request "get:current:user:json"
+
       @storage = JSON.parse(sessionStorage.getItem("newSite"))
       website = App.request "site:new:entity"
       website.url = Routes.signup_wizard_path('step_three')
@@ -13,7 +15,7 @@
       @listenTo @layout, "show", =>
         @iframeRegion website
         @settingsRegion website
-        @widgetRegion website
+        @widgetRegion currentUser
 
       App.previewRegion.show @layout
 
@@ -22,21 +24,23 @@
       iframeView = @getIframeView website
       @layout.iframeRegion.show iframeView
 
-    widgetRegion: (website) ->
-      widgetView = @getWidgetView website
+    widgetRegion: (currentUser) ->
+      widgetView = @getWidgetView currentUser
       @layout.widgetRegion.show widgetView
 
     settingsRegion: (website) ->
       @showSettingsView website
-      @listenTo website, "updated", (model) =>
 
+      @listenTo website, "updated", (model) =>
         currentForm = model.get('step')
         if currentForm is 'greeting'
-          model.set greeting: model.get('greeting')
+          @storage.greeting = model.get('greeting')
           sessionStorage.setItem("newSite", JSON.stringify(@storage))
           @showColorView model
         else if currentForm is 'colors'
           @storage.color = model.get('color')
+          @storage.rounded = model.get('rounded')
+          @storage.gradient = model.get('gradient')
           sessionStorage.setItem("newSite", JSON.stringify(@storage))
           @showPositionView model
         else  if currentForm is 'position'
@@ -49,26 +53,6 @@
     getColorView: (website)->
       new Preview.Colors
         model: website
-
-        currentForm = model.get('step')
-        if currentForm is 'greeting'
-          model.set greeting: model.get('greeting')
-          # @storage.greeting = model.get('greeting')
-          sessionStorage.setItem("newSite", JSON.stringify(@storage))
-          @showColorView model
-        else if currentForm is 'colors'
-          @storage.color = model.get('color')
-          sessionStorage.setItem("newSite", JSON.stringify(@storage))
-          @showPositionView model
-        else  if currentForm is 'position'
-          @storage.position = model.get('position')
-          # @storage.color = model.get('color')
-          # @storage.greeting = model.get('greeting')
-          sessionStorage.setItem("newSite", JSON.stringify(@storage))
-          # @listenTo website, "sync:stop", =>
-          App.previewRegion.close()
-          App.navigate 'websites/info', trigger: true
-
 
     getColorView: (website)->
       new Preview.Colors
@@ -77,9 +61,6 @@
     getPositionView: (website)->
       new Preview.Position
         model: website
-
-    # getColorView: ->
-    #   new Preview.Color
 
     getLayoutView: ->
       new Preview.Layout
@@ -92,8 +73,11 @@
       new Preview.Settings
         model: website
 
-    getWidgetView: ->
+    getWidgetView: (currentUser) ->
+      console.log "getting current user!!!"
+      console.log currentUser
       new Preview.Widget
+        model: currentUser
 
     showSettingsView:(model) ->
       settingsView = @getSettingsView model
@@ -125,7 +109,7 @@
       @listenTo colorView, "gradient:toggle", (item) ->
         model.set gradient: item
       @listenTo colorView, "rounded:corners:toggle", (item) ->
-        model.set rounded_corners: item
+        model.set rounded: item
 
       @listenTo colorView, "click:back:greeting", (item) ->
         @showSettingsView model
@@ -145,7 +129,7 @@
     initColorView:(model) ->
       color = model.get('color')
       gradient = model.get('gradient')
-      rounded = model.get('rounded_corners')
+      rounded = model.get('rounded')
       $(".widget-color-selector a").removeClass("active")
       $("#controlColorContent a.#{color}").addClass("active")
       if gradient is 'true'

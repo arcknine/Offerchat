@@ -5,7 +5,7 @@
     initialize: (options = {}) ->
       App.previewRegion.close()
       # App.vent.trigger "show:wizard:sidebar"
-
+      sessionStorage.clear()
       sites = App.request "get:sites:count"
 
       App.execute "when:fetched", sites, =>
