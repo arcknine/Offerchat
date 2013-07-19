@@ -9,6 +9,9 @@
     #   position: sessionStorage.getItem("url") ? sessionStorage.getItem("url") : null
 
 
+  class Entities.SiteTriggers extends App.Entities.Model
+    urlRoot: "/triggers"
+
   class Entities.SiteCollection extends App.Entities.Collection
     model: Entities.Site
     url: "/websites"
@@ -18,6 +21,8 @@
     model: Entities.Site
     url: Routes.my_sites_websites_path()
 
+  class Entities.WebsiteTriggers extends App.Entities.Collection
+    model: Entities.SiteTriggers
 
   API =
     newSites: ->
@@ -48,6 +53,13 @@
         rounded: (if not storage.rounded then false else storage.rounded)
         api_key: (if not storage.api_key then false else storage.api_key)
 
+    getWebsiteTriggers: (website_id) ->
+      triggers = new Entities.WebsiteTriggers
+      triggers.url = Routes.triggers_website_path website_id
+      triggers.fetch
+        reset: true
+      triggers
+
   App.reqres.setHandler "site:entities", ->
     API.getSites()
 
@@ -56,3 +68,6 @@
 
   App.reqres.setHandler "my:sites:entities", ->
     API.getMySites()
+
+  App.reqres.setHandler "get:website:triggers", (website_id) ->
+    API.getWebsiteTriggers website_id

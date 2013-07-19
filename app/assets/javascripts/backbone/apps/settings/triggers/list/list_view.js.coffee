@@ -16,11 +16,24 @@
   class TriggersList.Form extends App.Views.ItemView
     template: "settings/triggers/list/form"
 
+    triggers:
+      "click a.save-trigger" : "save:trigger:clicked"
+      "click a.remove-trigger" : "remove:trigger:clicked"
+
+    events:
+      "change select"           : "changeRule"
+
+    changeRule: (e) ->
+      @trigger "rule:changed", e
+
   class TriggersList.Trigger extends App.Views.ItemView
     template: "settings/triggers/list/trigger"
 
     triggers:
       "click .trigger-item"      : "trigger:item:clicked"
+
+    collectionEvents:
+      "created" : "render"
 
   class TriggersList.Triggers extends App.Views.CompositeView
     template: "settings/triggers/list/triggers"

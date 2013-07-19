@@ -21,6 +21,7 @@ module ControllerMacros
     before(:each) do
        @website = Fabricate(:website, :owner => @user)
        @account = Fabricate(:account, :website => @website)
+       @trigger = Fabricate(:trigger, :website => @website)
     end
   end
 end

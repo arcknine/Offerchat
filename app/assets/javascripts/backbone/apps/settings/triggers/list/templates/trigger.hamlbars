@@ -1,11 +1,28 @@
+
+
 %a.item-block.trigger-item
   %i.icon.icon-lightning
-  Visitor spends
+
+  Visitor
+
+  {{#if params.time}}
   %span.trigger-value
-    {{time}} secs
+    spends {{params.time}} secs
   on
+  {{else}}
+  visits
+  {{/if}}
+
   %span.trigger-value
-    {{loc}}
+
+    {{#if params.url}}
+
+    {{params.url}}
+
+    {{else}}
+    website
+    {{/if}}
+
   say
   %span.trigger-value
-    {{msg}}
+    {{message}}

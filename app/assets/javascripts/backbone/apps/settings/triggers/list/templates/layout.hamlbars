@@ -3,6 +3,15 @@
     %h2
       Chat Triggers
     Set triggers to automatically open the widget once a condition is met
+
+  / if no chat triggers
+  .block-message.small
+    %a.close
+      &times;
+    Setup your chat triggers effectively.
+    %a
+      Learn more on how to effectively use chat triggers.
+
   .block.large
 
     #triggers-region

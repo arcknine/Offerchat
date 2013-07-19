@@ -1,26 +1,59 @@
 .trigger-form.form.form-inline
 
+  :javascript
+    var curr_rule = "{{rule_type}}";
+    if(curr_rule){
+      $(".form-inline").attr("id","update-trigger")
+      $("option").removeAttr("selected");
+      $("option[value='{{rule_type}}']").attr("selected","selected");
+
+      $(".input-container").removeClass("hide");
+      switch(curr_rule){
+        case "1":
+          $("#url").addClass("hide");
+        break;
+        case "3":
+          $("#time").addClass("hide");
+        break;
+      }
+    }
+    else{
+      $(".form-inline").attr("id","new-trigger");
+    }
+
+  %fieldset.field-inline
+    .input-container
+      %label.block.short
+        Visitor
+      %select{:name => "rule_type"}
+        %option{:value => 1, selected: "selected"}
+          spends time on site
+        %option{:value => 2}
+          spends time on specified url
+        %option{:value => 3}
+          visits specified url
+
+  %fieldset.field-inline
+    .input-container.short#time
+      %label.block
+        Time
+      %input.short{ :type => "text", :placeholder => "5", :value => "{{params.time}}", name: "time" }
+        secs
+
   %fieldset
-    .input-container
+    .input-container#url
       %label.block
-        Condition
-      %select{:name => ""}
-        %option{:value => ""}
-          Visitor time on URL
-      +
-    .input-container
-      %label.block
-        Value
-      %input.large{ :type => "text", :placeholder => "value" }
+        URL
+      %input.large{ :type => "text", :placeholder => "http://", :value => "{{params.url}}", name: "url" }
 
   %fieldset
     %label.block
       Message
-    %textarea.large{ :placeholder => "message" }
-      = "{{msg}}"
+    %textarea.large{ :placeholder => "message", name: "message" }
+      = "{{message}}"
 
   %fieldset.last
-    %a.btn
+    %a.btn.save-trigger
       Save Changes
-    %a.btn.warning
+    %a.btn.warning.remove-trigger
       Remove

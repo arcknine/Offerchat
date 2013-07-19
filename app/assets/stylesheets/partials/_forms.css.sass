@@ -19,7 +19,7 @@ textarea
   &.large-2
     width: 280px
   &.short
-    width: 60px
+    width: 50px
   &.rounded
     border-radius: 20px
     padding: 8px 12px 8px 12px
@@ -66,6 +66,7 @@ label
   &.disabled
     cursor: default
     color: $light-text-color
+
   
 
 .transcript-actions-form
@@ -87,7 +88,7 @@ label
 
 .checkbox
   position: relative
-  &.checked
+  &.checked, &.agentchecked
     .icon
       background-color: #54c694
       box-shadow: 0 1px 0 darken(#54c694, 10%)
@@ -98,6 +99,13 @@ label
       .icon
         background-color: #e13d3d
         box-shadow: 0 1px 0 darken(#e13d3d, 10%)
+  &.adminchecked
+    .icon
+      background-color: #e13d3d
+      box-shadow: 0 1px 0 darken(#e13d3d, 10%)
+    .icon-check
+      opacity: 1
+      filter: alpha(opacity=10)
   &.disabled
     .icon
       background-color: #c9d2d6
@@ -106,8 +114,6 @@ label
     .icon-check
       opacity: 1
       filter: alpha(opacity=10)
-
-
   .icon-check
     @include icon(16px, 16px, -28px, -9px)
     opacity: 0
@@ -129,13 +135,19 @@ label
     padding: 10px
     border: 1px solid #e7e7e7
 
+
+
+
 .form
   fieldset
     margin: 5px 0 20px 0
+    vertical-align: top
     &:last-child
       margin-bottom: 5px
     &.smaller
       margin-bottom: 5px
+    &.field-inline
+      display: inline-block
   label
     margin-bottom: 5px
     display: block
@@ -153,15 +165,34 @@ label
     label
       display: inline-block
       min-width: 140px
+
       &.block
         display: block
         padding: 0
+
+
   &.hero-form
     padding: 20px 0
+
+.trigger-form
+  padding: 10px 20px
+  margin: 20px 0
+  border-radius: 5px
+  background-color: #f4f4f4
+  display: inline-block
+  &.hide
+    display: none
+  label, .input-container
+    &.short
+      min-width: 70px
+      width: 115px
+
 .input-container
   &.top
     vertical-align: top
     margin-top: -5px
+  &.hide
+    display: none !important
 .field-error
   input[type=text],
   input[type=password],
