@@ -21,7 +21,6 @@
       @listenTo layout, "hide:notification", =>
         $("#setting-notification").fadeOut()
 
-
       formView = App.request "form:wrapper", layout
       layout.url = Routes.websites_path()
       @show formView

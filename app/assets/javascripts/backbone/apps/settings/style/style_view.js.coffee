@@ -7,6 +7,9 @@
       "click #controlColorContent a" : "changeColor"
       "click .icon-check"            : "toggleGradient"
 
+    triggers:
+      "click #setting-notification" : "hide:notification"
+
     changeColor: (e) ->
       @trigger "style:color:clicked", e
 
