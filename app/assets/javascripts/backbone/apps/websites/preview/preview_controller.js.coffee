@@ -10,7 +10,7 @@
       website.url = Routes.signup_wizard_path('step_three')
       website.set id:'step_three'
 
-      console.log "waawawawawa",website
+
       @layout = @getLayoutView()
 
       @listenTo @layout, "show", =>
