@@ -4,6 +4,7 @@
 
     initialize: (options) ->
       @currentSite = options.currentSite
+
       @triggers = App.request "get:website:triggers", options.currentSite.get("id")
 
       @layout = @getLayoutView()
@@ -49,6 +50,8 @@
       new TriggersList.Layout
         model: @currentSite
 
+    showSuccess: ->
+      $(".block-message").fadeIn()
 
     getFormView: (model, wid) ->
       the_form = @createForm model
@@ -56,6 +59,10 @@
       @listenTo model, "created", (trigger) =>
         @removeInlineForms()
         @triggers.add trigger
+        @showSuccess()
+
+      @listenTo model, "updated", (trigger) ->
+        @showSuccess()
 
       @listenTo the_form, "save:trigger:clicked", (item) ->
         @saveEntry item, wid

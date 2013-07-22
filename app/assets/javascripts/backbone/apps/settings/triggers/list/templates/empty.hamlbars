@@ -1,0 +1,6 @@
+.block-message.small
+  %a.close
+    &times;
+  Setup your chat triggers effectively.
+  %a
+    Learn more on how to effectively use chat triggers.

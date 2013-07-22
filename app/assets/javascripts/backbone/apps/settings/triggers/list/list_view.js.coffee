@@ -9,9 +9,13 @@
 
     events:
       "click #addTriggerBtn"  :   "addTrigger"
+      "click .block-message a" :  "closeNotification"
 
     addTrigger: (e) ->
       @trigger "add:trigger:clicked", e
+
+    closeNotification: (e) ->
+      $(e.currentTarget).parent("div").fadeOut()
 
   class TriggersList.Form extends App.Views.ItemView
     template: "settings/triggers/list/form"
@@ -26,6 +30,11 @@
     changeRule: (e) ->
       @trigger "rule:changed", e
 
+
+  class TriggersList.Empty extends App.Views.ItemView
+    template: "settings/triggers/list/empty"
+    tagName: "div"
+
   class TriggersList.Trigger extends App.Views.ItemView
     template: "settings/triggers/list/trigger"
 
@@ -38,3 +47,4 @@
   class TriggersList.Triggers extends App.Views.CompositeView
     template: "settings/triggers/list/triggers"
     itemView: TriggersList.Trigger
+    emptyView: TriggersList.Empty
