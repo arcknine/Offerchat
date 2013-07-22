@@ -91,14 +91,4 @@ class Website < ActiveRecord::Base
       name = url.to_s.gsub('.', ' ')
     end
   end
-
-
-  # protected
-
-  # def clean_add_url_protocol
-  #   unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
-  #     self.url = 'http://' + self.url
-  #   end
-  # end
-
 end
