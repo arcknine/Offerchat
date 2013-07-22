@@ -12,6 +12,6 @@
     %li
       %a{data: {section: 'chat-forms'}} Chat Forms
     %li
-      %a{data: {section: 'chat-triggers'}} Chat Triggers
+      %a{data: {section: 'triggers'}} Chat Triggers
 
 #settings-main-region

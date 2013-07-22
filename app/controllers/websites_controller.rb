@@ -15,6 +15,10 @@ class WebsitesController < ApplicationController
     @website = current_user.websites.new
   end
 
+  def triggers
+    @website = current_user.websites.find params[:id]
+    @triggers = @website.triggers
+  end
 
   def show
     @website = current_user.websites.find params[:id]

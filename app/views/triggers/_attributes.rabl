@@ -1,0 +1,1 @@
+attributes :id, :website_id, :rule_type, :message, :status, :params

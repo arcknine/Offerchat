@@ -1,0 +1,38 @@
+.trigger-form.form.form-inline
+
+  %fieldset.field-inline
+    .input-container
+      %label.block.short
+        Visitor
+      %select{:name => "rule_type"}
+        %option{:value => 1, selected: "selected"}
+          spends time on site
+        %option{:value => 2}
+          spends time on specified url
+        %option{:value => 3}
+          visits specified url
+
+  %fieldset.field-inline
+    .input-container.short#time
+      %label.block
+        Time
+      %input.short{ :type => "text", :placeholder => "5", :value => "{{params.time}}", name: "time" }
+        secs
+
+  %fieldset
+    .input-container.hide#url
+      %label.block
+        URL
+      %input.large{ :type => "text", :placeholder => "http://", :value => "{{params.url}}", name: "url" }
+
+  %fieldset
+    %label.block
+      Message
+    %textarea.large{ :placeholder => "message", name: "message" }
+      = "{{message}}"
+
+  %fieldset.last
+    %a.btn.save-trigger
+      Save Changes
+    %a.btn.warning.remove-trigger
+      Remove

@@ -9,6 +9,7 @@ class Website < ActiveRecord::Base
 
   has_many :accounts
   has_many :rosters
+  has_many :triggers
   belongs_to :owner, :foreign_key => "owner_id", :class_name => "User"
 
   validates_presence_of :url

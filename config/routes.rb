@@ -20,8 +20,11 @@ Dashboard::Application.routes.draw do
     end
     member do
       put "update_settings"
+      get "triggers"
     end
   end
+
+  resources :triggers
 
   resources :signup_wizard
   resource :passwords

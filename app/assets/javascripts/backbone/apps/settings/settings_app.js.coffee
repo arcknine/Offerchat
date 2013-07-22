@@ -9,6 +9,7 @@
       "settings/chat-forms/:id"          : "chatForms"
       "settings/chat-forms/:id/prechat"  : "prechatForm"
       "settings/chat-forms/:id/postchat" : "postChatForm"
+      "settings/triggers/:id"            : "editTriggers"
 
     API =
       show: (id, section, sub_form) ->
@@ -60,6 +61,13 @@
         show = API.show(id, 'language')
         show.listenTo show.layout, "show", =>
           new SettingsApp.Language.Controller
+            region: show.layout.settingsRegion
+            currentSite: show.currentSite
+
+      editTriggers: (id) ->
+        show = API.show(id, 'triggers')
+        show.listenTo show.layout, "show", =>
+          new SettingsApp.TriggersList.Controller
             region: show.layout.settingsRegion
             currentSite: show.currentSite
 
