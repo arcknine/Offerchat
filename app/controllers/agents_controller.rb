@@ -17,12 +17,12 @@ class AgentsController < ApplicationController
         account_id: account[:id]
       )
     end
-    puts accounts.inspect
+    puts params[:agent]
 
-    #@user = User.create_or_invite_agents(params[:agent], accounts)
-    #if @user.errors.any?
-    #  respond_with @user
-    #end
+    @user = User.create_or_invite_agents(params[:agent], accounts)
+    if @user.errors.any?
+      respond_with @user
+    end
   end
 
   def update

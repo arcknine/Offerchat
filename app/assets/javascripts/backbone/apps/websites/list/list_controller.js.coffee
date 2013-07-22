@@ -4,11 +4,9 @@
 
     initialize: ->
 
-<<<<<<< HEAD
       @sites     = App.request "manage:sites:entities"
-=======
-      @sites     = App.request "my:sites:entities"
->>>>>>> Refactor some codes
+      @sites     = App.request "owned:sites:entities"
+
       sitesView = @getWebsitesView @sites
 
       App.mainRegion.show sitesView

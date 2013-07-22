@@ -28,6 +28,16 @@
         reset: true
       site
 
+
+    getOwnedSites: ->
+      sites = new Entities.SiteCollection
+      sites.url = Routes.owned_websites_path()
+      sites.fetch
+        reset: true
+        success: ->
+          sites.url = Routes.websites_path()
+      sites
+
     getManageSites: ->
       sites = new Entities.SiteCollection
       sites.url = Routes.managed_websites_path()
@@ -70,3 +80,6 @@
 
   App.reqres.setHandler "manage:sites:entities", ->
     API.getManageSites()
+
+  App.reqres.setHandler "owned:sites:entities", ->
+    API.getOwnedSites()

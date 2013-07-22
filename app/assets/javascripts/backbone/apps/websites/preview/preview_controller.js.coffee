@@ -6,7 +6,7 @@
       currentUser = App.request "set:current:user", App.request "get:current:user:json"
 
       @storage = JSON.parse(sessionStorage.getItem("newSite"))
-      website = App.request "site:new:entity"
+      website = App.request "new:site:entity"
       website.url = Routes.signup_wizard_path('step_three')
       website.set id:'step_three'
 

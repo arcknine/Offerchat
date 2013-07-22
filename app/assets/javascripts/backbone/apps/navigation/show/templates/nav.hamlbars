@@ -1,4 +1,4 @@
-.global-notification
+.global-notification.show
   .notify
     %a.close
       &times;

@@ -9,7 +9,6 @@
     {{name}}
   %span.url-desc
     {{url}}
-    {{role}}
 %input{type: "hidden", id: 'websiteid{{id}}', name: 'website[{{id}}][website_id]', value: '{{website_id}}'}
 %input{type: "text", id: 'accountid{{id}}', name: 'website[{{id}}][account_id]', value: '{{id}}'}
 %input{type: "checkbox", id: 'admincheckbox{{id}}', name: 'website[{{id}}][is_admin]', checked: '{{is_admin}}'}

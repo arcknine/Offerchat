@@ -7,7 +7,7 @@
       # console.log "number of sites!!!"
       # console.log sites.length
       @storage = JSON.parse(sessionStorage.getItem("newSite"))
-      newWebsite = App.request "site:new:entity"
+      newWebsite = App.request "new:site:entity"
       newWebsite.url = Routes.websites_path()
       newSiteView = @getWebsiteInfoView newWebsite
       formView  = App.request "form:wrapper", newSiteView

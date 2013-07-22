@@ -41,6 +41,12 @@
   class List.New extends App.Views.ItemView
     template: "agents/list/new"
     tagName: "fieldset"
+    events:
+      "blur input[name=email]" : "update_email_field"
+    
+    update_email_field: (e)->
+      @model.set
+        email: $(e.target).val()
 
   class List.NewLayout extends App.Views.Layout
     template:  "agents/list/new_layout"
