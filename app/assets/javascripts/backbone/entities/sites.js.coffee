@@ -23,7 +23,7 @@
         reset: true
       site
 
-    getMySites: ->
+    getManageSites: ->
       sites = new Entities.SiteCollection
       sites.url = Routes.managed_websites_path()
       sites.fetch
@@ -64,4 +64,4 @@
     API.getWebsiteTriggers website_id
 
   App.reqres.setHandler "manage:sites:entities", ->
-    API.getMySites()
+    API.getManageSites()
