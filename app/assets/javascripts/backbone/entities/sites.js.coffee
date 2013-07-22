@@ -50,7 +50,7 @@
         color: (if not storage.color then 'cadmiumreddeep' else storage.color)
         position: (if not storage.position then 'right' else storage.position)
         gradient: (if not storage.gradient then false else storage.gradient)
-        rounded: (if not storage.rounded then false else storage.rounded)
+        rounded: (if not storage.rounded then true else storage.rounded)
         api_key: (if not storage.api_key then false else storage.api_key)
 
     getWebsiteTriggers: (website_id) ->

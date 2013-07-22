@@ -91,5 +91,4 @@ class Website < ActiveRecord::Base
       name = url.to_s.gsub('.', ' ')
     end
   end
-
 end
