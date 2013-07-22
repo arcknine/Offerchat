@@ -4,7 +4,7 @@
 
     initialize: ->
 
-      @sites     = App.request "site:entities"
+      @sites     = App.request "manage:sites:entities"
       sitesView = @getWebsitesView @sites
 
       App.mainRegion.show sitesView

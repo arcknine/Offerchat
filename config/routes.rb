@@ -2,8 +2,6 @@ Dashboard::Application.routes.draw do
 
   resource :profiles
   resources :agents
-
-
   resource :settings
 
 
@@ -11,12 +9,10 @@ Dashboard::Application.routes.draw do
     :registrations => "registrations"
   }
 
-
-
-
   resources :websites do
     collection do
-      get "my_sites"
+      get "owned"
+      get "managed"
     end
     member do
       put "update_settings"

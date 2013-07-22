@@ -23,6 +23,9 @@
       user: @options.currentUser.toJSON()
       site: @options.model.toJSON()
 
+    triggers:
+      "click button.widget-button" : ""
+
     events:
       "blur .widget-label-form textarea"         : "getMessage"
       "blur .widget-label-form input[type=text]" : "getMessage"
@@ -50,6 +53,9 @@
     serializeData: ->
       user: @options.currentUser.toJSON()
       site: @options.model.toJSON()
+
+    triggers:
+      "click button.widget-button" : ""
 
     events:
       "blur .widget-label-form textarea"         : "getMessage"
@@ -88,6 +94,9 @@
     serializeData: ->
       user: @options.currentUser.toJSON()
       site: @options.model.toJSON()
+
+    triggers:
+      "click button.widget-button" : ""
 
     events:
       "blur .widget-label-form textarea"         : "getMessage"

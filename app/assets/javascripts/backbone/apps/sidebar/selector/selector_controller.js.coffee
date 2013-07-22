@@ -3,11 +3,15 @@
   class Selector.Controller extends App.Controllers.Base
 
     initialize: ->
-      sites = App.request "site:entities"
+      sites  = App.request "site:entities"
 
       App.execute "when:fetched", sites, =>
         site = sites.first()
         @layout = @getLayoutView()
+        @bindLayoutEvents()
+
+        App.reqres.setHandler "get:current:selector:site", ->
+          site
 
         @listenTo @layout, "show", ->
           @initSiteSelectorRegion(site)
@@ -17,6 +21,18 @@
 
       App.reqres.setHandler "get:sites:count", ->
         sites
+
+    bindLayoutEvents: ->
+      @listenTo @layout, "selector:all:websites", ->
+        @hideDropDown()
+        $(@layout.el).find(".site-selector > div > span").html("All websites")
+
+        App.reqres.setHandler "get:current:selector:site", ->
+          "all"
+
+      @listenTo @layout, "selector:new:website", ->
+        @hideDropDown()
+        App.navigate Routes.new_website_path(), trigger: true
 
     getLayoutView: ->
       new Selector.Layout
@@ -29,18 +45,25 @@
 
       @layout.selectedSiteRegion.show selectedSiteView
 
-    getSiteSelectorView: (model)->
+    getSiteSelectorView: (model) ->
       new Selector.SiteSelector
         model: model
 
     initWebsitesRegion: (collection) ->
       websitesView = @getWebsitesView(collection)
+
       @listenTo websitesView, "childview:selected:website:clicked", (item) ->
-        console.log item
+        @hideDropDown()
+
+        App.reqres.setHandler "get:current:selector:site", ->
+          item.model
+
+        @initSiteSelectorRegion item.model
 
       @layout.optionsRegion.show websitesView
 
     getWebsitesView: (collection)->
+      console.log collection
       new Selector.Websites
         collection: collection
 
@@ -51,6 +74,10 @@
       else
         $(view.el).parent().addClass("active")
         $(@region.currentView.el).parent().addClass("open")
+
+    hideDropDown: ->
+      $(@layout.el).find(".site-selector").removeClass("active")
+      $("#site-selector-region").removeClass("open")
 
 
 

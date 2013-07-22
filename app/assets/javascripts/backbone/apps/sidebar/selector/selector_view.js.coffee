@@ -1,12 +1,16 @@
 @Offerchat.module "SidebarApp.Selector", (Selector, App, Backbone, Marionette, $, _) ->
-  
+
   class Selector.Layout extends App.Views.Layout
     template: "sidebar/selector/layout"
     regions:
       selectedSiteRegion: "#siteSelector"
-      optionsRegion:  "#options-elector"
+      optionsRegion:  "#options-selector"
     tagName: "span"
-      
+
+    triggers:
+      "click a#selector-all-websites" : "selector:all:websites"
+      "click a.new-website-link"      : "selector:new:website"
+
   class Selector.SiteSelector extends App.Views.CompositeView
     template: "sidebar/selector/site_selector"
     triggers:
@@ -16,8 +20,8 @@
     template: "sidebar/selector/website"
     tagName: "li"
     triggers:
-      "click a.new.unread"    : "selected:website:clicked"
-    
+      "click a" : "selected:website:clicked"
+
   class Selector.Websites extends App.Views.CompositeView
     template: "sidebar/selector/websites"
     itemView: Selector.Website

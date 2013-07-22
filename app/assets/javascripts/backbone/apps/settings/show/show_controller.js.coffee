@@ -4,24 +4,30 @@
 
     initialize: (options = {}) ->
       { id, @section, @subForm } = options
-      sites    = App.request "my:sites:entities"
+      sites    = App.request "manage:sites:entities"
       @layout  = @getLayoutView()
 
+      unless App.myWebsites
+        App.execute "when:fetched", sites, =>
+          @loadShow sites, id
+      else
+        @loadShow sites, id
 
-      App.execute "when:fetched", sites, =>
-        @currentSite = sites.get(id) or sites.first()
+    loadShow: (sites, id) ->
+      @currentSite = sites.get(id) or sites.first()
 
-        App.navigate "settings/style/#{@currentSite.get("id")}", trigger: true unless id
+      App.navigate "settings/style/#{@currentSite.get("id")}", trigger: true unless id
 
-        @listenTo @layout, "show", =>
-          @sitesView sites, id
+      @listenTo @layout, "show", =>
+        @sitesView sites, id
 
-        @show @layout
+      @show @layout
 
-        @listenTo @layout, "navigate:settings", (section) =>
-          App.navigate "settings/#{section}/#{@currentSite.get('id')}", trigger: true
+      @listenTo @layout, "navigate:settings", (section) =>
+        App.navigate "settings/#{section}/#{@currentSite.get('id')}", trigger: true
 
-        $(@layout.el).find("a[data-section='#{@section}']").addClass("selected")
+      $(@layout.el).find("a[data-section='#{@section}']").addClass("selected")
+
 
     sitesView: (sites, id) ->
       sitesView = @getSitesView sites
