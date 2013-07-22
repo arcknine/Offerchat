@@ -3,6 +3,7 @@
   class TriggersList.Controller extends App.Controllers.Base
 
     initialize: (options) ->
+      @currentSite = options.currentSite
       @triggers = App.request "get:website:triggers", options.currentSite.get("id")
 
       @layout = @getLayoutView()
@@ -46,6 +47,8 @@
 
     getLayoutView: ->
       new TriggersList.Layout
+        model: @currentSite
+
 
     getFormView: (model, wid) ->
       the_form = @createForm model
@@ -74,6 +77,17 @@
           # when "2"  # time and url
           when "3"  # url only
             elem_parent.find("#time").addClass("hide")
+
+      @listenTo the_form, "render", (view) =>
+        if view.model.get("rule_type")
+          rule_type = view.model.get("rule_type")
+          $(view.el).find("option").removeAttr("selected")
+          $(view.el).find("option[value='"+rule_type+"']").attr("selected","selected")
+
+          $(view.el).find(".input-container").removeClass("hide")
+
+          if rule_type is "1" then $(view.el).find("#url").addClass("hide")
+          else if rule_type is "3" then $(view.el).find("#time").addClass("hide")
 
       the_form
 

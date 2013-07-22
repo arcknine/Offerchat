@@ -1,26 +1,5 @@
 .trigger-form.form.form-inline
 
-  :javascript
-    var curr_rule = "{{rule_type}}";
-    if(curr_rule){
-      $(".form-inline").attr("id","update-trigger")
-      $("option").removeAttr("selected");
-      $("option[value='{{rule_type}}']").attr("selected","selected");
-
-      $(".input-container").removeClass("hide");
-      switch(curr_rule){
-        case "1":
-          $("#url").addClass("hide");
-        break;
-        case "3":
-          $("#time").addClass("hide");
-        break;
-      }
-    }
-    else{
-      $(".form-inline").attr("id","new-trigger");
-    }
-
   %fieldset.field-inline
     .input-container
       %label.block.short

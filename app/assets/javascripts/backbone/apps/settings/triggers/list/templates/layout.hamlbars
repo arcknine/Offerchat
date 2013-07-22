@@ -4,7 +4,6 @@
       Chat Triggers
     Set triggers to automatically open the widget once a condition is met
 
-  / if no chat triggers
   .block-message.small
     %a.close
       &times;
