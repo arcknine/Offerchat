@@ -44,36 +44,35 @@ a.site-selector
   position: absolute
   width: 100%
   background: #fff
-  box-shadow: 0 1px 3px rgba(0,0,0,.2)
+
   z-index: 90
   opacity: 0
   visibility: hidden
   margin-top: -10px
+
   span.msg-count-unread
     float: right
     margin-right: 5px
-  li
+  a
+    border-bottom: 1px solid #e1e1e1
     display: block
-    border-bottom: 1px solid $border-color
-    &:last-child
-      border-bottom: none
-    a
-      display: block
-      padding: 10px 15px
-      color: $text-color
-      @include transition(.2s)
-      &:hover
-        background-color: #f1f1f1
-      &.new
-        font-weight: $bold
-        color: darken($text-color, 30%)
-    a.new-website-link
-      color: $link-color
+    padding: 10px 15px
+    color: $text-color
+    @include transition(.2s)
+    &:hover
+      background-color: #f1f1f1
+    &.new
+      font-weight: $bold
+      color: darken($text-color, 30%)
+
+  a.new-website-link
+    color: $link-color
 
 .open .site-selector-options
   opacity: 1
   visibility: visible
   margin-top: 0
+  box-shadow: 0 1px 3px rgba(0,0,0,.2)
 
 .chat-item-tab
   .message-tick
@@ -174,7 +173,7 @@ a.site-selector
 
 .tour-sidebar
   position: absolute
-  width: 270px
+  width: 320px
   height: 100%
   color: #fff
   background-color: #445362

@@ -42,7 +42,7 @@ class Website < ActiveRecord::Base
     accounts.collect(&:user)
   end
 
-  def unread; 0; end
+  def unread; nil; end
 
   def style
     settings.style

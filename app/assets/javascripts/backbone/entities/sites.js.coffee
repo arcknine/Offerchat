@@ -26,7 +26,6 @@
         reset: true
       site
 
-
     getMySites: ->
       sites = new Entities.SiteCollection
       sites.url = Routes.managed_websites_path()

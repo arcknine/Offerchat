@@ -1,2 +1,8 @@
 %a#siteSelector.site-selector
-%div#options-elector.site-selector-options
+.site-selector-options
+  .group#options-selector
+  %ul
+    %li
+      %a#selector-all-websites All websites
+    %li
+      %a.new-website-link + New website
