@@ -9,7 +9,7 @@
       sites = App.request "get:sites:count"
 
       App.execute "when:fetched", sites, =>
-        console.log "walaaaaaa" +sites.length
+        console.log "number of websites = " +sites.length
 
       if sites.length is 0
         console.log "awa"
@@ -23,11 +23,15 @@
       console.log "new site", newSite
 
       @listenTo newSite, "updated", (model) =>
-        storage = JSON.parse(sessionStorage.getItem("newSite")) || {}
-        storage.url = model.get("url")
+
+        currentUrl    = model.get("url")
+        newUrl        = @cleanWebsiteUrl currentUrl
+        model.set url = newUrl
+        storage       = JSON.parse(sessionStorage.getItem("newSite")) || {}
+        storage.url   = newUrl
+
         sessionStorage.setItem("newSite", JSON.stringify(storage))
-        # App.reqres.setHandler "set:session:new:website", ->
-        #   model
+
         App.navigate "websites/preview", trigger: true
 
       newSiteView = @getNewWebsiteView newSite, currentUser
@@ -44,3 +48,7 @@
     wizardToggle: ->
       App.vent.trigger "show:wizard:sidebar"
       $('#chat-sidebar-region').attr('class', 'tour-sidebar')
+
+    cleanWebsiteUrl: (url) ->
+      url = "http://" + url  unless /^(f|ht)tps?:\/\//i.test(url)
+      url

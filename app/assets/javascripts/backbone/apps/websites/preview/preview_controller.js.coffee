@@ -10,6 +10,7 @@
       website.url = Routes.signup_wizard_path('step_three')
       website.set id:'step_three'
 
+      console.log "waawawawawa",website
       @layout = @getLayoutView()
 
       @listenTo @layout, "show", =>
@@ -74,8 +75,6 @@
         model: website
 
     getWidgetView: (currentUser) ->
-      console.log "getting current user!!!"
-      console.log currentUser
       new Preview.Widget
         model: currentUser
 
@@ -87,10 +86,6 @@
       @listenTo settingsView, "click:back:new", (item) ->
         App.previewRegion.close()
         App.navigate 'websites/new', trigger: true
-      @listenTo settingsView, "keyup:change:greeting", (item) ->
-
-      # @initSettingsView()
-
       @listenTo settingsView, "keyup:change:greeting", (item) ->
 
       @initSettingsView()

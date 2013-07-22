@@ -12,7 +12,7 @@
             %label.label-top-fix
               Full name
             .input-container
-              = f.text_field :name, :autofocus => true, :class => "large"
+              = f.text_field :name, :autofocus => true, :class => "large", :maxlenght => "50"
               - if flash[:name].present?
                 .block-text-message
                   = flash[:name][0]
@@ -20,7 +20,7 @@
             %label.label-top-fix
               Display name
             .input-container
-              = f.text_field :display_name, :class => "large"
+              = f.text_field :display_name, :class => "large", :maxlenght => "15"
               - if flash[:display_name].present?
                 .block-text-message
                   = flash[:display_name][0]
@@ -29,7 +29,7 @@
             %label.label-top-fix
               New password
             .input-container
-              = f.password_field :password, :class => "large"
+              = f.password_field :password, :class => "large", :maxlenght => "50"
               - if flash[:password].present?
                 .block-text-message
                   = flash[:password][0]
