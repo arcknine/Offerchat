@@ -45,7 +45,7 @@ describe WebsitesController do
       end
 
       it "GET 'index' should have websites" do
-        xhr :get, :my_sites, format: :json
+        xhr :get, :owned, format: :json
         assigns(:websites).should_not be_nil
       end
 
