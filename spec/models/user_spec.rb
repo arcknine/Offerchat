@@ -32,7 +32,7 @@ describe User do
       context "and adding a new user as an agent" do
         it "should enqueue the welcome email to sidekiq" do
           expect {
-            account = [{ "role" => Account::AGENT, "website_id" => @website.id }]
+            account = [{ :role => Account::AGENT, :website_id => @website.id }]
             user = Fabricate(:user)
             User.create_or_invite_agents(user, account)
           }.to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(1)
@@ -42,7 +42,7 @@ describe User do
       context "and adding a new user as an admin" do
         it "should enqueue the welcome email to sidekiq" do
           expect {
-            account = [{ "role" => Account::ADMIN, "website_id" => @website.id }]
+            account = [{ :role => Account::ADMIN, :website_id => @website.id }]
             user = Fabricate(:user)
             User.create_or_invite_agents(user, account)
           }.to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(1)
@@ -52,7 +52,7 @@ describe User do
       context "and adding an existing user as an admin" do
         it "should enqueue the welcome email to sidekiq" do
           expect {
-            account = [{ "role" => Account::ADMIN, "website_id" => @website.id }]
+            account = [{ :role => Account::ADMIN, :website_id => @website.id }]
             user = { :email => "#{Random.rand(11)}user@email.com" }
             User.create_or_invite_agents(user, account)
           }.to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(1)
@@ -62,7 +62,7 @@ describe User do
       context "and adding an existing user as an agent" do
         it "should enqueue the welcome email to sidekiq" do
           expect {
-            account = [{ "role" => Account::AGENT, "website_id" => @website.id }]
+            account = [{ :role => Account::AGENT, :website_id => @website.id }]
             user = { :email => "#{Random.rand(11)}user@email.com" }
             User.create_or_invite_agents(user, account)
           }.to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(1)

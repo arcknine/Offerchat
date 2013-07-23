@@ -61,26 +61,26 @@ describe AgentsController do
       generate_website
 
       let(:valid_account_post) do
-        {
+        [{
           "role"        => 2, 
           "website_id"  => @website.id, 
           "url"         => "http://www.yahoo.com"
-        }
+        }]
       end
 
       let(:invalid_account_post) do
-        {
+        [{
           "role"        => 2, 
           "website_id"  => nil, 
           "url"         => "http://www.yahoo.com"
-        }
+        }]
       end
 
       def do_create(type = 'valid')
         if type == 'valid'
-          xhr :post, :create, agent: valid_user_post, website: valid_account_post, format: :json
+          xhr :post, :create, agent: valid_user_post, websites: valid_account_post, format: :json
         else
-          xhr :post, :create, agent: invalid_user_post, website: valid_account_post, format: :json
+          xhr :post, :create, agent: invalid_user_post, websites: valid_account_post, format: :json
         end
       end
 
@@ -117,25 +117,25 @@ describe AgentsController do
       end
     end
 
-    describe "DELETE 'destory" do
+    describe "DELETE 'destroy" do
       generate_website
 
       before(:each) do
-        @usr = Fabricate(:user)
+        @account = Fabricate(:account)
       end
 
-      def do_destory
-        xhr :delete, :destroy, id: @usr.id, format: :json
+      def do_destroy
+        xhr :delete, :destroy, id: @account.id, format: :json
       end
 
       it "should remove 1 agent" do
         expect {
-          do_destory
-        }.to change(User, :count)
+          do_destroy
+        }.to change(Account, :count)
       end
 
       it "should return json" do
-        do_destory
+        do_destroy
         response.code.should eq "204"
       end
     end
@@ -148,27 +148,27 @@ describe AgentsController do
       end
 
       let(:valid_put) do
-        {
+        [{
           "id"          => @account.id,
           "role"        => 2, 
           "website_id"  => @website.id, 
           "url"         => "http://www.yahoo.com"
-        }
+        }]
       end
       let(:invalid_put) do
-        {
+        [{
           "id"          => @account.id,
           "role"        => 2, 
           "website_id"  => nil, 
           "url"         => "http://www.yahoo.com"
-        }
+        }]
       end
 
       def do_update(type = "valid")
         if type == "valid"
-          xhr :put, :update, id: @user1.id, website: valid_put, format: :json
+          xhr :put, :update, id: @user1.id, websites: valid_put, format: :json
         else
-          xhr :put, :update, id: @user1.id, website: invalid_put, format: :json
+          xhr :put, :update, id: @user1.id, websites: invalid_put, format: :json
         end
       end
 
