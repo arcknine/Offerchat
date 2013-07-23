@@ -379,7 +379,7 @@ DEPENDENCIES
   js-routes
   ledermann-rails-settings
   letter_opener
-  meta_request
+  meta_request (= 0.2.7)
   meta_search (>= 1.1.0.pre)
   mocha
   mysql2

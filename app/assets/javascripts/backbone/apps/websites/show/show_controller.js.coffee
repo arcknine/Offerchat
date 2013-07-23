@@ -5,7 +5,7 @@
     initialize:(options) ->
       console.log "start initializing website controller....."
 
-      website = App.request 'site:new:entity'
+      website = App.request 'new:site:entity'
 
       @getMainRegion(options.section, website)
 

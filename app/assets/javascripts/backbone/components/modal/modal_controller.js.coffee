@@ -4,7 +4,7 @@
 
     initialize: (options = {}) ->
       @contentView = options.view
-      console.log options.config
+
       @modalLayout = @getModalLayout options.config
       @listenTo @modalLayout, "show", @modalContentRegion
       @listenTo @modalLayout, "modal:submit", @modalSubmit
@@ -39,7 +39,6 @@
 
       config = @getDefaultConfig _.result(@contentView, "form")
       _.extend config, options
-      console.log config
 
       if typeof config.buttons isnt "undefined"
         buttons = @getButtons config.buttons
@@ -54,7 +53,6 @@
         title: title
 
     getDefaultConfig: (config = {}) ->
-      console.log config
       _.defaults config,
         title: "New"
         footer: true

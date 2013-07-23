@@ -61,24 +61,26 @@ describe AgentsController do
       generate_website
 
       let(:valid_account_post) do
-        [{
-          "is_admin"   => true,
-          "website_id" => @website.id
-        }]
+        {
+          "role"        => 2, 
+          "website_id"  => @website.id, 
+          "url"         => "http://www.yahoo.com"
+        }
       end
 
       let(:invalid_account_post) do
-        [{
-          "is_admin"   => true,
-          "website_id" => nil
-        }]
+        {
+          "role"        => 2, 
+          "website_id"  => nil, 
+          "url"         => "http://www.yahoo.com"
+        }
       end
 
       def do_create(type = 'valid')
         if type == 'valid'
-          xhr :post, :create, user: valid_user_post, account: valid_account_post, format: :json
+          xhr :post, :create, agent: valid_user_post, website: valid_account_post, format: :json
         else
-          xhr :post, :create, user: invalid_user_post, account: valid_account_post, format: :json
+          xhr :post, :create, agent: invalid_user_post, website: valid_account_post, format: :json
         end
       end
 
@@ -99,7 +101,7 @@ describe AgentsController do
       it "should not create user if invalid email" do
         do_create("invalid")
         JSON.parse(response.body)["errors"].should_not be_blank
-        response.code.should eq "401"
+        response.code.should eq "422"
       end
 
       it "should create new user" do
@@ -146,26 +148,27 @@ describe AgentsController do
       end
 
       let(:valid_put) do
-        [{
-          "is_admin"   => true,
-          "website_id" => @website.id,
-          "account_id" => @account.id
-        }]
+        {
+          "id"          => @account.id,
+          "role"        => 2, 
+          "website_id"  => @website.id, 
+          "url"         => "http://www.yahoo.com"
+        }
       end
-
       let(:invalid_put) do
-        [{
-          "is_admin"   => true,
-          "website_id" => nil,
-          "account_id" => @account.id
-        }]
+        {
+          "id"          => @account.id,
+          "role"        => 2, 
+          "website_id"  => nil, 
+          "url"         => "http://www.yahoo.com"
+        }
       end
 
       def do_update(type = "valid")
         if type == "valid"
-          xhr :put, :update, id: @user1.id, account: valid_put, format: :json
+          xhr :put, :update, id: @user1.id, website: valid_put, format: :json
         else
-          xhr :put, :update, id: @user1.id, account: invalid_put, format: :json
+          xhr :put, :update, id: @user1.id, website: invalid_put, format: :json
         end
       end
 
@@ -184,7 +187,7 @@ describe AgentsController do
       it "should not update user if no website is checked" do
         do_update("invalid")
         JSON.parse(response.body)["errors"].should_not be_blank
-        response.code.should eq "401"
+        response.code.should eq "422"
       end
     end
   end

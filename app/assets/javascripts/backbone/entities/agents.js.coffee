@@ -2,6 +2,8 @@
 
   class Entities.Agent extends App.Entities.Model
     urlRoot: Routes.agents_path()
+    defaults:
+      email: ""
 
   class Entities.AgentsCollection extends App.Entities.Collection
     model: Entities.Agent

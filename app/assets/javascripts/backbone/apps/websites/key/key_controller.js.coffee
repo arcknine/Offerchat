@@ -5,7 +5,7 @@
     initialize: (options = {}) ->
       sites = App.request "get:sites:count"
 
-      newWebsite = App.request "site:new:entity"
+      newWebsite = App.request "new:site:entity"
       newSiteView = @getWebsiteKeyView newWebsite
       App.mainRegion.show newSiteView
 
