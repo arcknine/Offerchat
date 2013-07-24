@@ -9,7 +9,8 @@
 
       @listenTo layout, "style:color:clicked", (e) =>
         @changeColor(e)
-        settings.style.theme = $(e.currentTarget).removeClass("active").attr('class')
+        klass = $(e.currentTarget).attr('class')
+        settings.style.theme = $.trim(klass.replace("active",""))
         options.currentSite.set settings: settings
 
       @listenTo layout, "style:gradient:checked", (e) =>
