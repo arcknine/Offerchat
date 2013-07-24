@@ -4,7 +4,6 @@
 
 .block.large
   %h2
-    {{attributes.settings.style.theme}}
     Style and Color
   Have the widget match your site's look and feel.
 
@@ -15,19 +14,20 @@
 
       .widget-box.widget-theme.theme-pink3#widget-header
         .widget-head.widget-rounded-head.group
-          = image_tag "avatar-large5.jpg", :class => "agent-thumbnail"
+          %img.agent-thumbnail{ :src => "{{user.avatar}}" }
+          / = image_tag user.avatar, :class => "agent-thumbnail"
           .widget-msg-count
             %span
               3
           .widget-agent-name
-            Jill
+            {{user.display_name}}
           .widget-welcome-msg
-            Hello! How can I help you today?
+            {{website.settings.online.agent_label}}
         .widget-body
           .message-item
             .group
               .message-author.agent-author
-                Jill
+                {{user.display_name}}
               .message-date
                 8:00am
             .message

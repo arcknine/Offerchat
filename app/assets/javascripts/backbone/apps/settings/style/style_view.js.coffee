@@ -15,3 +15,7 @@
 
     toggleGradient: (e) ->
       @trigger "style:gradient:checked", e
+
+    serializeData: ->
+      user: @options.user.toJSON()
+      website: @options.model.toJSON()
