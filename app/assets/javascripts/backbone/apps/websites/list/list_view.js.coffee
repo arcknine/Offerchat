@@ -22,6 +22,7 @@
     form:
       buttons:
         primary: "Save changes"
+        nosubmit: false
         cancel:  "Cancel"
       title: "Edit Website"
 

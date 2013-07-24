@@ -63,7 +63,6 @@
       @layout.optionsRegion.show websitesView
 
     getWebsitesView: (collection)->
-      console.log collection
       new Selector.Websites
         collection: collection
 

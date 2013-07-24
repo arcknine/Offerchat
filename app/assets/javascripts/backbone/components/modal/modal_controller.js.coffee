@@ -28,8 +28,8 @@
         collection: collection
 
     onClose: ->
+      App.request "hide:preloader"
       $("#wrapper").removeClass("blur")
-      console.log "onClose", @
 
     modalContentRegion: ->
       @region = @modalLayout.modalContentRegion

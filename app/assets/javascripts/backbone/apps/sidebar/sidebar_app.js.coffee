@@ -3,7 +3,6 @@
 
   API =
     showSelector: ->
-      console.log 1
       new SidebarApp.Selector.Controller
         region: App.selectorSidebarRegion
 

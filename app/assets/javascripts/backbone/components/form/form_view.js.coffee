@@ -61,7 +61,9 @@
       el.closest("fieldset").addClass("field-error").children().first().append(sm)
 
     syncStart: (model) ->
+      App.request "show:preloader"
       @addOpacityWrapper() if @config.syncing
 
     syncStop: (model) ->
+      App.request "hide:preloader"
       @addOpacityWrapper(false) if @config.syncing
