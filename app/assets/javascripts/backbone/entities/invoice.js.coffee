@@ -9,8 +9,13 @@
   API =
     getInvoices: ->
       invoices = new Entities.InvoicesCollection
+      App.request "init:preloader", "show"
       invoices.fetch
         reset: true
+        success: ->
+          App.request "init:preloader", "hide"
+        error: ->
+          App.request "init:preloader", "hide"
       invoices
 
   App.reqres.setHandler "get:user:invoices", ->

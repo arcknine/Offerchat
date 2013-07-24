@@ -2,12 +2,17 @@
 
   class Entities.Profile extends Entities.Model
     urlRoot: Routes.profiles_path()
-    
+
   API =
     getProfile: ->
       profile = new Entities.Profile
+      App.request "init:preloader", "show"
       profile.fetch
         reset: true
+        success: ->
+          App.request "init:preloader", "hide"
+        error: ->
+          App.request "init:preloader", "hide"
       profile
 
     editProfile: (id)->

@@ -63,7 +63,9 @@
       el.parent().append(sm)
 
     syncStart: (model) ->
+      App.request "init:preloader", "show"
       @addOpacityWrapper() if @config.syncing
 
     syncStop: (model) ->
+      App.request "init:preloader", "hide"
       @addOpacityWrapper(false) if @config.syncing

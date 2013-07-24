@@ -24,27 +24,41 @@
 
     getSites: ->
       site = new Entities.SiteCollection
+      App.request "init:preloader", "show"
       site.fetch
         reset: true
+        success: ->
+          App.request "init:preloader", "hide"
+        error: ->
+          App.request "init:preloader", "hide"
       site
 
 
     getOwnedSites: ->
       sites = new Entities.SiteCollection
       sites.url = Routes.owned_websites_path()
+      App.request "init:preloader", "show"
       sites.fetch
         reset: true
         success: ->
+          console.log "success??"
           sites.url = Routes.websites_path()
+          App.request "init:preloader", "hide"
+        error: ->
+          App.request "init:preloader", "hide"
       sites
 
     getManageSites: ->
       sites = new Entities.SiteCollection
       sites.url = Routes.managed_websites_path()
+      App.request "init:preloader", "show"
       sites.fetch
         reset: true
         success: ->
           sites.url = Routes.websites_path()
+          App.request "init:preloader", "hide"
+        error: ->
+          App.request "init:preloader", "hide"
       sites
 
     newSite: ->
@@ -62,8 +76,13 @@
     getWebsiteTriggers: (website_id) ->
       triggers = new Entities.WebsiteTriggers
       triggers.url = Routes.triggers_website_path website_id
+      App.request "init:preloader", "show"
       triggers.fetch
         reset: true
+        success: ->
+          App.request "init:preloader", "hide"
+        error: ->
+          App.request "init:preloader", "hide"
       triggers
 
   App.reqres.setHandler "site:entities", ->

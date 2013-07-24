@@ -12,11 +12,16 @@
   API =
     newAgent: ->
       new Entities.Agent
-      
+
     getAgents: ->
       agents = new Entities.AgentsCollection
+      App.request "init:preloader", "show"
       agents.fetch
         reset: true
+        success: ->
+          App.request "init:preloader", "hide"
+        error: ->
+          App.request "init:preloader", "hide"
       agents
 
   App.reqres.setHandler "agents:entities", ->
