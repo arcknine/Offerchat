@@ -28,6 +28,12 @@
         cancel: false
         nosubmit: false
 
+    events:
+      "click .block-message a.close" :  "closeNotification"
+
+    closeNotification: (e) ->
+      $(e.currentTarget).parent("div").fadeOut()
+
     onShow: ->
       @$el.fileupload
         dataType: 'json'

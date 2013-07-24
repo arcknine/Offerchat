@@ -7,7 +7,7 @@
   .block-message{ :style => "display:none;" }
     %a.close
       &times;
-    Your changes have been saved.
+    %span
 
   .block.large
 

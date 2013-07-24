@@ -18,7 +18,7 @@
           App.navigate "settings/chat-forms/#{@currentSite.get("id")}#{section}", trigger: true
 
       @listenTo @currentSite, "updated", (site) =>
-        $("#setting-notification").fadeIn()
+        @showNotification("Your changes have been saved!")
 
       @listenTo @layout, "hide:notification", =>
         $("#setting-notification").fadeOut()
