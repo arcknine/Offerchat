@@ -2,6 +2,8 @@
   class Style.Controller extends App.Controllers.Base
 
     initialize: (options) ->
+      @currentUser = App.request "set:current:user", App.request "get:current:user:json"
+
       layout = @getLayoutView(options.currentSite)
 
       options.currentSite.url = Routes.update_settings_website_path(options.currentSite.get("id"))
@@ -46,8 +48,10 @@
         $(".checkbox.inline").addClass("checked")
 
     getLayoutView: (website) ->
+      console.log @currentUser
       new Style.Layout
         model: website
+        user:  @currentUser
 
     changeColor: (e) ->
       $("#controlColorContent a").removeClass("active")
