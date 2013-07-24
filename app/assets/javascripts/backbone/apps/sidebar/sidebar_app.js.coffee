@@ -16,7 +16,7 @@
 
   SidebarApp.on "start", ->
     API.showSelector()
-    #API.showVisitors()
+    API.showVisitors()
 
   App.vent.on "show:wizard:sidebar", =>
     API.showWizards()
