@@ -6,6 +6,9 @@
 
       profile = App.request "get:current:profile"
 
+      @listenTo profile, "updated", (item) ->
+        @showNotification("Your changes have been saved!") # function can be found in controller base
+
       App.execute "when:fetched", profile, =>
         @layout = @getLayoutView()
 
@@ -33,7 +36,7 @@
       else if section is "password"
         @getPasswordRegion(profile)
 
-    getProfileRegion: (profile)->
+    getProfileRegion: (profile) ->
       profileView = @getProfileView(profile)
 
       @listenTo profileView, "change:photo:clicked", (item) =>

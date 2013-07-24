@@ -9,13 +9,13 @@
 
     events:
       "click #addTriggerBtn"  :   "addTrigger"
-      "click .block-message a" :  "closeNotification"
-
-    addTrigger: (e) ->
-      @trigger "add:trigger:clicked", e
+      "click .block-message a.close" :  "closeNotification"
 
     closeNotification: (e) ->
       $(e.currentTarget).parent("div").fadeOut()
+
+    addTrigger: (e) ->
+      @trigger "add:trigger:clicked", e
 
   class TriggersList.Form extends App.Views.ItemView
     template: "settings/triggers/list/form"

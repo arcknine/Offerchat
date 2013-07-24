@@ -1,6 +1,6 @@
 .block-message#setting-notification{:style => "display: none"}
   %a.close ×
-  Your changes have been saved
+  %span
 
 .block.large
   %h2
