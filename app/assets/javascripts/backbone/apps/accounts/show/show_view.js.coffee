@@ -26,6 +26,7 @@
       buttons:
         primary: "Save Changes"
         cancel: false
+        nosubmit: false
 
     onShow: ->
       @$el.fileupload
@@ -44,6 +45,7 @@
       buttons:
         primary: "Save Changes"
         cancel: false
+        nosubmit: false
 
   class Show.Notifications extends App.Views.ItemView
     template:  "accounts/show/notifications"
