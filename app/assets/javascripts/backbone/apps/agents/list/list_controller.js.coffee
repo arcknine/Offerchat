@@ -17,12 +17,12 @@
                 is_admin: true
             _.each agent.get("websites"), (owned_site) ->
               website = self.websites.get(owned_site.website_id)
-              owned_site["url"] = website.get('url')
               owned_site["adminchecked"] = if owned_site["role"] isnt 3 then "adminchecked"
               owned_site["agentchecked"] = if website isnt null then "agentchecked"
               owned_site["is_admin"] = if owned_site["role"] isnt 3 then true else false
               owned_site["is_false"] = if owned_site["role"] is 3 then true else false
 
+          console.log agents
       @layout.on "show", =>
         @showAgents agents
 

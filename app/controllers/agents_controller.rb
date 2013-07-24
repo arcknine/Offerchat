@@ -5,6 +5,7 @@ class AgentsController < ApplicationController
 
   def index
     @agents = current_user.agents
+    @owner = current_user
   end
 
   def create

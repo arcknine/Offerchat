@@ -66,7 +66,7 @@
   App.reqres.setHandler "new:site:entities", ->
     API.newSites()
 
-  App.reqres.setHandler "site:new:entity", ->
+  App.reqres.setHandler "new:site:entity", ->
     API.newSite()
 
   App.reqres.setHandler "new:site:entity", ->
