@@ -7,7 +7,7 @@
 
 .header.group
   %a#root-path-link.logo
-  #canvasloader
+  #canvas-loader
   %ul.header-inline-list.primary-user-nav
 
     %li.reports-menu-link

@@ -76,10 +76,10 @@
         @initPreLoader()
 
         App.reqres.setHandler "show:preloader", ->
-          $("#canvasloader").show()
+          $("#canvas-loader").show()
 
         App.reqres.setHandler "hide:preloader", ->
-          $("#canvasloader").hide()
+          $("#canvas-loader").hide()
 
       App.navigationRegion.show navView
 
@@ -98,7 +98,7 @@
 
     initPreLoader: ->
       # load loader js
-      cl = new CanvasLoader("canvasloader")
+      cl = new CanvasLoader("canvas-loader")
       cl.setColor "#ebebeb"
       cl.setDiameter 19
       cl.setRange 0.8
