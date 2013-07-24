@@ -28,7 +28,7 @@
         collection: collection
 
     onClose: ->
-      App.request "init:preloader", "hide"
+      App.request "hide:preloader"
       $("#wrapper").removeClass("blur")
 
     modalContentRegion: ->

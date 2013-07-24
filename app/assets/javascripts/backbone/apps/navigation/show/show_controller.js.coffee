@@ -72,6 +72,15 @@
       # @listenTo navView, "labs:menu:clicked", (child) ->
       #   console.log child
 
+      @listenTo navView, "show", ->
+        @initPreLoader()
+
+        App.reqres.setHandler "show:preloader", ->
+          $("#canvasloader").show()
+
+        App.reqres.setHandler "hide:preloader", ->
+          $("#canvasloader").hide()
+
       App.navigationRegion.show navView
 
     getNavView: (user)->
@@ -86,3 +95,15 @@
         unless $(value).hasClass("hide")
           $(value).addClass("hide")
           $(value).prev().removeClass("active")
+
+    initPreLoader: ->
+      # load loader js
+      cl = new CanvasLoader("canvasloader")
+      cl.setColor "#ebebeb"
+      cl.setDiameter 19
+      cl.setRange 0.8
+      cl.setFPS 30
+      cl.show()
+
+      loaderObj = document.getElementById("canvasLoader")
+      loaderObj.style.position = "absolute"

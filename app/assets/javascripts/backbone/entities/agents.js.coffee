@@ -15,13 +15,13 @@
 
     getAgents: ->
       agents = new Entities.AgentsCollection
-      App.request "init:preloader", "show"
+      App.request "show:preloader"
       agents.fetch
         reset: true
         success: ->
-          App.request "init:preloader", "hide"
+          App.request "hide:preloader"
         error: ->
-          App.request "init:preloader", "hide"
+          App.request "hide:preloader"
       agents
 
   App.reqres.setHandler "agents:entities", ->

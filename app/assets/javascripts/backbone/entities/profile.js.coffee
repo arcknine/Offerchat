@@ -6,13 +6,13 @@
   API =
     getProfile: ->
       profile = new Entities.Profile
-      App.request "init:preloader", "show"
+      App.request "show:preloader"
       profile.fetch
         reset: true
         success: ->
-          App.request "init:preloader", "hide"
+          App.request "hide:preloader"
         error: ->
-          App.request "init:preloader", "hide"
+          App.request "hide:preloader"
       profile
 
     editProfile: (id)->

@@ -24,41 +24,40 @@
 
     getSites: ->
       site = new Entities.SiteCollection
-      App.request "init:preloader", "show"
+      App.request "show:preloader"
       site.fetch
         reset: true
         success: ->
-          App.request "init:preloader", "hide"
+          App.request "hide:preloader"
         error: ->
-          App.request "init:preloader", "hide"
+          App.request "hide:preloader"
       site
 
 
     getOwnedSites: ->
       sites = new Entities.SiteCollection
       sites.url = Routes.owned_websites_path()
-      App.request "init:preloader", "show"
+      App.request "show:preloader"
       sites.fetch
         reset: true
         success: ->
-          console.log "success??"
           sites.url = Routes.websites_path()
-          App.request "init:preloader", "hide"
+          App.request "hide:preloader"
         error: ->
-          App.request "init:preloader", "hide"
+          App.request "hide:preloader"
       sites
 
     getManageSites: ->
       sites = new Entities.SiteCollection
       sites.url = Routes.managed_websites_path()
-      App.request "init:preloader", "show"
+      App.request "show:preloader"
       sites.fetch
         reset: true
         success: ->
           sites.url = Routes.websites_path()
-          App.request "init:preloader", "hide"
+          App.request "hide:preloader"
         error: ->
-          App.request "init:preloader", "hide"
+          App.request "hide:preloader"
       sites
 
     newSite: ->
@@ -76,13 +75,13 @@
     getWebsiteTriggers: (website_id) ->
       triggers = new Entities.WebsiteTriggers
       triggers.url = Routes.triggers_website_path website_id
-      App.request "init:preloader", "show"
+      App.request "show:preloader"
       triggers.fetch
         reset: true
         success: ->
-          App.request "init:preloader", "hide"
+          App.request "hide:preloader"
         error: ->
-          App.request "init:preloader", "hide"
+          App.request "hide:preloader"
       triggers
 
   App.reqres.setHandler "site:entities", ->
