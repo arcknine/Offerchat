@@ -15,7 +15,11 @@
 //= require lib/backbone
 //= require lib/marionette
 //= require handlebars.runtime
-
+//= require ./strophe/base64
+//= require ./strophe/md5
+//= require ./strophe/sha1
+//= require ./strophe/core
+//= require_tree ./strophe
 //= require backbone.wreqr
 //= require backbone.marionette.handlebars
 //= require js-routes
