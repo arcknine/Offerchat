@@ -75,11 +75,9 @@
 
         elem_parent.find(".input-container").removeClass("hide")
 
-        if rule is "1"      # time only
-          elem_parent.find("#url").addClass("hide")
-        # else if rule is "2" # time and url
-        else if rule is "3" # url only
-          elem_parent.find("#time").addClass("hide")
+        if rule is "1" then elem_parent.find("#url").addClass("hide")       # time only
+        # else if rule is "2"                                               # time and url
+        else if rule is "3" then elem_parent.find("#time").addClass("hide") # url only
 
       @listenTo the_form, "render", (view) =>
         if view.model.get("rule_type")
