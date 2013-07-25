@@ -3,9 +3,6 @@
   class Entities.Trigger extends App.Entities.Model
     urlRoot: "/triggers"
 
-  class Entities.SiteTriggers extends App.Entities.Model
-    urlRoot: "/triggers"
-
   class Entities.WebsiteTriggers extends App.Entities.Collection
     model: Entities.Trigger
 
