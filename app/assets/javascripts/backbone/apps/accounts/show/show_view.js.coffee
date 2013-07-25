@@ -53,6 +53,12 @@
         cancel: false
         nosubmit: false
 
+    events:
+      "click .block-message a.close" :  "closeNotification"
+
+    closeNotification: (e) ->
+      $(e.currentTarget).parent("div").fadeOut()
+
   class Show.Notifications extends App.Views.ItemView
     template:  "accounts/show/notifications"
     className: "column-content-container"
