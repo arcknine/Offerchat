@@ -50,19 +50,16 @@
       new TriggersList.Layout
         model: @currentSite
 
-    showSuccess: ->
-      $(".block-message").fadeIn()
-
     getFormView: (model, wid) ->
       the_form = @createForm model
 
       @listenTo model, "created", (trigger) =>
         @removeInlineForms()
         @triggers.add trigger
-        @showSuccess()
+        @showNotification("Your new trigger has been created.")
 
       @listenTo model, "updated", (trigger) ->
-        @showSuccess()
+        @showNotification("Your changes have been saved!")
 
       @listenTo the_form, "save:trigger:clicked", (item) ->
         @saveEntry item, wid

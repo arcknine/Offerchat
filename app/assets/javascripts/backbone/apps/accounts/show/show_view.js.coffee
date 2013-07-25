@@ -26,6 +26,13 @@
       buttons:
         primary: "Save Changes"
         cancel: false
+        nosubmit: false
+
+    events:
+      "click .block-message a.close" :  "closeNotification"
+
+    closeNotification: (e) ->
+      $(e.currentTarget).parent("div").fadeOut()
 
     onShow: ->
       @$el.fileupload
@@ -44,6 +51,7 @@
       buttons:
         primary: "Save Changes"
         cancel: false
+        nosubmit: false
 
   class Show.Notifications extends App.Views.ItemView
     template:  "accounts/show/notifications"

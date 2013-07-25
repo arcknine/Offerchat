@@ -14,7 +14,7 @@
         @currentSite.set settings: settings
 
       @listenTo @currentSite, "updated", (site) =>
-        $("#setting-notification").fadeIn()
+        @showNotification("Your changes have been saved!")
 
       @listenTo @layout, "hide:notification", =>
         $("#setting-notification").fadeOut()
