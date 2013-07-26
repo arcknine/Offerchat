@@ -10,8 +10,8 @@ class WebsiteSettings < RailsSettings::SettingObject
       when "offline"
         if self.description.blank?
           errors.add("description", " should not be blank")
-          # website = Website.find(self.target_id)
-          # website.errors[:description] << " is required"
+        elsif self.description.length > 140
+          errors.add("description", " should not exceed 140 characters")
         end
     end
   end
