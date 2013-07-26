@@ -1,6 +1,5 @@
 class WebsiteSettings < RailsSettings::SettingObject
   validate do
-    puts self.inspect
     case self.var
       # when "style"
       # when "onine"
@@ -9,9 +8,13 @@ class WebsiteSettings < RailsSettings::SettingObject
 
       when "offline"
         if self.description.blank?
-          errors.add("description", " should not be blank")
+          errors.add(:description, " should not be blank")
         elsif self.description.length > 140
-          errors.add("description", " should not exceed 140 characters")
+          errors.add(:description, " should not exceed 140 characters")
+        end
+
+        if self.email.blank?
+          errors.add(:email, " should not be blank")
         end
     end
   end
