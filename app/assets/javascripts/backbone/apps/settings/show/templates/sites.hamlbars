@@ -1,0 +1,11 @@
+%h2 Chat Settings
+.btn-selector-wrapper#sites-dropdown-button
+  .btn-selector
+    .btn.btn-action-selector.site-selector
+      %i.icon.icon-arrow-down
+      %span.current-selection
+        {{currentSite.name}}
+
+    .dropdown-options.dark
+      .caret.caret-dark
+      %ul

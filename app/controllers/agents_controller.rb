@@ -4,25 +4,45 @@ class AgentsController < ApplicationController
   respond_to :json
 
   def index
-    @agents = current_user.my_agents
+    @agents = current_user.agents
   end
 
   def create
-    @user = User.create_or_invite_agents(params[:user], params[:account])
+    accounts = []
+    
+    params[:websites].each do |account|
+      accounts.push(
+        is_admin: (account[:role] < 3),
+        website_id: account[:website_id],
+        account_id: account[:id]
+      )
+    end
+    puts params[:agent]
+
+    @user = User.create_or_invite_agents(params[:agent], accounts)
     if @user.errors.any?
-      render :json => {errors: @user.errors.full_messages}, status: 401
+      respond_with @user
     end
   end
 
   def update
-    @user = User.update_roles_and_websites(params[:id], params[:account])
+    accounts = []
+    params[:websites].each do |account|
+      accounts.push(
+        is_admin: (account[:role] < 3), 
+        website_id: account[:website_id], 
+        account_id: account[:id]
+      )
+    end
+
+    @user = User.update_roles_and_websites(params[:id], accounts)
     if @user.errors.any?
-      render :json => {errors: @user.errors.full_messages}, status: 401
+      respond_with @user
     end
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    Account.find(params[:id]).destroy
 
     respond_to do |format|
       format.json { head :no_content }

@@ -1,0 +1,17 @@
+.login-wrapper
+  .logo-large.centered
+  .login-form.form
+    = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      %fieldset
+        %label
+          Email
+        = f.email_field :email, :autofocus => true
+      %fieldset
+        %label
+          Password
+        = f.password_field :password
+      %fieldset
+        %button.btn.action{:type => "submit"}
+          Login
+        = link_to "Signup", signup_wizard_path('step_one'), :class =>"go-right", :style => "margin-top: 9px"
+

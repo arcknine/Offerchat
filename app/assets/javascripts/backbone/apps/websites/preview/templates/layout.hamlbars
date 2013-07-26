@@ -1,0 +1,4 @@
+#website-iframe-region.iframe-wrapper
+#website-settings-region.control-wrapper{:style => "position: fixed;  padding: 0; background-color: transparent; overflow: hidden; z-index: 9999999999;"}
+#website-chat-widget-region.widget-wrapper.widget-fixed-right
+

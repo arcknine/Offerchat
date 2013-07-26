@@ -1,2 +1,2 @@
-@users
-extends "users/attributes"
+collection @agents
+extends "agents/attributes"

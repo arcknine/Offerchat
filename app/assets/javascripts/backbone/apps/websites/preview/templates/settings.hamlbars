@@ -1,0 +1,26 @@
+.control-header.group
+  %ul.control-breadcrumbs
+    %li.active
+      %a Greeting
+    %li
+      %a Color
+    %li
+      %a Position
+.control-body
+  #controlGreeting
+    %h3
+      Set your welcome greeting
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi, deserunt distinction
+    .form.form-inline.hero-form
+      %fieldset
+        .input-container
+          .input-append
+            %input.large{:type => "text", :value => "{{greeting}}", :name => "greeting", :maxlength =>"33", :id =>"greeting" }
+              %span#greeting-count.add-on 33
+
+%input{:name => "step", :type => "hidden", :value => "greeting"}
+.control-footer
+  %a.btn
+    Back
+  %button.btn.action
+    Next

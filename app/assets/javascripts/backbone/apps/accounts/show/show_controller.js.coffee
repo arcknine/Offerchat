@@ -1,80 +1,93 @@
 @Offerchat.module "AccountsApp.Show", (Show, App, Backbone, Marionette, $, _) ->
 
   class Show.Controller extends App.Controllers.Base
-    
+
     initialize: (options)->
-      console.log options
-      @account = App.request "get:current:profile"
-      App.execute "when:fetched", @account, =>
+
+      profile = App.request "get:current:profile"
+
+      @listenTo profile, "updated", (item) ->
+        @showNotification("Your changes have been saved!") # function can be found in controller base
+
+      App.execute "when:fetched", profile, =>
         @layout = @getLayoutView()
-        
+
         @listenTo @layout, "show", =>
           @sidebarRegion(options.section)
-          @getMainRegion(options.section)
-          @setSelectedNav(options.section)
+          @getMainRegion(profile, options.section)
 
         @show @layout
-      
+
     sidebarRegion: (section)->
       navView = @getSidebarNavs()
-      #@setSelectedNav(navView, section)
-      
+
       @listenTo navView, "nav:accounts:clicked", (item) =>
         App.navigate Routes.profiles_path(), trigger: true
-        
+
       @listenTo navView, "nav:password:clicked", (item) =>
         App.navigate '#profiles/passwords', trigger: true
-        
-      @listenTo navView, "notifications", (item) =>
-        App.navigate '#profiles/notifications', trigger: true
-        alert 3
-        
-      @listenTo navView, "agents", (item) =>
-        App.navigate '#profiles/agents', trigger: true
-        alert 4
-        
-      @listenTo navView, "websites", (item) =>
-        App.navigate '#profiles/websites', trigger: true
-        alert 5
-        
-      @listenTo navView, "invoices", (item) =>
-        App.navigate '#profiles/invoices', trigger: true
-        alert 6
-      
-      @layout.accountSidebarRegion.show navView
 
-    getMainRegion: (section) ->
-      if section is "profiles"
-        @getProfileRegion(@account)
+      @layout.accountSidebarRegion.show navView
+      @setSelectedNav(navView, section)
+
+    getMainRegion: (profile, section) ->
+      if section is "profile"
+        @getProfileRegion(profile)
       else if section is "password"
-        @getPasswordRegion(@account)
-  
-    getProfileRegion: ->
-      profileView = @getProfileView(@account)
-      @layout.accountRegion.show profileView
-    
-    getPasswordRegion: ->
-      passwordView = @getPasswordView(@account)
-      @layout.accountRegion.show passwordView
-      
+        @getPasswordRegion(profile)
+
+    getProfileRegion: (profile) ->
+      profileView = @getProfileView(profile)
+
+      @listenTo profileView, "change:photo:clicked", (item) =>
+        params =
+          element: item
+          openClass: "btn-selector"
+          activeClass: "btn-action-selector"
+
+        profileView.toggleDropDown params
+
+        # App.request "toggle:dropdown", params
+
+      @listenTo profileView, "upload:button:change", (item) =>
+        # # App.request "close:dropdowns"
+        console.log "clicked"
+
+        params =
+          element: item
+          openClass: "btn-selector"
+          activeClass: "btn-action-selector"
+
+        profileView.toggleDropDown params
+        # true
+
+      @listenTo profileView, "upload:button:blur", (item) =>
+        # # App.request "close:dropdowns"
+        console.log "blur"
+
+      formView = App.request "form:wrapper", profileView
+      profile.url = Routes.profiles_path()
+      @layout.accountRegion.show formView
+
+    getPasswordRegion: (profile)->
+      passwordView = @getPasswordView(profile)
+      formView = App.request "form:wrapper", passwordView
+      profile.url = Routes.passwords_path()
+      @layout.accountRegion.show formView
+
     getPasswordView: (model)->
      new Show.Password
        model: model
-    
+
     getProfileView: (model)->
       new Show.Profile
         model: model
 
     getSidebarNavs: ->
       new Show.Navs
-      
+
     getLayoutView: ->
       new Show.Layout
-      
-    setSelectedNav: (item, section) ->
-      $(item.el).find("ul li a").addClass("selected")
-      $(item.el).find("ul li a").removeClass("selected")
-      if section is "profile"
-        $(item.el).find("ul li a.profile").addClass("selected")
-      if section is "password"
-        $(item.el).find("ul li a.password").addClass("selected")
+
+    setSelectedNav: (nav, section) ->
+      $(nav.el).find("ul li a." + section).addClass('selected')

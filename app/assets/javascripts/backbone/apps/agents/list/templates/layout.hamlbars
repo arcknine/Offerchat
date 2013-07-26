@@ -1,0 +1,12 @@
+.block.large
+  #seats-region
+
+  %h2 Agent Management
+  Manage your agents, assign them to your websites
+
+.block-message.hide#agent-message
+  %a.close
+    &times;
+  An invitation link has been sent to harveyenrile@yahoo.com
+
+#agents-region

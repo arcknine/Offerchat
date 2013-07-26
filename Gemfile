@@ -37,6 +37,7 @@ gem "js-routes"
 # Amazon
 gem 'aws-sdk'
 gem 'wicked'
+
 # Openfire
 gem 'openfire_api', :git => 'git://github.com/paulasmuth/openfire_api.git'
 
@@ -46,6 +47,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'hamlbars', '~> 2.0'
   gem 'handlebars_assets'
+  gem 'jquery-fileupload-rails'
 end
 
 group :development, :test do
@@ -67,7 +69,13 @@ group :development do
   gem 'hirb'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'meta_request', '0.2.1'
+  gem 'meta_request', '0.2.7'
   gem 'letter_opener'
   gem 'thin'
+
+  # Deployment
+  gem 'capistrano'
+  gem 'capistrano_colors'
+  gem 'capistrano-ext'
+  gem 'rvm-capistrano'
 end

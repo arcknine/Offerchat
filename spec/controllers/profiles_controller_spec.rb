@@ -54,7 +54,7 @@ describe ProfilesController do
       it "should not accept invalid data" do
         xhr :put, :update, id: @user.id, profile: invalid_put, format: :json
         JSON.parse(response.body)["errors"].should_not be_blank
-        response.code.should eq "401"
+        response.code.should eq "422"
       end
     end
   end

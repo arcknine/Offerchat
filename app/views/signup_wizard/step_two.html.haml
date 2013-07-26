@@ -1,0 +1,38 @@
+.main-content-view.tour-content-view
+  .tour-content-inner
+
+    = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+      .block
+        %h2 Let's get you started
+        %p
+          Create your account by entering your display name and your new password
+
+        .form.form-inline
+          %fieldset{:class => (flash[:name].present? ? "field-error" : "")}
+            %label.label-top-fix
+              Full name
+            .input-container
+              = f.text_field :name, :autofocus => true, :class => "large", :maxlenght => "50"
+              - if flash[:name].present?
+                .block-text-message
+                  = flash[:name][0]
+          %fieldset{:class => (flash[:display_name].present? ? "field-error" : "")}
+            %label.label-top-fix
+              Display name
+            .input-container
+              = f.text_field :display_name, :class => "large", :maxlenght => "15"
+              - if flash[:display_name].present?
+                .block-text-message
+                  = flash[:display_name][0]
+
+          %fieldset{:class => (flash[:password].present? ? "field-error" : "")}
+            %label.label-top-fix
+              New password
+            .input-container
+              = f.password_field :password, :class => "large", :maxlenght => "50"
+              - if flash[:password].present?
+                .block-text-message
+                  = flash[:password][0]
+
+      .block.large.bordered-top
+        %button.btn.action{:type => "submit"} Next

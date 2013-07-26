@@ -1,5 +1,9 @@
 .block.large
-  %a.btn.action.go-right New website
+  %a.btn.action.go-right#new-website New website
   %h2 Websites
   %p.section-desc
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, aut.
+
+.block.large.group
+  .block-list-wrapper
+    %ul.block-list.site-block-list

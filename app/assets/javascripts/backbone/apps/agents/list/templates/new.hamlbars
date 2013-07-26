@@ -1,0 +1,4 @@
+%label
+  Email
+.input-container
+  %input.large{ :type => "text", name: "email"}

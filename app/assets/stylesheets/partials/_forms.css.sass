@@ -2,6 +2,7 @@ input[type=text],
 input[type=password],
 input[type=email],
 textarea
+  box-sizing: border-box
   padding: 8px
   font-size: $base-font-size
   outline: none
@@ -15,8 +16,10 @@ textarea
     border-color: darken($border-color, 15%)
   &.large
     width: 350px
+  &.large-2
+    width: 280px
   &.short
-    width: 60px
+    width: 50px
   &.rounded
     border-radius: 20px
     padding: 8px 12px 8px 12px
@@ -63,7 +66,8 @@ label
   &.disabled
     cursor: default
     color: $light-text-color
-  
+
+
 
 .transcript-actions-form
   .transcript-actions,
@@ -75,7 +79,7 @@ label
 
 .checkbox
   position: relative
-  &.checked
+  &.checked, &.agentchecked
     .icon
       background-color: #54c694
       box-shadow: 0 1px 0 darken(#54c694, 10%)
@@ -86,6 +90,13 @@ label
       .icon
         background-color: #e13d3d
         box-shadow: 0 1px 0 darken(#e13d3d, 10%)
+  &.adminchecked
+    .icon
+      background-color: #e13d3d
+      box-shadow: 0 1px 0 darken(#e13d3d, 10%)
+    .icon-check
+      opacity: 1
+      filter: alpha(opacity=10)
   &.disabled
     .icon
       background-color: #c9d2d6
@@ -94,7 +105,6 @@ label
     .icon-check
       opacity: 1
       filter: alpha(opacity=10)
-
 
   .icon-check
     @include icon(16px, 16px, -28px, -9px)
@@ -120,10 +130,13 @@ label
 .form
   fieldset
     margin: 5px 0 20px 0
+    vertical-align: top
     &:last-child
       margin-bottom: 5px
     &.smaller
       margin-bottom: 5px
+    &.field-inline
+      display: inline-block
   label
     margin-bottom: 5px
     display: block
@@ -135,18 +148,40 @@ label
       padding-top: 10px
   &.invite-user-form
     padding: 10px
-    
+
   &.form-inline
     .input-container,
     label
       display: inline-block
       min-width: 140px
+
       &.block
         display: block
         padding: 0
+
+
   &.hero-form
     padding: 20px 0
 
+.trigger-form
+  padding: 10px 20px
+  margin: 20px 0
+  border-radius: 5px
+  background-color: #f4f4f4
+  display: inline-block
+  &.hide
+    display: none
+  label, .input-container
+    &.short
+      min-width: 70px
+      width: 115px
+
+.input-container
+  &.top
+    vertical-align: top
+    margin-top: -5px
+  &.hide
+    display: none !important
 .field-error
   input[type=text],
   input[type=password],
@@ -156,6 +191,10 @@ label
     border-color: $error-color
   label
     color: $error-color
+  .block-text-message
+    color: $error-color
+.block-text-message
+  margin-top: 5px
 .field-success
   input[type=text],
   input[type=password],
@@ -213,7 +252,7 @@ label
 // Toggle
 .toggle
   background-color: $sidebar-color
-  
+
   border-radius: 60px
   color: #fff
   height: 29px
@@ -230,7 +269,7 @@ label
   // Common style -----------------------------
   &.toggle-off
     background-color: #cbd2d8
-    
+
     .toggle-radio
       background-image: image-url('toggle/icon-off.png')
       background-position: 0 0
@@ -255,7 +294,7 @@ label
     text-align: center
     z-index: 2
     +transition(.25s)
-    
+
     &:first-child
       margin-bottom: -29px
       left: 0

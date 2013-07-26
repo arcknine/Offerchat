@@ -25,3 +25,6 @@ db/schema.rb
 
 # Ignore rspec.xml for Jenkins
 rspec.xml
+
+# Ignore vim swap files
+*.swp

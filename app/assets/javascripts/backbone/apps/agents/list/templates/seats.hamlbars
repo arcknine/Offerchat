@@ -1,0 +1,17 @@
+%a.add-more-btn
+  add more
+%strong
+  4 of 5
+agents used
+.agent-calc{ :style => "margin-top: 0" }
+  .agent-seat.ok
+    %i.icon.icon-agent
+  .agent-seat.ok
+    %i.icon.icon-agent
+  .agent-seat.ok
+    %i.icon.icon-agent
+  .agent-seat.ok
+    %i.icon.icon-agent
+  .agent-seat
+    %i.icon.icon-agent
+  #seat-list

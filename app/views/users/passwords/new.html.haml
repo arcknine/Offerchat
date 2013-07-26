@@ -1,0 +1,15 @@
+
+.login-wrapper
+  .logo-large.centered
+  .login-form.form
+    = devise_error_messages!
+    = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+      %fieldset.field-error
+        %label
+          Email
+        = f.email_field :email, :autofocus => true
+
+      %fieldset
+        %button.btn.action{:type => "submit"}
+          Reset password
+

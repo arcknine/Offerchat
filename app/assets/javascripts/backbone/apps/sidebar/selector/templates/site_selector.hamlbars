@@ -1,6 +1,5 @@
-.message-tick.animated.bounce
-  %span
-    6
+.message-tick.animated.bounce.hide
+  %span/
 %span
-  BuyRealMarketingBuyRealMarketing
+  {{name}}
 %i.icon.icon-arrow-down

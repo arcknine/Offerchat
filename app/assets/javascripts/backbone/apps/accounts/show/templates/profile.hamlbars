@@ -4,19 +4,21 @@
       Profile
 
     Change your basic account, language, display name, and location settings.
-  .block-message
+
+  .block-message{ :style => "display:none;" }
     %a.close
       &times;
-    Your changes have been saved
+    %span
+
   .block.large.group
     .form
-      %fieldset.field-error
+      %fieldset
         %label
           Email
           %span.inline-label-message
-            has already been taken. An email can only be used on one account at a time.
+
         .input-container
-          %input.large{ :type => 'text', :value => 'har86vey@gmail.com' }  
+          %input.large{ :type => 'text', :value => '{{email}}', name: 'email'}
       %fieldset
         %label
           Photo
@@ -32,50 +34,45 @@
                 .dropdown-options.dark
                   .caret.caret-dark
                   %ul
-                    %li 
+                    %li
                       %a Upload Photo
                       .photo-selector
                         %button.btn{ :type => "button" }
                           Change Photo
                       .image-selector
                         %input.file-input{ :type => 'file' }
-                    %li 
+                    %li
                       %a Remove
 
-      %fieldset.field-success
+      %fieldset
         %label
           Display Name
           %span.inline-label-message
-            is dope!
+
         .input-container
-          %input.large{ :type => 'text', :value => 'Harvey Enrile' }
+          %input.large{ :type => 'text', :value => '{{display_name}}', name: 'display_name' }
 
   .block.bordered-top.large.group
     .form
       %fieldset
         %label
-          First Name
+          Full Name
         .input-container
-          %input.large{ :type => 'text', :value => 'Harvey' }
-      %fieldset
-        %label
-          Last Name
-        .input-container
-          %input.large{ :type => 'text', :value => 'Enrile' }
+          %input.large{ :type => 'text', :value => '{{name}}', name: 'name' }
       %fieldset
         %label
           Language
         .input-container
-          %select{:name => ""} 
+          %select{:name => ""}
             %option{:value => ""}
-              English 
-            %option{:value => ""} 
+              English
+            %option{:value => ""}
               Portuguese
-            %option{:value => ""} 
+            %option{:value => ""}
               Deutsch
-            %option{:value => ""} 
+            %option{:value => ""}
               Polish
-            %option{:value => ""} 
+            %option{:value => ""}
               Spanish
       %fieldset
         %label
@@ -83,8 +80,3 @@
         .input-container
           %select
             %option Philippines
-
-  .column-footer-actions.bordered
-    .block.large
-      %button.btn.action{ :type => "submit" }
-        Save Changes

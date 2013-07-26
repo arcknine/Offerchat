@@ -1,0 +1,13 @@
+%ul.section-sub-menu.group
+  %li
+    %a{data: {section: 'offline'}} Offline form
+  %li
+    %a{data: {section: 'prechat'}} Pre chat form
+  %li
+    %a{data: {section: 'postchat'}} Post chat form
+
+.block-message#setting-notification{:style => "display: none"}
+  %a.close ×
+  Your changes have been saved
+
+#chat-forms-region

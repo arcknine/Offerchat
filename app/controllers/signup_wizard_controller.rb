@@ -1,7 +1,8 @@
 class SignupWizardController < ApplicationController
   include Wicked::Wizard
   before_filter :check_restrictions
-  steps :step_one, :step_two, :step_three, :step_four, :step_five
+  steps :step_one, :step_two, :dashboard, :step_three, :step_four, :step_five
+  respond_to :json
 
   def show
     case step
@@ -38,6 +39,9 @@ class SignupWizardController < ApplicationController
       else
         render_wizard
       end
+    when :get_key
+      # show api key code
+      @website = Website.where(:owner_id => current_user.id).last
     end
   end
 
@@ -46,6 +50,7 @@ class SignupWizardController < ApplicationController
     when :step_one
       unless is_a_valid_email?(params[:user]['email'])
         flash[:alert] = 'Email should be valid'
+
         redirect_to signup_wizard_path('step_one')
       else
         @user = User.find_by_email(params[:user]['email'])
@@ -59,20 +64,36 @@ class SignupWizardController < ApplicationController
 
     when :step_three
       @website = Website.new
-      @website.url = params[:website]['url']
-      @website.owner_id = current_user.id
-      if @website.save
-        redirect_to signup_wizard_path('step_four')
+      @website.url = params['url']
+      @website.name = params['name']
+      # @website.owner_id = current_user.id
+      # session[:website] = {:url => params['url'] }
+      unless @website.valid?
+        respond_with @website
       else
-        redirect_to signup_wizard_path('step_three'), :alert => 'Please select a website that you own'
+        head :no_content
       end
 
+
+
+
     when :step_four
-      @website = Website.where(:owner_id => current_user.id).last
-      @website.settings(:style).theme = params[:settings]['theme']
-      @website.settings(:style).position = params[:settings]['position']
+      # @website = Website.where(:owner_id => current_user.id).last
+      @website = Website.new
+      @website.url = params['url']
+      @website.settings(:style).gradient = params['gradient']
+      @website.settings(:style).theme = params['theme']
+      @website.settings(:online).greeting = params['agent_label']
+      @website.settings(:style).position = params['position']
+      # if @website.save
+      #   redirect_to signup_wizard_path('step_five')
+      # end
       if @website.save
-        redirect_to signup_wizard_path('step_five')
+        #head :no_contenth
+        respond_with @website
+      else
+        head :no_content
+        respond_with @website
       end
     end
   end

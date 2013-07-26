@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
     :name, :display_name, :jabber_user, :jabber_password, :avatar
 
   validates_presence_of :name
+  validates_presence_of :display_name
   validates_length_of :name, :in => 4..50
 
   after_create :create_jabber_account
@@ -33,14 +34,31 @@ class User < ActiveRecord::Base
     accounts.where("website_id = ?", website_id).first
   end
 
-  def pending?
-    created_at == updated_at
-  end
-
   def my_agents
     owner_websites = self.websites.collect(&:id).join(",")
     owner_accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id IN (?) AND role != ?", owner_websites, Account::OWNER)
     owner_accounts.collect(&:user)
+  end
+
+  def agents
+    owner_websites = self.websites.collect(&:id).join(",")
+    owner_accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id IN (?)", owner_websites)
+    owner_accounts.collect(&:user)
+  end
+
+  def find_managed_sites(website_id)
+    site = self.accounts.keep_if do |e|
+      (e.role == Account::OWNER || e.role == Account::ADMIN) && (e.website_id == website_id.to_i)
+    end
+    site.try(:first).try(:website)
+  end
+
+  def admin_sites
+    accounts.where("role = ? OR role = ?", Account::ADMIN, Account::OWNER).collect(&:website)
+  end
+
+  def all_sites
+    accounts.collect(&:website)
   end
 
   def self.create_or_invite_agents(user, account_array)
@@ -57,13 +75,13 @@ class User < ActiveRecord::Base
 
     has_checked_website = false
     account_array.each do |p|
-      unless p['website_id'].blank? && p['website_id'].nil?
-        role            = p["is_admin"] ? Account::ADMIN : Account::AGENT
+      unless p[:website_id].blank? && p[:website_id].nil?
+        role            = p[:is_admin] ? Account::ADMIN : Account::AGENT
         account         = Account.new(:role => role)
         account.user    = user
-        account.website = Website.find(p['website_id'])
+        account.website = Website.find(p[:website_id])
         account.save
-
+        
         has_checked_website = true
       end
     end
@@ -80,11 +98,10 @@ class User < ActiveRecord::Base
 
     has_checked_website = false
     account_array.each do |p|
-      unless p['website_id'].blank? && p['website_id'].nil?
-        account      = Account.find(p['account_id'])
-        account.role = p["is_admin"] ? Account::ADMIN : Account::AGENT
+      unless p[:website_id].blank? && p[:website_id].nil?
+        account      = Account.find(p[:account_id])
+        account.role = p[:is_admin] ? Account::ADMIN : Account::AGENT
         account.save
-
         has_checked_website = true
       end
     end

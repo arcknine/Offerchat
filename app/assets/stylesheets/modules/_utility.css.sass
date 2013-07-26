@@ -4,7 +4,9 @@ $padding-5: 5px
 $bold: 700
 $font-small: 11px
 
-
+//buttons
+$button-padding: 6px 15px 5px 15px
+$button-radius: 3px
 
 
 @mixin icon($width, $height, $x, $y)
@@ -13,6 +15,8 @@ $font-small: 11px
   background-position: $x $y
   width: $width
   height: $height
+
+  
 
 @mixin flag-icon($x, $y, $width: 16px, $height: 16px)
   background: image-url('flag-icons.png')
@@ -29,6 +33,7 @@ $font-small: 11px
   -o-transition: all $speed
   transition: all $speed
 
+  
 
 .animated
   -webkit-animation-fill-mode: both
@@ -94,3 +99,5 @@ $font-small: 11px
   -moz-animation-name: bounce
   -o-animation-name: bounce
   animation-name: bounce
+
+
