@@ -1,4 +1,4 @@
-require "website_validator"
+require "validators/website_validator"
 
 class Website < ActiveRecord::Base
   include ActiveModel::Validations
