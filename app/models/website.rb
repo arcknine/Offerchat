@@ -25,6 +25,8 @@ class Website < ActiveRecord::Base
     s.key :offline, :defaults => { :enabled => true,  :header => "Contact Us", :description => "Leave a message and we will get back to you ASAP.", :email => "" }
   end
 
+  after_create :after_create_settings
+
   # scope :as, ->(role) do
   #   joins(:accounts).where('role = ?', role)
   # end
@@ -92,4 +94,10 @@ class Website < ActiveRecord::Base
       name = url.to_s.gsub('.', ' ')
     end
   end
+
+  def after_create_settings
+    self.settings(:offline).email = self.owner.email
+    self.save!
+  end
+
 end
