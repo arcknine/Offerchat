@@ -40,7 +40,7 @@
                         %button.btn{ :type => "button" }
                           Change Photo
                       .image-selector
-                        %input.file-input{ :type => 'file' }
+                        %input.file-input{ :type => 'file', :name => "avatar" }
                     %li
                       %a Remove
 

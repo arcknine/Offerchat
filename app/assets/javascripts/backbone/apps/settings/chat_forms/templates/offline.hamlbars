@@ -32,7 +32,7 @@ Enable the offline form so your visitors can easily reach you when you're not on
       %fieldset
         %label Offline Message
         .input-container
-          %textarea{data: {name: 'description'}} {{site.settings.offline.description}}
+          %textarea{data: {name: 'description'}, name: "description"} {{site.settings.offline.description}}
 
       %fieldset
         %label Forward messages to email

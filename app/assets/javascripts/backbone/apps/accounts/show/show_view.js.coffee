@@ -27,6 +27,9 @@
         primary: "Save Changes"
         cancel: false
         nosubmit: false
+      attributes:
+        method: "POST"
+        action: "test/action"
 
     events:
       "click .block-message a.close" :  "closeNotification"
@@ -43,7 +46,11 @@
           console.log data.form.context
           console.log data.files[0]
           $(data.form.context).find("button").click ->
-            data.submit()
+            $(data.form.context).attr("action",Routes.update_avatar_profiles_path())
+            # data.submit()
+
+        done: (e, data) ->
+          # after upload
 
   class Show.Password extends App.Views.ItemView
     template: "accounts/show/password"
@@ -52,6 +59,12 @@
         primary: "Save Changes"
         cancel: false
         nosubmit: false
+
+    events:
+      "click .block-message a.close" :  "closeNotification"
+
+    closeNotification: (e) ->
+      $(e.currentTarget).parent("div").fadeOut()
 
   class Show.Notifications extends App.Views.ItemView
     template:  "accounts/show/notifications"
