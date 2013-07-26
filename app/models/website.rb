@@ -1,4 +1,9 @@
+require "website_validator"
+
 class Website < ActiveRecord::Base
+  include ActiveModel::Validations
+  validates_with WebsiteValidator
+
   attr_accessible :api_key, :name, :url, :owner
 
   before_create :generate_api_key
