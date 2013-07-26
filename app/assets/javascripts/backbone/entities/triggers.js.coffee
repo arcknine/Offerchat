@@ -3,16 +3,27 @@
   class Entities.Trigger extends App.Entities.Model
     urlRoot: "/triggers"
 
+  class Entities.WebsiteTriggers extends App.Entities.Collection
+    model: Entities.Trigger
+
   API =
     newTrigger: ->
       new Entities.Trigger
 
-    tempTriggers: ->
-      new Backbone.Collection [
-        { time: 30, loc: "Any page", msg: "You have spent 30 seconds on the site", rule: 1 }
-        { time: 10, loc: "http://homeurl.com", msg: "Hi, how can we help you", rule: 2 }
-        { time: 5, loc: "http://homeurl.com/about", msg: "This is the about us page", rule: 3 }
-      ]
+    getWebsiteTriggers: (website_id) ->
+      triggers = new Entities.WebsiteTriggers
+      triggers.url = Routes.triggers_website_path website_id
+      App.request "show:preloader"
+      triggers.fetch
+        reset: true
+        success: ->
+          App.request "hide:preloader"
+        error: ->
+          App.request "hide:preloader"
+      triggers
 
   App.reqres.setHandler "new:trigger", ->
     API.newTrigger()
+
+  App.reqres.setHandler "get:website:triggers", (website_id) ->
+    API.getWebsiteTriggers website_id

@@ -3,17 +3,6 @@
   class Entities.Site extends App.Entities.Model
     urlRoot: Routes.websites_path()
 
-  class Entities.SiteTriggers extends App.Entities.Model
-    urlRoot: "/triggers"
-
-  class Entities.WebsiteTriggers extends App.Entities.Collection
-    model: Entities.SiteTriggers
-
-  class Entities.SiteCollection extends App.Entities.Collection
-    model: Entities.Site
-    url:   Routes.websites_path()
-
-
   class Entities.SiteCollection extends App.Entities.Collection
     model: Entities.Site
     url:   Routes.websites_path()
@@ -32,7 +21,6 @@
         error: ->
           App.request "hide:preloader"
       site
-
 
     getOwnedSites: ->
       sites = new Entities.SiteCollection
@@ -72,18 +60,6 @@
         rounded:  (if not storage.rounded then true else storage.rounded)
         api_key:  (if not storage.api_key then false else storage.api_key)
 
-    getWebsiteTriggers: (website_id) ->
-      triggers = new Entities.WebsiteTriggers
-      triggers.url = Routes.triggers_website_path website_id
-      App.request "show:preloader"
-      triggers.fetch
-        reset: true
-        success: ->
-          App.request "hide:preloader"
-        error: ->
-          App.request "hide:preloader"
-      triggers
-
   App.reqres.setHandler "site:entities", ->
     API.getSites()
 
@@ -92,9 +68,6 @@
 
   App.reqres.setHandler "site:new:entity", ->
     API.newSite()
-
-  App.reqres.setHandler "get:website:triggers", (website_id) ->
-    API.getWebsiteTriggers website_id
 
   App.reqres.setHandler "manage:sites:entities", ->
     API.getManageSites()
