@@ -8,7 +8,7 @@ class ProfilesController < ApplicationController
 
   def update
     @profile = current_user
-    unless @profile.update_attributes params[:profile].except(:id).except(:avatar)
+    unless @profile.update_attributes params[:profile].except(:id)
       respond_with @profile
     end
   end

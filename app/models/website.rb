@@ -1,8 +1,4 @@
-require "validators/website_validator"
-
 class Website < ActiveRecord::Base
-  include ActiveModel::Validations
-  validates_with WebsiteValidator
 
   attr_accessible :api_key, :name, :url, :owner
 
@@ -21,7 +17,7 @@ class Website < ActiveRecord::Base
   validates_presence_of :name
   validates :url, :format => /^(http(s?):\/\/)?(www\.)+[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,3})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/
 
-  has_settings do |s|
+  has_settings(:class_name => "WebsiteSettings") do |s|
     s.key :style, :defaults => { :theme => "greengrass", :position => "right", :rounded => false, :gradient => false }
     s.key :online, :defaults => { :header => "Chat with us", :agent_label => "Got a question? We can help.", :greeting => "Hi, I am", :placeholder => "Type your message and hit enter" }
     s.key :pre_chat, :defaults => { :enabled => false, :message_required => false, :header => "Let me get to know you!", :description => "Fill out the form to start the chat." }
