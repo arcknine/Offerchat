@@ -1,0 +1,3 @@
+.chats-sidebar
+  %h4 Visitors {{items.lenght}}
+  .visitors-wrapper

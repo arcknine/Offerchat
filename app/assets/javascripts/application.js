@@ -32,3 +32,4 @@
 //= require_tree ./backbone/components
 //= require_tree ./backbone/apps
 //= require jquery-fileupload/basic
+//= require backbone/init_app
