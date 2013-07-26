@@ -1,6 +1,11 @@
 Dashboard::Application.routes.draw do
 
-  resource :profiles
+  resource :profiles do
+    collection do
+      post "update_avatar"
+    end
+  end
+
   resources :agents
   resource :settings
 
