@@ -15,12 +15,12 @@
             if agent.get("id") is self.currentUser.id
               agent.set
                 is_admin: true
-            _.each agent.get("websites"), (owned_site) ->
-              website = self.websites.get(owned_site.website_id)
-              owned_site["adminchecked"] = if owned_site["role"] isnt 3 then "adminchecked"
-              owned_site["agentchecked"] = if website isnt null then "agentchecked"
-              owned_site["is_admin"] = if owned_site["role"] isnt 3 then true else false
-              owned_site["is_false"] = if owned_site["role"] is 3 then true else false
+            # _.each agent.get("websites"), (owned_site) ->
+            #   website = self.websites.get(owned_site.website_id)
+            #   owned_site["adminchecked"] = if owned_site["role"] isnt 3 then "adminchecked"
+            #   owned_site["agentchecked"] = if website isnt null then "agentchecked"
+            #   owned_site["is_admin"] = if owned_site["role"] is 2 then true else false
+            #   owned_site["is_false"] = if owned_site["role"] is 3 then true else false
 
           console.log agents
       @layout.on "show", =>
@@ -57,31 +57,9 @@
 
           sitesView = @getSitesView(sites)
           
-          @listenTo sitesView, "childview:account:role:admin:checked", (site)->
-            site.model.set
-              role: 2
-            agent.set
-              websites: sites
-              
-          @listenTo sitesView, "childview:account:role:admin:unchecked", (site)->
-            site.model.set
-              role: 3
-            agent.set
-              websites: sites
-
-          @listenTo sitesView, "childview:account:role:agent:checked", (site)->
-            site.model.set
-              role: 3
-            agent.set
-              websites: sites
-            
-          @listenTo sitesView, "childview:account:role:agent:unchecked", (site)->
-            site.model.set
-              role: 0
-            agent.set
-              websites: sites
-          
           @listenTo modalAgentView, "modal:unsubmit", (ob)->
+            agent.set
+              websites: sites
             agent.save
               success: ->
                 modalAgentView.close()
@@ -111,32 +89,10 @@
 
           if agent.get("id") isnt @currentUser.id
             sitesView = @getSitesView(sites)
-          
-            @listenTo sitesView, "childview:account:role:admin:checked", (site)->
-              site.model.set
-                role: 2
-              agent.set
-                websites: sites
-                
-            @listenTo sitesView, "childview:account:role:admin:unchecked", (site)->
-              site.model.set
-                role: 3
-              agent.set
-                websites: sites
-
-            @listenTo sitesView, "childview:account:role:agent:checked", (site)->
-              site.model.set
-                role: 3
-              agent.set
-                websites: sites
-              
-            @listenTo sitesView, "childview:account:role:agent:unchecked", (site)->
-              site.model.set
-                role: 0
-              agent.set
-                websites: sites
             
             @listenTo modalAgentView, "modal:unsubmit", (ob)->
+              agent.set
+                websites: sites
               agent.save()
               
             showAgentViewLayout.sitesRegion.show sitesView

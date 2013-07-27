@@ -75,6 +75,7 @@ class User < ActiveRecord::Base
 
     has_checked_website = false
     account_array.each do |p|
+      puts p.inspect
       unless p[:website_id].blank? && p[:website_id].nil?
         role            = p[:is_admin] ? Account::ADMIN : Account::AGENT
         account         = Account.new(:role => role)

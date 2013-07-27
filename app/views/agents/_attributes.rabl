@@ -3,24 +3,29 @@ attributes :id, :email, :password, :name, :display_name, :jabber_user, :jabber_p
 node do |user|
   sites = []
   @owner.websites.each do |website|
+    websites = []
     user.accounts.select("id, role, website_id").each do |account|
-      if website.id == account.website_id
-        sites << {
-          :id => website.id,
-          :account_id => account.id,
-          :role => account.role,
-          :url => website.url,
-          :name => website.name
-        }
-      else
-        sites << {
-          :id => website.id,
-          :account_id => nil,
-          :role => 0,
-          :url => website.url,
-          :name => website.name
-        }
+      unless websites.include? website.id
+        if website.id == account.website_id
+          websites << website.id
+          sites << {
+            :id => website.id,
+            :account_id => account.id,
+            :role => account.role,
+            :url => website.url,
+            :name => website.name
+          }
+        end
       end
+    end
+    unless websites.include? website.id
+      sites << {
+        :id => website.id,
+        :account_id => nil,
+        :role => 0,
+        :url => website.url,
+        :name => website.name
+      }
     end
   end
   {
