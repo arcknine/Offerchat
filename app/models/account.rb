@@ -7,6 +7,7 @@ class Account < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :website
+  belongs_to :owner, :foreign_key => :owner_id, class_name: "User"
 
   after_create :add_rosters_to_agent_or_admin, :if => lambda { |account| account.try(:role) == AGENT || account.try(:role) == ADMIN }
 

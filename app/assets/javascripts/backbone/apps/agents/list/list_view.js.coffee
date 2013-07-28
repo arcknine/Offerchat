@@ -12,6 +12,10 @@
     className: "agent-selection-item"
     triggers:
       "click":      "agent:selection:clicked"
+    modelEvents:
+      "add" : "render"
+      "change" : "render"
+      "update" : "render"
 
   class List.Agents extends App.Views.CompositeView
     template:          "agents/list/agents"
@@ -20,7 +24,6 @@
     itemViewContainer: "div#agent-list"
     triggers:
       "click .agent-selection-new": "new:agent:clicked"
-
 
   class List.Seats extends App.Views.CompositeView
     template:  "agents/list/seats"
@@ -88,8 +91,10 @@
 
     initialize: ->
       @listenTo @, "show", ->
+        console.log @model
         if @model.get('role') is 2
           console.log $("label.admin")
+          @$("label.admin").addClass "adminchecked"
           @$("label.agent").addClass "agentchecked"
         else if @model.get('role') is 3
           @$("label.agent").addClass "agentchecked"

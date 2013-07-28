@@ -9,32 +9,30 @@ class AgentsController < ApplicationController
   end
 
   def create
+    @owner = current_user
     accounts = []
-    
-    params[:agent][:websites].each do |account|
+    params[:websites].each do |account|
       accounts.push(
-        is_admin: (account[:role] < 3),
-        website_id: account[:id]
+        is_admin: (account[:role] == 2),
+        website_id: account[:website_id]
       )
     end
-
-    @user = User.create_or_invite_agents(params[:agent], accounts)
+    @user = User.create_or_invite_agents(current_user, params[:agent], accounts)
     if @user.errors.any?
       respond_with @user
     end
   end
 
   def update
+    @owner = current_user
     accounts = []
-    params[:agent][:websites].each do |account|
+    params[:websites].each do |account|
       accounts.push(
-        is_admin: (account[:role] < 3), 
+        is_admin: (account[:role] == 2), 
         website_id: account[:id], 
         account_id: account[:account_id]
       )
     end
-    puts ">>>>"
-    puts params[:agent][:websites].inspect
     @user = User.update_roles_and_websites(params[:id], accounts)
     if @user.errors.any?
       respond_with @user
@@ -42,7 +40,9 @@ class AgentsController < ApplicationController
   end
 
   def destroy
-    Account.find(params[:id]).destroy
+    current_user.websites.each do |website|
+      Account.where(user_id: params[:id], website_id: website.id).destroy_all
+    end
 
     respond_to do |format|
       format.json { head :no_content }
