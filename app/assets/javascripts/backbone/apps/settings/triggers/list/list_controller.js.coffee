@@ -140,7 +140,14 @@
           else
             obj.message = $(elem).val()
 
-      if noError then item.model.save(obj)
+      if noError
+        item.model.save(obj, { error: (model, response) =>
+          @handleSaveError(response)
+        })
+
+    handleSaveError: (response) ->
+      $.each response.responseJSON.errors, (key, value) =>
+        @showError(key, value)
 
     showError: (elname, msg) ->
       $("[name='"+elname+"']").closest("fieldset").addClass("field-error").find("label").append("<span class='inline-label-message'>"+msg+"</span>")

@@ -51,6 +51,13 @@ describe TriggersController do
         }
       end
 
+      let(:valid_put_time) do
+        {
+          "rule_type"  => "1",
+          "message" => "My Test Trigger Message"
+        }
+      end
+
       let(:invalid_put) do
         {
           "rule_type"  => "",
@@ -82,6 +89,11 @@ describe TriggersController do
 
         JSON.parse(response.body)["errors"].should_not be_blank
         response.code.should eq "422"
+      end
+
+      it "should not accept time less than 5 seconds" do
+        xhr :put, :update, id: @trigger.id, time: "3", trigger: valid_put_time, format: :json
+        JSON.parse(response.body)["errors"].should_not be_blank
       end
 
       def do_destroy
