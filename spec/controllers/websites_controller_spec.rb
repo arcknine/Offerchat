@@ -81,7 +81,7 @@ describe WebsitesController do
       end
 
       def do_destroy
-        @web = Fabricate(:website)
+        @web = Fabricate(:website, :owner => Fabricate(:user))
         xhr :delete, :destroy, id: @web.id, format: :json
       end
 

@@ -26,7 +26,7 @@ describe User do
 
     describe "on email notifications" do
       before(:each) do
-        @website = Fabricate(:website)
+        @website = Fabricate(:website, :owner => Fabricate(:user))
       end
 
       context "and adding a new user as an agent" do

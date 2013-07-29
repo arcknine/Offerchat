@@ -21,7 +21,7 @@ describe TriggersController do
 
     describe "when website id is supplied" do
       it "'index' returns list of triggers" do
-        @website = Fabricate(:website)
+        @website = Fabricate(:website, :owner => Fabricate(:user))
         @triggers = Fabricate(:trigger, :website => @website)
         xhr :get, :index, website_id: @website.id, format: :json
         response.code.should eq "200"
@@ -38,7 +38,7 @@ describe TriggersController do
       end
 
       it "GET 'index' should have triggers" do
-        @website = Fabricate(:website)
+        @website = Fabricate(:website, :owner => Fabricate(:user))
         @triggers = Fabricate(:trigger, :website => @website)
         xhr :get, :index, website_id: @website.id, format: :json
         assigns(:triggers).should_not be_nil
