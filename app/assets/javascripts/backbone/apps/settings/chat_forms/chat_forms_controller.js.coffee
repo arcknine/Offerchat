@@ -88,12 +88,12 @@
       else if $(ev.currentTarget).data('name') is 'email'
         @settings.offline.email = $(ev.currentTarget).val()
 
-      @currentUser.set settings: @settings
+      @currentSite.set settings: @settings
 
     setPreChatData: (ev) ->
       if $(ev.currentTarget).data('name') is 'description'
         @settings.pre_chat.description = $(ev.currentTarget).val()
-      @currentUser.set settings: @settings
+      @currentSite.set settings: @settings
 
     setPostChatData: (ev) ->
       if $(ev.currentTarget).data('name') is 'description'
@@ -101,5 +101,5 @@
       else if $(ev.currentTarget).data('name') is 'email'
         @settings.post_chat.email = $(ev.currentTarget).val()
 
-      @currentUser.set settings: @settings
+      @currentSite.set settings: @settings
 
