@@ -1,22 +1,53 @@
 @Offerchat.module "SidebarApp.Visitors", (Visitors, App, Backbone, Marionette, $, _) ->
 
   class Visitors.Controller extends App.Controllers.Base
+    visitorsStorage: new Backbone.LocalStorage "visitors-storage"
 
     initialize: (options = {}) ->
       @currentUser = App.request "set:current:user", App.request "get:current:user:json"
       @visitors    = App.request "visitors:entities"
       @messages    = App.request "messeges:entities"
+      @layout      = @getLayout()
+
+      @visitorsStorage.create @visitors
 
       if App.xmpp.status is Strophe.Status.CONNECTED
         @connection = App.xmpp.connection
         @connected()
 
-      visitorsView = @getVisitorsView()
-      App.chatSidebarRegion.show visitorsView
+      @listenTo @layout, "show", =>
+        @visitorsList()
+        @agentsList()
 
-     getVisitorsView: ->
+      App.reqres.setHandler "get:chat:messages", =>
+        @messages
+
+      App.reqres.setHandler "get:chat:visitors", =>
+        @visitors
+
+      @show @layout
+
+    getLayout: ->
+      new Visitors.Layout
+
+    getVisitorsView: ->
       new Visitors.List
         collection: @visitors
+
+    getAgentsView: ->
+      new Visitors.Agents
+
+    visitorsList: ->
+      visitorsView = @getVisitorsView()
+
+      @listenTo visitorsView, "childview:click:visitor:tab", (visitor) =>
+        App.navigate "chats/#{visitor.model.get('jid')}", trigger: true
+
+      @layout.visitorsRegion.show visitorsView
+
+    agentsList: ->
+      agentsView = @getAgentsView()
+      @layout.agentsRegion.show agentsView
 
     connected: ->
       @connection.vcard.init(@connection)
@@ -30,17 +61,21 @@
       @connection.send(pres)
 
     on_presence: (presence) =>
-      from    = $(presence).attr("from")
-      jid     = Strophe.getNodeFromJid from
-      type    = $(presence).attr("type")
-      visitor = @visitors.findWhere { jid: jid }
+      from     = $(presence).attr("from")
+      jid      = Strophe.getNodeFromJid from
+      resource = Strophe.getResourceFromJid from
+      type     = $(presence).attr("type")
+      visitor  = @visitors.findWhere { jid: jid }
 
       if type is "unavailable"
         @visitors.remove visitor
       else if typeof visitor is "undefined"
-        visitor = { jid: jid }
+        visitor = { jid: jid, resource: resource }
         @visitors.add visitor
 
+      @visitorsStorage.update @visitors
+      # console.log Backbone.LocalStorage
+      # Backbone.LocalStorage("visitors").create(@visitors.models)
       true
 
     on_private_message: (message) =>
@@ -48,6 +83,8 @@
       jid     = Strophe.getNodeFromJid from
       body    = $(message).find("body").text()
 
-      # console.log body
+      if body
+        msg = { jid: jid, message: body, time: new Date() }
+        @messages.add msg
 
       true

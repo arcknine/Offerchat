@@ -2,17 +2,26 @@
 
   class Show.Controller extends App.Controllers.Base
 
+    connection: App.xmpp.connection
+    visitorsStorage: new Backbone.LocalStorage "visitors-storage"
+
     initialize: (options ={}) ->
-      @layout = @getLayout()
+      { token } = options
+      @layout   = @getLayout()
+      @messages = App.request "get:chat:messages"
+      @visitors = App.request "get:chat:visitors"
+      @visitors = @visitors.add @visitorsStorage.all() if @visitors.length is 0
+      visitor   = @visitors.findWhere { jid: token }
 
       @listenTo @layout, "show", =>
-        @visitorInfoView()
+        @connection.addHandler @on_private_message, null, "message", "chat"
+        @visitorInfoView visitor
         @chatsView()
 
       @show @layout
 
-    visitorInfoView: ->
-      visitorView = @getVisitorInfoView()
+    visitorInfoView: (visitor) ->
+      visitorView = @getVisitorInfoView visitor
 
       @layout.visitorRegion.show visitorView
 
@@ -24,8 +33,9 @@
     getLayout: ->
       new Show.Layout
 
-    getVisitorInfoView: ->
+    getVisitorInfoView: (visitor) ->
       new Show.VisitorInfo
+        model: visitor
 
     getChatsView: ->
       new Show.ChatsList

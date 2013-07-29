@@ -2,7 +2,7 @@
 %ul.chat-list-info
   %li.visitor-name
     %a
-      Visitor 11015
+      Visitor 11015 - jid: {{jid}}
   %li
     .flag-icon.flag-PH
     Cebu, Philippines
