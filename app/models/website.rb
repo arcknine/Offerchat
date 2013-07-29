@@ -97,6 +97,7 @@ class Website < ActiveRecord::Base
 
   def after_create_settings
     self.settings(:offline).email = self.owner.email
+    self.settings(:post_chat).email = self.owner.email
     self.save!
   end
 

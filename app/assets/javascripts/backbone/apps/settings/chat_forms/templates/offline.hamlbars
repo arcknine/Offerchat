@@ -37,7 +37,7 @@ Enable the offline form so your visitors can easily reach you when you're not on
       %fieldset
         %label Forward messages to email
         .input-container
-          %input{type: "text", placeholder: "admin@example.com", value: "{{site.settings.offline.email}}", data: {name: 'email'}}
+          %input{name: "email", type: "text", placeholder: "admin@example.com", value: "{{site.settings.offline.email}}", data: {name: 'email'}}
 
       %fieldset
         %button.btn.action{type: "submit"} Save Changes
