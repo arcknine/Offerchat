@@ -32,7 +32,7 @@ If you want to get to know your visitors first for a more personalized chat sess
       %fieldset
         %label Message
         .input-container
-          %textarea{data: {name: 'description'}} {{site.settings.pre_chat.description}}
+          %textarea{name: "description", data: {name: 'description'}} {{site.settings.pre_chat.description}}
 
       %fieldset
         %label Required fields
