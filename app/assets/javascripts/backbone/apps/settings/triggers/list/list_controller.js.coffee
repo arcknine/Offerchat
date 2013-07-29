@@ -116,6 +116,9 @@
             else if !@is_number $(elem).val()
               @showError("time", "is invalid!")
               noError = false
+            else if $(elem).val() < 5
+              @showError("time", "should be at least 5 seconds!")
+              noError = false
             else
               obj.time = $(elem).val()
 
