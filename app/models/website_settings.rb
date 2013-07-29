@@ -15,7 +15,15 @@ class WebsiteSettings < RailsSettings::SettingObject
 
         if self.email.blank?
           errors.add(:email, " should not be blank")
+        elsif !valid_email?(self.email)
+          errors.add(:email, " is invalid")
         end
     end
   end
+
+  def valid_email?(email)
+    em = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+    email =~ em
+  end
+
 end
