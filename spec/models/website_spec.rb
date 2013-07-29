@@ -77,6 +77,20 @@ describe Website do
         Fabricate(:website, :owner => Fabricate(:user))
       }.to change(GenerateRostersWorker.jobs, :size).by(1)
     end
+
+    describe "settings" do
+
+      it "offline email should be equal to owner email" do
+        @website.settings(:offline).email.should_not be_nil
+        @website.settings(:offline).email.should eq(@website.owner.email)
+      end
+
+      it "post_chat email should be equal to owner email" do
+        @website.settings(:post_chat).email.should_not be_nil
+        @website.settings(:post_chat).email.should eq @website.owner.email
+      end
+
+    end
   end
 
   it "#agents" do
