@@ -123,7 +123,7 @@ describe AgentsController do
       end
 
       def do_destroy
-        xhr :delete, :destroy, id: @user.id, format: :json
+        xhr :delete, :destroy, id: @user1.id, format: :json
       end
 
       it "should remove 1 agent" do
