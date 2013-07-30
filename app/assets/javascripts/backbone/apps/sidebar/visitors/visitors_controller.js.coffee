@@ -84,7 +84,7 @@
         @messages.add
           token:      jid
           jid:        jid
-          sender:     jid
+          sender:     "visitor"
           message:    body
           time:       new Date()
           timesimple: moment().format('hh:mma')

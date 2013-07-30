@@ -1,6 +1,6 @@
 .chat-item.group{class: "{{childclass}}"}
   .chat-table.chat-left-table
-    .chat-user.visitor
+    .chat-user{class: "{{sender}}"}
       {{#if child}}
       &nbsp;
       {{else}}
