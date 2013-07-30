@@ -26,15 +26,15 @@
 
       @listenTo navView, "root:path:clicked", (child) ->
         App.navigate Routes.root_path(), trigger: true
-        @hideDropdowns child
+        navView.closeDropDown()
 
       @listenTo navView, "account:menu:clicked", (child) ->
         App.navigate Routes.profiles_path(), trigger: true
-        @hideDropdowns child
+        navView.closeDropDown()
 
       @listenTo navView, "websites:menu:clicked", (child) ->
         App.navigate Routes.websites_path(), trigger: true
-        @hideDropdowns child
+        navView.closeDropDown()
 
       @listenTo navView, "agent:menu:clicked", (child) ->
         App.navigate Routes.agents_path(), trigger: true
@@ -57,7 +57,7 @@
         navView.toggleDropDown(params)
 
       @listenTo navView, "agent:menu:clicked", (child) ->
-        @hideDropdowns child
+        navView.closeDropDown()
 
       @listenTo navView, "settings:menu:clicked", (child) ->
         App.navigate Routes.settings_path(), trigger: true
