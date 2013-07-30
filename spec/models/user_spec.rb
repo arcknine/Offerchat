@@ -26,7 +26,8 @@ describe User do
 
     describe "on email notifications" do
       before(:each) do
-        @website = Fabricate(:website, :owner => Fabricate(:user))
+        @owner = Fabricate(:user)
+        @website = Fabricate(:website, owner: @owner)
       end
 
       context "and adding a new user as an agent" do
@@ -34,7 +35,7 @@ describe User do
           expect {
             account = [{ :role => Account::AGENT, :website_id => @website.id }]
             user = Fabricate(:user)
-            User.create_or_invite_agents(user, account)
+            User.create_or_invite_agents(@owner, user, account)
           }.to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(1)
         end
       end
@@ -44,7 +45,7 @@ describe User do
           expect {
             account = [{ :role => Account::ADMIN, :website_id => @website.id }]
             user = Fabricate(:user)
-            User.create_or_invite_agents(user, account)
+            User.create_or_invite_agents(@owner, user, account)
           }.to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(1)
         end
       end
@@ -54,7 +55,7 @@ describe User do
           expect {
             account = [{ :role => Account::ADMIN, :website_id => @website.id }]
             user = { :email => "#{Random.rand(11)}user@email.com" }
-            User.create_or_invite_agents(user, account)
+            User.create_or_invite_agents(@owner, user, account)
           }.to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(1)
         end
       end
@@ -64,7 +65,7 @@ describe User do
           expect {
             account = [{ :role => Account::AGENT, :website_id => @website.id }]
             user = { :email => "#{Random.rand(11)}user@email.com" }
-            User.create_or_invite_agents(user, account)
+            User.create_or_invite_agents(@owner, user, account)
           }.to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(1)
         end
       end
@@ -127,13 +128,13 @@ describe User do
 
     it "#create_or_invite_agents with an existing user"  do
       user = Fabricate(:user)
-      result = User.create_or_invite_agents(user, @account)
+      result = User.create_or_invite_agents(@owner, user, @account)
       result.should eq(user)
     end
 
     it "#create_or_invite_agents with a new user" do
       user = { :email => "#{Random.rand(11)}user@email.com" }
-      result = User.create_or_invite_agents(user, @account)
+      result = User.create_or_invite_agents(@owner, user, @account)
       result.email.should eq(user[:email])
     end
 
@@ -149,7 +150,7 @@ describe User do
 
     it "should return agents under my account" do
       user = Fabricate(:user)
-      User.create_or_invite_agents(user, @account)
+      User.create_or_invite_agents(@owner, user, @account)
 
       @owner.my_agents.each do |a|
         a.account(@website.id).role.should_not eq(Account::OWNER)
@@ -158,7 +159,7 @@ describe User do
 
     it "should return all agents including the owner" do
       user = Fabricate(:user)
-      User.create_or_invite_agents(user, @account)
+      User.create_or_invite_agents(@owner, user, @account)
 
       @owner.agents.should_not be_empty
       @owner.agents.should_not be_nil

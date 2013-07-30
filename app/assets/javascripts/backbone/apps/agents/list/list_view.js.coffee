@@ -12,6 +12,10 @@
     className: "agent-selection-item"
     triggers:
       "click":      "agent:selection:clicked"
+    modelEvents:
+      "add" : "render"
+      "change" : "render"
+      "update" : "render"
 
   class List.Agents extends App.Views.CompositeView
     template:          "agents/list/agents"
@@ -20,7 +24,6 @@
     itemViewContainer: "div#agent-list"
     triggers:
       "click .agent-selection-new": "new:agent:clicked"
-
 
   class List.Seats extends App.Views.CompositeView
     template:  "agents/list/seats"
@@ -43,6 +46,9 @@
     tagName: "fieldset"
     events:
       "blur input[name=email]" : "update_email_field"
+    
+    initialize: ->
+      console.log @model
     
     update_email_field: (e)->
       @model.set
@@ -83,29 +89,37 @@
     modelEvents:
       "updated" : "render"
 
+    initialize: ->
+      @listenTo @, "show", ->
+        console.log @model
+        if @model.get('role') is 2
+          console.log $("label.admin")
+          @$("label.admin").addClass "adminchecked"
+          @$("label.agent").addClass "agentchecked"
+        else if @model.get('role') is 3
+          @$("label.agent").addClass "agentchecked"
+
     events:
       "click label.checkbox[data-for=admin]"   : "toggleAdminCheckbox"
       "click label.checkbox[data-for=website]" : "toggleWebsiteCheckbox"
 
     toggleAdminCheckbox: (e) ->
-      unless $(e.currentTarget).hasClass "adminchecked"
+      if @$(e.currentTarget).hasClass "adminchecked"
+        @$(e.currentTarget).removeClass "adminchecked"
+        @model.set role: 3
+      else        
         $(e.currentTarget).addClass "adminchecked"
-        @$("#websitecheckbox" + $(e.currentTarget).data("id")).attr('checked', 'checked')
-        @$("label[data-for=website]").addClass "agentchecked"
-        @trigger "account:role:admin:checked"
-      else
-        $(e.currentTarget).removeClass "adminchecked"
-        @trigger "account:role:admin:unchecked"
-        
+        @$("label.agent").addClass "agentchecked"
+        @model.set role: 2
+
     toggleWebsiteCheckbox: (e)->
-      unless $(e.currentTarget).hasClass "agentchecked"
-        $(e.currentTarget).addClass "agentchecked"
-        @trigger "account:role:agent:checked"
-      else
+      if $(e.currentTarget).hasClass "agentchecked"
         $(e.currentTarget).removeClass "agentchecked"
-        @$("label[data-for=admin]").removeClass "adminchecked"
-        @$("#admincheckbox" + $(e.currentTarget).data("id")).attr('checked', false)
-        @trigger "account:role:agent:unchecked"
+        @$("label.admin").removeClass "adminchecked"
+        @model.set role: 0
+      else
+        $(e.currentTarget).addClass "agentchecked"
+        @model.set role: 3
 
   class List.Sites extends App.Views.CompositeView
     template: "agents/list/sites"

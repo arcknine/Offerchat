@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :name
   validates_presence_of :display_name
-  validates_length_of :name, :in => 4..50
+  validates_length_of :name, :in => 3..50
 
   after_create :create_jabber_account
 
@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
   def agents
     owner_websites = self.websites.collect(&:id).join(",")
     owner_accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id IN (?)", owner_websites)
+    #agents = Account.where(owner_id: self.id)
     owner_accounts.collect(&:user)
   end
 
@@ -61,7 +62,7 @@ class User < ActiveRecord::Base
     accounts.collect(&:website)
   end
 
-  def self.create_or_invite_agents(user, account_array)
+  def self.create_or_invite_agents(owner, user, account_array)
     user = User.find_or_initialize_by_email(user[:email])
 
     if user.new_record?
@@ -79,10 +80,12 @@ class User < ActiveRecord::Base
         role            = p[:is_admin] ? Account::ADMIN : Account::AGENT
         account         = Account.new(:role => role)
         account.user    = user
+        account.owner   = owner
         account.website = Website.find(p[:website_id])
         account.save
         
         has_checked_website = true
+        puts account.inspect
       end
     end
 

@@ -63,16 +63,14 @@ describe AgentsController do
       let(:valid_account_post) do
         [{
           "role"        => 2, 
-          "website_id"  => @website.id, 
-          "url"         => "http://www.yahoo.com"
+          "website_id"  => @website.id
         }]
       end
 
       let(:invalid_account_post) do
         [{
           "role"        => 2, 
-          "website_id"  => nil, 
-          "url"         => "http://www.yahoo.com"
+          "website_id"  => nil
         }]
       end
 
@@ -119,13 +117,13 @@ describe AgentsController do
 
     describe "DELETE 'destroy" do
       generate_website
-
       before(:each) do
-        @account = Fabricate(:account)
+        @user1 = Fabricate(:user)
+        @account = Fabricate(:account, :user => @user1, :role => Account::AGENT, :website => @website)
       end
 
       def do_destroy
-        xhr :delete, :destroy, id: @account.id, format: :json
+        xhr :delete, :destroy, id: @user1.id, format: :json
       end
 
       it "should remove 1 agent" do
@@ -149,18 +147,16 @@ describe AgentsController do
 
       let(:valid_put) do
         [{
-          "id"          => @account.id,
+          "account_id"  => @account.id,
           "role"        => 2, 
-          "website_id"  => @website.id, 
-          "url"         => "http://www.yahoo.com"
+          "id"          => @website.id
         }]
       end
       let(:invalid_put) do
         [{
-          "id"          => @account.id,
+          "account_id"  => @account.id,
           "role"        => 2, 
-          "website_id"  => nil, 
-          "url"         => "http://www.yahoo.com"
+          "id"          => nil
         }]
       end
 
