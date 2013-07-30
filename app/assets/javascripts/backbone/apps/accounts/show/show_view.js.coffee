@@ -2,6 +2,7 @@
 
   class Show.Layout extends App.Views.Layout
     template: "accounts/show/layout"
+    tagName: "span"
 
     regions:
       accountSidebarRegion:                       "#accounts-sidebar-region"
@@ -23,10 +24,6 @@
       "change input.file-input"         : "upload:button:change"
       "blur input.file-input"           : "upload:button:blur"
     form:
-      buttons:
-        primary: "Save Changes"
-        cancel: false
-        nosubmit: false
       attributes:
         method: "POST"
         action: "test/action"
@@ -54,11 +51,6 @@
 
   class Show.Password extends App.Views.ItemView
     template: "accounts/show/password"
-    form:
-      buttons:
-        primary: "Save Changes"
-        cancel: false
-        nosubmit: false
 
     events:
       "click .block-message a.close" :  "closeNotification"
