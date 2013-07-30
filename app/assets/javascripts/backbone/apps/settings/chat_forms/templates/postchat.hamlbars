@@ -32,12 +32,12 @@ Gather visitors feedback about the chat session that has ended to measure chat e
       %fieldset
         %label Message
         .input-container
-          %textarea{data: {name: 'description'}} {{site.settings.post_chat.description}}
+          %textarea{name: 'description', data: {name: 'description'}} {{site.settings.post_chat.description}}
 
       %fieldset
         %label Forward messages to email
         .input-container
-          %input{type: "text", placeholder: "admin@example.com", value: "{{site.settings.post_chat.email}}", data: {name: 'email'}}
+          %input{name: 'email', type: "text", placeholder: "admin@example.com", value: "{{site.settings.post_chat.email}}", data: {name: 'email'}}
 
       %fieldset
         %button.btn.action{type: "submit"} Save Changes
