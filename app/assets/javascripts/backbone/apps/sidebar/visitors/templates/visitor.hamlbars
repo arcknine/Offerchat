@@ -1,6 +1,9 @@
 %a.chat-item-tab.new
+  {{#if unread}}
   .message-tick.animated.bounce
-    %span 6
+    %span {{unread}}
+  {{/if}}
+
   {{jid}}
   .small-help-block
     Offerchat - Hire an agent

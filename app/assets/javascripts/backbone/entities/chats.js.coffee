@@ -5,6 +5,9 @@
       jid: "Visitor"
       unread: null
 
+    addUnread: ->
+      @set {unread: @get("unread") + 1}
+
   class Entities.VisitorsCollection extends App.Entities.Collection
     model: Entities.Visitor
 
