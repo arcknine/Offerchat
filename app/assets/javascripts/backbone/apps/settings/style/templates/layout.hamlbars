@@ -1,13 +1,13 @@
-.block-message#setting-notification{:style => "display: none"}
-  %a.close ×
-  %span
 
 .block.large
   %h2
     Style and Color
   Have the widget match your site's look and feel.
 
-/ WIDGET PREVIEW FOR SETTINGS
+.block-message#setting-notification{:style => "display: none"}
+  %a.close ×
+  %span
+
 .group.block.large
   .group
     .widget-preview-sample
