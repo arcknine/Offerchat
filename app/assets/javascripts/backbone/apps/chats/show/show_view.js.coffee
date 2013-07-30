@@ -22,3 +22,8 @@
     className: "chat-pane-container"
     itemView:  Show.Chat
     itemViewContainer: "div#chats-collection"
+    events:
+      "keyup div.chat-response > textarea" : "isTyping"
+
+    isTyping: (ev) ->
+      @trigger "is:typing", ev

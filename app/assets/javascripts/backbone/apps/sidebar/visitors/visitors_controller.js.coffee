@@ -81,8 +81,12 @@
       body    = $(message).find("body").text()
 
       if body
-        msg = { jid: jid, message: body, time: new Date() }
-        @messages.add msg
-        console.log @messages
+        @messages.add
+          token:      jid
+          jid:        jid
+          sender:     jid
+          message:    body
+          time:       new Date()
+          timesimple: moment().format('hh:mma')
 
       true

@@ -4,33 +4,35 @@
 
     visitorStorage: new Backbone.LocalStorage "visitor"
 
+    interval:  null
+    composing: null
+
     initialize: (options ={}) ->
-      { token }   = options
+      { @token }   = options
       @connection = App.xmpp.connection
       @layout     = @getLayout()
 
       allMessages = App.request "get:chats:messages"
       visitors    = App.request "get:chats:visitors"
-      visitor     = App.request "visitor:entity"
-      messages    = App.request "messeges:entities"
+      @visitor    = App.request "visitor:entity"
+      @messages   = App.request "messeges:entities"
 
       unless allMessages.length is 0
-        messages.add(allMessages.where { jid: token })
+        @messages.add(allMessages.where { jid: @token })
 
       unless visitors.length is 0
-        visitor.set visitors.findWhere({ jid: token }).attributes
+        @visitor.set visitors.findWhere({ jid: @token }).attributes
 
       @listenTo visitors, "add", (item) =>
-        visitor.set item.attributes if item.get("jid") is token
+        @visitor.set item.attributes if item.get("jid") is @token
 
       @listenTo allMessages, "add", (item) =>
-        item.set { timesimple: moment(item.get("time")).format('hh:mma') }
-        item.set { child: true, childclass: "child" } if messages.last() and messages.last().get("jid") is token
-        messages.add(item) if item.get("jid") is token
+        item.set { child: true, childclass: "child" } if @messages.last() and @messages.last().get("sender") is item.get("sender")
+        @messages.add(item) if item.get("token") is @token
 
       @listenTo @layout, "show", =>
-        @visitorInfoView visitor
-        @chatsView messages
+        @visitorInfoView @visitor
+        @chatsView @messages
 
       @show @layout
 
@@ -42,7 +44,30 @@
     chatsView: (messages) ->
       chatsView = @getChatsView messages
 
+      @listenTo chatsView, "is:typing", @sendChat
+
       @layout.chatsRegion.show chatsView
+
+    sendChat: (ev) =>
+      message = $(ev.currentTarget).val()
+
+      if ev.keyCode is 13 and message isnt ""
+        @messages.add
+          token:      @token
+          sender:     "agent"
+          jid:        "You"
+          message:    message
+          time:       new Date()
+          timesimple: moment().format('hh:mma')
+          child:      (if @messages.last() and @messages.last().get("sender") is "agent" then true else false)
+
+        $(ev.currentTarget).val("")
+      else
+        composing = $msg({type: 'chat', to: @visitor.get("jid")}).c('composing', {xmlns: 'http://jabber.org/protocol/chatstates'})
+        paused    = $msg({type: 'chat', to: @visitor.get("jid")}).c('paused', {xmlns: 'http://jabber.org/protocol/chatstates'})
+        inactive  = $msg({type: 'chat', to: @visitor.get("jid")}).c('inactive', {xmlns: 'http://jabber.org/protocol/chatstates'})
+
+        # console.log composing.toString()
 
     getLayout: ->
       new Show.Layout
