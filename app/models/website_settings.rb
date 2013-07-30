@@ -1,7 +1,7 @@
 class WebsiteSettings < RailsSettings::SettingObject
   validate do
 
-    unless self.var == 'style' || self.var == 'online'
+    if self.var == 'pre_chat' || self.var == 'post_chat' || self.var == 'offline'
       if self.description.blank?
         errors.add(:description, " should not be blank")
       elsif self.description.length > 140
