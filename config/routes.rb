@@ -8,7 +8,8 @@ Dashboard::Application.routes.draw do
 
   resources :agents
   resource :settings
-
+  resources :triggers
+  resources :plans
 
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}, :controllers => {
     :registrations => "registrations"
@@ -24,8 +25,6 @@ Dashboard::Application.routes.draw do
       get "triggers"
     end
   end
-
-  resources :triggers
 
   resources :signup_wizard
   resource :passwords
