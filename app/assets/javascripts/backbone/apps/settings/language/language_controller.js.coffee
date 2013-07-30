@@ -31,7 +31,6 @@
       new Language.Layout
         model: website
 
-
     updateWidgetLabel: ->
       $("#widget-label-count").text(33 - $("#widget-label").val().length)
       $(".widget-welcome-msg").text($("#widget-label").val())
