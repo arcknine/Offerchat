@@ -56,10 +56,10 @@
       @listenTo model, "created", (trigger) =>
         @removeInlineForms()
         @triggers.add trigger
-        @showNotification("Your new trigger has been created.")
+        @showNotification("Your new trigger has been created")
 
       @listenTo model, "updated", (trigger) ->
-        @showNotification("Your changes have been saved!")
+        @showNotification("Your changes have been saved")
 
       @listenTo the_form, "save:trigger:clicked", (item) ->
         @saveEntry item, wid
@@ -87,8 +87,8 @@
 
           $(view.el).find(".input-container").removeClass("hide")
 
-          if rule_type is "1" then $(view.el).find("#url").addClass("hide")
-          else if rule_type is "3" then $(view.el).find("#time").addClass("hide")
+          if rule_type is 1 then $(view.el).find("#url").addClass("hide")
+          else if rule_type is 3 then $(view.el).find("#time").addClass("hide")
 
       the_form
 
