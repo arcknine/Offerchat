@@ -219,5 +219,31 @@ describe Website do
         @website.errors.messages.should_not be_blank
       end
     end
+
+    describe "post_chat" do
+      it "should not allow empty description" do
+        settings = {
+          "style" => {"theme"=>"cadmiumreddeep", "position"=>"right", "rounded"=>false, "gradient"=>true},
+          "online" => {"header"=>"Chat with us", "agent_label"=>"Got a question? We can help.", "greeting"=>"Hi, I am","placeholder"=>"Type your message and hit enter"},
+          "pre_chat" => {"enabled"=>false, "message_required"=>false,"header"=>"Let me get to know you!", "description"=>"asdfasdfadfasdfasdfasdfasdfa"},
+          "post_chat" => {"enabled"=>true,"header"=>"Chat with me, I'm here to help", "description"=>""},
+          "offline" => {"enabled"=>true, "header"=>"Contact Us", "description"=>"Leave a message and we will get back to you ASAP.", "email" => "erapguapo@erap.com"}
+        }
+        @website.save_settings(settings)
+        @website.errors.messages.should_not be_blank
+      end
+
+      it "should not allow more than 140 characters for description" do
+        settings = {
+            "style" => {"theme"=>"cadmiumreddeep","position"=>"right","rounded"=>false,"gradient"=>true},
+            "online" => {"header"=>"Chat with us","agent_label"=>"Got a question? We can help.","greeting"=>"Hi, I am","placeholder"=>"Type your message and hit enter"},
+            "pre_chat" => {"enabled"=>false,"message_required"=>false,"header"=>"Let me get to know you!","description"=>"descsdfsdf asdfasdf"},
+            "post_chat" => {"enabled"=>true,"header"=>"Chat with me, I'm here to help", "description"=>"Please take a moment to rate this chat session Please take a moment to rate this chat session Please take a moment to rate this chat session Please take a moment to rate this chat session Please take a moment to rate this chat session Please take a moment to rate this chat session"},
+            "offline" => {"enabled"=>true,"header"=>"Contact Us","description"=>"Leave a message and we will get back to you ASAP.","email" => "erapguapo@erap.com"}
+        }
+        @website.save_settings(settings)
+        @website.errors.messages.should_not be_blank
+      end
+    end
   end
 end
