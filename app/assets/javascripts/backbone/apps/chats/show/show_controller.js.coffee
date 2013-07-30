@@ -2,21 +2,35 @@
 
   class Show.Controller extends App.Controllers.Base
 
-    connection: App.xmpp.connection
-    visitorsStorage: new Backbone.LocalStorage "visitors-storage"
+    visitorStorage: new Backbone.LocalStorage "visitor"
 
     initialize: (options ={}) ->
-      { token } = options
-      @layout   = @getLayout()
-      @messages = App.request "get:chat:messages"
-      @visitors = App.request "get:chat:visitors"
-      @visitors = @visitors.add @visitorsStorage.all() if @visitors.length is 0
-      visitor   = @visitors.findWhere { jid: token }
+      { token }   = options
+      @connection = App.xmpp.connection
+      @layout     = @getLayout()
+
+      allMessages = App.request "get:chats:messages"
+      visitors    = App.request "get:chats:visitors"
+      visitor     = App.request "visitor:entity"
+      messages    = App.request "messeges:entities"
+
+      unless allMessages.length is 0
+        messages.add(allMessages.where { jid: token })
+
+      unless visitors.length is 0
+        visitor.set visitors.findWhere({ jid: token }).attributes
+
+      @listenTo visitors, "add", (item) =>
+        visitor.set item.attributes if item.get("jid") is token
+
+      @listenTo allMessages, "add", (item) =>
+        item.set { timesimple: moment(item.get("time")).format('hh:mma') }
+        item.set { child: true, childclass: "child" } if messages.last() and messages.last().get("jid") is token
+        messages.add(item) if item.get("jid") is token
 
       @listenTo @layout, "show", =>
-        @connection.addHandler @on_private_message, null, "message", "chat"
         @visitorInfoView visitor
-        @chatsView()
+        @chatsView messages
 
       @show @layout
 
@@ -25,8 +39,8 @@
 
       @layout.visitorRegion.show visitorView
 
-    chatsView: ->
-      chatsView   = @getChatsView()
+    chatsView: (messages) ->
+      chatsView = @getChatsView messages
 
       @layout.chatsRegion.show chatsView
 
@@ -37,6 +51,7 @@
       new Show.VisitorInfo
         model: visitor
 
-    getChatsView: ->
+    getChatsView: (messages) ->
       new Show.ChatsList
+        collection: messages
 

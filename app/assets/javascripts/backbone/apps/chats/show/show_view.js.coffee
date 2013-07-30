@@ -10,6 +10,8 @@
   class Show.VisitorInfo extends App.Views.ItemView
     template:  "chats/show/visitor"
     className: "block chat-header"
+    modelEvents:
+      "change" : "render"
 
   class Show.Chat extends App.Views.ItemView
     template:  "chats/show/chat"
@@ -19,3 +21,4 @@
     template:  "chats/show/chats"
     className: "chat-pane-container"
     itemView:  Show.Chat
+    itemViewContainer: "div#chats-collection"

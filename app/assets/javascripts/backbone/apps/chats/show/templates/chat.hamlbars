@@ -1,0 +1,13 @@
+.chat-item.group{class: "{{childclass}}"}
+  .chat-table.chat-left-table
+    .chat-user.visitor
+      {{#if child}}
+      &nbsp;
+      {{else}}
+      {{jid}}
+      {{/if}}
+
+  .chat-table.chat-container-table
+    %p {{message}}
+
+  .chat-time {{timesimple}}

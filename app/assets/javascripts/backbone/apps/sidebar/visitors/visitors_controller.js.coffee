@@ -1,7 +1,7 @@
 @Offerchat.module "SidebarApp.Visitors", (Visitors, App, Backbone, Marionette, $, _) ->
 
   class Visitors.Controller extends App.Controllers.Base
-    visitorsStorage: new Backbone.LocalStorage "visitors-storage"
+    # visitorsStorage: new Backbone.LocalStorage "visitors-storage"
 
     initialize: (options = {}) ->
       @currentUser = App.request "set:current:user", App.request "get:current:user:json"
@@ -9,7 +9,7 @@
       @messages    = App.request "messeges:entities"
       @layout      = @getLayout()
 
-      @visitorsStorage.create @visitors
+      # @visitorsStorage.create @visitors
 
       if App.xmpp.status is Strophe.Status.CONNECTED
         @connection = App.xmpp.connection
@@ -19,10 +19,10 @@
         @visitorsList()
         @agentsList()
 
-      App.reqres.setHandler "get:chat:messages", =>
+      App.reqres.setHandler "get:chats:messages", =>
         @messages
 
-      App.reqres.setHandler "get:chat:visitors", =>
+      App.reqres.setHandler "get:chats:visitors", =>
         @visitors
 
       @show @layout
@@ -73,9 +73,6 @@
         visitor = { jid: jid, resource: resource }
         @visitors.add visitor
 
-      @visitorsStorage.update @visitors
-      # console.log Backbone.LocalStorage
-      # Backbone.LocalStorage("visitors").create(@visitors.models)
       true
 
     on_private_message: (message) =>
@@ -86,5 +83,6 @@
       if body
         msg = { jid: jid, message: body, time: new Date() }
         @messages.add msg
+        console.log @messages
 
       true

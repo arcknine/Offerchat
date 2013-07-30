@@ -1,6 +1,8 @@
 @Offerchat.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
   class Entities.Visitor extends App.Entities.Model
+    defaults:
+      jid: "Visitor"
 
   class Entities.VisitorsCollection extends App.Entities.Collection
 
@@ -9,8 +11,8 @@
   class Entities.MessagesCollection extends App.Entities.Collection
 
   API =
-    setVisitor: (visitor) ->
-      new Entities.Agent visitor
+    setVisitor: ->
+      new Entities.Visitor
 
     visitors: ->
       new Entities.VisitorsCollection
@@ -21,8 +23,8 @@
     messages: ->
       new Entities.MessagesCollection
 
-  App.reqres.setHandler "visitor:entity", (visitor) ->
-    API.setVisitor visitor
+  App.reqres.setHandler "visitor:entity", ->
+    API.setVisitor()
 
   App.reqres.setHandler "visitors:entities", ->
     API.visitors()
