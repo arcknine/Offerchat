@@ -13,7 +13,7 @@
           visits specified url
 
   %fieldset.field-inline
-    .input-container.short#time
+    .input-container.time-input-fix.short#time
       %label.block
         Time
       %input.short{ :type => "text", :placeholder => "5", :value => "{{params.time}}", name: "time" }

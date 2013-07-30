@@ -116,6 +116,9 @@
             else if !@is_number $(elem).val()
               @showError("time", "is invalid!")
               noError = false
+            else if $(elem).val() < 5
+              @showError("time", "should be at least 5 seconds!")
+              noError = false
             else
               obj.time = $(elem).val()
 
@@ -137,7 +140,14 @@
           else
             obj.message = $(elem).val()
 
-      if noError then item.model.save(obj)
+      if noError
+        item.model.save(obj, { error: (model, response) =>
+          @handleSaveError(response)
+        })
+
+    handleSaveError: (response) ->
+      $.each response.responseJSON.errors, (key, value) =>
+        @showError(key, value)
 
     showError: (elname, msg) ->
       $("[name='"+elname+"']").closest("fieldset").addClass("field-error").find("label").append("<span class='inline-label-message'>"+msg+"</span>")
