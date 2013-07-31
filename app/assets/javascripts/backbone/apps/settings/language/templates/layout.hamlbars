@@ -1,11 +1,12 @@
-.block-message#setting-notification{:style => "display: none"}
-  %a.close ×
-  %span
-
 .block.large
   %h2
     Languange and Labels
   Take the time to customize the widget's language and labels to be more effective in your marketing and support.
+
+.block-message#setting-notification{:style => "display: none"}
+  %a.close ×
+  %span
+
 .language-selector
   %a.set-language.selected
     = image_tag "lang/english.png"
@@ -32,7 +33,6 @@
     %label
       Polish
 
-/ WIDGET PREVIEW FOR SETTINGS
 .group.block.large
 
   .widget-preview-sample
@@ -72,7 +72,6 @@
           %i.widget.icon.icon-thumbs-up
 
 
-
   .block.inline
     .form.widget-label-form
       %fieldset
@@ -80,7 +79,7 @@
           Widget Label
         .input-container
           .input-append
-            %input{ :type => "text", :id => "widget-label", :value => "Hello! How can I help you today?", :maxlength => 33 }
+            %input{ :type => "text", :id => "widget-label", :value => "Hello! How can I help you today?", :maxlength => 33, :name => "widget_label" }
             %span.add-on#widget-label-count
               33
 

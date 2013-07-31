@@ -156,6 +156,20 @@ describe Website do
       @website.settings(:style).gradient.should be_true
     end
 
+    describe "online" do
+      it "should not allow blanks on website label" do
+        settings = {"style"=>{"theme"=>"cadmiumreddeep", "position"=>"right", "rounded"=>false, "gradient"=>true},
+          "online"=>{"header"=>"Chat with us", "agent_label"=>"", "greeting"=>"Hi, I am",
+          "placeholder"=>"Type your message and hit enter"}, "pre_chat"=>{"enabled"=>false, "message_required"=>false,
+          "header"=>"Let me get to know you!", "description"=>"Fill out the form to start the chat."}, "post_chat"=>{"enabled"=>true,
+          "header"=>"Chat with me, I'm here to help", "description"=>"Please take a moment to rate this chat session"},
+          "offline"=>{"enabled"=>true, "header"=>"Contact Us", "description"=>"Leave a message and we will get back to you ASAP.Leave a message and we will get back to you ASAP.Leave a message and we will get back to you ASAP.Leave a message and we will get back to you ASAP.Leave a message and we will get back to you ASAP.Leave a message and we will get back to you ASAP.Leave a message and we will get back to you ASAP.Leave a message and we will get back to you ASAP."}}
+
+        @website.save_settings(settings)
+        @website.errors.should_not be_blank
+      end
+    end
+
     describe "offline" do
       it "description should be less than 140 characters" do
         settings = {"style"=>{"theme"=>"cadmiumreddeep", "position"=>"right", "rounded"=>false, "gradient"=>true},

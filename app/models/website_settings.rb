@@ -17,6 +17,12 @@ class WebsiteSettings < RailsSettings::SettingObject
       end
     end
 
+    if self.var == "online"
+      if self.agent_label.blank?
+        errors.add(:widget_label, " should not be blank")
+      end
+    end
+
   end
 
   def valid_email?(email)
