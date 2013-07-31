@@ -15,7 +15,7 @@ describe "UserControllLinks" do
 
   it "should have a logout path" do
     #delete logout_path
-    delete destroy_user_session_path
+    get destroy_user_session_path
     response.status.should be(302)
   end
 end

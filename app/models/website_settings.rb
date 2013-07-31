@@ -9,11 +9,17 @@ class WebsiteSettings < RailsSettings::SettingObject
       end
 
       if self.var == 'offline' || self.var == 'post_chat'
-        if self.email.blank?
+        if self.email.blank? || self.email.nil?
           errors.add(:email, " should not be blank")
         elsif !valid_email?(self.email)
           errors.add(:email, " is invalid")
         end
+      end
+    end
+
+    if self.var == "online"
+      if self.agent_label.blank?
+        errors.add(:widget_label, " should not be blank")
       end
     end
 

@@ -14,3 +14,15 @@
       "click a#websites-menu-link"       : "websites:menu:clicked"
       "click a#account-menu-link"        : "account:menu:clicked"
       "click a#agent-menu-link"          : "agent:menu:clicked"
+      "click a[data-status=logout]"      : "logout"
+
+    events:
+      "click a[data-status=logout]" : "logout"
+      "click a#changeStatus"        : "changeStatus"
+
+    logout: ->
+      location.href = Routes.destroy_user_session_path()
+
+    changeStatus: (e) ->
+      $(e.currentTarget).text("Online")
+      console.log $(e.currentTarget).data("status")
