@@ -54,13 +54,16 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.0'
   gem 'rspec_junit_formatter'
   gem 'guard-rspec'
-  gem 'rspec-sidekiq'
   gem 'shoulda-matchers'
   gem 'mocha', :require => false
   gem 'database_cleaner'
   gem 'fabrication'
   gem 'simplecov', :require => false
   gem 'email_spec'
+end
+
+group :test do
+  gem 'rspec-sidekiq'
 end
 
 group :development do
