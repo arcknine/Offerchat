@@ -41,6 +41,7 @@
       visitorsView = @getVisitorsView()
 
       @listenTo visitorsView, "childview:click:visitor:tab", (visitor) =>
+        visitor.model.set({unread: null})
         App.navigate "chats/#{visitor.model.get('jid')}", trigger: true
 
       @layout.visitorsRegion.show visitorsView
@@ -88,5 +89,9 @@
           message:    body
           time:       new Date()
           timesimple: moment().format('hh:mma')
+
+        # add ticker
+        if Backbone.history.fragment.indexOf(jid)==-1
+          @visitors.findWhere({jid: jid}).addUnread()
 
       true
