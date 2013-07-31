@@ -28,3 +28,4 @@ rspec.xml
 
 # Ignore vim swap files
 *.swp
+*.rdb
