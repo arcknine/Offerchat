@@ -17,6 +17,9 @@
   class Entities.VisitorsCollection extends App.Entities.Collection
     model: Entities.Visitor
 
+    comparator: (visitor) ->
+      -visitor.get("unread")
+
   class Entities.Message extends App.Entities.Model
 
   class Entities.MessagesCollection extends App.Entities.Collection

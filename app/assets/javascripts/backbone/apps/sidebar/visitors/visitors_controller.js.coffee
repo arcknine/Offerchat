@@ -94,4 +94,6 @@
         if Backbone.history.fragment.indexOf(jid)==-1
           @visitors.findWhere({jid: jid}).addUnread()
 
+        @visitors.sort()
+
       true
