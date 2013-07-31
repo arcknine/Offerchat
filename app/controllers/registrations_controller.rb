@@ -6,7 +6,6 @@ class RegistrationsController < Devise::RegistrationsController
 
     if resource.save
       if resource.active_for_authentication?
-        UserMailer.delay.registration_welcome(params[:user][:email])
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
         # redirect_to ( root_path('#websites/new') )
