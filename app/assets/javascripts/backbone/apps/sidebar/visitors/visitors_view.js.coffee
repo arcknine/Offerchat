@@ -11,6 +11,9 @@
     triggers:
       "click a.chat-item-tab" : "click:visitor:tab"
 
+    modelEvents:
+      "change" : "render"
+
   class Visitors.List extends App.Views.CompositeView
     template: "sidebar/visitors/visitors"
     itemView: Visitors.View
