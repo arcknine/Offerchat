@@ -1,5 +1,3 @@
-require 'net/http'
-
 class Website < ActiveRecord::Base
 
   attr_accessible :api_key, :name, :url, :owner
@@ -75,22 +73,12 @@ class Website < ActiveRecord::Base
     end while self.class.exists?(api_key: api_key)
   end
 
-  def register_to_drip_campaign(email, name)  
-    url = URI.parse 'http://drip.offerchat.com/api/actions/create_user'
-    req = Net::HTTP::Post.new url.path
-    req.basic_auth 'admin','0ff3rch@t'
-    req.set_form_data 'email' => email, 'name' => name
-    resp = Net::HTTP.new(url.host, url.port).start {|http| http.request(req) } 
-  rescue
-    false
-  end
-
   def generate_account
     account = self.accounts.build
     account.user = self.owner
     account.role = Account::OWNER
     account.save
-    self.register_to_drip_campaign self.owner.email, self.owner.name
+    DripWorker.perform_async self.owner.id
   end
 
   def generate_rosters
