@@ -85,7 +85,6 @@ class Website < ActiveRecord::Base
     GenerateRostersWorker.perform_async(self.id)
   end
 
-
   def delete_accounts
     accounts.destroy_all
   end
