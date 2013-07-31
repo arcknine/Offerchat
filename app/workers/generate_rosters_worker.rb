@@ -6,7 +6,7 @@ class GenerateRostersWorker
     owner = website.owner
 
     (1..30).each do |i|
-      visitor  = website.genrate_visitor_id
+      visitor  = website.generate_visitor_id
       password = (0..16).to_a.map{|a| rand(16).to_s(16)}.join
       roster   = Roster.create(:jabber_user => visitor, :jabber_password => password, :website_id => id)
       name     = visitor.split("_")
