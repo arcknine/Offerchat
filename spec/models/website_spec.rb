@@ -78,7 +78,7 @@ describe Website do
       }.to change(GenerateRostersWorker.jobs, :size).by(1)
     end
 
-    it "should create a api drip worker" do
+    it "should create an api drip worker" do
       expect{
         Fabricate(:website, :owner=>Fabricate(:user))
       }.to change(DripWorker.jobs, :size).by(1)
