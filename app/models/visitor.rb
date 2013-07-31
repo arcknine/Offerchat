@@ -1,5 +1,5 @@
 class Visitor < ActiveRecord::Base
-  attr_accessible :token
+  attr_accessible :token , :browser, :ipaddress, :location
 
   belongs_to :website
   has_many :chat_sessions

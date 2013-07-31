@@ -34,14 +34,20 @@ module Offerchat
       resource :token do
         params do
           requires :apikey, type: String, desc: "Api key."
+
         end
         route_param :apikey do
           get do
             # visitor = Visitor.new
             website = Website.find_by_api_key(params[:apikey])
-            visitor = website.visitors.new()
+
+            dataInfo = { :browser => params[:browser], :location => params[:location], :ipaddress => params[:ip] }
+            visitor = website.visitors.new(dataInfo)
+            # after ani
+            # get the available roster
+            # get the available agent
             if visitor.save
-              {token: visitor.token}
+              {token: visitor.token, browser: params[:browser]}
             else
               {error: "Invalid token request!"}
             end
@@ -50,6 +56,8 @@ module Offerchat
           end
         end
       end
+
+
 
     end
 

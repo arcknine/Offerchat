@@ -31,12 +31,17 @@ gem 'jquery-rails'
 # Jobs
 gem 'sidekiq'
 <<<<<<< HEAD
+<<<<<<< HEAD
 gem 'sinatra', :require => nil
 gem 'slim', '>= 1.1.0'
 =======
 gem 'slim', '>= 1.1.0'
 gem 'sinatra', '>= 1.3.0', :require => nil
 >>>>>>> fixing preview
+=======
+gem 'sinatra', :require => nil
+gem 'slim', '>= 1.1.0'
+>>>>>>> added browsing data
 
 gem "js-routes"
 
@@ -72,6 +77,7 @@ group :development, :test do
   gem 'simplecov', :require => false
   gem 'email_spec'
 end
+
 
 group :test do
   gem 'rspec-sidekiq'

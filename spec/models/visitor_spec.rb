@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe "after create" do
   before(:each) do
-    @visitor = Fabricate(:visitor, :website => Fabricate(:website))
+    @website = Fabricate(:website, :owner => Fabricate(:user))
+    @visitor = Fabricate(:visitor, :website_id => @website.id)
   end
 
   it "should generate a token" do
