@@ -36,4 +36,6 @@ Dashboard::Application.routes.draw do
   # post 'signup_wizard/step_three' ,:controller => :signup_wizard, :action => 'create'
 
   root :to => 'home#index'
+
+  mount Offerchat::API => '/v1'
 end

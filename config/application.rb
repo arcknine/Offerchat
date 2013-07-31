@@ -65,5 +65,9 @@ module Dashboard
       g.test_framework  :rspec
       g.fixture_replacement :fabrication
     end
+
+    config.paths.add "app/api", glob: "**/*.rb"
+    config.autoload_paths += Dir["#{Rails.root}/app/api/*"]
+
   end
 end
