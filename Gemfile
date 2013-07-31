@@ -31,15 +31,13 @@ gem 'jquery-rails'
 # Jobs
 gem 'sidekiq'
 gem 'sinatra', :require => nil
+gem 'slim', '>= 1.1.0'
 
 gem "js-routes"
 
 # Amazon
 gem 'aws-sdk'
 gem 'wicked'
-
-# Openfire
-gem 'openfire_api', :git => 'git://github.com/paulasmuth/openfire_api.git'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
