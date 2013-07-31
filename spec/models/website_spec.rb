@@ -78,6 +78,12 @@ describe Website do
       }.to change(GenerateRostersWorker.jobs, :size).by(1)
     end
 
+    it "should create a api drip worker" do
+      expect{
+        Fabricate(:website, :owner=>Fabricate(:user))
+      }.to change(DripWorker.jobs, :size).by(1)
+    end
+
     describe "settings" do
 
       it "offline email should be equal to owner email" do
