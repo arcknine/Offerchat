@@ -23,16 +23,17 @@
         .profile-image-container
           .profile-image
             %img{src: '{{avatar}}'}
-          %span.status.online
+          %span.status{class: "{{status}}"}
             %i.icon.icon-check-small
       %ul.profile-status-dropdown
         %li
-          %a
+          %a#changeStatus{data: {status: "away"}}
             %span.status
               %i.icon.icon-check-small
-            Away
+            %span#current-status
+              Away
         %li
-          %a
+          %a{href: "/logout", data: {status: "logout"}}
             %span.status.signout
               %i.icon.icon-small-x
             Signout

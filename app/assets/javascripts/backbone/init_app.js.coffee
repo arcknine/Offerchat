@@ -12,17 +12,15 @@ $ ->
   Offerchat.xmpp.connection.connect username, password, (status) ->
 
     if status is Strophe.Status.CONNECTED
-      $("#connecting-region").removeClass("modal-backdrop")
+      $("#connecting-region").fadeOut()
+
       Offerchat.xmpp.status = status
       Offerchat.start currentUser: JSON.stringify(currentUser)
 
     else if status is Strophe.Status.CONNECTING
-      $("#connecting-region").addClass("modal-backdrop")
-
-      # if app cannot connect to chat server it will wait for 20s before loading the app
       setTimeout (=>
         unless Offerchat.xmpp.status is Strophe.Status.CONNECTED
-          $("#connecting-region").removeClass("modal-backdrop")
+          $("#connecting-region").fadeOut()
           Offerchat.xmpp.status = status
           Offerchat.start currentUser: JSON.stringify(currentUser)
       ), 20000

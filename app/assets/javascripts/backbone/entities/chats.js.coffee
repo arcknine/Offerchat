@@ -3,12 +3,15 @@
   class Entities.Visitor extends App.Entities.Model
     defaults:
       jid: "Visitor"
+      unread: null
 
   class Entities.VisitorsCollection extends App.Entities.Collection
+    model: Entities.Visitor
 
   class Entities.Message extends App.Entities.Model
 
   class Entities.MessagesCollection extends App.Entities.Collection
+    model: Entities.Message
 
   API =
     setVisitor: ->

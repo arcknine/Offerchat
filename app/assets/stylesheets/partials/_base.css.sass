@@ -17,7 +17,8 @@ $base-line-height: 1.5
   top: 12px
   left: 50%
   margin-left: -8px
-    
+#tableHead1_content
+  margin-top: 41px
 body
   font:
     family: $base-font-family
@@ -67,7 +68,13 @@ a
     top: -2px
     margin-right: 5px
     text-shadow: 0 -1px 0 darken(#ec2972, 10%)
-    
+  &.block-link
+    display: inline-block
+    padding: $button-padding
+  &.warning
+    color: $button-bg-warning-color
+  &.right
+    float: right
 .align-right
   text-align: right
 .item
@@ -108,7 +115,7 @@ a
       left: -1px
       font-weight: 400
 
-      
+
 
 .checklist-admin
   display: inline-block
@@ -173,6 +180,12 @@ a.agent-selection-item
   background-image: image-url("logo-large.png")
   &.centered
     margin: 0 auto
+.logo-single
+  display: inline-block
+  width: 55px
+  height: 55px
+  background-image: image-url("logo-single.png")
+  background-repeat: no-repeat
 
 h2
   font-size: 18px
@@ -260,8 +273,8 @@ h4
 
 .profile-image-container
   position: relative
-  line-height: .6
-  top: 3px
+  
+  
   display: inline-block
   cursor: pointer
   text-align: center
@@ -273,7 +286,7 @@ h4
   .profile-image 
     display: block
     position: relative
-    top: -4px
+    
     img
       border-radius: 27%
       border: 2px solid $default-border-color
@@ -295,7 +308,7 @@ h4
 
   .status
     position: absolute
-    bottom: 4px
+    bottom: 0
     right: 0
   .profile-user-tooltip
     background-color: $sidebar-color
@@ -377,7 +390,7 @@ h4
   vertical-align: top
   line-height: .6
   &.online
-    background-color: #67cc73
+    background-color: #1fde4c
   &.signout
     background-color: #ee5c5c
   &.site-list-status
@@ -402,13 +415,14 @@ h4
   
 .msg-count
   display: inline-block
-  padding: 1px 0
+  padding: 3px 0
+  line-height: 1
   width: 20px
   text-align: center
-  background-color: #e1e1e1
+  background-color: #e5e5e5
   text-shadow: 0 1px 0 #fff
   border-radius: 3px
-  color: $light-text-color
+  color: $text-color
   font-size: 11px
   font-weight: bold
 
@@ -524,16 +538,42 @@ h4
     img
       max-width: 100%
       
+.modal-inner-container
+  height: 300px
+  overflow-y: auto
+  border: 1px solid #e1e1e1
 
-.modal
+.modal-backdrop
+  background-color: rgba(0,0,0,.6)
+  position: fixed
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  z-index: 1100
+  overflow-y: scroll
+  
+
+.modal-window
+  padding-bottom: 50px
   position: absolute
-  z-index: 1101
-  background-color: #f4f4f4
+  z-index: 1110
   width: 560px
-
   left: 50%
-  top: 10%
+  top: 40px
   margin-left: -280px
+  &.modal-window-large
+    width: 755px
+    margin-left: -378px
+    .chat-table.chat-container-table
+      width: 490px
+.modal
+  position: relative
+  width: 100%
+  z-index: 1120
+  background-color: #f4f4f4
   border-radius: 5px
   box-shadow: 0 0 20px rgba(0,0,0,.3)
   h2
@@ -572,15 +612,8 @@ h4
       @include transition(.2s)
       &:hover
         color: #676767
-  &.history-modal
-    width: 840px
-    margin-left: -420px
-  &.attention-grabber-modal,
-  &.modal-large
-    width: 755px
-    margin-left: -378px
-    // .agent-inline-block
-    //   width: 325px
+  
+
 
 .block-list
   li
@@ -669,23 +702,42 @@ a.block-list-item, .block-list-item
     padding: 10px
     font-size: 18px
 
+.quick-answers-list
+  
+  > li
+    border-bottom: 1px solid #e1e1e1
+    &:first-child
+      border-top: 1px solid #e1e1e1
+    &:hover
+      .meta-actions
+        visibility: visible
+        opacity: 1
+        @include transition(.2s)
+    > a
+      padding: 10px
+      font-size: 12px
+      color: $text-color
+      display: inline-block
+  .status-item
+    margin-right: 5px
+    background-color: $link-color
+
 .sidebar-modal-fixed
   position: absolute
-  opacity: 0
-  visibility: hidden
-  @include transition(.2s)
+  
+  @include transition(.3s)
   height: 100%
   width: 420px
-  right: -20px
+  right: -640px
   top: 0
   z-index: 1110
   background-color: #f4f4f4
-  box-shadow: 3px 0 20px rgba(0,0,0,.3)
-  
+  box-shadow: 5px 0 20px rgba(0,0,0,.5)
+  border-top-left-radius: 5px
+  border-bottom-left-radius: 5px
   &.show
     right: 0
-    opacity: 1
-    visibility: visible
+    
   .close
     color: #999
     position: absolute
@@ -712,10 +764,11 @@ a.block-list-item, .block-list-item
       margin-top: 5px
   .note
     padding-left: 100px
+    font-size: 12px
   .profile-image-container
     cursor: default
 
-.note-group
+.modal-sidebar-viewer
   margin-top: 5px
   overflow-y: auto
   overflow-x: hidden
@@ -753,26 +806,19 @@ a.block-list-item, .block-list-item
   float: left
   margin: 0 !important
 
-
-
-  
-
-
-.modal-inner-container
-  height: 300px
-  overflow-y: auto
-  border: 1px solid #e1e1e1
-
-.modal-backdrop
-  background-color: black
-  opacity: .5
+.main-overlay-fixed
   position: fixed
   width: 100%
   height: 100%
-  top: 0
-  left: 0
-  right: 0
-  bottom: 0
-  z-index: 1100
+  overflow: hidden
+  background-color: #fff
+  z-index: 9999
   
-
+  .main-overlay-in
+    position: absolute
+    width: 100%
+    top: 50%
+    margin-top: -88px
+    text-align: center
+    font-size: 12px
+    color: #999
