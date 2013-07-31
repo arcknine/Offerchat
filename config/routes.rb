@@ -29,13 +29,15 @@ Dashboard::Application.routes.draw do
   resources :signup_wizard
   resource :passwords
 
+
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
   # post 'signup_wizard/step_one' ,:controller => :signup_wizard, :action => 'create'
   # post 'signup_wizard/step_three' ,:controller => :signup_wizard, :action => 'create'
 
+
   root :to => 'home#index'
 
-  mount Offerchat::API => '/v1'
+  mount Offerchat::API => '/api/v1'
 end

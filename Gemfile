@@ -30,8 +30,13 @@ gem 'jquery-rails'
 
 # Jobs
 gem 'sidekiq'
+<<<<<<< HEAD
 gem 'sinatra', :require => nil
 gem 'slim', '>= 1.1.0'
+=======
+gem 'slim', '>= 1.1.0'
+gem 'sinatra', '>= 1.3.0', :require => nil
+>>>>>>> fixing preview
 
 gem "js-routes"
 

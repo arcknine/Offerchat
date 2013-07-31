@@ -83,6 +83,7 @@ class Website < ActiveRecord::Base
   end
 
   def generate_rosters
+
     GenerateRostersWorker.perform_async(self.id)
   end
 
