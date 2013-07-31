@@ -1,0 +1,10 @@
+.chat-image
+%ul.chat-list-info
+  %li.visitor-name
+    %a
+      {{jid}}
+  %li
+    .flag-icon.flag-PH
+    Cebu, Philippines
+  %li
+    Windows / Google Chrome

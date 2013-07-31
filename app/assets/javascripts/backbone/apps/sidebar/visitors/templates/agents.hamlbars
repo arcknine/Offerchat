@@ -1,0 +1,29 @@
+%a.chat-item-tab.group-item-tab.group
+  .profile-image-container
+    .profile-image
+      %img{ :alt => "Avatar", :src => "/assets/avatar.jpg" }
+    %span.status.online
+      %i.icon.icon-check-small
+
+  .profile-image-container
+    .profile-image
+      %img{ :alt => "Avatar", :src => "/assets/avatar-1.jpg" }
+    %span.status.online
+      %i.icon.icon-check-small
+
+  .profile-image-container
+    .profile-image
+      %img{ :alt => "Avatar", :src => "/assets/avatar-2.jpg" }
+    %span.status.online
+      %i.icon.icon-check-small
+
+  .profile-image-container
+    .profile-image
+      %img{ :alt => "Avatar", :src => "/assets/avatar-2.jpg" }
+    %span.status.online
+      %i.icon.icon-check-small
+
+  .more.right
+    %span
+    %span
+    %span
