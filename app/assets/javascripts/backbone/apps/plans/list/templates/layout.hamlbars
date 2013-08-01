@@ -1,0 +1,82 @@
+.block-message
+  You are currently using our
+  %strong
+    Free
+  version. Upgrade now to add more agents.
+.block.large
+  %h1
+    Plans and Pricing
+  %h3
+    Pay only for what you need. Offerchat live chat offers flexible pricing plans to let you chat instantly with shoppers right on your site.
+
+.block.large
+  .plans.text-center
+    .plan-grid
+      .plan.plan-regular
+        %h2
+          {{business.name}}
+        %p.small
+          {{business.description}}
+        .block
+          %a.btn.action
+            Upgrade
+        .plan-price
+
+          .plan-value
+            %span.sign
+              $
+            {{business.price}}
+          per month
+      %ul.plan-features
+        %li
+          up to 12 agent seats
+        %li
+          white labeled widget
+
+    .plan-grid
+      .plan.plan-best
+        %h2
+          {{personal.name}}
+        %p.small
+          {{personal.description}}
+        .block
+          %a.btn.success
+            Upgrade
+        .plan-price
+          .plan-value
+            %span.sign
+              $
+            {{personal.price}}
+          per month
+      %ul.plan-features
+        %li
+          up to 5 agent seats
+        %li
+          white labeled widget
+    .plan-grid
+      .plan.plan-regular
+        %h2
+          {{enterprise.name}}
+        %p.small
+          {{enterprise.description}}
+        .block
+          %a.btn.action
+            Upgrade
+        .plan-price
+          .plan-value
+            %span.sign
+              $
+            {{enterprise.price}}
+          per month
+      %ul.plan-features
+        %li
+          up to 30 agent seats
+        %li
+          white labeled widget
+    .group
+      .block-message.inline.small
+        {{starter.description}}
+        %strong
+          ${{starter.price}}.
+        %a.hovered{ :style => "margin-left: 10px" }
+          Upgrade

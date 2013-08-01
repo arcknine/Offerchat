@@ -10,6 +10,7 @@
       "click li.profile-settings"        : "profile:settings:toggled"
       "click li.history-menu-link"       : "history:menu:clicked"
       "click li.reports-menu-link"       : "reports:menu:clicked"
+      "click a.add-more-btn"             : "upgrade:menu:clicked"
       "click a#settings-menu-link"       : "settings:menu:clicked"
       "click a#websites-menu-link"       : "websites:menu:clicked"
       "click a#account-menu-link"        : "account:menu:clicked"
