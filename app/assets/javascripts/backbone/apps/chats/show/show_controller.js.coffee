@@ -24,7 +24,9 @@
         @visitor.set visitors.findWhere({ jid: @token }).attributes
 
       @listenTo visitors, "add", (item) =>
-        @visitor.set item.attributes if item.get("jid") is @token
+        if item.get("jid") is @token
+          @visitor.set item.attributes         
+          @visitor.generateGravatarSource()
 
       @listenTo @allMessages, "add", (item) =>
         item.set { child: true, childclass: "child" } if @messages.last() and @messages.last().get("jid") is item.get("jid") and item.get("sender") isnt "agent"
@@ -39,8 +41,8 @@
       @show @layout
 
     visitorInfoView: (visitor) ->
+      visitor.generateGravatarSource()
       visitorView = @getVisitorInfoView visitor
-
       @layout.visitorRegion.show visitorView
 
     chatsView: (messages) ->
