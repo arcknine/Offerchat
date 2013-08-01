@@ -63,6 +63,9 @@
         App.navigate Routes.settings_path(), trigger: true
         navView.closeDropDown()
 
+      @listenTo navView, "upgrade:menu:clicked", (child) ->
+        App.navigate Routes.plans_path(), trigger: true
+
       # @listenTo navView, "knowlegdebase:menu:clicked", (child) ->
       #   console.log child
 
