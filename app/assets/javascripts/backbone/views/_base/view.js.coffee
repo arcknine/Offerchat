@@ -27,7 +27,10 @@
           if elem.has("ul").length then elem.removeClass("open") # only remove open class if has dropdown
         else
           $(".open").removeClass("open")
-          $(".active").removeClass("active")
+
+          $.each elem.find(".active"), (key,value) ->
+            $(value).removeClass("active")
+
           elem.addClass "open"
       else
         $(".open").removeClass("open")
