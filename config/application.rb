@@ -69,5 +69,7 @@ module Dashboard
     config.paths.add "app/api", glob: "**/*.rb"
     config.autoload_paths += Dir["#{Rails.root}/app/api/*"]
 
+    config.middleware.use Rack::JSONP
+
   end
 end

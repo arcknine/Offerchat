@@ -1,5 +1,5 @@
 class Visitor < ActiveRecord::Base
-  attr_accessible :token , :browser, :ipaddress, :location
+  attr_accessible :token , :browser, :ipaddress, :location, :name, :email
 
   belongs_to :website
   has_many :chat_sessions
@@ -13,5 +13,8 @@ class Visitor < ActiveRecord::Base
     end
   end
 
+  # def detect_ip
+  #   self.ipaddress = request.remote_ip
+  # end
 
 end

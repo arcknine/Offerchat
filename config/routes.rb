@@ -39,5 +39,5 @@ Dashboard::Application.routes.draw do
 
   root :to => 'home#index'
 
-  mount Offerchat::API => '/api/v1'
+  mount Offerchat::API => '/api/v1/widget/'
 end

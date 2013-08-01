@@ -30,18 +30,9 @@ gem 'jquery-rails'
 
 # Jobs
 gem 'sidekiq'
-<<<<<<< HEAD
-<<<<<<< HEAD
 gem 'sinatra', :require => nil
 gem 'slim', '>= 1.1.0'
-=======
-gem 'slim', '>= 1.1.0'
-gem 'sinatra', '>= 1.3.0', :require => nil
->>>>>>> fixing preview
-=======
-gem 'sinatra', :require => nil
-gem 'slim', '>= 1.1.0'
->>>>>>> added browsing data
+
 
 gem "js-routes"
 
@@ -53,10 +44,9 @@ gem 'wicked'
 # API
 gem 'grape'
 
-# Openfire
-gem 'openfire_api', :git => 'git://github.com/paulasmuth/openfire_api.git'
 
->>>>>>> created api
+
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
