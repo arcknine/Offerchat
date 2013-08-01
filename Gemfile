@@ -33,19 +33,14 @@ gem 'sidekiq'
 gem 'sinatra', :require => nil
 gem 'slim', '>= 1.1.0'
 
-
 gem "js-routes"
 
 # Amazon
 gem 'aws-sdk'
 gem 'wicked'
 
-
 # API
 gem 'grape'
-
-
-
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -67,7 +62,6 @@ group :development, :test do
   gem 'simplecov', :require => false
   gem 'email_spec'
 end
-
 
 group :test do
   gem 'rspec-sidekiq'
