@@ -1,12 +1,18 @@
 @Offerchat.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
   class Entities.Visitor extends App.Entities.Model
+
     defaults:
       jid: "Visitor"
       unread: null
+      email: "piki_pare_erap@yahoo.com"
+      gravatar: null
 
     addUnread: ->
       @set {unread: @get("unread") + 1}
+
+    generateGravatarSource: ->
+      @set { gravatar: "https://www.gravatar.com/avatar/#{ MD5.hexdigest($.trim(@get("email")).toLowerCase()) }?s=100&d=mm" }
 
   class Entities.VisitorsCollection extends App.Entities.Collection
     model: Entities.Visitor

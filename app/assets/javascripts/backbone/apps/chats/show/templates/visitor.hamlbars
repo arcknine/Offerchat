@@ -1,4 +1,5 @@
 .chat-image
+  %img{ :src=> "{{gravatar}}" }
 %ul.chat-list-info
   %li.visitor-name
     %a
