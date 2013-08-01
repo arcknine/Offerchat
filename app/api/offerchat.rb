@@ -4,14 +4,10 @@ module Offerchat
     version 'v1', using: :header, vendor: 'offerchat'
     format :json
 
-
-
     desc "ping pong"
     get :ping do
       { ping: "pong"}
     end
-
-
 
     resource :token do
       params do
