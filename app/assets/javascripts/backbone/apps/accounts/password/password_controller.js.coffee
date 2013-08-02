@@ -13,12 +13,12 @@
         @layout = @getLayoutView()
 
         @listenTo @layout, "show", =>
-          @sidebarRegion(options.section)
+          @sidebarRegion()
           @getPasswordRegion(profile)
 
         @show @layout
 
-    sidebarRegion: (section)->
+    sidebarRegion: ->
       navView = @getSidebarNavs()
 
       @listenTo navView, "nav:accounts:clicked", (item) =>
@@ -26,6 +26,9 @@
 
       @listenTo navView, "nav:password:clicked", (item) =>
         App.navigate '#profiles/passwords', trigger: true
+
+      @listenTo navView, "nav:invoices:clicked", (item) =>
+        App.navigate '#profiles/invoices', trigger: true
 
       @layout.accountSidebarRegion.show navView
 

@@ -14,8 +14,8 @@
       "click a" :                                 "nav:clicked"
       "click a.profile" :                         "nav:accounts:clicked"
       "click a.password" :                        "nav:password:clicked"
+      "click a.invoices" :                        "nav:invoices:clicked"
       #"click a.notifications" :                   "nav:notifications:clicked"
-      #"click a.invoices" :                        "nav:invoices:clicked"
 
   class Profile.View extends App.Views.Layout
     template: "accounts/profile/profile"
@@ -52,10 +52,13 @@
           types = /(\.|\/)(gif|jpe?g|png)$/i
           file = data.files[0]
           if types.test(file.type) || types.test(file.name)
+            App.request "show:preloader"
             data.submit().done (e,data)->
               self.model.set
                 avatar: e.avatar
               App.execute "avatar:change", e.avatar
+              App.request "hide:preloader"
+              self.trigger "show:notification", "Your avatar have been saved!"
           else
             self.trigger "show:notification", "#{file.name} is not a gif, jpeg, or png image file"
 

@@ -4,8 +4,8 @@
     appRoutes:
       "profiles"                :   "profile"
       "profiles/passwords"      :   "editPassword"
+      "profiles/invoices"       :   "listInvoices"
       #"profiles/notifications"  :   "editNotifications"
-      #"profiles/invoices"       :   "listInvoices"
 
     API =
       profile: ->
@@ -15,6 +15,10 @@
       editPassword: ->
         new AccountsApp.Password.Controller
           section: 'password'
+
+      listInvoices: ->
+        new AccountsApp.Invoice.Controller
+          section: 'invoices'
 
       #editPassword: ->
       #  new AccountsApp.Password.Controller
