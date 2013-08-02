@@ -7,9 +7,10 @@ class User < ActiveRecord::Base
 
   has_many :accounts
   has_many :websites, :foreign_key => "owner_id"
+  has_many :subscriptions
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-    :name, :display_name, :jabber_user, :jabber_password, :avatar
+    :name, :display_name, :jabber_user, :jabber_password, :avatar, :plan_identifier, :billing_start_date
 
   validates_presence_of :name
   validates_presence_of :display_name
@@ -84,7 +85,7 @@ class User < ActiveRecord::Base
           account.owner   = owner
           account.website = Website.find(p[:website_id])
           account.save
-        
+
           has_checked_website = true
         end
       end
