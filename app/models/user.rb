@@ -79,7 +79,10 @@ class User < ActiveRecord::Base
   end
 
   def seats_available
+<<<<<<< HEAD
     plan.max_agent_seats - self.agents.count
+=======
+>>>>>>> Fix user and accounts relationship
   end
 
   def self.create_or_invite_agents(owner, user, account_array)
