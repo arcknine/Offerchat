@@ -11,6 +11,7 @@ class Website < ActiveRecord::Base
   has_many :accounts
   has_many :rosters
   has_many :triggers
+  has_many :visitors
   belongs_to :owner, :foreign_key => "owner_id", :class_name => "User"
 
   validates_presence_of :url
@@ -64,6 +65,34 @@ class Website < ActiveRecord::Base
     self.save
   end
 
+  def available_roster
+    vacant_roster = nil
+    rosters.shuffle.each do |r|
+      response = Nokogiri::XML(open("#{CHAT_SERVER_URL}plugins/presence/status?jid=#{r.jabber_user}@#{CHAT_SERVER_NAME}&type=xml"))
+      presence = response.xpath("presence")
+      status = presence.xpath("status").inner_text
+      if status.to_s == "Unavailable"
+        vacant_roster = r
+        return vacant_roster
+      end
+    end
+    return vacant_roster
+  end
+
+  def available_agent
+    accounts = self.owner_and_agents
+    vacant_agent = false
+    accounts.each do |r|
+      response = Nokogiri::XML(open("#{CHAT_SERVER_URL}plugins/presence/status?jid=#{r.jabber_user}@#{CHAT_SERVER_NAME}&type=xml"))
+      presence = response.xpath("presence")
+      status = presence.xpath("status").inner_text
+      if status.to_s == "Online"
+        vacant_agent = true
+        return vacant_agent
+      end
+    end
+    return vacant_agent
+  end
 
   private
 
@@ -90,8 +119,8 @@ class Website < ActiveRecord::Base
   end
 
   def generate_website_name
-    if name.blank?
-      name = url.to_s.gsub('.', ' ')
+    if self.name.blank?
+      self.name = url.to_s.gsub('.', ' ')
     end
   end
 

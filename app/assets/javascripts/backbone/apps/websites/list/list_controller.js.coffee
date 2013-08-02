@@ -38,6 +38,7 @@
       modalView = @getEditWebsiteModalView site
 
       @listenTo site.model, "updated", (site) =>
+        @showNotification("Your changes have been saved")
         formView.trigger "modal:close"
 
       formView  = App.request "modal:wrapper", modalView
