@@ -19,6 +19,9 @@
     itemView: Visitors.View
     itemViewContainer: "div.visitors-wrapper"
 
+    collectionEvents:
+      "sort" : "render"
+
   class Visitors.Agent extends App.Views.ItemView
     template: "sidebar/visitors/agent"
 
