@@ -1,0 +1,9 @@
+.block.large
+  %h2
+    Account Settings
+
+%ul.nav-sidebar-block
+  %li
+    %a.profile.selected{href: ""} Profile
+  %li
+    %a.password{href: ""} Password

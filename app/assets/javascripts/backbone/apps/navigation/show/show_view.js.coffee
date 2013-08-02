@@ -3,6 +3,8 @@
   class Show.Nav extends App.Views.ItemView
     template: "navigation/show/nav"
     className: "header-wrapper-inner"
+    modelEvents:
+      "change"                           : "render"
 
     triggers:
       "click a#root-path-link"           : "root:path:clicked"
