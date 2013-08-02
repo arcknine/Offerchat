@@ -17,6 +17,8 @@
           section = (if section is 'offline' then '' else "/#{section}")
           App.navigate "settings/chat-forms/#{@currentSite.get("id")}#{section}", trigger: true
 
+        @text_counter "textarea[name=description]", ".text-limit-counter", 140
+
       @listenTo @currentSite, "updated", (site) =>
         @showNotification("Your changes have been saved!")
 
@@ -25,7 +27,6 @@
 
       @show @layout
 
-      @text_counter "textarea[name=description]", ".text-limit-counter", 140
 
     getLayout: ->
       new ChatForms.Layout
