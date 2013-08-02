@@ -25,5 +25,8 @@
     events:
       "keyup div.chat-response > textarea" : "isTyping"
 
+    triggers:
+      "click a.end_chat"  : "end:chat"
+
     isTyping: (ev) ->
       @trigger "is:typing", ev

@@ -34,7 +34,7 @@
               %a Ban User
           .caret.caret-dark.bottom
 
-    %a.btn.warning.left
+    %a.btn.warning.left.end_chat
       End Chat
   .chat-response
     %textarea{ :placeholder => "Enter your message and press enter" }
