@@ -33,8 +33,8 @@ If you want to get to know your visitors first for a more personalized chat sess
         %label Message
         .input-container
           %textarea{name: "description", data: {name: 'description'}} {{site.settings.pre_chat.description}}
-          %fieldset{class: 'item-desc small'}
-            %div{class: 'block-text-message text-limit-counter'}
+          %fieldset.item-desc.small
+            .block-text-message.text-limit-counter
 
           
       %fieldset
