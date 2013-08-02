@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   has_many :accounts
   has_many :websites, :foreign_key => "owner_id"
+  has_many :agent_accounts, :foreign_key => "owner_id", :class_name => "Account"
   belongs_to :plan, :foreign_key => "plan_identifier"
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
@@ -36,16 +37,11 @@ class User < ActiveRecord::Base
   end
 
   def my_agents
-    owner_websites = self.websites.collect(&:id).join(",")
-    owner_accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id IN (?) AND role != ?", owner_websites, Account::OWNER)
-    owner_accounts.collect(&:user)
+    agent_accounts.collect { |c| c.user unless c.is_owner? }.compact
   end
 
   def agents
-    owner_websites = self.websites.collect(&:id).join(",")
-    owner_accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id IN (?)", owner_websites)
-    #agents = Account.where(owner_id: self.id)
-    owner_accounts.collect(&:user)
+    agent_accounts.collect(&:user)
   end
 
   def find_managed_sites(website_id)
@@ -61,6 +57,9 @@ class User < ActiveRecord::Base
 
   def all_sites
     accounts.collect(&:website)
+  end
+
+  def seats_available
   end
 
   def self.create_or_invite_agents(owner, user, account_array)
