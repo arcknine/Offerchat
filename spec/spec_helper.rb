@@ -50,6 +50,7 @@ RSpec.configure do |config|
     else
       DatabaseCleaner.strategy = :transaction
     end
+
     DatabaseCleaner.start
     ex.run
     DatabaseCleaner.clean
