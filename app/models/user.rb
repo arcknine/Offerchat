@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   has_many :accounts
   has_many :websites, :foreign_key => "owner_id"
-  has_many :subscriptions
+  belongs_to :plan, :foregin_key => "plan_identifier"
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
     :name, :display_name, :jabber_user, :jabber_password, :avatar, :plan_identifier, :billing_start_date
