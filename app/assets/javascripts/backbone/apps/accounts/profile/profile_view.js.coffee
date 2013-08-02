@@ -62,9 +62,6 @@
           else
             self.trigger "show:notification", "#{file.name} is not a gif, jpeg, or png image file"
 
-        done: (e, data) ->
-          # after upload
-
 
   class Profile.Edit extends App.Views.ItemView
     template: "accounts/profile/edit"
