@@ -52,13 +52,14 @@ module Offerchat
       route_param :apikey do
         get do
           website = Website.find_by_api_key(params[:apikey])
+          agents = website.owner_and_agents
           if website
             style       = website.settings(:style)
             online      = website.settings(:online)
             pre_chat    = website.settings(:pre_chat)
             post_chat   = website.settings(:post_chat)
             offline     = website.settings(:offline)
-            {style: style, online: online, pre_chat: pre_chat, post_chat: post_chat, offline: offline }
+            {style: style, online: online, pre_chat: pre_chat, post_chat: post_chat, offline: offline, website: website, agents: agents }
           else
             {error: "Api key not found!"}
           end
@@ -79,10 +80,11 @@ module Offerchat
           if availableRoster == nil
             {error: "Offline"}
           else
-
             dataInfo = { :name => params[:name],:browser => params[:browser], :location => params[:location], :email => params[:email] }
             visitor.update_attributes(dataInfo)
             visitor.save
+
+            visitor.chat_sessions.build(:roster => availableRoster)
             { agent_online: availableAgent, visitor_jid: availableRoster.jabber_user, visitor_pass: availableRoster.jabber_password  }
           end
         end
