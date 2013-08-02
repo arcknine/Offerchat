@@ -65,5 +65,11 @@ module Dashboard
       g.test_framework  :rspec
       g.fixture_replacement :fabrication
     end
+
+    # Grape api
+    config.paths.add "app/api", glob: "**/*.rb"
+    config.autoload_paths += Dir["#{Rails.root}/app/api/*"]
+    # JSONP rack middle ware
+    config.middleware.use Rack::JSONP
   end
 end
