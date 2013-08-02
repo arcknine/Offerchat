@@ -53,13 +53,14 @@ module Offerchat
         get do
           website = Website.find_by_api_key(params[:apikey])
           agents = website.owner_and_agents
+          chat_triggers = website.triggers
           if website
             style       = website.settings(:style)
             online      = website.settings(:online)
             pre_chat    = website.settings(:pre_chat)
             post_chat   = website.settings(:post_chat)
             offline     = website.settings(:offline)
-            {style: style, online: online, pre_chat: pre_chat, post_chat: post_chat, offline: offline, website: website, agents: agents }
+            {style: style, online: online, pre_chat: pre_chat, post_chat: post_chat, offline: offline, website: website, agents: agents, chat_triggers: chat_triggers }
           else
             {error: "Api key not found!"}
           end
