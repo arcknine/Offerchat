@@ -5,11 +5,23 @@
     defaults:
       jid: "Visitor"
       unread: null
+      active: null
+      new_chat: null
+      bounce: null
       email: "piki_pare_erap@yahoo.com"
       gravatar: null
 
     addUnread: ->
-      @set {unread: @get("unread") + 1}
+      if @get('unread') is null then @set new_chat: 'bounce1', bounce: 'bounce'
+      @set unread: @get('unread') + 1
+
+      setTimeout (=>
+        @set {new_chat: null}
+      ), 1000
+
+      setTimeout (=>
+        @set {bounce: null}
+      ), 10000
 
     generateGravatarSource: ->
       @set { gravatar: "https://www.gravatar.com/avatar/#{ MD5.hexdigest($.trim(@get("email")).toLowerCase()) }?s=100&d=mm" }

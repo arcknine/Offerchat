@@ -11,6 +11,9 @@
 
       # @visitorsStorage.create @visitors
 
+      App.reqres.setHandler "set:no:active:visitor:chat", =>
+        @visitors.updateModels('active', null)
+
       if App.xmpp.status is Strophe.Status.CONNECTED
         @connection = App.xmpp.connection
         @connected()
@@ -41,7 +44,14 @@
       visitorsView = @getVisitorsView()
 
       @listenTo visitorsView, "childview:click:visitor:tab", (visitor) =>
-        visitor.model.set({unread: null})
+
+        # remove all active visitors chat
+        App.request "set:no:active:visitor:chat"
+
+        visitor.model.set
+          unread: null
+          active: 'active'
+
         App.navigate "chats/#{visitor.model.get('jid')}", trigger: true
 
       @layout.visitorsRegion.show visitorsView
@@ -94,6 +104,6 @@
         if Backbone.history.fragment.indexOf(jid)==-1
           @visitors.findWhere({jid: jid}).addUnread()
 
-        @visitors.sort()
+          @visitors.sort()
 
       true
