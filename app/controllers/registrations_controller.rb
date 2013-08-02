@@ -8,11 +8,7 @@ class RegistrationsController < Devise::RegistrationsController
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
-        # redirect_to ( root_path('#websites/new') )
         redirect_to :controller => :home, :action=>:index, :anchor => "websites/new"
-
-        #redirect_to root_path, :anchor => '#step_three'
-
       end
     else
       clean_up_passwords resource
@@ -24,7 +20,6 @@ class RegistrationsController < Devise::RegistrationsController
     resource.errors.messages.each do |key,msg|
       flash[key] = msg
     end
-
 
     signup_wizard_path('step_two')
   end
