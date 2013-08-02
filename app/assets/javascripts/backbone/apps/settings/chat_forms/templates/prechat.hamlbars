@@ -33,7 +33,10 @@ If you want to get to know your visitors first for a more personalized chat sess
         %label Message
         .input-container
           %textarea{name: "description", data: {name: 'description'}} {{site.settings.pre_chat.description}}
+          %fieldset.item-desc.small
+            .block-text-message.text-limit-counter
 
+          
       %fieldset
         %label Required fields
         .form{:style => "margin: 10px 0"}

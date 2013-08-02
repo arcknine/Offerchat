@@ -33,6 +33,8 @@ Gather visitors feedback about the chat session that has ended to measure chat e
         %label Message
         .input-container
           %textarea{name: 'description', data: {name: 'description'}} {{site.settings.post_chat.description}}
+          %fieldset.item-desc.small
+            .block-text-message.text-limit-counter
 
       %fieldset
         %label Forward messages to email

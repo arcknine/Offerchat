@@ -33,6 +33,8 @@ Enable the offline form so your visitors can easily reach you when you're not on
         %label Offline Message
         .input-container
           %textarea{data: {name: 'description'}, name: "description"} {{site.settings.offline.description}}
+          %fieldset.item-desc.small
+            .block-text-message.text-limit-counter
 
       %fieldset
         %label Forward messages to email

@@ -17,6 +17,8 @@
           section = (if section is 'offline' then '' else "/#{section}")
           App.navigate "settings/chat-forms/#{@currentSite.get("id")}#{section}", trigger: true
 
+        @text_counter "textarea[name=description]", ".text-limit-counter", 140
+
       @listenTo @currentSite, "updated", (site) =>
         @showNotification("Your changes have been saved!")
 
@@ -24,6 +26,7 @@
         $("#setting-notification").fadeOut()
 
       @show @layout
+
 
     getLayout: ->
       new ChatForms.Layout
@@ -102,4 +105,18 @@
         @settings.post_chat.email = $(ev.currentTarget).val()
 
       @currentSite.set settings: @settings
+
+    text_counter: (input, target, max) ->
+      init_text = $(input).val()
+      init_count = max - init_text.length
+      $(target).text init_count + " characters left"
+      $(input).keydown ->
+        text = $(input).val()
+        count = max - text.length
+        $(target).text count + " characters left"
+        if count < 0
+          $(this).parent().addClass "field-error"
+        else
+          $(this).parent().removeClass "field-error"
+
 
