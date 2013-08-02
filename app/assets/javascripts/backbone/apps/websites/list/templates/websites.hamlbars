@@ -4,6 +4,11 @@
   %p.section-desc
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, aut.
 
+.block-message{ :style => "display:none;" }
+  %a.close
+    &times;
+  %span
+
 .block.large.group
   .block-list-wrapper
     %ul.block-list.site-block-list
