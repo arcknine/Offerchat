@@ -1,5 +1,5 @@
 class Account < ActiveRecord::Base
-  attr_accessible :role, :user
+  attr_accessible :role, :user, :owner
 
   OWNER = 1
   ADMIN = 2
