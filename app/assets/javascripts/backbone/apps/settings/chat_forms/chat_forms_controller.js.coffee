@@ -25,6 +25,8 @@
 
       @show @layout
 
+      @text_counter "textarea[name=description]", ".text-limit-counter", 140
+
     getLayout: ->
       new ChatForms.Layout
         model: @currentSite
@@ -102,4 +104,18 @@
         @settings.post_chat.email = $(ev.currentTarget).val()
 
       @currentSite.set settings: @settings
+
+    text_counter: (input, target, max) ->
+      init_text = $(input).val()
+      init_count = max - init_text.length
+      $(target).text init_count + " characters left"
+      $(input).keydown ->
+        text = $(input).val()
+        count = max - text.length
+        $(target).text count + " characters left"
+        if count < 0
+          $(this).parent().addClass "field-error"
+        else
+          $(this).parent().removeClass "field-error"
+
 
