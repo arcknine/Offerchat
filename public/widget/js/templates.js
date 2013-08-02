@@ -11,6 +11,11 @@ Templates = {
       _this.inputs.append();
       _this.loader.append();
 
+      // setTimeout(function(){
+      //   _this.postchat.replace();
+      //   _this.inputs.destroy();
+      // }, 2000);
+
       if (_this.settings.pre_chat.enabled)
         _this.prechat.replace();
     });
@@ -24,7 +29,7 @@ Templates = {
       template:  this.getLayout({
         gradient: this.settings.style.gradient ? "widget-gradient" : ""
       }),
-      className: "widget-box widget-theme theme-" + this.settings.style.theme,
+      className: "widget-box widget-theme theme-" + this.settings.style.theme
     });
 
     this.header = this.generateTemplate({
@@ -35,10 +40,11 @@ Templates = {
       }),
       tagName:   'span',
       events: {
-        "click div.widget-head" : "toggleWidget"
+        "click div.widget-head" : "toggleWidget",
       },
       toggleWidget: function() {
         $.postMessage({slide: true}, _this.params.current_url, parent);
+        $(".tooltip-options").removeClass("open");
       }
     });
 
@@ -47,8 +53,9 @@ Templates = {
       template: this.getWidgetInputs(),
       tagName:  'span',
       events:   {
-        "click a.chat-settings" : "toggleSettings",
-        "click a.chat-rating"   : "toggleRating"
+        "click a.chat-settings"         : "toggleSettings",
+        "click a.chat-rating"           : "toggleRating",
+        "click input.widget-input-text" : "hideTooltips"
       },
       toggleSettings: function() {
         tooltip = $(".settings-options");
@@ -67,6 +74,9 @@ Templates = {
           $(".tooltip-options").removeClass("open");
           tooltip.addClass("open");
         }
+      },
+      hideTooltips: function() {
+        $(".tooltip-options").removeClass("open");
       }
     });
 
@@ -118,7 +128,7 @@ Templates = {
 
 
     this.loader = this.generateTemplate({
-      section:   "div.widget-body",
+      section:   "div.widget-chat-viewer",
       template:  this.getConnecting(),
       className: "widget-connection-status"
     }, true);
@@ -175,8 +185,10 @@ Templates = {
   getLayout: function(data) {
     var data   = data || { gradient: "" };
     var layout = '<div class="widget-head widget-rounded-head group ' + data.gradient + '"></div>' +
-                 '<div class="widget-body"></div>' +
-                 '<div class="widget-input"></div>';
+                 '<div class="widget-body">' +
+                 '  <div class="widget-chat-viewer"></div>' +
+                 '  <div class="widget-input"></div>' +
+                 '</div>';
 
     return layout;
   },
@@ -200,6 +212,7 @@ Templates = {
              '  <li><a>Download transcript</a></li>' +
              '  <li><a>Turn off sound</a></li>' +
              '  <div class="footer-credits">powered by <a>Offerchat</a></div>' +
+             '  <div class="caret"></div>' +
              '</ul>' +
              '<ul class="tooltip-options rating-options">' +
              '  <li><a><i class="widget icon icon-thumbs-up-green"></i></a></li>' +
