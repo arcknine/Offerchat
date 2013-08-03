@@ -41,7 +41,7 @@ describe ProfilesController do
     describe "UPDATE 'account'" do
       it "should be able to update avatar" do
         xhr :put, :update, id: @user.id, profile: valid_put, format: :json
-        assigns(:profile).avatar.instance_read(:file_name).should eq File.basename(File.new(Rails.root + 'spec/support/images/avatar.png')).downcase
+        assigns(:profile).avatar.to_s.should eq "http://s3.amazonaws.com/offerchat/users/avatars/avatar.jpg"
       end
       
       it "should be able to update profile" do
@@ -56,6 +56,16 @@ describe ProfilesController do
         JSON.parse(response.body)["errors"].should_not be_blank
         response.code.should eq "422"
       end
+    end
+    
+    describe "uploading avatars" do
+      it "should accept valid file formats"
+      
+      it "should upload file to amazon s3"
+      
+      it "should have a 55x55 thumbnail"
+      
+      it "should have a 40x40 thumbnail"
     end
   end
 end
