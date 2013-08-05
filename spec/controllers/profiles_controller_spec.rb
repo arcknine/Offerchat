@@ -22,7 +22,7 @@ describe ProfilesController do
         "name" => "Mark Gamzy"
       }
     end
-    
+
     let(:invalid_put) do
       {"email" => "mksgamon"}
     end
@@ -42,17 +42,17 @@ describe ProfilesController do
         assigns(:profile).display_name.should eq "Mark Gamzy Display Name"
         assigns(:profile).name.should eq "Mark Gamzy"
       end
-      
+
       it "should not accept invalid data" do
         xhr :put, :update, id: @user.id, profile: invalid_put, format: :json
         JSON.parse(response.body)["errors"].should_not be_blank
         response.code.should eq "422"
       end
     end
-    
+
     describe "uploading avatars" do
       it "should be able to update avatar" do
-        post :update_avatar, :avatar => fixture_file_upload('/avatar.png')
+        post :update_avatar, :avatar => fixture_file_upload('/avatar/avatar.png')
         puts assigns(:profile).avatar
         assigns(:profile).avatar.to_s.should_not eq "http://s3.amazonaws.com/offerchat/users/avatars/avatar.jpg"
         response.code.should eq "200"
