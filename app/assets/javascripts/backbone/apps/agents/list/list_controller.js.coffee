@@ -56,7 +56,7 @@
               websites: sites
             agents.create agent,
               success: ->
-                self.showNotification("Your changes have been saved")
+                self.showNotification("Invitation sent!")
                 modalAgentView.close()
 
           addAgentViewLayout.agentRegion.show addAgentView 
