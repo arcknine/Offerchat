@@ -25,7 +25,7 @@
 
       @listenTo visitors, "add", (item) =>
         if item.get("jid") is @token
-          @visitor.set item.attributes         
+          @visitor.set item.attributes
           @visitor.generateGravatarSource()
 
       @listenTo @allMessages, "add", (item) =>
@@ -49,8 +49,20 @@
       chatsView = @getChatsView messages
 
       @listenTo chatsView, "is:typing", @sendChat
+      @listenTo chatsView, "end:chat", @endChat
 
       @layout.chatsRegion.show chatsView
+
+    endChat: (item) =>
+      if confirm("Are you sure you want to end this chat session?")
+        jid = @visitor.get("jid")
+        msg = $msg({to: jid, type: "chat"}).c('inactive', {xmlns: 'http://jabber.org/protocol/chatstates'})
+        @connection.send msg
+
+        # TODO:
+        # send report to dashboard
+
+        App.navigate Routes.root_path(), trigger: true
 
     sendChat: (ev) =>
       message = $(ev.currentTarget).val()
