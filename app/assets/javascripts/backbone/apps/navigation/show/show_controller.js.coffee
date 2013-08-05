@@ -84,6 +84,9 @@
         App.reqres.setHandler "hide:preloader", ->
           $("#canvas-loader").hide()
 
+      App.commands.setHandler "avatar:change", (avatar) ->
+        user.set avatar: avatar
+
       App.navigationRegion.show navView
 
     getNavView: (user)->

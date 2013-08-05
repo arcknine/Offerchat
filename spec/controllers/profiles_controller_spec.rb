@@ -18,16 +18,13 @@ describe ProfilesController do
     let(:valid_put) do
       {
         "email" => "mksgamon@yahoo.com",
-        "avatar" => File.new(Rails.root + 'spec/support/images/avatar.png'),
         "display_name" => "Mark Gamzy Display Name",
         "name" => "Mark Gamzy"
       }
     end
     
     let(:invalid_put) do
-      {
-        "email" => "mksgamon",
-      }
+      {"email" => "mksgamon"}
     end
 
     describe "GET 'account'" do
@@ -39,11 +36,6 @@ describe ProfilesController do
     end
 
     describe "UPDATE 'account'" do
-      it "should be able to update avatar" do
-        xhr :put, :update, id: @user.id, profile: valid_put, format: :json
-        assigns(:profile).avatar.instance_read(:file_name).should eq File.basename(File.new(Rails.root + 'spec/support/images/avatar.png')).downcase
-      end
-      
       it "should be able to update profile" do
         xhr :put, :update, id: @user.id, profile: valid_put, format: :json
         assigns(:profile).email.should eq "mksgamon@yahoo.com"
@@ -55,6 +47,15 @@ describe ProfilesController do
         xhr :put, :update, id: @user.id, profile: invalid_put, format: :json
         JSON.parse(response.body)["errors"].should_not be_blank
         response.code.should eq "422"
+      end
+    end
+    
+    describe "uploading avatars" do
+      it "should be able to update avatar" do
+        post :update_avatar, :avatar => fixture_file_upload('/avatar.png')
+        puts assigns(:profile).avatar
+        assigns(:profile).avatar.to_s.should_not eq "http://s3.amazonaws.com/offerchat/users/avatars/avatar.jpg"
+        response.code.should eq "200"
       end
     end
   end
