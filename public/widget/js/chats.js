@@ -1,6 +1,7 @@
 Chats = {
   connection: null,
   messages:   JSON.parse(localStorage.getItem("ofc-messages")) || [],
+  visitor:    JSON.parse(localStorage.getItem("ofc-visitor")) || {},
 
   init: function() {
     // this.connect();
@@ -12,13 +13,16 @@ Chats = {
   },
 
   getAvailableRoster: function(callback) {
-    console.log("test?");
+    var _this = this;
     $.ajax({
       type: "GET",
       url:  Offerchat.src.api_url + "checkin/" + Offerchat.params.secret_token + ".jsonp",
       dataType: "jsonp",
       success: function(data) {
         if (typeof data.error == "undefined") {
+          _this.visitor.jid  = data.visitor_jid;
+          _this.visitor.pass = data.visitor_pass
+          console.log(_this.visitor);
           console.log(data);
           callback();
         }

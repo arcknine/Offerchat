@@ -61,11 +61,27 @@ module Offerchat
             post_chat     = website.settings(:post_chat).value
             offline       = website.settings(:offline).value
             settings      = { style: style, online: online, pre_chat: pre_chat, post_chat: post_chat, offline: offline }
+            anyAgents     = website.available_agent
 
-            { settings: settings, website: website, agents: agents, chat_triggers: chat_triggers }
+            { settings: settings, website: website, agents: agents, chat_triggers: chat_triggers, any_agents_online: anyAgents }
           else
             { error: "Api key not found!" }
           end
+        end
+      end
+    end
+
+    resource :any_agents_online do
+      params do
+        requires :apikey, type: String, desc: "Api key."
+      end
+
+      route_param :apikey do
+        get do
+          website   = Website.find_by_api_key(params[:apikey])
+          anyAgents = website.available_agent
+
+          { any_agents_online: anyAgents }
         end
       end
     end
@@ -82,17 +98,21 @@ module Offerchat
           else
             website = visitor.website
             availableRoster = website.available_roster
-            availableAgent = website.available_agent
             if availableRoster.nil?
               { error: "Offline" }
             else
-              dataInfo = { :name => params[:name], :browser => params[:browser], :location => params[:location], :email => params[:email] }
+              if params[:name]
+                dataInfo = { :name => params[:name], :browser => params[:browser], :location => params[:location], :email => params[:email] }
+              else
+                dataInfo = { :browser => params[:browser], :location => params[:location] }
+              end
+
               visitor.update_attributes(dataInfo)
               visitor.save
 
               visitor.chat_sessions.create(:roster_id => availableRoster.id)
 
-              { agent_online: availableAgent, visitor_jid: availableRoster.jabber_user, visitor_pass: availableRoster.jabber_password, visitor: visitor }
+              { visitor_jid: availableRoster.jabber_user, visitor_pass: availableRoster.jabber_password, visitor: visitor }
             end
           end
         end

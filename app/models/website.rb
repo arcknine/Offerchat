@@ -71,28 +71,20 @@ class Website < ActiveRecord::Base
       response = Nokogiri::XML(open("#{CHAT_SERVER_URL}plugins/presence/status?jid=#{r.jabber_user}@#{CHAT_SERVER_NAME}&type=xml"))
       presence = response.xpath("presence")
       status = presence.xpath("status").inner_text
-      if status.to_s == "Unavailable"
-        vacant_roster = r
-        return vacant_roster
-      end
+      vacant_roster = status.to_s == "Unavailable" ? r : nil
+      break vacant_roster
     end
-    return vacant_roster
   end
 
   def available_agent
     accounts = self.owner_and_agents
-    vacant_agent = false
     accounts.each do |r|
       response = Nokogiri::XML(open("#{CHAT_SERVER_URL}plugins/presence/status?jid=#{r.jabber_user}@#{CHAT_SERVER_NAME}&type=xml"))
       presence = response.xpath("presence")
-      session = rosters.find_by_jabber_user(r.jabber_user).chat_sessions.last()
       status = presence.xpath("status").inner_text
-      if status.to_s == "Online" && session.created_at <= 5.minutes.ago
-        vacant_agent = true
-        return vacant_agent
-      end
+      vacant_agent = status.to_s == "Online" ? true : false
+      break vacant_agent
     end
-    return vacant_agent
   end
 
   private
