@@ -4,9 +4,9 @@
   %h2 Agent Management
   Manage your agents, assign them to your websites
 
-  .block-message{ :style => "display:none;" }
-    %a.close
-      &times;
-    %span
+.block-message{ :style => "display:none;" }
+  %a.close
+    &times;
+  %span
 
 #agents-region
