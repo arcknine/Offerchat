@@ -34,6 +34,20 @@ describe WebsitesController do
         }
       end
 
+      let(:no_name) do
+        {
+          "url"  => "not a valid url",
+          "name" => ""
+        }
+      end
+
+      let(:no_url) do
+        {
+          "url"  => "",
+          "name" => ""
+        }
+      end
+
       it "GET 'index' should be viewable" do
         xhr :get, :index, format: :json
         response.code.should eq "200"
@@ -77,7 +91,21 @@ describe WebsitesController do
         do_update("invalid")
 
         JSON.parse(response.body)["errors"].should_not be_blank
-        response.code.should eq "422"
+        response.code.should eq "401"
+      end
+
+      it "should create error if name is empty" do
+        do_update("no_name")
+
+        JSON.parse(response.body)["errors"].should_not be_blank
+        response.code.should eq "401"
+      end
+
+      it "should create error if url is empty" do
+        do_update("no_url")
+
+        JSON.parse(response.body)["errors"].should_not be_blank
+        response.code.should eq "401"
       end
 
       def do_destroy

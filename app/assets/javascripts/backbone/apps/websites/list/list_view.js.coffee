@@ -22,7 +22,6 @@
       "click .block-message a.close" :  "closeNotification"
 
     closeNotification: (e) ->
-      console.log 'hehehe'
       $(e.currentTarget).parent("div").fadeOut()
 
   class List.ModalWebsite extends App.Views.ItemView
