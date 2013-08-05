@@ -51,16 +51,15 @@ RSpec.configure do |config|
     else
       DatabaseCleaner.strategy = :transaction
     end
-# =======
-#   config.before(:all) do
-#     load "#{Rails.root}/db/seeds.rb"
-#   end
-# 
-#   config.before(:each) do
-#     DatabaseCleaner.start
-#   end
-# >>>>>>> Load seeds before tests
-
+    # =======
+    #   config.before(:all) do
+    #     load "#{Rails.root}/db/seeds.rb"
+    #   end
+    # 
+    #   config.before(:each) do
+    #     DatabaseCleaner.start
+    #   end
+    # >>>>>>> Load seeds before tests
     DatabaseCleaner.start
     ex.run
     DatabaseCleaner.clean
