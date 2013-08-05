@@ -27,5 +27,4 @@
       location.href = Routes.destroy_user_session_path()
 
     changeStatus: (e) ->
-      $(e.currentTarget).text("Online")
-      console.log $(e.currentTarget).data("status")
+      @trigger "change:user:status", e
