@@ -66,9 +66,9 @@ class Website < ActiveRecord::Base
   end
 
   def available_roster
-    vacant_roster = nil
     rosters.shuffle.each do |r|
       response = Nokogiri::XML(open("#{CHAT_SERVER_URL}plugins/presence/status?jid=#{r.jabber_user}@#{CHAT_SERVER_NAME}&type=xml"))
+      session = rosters.find_by_jabber_user(r.jabber_user).chat_sessions.last()
       presence = response.xpath("presence")
       status = presence.xpath("status").inner_text
       vacant_roster = status.to_s == "Unavailable" ? r : nil
