@@ -64,9 +64,11 @@ class User < ActiveRecord::Base
   end
 
   def self.create_or_invite_agents(owner, user, account_array)
-    raise Exceptions::AgentLimitReachedError if owner.seats_available <= 0
-
     user = User.find_or_initialize_by_email(user[:email])
+
+    if owner.seats_available <= 0
+      raise Exceptions::AgentLimitReachedError
+    end
 
     if user.new_record?
       password                   = Devise.friendly_token[0,8]
