@@ -77,15 +77,16 @@ class User < ActiveRecord::Base
     has_checked_website = false
     account_array.each do |p|
       unless p[:website_id].blank? && p[:website_id].nil?
-        role            = p[:is_admin] ? Account::ADMIN : Account::AGENT
-        account         = Account.new(:role => role)
-        account.user    = user
-        account.owner   = owner
-        account.website = Website.find(p[:website_id])
-        account.save
+        unless p[:role] == 0
+          role            = p[:is_admin] ? Account::ADMIN : Account::AGENT
+          account         = Account.new(:role => role)
+          account.user    = user
+          account.owner   = owner
+          account.website = Website.find(p[:website_id])
+          account.save
         
-        has_checked_website = true
-        puts account.inspect
+          has_checked_website = true
+        end
       end
     end
 
@@ -95,17 +96,31 @@ class User < ActiveRecord::Base
     user
   end
 
-  def self.update_roles_and_websites(id, account_array)
+  def self.update_roles_and_websites(id, owner, account_array)
     # websites = current_user.accounts.where("role != ?", Account::AGENT).collect(&:website_id).join(",")
     # user.accounts.where("website_id IN (?)", websites).delete_all
 
     has_checked_website = false
     account_array.each do |p|
       unless p[:website_id].blank? && p[:website_id].nil?
-        account      = Account.find(p[:account_id])
-        account.role = p[:is_admin] ? Account::ADMIN : Account::AGENT
-        account.save
-        has_checked_website = true
+        unless p[:account_id].nil?
+          account      = Account.find(p[:account_id])
+          unless p[:role] == 0
+            account.role = p[:is_admin] ? Account::ADMIN : Account::AGENT
+            account.save
+            has_checked_website = true
+          else
+            puts "destroying #{account.inspect}"
+            account.destroy
+          end
+        else
+          account         = Account.new(:role => p[:role])
+          account.user    = User.find(id)
+          account.owner   = owner
+          account.website = Website.find(p[:website_id])
+          account.save
+          has_checked_website = true
+        end
       end
     end
 

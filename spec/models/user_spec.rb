@@ -144,7 +144,7 @@ describe User do
       account = [{ "is_admin" => true, "website_id" => @website.id, "account_id" => account.id }]
 
       expect {
-        User.update_roles_and_websites(user.id, account)
+        User.update_roles_and_websites(user.id, @website.owner, account)
       }.to_not change(Account, :count)
     end
 

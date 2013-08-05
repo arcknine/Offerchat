@@ -14,7 +14,8 @@ class AgentsController < ApplicationController
     params[:websites].each do |account|
       accounts.push(
         is_admin: (account[:role] == 2),
-        website_id: account[:website_id]
+        website_id: account[:website_id],
+        role: account[:role]
       )
     end
     @user = User.create_or_invite_agents(current_user, params[:agent], accounts)
@@ -26,14 +27,16 @@ class AgentsController < ApplicationController
   def update
     @owner = current_user
     accounts = []
+    puts params[:websites].inspect
     params[:websites].each do |account|
       accounts.push(
         is_admin: (account[:role] == 2), 
         website_id: account[:id], 
-        account_id: account[:account_id]
+        account_id: account[:account_id],
+        role: account[:role]
       )
     end
-    @user = User.update_roles_and_websites(params[:id], accounts)
+    @user = User.update_roles_and_websites(params[:id], current_user, accounts)
     if @user.errors.any?
       respond_with @user
     end

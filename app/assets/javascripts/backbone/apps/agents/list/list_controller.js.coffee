@@ -27,9 +27,10 @@
 
     showAgents: (agents) ->
       agentsView = @getAgentsView agents
-      agent = App.request "new:agent:entity"
+      self = @
       
       @listenTo agentsView, "new:agent:clicked", (item) ->
+        agent = App.request "new:agent:entity"
         addAgentViewLayout = @getNewAgentViewLayout(agent)
         modalAgentView = App.request "modal:wrapper", addAgentViewLayout
         
@@ -55,6 +56,7 @@
               websites: sites
             agents.create agent,
               success: ->
+                self.showNotification("Your changes have been saved")
                 modalAgentView.close()
 
           addAgentViewLayout.agentRegion.show addAgentView 
@@ -78,6 +80,7 @@
           
           @listenTo showAgentView, "remove:agent:clicked", (item) ->
             agent.destroy()
+            self.showNotification("Your changes have been saved!")
             modalAgentView.close()
 
           if agent.get("id") isnt @currentUser.id
@@ -87,6 +90,7 @@
               agent.set
                 websites: sites
               agent.save()
+              self.showNotification("Your changes have been saved")
               modalAgentView.close()
               
             showAgentViewLayout.sitesRegion.show sitesView

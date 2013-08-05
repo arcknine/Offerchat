@@ -21,3 +21,6 @@
     showNotification: (message) ->
       $(".block-message").find("span").html(message)
       $(".block-message").fadeIn()
+      setTimeout ->
+        $(".block-message").fadeOut()
+      , 3000
