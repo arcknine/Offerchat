@@ -88,9 +88,9 @@ class User < ActiveRecord::Base
           has_checked_website = true
         end
       end
-    end
-
+    end unless user[:email].empty?
     user.errors[:base] << "No website is checked" unless has_checked_website
+    user.errors[:base] << "No email provided" if user[:email].empty?
     UserMailer.delay.agent_welcome(user.accounts.last.website.owner, user) unless user.errors.any?
 
     user
@@ -110,7 +110,6 @@ class User < ActiveRecord::Base
             account.save
             has_checked_website = true
           else
-            puts "destroying #{account.inspect}"
             account.destroy
           end
         else

@@ -54,8 +54,9 @@
           @listenTo modalAgentView, "modal:unsubmit", (ob)->
             agent.set
               websites: sites
-            agents.create agent,
-              success: ->
+            agent.save agent.attributes,
+              success: (model)->
+                agents.add model
                 self.showNotification("Invitation sent!")
                 modalAgentView.close()
 
@@ -89,9 +90,10 @@
             @listenTo modalAgentView, "modal:unsubmit", (ob)->
               agent.set
                 websites: sites
-              agent.save()
-              self.showNotification("Your changes have been saved")
-              modalAgentView.close()
+              agent.save agent.attributes
+              , success: ->
+                self.showNotification("Your changes have been saved")
+                modalAgentView.close()
               
             showAgentViewLayout.sitesRegion.show sitesView
 

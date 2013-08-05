@@ -27,7 +27,7 @@ class AgentsController < ApplicationController
   def update
     @owner = current_user
     accounts = []
-    puts params[:websites].inspect
+
     params[:websites].each do |account|
       accounts.push(
         is_admin: (account[:role] == 2), 
