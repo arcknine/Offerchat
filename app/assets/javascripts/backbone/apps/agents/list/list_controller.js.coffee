@@ -27,9 +27,10 @@
 
     showAgents: (agents) ->
       agentsView = @getAgentsView agents
-      agent = App.request "new:agent:entity"
+      self = @
       
       @listenTo agentsView, "new:agent:clicked", (item) ->
+        agent = App.request "new:agent:entity"
         addAgentViewLayout = @getNewAgentViewLayout(agent)
         modalAgentView = App.request "modal:wrapper", addAgentViewLayout
         
@@ -53,8 +54,10 @@
           @listenTo modalAgentView, "modal:unsubmit", (ob)->
             agent.set
               websites: sites
-            agents.create agent,
-              success: ->
+            agent.save agent.attributes,
+              success: (model)->
+                agents.add model
+                self.showNotification("Invitation sent!")
                 modalAgentView.close()
 
           addAgentViewLayout.agentRegion.show addAgentView 
@@ -78,6 +81,7 @@
           
           @listenTo showAgentView, "remove:agent:clicked", (item) ->
             agent.destroy()
+            self.showNotification("Your changes have been saved!")
             modalAgentView.close()
 
           if agent.get("id") isnt @currentUser.id
@@ -86,8 +90,10 @@
             @listenTo modalAgentView, "modal:unsubmit", (ob)->
               agent.set
                 websites: sites
-              agent.save()
-              modalAgentView.close()
+              agent.save agent.attributes
+              , success: ->
+                self.showNotification("Your changes have been saved")
+                modalAgentView.close()
               
             showAgentViewLayout.sitesRegion.show sitesView
 
