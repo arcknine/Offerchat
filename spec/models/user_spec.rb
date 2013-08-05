@@ -8,9 +8,6 @@ describe User do
 
   it { should have_many :accounts }
   it { should have_many :websites }
-  #it { should have_attached_file(:avatar) }
-  #it { should validate_attachment_content_type(:avatar).allowing("image/jpg", "image/jpeg", "image/png").rejecting('text/plain', 'text/xml') }
-  #it { should validate_attachment_size(:avatar).less_than(1.megabyte) }
 
   describe "when creating a new user" do
     it "should have a jabber_user and jabber_password ready" do
@@ -26,7 +23,7 @@ describe User do
 
     describe "on email notifications" do
       before(:each) do
-        @owner = Fabricate(:user)
+        @owner = Fabricate(:enterprise_user)
         @website = Fabricate(:website, owner: @owner)
       end
 
@@ -67,6 +64,126 @@ describe User do
             user = { :email => "#{Random.rand(11)}user@email.com" }
             User.create_or_invite_agents(@owner, user, account)
           }.to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(1)
+        end
+      end
+    end
+  end
+
+  describe "On billing" do
+    context "and on the FREE subscription level" do
+      before(:each) do
+        @owner = Fabricate(:user)
+        @website = Fabricate(:website, owner: @owner)
+      end
+
+      it "should return 0 for seats available" do
+        @owner.seats_available.should eq 0
+      end
+
+      it "should not allow any more agents" do
+        user = Fabricate(:user)
+        account = [{ :role => Account::AGENT, :website_id => @website.id }]
+
+        expect{
+          User.create_or_invite_agents(@owner, user, account)
+        }.to raise_error(Exceptions::AgentLimitReachedError)
+      end
+    end
+
+    context "and on the STARTER subscription level" do
+      before(:each) do
+        @owner = Fabricate(:starter_user)
+        @website = Fabricate(:website, owner: @owner)
+      end
+
+      it "should return 0 for seats available" do
+        @owner.seats_available.should eq 0
+      end
+
+      it "should not allow any more agents" do
+        user = Fabricate(:user)
+        account = [{ :role => Account::AGENT, :website_id => @website.id }]
+
+        expect{
+          User.create_or_invite_agents(@owner, user, account)
+        }.to raise_error(Exceptions::AgentLimitReachedError)
+      end
+    end
+
+    context "and on the PERSONAL subscription level" do
+      before(:each) do
+        @owner = Fabricate(:personal_user)
+        @website = Fabricate(:website, owner: @owner)
+        account = [{ :role => Account::AGENT, :website_id => @website.id }]
+
+        agents = @owner.plan.max_subscription_level - 1
+        (1..agents).each do
+          User.create_or_invite_agents(@owner, Fabricate(:user), account)
+        end
+
+        it "should return 0 for seats available" do
+          @owner.seats_available.should eq 0
+        end
+
+        it "should not allow any more agents" do
+          user = Fabricate(:user)
+          account = [{ :role => Account::AGENT, :website_id => @website.id }]
+
+          expect{
+            User.create_or_invite_agents(@owner, user, account)
+          }.to raise_error(Exceptions::AgentLimitReachedError)
+        end
+      end
+    end
+
+    context "and on the BUSINESS subscription level" do
+      before(:each) do
+        @owner = Fabricate(:business_user)
+        @website = Fabricate(:website, owner: @owner)
+        account = [{ :role => Account::AGENT, :website_id => @website.id }]
+
+        agents = @owner.plan.max_subscription_level - 1
+        (1..agents).each do
+          User.create_or_invite_agents(@owner, Fabricate(:user), account)
+        end
+
+        it "should return 0 for seats available" do
+          @owner.seats_available.should eq 0
+        end
+
+        it "should not allow any more agents" do
+          user = Fabricate(:user)
+          account = [{ :role => Account::AGENT, :website_id => @website.id }]
+
+          expect{
+            User.create_or_invite_agents(@owner, user, account)
+          }.to raise_error(Exceptions::AgentLimitReachedError)
+        end
+      end
+    end
+
+    context "and on the BUSINESS subscription level" do
+      before(:each) do
+        @owner = Fabricate(:enterprise_user)
+        @website = Fabricate(:website, owner: @owner)
+        account = [{ :role => Account::AGENT, :website_id => @website.id }]
+
+        agents = @owner.plan.max_subscription_level - 1
+        (1..agents).each do
+          User.create_or_invite_agents(@owner, Fabricate(:user), account)
+        end
+
+        it "should return 0 for seats available" do
+          @owner.seats_available.should eq 0
+        end
+
+        it "should not allow any more agents" do
+          user = Fabricate(:user)
+          account = [{ :role => Account::AGENT, :website_id => @website.id }]
+
+          expect{
+            User.create_or_invite_agents(@owner, user, account)
+          }.to raise_error(Exceptions::AgentLimitReachedError)
         end
       end
     end
@@ -121,7 +238,7 @@ describe User do
 
   describe "User functions" do
     before(:each) do
-      @owner = Fabricate(:user)
+      @owner = Fabricate(:enterprise_user)
       @website = Fabricate(:website, :owner => @owner)
       @account = [{ "is_admin" => true, "website_id" => @website.id }]
     end
@@ -163,15 +280,9 @@ describe User do
 
       @owner.agents.should_not be_empty
       @owner.agents.should_not be_nil
-      # @owner.my_agents.each do |a|
-      #   a.account(@website.id).role.should_not eq(Account::OWNER)
-      # end
+      @owner.my_agents.each do |a|
+        a.account(@website.id).role.should_not eq(Account::OWNER)
+       end
     end
-
-    # it "should return as pending" do
-    #   user = Fabricate(:user)
-    #   User.create_or_invite_agents(user, @account)
-    #   user.pending?.should eq(true)
-    # end
   end
 end
