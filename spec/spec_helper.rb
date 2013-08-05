@@ -58,3 +58,9 @@ RSpec::Sidekiq.configure do |config|
   # Clears all job queues before each example
   config.clear_all_enqueued_jobs = false # default => true
 end
+
+RSpec.configure do |config|
+  config.include RSpec::Rails::RequestExampleGroup, type: :request, example_group: {
+    file_path: /spec\/api/
+  }
+end

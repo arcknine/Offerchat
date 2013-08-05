@@ -61,6 +61,7 @@ group :development, :test do
   gem 'fabrication'
   gem 'simplecov', :require => false
   gem 'email_spec'
+  gem "rack-test", require: "rack/test"
 end
 
 group :test do

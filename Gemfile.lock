@@ -410,6 +410,7 @@ DEPENDENCIES
   rack-cors
   rack-jsonp-middleware
   rack-p3p
+  rack-test
   rails (= 3.2.13)
   rspec-rails (~> 2.0)
   rspec-sidekiq
