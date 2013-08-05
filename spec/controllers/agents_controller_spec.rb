@@ -12,7 +12,7 @@ describe AgentsController do
   end
 
   context "when signed in" do
-    login_user
+    login_personal_user
 
     let(:valid_user_post) do
       { "email" => "user001@offerchat.com" }
@@ -28,17 +28,6 @@ describe AgentsController do
         response.code.should eq "401"
       end
     end
-
-    # describe "GET 'index' as admin" do
-    #   before(:each) do
-    #     Fabricate(:account, :user => @user, :role => Account::ADMIN)
-    #   end
-
-    #   pending "should be viewed" do
-    #     xhr :get, :index, format: :json
-    #     response.code.should eq "200"
-    #   end
-    # end
 
     describe "GET 'index' user has website" do
       generate_website
@@ -62,14 +51,14 @@ describe AgentsController do
 
       let(:valid_account_post) do
         [{
-          "role"        => 2, 
+          "role"        => 2,
           "website_id"  => @website.id
         }]
       end
 
       let(:invalid_account_post) do
         [{
-          "role"        => 2, 
+          "role"        => 2,
           "website_id"  => nil
         }]
       end
@@ -148,14 +137,14 @@ describe AgentsController do
       let(:valid_put) do
         [{
           "account_id"  => @account.id,
-          "role"        => 2, 
+          "role"        => 2,
           "id"          => @website.id
         }]
       end
       let(:invalid_put) do
         [{
           "account_id"  => @account.id,
-          "role"        => 2, 
+          "role"        => 2,
           "id"          => nil
         }]
       end

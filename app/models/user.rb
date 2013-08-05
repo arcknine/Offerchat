@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :accounts
   has_many :websites, :foreign_key => "owner_id"
   has_many :agent_accounts, :foreign_key => "owner_id", :class_name => "Account"
-  belongs_to :plan, :foreign_key => "plan_identifier"
+  belongs_to :plan, :foreign_key => "plan_identifier", :class_name => "Plan"
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
     :name, :display_name, :jabber_user, :jabber_password, :avatar, :plan_identifier, :billing_start_date
@@ -60,9 +60,12 @@ class User < ActiveRecord::Base
   end
 
   def seats_available
+    plan.max_agent_seats - self.agents.count
   end
 
   def self.create_or_invite_agents(owner, user, account_array)
+    raise Exceptions::AgentLimitReachedError if owner.seats_available <= 0
+
     user = User.find_or_initialize_by_email(user[:email])
 
     if user.new_record?
