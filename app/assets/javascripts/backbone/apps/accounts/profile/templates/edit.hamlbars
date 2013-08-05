@@ -1,0 +1,21 @@
+%fieldset
+  %label
+    Email
+    %span.inline-label-message
+
+  .input-container
+    %input.large{ :type => 'text', :value => '{{email}}', name: 'email'}
+
+%fieldset
+  %label
+    Display Name
+    %span.inline-label-message
+
+  .input-container
+    %input.large{ :type => 'text', :value => '{{display_name}}', name: 'display_name' }
+
+%fieldset
+  %label
+    Full Name
+  .input-container
+    %input.large{ :type => 'text', :value => '{{name}}', name: 'name' }

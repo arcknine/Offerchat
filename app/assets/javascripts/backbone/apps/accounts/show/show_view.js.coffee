@@ -36,18 +36,17 @@
 
     onShow: ->
       @$el.fileupload
-        dataType: 'json'
+        url: Routes.update_avatar_profiles_path()
+        formData: {authenticity_token: App.request("csrf-token")}
         add: (e, data) ->
-          console.log "adddinggggggggg"
-          console.log data
-          console.log data.form.context
-          console.log data.files[0]
-          $(data.form.context).find("button").click ->
-            $(data.form.context).attr("action",Routes.update_avatar_profiles_path())
-            # data.submit()
-
-        done: (e, data) ->
-          # after upload
+          types = /(\.|\/)(gif|jpe?g|png)$/i
+          file = data.files[0]
+          if types.test(file.type) || types.test(file.name)
+            data.context = $(tmpl("#template-upload", file))
+            $('.upload-avatar').append(data.context)
+            data.submit().done (e,data)->
+          else
+            self.showNotification "#{file.name} is not a gif, jpeg, or png image file"
 
   class Show.Password extends App.Views.ItemView
     template: "accounts/show/password"
