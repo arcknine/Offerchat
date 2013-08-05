@@ -1,6 +1,11 @@
 Offerchat = {
   settings: {},
   widget:   {},
+  website:  {},
+  agents:   [],
+
+  version: global.version,
+  src:     global.local,
 
   // taffy db
   details:  TAFFY(),
@@ -16,9 +21,12 @@ Offerchat = {
 
         Templates.init({
           params:   _this.params,
-          settings: _this.settings
+          settings: _this.settings,
+          agents:   _this.agents,
+          website:  _this.website
         });
 
+        Chats.init();
         $.postMessage({show: true}, _this.params.current_url, parent);
       });
     }
@@ -27,11 +35,11 @@ Offerchat = {
   loadAllAssets: function(callback) {
     var _this = this, details;
     this.loadSettings(function(){
-      var details = _this.details({ id: _this.settings.website.id }).first();
+      var details = _this.details({ id: _this.website.id }).first();
       if (!details) {
         _this.details.insert({
-          id:       _this.settings.website.id,
-          api_key:  _this.settings.website.api_key,
+          id:       _this.website.id,
+          api_key:  _this.website.api_key,
           location: null,
           city:     null,
           code:     null,
@@ -40,6 +48,8 @@ Offerchat = {
           OS:       BrowserDetect.OS
         });
       }
+
+      _this.widget = JSON.parse(localStorage.getItem("offerchat_widget")) || {};
 
       // overwrite for ie
       _this.settings.style.gradient = BrowserDetect.browser == "Internet Explorer" ? false : _this.settings.style.gradient;
@@ -54,56 +64,42 @@ Offerchat = {
   },
 
   loadSettings: function(callback) {
-    this.settings = {
-      "style": {
-        "theme":"lightgoldenrod2",
-        "position":"left",
-        "rounded":false,
-        "gradient":true
-      },
-      "online": {
-        "header":"Chat with us",
-        "agent_label":"Got a question? We can help.",
-        "greeting":"Hi, I am",
-        "placeholder":"Type your message and hit enter"
-      },
-      "pre_chat": {
-        "enabled":false,
-        "message_required":true,
-        "header":"Let me get to know you!",
-        "description":"Fill out the form to start the chat. fdsafsdaf"
-      },
-      "post_chat": {
-        "enabled":true,
-        "header":"Chat with me, I'm here to help",
-        "description":"Please take a moment to rate this chat session !!!!!",
-        "email":"keenan@offerchat.com"
-      },
-      "offline": {
-        "enabled":true,
-        "header":"Contact Us",
-        "description":"Offline message here!",
-        "email":"keenan@offerchat.com"
-      },
-      "website": {
-        "id": 1,
-        "api_key": "api key here"
-      }
-    };
+    var _this = this, settings;
+    data = JSON.parse(sessionStorage.getItem("ofc-settings"));
+    if (data == null) {
+      $.ajax({
+        type: "GET",
+        url:  this.src.api_url + "settings/" + this.params.api_key + ".jsonp",
+        dataType: "jsonp",
+        success: function(data) {
+          if (typeof data.error == "undefined") {
+            _this.settings = data.settings;
+            _this.agents   = data.agents;
+            _this.website  = data.website;
 
-    callback();
+            sessionStorage.setItem("ofc-settings", JSON.stringify(data));
+            callback();
+          }
+        }
+      });
+    } else {
+      this.settings = data.settings;
+      this.agents   = data.agents;
+      this.website  = data.website;
+      callback();
+    }
   },
 
   loadLocation: function(callback) {
     var _this   = this,
-        details = this.details({ id: this.settings.website.id }).first();
+        details = this.details({ id: this.website.id }).first();
 
     if (!details.location) {
       $.ajax({
         url:      "//j.maxmind.com/app/geoip.js",
         dataType: "script",
         success: function(data) {
-          _this.details({id: _this.settings.website.id}).update({
+          _this.details({id: _this.website.id}).update({
             location: geoip_country_name(),
             city:     geoip_city(),
             code:     geoip_country_code()
@@ -111,7 +107,7 @@ Offerchat = {
           callback();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-          _this.details({id: _this.settings.website.id}).update({
+          _this.details({id: _this.website.id}).update({
             location: null,
             city:     null,
             code:     null

@@ -24,7 +24,7 @@
     defaults = {
       version: '2.0.0',
       local: {
-        api_url: '//local.offerchat.com:3000/api/v2/widgets/',
+        api_url: '//local.offerchat.com:3000/api/v1/widget/',
         widget:  '//local.offerchat.com:3000/widget/auth/',
         assets:  'http://local.offerchat.com:3000',
         cdn:     'http://local.offerchat.com:3000'
@@ -109,7 +109,8 @@
             token:    info.token ? info.token : null,
             referrer: document.referrer ? document.referrer : info.referrer,
             position: info.position ? info.position : "right",
-            state:    info.state ? info.state : "show"
+            state:    info.state ? info.state : "show",
+            api_key:  ofc_key
           };
         } else {
           localStorage.setItem("ofc-widget-info", JSON.stringify(this.info))
@@ -117,38 +118,44 @@
       },
 
       getPosition: function(callback) {
-        var _this = this;
-        /*$ofc.ajax({
+        var _this = this, position;
+        position  = sessionStorage.getItem("ofc-widget-position");
+        if (position == null) {
+          $ofc.ajax({
             type: "GET",
-            url:  api_url + ofc_key + "get_posistion.json",
+            url:  src.api_url + "position/" + ofc_key + ".jsonp",
             dataType: "jsonp",
             success: function(data) {
-              _this.info.position = data.position;
-              callback();
+              if (typeof data.error == "undefined") {
+                _this.info.position = data.position;
+                localStorage.setItem("ofc-widget-info", JSON.stringify(_this.info));
+                sessionStorage.setItem("ofc-widget-position", data.position);
+                callback();
+              }
             }
-          });*/
-        this.info.position = "right"
-        localStorage.setItem("ofc-widget-info", JSON.stringify(this.info));
-        callback()
+          });
+        } else {
+          this.info.position = position;
+          localStorage.setItem("ofc-widget-info", JSON.stringify(_this.info));
+          callback();
+        }
       },
 
       register: function() {
         var _this = this;
-        if (this.info.token == null) {
-          /*$ofc.ajax({
+        if (this.info.token == null && this.info.api_key != ofc_key) {
+          $ofc.ajax({
             type: "GET",
-            url:  api_url + ofc_key + "register.json",
+            url:  src.api_url + "token/" + ofc_key + ".jsonp",
             dataType: "jsonp",
             success: function(data) {
-              localStorage.setItem("ofc-widget-token", data.token);
-              _this.info.token = data.token;
-
-              _this.generateIframeWrapper();
+              if (typeof data.error == "undefined") {
+                _this.info.token = data.token;
+                localStorage.setItem("ofc-widget-info", JSON.stringify(_this.info));
+                _this.generateIframeWrapper();
+              }
             }
-          });*/
-          this.info.token = "asdf123109ds8fsidafjk09sdaf234asdf12321sdaf"
-          localStorage.setItem("ofc-widget-info", JSON.stringify(this.info));
-          this.generateIframeWrapper();
+          });
         } else {
           this.generateIframeWrapper();
         }

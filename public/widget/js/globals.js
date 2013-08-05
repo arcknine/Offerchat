@@ -8,7 +8,7 @@ if (!DEBUG_MODE) {
   console.log = function() {};
 }
 
-var global, Widget, App, Helpers;
+var global, Widget, App, Helpers, Chats;
 
 global = {
   version: '2.0.0',
@@ -16,7 +16,7 @@ global = {
     script:   '//staging.offerchat.com/',
     bosh_url: 'http://local.offerchat.com:7070/http-bind/',
     server:   '@local.offerchat.com',
-    api_url:  '//local.offerchat.com:3000/api/v2/widgets/',
+    api_url:  '//local.offerchat.com:3000/api/v1/widget/',
     assets:   '//local.offerchat.com:3000'
   },
   staging: {

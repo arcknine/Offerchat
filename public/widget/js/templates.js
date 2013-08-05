@@ -3,21 +3,23 @@ Templates = {
     options       = options || {};
     this.params   = options.params;
     this.settings = options.settings;
+    this.agents   = options.agents;
+    this.website  = options.website;
 
     var _this = this;
     this.loadTemplates(function(){
       _this.layout.append();
       _this.header.append();
       _this.inputs.append();
-      _this.loader.append();
+      // _this.loader.append();
 
-      // setTimeout(function(){
-      //   _this.postchat.replace();
-      //   _this.inputs.destroy();
-      // }, 2000);
-
-      if (_this.settings.pre_chat.enabled)
+      if (_this.settings.pre_chat.enabled && !Offerchat.widget.prechat) {
         _this.prechat.replace();
+        _this.inputs.destroy();
+      } else if (Chats.messages.length > 0) {
+        Chats.loadChats();
+      }
+
     });
   },
 
@@ -35,7 +37,8 @@ Templates = {
     this.header = this.generateTemplate({
       section:   "div.widget-head",
       template:  this.getHeader({
-        img: "http://10.10.1.22:3000/assets/avatar-large3.jpg",
+        agent_name:  this.agents[0].display_name,
+        img:         this.agents[0].avatar,
         agent_label: _this.settings.online.agent_label
       }),
       tagName:   'span',
@@ -49,13 +52,15 @@ Templates = {
     });
 
     this.inputs = this.generateTemplate({
-      section:  "div.widget-input",
+      section:  "div#widget-input",
       template: this.getWidgetInputs(),
-      tagName:  'span',
+      // tagName:  'span',
+      className: "widget-input",
       events:   {
         "click a.chat-settings"         : "toggleSettings",
         "click a.chat-rating"           : "toggleRating",
-        "click input.widget-input-text" : "hideTooltips"
+        "click input.widget-input-text" : "hideTooltips",
+        "keyup input.widget-input-text" : "isTyping"
       },
       toggleSettings: function() {
         tooltip = $(".settings-options");
@@ -77,11 +82,14 @@ Templates = {
       },
       hideTooltips: function() {
         $(".tooltip-options").removeClass("open");
+      },
+      isTyping: function(e) {
+        Chats.sendChat(e, this);
       }
     });
 
     this.offline = this.generateTemplate({
-      section:   "div.widget-body",
+      section:   "div.widget-chat-viewer",
       template:  this.getChatForms({
         description: this.settings.offline.description
       }),
@@ -91,27 +99,29 @@ Templates = {
         "submit form.widget-block" : "submitOffline"
       },
       submitOffline: function(e) {
+        _this.validateForms(this);
         return false;
       }
     });
 
     this.postchat = this.generateTemplate({
-      section:   "div.widget-body",
+      section:   "div.widget-chat-viewer",
       template:  this.getChatForms({
         description: this.settings.post_chat.description
       }),
       className: "widget-block",
       tagName:   "form",
       events: {
-        "submit form.widget-block" : "submitOffline"
+        "submit form.widget-block" : "submitPostChat"
       },
-      submitOffline: function(e) {
+      submitPostChat: function(e) {
+        _this.validateForms(this);
         return false;
       }
     });
 
     this.prechat = this.generateTemplate({
-      section:   "div.widget-body",
+      section:   "div.widget-chat-viewer",
       template:  this.getChatForms({
         description: this.settings.pre_chat.description,
         message_required: this.settings.pre_chat.message_required
@@ -119,9 +129,18 @@ Templates = {
       className: "widget-block",
       tagName:   "form",
       events: {
-        "submit form.widget-block" : "submitOffline"
+        "submit form.widget-block" : "submitPreChat"
       },
-      submitOffline: function(e) {
+      submitPreChat: function(e) {
+        var form = _this.validateForms(this);
+        if (form) {
+          // _this.loader.replace();
+          _this.prechat.destroy();
+          _this.inputs.replace();
+
+          Offerchat.widget.prechat = true;
+          localStorage.setItem("offerchat_widget", JSON.stringify(Offerchat.widget));
+        }
         return false;
       }
     });
@@ -134,6 +153,31 @@ Templates = {
     }, true);
 
     callback();
+  },
+
+  validateForms: function(form) {
+    var data   = Helpers.unserialize($(form).serialize());
+    var regex  = /^\s*$/;
+    var retVal = true;
+    $.each(data, function(key, value){
+      val = decodeURIComponent(value).replace(/\+/g, " ");
+      if (regex.test(val)) {
+        $('[name=' + key + ']').parent().addClass("widget-field-error");
+        retVal = false;
+      }
+      else {
+        if(key == "email" && !Helpers.validateEmail(val)) {
+          $('[name=' + key + ']').parent().addClass("widget-field-error");
+          retVal = false;
+        }
+        else {
+          $('[name=' + key + ']').parent().removeClass("widget-field-error");
+          retVal = retVal ? true : false;
+        }
+      }
+    });
+
+    return retVal;
   },
 
   generateTemplate: function(options) {
@@ -187,7 +231,7 @@ Templates = {
     var layout = '<div class="widget-head widget-rounded-head group ' + data.gradient + '"></div>' +
                  '<div class="widget-body">' +
                  '  <div class="widget-chat-viewer"></div>' +
-                 '  <div class="widget-input"></div>' +
+                 '  <div id="widget-input"></div>' +
                  '</div>';
 
     return layout;
@@ -205,9 +249,9 @@ Templates = {
     return header;
   },
 
-  getWidgetInputs: function(data, options) {
+  getWidgetInputs: function(data) {
     var inputs, data
-    data   = data || {};
+    data   = data || { placeholder: "Type your question and hit enter" };
     inputs = '<ul class="tooltip-options settings-options">' +
              '  <li><a>Download transcript</a></li>' +
              '  <li><a>Turn off sound</a></li>' +
@@ -273,5 +317,18 @@ Templates = {
                    '</div>';
 
     return forms;
+  },
+
+  getMessageView: function(data) {
+    var data = data || {};
+    var message =  '  <div class="group">' +
+                   '    <div class="message-author">' + data.sender + '</div>' +
+                   '  </dvi>' +
+                   '  <div class="message">' +
+                   '    <div class="message-date">' + data.time + '</div>' +
+                        data.message +
+                   '  </div>';
+
+    return message;
   }
 };
