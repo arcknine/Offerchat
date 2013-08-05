@@ -179,12 +179,6 @@ describe AgentsController do
         assigns(:user).accounts.first.role.should eq(Account::ADMIN)
         assigns(:user).accounts.first.website_id.should eq(@website.id)
       end
-
-      it "should not update user if no website is checked" do
-        do_update("invalid")
-        JSON.parse(response.body)["errors"].should_not be_blank
-        response.code.should eq "422"
-      end
     end
   end
 end

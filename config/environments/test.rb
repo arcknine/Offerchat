@@ -34,6 +34,8 @@ Dashboard::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+  
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   # Openfire Config
   CHAT_BOSH_URL         = "http://local.offerchat.com:7070/http-bind/"

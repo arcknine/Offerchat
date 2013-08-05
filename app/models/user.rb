@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
 
   def self.create_or_invite_agents(owner, user, account_array)
     user = User.find_or_initialize_by_email(user[:email])
-
+    user_is_new = false
     if user.new_record?
       password                   = Devise.friendly_token[0,8]
       user.password              = password
@@ -72,6 +72,7 @@ class User < ActiveRecord::Base
       user.name                  = user.email.split('@').first
       user.display_name          = "Support"
       user.save
+      user_is_new = true
     end
 
     has_checked_website = false
@@ -86,13 +87,17 @@ class User < ActiveRecord::Base
           account.save
         
           has_checked_website = true
+          
+          if user_is_new
+            UserMailer.delay.new_agent_welcome(account, user, password) unless user.errors.any?
+          else
+            UserMailer.delay.old_agent_welcome(account, user) unless user.errors.any?
+          end
         end
       end
     end unless user[:email].empty?
     user.errors[:base] << "No website is checked" unless has_checked_website
     user.errors[:base] << "No email provided" if user[:email].empty?
-    UserMailer.delay.agent_welcome(user.accounts.last.website.owner, user) unless user.errors.any?
-
     user
   end
 
