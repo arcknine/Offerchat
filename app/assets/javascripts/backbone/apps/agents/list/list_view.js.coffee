@@ -120,6 +120,7 @@
       else
         $(e.currentTarget).addClass "agentchecked"
         @model.set role: 3
+      App.execute "check:selected:sites"
 
   class List.Sites extends App.Views.CompositeView
     template: "agents/list/sites"
