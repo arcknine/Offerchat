@@ -110,13 +110,12 @@
       init_text = $(input).val()
       init_count = max - init_text.length
       $(target).text init_count + " characters left"
-      $(input).keydown ->
+      $(input).bind 'input propertychange', ->
         text = $(input).val()
         count = max - text.length
         $(target).text count + " characters left"
         if count < 0
-          $(this).parent().addClass "field-error"
+          $(@).parent().addClass "field-error"
         else
-          $(this).parent().removeClass "field-error"
-
+          $(@).parent().removeClass "field-error"
 
