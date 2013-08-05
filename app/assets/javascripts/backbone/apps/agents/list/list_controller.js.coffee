@@ -92,10 +92,14 @@
                 websites: sites
               agent.save agent.attributes
               , success: ->
-                self.showNotification("Your changes have been saved")
+                agents.fetch()
+                self.showNotification("Your changes have been saved!")
                 modalAgentView.close()
               
             showAgentViewLayout.sitesRegion.show sitesView
+
+          App.commands.setHandler "check:selected:sites", (item) =>
+            console.log item
 
         @listenTo modalAgentView, "modal:cancel", (item)->
           modalAgentView.close()

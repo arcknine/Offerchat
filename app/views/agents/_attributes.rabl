@@ -29,7 +29,7 @@ node do |user|
     end
   end
   {
-    :pending => user.accounts.first.pending?,
+    :pending => user.accounts.first.try(:pending?),
     :websites => sites
   }
 end
