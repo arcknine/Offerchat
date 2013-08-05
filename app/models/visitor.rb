@@ -5,6 +5,7 @@ class Visitor < ActiveRecord::Base
   has_many :chat_sessions
 
   before_create :generate_token
+  before_create :generate_name
 
   def generate_token
     self.token = loop do
@@ -13,8 +14,11 @@ class Visitor < ActiveRecord::Base
     end
   end
 
-  # def detect_ip
-  #   self.ipaddress = request.remote_ip
-  # end
+  def generate_name
+    if self.name.nil?
+      self.name = 'visitor-%06d' % rand(6 ** 6)
+    end
+  end
+
 
 end

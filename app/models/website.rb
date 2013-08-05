@@ -85,8 +85,9 @@ class Website < ActiveRecord::Base
     accounts.each do |r|
       response = Nokogiri::XML(open("#{CHAT_SERVER_URL}plugins/presence/status?jid=#{r.jabber_user}@#{CHAT_SERVER_NAME}&type=xml"))
       presence = response.xpath("presence")
+      session = rosters.find_by_jabber_user(r.jabber_user).chat_sessions.last()
       status = presence.xpath("status").inner_text
-      if status.to_s == "Online"
+      if status.to_s == "Online" && session.created_at <= 5.minutes.ago
         vacant_agent = true
         return vacant_agent
       end

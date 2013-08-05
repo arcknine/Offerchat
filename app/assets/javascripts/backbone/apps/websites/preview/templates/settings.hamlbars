@@ -12,11 +12,12 @@
       Set your welcome greeting
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi, deserunt distinction
     .form.form-inline.hero-form
-      %fieldset
+      %fieldset#greeting-name
         .input-container
           .input-append
             %input.large{:type => "text", :value => "{{greeting}}", :name => "greeting", :maxlength =>"33", :id =>"greeting" }
               %span#greeting-count.add-on 33
+          #greeting-name-error.block-text-message.hide Cannot be empty
 
 %input{:name => "step", :type => "hidden", :value => "greeting"}
 .control-footer
