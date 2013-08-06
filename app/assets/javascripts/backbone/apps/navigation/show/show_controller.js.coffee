@@ -3,10 +3,15 @@
   class Show.Controller extends App.Controllers.Base
 
     initialize: ->
+      @connection = App.xmpp.connection
+
       user_json = App.request "get:current:user:json"
       user = App.request "set:current:user", user_json
 
       navView = @getNavView user
+
+      @listenTo navView, "change:user:status", (elem) ->
+        @changeStatus elem
 
       @listenTo navView, "profile:status:toggled", (child) ->
         params =
@@ -88,6 +93,30 @@
         user.set avatar: avatar
 
       App.navigationRegion.show navView
+
+    changeStatus: (elem) ->
+      status_elem = $(elem.currentTarget).find("#current-status")
+      status = $.trim(status_elem.text())
+
+      if status is "Away"
+        status_elem.text("Online")
+        $(elem.currentTarget).find(".status").addClass("online")
+        $(".profile-status > a").find(".status").removeClass("online")
+        pres_status = $pres().c('show').t('away').up().c('priority').t('0').up().c('status').t("I'm away from my desk")
+      else
+        status_elem.text("Away")
+        $(elem.currentTarget).find(".status").removeClass("online")
+        $(".profile-status > a").find(".status").addClass("online")
+        pres_status = $pres().c('show').t('online').up().c('priority').t('1').up().c('status').t("Online")
+
+      @connection.send pres_status
+
+      setTimeout (=>
+        active = $msg({type: 'chat'}).c('active', {xmlns: 'http://jabber.org/protocol/chatstates'})
+        @connection.send active
+      ), 100
+
+
 
     getNavView: (user)->
       new Show.Nav
