@@ -50,7 +50,7 @@
         if _.isEmpty(errors) then @removeErrors() else @addErrors errors
 
     removeErrors: ->
-      @$(".field-error").removeClass(".field-error").find(".block-text-message").remove()
+      @$(".field-error").removeClass("field-error").find(".block-text-message").remove()
 
     addErrors: (errors = {}) ->
       for name, array of errors
