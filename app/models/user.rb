@@ -71,6 +71,10 @@ class User < ActiveRecord::Base
       raise Exceptions::AgentLimitReachedError
     end
 
+    if owner.seats_available <= 0
+      raise Exceptions::AgentLimitReachedError
+    end
+
     if user.new_record?
       password                   = Devise.friendly_token[0,8]
       user.password              = password
