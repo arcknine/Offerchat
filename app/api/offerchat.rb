@@ -102,18 +102,36 @@ module Offerchat
               { error: "Offline" }
             else
               if params[:name]
-                dataInfo = { :name => params[:name], :browser => params[:browser], :location => params[:location], :email => params[:email] }
+                dataInfo = { :name => params[:name], :browser => params[:browser], :location => params[:location], :email => params[:email], :operating_system => params[:operating_system], :country_code => params[:country_code] }
               else
-                dataInfo = { :browser => params[:browser], :location => params[:location] }
+                dataInfo = { :browser => params[:browser], :location => params[:location], :email => params[:email], :operating_system => params[:operating_system], :country_code => params[:country_code]}
               end
-
               visitor.update_attributes(dataInfo)
               visitor.save
-
               visitor.chat_sessions.create(:roster_id => availableRoster.id)
-
+              availableRoster.update_attributes(:last_used => Time.now )
+              availableRoster.save
               { visitor_jid: availableRoster.jabber_user, visitor_pass: availableRoster.jabber_password, visitor: visitor }
             end
+          end
+        end
+      end
+    end
+
+
+    resource :checkout do
+      params do
+        requires :token, type: String, desc: "widget token."
+      end
+      route_param :token do
+        get do
+          visitor = Visitor.find_by_token(params[:token])
+          if visitor.nil?
+            { error: "Token not found!" }
+          else
+            roster = visitor.chat_sessions.last.roster
+            roster.update_attributes(:last_used => 1.year.ago )
+            { success: true }
           end
         end
       end
@@ -125,12 +143,38 @@ module Offerchat
         requires :apikey, type: String, desc: "Api key."
       end
       route_param :apikey do
-        post do
+        get do
           website = Website.find_by_api_key(params[:apikey])
+          to = website.settings(:offline).email
+          from    = params[:email]
+          message = params[:message]
+          name    = params[:name]
           if website
-            {position: website.settings(:style).position}
+            WidgetMailer.delay.offline_form(to, name, from, message)
+            {status: "success"}
           else
-            {error: "Api key not found!"}
+            {status: "Api key not found!"}
+          end
+        end
+      end
+    end
+
+    resource :post_chat do
+      params do
+        requires :apikey, type: String, desc: "Api key."
+      end
+      route_param :apikey do
+        get do
+          website = Website.find_by_api_key(params[:apikey])
+          to = website.settings(:offline).email
+          from    = params[:email]
+          message = params[:message]
+          name    = params[:name]
+          if website
+            WidgetMailer.delay.post_chat_form(to, name, from, message)
+            {status: "success"}
+          else
+            {status: "Api key not found!"}
           end
         end
       end

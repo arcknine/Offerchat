@@ -66,7 +66,7 @@ class Website < ActiveRecord::Base
   end
 
   def available_roster
-    rosters.shuffle.each do |r|
+    rosters.where("last_used <= ?", 5.minutes.ago).order("last_used ASC").each do |r|
       response = Nokogiri::XML(open("#{CHAT_SERVER_URL}plugins/presence/status?jid=#{r.jabber_user}@#{CHAT_SERVER_NAME}&type=xml"))
       presence = response.xpath("presence")
       status = presence.xpath("status").inner_text
