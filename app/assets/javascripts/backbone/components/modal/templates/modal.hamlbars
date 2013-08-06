@@ -8,6 +8,7 @@
           {{title}}
       .modal-body
         #modal-content-region
+      {{#if footer}}
       .modal-footer.bordered
         {{#if buttons}}
         .buttons
@@ -15,3 +16,4 @@
           <button data-form-button="{{type}}" class="{{className}}">{{text}}</button>
           {{/each}}
         {{/if}}
+      {{/if}}

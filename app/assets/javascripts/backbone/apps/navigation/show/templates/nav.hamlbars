@@ -57,5 +57,5 @@
             Account
         .dropdown-pointer
 
-  %div{ :style => "float: right; margin-top: 12px;" }
-    %a.add-more-btn Upgrade
+  .upgrade-header-section
+    %a.add-more-btn.btn Upgrade

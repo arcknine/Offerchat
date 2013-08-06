@@ -23,6 +23,9 @@
   App.reqres.setHandler "get:current:user:json", ->
     $.parseJSON App.currentUser
 
+  App.reqres.setHandler "get:current:user", ->
+    App.request "set:current:user", App.request "get:current:user:json"
+
   App.reqres.setHandler "csrf-token", ->
     $("meta[name='csrf-token']").attr('content')
 

@@ -3,8 +3,9 @@ input[type=password],
 input[type=email],
 textarea
   box-sizing: border-box
+  -moz-box-sizing: border-box
   padding: 8px
-  font-size: $base-font-size
+  font-size: 12px
   outline: none
   border: 2px solid lighten($border-color,5%)
   font-family: $base-font-family
@@ -142,13 +143,13 @@ label
     display: block
     font-weight: bold
     .inline-label-message
-      font-weight: 100
+      font-weight: 400
     &.label-top-fix
       vertical-align: top
       padding-top: 10px
   &.invite-user-form
     padding: 10px
-    
+  
   &.form-inline
     .input-container,
     label
@@ -171,6 +172,7 @@ label
     padding: 20px 0
 
 .trigger-form
+
   padding: 10px 20px
   margin: 20px 0
   border-radius: 5px
@@ -182,7 +184,8 @@ label
     &.short
       min-width: 70px
       width: 115px
-
+    &.time-input-fix
+      width: 250px
 .input-container
   &.top
     vertical-align: top
@@ -200,6 +203,7 @@ label
     color: $error-color
   .block-text-message
     color: $error-color
+ 
 .block-text-message
   margin-top: 5px
 .field-success
@@ -250,10 +254,10 @@ label
     vertical-align: top
     display: inline-block
     width: auto
-    height: 19px
+    height: 16px
     min-width: 16px
     padding: 7px
-    font-size: 14px
+    font-size: 12px
     line-height: 20px
     border: 2px solid $border-color
 // Toggle

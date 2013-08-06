@@ -16,7 +16,7 @@ $button-radius: 3px
   width: $width
   height: $height
 
-
+  
 
 @mixin flag-icon($x, $y, $width: 16px, $height: 16px)
   background: image-url('flag-icons.png')
@@ -58,6 +58,8 @@ $button-radius: 3px
   -o-animation-fill-mode: both
   animation-fill-mode: both
 
+  
+  
 .bounce
   -webkit-animation-name: bounce
   -moz-animation-name: bounce
@@ -74,8 +76,8 @@ $button-radius: 3px
   -o-animation-name: bounceOnce
   animation-name: bounceOnce
   @include animationcount(1)
-  @include animationDuration(.5s)
-  @include animationDelay(0)
+  @include animationDuration(1s)
+  @include animationDelay(0) 
   @include animationFill
 
 @-webkit-keyframes bounce
@@ -110,28 +112,32 @@ $button-radius: 3px
 @-webkit-keyframes bounceOnce
   0%, 20%, 50%, 80%
     margin-top: -5px
-    opacity: 0
+    // opacity: 0
   100%
-    margin-top: 0
-    opacity: 1
+    margin-top: 0  
+    // opacity: 1
 @-moz-keyframes bounceOnce
   0%, 20%, 50%, 80%
     margin-top: -5px
-    opacity: 0
+    // opacity: 0
   100%
-    margin-top: 0
-    opacity: 1
+    margin-top: 0  
+    // opacity: 1
 @-o-keyframes bounceOnce
   0%, 20%, 50%, 80%
-    margin-top: -5px
-    opacity: 0
+    margin-top: -5px  
+    // opacity: 0
   100%
-    margin-top: 0
-    opacity: 1
+    margin-top: 0    
+    // opacity: 1
 @keyframes bounceOnce
   0%, 20%, 50%, 80%
-    margin-top: -5px
-    opacity: 0
+    margin-top: -5px  
+    // opacity: 0
   100%
-    margin-top: 0
-    opacity: 1
+    margin-top: 0  
+    // opacity: 1
+    
+
+
+  

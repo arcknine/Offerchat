@@ -29,6 +29,3 @@ rspec.xml
 # Ignore vim swap files
 *.swp
 *.rdb
-
-# Ignore config file
-config/application.yml

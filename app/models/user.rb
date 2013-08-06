@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   belongs_to :plan, :foreign_key => "plan_identifier", :class_name => "Plan"
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-    :name, :display_name, :jabber_user, :jabber_password, :avatar, :plan_identifier, :billing_start_date
+    :name, :display_name, :jabber_user, :jabber_password, :avatar, :plan_identifier, :billing_start_date, :stripe_customer_token
 
   validates_presence_of :name
   validates_presence_of :display_name

@@ -4,17 +4,16 @@ class CreateStripeCustomerService
   end
 
   def create
-    if valid?
-      customer = Stripe::Customer.create :description => @user.name, :email => @user.email, :plan => @plan.plan_identifier, :card => @card
-      @user.update_attribute(:stripe_customer_token, customer.id)
-    end
-  rescue
-    errors.add :base, "There was a problem with your credit card."
+    customer = Stripe::Customer.create :description => @user.name, :email => @user.email, :plan => @plan, :card => @card
+    @user.update_attributes(:stripe_customer_token => customer.id, :plan_identifier => @plan)
+  rescue => errors
+    puts errors.inspect
     false
   end
 
   def upgrade
     stripe = Stripe::Customer.retrieve @user.stripe_customer_token
-    stripe.update_subscription :plan => @plan.plan_identifier, :prorate => true
+    stripe.update_subscription :plan => @plan, :prorate => true
+    @user.update_attribute(:plan_identifier, @plan)
   end
 end

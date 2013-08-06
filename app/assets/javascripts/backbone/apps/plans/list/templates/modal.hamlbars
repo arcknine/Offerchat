@@ -1,27 +1,24 @@
+%input{ :type => "hidden", :name => "plan_id", :value => "{{plan}}" }
+
 %fieldset
   %label
     Credit Card #
   .input-container
-    %input.large{ :type => "text" }
+    %input.large{ :type => "text", :name => "credit_card_number", :value => "" }
 %fieldset
   %label
     CV Code
   .input-container
-    %input.short{ :type => "text" }
+    %input.short{ :type => "text", :name => "cvv", :placeholder => "XXX", :value => "" }
 %fieldset
   %label
     Expiry
   .input-container
-    %select
-      %option{ :selected => "selected" }  4 - May
-    \/
-    %select
-      %option 16
+    %input.short{ :type => "text", :name => "month", :placeholder => "MM", :value => "" }
+    %input{ :type => "text", :name => "year", :placeholder => "YYYY", :style => "width: 60px;", :value => "" }
 
-.modal-footer.bordered.group
+%fieldset
   .terms-text
-    Please read the
-    %a terms and conditions
-    before proceeding
-  %button.btn.action.go-right{ :type => "submit" }
+    Please read the <a>terms and conditions</a> before proceeding
+  %button.btn.action.go-right.authorize-payment{ :type => "submit" }
     Authorize Payment
