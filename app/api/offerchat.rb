@@ -120,5 +120,22 @@ module Offerchat
     end
 
 
+    resource :offline do
+      params do
+        requires :apikey, type: String, desc: "Api key."
+      end
+      route_param :apikey do
+        post do
+          website = Website.find_by_api_key(params[:apikey])
+          if website
+            {position: website.settings(:style).position}
+          else
+            {error: "Api key not found!"}
+          end
+        end
+      end
+    end
+
+
   end
 end
