@@ -66,32 +66,24 @@ class Website < ActiveRecord::Base
   end
 
   def available_roster
-    vacant_roster = nil
     rosters.shuffle.each do |r|
       response = Nokogiri::XML(open("#{CHAT_SERVER_URL}plugins/presence/status?jid=#{r.jabber_user}@#{CHAT_SERVER_NAME}&type=xml"))
       presence = response.xpath("presence")
       status = presence.xpath("status").inner_text
-      if status.to_s == "Unavailable"
-        vacant_roster = r
-        return vacant_roster
-      end
+      vacant_roster = status.to_s == "Unavailable" ? r : nil
+      break vacant_roster
     end
-    return vacant_roster
   end
 
   def available_agent
     accounts = self.owner_and_agents
-    vacant_agent = false
     accounts.each do |r|
       response = Nokogiri::XML(open("#{CHAT_SERVER_URL}plugins/presence/status?jid=#{r.jabber_user}@#{CHAT_SERVER_NAME}&type=xml"))
       presence = response.xpath("presence")
       status = presence.xpath("status").inner_text
-      if status.to_s == "Online"
-        vacant_agent = true
-        return vacant_agent
-      end
+      vacant_agent = status.to_s == "Online" ? true : false
+      break vacant_agent
     end
-    return vacant_agent
   end
 
   private

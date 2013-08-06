@@ -20,8 +20,10 @@
 
   App.vent.on "show:wizard:sidebar", =>
     API.showWizards()
+
   App.vent.on "show:chat:sidebar", =>
     App.chatSidebarRegion.close()
     API.showSelector()
     API.showVisitors()
+
 

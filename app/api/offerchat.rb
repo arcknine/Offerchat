@@ -52,18 +52,36 @@ module Offerchat
       route_param :apikey do
         get do
           website = Website.find_by_api_key(params[:apikey])
-          agents = website.owner_and_agents
-          chat_triggers = website.triggers
           if website
-            style       = website.settings(:style)
-            online      = website.settings(:online)
-            pre_chat    = website.settings(:pre_chat)
-            post_chat   = website.settings(:post_chat)
-            offline     = website.settings(:offline)
-            {style: style, online: online, pre_chat: pre_chat, post_chat: post_chat, offline: offline, website: website, agents: agents, chat_triggers: chat_triggers }
+            agents        = website.owner_and_agents
+            chat_triggers = website.triggers
+            style         = website.settings(:style).value
+            online        = website.settings(:online).value
+            pre_chat      = website.settings(:pre_chat).value
+            post_chat     = website.settings(:post_chat).value
+            offline       = website.settings(:offline).value
+            settings      = { style: style, online: online, pre_chat: pre_chat, post_chat: post_chat, offline: offline }
+            anyAgents     = website.available_agent
+
+            { settings: settings, website: website, agents: agents, chat_triggers: chat_triggers, any_agents_online: anyAgents }
           else
-            {error: "Api key not found!"}
+            { error: "Api key not found!" }
           end
+        end
+      end
+    end
+
+    resource :any_agents_online do
+      params do
+        requires :apikey, type: String, desc: "Api key."
+      end
+
+      route_param :apikey do
+        get do
+          website   = Website.find_by_api_key(params[:apikey])
+          anyAgents = website.available_agent
+
+          { any_agents_online: anyAgents }
         end
       end
     end
@@ -75,18 +93,44 @@ module Offerchat
       route_param :token do
         get do
           visitor = Visitor.find_by_token(params[:token])
-          website = Website.find(visitor.website_id)
-          availableRoster = website.available_roster
-          availableAgent = website.available_agent
-          if availableRoster == nil
-            {error: "Offline"}
+          if visitor.nil?
+            { error: "Token not found!" }
           else
-            dataInfo = { :name => params[:name],:browser => params[:browser], :location => params[:location], :email => params[:email] }
-            visitor.update_attributes(dataInfo)
-            visitor.save
+            website = visitor.website
+            availableRoster = website.available_roster
+            if availableRoster.nil?
+              { error: "Offline" }
+            else
+              if params[:name]
+                dataInfo = { :name => params[:name], :browser => params[:browser], :location => params[:location], :email => params[:email] }
+              else
+                dataInfo = { :browser => params[:browser], :location => params[:location] }
+              end
 
-            visitor.chat_sessions.build(:roster => availableRoster)
-            { agent_online: availableAgent, visitor_jid: availableRoster.jabber_user, visitor_pass: availableRoster.jabber_password  }
+              visitor.update_attributes(dataInfo)
+              visitor.save
+
+              visitor.chat_sessions.create(:roster_id => availableRoster.id)
+
+              { visitor_jid: availableRoster.jabber_user, visitor_pass: availableRoster.jabber_password, visitor: visitor }
+            end
+          end
+        end
+      end
+    end
+
+
+    resource :offline do
+      params do
+        requires :apikey, type: String, desc: "Api key."
+      end
+      route_param :apikey do
+        post do
+          website = Website.find_by_api_key(params[:apikey])
+          if website
+            {position: website.settings(:style).position}
+          else
+            {error: "Api key not found!"}
           end
         end
       end
