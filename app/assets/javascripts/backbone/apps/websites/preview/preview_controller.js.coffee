@@ -91,7 +91,6 @@
 
       @listenTo settingsView, "click:back:new", (item) ->
         App.previewRegion.close()
-        App.vent.trigger "show:chat:sidebar"
         App.navigate 'websites/new', trigger: true
       @listenTo settingsView, "keyup:change:greeting", (item) ->
 
