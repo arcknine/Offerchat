@@ -1,11 +1,13 @@
 .login-wrapper
   .logo-large.centered
   .login-form.form
+    - flash.each do |key, value|
+      %div{:class => "alert-danger"}= value
     = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
       %fieldset
         %label
           Email
-        = f.email_field :email, :autofocus => true
+        = f.email_field :email, :type => "text", :autofocus => true
       %fieldset
         %label
           Password
