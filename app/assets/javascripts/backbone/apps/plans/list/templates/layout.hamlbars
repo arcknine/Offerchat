@@ -18,7 +18,7 @@
         %p.small
           {{business.description}}
         .block
-          %a.btn.action
+          %a.btn.action.upgrade{ data: { id: "{{personal.plan_identifier}}" } }
             Upgrade
         .plan-price
 
@@ -40,7 +40,7 @@
         %p.small
           {{personal.description}}
         .block
-          %a.btn.success
+          %a.btn.success.upgrade{ data: { id: "{{personal.plan_identifier}}" } }
             Upgrade
         .plan-price
           .plan-value
@@ -60,7 +60,7 @@
         %p.small
           {{enterprise.description}}
         .block
-          %a.btn.action
+          %a.btn.action.upgrade{ data: { id: "{{personal.plan_identifier}}" } }
             Upgrade
         .plan-price
           .plan-value
@@ -78,5 +78,5 @@
         {{starter.description}}
         %strong
           ${{starter.price}}.
-        %a.hovered{ :style => "margin-left: 10px" }
+        %a.hovered.upgrade{ :style => "margin-left: 10px", data: { id: "{{starter.plan_identifier}}" } }
           Upgrade

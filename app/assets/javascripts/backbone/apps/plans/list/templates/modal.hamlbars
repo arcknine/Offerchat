@@ -1,0 +1,27 @@
+%fieldset
+  %label
+    Credit Card #
+  .input-container
+    %input.large{ :type => "text" }
+%fieldset
+  %label
+    CV Code
+  .input-container
+    %input.short{ :type => "text" }
+%fieldset
+  %label
+    Expiry
+  .input-container
+    %select
+      %option{ :selected => "selected" }  4 - May
+    \/
+    %select
+      %option 16
+
+.modal-footer.bordered.group
+  .terms-text
+    Please read the
+    %a terms and conditions
+    before proceeding
+  %button.btn.action.go-right{ :type => "submit" }
+    Authorize Payment
