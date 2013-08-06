@@ -30,7 +30,7 @@
       "blur .widget-label-form textarea"         : "getMessage"
       "blur .widget-label-form input[type=text]" : "getMessage"
       "click #offline-toggle"                    : "toggleSlider"
-      "keyup .widget-label-form textarea"        : "updateWidgetMessage"
+      "input .widget-label-form textarea"        : "updateWidgetMessage"
 
     getMessage: (ev) ->
       @trigger "get:offline:form:event", ev
@@ -61,7 +61,7 @@
       "blur .widget-label-form textarea"         : "getMessage"
       "click #prechat-message-checkbox"          : "checkMessage"
       "click #prechat-toggle"                    : "toggleSlider"
-      "keyup .widget-label-form textarea"        : "updateWidgetMessage"
+      "input .widget-label-form textarea"        : "updateWidgetMessage"
 
     getMessage: (ev) ->
       @trigger "get:prechat:form:event", ev
@@ -102,7 +102,7 @@
       "blur .widget-label-form textarea"         : "getMessage"
       "blur .widget-label-form input[type=text]" : "getMessage"
       "click #postchat-toggle"                   : "toggleSlider"
-      "keyup .widget-label-form textarea"        : "updateWidgetMessage"
+      "input .widget-label-form textarea"        : "updateWidgetMessage"
 
     getMessage: (ev) ->
       @trigger "get:postchat:form:event", ev
