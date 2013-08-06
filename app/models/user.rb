@@ -123,10 +123,9 @@ class User < ActiveRecord::Base
       end
     end
 
-    user = User.find(id)
-    user.errors[:base] << "No website is checked" unless has_checked_website
+    #user.errors[:base] << "No website is checked" unless has_checked_website
 
-    user
+    User.find(id)
   end
 
   private
