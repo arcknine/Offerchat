@@ -93,6 +93,10 @@
           visitor_jid = @visitor.get("jid")
           msg = $msg({to: agent_jid, type: "chat"}).c('transfer').t(visitor_jid)  # create xmpp msg
           @connectionSend msg, agent_jid
+
+          formView.close()
+
+          # App.navigate Routes.root_path()
         else
           reason.closest("fieldset").addClass("field-error")
           reason.next("div").html("Please provide a reason for transferring")
