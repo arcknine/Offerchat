@@ -88,6 +88,8 @@
       @listenTo formView, "modal:unsubmit", (item) ->
         # get agent jid
         # create xmpp msg
+        # msg = $msg({to: agent_jid, type: "chat"}).c('inactive', {xmlns: 'http://jabber.org/protocol/chatstates'})
+        # @connection.send msg
 
         console.log 'itemmmmmmmmm', item
         # false
