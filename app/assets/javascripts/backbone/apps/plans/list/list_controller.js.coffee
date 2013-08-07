@@ -23,7 +23,6 @@
         @showModal(plan)
 
     initPlans: (plan) ->
-      console.log plan
       if plan == "PERSONAL"
         $("#personal-button").html('<i class="icon icon-check-large-2"></i>')
       else if plan == "BUSINESS"
