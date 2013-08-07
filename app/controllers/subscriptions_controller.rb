@@ -2,10 +2,6 @@ class SubscriptionsController < ApplicationController
   before_filter :authenticate_user!
   respond_to :json
 
-  def new
-    @user = current_user
-  end
-
   def create
     @user = current_user
 
