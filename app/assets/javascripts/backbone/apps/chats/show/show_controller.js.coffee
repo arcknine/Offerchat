@@ -86,10 +86,17 @@
         modalView.toggleDropDown params
 
       @listenTo formView, "modal:unsubmit", (item) ->
-        agent_jid = $(item.view.el).find(".current-selection").data("jid") # get agent jid
-        visitor_jid = @visitor.get("jid")
-        msg = $msg({to: agent_jid, type: "chat"}).c('transfer').t(visitor_jid)  # create xmpp msg
-        @connectionSend msg, agent_jid
+        reason = $(item.view.el).find('textarea.large')
+
+        if reason.val()
+          agent_jid = $(item.view.el).find(".current-selection").data("jid") # get agent jid
+          visitor_jid = @visitor.get("jid")
+          msg = $msg({to: agent_jid, type: "chat"}).c('transfer').t(visitor_jid)  # create xmpp msg
+          @connectionSend msg, agent_jid
+        else
+          reason.closest("fieldset").addClass("field-error")
+          reason.next("div").html("Please provide a reason for transferring")
+
 
       @listenTo agentListView, "childview:select:transfer:agent", (item) =>
         current_agent = $(item.el).parents('div.btn-selector').find(".current-selection")
