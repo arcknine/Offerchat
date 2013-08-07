@@ -1,0 +1,22 @@
+%fieldset
+  %label
+    Choose an agent
+  .input-container.top
+    .btn-selector-wrapper
+      .btn-selector
+
+        .btn.btn-action-selector.btn-large
+          %i.icon.icon-arrow-down
+          %span.current-selection
+            Jonathan Kennedy
+
+        #agents-list.dropdown-options.dark
+
+
+%fieldset
+  %label.label-top-fix
+    Reason
+  .input-container
+    %textarea.large
+    /.block-text-message
+    /  Just give me a reason

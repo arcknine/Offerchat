@@ -23,10 +23,47 @@
     itemView:  Show.Chat
     itemViewContainer: "div#chats-collection"
     events:
-      "keyup div.chat-response > textarea" : "isTyping"
+      "keyup div.chat-response > textarea"    : "isTyping"
+      "click div.dropdown-options > ul > li"  : "optionSelected"
 
     triggers:
-      "click a.end_chat"  : "end:chat"
+      "click a.end_chat"        : "end:chat"
+      "click div.btn-selector"  : "actions:menu:clicked"
 
     isTyping: (ev) ->
       @trigger "is:typing", ev
+
+    optionSelected: (e) ->
+      @trigger "menu:option:selected", e
+
+  class Show.TransferChatLayout extends App.Views.Layout
+    template: "chats/show/transfer_chat_layout"
+    className: "form form-inline"
+
+    regions:
+      agentsListRegion: "#agents-list"
+
+    form:
+      buttons:
+        primary: false
+        nosubmit: "Transfer Chat"
+        cancel:  false
+      title: "Transfer this chat"
+
+    triggers:
+      "click div.btn-selector" : "choose:agent:clicked"
+
+  class Show.TransferChatAgent extends App.Views.ItemView
+    template: "chats/show/transfer_chat_agent"
+    tagName: "li"
+
+    triggers:
+      "click a" : "select:transfer:agent"
+
+  class Show.TransferChatAgents extends App.Views.CompositeView
+    template: "chats/show/transfer_chat_agents"
+    itemView: Show.TransferChatAgent
+    tagName: "ul"
+
+
+

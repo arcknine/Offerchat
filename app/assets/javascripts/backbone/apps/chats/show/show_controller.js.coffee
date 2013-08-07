@@ -15,6 +15,7 @@
       @allMessages = App.request "get:chats:messages"
       visitors     = App.request "get:chats:visitors"
       @visitor     = App.request "visitor:entity"
+
       @messages    = App.request "messeges:entities"
 
       unless @allMessages.length is 0
@@ -51,7 +52,77 @@
       @listenTo chatsView, "is:typing", @sendChat
       @listenTo chatsView, "end:chat", @endChat
 
+      @listenTo chatsView, "actions:menu:clicked", (elem) =>
+        @actionsMenuClicked chatsView, elem
+
+      @listenTo chatsView, "menu:option:selected", (elem) =>
+        option = $(elem.currentTarget).data("action")
+
+        if option is "transfer"
+          @transferChat()
+        # else if option is "export"
+        # else if option is "ban"
+
       @layout.chatsRegion.show chatsView
+
+    transferChat: =>
+      # TODO:
+      # only get online agents
+      agents = App.request "agents:entities"
+
+      modalView = @getTransferChatModalView @visitor
+      formView  = App.request "modal:wrapper", modalView
+
+      agentListView = @getAgents agents
+
+      @listenTo formView, "show", =>
+        modalView.agentsListRegion.show agentListView
+
+      @listenTo modalView, "choose:agent:clicked", (elem) ->
+        params =
+          element: elem
+          openClass: "btn-selector"
+          activeClass: "btn-action-selector"
+        modalView.toggleDropDown params
+
+      @listenTo formView, "modal:unsubmit", (item) ->
+        # get agent jid
+        # create xmpp msg
+
+        console.log 'itemmmmmmmmm', item
+        # false
+
+
+
+
+      @listenTo agentListView, "childview:select:transfer:agent", (item) =>
+        $(item.el).parents('div.btn-selector').find(".current-selection").html(item.model.get("name"))
+        agentListView.closeDropDown()
+        $(agentListView.el).parents(".btn-selector").find(".btn-action-selector").removeClass("active")
+
+
+      @listenTo formView, "modal:close", (item)->
+        formView.close()
+
+      @listenTo formView, "modal:cancel", (item)->
+        formView.close()
+
+      App.modalRegion.show formView
+
+    getTransferChatModalView: (model) ->
+      new Show.TransferChatLayout
+        model: model
+
+    getAgents: (agents) ->
+      new Show.TransferChatAgents
+        collection: agents
+
+    actionsMenuClicked: (view, elem) ->
+      params =
+        element: elem
+        openClass: "btn-selector"
+        activeClass: "btn-action-selector"
+      view.toggleDropDown params
 
     endChat: (item) =>
       if confirm("Are you sure you want to end this chat session?")
