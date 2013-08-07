@@ -18,5 +18,5 @@
     Reason
   .input-container
     %textarea.large
-    /.block-text-message
+    .block-text-message
     /  Just give me a reason

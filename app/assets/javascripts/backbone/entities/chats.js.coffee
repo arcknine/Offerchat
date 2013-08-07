@@ -37,10 +37,10 @@
   class Entities.MessagesCollection extends App.Entities.Collection
     model: Entities.Message
 
-  class Entities.Agent extends App.Entities.Model
+  class Entities.OnlineAgent extends App.Entities.Model
 
-  class Entities.AgentsCollection extends App.Entities.Collection
-    model: Entities.Agent
+  class Entities.OnlineAgentsCollection extends App.Entities.Collection
+    model: Entities.OnlineAgent
 
 
 
@@ -58,10 +58,10 @@
       new Entities.MessagesCollection
 
     agents: ->
-      new Entities.AgentsCollection
+      new Entities.OnlineAgentsCollection
 
     agent: ->
-      new Entities.Agent
+      new Entities.OnlineAgent
 
   App.reqres.setHandler "visitor:entity", ->
     API.setVisitor()
