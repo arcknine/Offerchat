@@ -1,5 +1,4 @@
 .chats-sidebar
-  %h4 GROUP (5)
-  #agents-region
 
+  #agents-region
   #visitors-region
