@@ -21,6 +21,19 @@
     showNotification: (message) ->
       $(".block-message").find("span").html(message)
       $(".block-message").fadeIn()
+
       setTimeout ->
         $(".block-message").fadeOut()
       , 3000
+
+    connectionSend: (stanza, to) ->
+      connection = App.xmpp.connection
+      connection.send stanza
+
+      setTimeout (=>
+        attr = new Object({type: 'chat'})
+        if to then attr.to = to
+
+        active = $msg(attr).c('active', {xmlns: 'http://jabber.org/protocol/chatstates'})
+        connection.send active
+      ), 100
