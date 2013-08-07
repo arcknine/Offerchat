@@ -118,4 +118,6 @@
           $(@).parent().addClass "field-error"
         else
           $(@).parent().removeClass "field-error"
+          $(@).parent().parent().removeClass "field-error"
+          $(@).parent().parent().find("label span.inline-label-message").remove()
 
