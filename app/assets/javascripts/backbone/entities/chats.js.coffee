@@ -37,6 +37,13 @@
   class Entities.MessagesCollection extends App.Entities.Collection
     model: Entities.Message
 
+  class Entities.Agent extends App.Entities.Model
+
+  class Entities.AgentsCollection extends App.Entities.Collection
+    model: Entities.Agent
+
+
+
   API =
     setVisitor: ->
       new Entities.Visitor
@@ -50,6 +57,12 @@
     messages: ->
       new Entities.MessagesCollection
 
+    agents: ->
+      new Entities.AgentsCollection
+
+    agent: ->
+      new Entities.Agent
+
   App.reqres.setHandler "visitor:entity", ->
     API.setVisitor()
 
@@ -61,3 +74,9 @@
 
   App.reqres.setHandler "messeges:entities", ->
     API.messages()
+
+  App.reqres.setHandler "online:agents:entities", ->
+    API.agents()
+
+  App.reqres.setHandler "online:agent:entity", ->
+    API.agent()
