@@ -86,25 +86,15 @@
         modalView.toggleDropDown params
 
       @listenTo formView, "modal:unsubmit", (item) ->
-        # get agent jid
-        # create xmpp msg
-        # msg = $msg({to: agent_jid, type: "chat"}).c('inactive', {xmlns: 'http://jabber.org/protocol/chatstates'})
-        # @connection.send msg
-
-        # to_agent   = $msg({type: 'chat', to: jid}).c('transfer', {xmlns: 'http://jabber.org/protocol/chatstates'}).c('item', {jid: Offerchat.current.jid, affiliation: 'visitor'});
-        # to_visitor = $msg({type: 'chat', to: Offerchat.current.jid}).c('transfer', {xmlns: 'http://jabber.org/protocol/chatstates'}).c('item', {jid: jid, affiliation: 'agent'});
-
-        # Offerchat.connection.send(to_agent);
-        # Offerchat.connection.send(to_visitor);
-
-        console.log 'itemmmmmmmmm', item
-        # false
-
-
-
+        agent_jid = $(item.view.el).find(".current-selection").data("jid") # get agent jid
+        visitor_jid = @visitor.get("jid")
+        msg = $msg({to: agent_jid, type: "chat"}).c('transfer').t(visitor_jid)  # create xmpp msg
+        @connectionSend msg, agent_jid
 
       @listenTo agentListView, "childview:select:transfer:agent", (item) =>
-        $(item.el).parents('div.btn-selector').find(".current-selection").html(item.model.get("name"))
+        current_agent = $(item.el).parents('div.btn-selector').find(".current-selection")
+        current_agent.attr("data-jid", item.model.get("jabber_user")).html(item.model.get("name"))
+
         agentListView.closeDropDown()
         $(agentListView.el).parents(".btn-selector").find(".btn-action-selector").removeClass("active")
 
