@@ -53,7 +53,7 @@ module Offerchat
         get do
           website = Website.find_by_api_key(params[:apikey])
           if website
-            agents    = website.owner_and_agents
+            agents    = website.widget_owner_agents
             triggers  = website.triggers
             anyAgents = website.available_agent
 

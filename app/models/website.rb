@@ -38,12 +38,16 @@ class Website < ActiveRecord::Base
 
   def agents
     accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id = ? AND role != ?", self.id, Account::OWNER)
-    accounts.collect(&:user)
+    # accounts.collect(&:user)
+    ids = accounts.collect(&:user_id)
+    User.where(:id => ids)
   end
 
   def owner_and_agents
     accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id = ?", self.id)
-    accounts.collect(&:user)
+    # accounts.collect(&:user)
+    ids = accounts.collect(&:user_id)
+    User.where(:id => ids)
   end
 
   def unread; nil; end
@@ -83,6 +87,13 @@ class Website < ActiveRecord::Base
       vacant_agent = status.to_s == "Online" ? true : false
       break vacant_agent
     end
+  end
+
+  def widget_owner_agents
+    accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id = ?", self.id)
+    ids = accounts.collect(&:user_id)
+    User.where(:id => ids).select("id, jabber_user, name, display_name, avatar, plan_id")
+
   end
 
   private
