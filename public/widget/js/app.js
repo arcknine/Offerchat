@@ -1,11 +1,9 @@
 Offerchat = {
-  settings: {},
   widget:   {},
   website:  {},
-  agents:   [],
 
   version: global.version,
-  src:     global.local,
+  src:     global.src,
 
   // taffy db
   details:  TAFFY(),
@@ -21,13 +19,10 @@ Offerchat = {
 
         Templates.init({
           params:   _this.params,
-          settings: _this.settings,
-          agents:   _this.agents,
-          website:  _this.website
+          settings: _this.website.settings,
+          agents:   _this.website.agents
         });
 
-        Chats.init();
-        $.postMessage({show: true}, _this.params.current_url, parent);
       });
     }
   },
@@ -52,7 +47,7 @@ Offerchat = {
       _this.widget = JSON.parse(localStorage.getItem("offerchat_widget")) || {};
 
       // overwrite for ie
-      _this.settings.style.gradient = BrowserDetect.browser == "Internet Explorer" ? false : _this.settings.style.gradient;
+      _this.website.settings.style.gradient = BrowserDetect.browser == "Internet Explorer" ? false : _this.website.settings.style.gradient;
 
       _this.loadLocation(function(){
         callback();
@@ -73,9 +68,8 @@ Offerchat = {
         dataType: "jsonp",
         success: function(data) {
           if (typeof data.error == "undefined") {
-            _this.settings = data.settings;
-            _this.agents   = data.agents;
-            _this.website  = data.website;
+            _this.website = data.website;
+            _this.any_agents_online = data.any_agents_online;
 
             sessionStorage.setItem("ofc-settings", JSON.stringify(data));
             callback();
@@ -83,10 +77,20 @@ Offerchat = {
         }
       });
     } else {
-      this.settings = data.settings;
-      this.agents   = data.agents;
-      this.website  = data.website;
-      callback();
+      $.ajax({
+        type: "GET",
+        url:  this.src.api_url + "any_agents_online/" + this.params.api_key + ".jsonp",
+        dataType: "jsonp",
+        success: function(any_agents) {
+          if (typeof data.error == "undefined") {
+            _this.website = data.website;
+
+            _this.any_agents_online = any_agents.any_agents_online;
+            callback();
+          }
+        }
+      });
+
     }
   },
 

@@ -162,7 +162,7 @@
       },
 
       generateIframeWrapper: function() {
-        var build, height, path;
+        var build, height, path, title;
 
         height = this.info.state == "show" ? "421px" : "45px";
         build = '<div id="offerchatbox" style="position: fixed; bottom: 0; ' + this.info.position + ': 20px; margin: 0;  padding: 0; background-color: transparent; overflow: hidden; z-index: 99999999; height: ' + height + '; width: 306px; display: none">' +
@@ -171,12 +171,14 @@
         $ofc('body').append(build);
 
         path = src.cdn + "/widget/widget.html";
+        title = $ofc("head > title").text();
         // path = "http://10.10.1.22:3000/widget"
 
         $ofc("<form action='" + path + "' method='GET' target='offerchat_frame'></form>")
         .append($ofc("<input type='hidden' name='api_key' />").attr('value', ofc_key))
         .append($ofc("<input type='hidden' name='secret_token' />").attr('value', this.info.token))
         .append($ofc("<input type='hidden' name='current_url' />").attr('value', document.location.href))
+        .append($ofc("<input type='hidden' name='page_title' />").attr('value', title))
         .append($ofc("<input type='hidden' name='referrer' />").attr('value', this.info.referrer))
         .append($ofc("<input type='hidden' name='_r' />").attr('value', Math.random()))
         .appendTo('body')

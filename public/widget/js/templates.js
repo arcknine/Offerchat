@@ -4,22 +4,29 @@ Templates = {
     this.params   = options.params;
     this.settings = options.settings;
     this.agents   = options.agents;
-    this.website  = options.website;
 
     var _this = this;
     this.loadTemplates(function(){
       _this.layout.append();
       _this.header.append();
       _this.inputs.append();
+      _this.footer.append();
       // _this.loader.append();
 
-      if (_this.settings.pre_chat.enabled && !Offerchat.widget.prechat) {
+      if (Offerchat.any_agents_online == false) {
+        _this.offline.replace();
+
+        if (_this.settings.offline.enabled)
+          $.postMessage({show: true}, Offerchat.params.current_url, parent);
+      } else if (_this.settings.pre_chat.enabled && !Offerchat.widget.prechat) {
         _this.prechat.replace();
         _this.inputs.destroy();
-      } else if (Chats.messages.length > 0) {
-        Chats.loadChats();
-      }
 
+        $.postMessage({show: true}, Offerchat.params.current_url, parent);
+      } else {
+        Chats.init();
+        $.postMessage({show: true}, Offerchat.params.current_url, parent);
+      }
     });
   },
 
@@ -85,6 +92,19 @@ Templates = {
       },
       isTyping: function(e) {
         Chats.sendChat(e, this);
+      }
+    });
+
+    this.footer = this.generateTemplate({
+      section: "div#widget-footer",
+      template: this.getFooter(),
+      className: "widget-footer",
+      events: {
+        "click div.widget-footer" : "goToOfferchat"
+      },
+      goToOfferchat: function(ev) {
+        // window.open('//www.offerchat.com/?utm_medium=Widget_banner&utm_campaign=offerchat_widget&utm_source=www.offerchat.com', '_blank');
+        return true
       }
     });
 
@@ -232,6 +252,7 @@ Templates = {
                  '<div class="widget-body">' +
                  '  <div class="widget-chat-viewer"></div>' +
                  '  <div id="widget-input"></div>' +
+                 '  <div id="widget-footer"></div>' +
                  '</div>';
 
     return layout;
@@ -330,5 +351,15 @@ Templates = {
                    '  </div>';
 
     return message;
+  },
+
+  getFooter: function(data) {
+    var data = data || {};
+    var footer = '<div class="footer-logo"></div>' +
+                 '<div class="widget-footer-desc">' +
+                 '  Powered by <strong><a>Offerchat</a></strong>' +
+                 '</div>';
+
+    return footer;
   }
 };
