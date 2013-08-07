@@ -92,7 +92,7 @@ class Website < ActiveRecord::Base
   def widget_owner_agents
     accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id = ?", self.id)
     ids = accounts.collect(&:user_id)
-    User.where(:id => ids).select("id, jabber_user, name, display_name, avatar, plan_id")
+    User.where(:id => ids).select("id, jabber_user, name, display_name, avatar, avatar_content_type, avatar_file_name, avatar_file_size, avatar_updated_at, plan_id")
 
   end
 

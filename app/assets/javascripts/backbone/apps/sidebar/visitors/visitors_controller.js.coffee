@@ -92,11 +92,16 @@
       @connection.send(pres)
 
     onPresence: (presence) =>
+      console.log "presence ",presence
       from     = $(presence).attr("from")
       jid      = Strophe.getNodeFromJid from
       resource = Strophe.getResourceFromJid from
       type     = $(presence).attr("type")
       visitor  = @visitors.findWhere { jid: jid }
+      info     = JSON.parse($(presence).find('offerchat').text())
+      console.log info
+
+
 
       if type is "unavailable"
         @visitors.remove visitor
