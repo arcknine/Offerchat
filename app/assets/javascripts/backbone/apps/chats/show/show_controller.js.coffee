@@ -91,6 +91,12 @@
         # msg = $msg({to: agent_jid, type: "chat"}).c('inactive', {xmlns: 'http://jabber.org/protocol/chatstates'})
         # @connection.send msg
 
+        # to_agent   = $msg({type: 'chat', to: jid}).c('transfer', {xmlns: 'http://jabber.org/protocol/chatstates'}).c('item', {jid: Offerchat.current.jid, affiliation: 'visitor'});
+        # to_visitor = $msg({type: 'chat', to: Offerchat.current.jid}).c('transfer', {xmlns: 'http://jabber.org/protocol/chatstates'}).c('item', {jid: jid, affiliation: 'agent'});
+
+        # Offerchat.connection.send(to_agent);
+        # Offerchat.connection.send(to_visitor);
+
         console.log 'itemmmmmmmmm', item
         # false
 
