@@ -56,8 +56,9 @@
     endChat: (item) =>
       if confirm("Are you sure you want to end this chat session?")
         jid = @visitor.get("jid")
-        msg = $msg({to: jid, type: "chat"}).c('inactive', {xmlns: 'http://jabber.org/protocol/chatstates'})
-        @connection.send msg
+        msg = $msg({to: jid, type: "chat"}).c('body').t("!endchat")
+
+        @connectionSend msg, jid    # function can be found in controller base
 
         # TODO:
         # send report to dashboard
@@ -89,12 +90,9 @@
 
         to  = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
         msg = $msg({to: to, type: "chat"}).c('body').t($.trim(message))
-        @connection.send msg
 
-        setTimeout (=>
-          active = $msg({type: 'chat', to: to}).c('active', {xmlns: 'http://jabber.org/protocol/chatstates'})
-          @connection.send active
-        ), 100
+        @connectionSend msg, to
+
       else
         to        = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
         composing = $msg({type: 'chat', to: to}).c('composing', {xmlns: 'http://jabber.org/protocol/chatstates'})
