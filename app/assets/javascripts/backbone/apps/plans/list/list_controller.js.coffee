@@ -50,6 +50,8 @@
       @listenTo modalView, "authorize:payment", (e) =>
         Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
 
+        @processPayment()
+
         card =
           number:   $(e.view.el).find("input[name=credit_card_number]").val()
           cvc:      $(e.view.el).find("input[name=cvv]").val()
@@ -67,11 +69,9 @@
               App.reqres.setHandler "get:current:user", =>
                 @profile
 
-              formView.trigger "modal:close"
-              @paymentNotify("<strong>Success!</strong> You have upgraded your subscription to <strong>#{plan}</strong>.", "success")
+              @paymentSuccess()
           else
-            formView.trigger "modal:close"
-            @paymentNotify("There was a problem with your credit card. Please try again later", "warning")
+            @paymentFail()
 
         Stripe.createToken(card, handleStripeResponse)
 
@@ -83,10 +83,45 @@
 
       App.modalRegion.show formView
 
-    paymentNotify: (message, klass) ->
-      $(".payment-notify").removeClass("success")
-      $(".payment-notify").removeClass("warning")
-      $(".payment-notify").addClass(klass)
-      $(".payment-notify").find("span").html(message)
-      $(".payment-notify").fadeIn()
+    getProcessPaymentModal: ->
+      new List.ModalProcessPayment
+        model: @profile
 
+    processPayment: ->
+      modalView = @getProcessPaymentModal()
+      formView  = App.request "modal:wrapper", modalView
+
+      @listenTo formView, "modal:close", (item)->
+        formView.close()
+
+      App.modalRegion.show formView
+
+    getPaymentSuccessModal: ->
+      new List.ModalPaymentSuccess
+        model: @profile
+
+    paymentSuccess: ->
+      modalView = @getPaymentSuccessModal()
+      formView  = App.request "modal:wrapper", modalView
+
+      @listenTo formView, "modal:close", (item)->
+        formView.close()
+
+      @listenTo formView, "goto:agents", (item) ->
+        console.log "wat"
+        App.navigate Routes.agents_path(), trigger: true
+
+      App.modalRegion.show formView
+
+    getPaymentFailModal: ->
+      new List.ModalPaymentFail
+        model: @profile
+
+    paymentFail: ->
+      modalView = @getPaymentFailModal()
+      formView  = App.request "modal:wrapper", modalView
+
+      @listenTo formView, "modal:close", (item)->
+        formView.close()
+
+      App.modalRegion.show formView

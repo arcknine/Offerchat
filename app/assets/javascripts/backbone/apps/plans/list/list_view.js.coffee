@@ -40,3 +40,36 @@
     serializeData: ->
       user: @options.model.toJSON()
       plan: @options.plan
+
+  class List.ModalProcessPayment extends App.Views.ItemView
+    template: "plans/list/process_payment"
+    className: "authorize-payment-overlay text-center"
+    form:
+      title: "Processing Payment"
+      footer: false
+      buttons:
+        nosubmit: true
+
+  class List.ModalPaymentSuccess extends App.Views.ItemView
+    template: "plans/list/payment_success"
+    className: "authorize-payment-overlay text-center"
+    form:
+      title: "Payment Successful"
+      footer: false
+      buttons:
+        nosubmit: true
+
+    triggers:
+      "click .manage-agents" : "goto:agents"
+
+    serializeData: ->
+      user: @options.model.toJSON()
+
+  class List.ModalPaymentFail extends App.Views.ItemView
+    template: "plans/list/payment_fail"
+    className: "authorize-payment-overlay text-center"
+    form:
+      title: "Payment Failed"
+      footer: false
+      buttons:
+        nosubmit: true

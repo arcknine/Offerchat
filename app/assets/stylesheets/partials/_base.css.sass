@@ -598,20 +598,22 @@ h4
       margin-right: 10px
   .modal-header, 
     .close
-      color: #999
+      color: #fff
       position: absolute
       top: 10px
       right: 15px
-      font-size: 28px
-      text-shadow: 0 1px 0 #fff
-      width: 24px
-      height: 24px
-      line-height: 24px
+      font-size: 18px
+      
+      width: 22px
+      height: 22px
+      background: #434343
+      border-radius: 50%
+      line-height: 23px
       text-align: center
       z-index: 100
       @include transition(.2s)
       &:hover
-        color: #434343
+        background-color: #212121
   .modal-body
     &.bordered
       border-top: 1px solid #e1e1e1  
@@ -859,3 +861,16 @@ span.dot-seperator
     text-align: center
     font-size: 12px
     color: #999
+.authorize-payment-overlay
+  h4
+    color: #999
+    font-size: 12px
+    text-shadow: 0 1px 0 #fff
+
+.authorize-payment-success
+  h3
+    font-size: 24px
+    margin: 10px 0 0 0
+
+  
+
