@@ -8,7 +8,7 @@ Chats = {
   roster:   TAFFY(),
   visitor:  TAFFY(),
   agent:    TAFFY(),
-  agents:   [],
+  agents:   JSON.parse(sessionStorage.getItem("offerchat_agents")) || [],
 
   init: function() {
     var _this = this, attach;
@@ -23,6 +23,7 @@ Chats = {
     this.getAvailableRoster(function(){
       // sud dri?
       attach = JSON.parse(sessionStorage.getItem("offerchat-credential"));
+      // agent  = _this.agent({website_id: Offerchat.website.id}).first();
       if (attach && attach.jid && attach.rid && attach.sid)
         _this.attach();
       else
@@ -35,6 +36,10 @@ Chats = {
     roster  = this.roster({website_id: Offerchat.website.id}).first();
     visitor = this.visitor({website_id: Offerchat.website.id}).first();
     info    = Offerchat.details({id: Offerchat.website.id}).first();
+
+    $(".widget-input-text").attr("disabled", "disabled");
+    Templates.loader.replace();
+
     if (!roster) {
       loc = [info.city, info.location];
       $.ajax({
@@ -44,6 +49,7 @@ Chats = {
         dataType: "jsonp",
         success: function(data) {
           if (typeof data.error == "undefined") {
+            $(".widget-input-text").removeAttr("disabled");
             data.roster.last_used = new Date().getTime();
             _this.roster.insert(data.roster);
 
@@ -52,6 +58,7 @@ Chats = {
             else
               _this.visitor({website_id: Offerchat.website.id}).update(data.visitor);
 
+            Templates.loader.destroy();
             callback();
           }
         }
@@ -65,6 +72,9 @@ Chats = {
         this.roster({website_id: Offerchat.website.id}).remove();
         this.getAvailableRoster(callback);
       } else {
+        $(".widget-input-text").removeAttr("disabled");
+        Templates.loader.destroy();
+
         this.roster({website_id: Offerchat.website.id}).update({last_used: time_now});
         callback();
       }
@@ -122,12 +132,8 @@ Chats = {
     // this.connection.addHandler(this.on_message, null, "message");
     // this.connection.addHandler(this.on_iq, null, "iq");
 
-    this.connection.xmlInput = function (data) {
-      // console.log(data);
-      // _this.onPresence($(data).find("presence"))
-    };
-
     this.sendPresence();
+    this.initTriggers();
   },
 
   setCredentials: function() {
@@ -188,7 +194,8 @@ Chats = {
   },
 
   onPresence: function(presence) {
-    var pres, from, type, show, jid, node, agent, index;
+    var pres, from, type, show, jid, node, agent, index, current_agent;
+    console.log(presence);
     pres = $(presence);
     from = pres.attr('from');
     type = pres.attr('type');
@@ -197,9 +204,12 @@ Chats = {
     node = Strophe.getNodeFromJid(from);
     res  = Strophe.getResourceFromJid(from);
 
-    // console.log(type);
+    agent = Chats.agent({website_id: Offerchat.website.id}).first();
 
-    // agent = Offerchat.agent({website_id: Offerchat.widget.website.id}).first();
+    if (!type && node != agent.jabber_user && (!show || show == 'chat') && $.inArray(jid, node) < 0) {
+      Chats.agents.push(node);
+    }
+    sessionStorage.setItem("offerchat_agents", JSON.stringify(Chats.agents));
 
     return true;
   },
@@ -279,19 +289,11 @@ Chats = {
   sendChat: function(ev, input) {
     var message = $(input).val();
     if (ev.keyCode == 13) {
-      var msg, from, to, conn, active, agent;
-      agent = this.agent({website_id: Offerchat.website.id}).first();
-      msg   = this.generateMessage(message, "You");
-      conn  = this.connection;
+      var _this = this;
 
-      to     = agent.jabber_user + Offerchat.src.server + "/ofc-widget";
-      msg    = $msg({to: to, type: "chat", id: conn.getUniqueId("chat")}).c("body").t(message).up().c("active", {xmlns: "http://jabber.org/protocol/chatstates"});
-      active = $msg({to: to, type: "chat", id: conn.getUniqueId("active")}).c("active", {xmlns: "http://jabber.org/protocol/chatstates"});
-
-      conn.send(msg.tree());
-      setTimeout(function() {
-        conn.send(active.tree());
-      }, 100);
+      this.getAgent(function(agent) {
+        _this.xmppSendMsg(message, agent, "You");
+      });
 
       $(input).val("");
     } else {
@@ -299,10 +301,56 @@ Chats = {
     }
   },
 
+  xmppSendMsg: function(message, agent, sender) {
+    var msg, to, active, conn;
+    conn   = this.connection;
+    msg    = this.generateMessage(message, sender);
+    to     = agent.jabber_user + Offerchat.src.server + "/ofc-widget";
+    msg    = $msg({to: to, type: "chat", id: conn.getUniqueId("chat")}).c("body").t(message).up().c("active", {xmlns: "http://jabber.org/protocol/chatstates"});
+    active = $msg({to: to, type: "chat", id: conn.getUniqueId("active")}).c("active", {xmlns: "http://jabber.org/protocol/chatstates"});
+
+    conn.send(msg.tree());
+    setTimeout(function() {
+      conn.send(active.tree());
+    }, 100);
+  },
+
+  getAgent: function(callback) {
+    var _this = this;
+    var agent = Chats.agent({website_id: Offerchat.website.id}).first();
+    if (!agent) {
+      selected_agent = this.agents[Math.floor(Math.random() * this.agents.length)];
+      $.each(Offerchat.website.agents, function(key, value){
+        if (value.jabber_user == selected_agent) {
+          agent = value;
+          agent.website_id = Offerchat.website.id;
+          _this.agent.insert(value);
+        }
+      });
+
+      $(".widget-input-text").attr("disabled", "disabled");
+      Templates.loader.replace();
+
+      setTimeout(function(){
+        Templates.loader.destroy();
+        $(".widget-input-text").removeAttr("disabled");
+
+        callback(agent);
+      }, 2000)
+    } else {
+      // console.log($(Templates.inputs.options.template).find("input.widget-input-text").attr("placeholder"));
+      // console.log("template", Templates.inputs.options.template);
+      callback(agent);
+    }
+  },
+
   generateMessage: function(message, sender) {
     var cur, msg, d, chat, classTag;
     cur = this.messages.length;
     d   = new Date();
+
+    message = message.replace("/me chat-trigger: ", "");
+
     classTag = sender != "You" ? " agent-message" : "";
     if (cur != 0 && this.messages[cur - 1].sender == sender) {
       msg = {
@@ -339,6 +387,56 @@ Chats = {
 
     $(".widget-chat-viewer").animate({ scrollTop: $('.widget-chat-viewer')[0].scrollHeight}, 300);
     return msg;
+  },
+
+  initTriggers: function() {
+    var _this    = this,
+        triggers = Offerchat.website.settings.triggers,
+        rule2    = false,
+        rule3    = false,
+        conn     = this.connection;
+
+    $.each(triggers, function(key, value) {
+
+      if (value.rule_type == 2 && value.params.url == Offerchat.params.current_url)
+        rule2 = true;
+      else if (value.rule_type == 3 && value.params.url == Offerchat.params.current_url)
+        rule3 = true;
+
+      var time = value.rule_type == 3 ? 10000 : parseInt(value.params.time) * 1000;
+
+      if ( value.status == 1 ) {
+        setTimeout(function(){
+          var message = "/me chat-trigger: ";
+          switch(value.rule_type) {
+            case 1:
+              if (!rule2 && !rule3 && _this.messages.length == 0) {
+                _this.getAgent(function(agent) {
+                  _this.xmppSendMsg(message + value.message, agent, agent.display_name);
+                });
+              }
+              break;
+            case 2:
+              if (!rule3 && value.params.url == Offerchat.params.current_url && _this.messages.length == 0) {
+                _this.getAgent(function(agent) {
+                  _this.xmppSendMsg(message + value.message, agent, agent.display_name);
+                });
+              }
+              break;
+            case 3:
+              if (value.params.url == Offerchat.params.current_url && _this.messages.length == 0) {
+                _this.getAgent(function(agent) {
+                  _this.xmppSendMsg(message + value.message, agent, agent.display_name);
+                });
+              }
+              break;
+          }
+        }, time);
+
+      } // end if
+
+    }); // end each
+
   }
 };
 

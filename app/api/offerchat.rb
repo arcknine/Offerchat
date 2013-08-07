@@ -113,7 +113,7 @@ module Offerchat
           else
             website = visitor.website
             availableRoster = website.available_roster
-            if availableRoster.nil?
+            if availableRoster.blank?
               { error: "Offline" }
             else
               if params[:name]
