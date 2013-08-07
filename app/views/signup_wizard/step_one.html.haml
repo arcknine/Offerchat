@@ -12,7 +12,7 @@
             %label
               Email name
             .input-container
-              = f.email_field :email, :autofocus => true, :class => "large"
+              = f.email_field :email, :type => "text", :autofocus => true, :class => "large"
               %button.btn.action{:type => "submit"} Continue
 
           %p.alert.alert-error{ :style =>"padding-left:150px;color:red"}

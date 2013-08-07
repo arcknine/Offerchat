@@ -20,6 +20,7 @@
           App.request "hide:preloader"
         error: ->
           App.request "hide:preloader"
+          App.navigate 'websites/new', trigger: true
       site
 
     getOwnedSites: ->

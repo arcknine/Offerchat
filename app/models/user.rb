@@ -85,9 +85,9 @@ class User < ActiveRecord::Base
           account.owner   = owner
           account.website = Website.find(p[:website_id])
           account.save
-        
+
           has_checked_website = true
-          
+
           if user_is_new
             UserMailer.delay.new_agent_welcome(account, user, password) unless user.errors.any?
           else
