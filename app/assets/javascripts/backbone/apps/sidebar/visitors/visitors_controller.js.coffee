@@ -75,6 +75,7 @@
       @connection.addHandler @onPresence, null, "presence"
       @connection.addHandler @onPrivateMessage, null, "message", "chat"
 
+
       @create_vcard()
       @sendPresence()
 
@@ -96,13 +97,11 @@
         @connection.sendIQ build
         sessionStorage.setItem("vcard", true)
 
-
     sendPresence: ->
       pres = $pres().c('priority').t('1').up().c('status').t("Online")
       @connection.send(pres)
 
     onPresence: (presence) =>
-      console.log presence
       from     = $(presence).attr("from")
       jid      = Strophe.getNodeFromJid from
       resource = Strophe.getResourceFromJid from
@@ -129,7 +128,7 @@
       true
 
     onPrivateMessage: (message) =>
-      console.log "tae message: ",message
+
       from    = $(message).attr("from")
       jid     = Strophe.getNodeFromJid from
       body    = $(message).find("body").text()
