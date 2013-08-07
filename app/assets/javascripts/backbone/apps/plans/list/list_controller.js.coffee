@@ -11,7 +11,7 @@
       @listenTo @profile, "change", =>
         @initPlans(@profile.get("plan_identifier"))
 
-      @listenTo layout, "hide:notification", =>
+      @listenTo @plansView, "hide:notification", =>
         $(".payment-notify").fadeOut()
 
       App.execute "when:fetched", plans, =>

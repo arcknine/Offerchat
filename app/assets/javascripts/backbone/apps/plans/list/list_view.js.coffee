@@ -7,7 +7,7 @@
       "change" : "render"
     events:
       "click a.upgrade" : "upgradePlan"
-    triggers
+    triggers:
       "click a.close"   : "hide:notification"
 
     upgradePlan: (e) ->
