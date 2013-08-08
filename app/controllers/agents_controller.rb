@@ -22,6 +22,11 @@ class AgentsController < ApplicationController
     if @user.errors.any?
       respond_with @user
     end
+  rescue Exceptions::AgentLimitReachedError
+    user = User.new
+    user.errors[:base] << "Agent limit reached. Upgrade your plan to add more agents"
+
+    respond_with user
   end
 
   def update
@@ -30,8 +35,8 @@ class AgentsController < ApplicationController
 
     params[:websites].each do |account|
       accounts.push(
-        is_admin: (account[:role] == 2), 
-        website_id: account[:id], 
+        is_admin: (account[:role] == 2),
+        website_id: account[:id],
         account_id: account[:account_id],
         role: account[:role]
       )

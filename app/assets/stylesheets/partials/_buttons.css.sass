@@ -14,12 +14,20 @@
   padding: $button-padding
   cursor: pointer
   text-shadow: 0 1px 0 lighten($button-bg-color, 10%)
+  @include transition(.2s)
   // box-shadow: 0 1px 0 darken($button-bg-color, 15%)
   &:active, &.active
     background-color: darken($button-bg-color, 5%)
     // box-shadow: 0 1px 1px darken($button-bg-color, 15%) inset
     border-top: 1px solid darken($button-bg-color, 20%)
-    
+  &.success
+    background-color: $button-bg-success-color
+    text-shadow: 0 -1px 0 darken($button-bg-success-color, 20%)
+    color: #fff
+    &:active
+      background-color: darken($button-bg-success-color, 5%)
+      box-shadow: 0 1px 1px darken($button-bg-success-color, 15%) inset
+      border-top: 1px solid darken($button-bg-success-color, 20%)
   &.action
     background-color: $button-bg-action-color
     // box-shadow: 0 1px 0 darken($button-bg-action-color, 15%)
@@ -38,6 +46,22 @@
       background-color: darken($button-bg-warning-color, 5%)
       box-shadow: 0 1px 1px darken($button-bg-warning-color, 15%) inset
       border-top: 1px solid darken($button-bg-warning-color, 20%)
+  &.add-more-btn
+    font-size: 11px
+    font-weight: bold
+    display: inline-block
+    padding: 3px 5px
+    background: #ec2972
+    color: #fff
+    border-radius: 3px
+    border: 1px solid darken(#ec2972, 10%)
+    position: relative
+    top: -2px
+    margin-right: 5px
+    text-shadow: 0 -1px 0 darken(#ec2972, 10%)
+    &.btn-large
+      font-size: 14px
+      padding: 7px
   &.left
     float: left
   &.right
@@ -52,7 +76,12 @@
   .icon
     top: -2px
     margin-right: 2px
-
+  &.btn-long
+    padding-left: 80px
+    padding-right: 80px
+  &.btn-line-fix
+    line-height: 1
+    
 .btn-group
   a.btn
     float: left

@@ -1,8 +1,7 @@
-.block-message
-  You are currently using our
-  %strong
-    Free
-  version. Upgrade now to add more agents.
+.block-message.payment-notify{:style => "display: none"}
+  %a.close ×
+  %span
+
 .block.large
   %h1
     Plans and Pricing
@@ -17,8 +16,8 @@
           {{business.name}}
         %p.small
           {{business.description}}
-        .block
-          %a.btn.action
+        .block#business-button
+          %a.btn.action.upgrade{ data: { id: "{{business.plan_identifier}}" } }
             Upgrade
         .plan-price
 
@@ -39,8 +38,8 @@
           {{personal.name}}
         %p.small
           {{personal.description}}
-        .block
-          %a.btn.success
+        .block#personal-button
+          %a.btn.success.upgrade{ data: { id: "{{personal.plan_identifier}}" } }
             Upgrade
         .plan-price
           .plan-value
@@ -59,8 +58,8 @@
           {{enterprise.name}}
         %p.small
           {{enterprise.description}}
-        .block
-          %a.btn.action
+        .block#enterprise-button
+          %a.btn.action.upgrade{ data: { id: "{{enterprise.plan_identifier}}" } }
             Upgrade
         .plan-price
           .plan-value
@@ -78,5 +77,5 @@
         {{starter.description}}
         %strong
           ${{starter.price}}.
-        %a.hovered{ :style => "margin-left: 10px" }
+        %a.hovered.upgrade{ :style => "margin-left: 10px", data: { id: "{{starter.plan_identifier}}" } }
           Upgrade

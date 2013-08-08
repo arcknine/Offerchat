@@ -37,16 +37,22 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
+  config.add_setting(:seed_tables)
+  config.seed_tables = %w( plans )
+
   config.before(:suite) do
-   DatabaseCleaner.strategy = :truncation
-   DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.clean_with(:truncation, except: config.seed_tables)
   end
 
-  config.before(:each) do
+  config.around(:each) do |ex|
+    if ex.metadata[:no_transactions]
+      DatabaseCleaner.strategy = :truncation, { except: config.seed_tables }
+    else
+      DatabaseCleaner.strategy = :transaction
+    end
+
     DatabaseCleaner.start
-  end
-
-  config.after(:each) do
+    ex.run
     DatabaseCleaner.clean
   end
 

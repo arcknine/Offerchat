@@ -3,8 +3,9 @@ input[type=password],
 input[type=email],
 textarea
   box-sizing: border-box
+  -moz-box-sizing: border-box
   padding: 8px
-  font-size: $base-font-size
+  font-size: 12px
   outline: none
   border: 2px solid lighten($border-color,5%)
   font-family: $base-font-family
@@ -142,13 +143,13 @@ label
     display: block
     font-weight: bold
     .inline-label-message
-      font-weight: 100
+      font-weight: 400
     &.label-top-fix
       vertical-align: top
       padding-top: 10px
   &.invite-user-form
     padding: 10px
-    
+  
   &.form-inline
     .input-container,
     label
@@ -171,6 +172,7 @@ label
     padding: 20px 0
 
 .trigger-form
+
   padding: 10px 20px
   margin: 20px 0
   border-radius: 5px
@@ -182,7 +184,8 @@ label
     &.short
       min-width: 70px
       width: 115px
-
+    &.time-input-fix
+      width: 250px
 .input-container
   &.top
     vertical-align: top
@@ -200,6 +203,7 @@ label
     color: $error-color
   .block-text-message
     color: $error-color
+ 
 .block-text-message
   margin-top: 5px
 .field-success
@@ -250,10 +254,10 @@ label
     vertical-align: top
     display: inline-block
     width: auto
-    height: 19px
+    height: 16px
     min-width: 16px
     padding: 7px
-    font-size: 14px
+    font-size: 12px
     line-height: 20px
     border: 2px solid $border-color
 // Toggle
@@ -365,3 +369,39 @@ label
       background-image: image-url('toggle/icon-on-2x.png')
       background-size: 30px 29px
 
+.progress
+  height: 10px
+  overflow: hidden
+  background-color: #f7f7f7
+  border-radius: 10px
+  width: 250px
+  display: block
+  margin: 10px auto
+  &.full
+    width: 100%
+  h3
+
+  
+  .progress-bar
+    float: left
+    width: 100%
+    height: 100%
+    font-size: 12px
+    color: #fff
+    text-align: center
+
+    background-color: #2599dc
+    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent))
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+    background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+    -webkit-background-size: 40px 40px
+    -moz-background-size: 40px 40px
+    -o-background-size: 40px 40px
+    background-size: 40px 40px
+    -webkit-animation: progress-bar-stripes 2s linear infinite
+    -moz-animation: progress-bar-stripes 2s linear infinite
+    -ms-animation: progress-bar-stripes 2s linear infinite
+    -o-animation: progress-bar-stripes 2s linear infinite
+    animation: progress-bar-stripes 2s linear infinite

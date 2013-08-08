@@ -109,6 +109,7 @@ a.site-selector
     color: #fff
     font-size: 11px
 
+
 .chats-sidebar-container
   position: absolute
   overflow: auto
@@ -120,7 +121,7 @@ a.site-selector
 
   a.chat-item-tab
     @include transition(.2s)
-    padding: $padding-10
+    padding: 8px
     background: #fff
     border-radius: $button-radius
     color: $light-text-color
@@ -128,7 +129,7 @@ a.site-selector
     display: block
     line-height: 1
     position: relative
-    font-weight: bold
+    
     
     &:hover
       background: #e8e8e8
@@ -149,12 +150,8 @@ a.site-selector
     .small-help-block
       font-style: normal
       font-size: 12px
-    &.chat-item-agent
-      span.chat-agent-name
-        position: relative
-        vertical-align: top
-        top: 12px
-        margin-left: 5px
+      line-height: 1.4
+    
 .chats-sidebar
   padding: 10px
   color: #fff

@@ -7,9 +7,11 @@ class User < ActiveRecord::Base
 
   has_many :accounts
   has_many :websites, :foreign_key => "owner_id"
+  has_many :agent_accounts, :foreign_key => "owner_id", :class_name => "Account"
+  belongs_to :plan, :foreign_key => "plan_identifier", :class_name => "Plan"
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-    :name, :display_name, :jabber_user, :jabber_password, :avatar
+    :name, :display_name, :jabber_user, :jabber_password, :avatar, :plan_identifier, :billing_start_date, :stripe_customer_token
 
   validates_presence_of :name
   validates_presence_of :display_name
@@ -35,16 +37,11 @@ class User < ActiveRecord::Base
   end
 
   def my_agents
-    owner_websites = self.websites.collect(&:id).join(",")
-    owner_accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id IN (?) AND role != ?", owner_websites, Account::OWNER)
-    owner_accounts.collect(&:user)
+    agent_accounts.collect { |c| c.user unless c.is_owner? }.compact
   end
 
   def agents
-    owner_websites = self.websites.collect(&:id).join(",")
-    owner_accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id IN (?)", owner_websites)
-    #agents = Account.where(owner_id: self.id)
-    owner_accounts.collect(&:user)
+    agent_accounts.collect(&:user)
   end
 
   def find_managed_sites(website_id)
@@ -62,9 +59,22 @@ class User < ActiveRecord::Base
     accounts.collect(&:website)
   end
 
+  def seats_available
+    plan.max_agent_seats - self.agents.count
+  end
+
   def self.create_or_invite_agents(owner, user, account_array)
     user = User.find_or_initialize_by_email(user[:email])
     user_is_new = false
+
+    if owner.seats_available <= 0
+      raise Exceptions::AgentLimitReachedError
+    end
+
+    if owner.seats_available <= 0
+      raise Exceptions::AgentLimitReachedError
+    end
+
     if user.new_record?
       password                   = Devise.friendly_token[0,8]
       user.password              = password

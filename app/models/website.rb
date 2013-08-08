@@ -52,7 +52,6 @@ class Website < ActiveRecord::Base
     settings.style
   end
 
-
   def save_settings(params)
     components = params.keys
     components.each do |c|
@@ -95,9 +94,10 @@ class Website < ActiveRecord::Base
   end
 
   def generate_account
-    account = self.accounts.build
-    account.user = self.owner
-    account.role = Account::OWNER
+    account       = self.accounts.build
+    account.user  = self.owner
+    account.role  = Account::OWNER
+    account.owner = self.owner
     account.save
     DripWorker.perform_async self.owner.id
   end

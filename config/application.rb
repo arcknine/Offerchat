@@ -69,7 +69,11 @@ module Dashboard
     # Grape api
     config.paths.add "app/api", glob: "**/*.rb"
     config.autoload_paths += Dir["#{Rails.root}/app/api/*"]
+
     # JSONP rack middle ware
     config.middleware.use Rack::JSONP
+
+    # Services
+    config.autoload_paths += %w(#{config.root}/app/services)
   end
 end

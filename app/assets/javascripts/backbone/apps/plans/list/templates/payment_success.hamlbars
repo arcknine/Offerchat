@@ -1,0 +1,10 @@
+.authorize-payment-success
+  %h3 Thank you!
+  You have successfully changed your subscription plan to
+  %strong
+    {{user.plan_identifier}}
+    .block.large
+      %i.icon.icon-agent-large-success
+    .block
+      %a.btn.action.btn-large.manage-agents
+        Manage Agents

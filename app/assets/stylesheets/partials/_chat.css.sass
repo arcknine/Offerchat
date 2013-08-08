@@ -13,7 +13,7 @@
   margin-top: 5px
   li
     margin: 7px 0
-  & >
+  & > 
     .visitor-name
       a
         font-size: 16px
@@ -23,7 +23,7 @@
 .chat-type-selector
   position: relative
   text-align: center
-  margin: 10px 0 0 0
+  margin: 10px 0 0 0 
   border-bottom: 3px solid #7f8891
   a
     margin: 0 20px
@@ -63,7 +63,12 @@
     color: $light-text-color
 .chat-header
   border-bottom: 1px solid $default-border-color
-  height: 105px
+  height: 127px
+  
+  box-sizing: border-box
+  -moz-box-sizing: border-box
+  &.overflow
+    overflow-y: auto
 .chat-right-sidebar
   float: right
   margin-top: 35px
@@ -82,7 +87,8 @@
 
   &.chat-response-wrapper
     bottom: 0
-    padding: 5px
+    padding: 5px 0
+
 
 .chat-action-selector
   &.btn
@@ -111,7 +117,7 @@
   &.static
     position: relative
 
-
+    
 .chat-item
   border-top: 1px solid #f1f1f1
   padding: 10px 0
@@ -132,7 +138,7 @@
     margin: 0 10px
     border-radius: 3px
     color: $text-color
-
+    
     font-size: 12px
   .chat-table
     float: left
@@ -142,17 +148,19 @@
     &.chat-container-table
       width: 68%
       padding-left: 20px
-
+    
   .viewing-current-url
     overflow: hidden
     text-overflow: ellipsis
     white-space: nowrap
   .chat-user
+
     &.agent
-      color: $light-text-color
-    &.visitor
-      font-weight: bold
       color: darken($text-color, 20%)
+    &.visitor
+      
+      
+      color: $light-text-color
 .chat-time
   display: inline-block
   margin-left: 10px
@@ -163,3 +171,39 @@
 
 .show-prev-chats-label
   margin-right: 10px
+
+.transfer-chat-notification
+  margin: 5px 0
+  color: $light-text-color
+  font-size: 12px
+  padding: 3px
+
+span.transfer-chat-msg
+  vertical-align: top
+  margin-top: 10px
+  display: inline-block 
+  margin-left: 10px
+
+
+.chat-agent-name
+  position: relative
+  vertical-align: top
+  top: 12px
+  margin-left: 5px
+  &.small
+    font-size: 12px
+.chat-header-group
+  .profile-image-container
+    margin-bottom: 10px
+    text-align: left
+    min-width: 170px
+    cursor: default
+    float: left
+    .profile-image
+      float: left
+      margin-right: 5px
+  .chat-agent-name
+    display: inline-block
+    float: left
+    
+    
