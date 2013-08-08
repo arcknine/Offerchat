@@ -4,18 +4,18 @@
   %label
     Credit Card #
   .input-container
-    %input.large{ :type => "text", :name => "credit_card_number", :value => "" }
+    %input.large{ :type => "text", :name => "credit_card_number", :value => "", :maxlength => 15 }
 %fieldset
   %label
     CV Code
   .input-container
-    %input.short{ :type => "text", :name => "cvv", :placeholder => "XXX", :value => "" }
+    %input.short{ :type => "text", :name => "cvv", :placeholder => "XXX", :value => "", :maxlength => 3 }
 %fieldset
   %label
     Expiry
   .input-container
-    %input.short{ :type => "text", :name => "month", :placeholder => "MM", :value => "" }
-    %input{ :type => "text", :name => "year", :placeholder => "YYYY", :style => "width: 60px;", :value => "" }
+    %input.short{ :type => "text", :name => "month", :placeholder => "MM", :value => "", :maxlength => 2 }
+    %input{ :type => "text", :name => "year", :placeholder => "YYYY", :style => "width: 60px;", :value => "", :maxlength => 4 }
 
 %fieldset
   .terms-text
