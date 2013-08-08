@@ -38,6 +38,7 @@
 
     triggers:
       "click div.btn-action-selector"   : "change:photo:clicked"
+      "click a.remove"                  : "remove:photo:clicked"
       
     modelEvents:
       "change"                          : "render"
@@ -53,14 +54,12 @@
         url: Routes.update_avatar_profiles_path()
         formData: {authenticity_token: App.request("csrf-token")}
         add: (e, data) ->
-          types = /(\.|\/)(gif|jpe?g|png)$/i
+          types = /(\.|\/)(jpe?g|png)$/i
           file = data.files[0]
-          
+          App.request "show:preloader"
           if types.test(file.type) || types.test(file.name)
-            App.request "show:preloader"
             data.submit().done( (e,data)->
-              self.model.set
-                avatar: e.avatar
+              self.model.set e
               App.execute "avatar:change", e.avatar
               App.request "hide:preloader"
               self.trigger "show:notification", "Your avatar have been saved!"
@@ -69,7 +68,8 @@
                 self.trigger "show:notification", "File size is too large. Please choose a smaller avatar"
               App.request "hide:preloader"
           else
-            self.trigger "show:notification", "#{file.name} is not a gif, jpeg, or png image file"
+            self.trigger "show:notification", "#{file.name} is not a jpeg, or png image file"
+            App.request "hide:preloader"
 
 
   class Profile.Edit extends App.Views.ItemView

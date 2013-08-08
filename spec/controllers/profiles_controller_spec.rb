@@ -48,11 +48,17 @@ describe ProfilesController do
         JSON.parse(response.body)["errors"].should_not be_blank
         response.code.should eq "422"
       end
+      
+      it "should remove avatar if avatar value is 'remove'" do
+        xhr :put, :update, id: @user.id, profile: {avatar_remove: true}, format: :json
+        assigns(:profile).avatar.to_s.should eq "http://s3.amazonaws.com/offerchat/users/avatars/avatar.jpg"
+        response.code.should eq "200"
+      end
     end
 
     describe "uploading avatars" do
       it "should be able to update avatar" do
-        post :update_avatar, :avatar => fixture_file_upload('/avatar/avatar.png')
+        post :update_avatar, :avatar => fixture_file_upload('/avatar/avatar.jpg')
         assigns(:profile).avatar.to_s.should_not eq "http://s3.amazonaws.com/offerchat/users/avatars/avatar.jpg"
         response.code.should eq "200"
       end

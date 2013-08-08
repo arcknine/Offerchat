@@ -9,9 +9,8 @@ class User < ActiveRecord::Base
   has_many :websites, :foreign_key => "owner_id"
   has_many :agent_accounts, :foreign_key => "owner_id", :class_name => "Account"
   belongs_to :plan, :foreign_key => "plan_identifier", :class_name => "Plan"
-
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
-    :name, :display_name, :jabber_user, :jabber_password, :avatar, :plan_identifier, :billing_start_date, :stripe_customer_token
+  attr_accessor :avatar_remove
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :display_name, :jabber_user, :jabber_password, :avatar, :plan_identifier, :billing_start_date, :stripe_customer_token, :avatar_remove
 
   validates_presence_of :name
   validates_presence_of :display_name

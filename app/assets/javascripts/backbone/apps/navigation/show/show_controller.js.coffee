@@ -91,6 +91,7 @@
 
       App.commands.setHandler "avatar:change", (avatar) ->
         user.set avatar: avatar
+        App.request "hide:preloader"
 
       App.navigationRegion.show navView
 
