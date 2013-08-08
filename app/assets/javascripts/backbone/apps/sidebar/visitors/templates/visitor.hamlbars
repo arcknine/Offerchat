@@ -5,6 +5,6 @@
     %span {{unread}}
   {{/if}}
 
-  {{jid}}
+  {{info.name}}
   .small-help-block
-    Offerchat - Hire an agent
+    {{info.title}}
