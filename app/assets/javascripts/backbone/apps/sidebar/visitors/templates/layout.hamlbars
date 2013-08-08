@@ -2,5 +2,4 @@
   %h4 GROUP (5)
   #agents-region
 
-  %h4 VISITORS {{items.lenght}}
   #visitors-region
