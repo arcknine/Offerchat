@@ -59,6 +59,9 @@
                 agents.add model
                 self.showNotification("Invitation sent!")
                 modalAgentView.close()
+              error: (data, error)->
+                self.showNotification _.first JSON.parse(error.responseText).errors.base
+                modalAgentView.close()
 
           addAgentViewLayout.agentRegion.show addAgentView 
           addAgentViewLayout.sitesRegion.show sitesView  
@@ -90,11 +93,15 @@
             @listenTo modalAgentView, "modal:unsubmit", (ob)->
               agent.set
                 websites: sites
-              agent.save agent.attributes
-              , success: ->
-                agents.fetch()
-                self.showNotification("Your changes have been saved!")
-                modalAgentView.close()
+              agent.save agent.attributes,
+                success: ->
+                  agents.fetch()
+                  self.showNotification("Your changes have been saved!")
+                  modalAgentView.close()
+                error: (data)->
+                  console.log data
+                  #modalAgentView.close()
+                  #self.showNotification("Your changes have been saved!")
               
             showAgentViewLayout.sitesRegion.show sitesView
 

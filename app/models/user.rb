@@ -106,8 +106,8 @@ class User < ActiveRecord::Base
         end
       end
     end unless user[:email].empty?
-    user.errors[:base] << "No website is checked" unless has_checked_website
-    user.errors[:base] << "No email provided" if user[:email].empty?
+    user.errors[:base] << "Please provide an email for that agent." if user[:email].empty?
+    user.errors[:base] << "Agent must be assigned to at least 1 site." unless has_checked_website
     user
   end
 
@@ -137,9 +137,6 @@ class User < ActiveRecord::Base
         end
       end
     end
-
-    #user.errors[:base] << "No website is checked" unless has_checked_website
-
     User.find(id)
   end
 
