@@ -42,6 +42,18 @@
         model: @profile
         plan: plan
 
+    getProcessPaymentModal: ->
+      new List.ModalProcessPayment
+        model: @profile
+
+    getPaymentSuccessModal: ->
+      new List.ModalPaymentSuccess
+        model: @profile
+
+    getPaymentFailModal: ->
+      new List.ModalPaymentFail
+        model: @profile
+
     showModal: (plan) =>
       modalView = @getPlanModal(plan)
 
@@ -83,10 +95,6 @@
 
       App.modalRegion.show formView
 
-    getProcessPaymentModal: ->
-      new List.ModalProcessPayment
-        model: @profile
-
     processPayment: ->
       modalView = @getProcessPaymentModal()
       formView  = App.request "modal:wrapper", modalView
@@ -95,10 +103,6 @@
         formView.close()
 
       App.modalRegion.show formView
-
-    getPaymentSuccessModal: ->
-      new List.ModalPaymentSuccess
-        model: @profile
 
     paymentSuccess: ->
       modalView = @getPaymentSuccessModal()
@@ -112,10 +116,6 @@
         App.navigate Routes.agents_path(), trigger: true
 
       App.modalRegion.show formView
-
-    getPaymentFailModal: ->
-      new List.ModalPaymentFail
-        model: @profile
 
     paymentFail: ->
       modalView = @getPaymentFailModal()
