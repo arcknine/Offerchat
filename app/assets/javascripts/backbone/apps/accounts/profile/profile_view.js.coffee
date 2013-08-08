@@ -38,7 +38,6 @@
 
     triggers:
       "click div.btn-action-selector"   : "change:photo:clicked"
-      #"click input.file-input"         : "change:avatar:clicked"
       
     modelEvents:
       "change"                          : "render"

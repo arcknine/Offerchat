@@ -71,7 +71,6 @@
         @showNotification item
       
       @listenTo uploadPhotoView , "change:photo:clicked", (item) =>
-        console.log item
         params =
           element: item
           openClass: "btn-selector"
