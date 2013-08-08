@@ -13,10 +13,12 @@ Chats = {
   init: function() {
     var _this = this, attach, details;
 
+    Templates.loader.replace();
+    $(".widget-input-text").attr("disabled", "disabled");
+
     this.roster.store('roster');
     this.visitor.store('visitor');
     this.agent.store('agent');
-    this.loadChats();
 
     details = Offerchat.details({id: Offerchat.website.id}).first();
     if (details.connect != false) {
@@ -39,9 +41,6 @@ Chats = {
     roster  = this.roster({website_id: Offerchat.website.id}).first();
     visitor = this.visitor({website_id: Offerchat.website.id}).first();
     info    = Offerchat.details({id: Offerchat.website.id}).first();
-
-    $(".widget-input-text").attr("disabled", "disabled");
-    Templates.loader.replace();
 
     if (!roster) {
       loc = [info.city, info.location];
@@ -102,9 +101,6 @@ Chats = {
       if (status === Strophe.Status.CONNECTED) {
         _this.reconnect = true;
         _this.connected();
-
-        $(".widget-input-text").removeAttr("disabled");
-        Templates.loader.destroy();
       }
       else if (status === Strophe.Status.DISCONNECTED && _this.reconnect == true) {
         _this.disconnect();
@@ -157,9 +153,14 @@ Chats = {
     // this.connection.addHandler(this.on_message, null, "message");
     // this.connection.addHandler(this.on_iq, null, "iq");
 
+    // show chats if connected
+    $(".widget-input-text").removeAttr("disabled");
+    Templates.loader.destroy();
+
     this.sendPresence();
     this.initTriggers();
     this.initTimeOut();
+    this.loadChats();
   },
 
   setCredentials: function() {
@@ -181,8 +182,6 @@ Chats = {
     widget  = Offerchat.details({id: Offerchat.website.id}).first()
     roster  = this.roster({website_id: Offerchat.website.id}).first();
     visitor = this.visitor({website_id: Offerchat.website.id}).first();
-
-    console.log(Offerchat.params);
 
     details = {
       api_key:  Offerchat.params.api_key,
@@ -287,6 +286,8 @@ Chats = {
     var msg   = this.messages.slice();
     var keys  = [];
 
+    // console.log("wtf??");
+
     for(var i = this.messages.length - 1; i >= 0; i--) {
       var time_diff = Math.ceil((new Date().getTime() - msg[i].created_at) / 1000);
       if (time_diff > 259200) {
@@ -297,6 +298,8 @@ Chats = {
         this.messages.splice(i, 1);
       }
     }
+
+    // console.log(this.messages);
 
     $.each(this.messages, function(key, value){
       var chat = Templates.generateTemplate({
@@ -468,16 +471,17 @@ Chats = {
   initTimeOut: function() {
     var roster, last_used, last_msg, time, now, time_diff, _this = this;
     roster    = this.roster({website_id: Offerchat.website.id}).first();
-    last_used = roster.last_used;
-    last_msg  = this.messages.length > 0 ? this.messages[this.messages.length - 1].created_at : null;
-
-    time = last_msg && last_msg > last_used ? last_msg : last_used;
 
     interval = setInterval( function() {
+      last_used = roster.last_used;
+      last_msg  = _this.messages.length > 0 ? _this.messages[_this.messages.length - 1].created_at : null;
+
+      time = last_msg && last_msg > last_used ? last_msg : last_used;
       now  = new Date().getTime();
       time_diff = Math.ceil((now - time) / 1000);
-      console.log("time diff", time_diff);
-      if (time_diff > 100) {
+
+      // will disconnect on 5mins
+      if (time_diff > 300) {
         Offerchat.details({id: Offerchat.website.id}).update({connect: false});
         _this.roster({website_id: Offerchat.website.id}).remove();
         _this.disconnect();

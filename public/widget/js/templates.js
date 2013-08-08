@@ -380,9 +380,9 @@ Templates = {
   },
 
   getReconnect: function(data) {
-    var data  = data || {};
+    var data  = data || { message: "You have been disconnected due to inactivity" };
     var recon = '<div class="widget-confirmation">' +
-                ' <p>You have been disconnected due to inactivity</p>' +
+                ' <p>' + data.message + '</p>' +
                 ' <a class="widget-btn">Click to reconnect</a>' +
                 '</div>';
 
