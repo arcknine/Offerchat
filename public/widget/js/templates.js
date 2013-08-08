@@ -380,10 +380,10 @@ Templates = {
   },
 
   getReconnect: function(data) {
-    var data  = data || { message: "You have been disconnected due to inactivity" };
+    var data  = data || { message: "Your chat has been idle for more than 5 minutes.", button: "Connect" };
     var recon = '<div class="widget-confirmation">' +
                 ' <p>' + data.message + '</p>' +
-                ' <a class="widget-btn">Click to reconnect</a>' +
+                ' <a class="widget-btn">' + data.button + '</a>' +
                 '</div>';
 
     return recon;

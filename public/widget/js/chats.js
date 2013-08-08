@@ -16,9 +16,9 @@ Chats = {
     Templates.loader.replace();
     $(".widget-input-text").attr("disabled", "disabled");
 
-    this.roster.store('roster');
-    this.visitor.store('visitor');
-    this.agent.store('agent');
+    this.roster.store('roster_db');
+    this.visitor.store('visitor_db');
+    this.agent.store('agent_db');
 
     details = Offerchat.details({id: Offerchat.website.id}).first();
     if (details.connect != false) {
@@ -186,6 +186,7 @@ Chats = {
     details = {
       api_key:  Offerchat.params.api_key,
       url:      Offerchat.params.current_url,
+      token:    Offerchat.params.secret_token,
       title:    (Offerchat.params.page_title).replace(/\+/g," "),
       referrer: Offerchat.params.referrer,
       location: [widget.city, widget.location].join(", "),
@@ -220,7 +221,6 @@ Chats = {
 
   onPresence: function(presence) {
     var pres, from, type, show, jid, node, agent, index, current_agent;
-    console.log(presence);
     pres = $(presence);
     from = pres.attr('from');
     type = pres.attr('type');
@@ -484,6 +484,7 @@ Chats = {
       if (time_diff > 300) {
         Offerchat.details({id: Offerchat.website.id}).update({connect: false});
         _this.roster({website_id: Offerchat.website.id}).remove();
+        localStorage.removeItem("offerchat_roster")
         _this.disconnect();
 
         Templates.reconnect.replace();
