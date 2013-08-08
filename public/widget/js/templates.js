@@ -165,12 +165,27 @@ Templates = {
       }
     });
 
-
     this.loader = this.generateTemplate({
       section:   "div.widget-chat-viewer",
       template:  this.getConnecting(),
       className: "widget-connection-status"
     }, true);
+
+    this.reconnect = this.generateTemplate({
+      section:   "div#widget-overlay",
+      template:  this.getReconnect(),
+      className: "widget-overlay",
+      events: {
+        "click a.widget-btn" : "reconnect"
+      },
+      reconnect: function(e) {
+        Offerchat.details({id: Offerchat.website.id}).update({connect: true});
+        Chats.init();
+        _this.reconnect.destroy();
+        _this.loader.replace();
+        $(".widget-input-text").attr("disabled", "disabled");
+      }
+    })
 
     callback();
   },
@@ -250,6 +265,7 @@ Templates = {
     var data   = data || { gradient: "" };
     var layout = '<div class="widget-head widget-rounded-head group ' + data.gradient + '"></div>' +
                  '<div class="widget-body">' +
+                 '  <div id="widget-overlay"></div>' +
                  '  <div class="widget-chat-viewer"></div>' +
                  '  <div id="widget-input"></div>' +
                  '  <div id="widget-footer"></div>' +
@@ -361,5 +377,15 @@ Templates = {
                  '</div>';
 
     return footer;
+  },
+
+  getReconnect: function(data) {
+    var data  = data || {};
+    var recon = '<div class="widget-confirmation">' +
+                ' <p>You have been disconnected due to inactivity</p>' +
+                ' <a class="widget-btn">Click to reconnect</a>' +
+                '</div>';
+
+    return recon;
   }
 };

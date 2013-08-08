@@ -11,24 +11,27 @@ Chats = {
   agents:   JSON.parse(sessionStorage.getItem("offerchat_agents")) || [],
 
   init: function() {
-    var _this = this, attach;
-    console.log(Offerchat);
-
+    var _this = this, attach, details;
 
     this.roster.store('roster');
     this.visitor.store('visitor');
     this.agent.store('agent');
     this.loadChats();
 
-    this.getAvailableRoster(function(){
-      // sud dri?
-      attach = JSON.parse(sessionStorage.getItem("offerchat-credential"));
-      // agent  = _this.agent({website_id: Offerchat.website.id}).first();
-      if (attach && attach.jid && attach.rid && attach.sid)
-        _this.attach();
-      else
-        _this.connect();
-    });
+    details = Offerchat.details({id: Offerchat.website.id}).first();
+    if (details.connect != false) {
+      this.getAvailableRoster(function(){
+        attach  = JSON.parse(sessionStorage.getItem("offerchat-credential"));
+        if (attach && attach.jid && attach.rid && attach.sid)
+          _this.attach();
+        else
+          _this.connect();
+      });
+    } else {
+      Templates.reconnect.replace();
+    }
+
+
   },
 
   getAvailableRoster: function(callback) {
@@ -60,6 +63,10 @@ Chats = {
 
             Templates.loader.destroy();
             callback();
+          } else if (data.error == "Offline") {
+            setTimeout(function(){
+              _this.getAvailableRoster(callback);
+            }, 20000)
           }
         }
       });
@@ -75,7 +82,7 @@ Chats = {
         $(".widget-input-text").removeAttr("disabled");
         Templates.loader.destroy();
 
-        this.roster({website_id: Offerchat.website.id}).update({last_used: time_now});
+        // this.roster({website_id: Offerchat.website.id}).update({last_used: time_now});
         callback();
       }
     }
@@ -95,6 +102,9 @@ Chats = {
       if (status === Strophe.Status.CONNECTED) {
         _this.reconnect = true;
         _this.connected();
+
+        $(".widget-input-text").removeAttr("disabled");
+        Templates.loader.destroy();
       }
       else if (status === Strophe.Status.DISCONNECTED && _this.reconnect == true) {
         _this.disconnect();
@@ -123,6 +133,21 @@ Chats = {
     });
   },
 
+  disconnect: function () {
+    // Switch to using synchronous requests since this is typically called onUnload.
+    this.reconnect = false;
+
+    try {
+      this.connection.sync = true;
+      this.connection.flush();
+      this.connection.disconnect();
+      this.connection = null;
+
+      sessionStorage.removeItem("offerchat-credential");
+    }
+    catch (e) {}
+  },
+
   connected: function() {
     var _this = this;
     this.connection.roster.init(this.connection);
@@ -134,6 +159,7 @@ Chats = {
 
     this.sendPresence();
     this.initTriggers();
+    this.initTimeOut();
   },
 
   setCredentials: function() {
@@ -437,6 +463,29 @@ Chats = {
 
     }); // end each
 
+  },
+
+  initTimeOut: function() {
+    var roster, last_used, last_msg, time, now, time_diff, _this = this;
+    roster    = this.roster({website_id: Offerchat.website.id}).first();
+    last_used = roster.last_used;
+    last_msg  = this.messages.length > 0 ? this.messages[this.messages.length - 1].created_at : null;
+
+    time = last_msg && last_msg > last_used ? last_msg : last_used;
+
+    interval = setInterval( function() {
+      now  = new Date().getTime();
+      time_diff = Math.ceil((now - time) / 1000);
+      console.log("time diff", time_diff);
+      if (time_diff > 100) {
+        Offerchat.details({id: Offerchat.website.id}).update({connect: false});
+        _this.roster({website_id: Offerchat.website.id}).remove();
+        _this.disconnect();
+
+        Templates.reconnect.replace();
+        clearInterval(interval);
+      }
+    }, 5000);
   }
 };
 
