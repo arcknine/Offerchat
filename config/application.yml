@@ -3,7 +3,8 @@ development: &development
   STRIPE_PUBLIC_KEY: pk_test_VWmJIaOTLzYZAUmg8x7sMKYr
 
 staging:
-  <*: *development
+  STRIPE_API_KEY: sk_test_Nc1LdRAL1YAqOh60JUTHjI9V
+  STRIPE_PUBLIC_KEY: pk_test_VWmJIaOTLzYZAUmg8x7sMKYr
 
 production:
   STRIPE_API_KEY: xxx
