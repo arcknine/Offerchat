@@ -15,7 +15,8 @@ class ProfilesController < ApplicationController
 
   def update_avatar
     @profile = current_user
-    unless @profile.update_attribute('avatar', params[:avatar])
+    @profile.avatar = params[:avatar]
+    unless @profile.save
       respond_with @profile
     end
   end

@@ -71,6 +71,7 @@
         @showNotification item
       
       @listenTo uploadPhotoView , "change:photo:clicked", (item) =>
+        console.log item
         params =
           element: item
           openClass: "btn-selector"
@@ -78,16 +79,10 @@
 
         uploadPhotoView.toggleDropDown params
 
-      @listenTo uploadPhotoView , "upload:button:change", (item) =>
-        params =
-          element: item
-          openClass: "btn-selector"
-          activeClass: "btn-action-selector"
-
-        uploadPhotoView.toggleDropDown params
-
-      @listenTo uploadPhotoView , "upload:button:blur", (item) =>
-        console.log "blur"
+      App.commands.setHandler "hide:avatar:dropdown", (item)->
+        uploadPhotoView.$el.find(".btn-selector").removeClass("open").attr("disabled", true)
+        uploadPhotoView.$el.find(".btn-action-selector").removeClass("active")
+        
 
       @profileLayout.uploadPhotoRegion.show formView
     

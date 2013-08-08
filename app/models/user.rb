@@ -30,6 +30,8 @@ class User < ActiveRecord::Base
     :default_url => 'http://s3.amazonaws.com/offerchat/users/avatars/avatar.jpg'
 
   validates_attachment_content_type :avatar, :content_type => [ "image/jpg", "image/jpeg", "image/png" ], :message => "Only image files are allowed."
+  validates_attachment_size :avatar, :less_than => 1.megabytes, :unless=> Proc.new { |image| image.avatar.nil? }
+  #validates_attachment_content_type
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
 
   def account(website_id)

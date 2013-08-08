@@ -53,8 +53,13 @@ describe ProfilesController do
     describe "uploading avatars" do
       it "should be able to update avatar" do
         post :update_avatar, :avatar => fixture_file_upload('/avatar/avatar.png')
-        puts assigns(:profile).avatar
         assigns(:profile).avatar.to_s.should_not eq "http://s3.amazonaws.com/offerchat/users/avatars/avatar.jpg"
+        response.code.should eq "200"
+      end
+
+      it "should not accept large size avatars" do
+        post :update_avatar, :avatar => fixture_file_upload('/avatar/large.jpg')
+        puts assigns(:profile).avatar.inspect
         response.code.should eq "200"
       end
     end
