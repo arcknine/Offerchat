@@ -9,7 +9,11 @@ Dashboard::Application.routes.draw do
   resources :agents
   resource :settings
   resources :triggers
-  resources :plans
+  resources :plans do
+    collection do
+      post :stripe
+    end
+  end
   resources :subscriptions
 
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}, :controllers => {
