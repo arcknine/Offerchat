@@ -18,6 +18,8 @@
 
         @show @layout
 
+        @text_counter "input[name=display_name]", ".text-limit-counter", 32
+
     sidebarRegion: ->
       navView = @getSidebarNavs()
 
@@ -96,3 +98,17 @@
       formView = App.request "form:wrapper", profileView
       
       @profileLayout.editProfileRegion.show formView
+
+    text_counter: (input, target, max) ->
+      init_text = $(input).val()
+      init_count = max - init_text.length
+      $(target).text init_count + " characters left"
+      $(input).bind 'input propertychange', ->
+        text = $(input).val()
+        count = max - text.length
+        if count<1
+          count=0
+          $(input).val $(input).val().substr(0, max)
+        $(target).text count + " characters left"
+
+
