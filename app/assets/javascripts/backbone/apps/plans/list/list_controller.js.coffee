@@ -58,6 +58,10 @@
       modalView = @getPlanModal(plan)
 
       formView  = App.request "modal:wrapper", modalView
+      App.modalRegion.show formView
+
+      @listenTo formView, "modal:cancel", (item)->
+        formView.close()
 
       @listenTo modalView, "authorize:payment", (e) =>
         Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
@@ -87,41 +91,33 @@
 
         Stripe.createToken(card, handleStripeResponse)
 
-      @listenTo formView, "modal:close", (item)->
-        formView.close()
+    processPayment: =>
+      modalView = @getProcessPaymentModal()
+      formView  = App.request "modal:wrapper", modalView
 
       @listenTo formView, "modal:cancel", (item)->
         formView.close()
 
       App.modalRegion.show formView
 
-    processPayment: ->
-      modalView = @getProcessPaymentModal()
-      formView  = App.request "modal:wrapper", modalView
-
-      @listenTo formView, "modal:close", (item)->
-        formView.close()
-
-      App.modalRegion.show formView
-
-    paymentSuccess: ->
+    paymentSuccess: =>
       modalView = @getPaymentSuccessModal()
       formView  = App.request "modal:wrapper", modalView
 
-      @listenTo formView, "modal:close", (item)->
+      @listenTo formView, "modal:cancel", (item)->
         formView.close()
 
-      @listenTo formView, "goto:agents", (item) ->
-        console.log "wat"
+      @listenTo modalView, "goto:agents", (item) ->
+        formView.close()
         App.navigate Routes.agents_path(), trigger: true
 
       App.modalRegion.show formView
 
-    paymentFail: ->
+    paymentFail: =>
       modalView = @getPaymentFailModal()
       formView  = App.request "modal:wrapper", modalView
 
-      @listenTo formView, "modal:close", (item)->
+      @listenTo formView, "modal:cancel", (item) ->
         formView.close()
 
       App.modalRegion.show formView
