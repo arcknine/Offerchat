@@ -72,24 +72,26 @@
       @listenTo uploadPhotoView, "show:notification", (item) =>
         @showNotification item
       
-      @listenTo uploadPhotoView , "change:photo:clicked", (item) =>
+      @listenTo uploadPhotoView, "change:photo:clicked", (item) =>
         params =
           element: item
           openClass: "btn-selector"
           activeClass: "btn-action-selector"
 
         uploadPhotoView.toggleDropDown params
+      
+      @listenTo uploadPhotoView, "remove:photo:clicked", (item) =>
+        App.request "show:preloader"
+        profile.set
+          avatar_remove: true
+        profile.save {},
+          success: (data)->
+            App.execute "avatar:change", data.get("avatar")
 
-      @listenTo uploadPhotoView , "upload:button:change", (item) =>
-        params =
-          element: item
-          openClass: "btn-selector"
-          activeClass: "btn-action-selector"
-
-        uploadPhotoView.toggleDropDown params
-
-      @listenTo uploadPhotoView , "upload:button:blur", (item) =>
-        console.log "blur"
+      App.commands.setHandler "hide:avatar:dropdown", (item)->
+        uploadPhotoView.$el.find(".btn-selector").removeClass("open").attr("disabled", true)
+        uploadPhotoView.$el.find(".btn-action-selector").removeClass("active")
+        
 
       @profileLayout.uploadPhotoRegion.show formView
     

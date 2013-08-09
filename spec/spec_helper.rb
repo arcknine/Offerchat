@@ -10,6 +10,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'sidekiq/testing'
+require "paperclip/matchers"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -58,15 +59,13 @@ RSpec.configure do |config|
 
   config.include Devise::TestHelpers, :type => :controller
   config.extend ControllerMacros, :type => :controller
+  
+  config.include Paperclip::Shoulda::Matchers
+  
+  config.include RSpec::Rails::RequestExampleGroup, type: :request, example_group: { file_path: /spec\/api/ }
 end
 
 RSpec::Sidekiq.configure do |config|
   # Clears all job queues before each example
   config.clear_all_enqueued_jobs = false # default => true
-end
-
-RSpec.configure do |config|
-  config.include RSpec::Rails::RequestExampleGroup, type: :request, example_group: {
-    file_path: /spec\/api/
-  }
 end

@@ -9,9 +9,8 @@ class User < ActiveRecord::Base
   has_many :websites, :foreign_key => "owner_id"
   has_many :agent_accounts, :foreign_key => "owner_id", :class_name => "Account"
   belongs_to :plan, :foreign_key => "plan_identifier", :class_name => "Plan"
-
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
-    :name, :display_name, :jabber_user, :jabber_password, :avatar, :plan_identifier, :billing_start_date, :stripe_customer_token
+  attr_accessor :avatar_remove
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :display_name, :jabber_user, :jabber_password, :avatar, :plan_identifier, :billing_start_date, :stripe_customer_token, :avatar_remove
 
   validates_presence_of :name
   validates_presence_of :display_name
@@ -30,6 +29,8 @@ class User < ActiveRecord::Base
     :default_url => 'http://s3.amazonaws.com/offerchat/users/avatars/avatar.jpg'
 
   validates_attachment_content_type :avatar, :content_type => [ "image/jpg", "image/jpeg", "image/png" ], :message => "Only image files are allowed."
+  validates_attachment_size :avatar, :less_than => 1.megabytes, :unless=> Proc.new { |image| image.avatar.nil? }
+  #validates_attachment_content_type
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
 
   def account(website_id)
