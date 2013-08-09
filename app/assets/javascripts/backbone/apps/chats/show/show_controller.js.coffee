@@ -70,57 +70,61 @@
       # only get online agents
       agents = App.request "agents:entities"
 
-      modalView = @getTransferChatModalView @visitor
-      formView  = App.request "modal:wrapper", modalView
+      App.execute "when:fetched", agents, =>
+        @firstAgent = agents.first()
 
-      agentListView = @getAgents agents
+        modalView = @getTransferChatModalView @visitor
+        formView  = App.request "modal:wrapper", modalView
 
-      @listenTo formView, "show", =>
-        modalView.agentsListRegion.show agentListView
+        agentListView = @getAgents agents
 
-      @listenTo modalView, "choose:agent:clicked", (elem) ->
-        params =
-          element: elem
-          openClass: "btn-selector"
-          activeClass: "btn-action-selector"
-        modalView.toggleDropDown params
+        @listenTo formView, "show", =>
+          modalView.agentsListRegion.show agentListView
 
-      @listenTo formView, "modal:unsubmit", (item) ->
-        reason = $(item.view.el).find('textarea.large')
+        @listenTo modalView, "choose:agent:clicked", (elem) ->
+          params =
+            element: elem
+            openClass: "btn-selector"
+            activeClass: "btn-action-selector"
+          modalView.toggleDropDown params
 
-        if reason.val()
-          agent_jid = $(item.view.el).find(".current-selection").data("jid") # get agent jid
-          visitor_jid = @visitor.get("jid")
-          msg = $msg({to: agent_jid, type: "chat"}).c('transfer').t(visitor_jid).up().c('reason').t(reason.val())  # create xmpp msg
-          @connectionSend msg, agent_jid
+        @listenTo formView, "modal:unsubmit", (item) ->
+          reason = $(item.view.el).find('textarea.large')
 
+          if reason.val()
+            agent_jid = $(item.view.el).find(".current-selection").data("jid") # get agent jid
+            visitor_jid = @visitor.get("jid")
+            msg = $msg({to: agent_jid, type: "chat"}).c('transfer').t(visitor_jid).up().c('reason').t(reason.val())  # create xmpp msg
+            @connectionSend msg, agent_jid
+
+            formView.close()
+
+            # App.navigate Routes.root_path()
+          else
+            reason.closest("fieldset").addClass("field-error")
+            reason.next("div").html("Please provide a reason for transferring")
+
+
+        @listenTo agentListView, "childview:select:transfer:agent", (item) =>
+          current_agent = $(item.el).parents('div.btn-selector').find(".current-selection")
+          current_agent.attr("data-jid", item.model.get("jabber_user")).html(item.model.get("name"))
+
+          agentListView.closeDropDown()
+          $(agentListView.el).parents(".btn-selector").find(".btn-action-selector").removeClass("active")
+
+
+        @listenTo formView, "modal:close", (item)->
           formView.close()
 
-          # App.navigate Routes.root_path()
-        else
-          reason.closest("fieldset").addClass("field-error")
-          reason.next("div").html("Please provide a reason for transferring")
+        @listenTo formView, "modal:cancel", (item)->
+          formView.close()
 
-
-      @listenTo agentListView, "childview:select:transfer:agent", (item) =>
-        current_agent = $(item.el).parents('div.btn-selector').find(".current-selection")
-        current_agent.attr("data-jid", item.model.get("jabber_user")).html(item.model.get("name"))
-
-        agentListView.closeDropDown()
-        $(agentListView.el).parents(".btn-selector").find(".btn-action-selector").removeClass("active")
-
-
-      @listenTo formView, "modal:close", (item)->
-        formView.close()
-
-      @listenTo formView, "modal:cancel", (item)->
-        formView.close()
-
-      App.modalRegion.show formView
+        App.modalRegion.show formView
 
     getTransferChatModalView: (model) ->
       new Show.TransferChatLayout
         model: model
+        firstAgent: @firstAgent
 
     getAgents: (agents) ->
       new Show.TransferChatAgents

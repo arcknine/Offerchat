@@ -53,6 +53,9 @@
     triggers:
       "click div.btn-selector" : "choose:agent:clicked"
 
+    serializeData: ->
+      firstAgent: @options.firstAgent.toJSON()
+
   class Show.TransferChatAgent extends App.Views.ItemView
     template: "chats/show/transfer_chat_agent"
     tagName: "li"
@@ -64,6 +67,8 @@
     template: "chats/show/transfer_chat_agents"
     itemView: Show.TransferChatAgent
     tagName: "ul"
+
+
 
 
 
