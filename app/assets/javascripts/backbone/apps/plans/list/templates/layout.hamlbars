@@ -2,6 +2,20 @@
   %a.close ×
   %span
 
+.block-message.group.free-plan-notice.hide
+  %a.close x
+  You are currently on the
+  %strong Free
+  plan.
+  Upgrade your account to add more agents.
+
+.block-message.group.starter-plan-notice.hide
+  %a.close x
+  You are currently on the
+  %strong Starter
+  plan.
+  Upgrade your account to add more agents.
+
 .block.large
   %h1
     Plans and Pricing
@@ -28,7 +42,7 @@
           per month
       %ul.plan-features
         %li
-          up to 12 agent seats
+          up to 10 agent seats
         %li
           white labeled widget
 
@@ -49,7 +63,7 @@
           per month
       %ul.plan-features
         %li
-          up to 5 agent seats
+          up to 4 agent seats
         %li
           white labeled widget
     .plan-grid
@@ -72,7 +86,7 @@
           up to 30 agent seats
         %li
           white labeled widget
-    .group
+    .group.starter-upgrade
       .block-message.inline.small
         {{starter.description}}
         %strong
