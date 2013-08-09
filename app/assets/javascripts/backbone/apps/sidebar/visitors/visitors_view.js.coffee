@@ -24,7 +24,7 @@
       viewData
 
     collectionEvents:
-      "sort" : "render"
+      "all": "render"
 
   class Visitors.Agent extends App.Views.ItemView
     template: "sidebar/visitors/agent"
