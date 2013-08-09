@@ -42,7 +42,7 @@
           per month
       %ul.plan-features
         %li
-          up to 12 agent seats
+          up to 10 agent seats
         %li
           white labeled widget
 
@@ -63,7 +63,7 @@
           per month
       %ul.plan-features
         %li
-          up to 5 agent seats
+          up to 4 agent seats
         %li
           white labeled widget
     .plan-grid
