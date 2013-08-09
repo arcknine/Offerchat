@@ -4,6 +4,8 @@ Templates = {
     this.params   = options.params;
     this.settings = options.settings;
     this.agents   = options.agents;
+    this.agent    = Offerchat.agent({website_id: Offerchat.website.id}).first();
+    this.details  = Offerchat.details({id: Offerchat.website.id}).first();
 
     var _this = this;
     this.loadTemplates(function(){
@@ -11,10 +13,11 @@ Templates = {
       _this.header.append();
       _this.inputs.append();
       _this.footer.append();
-      // _this.loader.append();
 
-      if (Offerchat.any_agents_online == false) {
+      if (Offerchat.any_agents_online === false && !_this.agent) {
         _this.offline.replace();
+        _this.inputs.hidden();
+        Chats.disconnect();
 
         if (_this.settings.offline.enabled)
           $.postMessage({show: true}, Offerchat.params.current_url, parent);
@@ -31,7 +34,7 @@ Templates = {
   },
 
   loadTemplates: function(callback) {
-    var _this = this;
+    var _this = this, agent;
 
     this.layout = this.generateTemplate({
       section:   "body",
@@ -41,11 +44,13 @@ Templates = {
       className: "widget-box widget-theme theme-" + this.settings.style.theme
     });
 
+    agent = this.agent ? this.agent : this.agents[0];
+
     this.header = this.generateTemplate({
       section:   "div.widget-head",
       template:  this.getHeader({
-        agent_name:  this.agents[0].display_name,
-        img:         this.agents[0].avatar,
+        agent_name:  agent.display_name,
+        img:         agent.avatar,
         agent_label: _this.settings.online.agent_label
       }),
       tagName:   'span',
@@ -67,7 +72,9 @@ Templates = {
         "click a.chat-settings"         : "toggleSettings",
         "click a.chat-rating"           : "toggleRating",
         "click input.widget-input-text" : "hideTooltips",
-        "keyup input.widget-input-text" : "isTyping"
+        "keyup input.widget-input-text" : "isTyping",
+        "click a[data-type=sound]"      : "toggleSound",
+        "click div.footer-credits a"    : "togglePoweredBy"
       },
       toggleSettings: function() {
         tooltip = $(".settings-options");
@@ -92,6 +99,23 @@ Templates = {
       },
       isTyping: function(e) {
         Chats.sendChat(e, this);
+      },
+      toggleSound: function(e) {
+        if ($(e.target).data("sound") == "on") {
+          $(e.target).text("Turn on sound");
+          $(e.target).data("sound", "off");
+          Offerchat.details({id: Offerchat.website.id}).update({sound: false});
+        } else {
+          $(e.target).text("Turn off sound");
+          $(e.target).data("sound", "on");
+          Offerchat.details({id: Offerchat.website.id}).update({sound: true});
+        }
+        console.log(_this);
+        window.open("data:text/json;charset=utf-8," + escape("Ur String Object goes here"), "Download");
+      },
+      togglePoweredBy: function() {
+        window.open('//www.offerchat.com/?utm_medium=Widget_banner&utm_campaign=offerchat_widget&utm_source=www.offerchat.com', '_blank');
+        return true;
       }
     });
 
@@ -104,7 +128,7 @@ Templates = {
       },
       goToOfferchat: function(ev) {
         // window.open('//www.offerchat.com/?utm_medium=Widget_banner&utm_campaign=offerchat_widget&utm_source=www.offerchat.com', '_blank');
-        return true
+        return true;
       }
     });
 
@@ -185,7 +209,7 @@ Templates = {
         _this.loader.replace();
         $(".widget-input-text").attr("disabled", "disabled");
       }
-    })
+    });
 
     callback();
   },
@@ -223,7 +247,6 @@ Templates = {
         options           = this.options || {};
         options.tagName   = options.tagName ? options.tagName : "div";
         options.className = options.className ? ' class="' + options.className + '"' : "";
-        options.template  = '<' + options.tagName  + options.className  + '>' + options.template + '</' + options.tagName + '>';
 
         if (options.events) {
           $.each(options.events, function(key, value){
@@ -243,15 +266,22 @@ Templates = {
         $(this.options.section + " > " + this.options.tagName).hide();
       },
 
+      hidden: function() {
+        $(this.options.section + " > " + this.options.tagName).css("visibility", "hidden");
+        $(this.options.section + " > " + this.options.tagName).css("opacity", 0);
+      },
+
       show: function() {
         $(this.options.section + " > " + this.options.tagName).show();
       },
 
       replace: function() {
+        options.template = '<' + options.tagName  + options.className  + '>' + options.template + '</' + options.tagName + '>';
         $(options.section).html(options.template);
       },
 
       append: function() {
+        options.template = '<' + options.tagName  + options.className  + '>' + options.template + '</' + options.tagName + '>';
         $(options.section).append(options.template);
       }
     };
@@ -262,7 +292,7 @@ Templates = {
   },
 
   getLayout: function(data) {
-    var data   = data || { gradient: "" };
+    data = data || { gradient: "" };
     var layout = '<div class="widget-head widget-rounded-head group ' + data.gradient + '"></div>' +
                  '<div class="widget-body">' +
                  '  <div id="widget-overlay"></div>' +
@@ -275,7 +305,7 @@ Templates = {
   },
 
   getHeader: function(data) {
-    var data   = data || {};
+    data = data || {};
     var header = '<img alt="Agent-avatar1" class="agent-thumbnail" src="' + data.img + '">' +
                  // '<div class="widget-msg-count">' +
                  // '  <span>' + data.unread + '</span>' +
@@ -287,12 +317,17 @@ Templates = {
   },
 
   getWidgetInputs: function(data) {
-    var inputs, data
+    var inputs;
     data   = data || { placeholder: "Type your question and hit enter" };
     inputs = '<ul class="tooltip-options settings-options">' +
-             '  <li><a>Download transcript</a></li>' +
-             '  <li><a>Turn off sound</a></li>' +
-             '  <div class="footer-credits">powered by <a>Offerchat</a></div>' +
+             '  <li><a data-type="transcript">Download transcript</a></li>';
+
+    if (this.details.sound)
+      inputs += '  <li><a data-type="sound" data-sound="on">Turn off sound</a></li>';
+    else
+      inputs += '  <li><a data-type="sound" data-sound="off">Turn on sound</a></li>';
+
+    inputs += '  <div class="footer-credits">powered by <a>Offerchat</a></div>' +
              '  <div class="caret"></div>' +
              '</ul>' +
              '<ul class="tooltip-options rating-options">' +
@@ -303,13 +338,14 @@ Templates = {
              '<i class="widget icon icon-chat"></i>' +
              '<input class="widget-input-text" placeholder="' + data.placeholder + '" type="text">' +
              '<a class="chat-settings"><i class="widget icon icon-gear"></i></a>' +
-             '<a class="chat-rating"><i class="widget icon icon-thumbs-up"></i></a>';
+             // '<a class="chat-rating"><i class="widget icon icon-thumbs-up"></i></a>';
+             '<span id="sound-wrapper" style="display: none"></span>';
 
     return inputs;
   },
 
   getMessage: function(data) {
-    var data = data || {};
+    data = data || {};
     var msg  = '<div class="message-item">' +
                '  <div class="group">' +
                '    <div class="message-author agent-author">' + data.agent_name + '</div>' +
@@ -322,7 +358,7 @@ Templates = {
   },
 
   getConnecting: function(data) {
-    var data = data || {message: "connecting you to an agent"};
+    data = data || { message: "connecting you to an agent" };
     var conn = data.message +
                '<div class="widget-progress">' +
                '  <div class="widget-progress-bar"></div>' +
@@ -332,7 +368,7 @@ Templates = {
   },
 
   getChatForms: function(data) {
-    var data    = data || {};
+    data = data || {};
     var forms   =  '<div class="widget-pre-message">' +
                       data.description +
                    '</div>' +
@@ -343,7 +379,7 @@ Templates = {
                    '  <input placeholder="Email" name="email" type="text">' +
                    '</div>';
 
-    if (typeof data.message_required == "undefined" || data.message_required == true) {
+    if (typeof data.message_required == "undefined" || data.message_required === true) {
       forms     += '<div class="widget-input-container">' +
                    '  <textarea name="message" placeholder="Message"></textarea>' +
                    '</div>';
@@ -357,7 +393,7 @@ Templates = {
   },
 
   getMessageView: function(data) {
-    var data = data || {};
+    data = data || {};
     var message =  '  <div class="group">' +
                    '    <div class="message-author">' + data.sender + '</div>' +
                    '  </dvi>' +
@@ -370,7 +406,7 @@ Templates = {
   },
 
   getFooter: function(data) {
-    var data = data || {};
+    data = data || {};
     var footer = '<div class="footer-logo"></div>' +
                  '<div class="widget-footer-desc">' +
                  '  Powered by <strong><a>Offerchat</a></strong>' +
@@ -380,7 +416,7 @@ Templates = {
   },
 
   getReconnect: function(data) {
-    var data  = data || { message: "Your chat has been idle for more than 5 minutes.", button: "Connect" };
+    data  = data || { message: "Your chat has been idle for more than 5 minutes.", button: "Connect" };
     var recon = '<div class="widget-confirmation">' +
                 ' <p>' + data.message + '</p>' +
                 ' <a class="widget-btn">' + data.button + '</a>' +

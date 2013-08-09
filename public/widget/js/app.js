@@ -7,12 +7,18 @@ Offerchat = {
 
   // taffy db
   details:  TAFFY(),
+  roster:   TAFFY(),
+  visitor:  TAFFY(),
+  agent:    TAFFY(),
 
   init: function(options) {
     var _this = this;
     this.params = options.params || {};
 
     this.details.store('details');
+    this.agent.store('LjAKRZBdrkc=');
+    this.visitor.store('c2KtON93PneNpnmp/QBRKw==');
+    this.roster.store('CebnSNzizB7khOg3YURskQ==');
 
     if (this.params.api_key && this.params.secret_token) {
       this.loadAllAssets(function(){
@@ -40,7 +46,8 @@ Offerchat = {
           code:     null,
           browser:  BrowserDetect.browser,
           version:  BrowserDetect.version,
-          OS:       BrowserDetect.OS
+          OS:       BrowserDetect.OS,
+          sound:    true
         });
       }
 
@@ -61,7 +68,7 @@ Offerchat = {
   loadSettings: function(callback) {
     var _this = this, settings;
     data = JSON.parse(sessionStorage.getItem("ofc-settings"));
-    if (data == null) {
+    if (data === null) {
       $.ajax({
         type: "GET",
         url:  this.src.api_url + "settings/" + this.params.api_key + ".jsonp",

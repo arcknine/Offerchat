@@ -5,23 +5,21 @@ Chats = {
   reload_app: null,
 
   messages: JSON.parse(localStorage.getItem("ofc-messages")) || [],
-  roster:   TAFFY(),
-  visitor:  TAFFY(),
-  agent:    TAFFY(),
   agents:   JSON.parse(sessionStorage.getItem("offerchat_agents")) || [],
 
   init: function() {
     var _this = this, attach, details;
 
-    Templates.loader.replace();
-    $(".widget-input-text").attr("disabled", "disabled");
+    // init taffy db
+    this.agent   = Offerchat.agent({website_id: Offerchat.website.id}).first();
+    this.roster  = Offerchat.roster({website_id: Offerchat.website.id}).first();
+    this.details  = Offerchat.details({id: Offerchat.website.id}).first();
+    this.visitor = Offerchat.visitor({website_id: Offerchat.website.id}).first();
 
-    this.roster.store('roster_db');
-    this.visitor.store('visitor_db');
-    this.agent.store('agent_db');
+    if (this.details.connect !== false) {
+       Templates.loader.replace();
+      $(".widget-input-text").attr("disabled", "disabled");
 
-    details = Offerchat.details({id: Offerchat.website.id}).first();
-    if (details.connect != false) {
       this.getAvailableRoster(function(){
         attach  = JSON.parse(sessionStorage.getItem("offerchat-credential"));
         if (attach && attach.jid && attach.rid && attach.sid)
@@ -31,41 +29,44 @@ Chats = {
       });
     } else {
       Templates.reconnect.replace();
+      this.loadChats();
     }
-
 
   },
 
   getAvailableRoster: function(callback) {
     var _this = this, roster, info;
-    roster  = this.roster({website_id: Offerchat.website.id}).first();
-    visitor = this.visitor({website_id: Offerchat.website.id}).first();
-    info    = Offerchat.details({id: Offerchat.website.id}).first();
+    roster  = this.roster;
+    visitor = this.roster;
+    info    = this.details;
 
     if (!roster) {
       loc = [info.city, info.location];
       $.ajax({
         type: "GET",
         url:  Offerchat.src.api_url + "checkin/" + Offerchat.params.secret_token + ".jsonp",
-        data: { browser: info.browser, location: loc.join(", ", loc), browser: info.browser },
+        data: { browser: info.browser, location: loc.join(", ", loc) },
         dataType: "jsonp",
         success: function(data) {
           if (typeof data.error == "undefined") {
             $(".widget-input-text").removeAttr("disabled");
             data.roster.last_used = new Date().getTime();
-            _this.roster.insert(data.roster);
+            Offerchat.roster.insert(data.roster);
 
             if (!visitor)
-              _this.visitor.insert(data.visitor);
+              Offerchat.visitor.insert(data.visitor);
             else
-              _this.visitor({website_id: Offerchat.website.id}).update(data.visitor);
+              Offerchat.visitor({website_id: Offerchat.website.id}).update(data.visitor);
+
+            _this.roster  = data.roster;
+            _this.visitor = data.visitor;
 
             Templates.loader.destroy();
             callback();
           } else if (data.error == "Offline") {
             setTimeout(function(){
               _this.getAvailableRoster(callback);
-            }, 20000)
+            }, 20000);
           }
         }
       });
@@ -75,13 +76,11 @@ Chats = {
       var time_diff = Math.ceil((time_now - roster.last_used) / 1000);
 
       if (time_diff > 600 && !attach) {
-        this.roster({website_id: Offerchat.website.id}).remove();
+        Offerchat.roster({website_id: Offerchat.website.id}).remove();
         this.getAvailableRoster(callback);
       } else {
         $(".widget-input-text").removeAttr("disabled");
         Templates.loader.destroy();
-
-        // this.roster({website_id: Offerchat.website.id}).update({last_used: time_now});
         callback();
       }
     }
@@ -91,7 +90,7 @@ Chats = {
     var _this, jid, password, bosh_url, roster;
 
     _this    = this;
-    roster   = this.roster({website_id: Offerchat.website.id}).first()
+    roster   = this.roster;
     bosh_url = Offerchat.src.bosh_url;
     jid      = roster.jabber_user + Offerchat.src.server + "/" + Helpers.randomString();
     password = roster.jabber_password;
@@ -102,7 +101,7 @@ Chats = {
         _this.reconnect = true;
         _this.connected();
       }
-      else if (status === Strophe.Status.DISCONNECTED && _this.reconnect == true) {
+      else if (status === Strophe.Status.DISCONNECTED && _this.reconnect === true) {
         _this.disconnect();
         _this.connect();
       }
@@ -122,7 +121,7 @@ Chats = {
         _this.reconnect = true;
         _this.connected();
       }
-      else if (status === Strophe.Status.DISCONNECTED && _this.reconnect == true) {
+      else if (status === Strophe.Status.DISCONNECTED && _this.reconnect === true) {
         // _this.disconnect();
         _this.connect();
       }
@@ -179,9 +178,10 @@ Chats = {
 
   sendPresence: function() {
     var details, widget, roster, visitor, client_details;
-    widget  = Offerchat.details({id: Offerchat.website.id}).first()
-    roster  = this.roster({website_id: Offerchat.website.id}).first();
-    visitor = this.visitor({website_id: Offerchat.website.id}).first();
+    widget  = this.details;
+    roster  = this.roster;
+    visitor = this.visitor;
+    agent   = this.agent;
 
     details = {
       api_key:  Offerchat.params.api_key,
@@ -198,9 +198,9 @@ Chats = {
       name:     visitor.name,
       email:    visitor.email,
       chatting: {
-        status: true,
-        agent:  "keenan@local.offerchat.com",
-        name:   "Keenan"
+        status: agent ? true : agent,
+        agent:  agent ? agent.jabber_user : "",
+        name:   agent ? agent.display_name : ""
       }
     };
 
@@ -220,6 +220,7 @@ Chats = {
   },
 
   onPresence: function(presence) {
+    console.log(presence);
     var pres, from, type, show, jid, node, agent, index, current_agent;
     pres = $(presence);
     from = pres.attr('from');
@@ -229,12 +230,35 @@ Chats = {
     node = Strophe.getNodeFromJid(from);
     res  = Strophe.getResourceFromJid(from);
 
-    agent = Chats.agent({website_id: Offerchat.website.id}).first();
+    agent  = Chats.agent;
+    roster = Chats.roster;
 
-    if (!type && node != agent.jabber_user && (!show || show == 'chat') && $.inArray(jid, node) < 0) {
-      Chats.agents.push(node);
+    if (node != roster.jabber_user) {
+      if (node == agent.node)
+        clearInterval(Chats.reload_app);
+
+      if (agent.node == node && type == "unavailable") {
+        index = $.inArray(node, Chats.agents);
+        if (index > -1) Chats.agents.splice(index, 1);
+
+        Chats.reload_app = setTimeout(function(){
+          Offerchat.agent({website_id: Offerchat.website.id}).remove();
+          Chats.agent = Offerchat.agent({website_id: Offerchat.website.id}).first();
+
+          clearInterval(Chats.reload_app);
+        }, 15000);
+      } else if (type == "unavailable" || show == "away") {
+        index = $.inArray(node, Chats.agents);
+        if (index > -1) Chats.agents.splice(index, 1);
+      }
+
+      if (!type && node != agent.jabber_user && (!show || show == 'chat' || show == 'online') && $.inArray(node, Chats.agents) < 0) {
+        console.log("test??");
+        Chats.agents.push(node);
+      }
+
+      sessionStorage.setItem("offerchat_agents", JSON.stringify(Chats.agents));
     }
-    sessionStorage.setItem("offerchat_agents", JSON.stringify(Chats.agents));
 
     return true;
   },
@@ -261,21 +285,38 @@ Chats = {
     } else if (ended.length || body == "!endchat") {
       // chat ened code
     } else if (body.length > 0) {
-      var a = Chats.agent({website_id: Offerchat.website.id, jabber_user: agent}).first();
+      var a = Chats.agent;
       if (!a) {
-        var agents = Offerchat.website.agents
+        var agents = Offerchat.website.agents;
         $.each(agents, function(key, value){
           if (agent == value.jabber_user) {
             a = value;
             a.website_id = Offerchat.website.id;
 
-            Chats.agent({website_id: Offerchat.website.id}).remove();
-            Chats.agent.insert(a);
+            Offerchat.agent({website_id: Offerchat.website.id}).remove();
+            Offerchat.agent.insert(a);
+            Chats.agent = Offerchat.agent({website_id: Offerchat.website.id}).first();
+
+            var header = Templates.header;
+            header.options.template = Templates.getHeader({
+              agent_name:  Chats.agent.display_name,
+              img:         Chats.agent.avatar,
+              agent_label: Offerchat.website.settings.online.agent_label
+            });
+
+            header.replace();
           }
         });
       }
 
       var msg = Chats.generateMessage(body, a.display_name);
+
+      try {
+        var sound = document.getElementById("beep-notify");
+        if (sound)
+          sound.play();
+      } catch(e) {}
+
     }
 
     return true;
@@ -291,7 +332,7 @@ Chats = {
     for(var i = this.messages.length - 1; i >= 0; i--) {
       var time_diff = Math.ceil((new Date().getTime() - msg[i].created_at) / 1000);
       if (time_diff > 259200) {
-        if (typeof this.messages[i + 1] != "undefined" && this.messages[i + 1].child == true) {
+        if (typeof this.messages[i + 1] != "undefined" && this.messages[i + 1].child === true) {
           this.messages[i + 1].child = false;
           this.messages[i + 1].class = "";
         }
@@ -321,7 +362,13 @@ Chats = {
       var _this = this;
 
       this.getAgent(function(agent) {
-        _this.xmppSendMsg(message, agent, "You");
+        if (agent) {
+          _this.xmppSendMsg(message, agent, "You");
+        } else {
+          Templates.offline.replace();
+          Templates.inputs.hidden();
+          _this.disconnect();
+        }
       });
 
       $(input).val("");
@@ -346,14 +393,14 @@ Chats = {
 
   getAgent: function(callback) {
     var _this = this;
-    var agent = Chats.agent({website_id: Offerchat.website.id}).first();
+    var agent = this.agent;
     if (!agent) {
       selected_agent = this.agents[Math.floor(Math.random() * this.agents.length)];
       $.each(Offerchat.website.agents, function(key, value){
         if (value.jabber_user == selected_agent) {
           agent = value;
           agent.website_id = Offerchat.website.id;
-          _this.agent.insert(value);
+          Offerchat.agent.insert(value);
         }
       });
 
@@ -364,11 +411,20 @@ Chats = {
         Templates.loader.destroy();
         $(".widget-input-text").removeAttr("disabled");
 
+        var header = Templates.header;
+        header.options.template = Templates.getHeader({
+          agent_name:  agent.display_name,
+          img:         agent.avatar,
+          agent_label: Offerchat.website.settings.online.agent_label
+        });
+
+        header.replace();
+
+        _this.loadChats();
+        _this.agent = agent;
         callback(agent);
-      }, 2000)
+      }, 2000);
     } else {
-      // console.log($(Templates.inputs.options.template).find("input.widget-input-text").attr("placeholder"));
-      // console.log("template", Templates.inputs.options.template);
       callback(agent);
     }
   },
@@ -381,7 +437,7 @@ Chats = {
     message = message.replace("/me chat-trigger: ", "");
 
     classTag = sender != "You" ? " agent-message" : "";
-    if (cur != 0 && this.messages[cur - 1].sender == sender) {
+    if (cur !== 0 && this.messages[cur - 1].sender == sender) {
       msg = {
         web_id:     Offerchat.website.id,
         message:    message,
@@ -439,21 +495,21 @@ Chats = {
           var message = "/me chat-trigger: ";
           switch(value.rule_type) {
             case 1:
-              if (!rule2 && !rule3 && _this.messages.length == 0) {
+              if (!rule2 && !rule3 && _this.messages.length === 0) {
                 _this.getAgent(function(agent) {
                   _this.xmppSendMsg(message + value.message, agent, agent.display_name);
                 });
               }
               break;
             case 2:
-              if (!rule3 && value.params.url == Offerchat.params.current_url && _this.messages.length == 0) {
+              if (!rule3 && value.params.url == Offerchat.params.current_url && _this.messages.length === 0) {
                 _this.getAgent(function(agent) {
                   _this.xmppSendMsg(message + value.message, agent, agent.display_name);
                 });
               }
               break;
             case 3:
-              if (value.params.url == Offerchat.params.current_url && _this.messages.length == 0) {
+              if (value.params.url == Offerchat.params.current_url && _this.messages.length === 0) {
                 _this.getAgent(function(agent) {
                   _this.xmppSendMsg(message + value.message, agent, agent.display_name);
                 });
@@ -470,7 +526,7 @@ Chats = {
 
   initTimeOut: function() {
     var roster, last_used, last_msg, time, now, time_diff, _this = this;
-    roster    = this.roster({website_id: Offerchat.website.id}).first();
+    roster    = Offerchat.roster({website_id: Offerchat.website.id}).first();
 
     interval = setInterval( function() {
       last_used = roster.last_used;
@@ -480,17 +536,22 @@ Chats = {
       now  = new Date().getTime();
       time_diff = Math.ceil((now - time) / 1000);
 
-      // will disconnect on 5mins
-      if (time_diff > 300) {
-        Offerchat.details({id: Offerchat.website.id}).update({connect: false});
-        _this.roster({website_id: Offerchat.website.id}).remove();
-        localStorage.removeItem("offerchat_roster");
-        _this.disconnect();
 
+      // will disconnect on 5mins
+      if (time_diff > 420 && _this.connection !== null) {
+        Offerchat.details({id: Offerchat.website.id}).update({connect: false});
+        Offerchat.roster({website_id: Offerchat.website.id}).remove();
+        Offerchat.agent({website_id: Offerchat.website.id}).remove();
+
+        this.roster  = Offerchat.roster({website_id: Offerchat.website.id}).first();
+        this.agent   = Offerchat.agent({website_id: Offerchat.website.id}).first();
+        this.details = Offerchat.details({id: Offerchat.website.id}).first();
+
+        _this.disconnect();
         Templates.reconnect.replace();
         clearInterval(interval);
-        console.log("aaaaaaaaaaaaa");
-      }
+      } else if (_this.connection === null)
+        clearInterval(interval);
     }, 5000);
   }
 };
