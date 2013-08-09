@@ -74,8 +74,6 @@
       unless vcard
         info  = gon.current_user
 
-        console.log info.avatar
-
         $.each info, (key, value) ->
           if !value
             info[key] = 'null'
