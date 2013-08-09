@@ -91,7 +91,7 @@
         if reason.val()
           agent_jid = $(item.view.el).find(".current-selection").data("jid") # get agent jid
           visitor_jid = @visitor.get("jid")
-          msg = $msg({to: agent_jid, type: "chat"}).c('transfer').t(visitor_jid)  # create xmpp msg
+          msg = $msg({to: agent_jid, type: "chat"}).c('transfer').t(visitor_jid).up().c('reason').t(reason.val())  # create xmpp msg
           @connectionSend msg, agent_jid
 
           formView.close()
