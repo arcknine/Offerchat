@@ -10,7 +10,7 @@ describe User do
   it { should have_many :websites }
   it { should validate_attachment_size(:avatar).less_than(1.megabytes) }
   it { should validate_attachment_content_type(:avatar).allowing("image/jpg", "image/jpeg", "image/png").rejecting('text/plain', 'text/xml') }
-                
+
   describe "when creating a new user" do
     it "should have a jabber_user and jabber_password ready" do
       @user.jabber_user.should_not eq(nil)
@@ -229,7 +229,7 @@ describe User do
       @user.save
       @user.avatar.should_not be_nil
     end
-    
+
     it "should only allow avatar less than 1mb file size" do
       @user.avatar = File.new(Rails.root + 'spec/support/images/avatar.png')
     end

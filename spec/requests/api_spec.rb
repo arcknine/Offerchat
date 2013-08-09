@@ -4,10 +4,6 @@ describe Offerchat::API do
   before(:each) do
     owner = Fabricate(:user)
     @website = Fabricate(:website, :owner => owner)
-
-    stub_request(:get, "http://local.offerchat.com:9090/plugins/presence/status?jid=#{owner.jabber_user}@#{CHAT_SERVER_NAME}&type=xml").
-      with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
-      to_return(:status => 200, :body => "", :headers => {})
   end
 
   describe "GET token" do

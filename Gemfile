@@ -70,7 +70,6 @@ end
 
 group :test do
   gem 'rspec-sidekiq'
-  gem 'webmock'
 end
 
 group :development do
