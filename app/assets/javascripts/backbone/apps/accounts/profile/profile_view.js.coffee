@@ -54,19 +54,24 @@
         url: Routes.update_avatar_profiles_path()
         formData: {authenticity_token: App.request("csrf-token")}
         add: (e, data) ->
+          file_too_large_error = "File size is too large. Please choose a smaller avatar"
           types = /(\.|\/)(jpe?g|png)$/i
           file = data.files[0]
           App.request "show:preloader"
-          if types.test(file.type) || types.test(file.name)
-            data.submit().done( (e,data)->
-              self.model.set e
-              App.execute "avatar:change", e.avatar
+          if file.size < 1000000
+            if types.test(file.type) || types.test(file.name)
+              data.submit().done( (e,data)->
+                self.model.set e
+                App.execute "avatar:change", e.avatar
+                App.request "hide:preloader"
+                self.trigger "show:notification", "Your avatar have been saved!"
+              ).fail (jqXHR, textStatus, errorThrown)->
+                if JSON.parse(jqXHR.responseText).errors.avatar_file_size.length > 0
+                  self.trigger "show:notification", file_too_large_error 
+            else
               App.request "hide:preloader"
-              self.trigger "show:notification", "Your avatar have been saved!"
-            ).fail (jqXHR, textStatus, errorThrown)->
-              if JSON.parse(jqXHR.responseText).errors.avatar_file_size.length > 0
-                self.trigger "show:notification", "File size is too large. Please choose a smaller avatar"
-              App.request "hide:preloader"
+              self.trigger "show:notification", file_too_large_error
+              
           else
             self.trigger "show:notification", "#{file.name} is not a jpeg, or png image file"
             App.request "hide:preloader"
