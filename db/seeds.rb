@@ -1,6 +1,5 @@
 # Pricing Plans
 Plan.delete_all
-ActiveRecord::Base.connection.reset_pk_sequence!('plans')
 Plan.create(:name => "Free", :description => "Forever Free", :price => 0, :max_agent_seats => 1, :plan_identifier => "FREE")
 Plan.create(:name => "Starter", :description => "or you can choose to get the white labeled widget only for", :price => 14, :max_agent_seats => 1, :plan_identifier => "STARTER")
 Plan.create(:name => "Personal", :description => "for your small personal business", :price => 37, :max_agent_seats => 4, :features => ['up to 4 agent seats', 'white labeled widget'], :plan_identifier => "PERSONAL")
