@@ -22,6 +22,14 @@
         @visitorsList()
         @agentsList()
 
+      # @listenTo @messages, "add", (item) =>
+      #   console.log "last mes", @messages.last()
+      #   console.log "current ", item
+      #   # item.set { child: true, childclass: "child" } if @messages.last().get("jid") isnt item.get("jid") and @messages.last().get("viewing") is false
+      #   item.set { child: true, childclass: "child" } if @messages.last().get("jid") is item.get("jid") and @messages.last().get("viewing") is true
+      #   @messages.add(item)
+      #   console.log "nag addd tan-awa!!!"
+
       App.reqres.setHandler "get:chats:messages", =>
         @messages
 
@@ -29,6 +37,8 @@
         @visitors
 
       @show @layout
+
+
 
     getLayout: ->
       new Visitors.Layout
@@ -52,7 +62,7 @@
           unread: null
           active: 'active'
 
-        App.navigate "chats/#{visitor.model.get('jid')}", trigger: true
+        App.navigate "chats/#{visitor.model.get('token')}", trigger: true
 
       @layout.visitorsRegion.show visitorsView
 
@@ -97,35 +107,66 @@
       jid      = Strophe.getNodeFromJid from
       resource = Strophe.getResourceFromJid from
       type     = $(presence).attr("type")
-      visitor  = @visitors.findWhere { jid: jid }
+      # visitor  = @visitors.findWhere { jid: jid }
+
       info     = JSON.parse($(presence).find('offerchat').text() || "{}")
-      console.log "info", info
+      token    = info.token
+      visitor  = @visitors.findWhere { token: token }
+      console.log info
+
+      @displayCurrentUrl(token, jid, info.url)
+
       if type is "unavailable"
         @visitors.remove visitor
       else if typeof visitor is "undefined"
-        visitor = { jid: jid, info: info, resource: resource }
+        visitor = { jid: jid, token: token ,info: info, resource: resource }
         @visitors.add visitor
+      else
+        visitor.set jid: jid
+        @visitors.set visitor
 
       true
 
     onPrivateMessage: (message) =>
+      console.log "tae message: ",message
       from    = $(message).attr("from")
       jid     = Strophe.getNodeFromJid from
       body    = $(message).find("body").text()
-
+      console.log "sugod sa private message"
       if body
+        visitor = @visitors.findWhere { jid: jid }
+        token = visitor.get("token")
+
+        if @messages.last().get("jid") is jid and @messages.last().get("viewing") is false
+          child = true
+          childClass = "child"
+
         @messages.add
-          token:      jid
+          token:      token
           jid:        jid
           sender:     "visitor"
           message:    body
           time:       new Date()
+          viewing:    false
+          child:      child || false
+          childclass: childClass || ""
           timesimple: moment().format('hh:mma')
 
         # add ticker
-        if Backbone.history.fragment.indexOf(jid)==-1
-          @visitors.findWhere({jid: jid}).addUnread()
-
+        if Backbone.history.fragment.indexOf(token)==-1
+          @visitors.findWhere({token: token}).addUnread()
           @visitors.sort()
 
       true
+
+    displayCurrentUrl:(token, jid, url) ->
+      @messages.add
+        token:      token
+        jid:        jid
+        sender:     "visitor"
+        message:    url
+        time:       new Date()
+        timesimple: moment().format('hh:mma')
+        viewing:    true
+
+

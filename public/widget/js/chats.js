@@ -484,11 +484,12 @@ Chats = {
       if (time_diff > 300) {
         Offerchat.details({id: Offerchat.website.id}).update({connect: false});
         _this.roster({website_id: Offerchat.website.id}).remove();
-        localStorage.removeItem("offerchat_roster")
+        localStorage.removeItem("offerchat_roster");
         _this.disconnect();
 
         Templates.reconnect.replace();
         clearInterval(interval);
+        console.log("aaaaaaaaaaaaa");
       }
     }, 5000);
   }

@@ -14,15 +14,16 @@
 
       @allMessages = App.request "get:chats:messages"
       visitors     = App.request "get:chats:visitors"
+
       @visitor     = App.request "visitor:entity"
 
       @messages    = App.request "messeges:entities"
-
+      console.log "visitors: ",@visitor
       unless @allMessages.length is 0
         @messages.add(@allMessages.where { token: @token })
 
       unless visitors.length is 0
-        @visitor.set visitors.findWhere({ jid: @token }).attributes
+        @visitor.set visitors.findWhere({ token: @token }).attributes
 
       @listenTo visitors, "add", (item) =>
         if item.get("jid") is @token
