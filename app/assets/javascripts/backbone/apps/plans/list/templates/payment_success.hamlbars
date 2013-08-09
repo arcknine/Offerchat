@@ -1,4 +1,4 @@
-.authorize-payment-success
+#payment-success.authorize-payment-success
   %h3 Thank you!
   You have successfully changed your subscription plan to
   %strong
