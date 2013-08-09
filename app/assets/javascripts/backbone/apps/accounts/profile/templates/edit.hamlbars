@@ -14,6 +14,9 @@
   .input-container
     %input.large{ :type => 'text', :value => '{{display_name}}', name: 'display_name' }
 
+  %fieldset.item-desc.small
+    .block-text-message.text-limit-counter
+
 %fieldset
   %label
     Full Name
