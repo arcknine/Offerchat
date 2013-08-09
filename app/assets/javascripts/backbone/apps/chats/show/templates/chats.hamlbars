@@ -23,14 +23,14 @@
           %i.icon.icon-arrow-down
           %span.current-selection
             Actions
-        .dropdown-options.top.dark
 
+        .dropdown-options.top.dark
           %ul
-            %li
+            %li{ data: {action: 'transfer'} }
               %a Transfer Chat
-            %li
+            %li{ data: {action: 'export'} }
               %a Export Transcript
-            %li
+            %li{ data: {action: 'ban'} }
               %a Ban User
           .caret.caret-dark.bottom
 

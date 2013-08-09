@@ -65,7 +65,27 @@
       @connection.addHandler @on_presence, null, "presence"
       @connection.addHandler @on_private_message, null, "message", "chat"
 
+      @create_vcard()
+
       @send_presence()
+
+    create_vcard: ->
+      vcard = sessionStorage.getItem("vcard")
+      unless vcard
+        info  = gon.current_user
+
+        $.each info, (key, value) ->
+          if !value
+            info[key] = 'null'
+
+        build = $iq({type: 'set'}).c('vCard', {xmlns: 'vcard-temp'})
+                .c('NAME').t(info.name).up()
+                .c('DN').t(info.display_name).up()
+                .c('AVATAR').c('TYPE').t(info.avatar_content_type).up().c('BINVAL').t(info.avatar).up().up()
+                .c('JABBERID').t(info.jabber_user)
+
+        @connection.sendIQ build
+        sessionStorage.setItem("vcard", true)
 
     send_presence: ->
       pres = $pres().c('priority').t('1').up().c('status').t("Online")
