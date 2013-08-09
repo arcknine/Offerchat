@@ -143,7 +143,7 @@ Templates = {
         "click div.widget-footer" : "goToOfferchat"
       },
       goToOfferchat: function(ev) {
-        // window.open('//www.offerchat.com/?utm_medium=Widget_banner&utm_campaign=offerchat_widget&utm_source=www.offerchat.com', '_blank');
+        window.open('//www.offerchat.com/?utm_medium=Widget_banner&utm_campaign=offerchat_widget&utm_source=www.offerchat.com', '_blank');
         return true;
       }
     });
@@ -153,12 +153,13 @@ Templates = {
       template:  this.getChatForms({
         description: this.settings.offline.description
       }),
-      className: "widget-block",
+      className: "widget-block offline",
       tagName:   "form",
       events: {
-        "submit form.widget-block" : "submitOffline"
+        "submit form.widget-block.offline" : "submitOffline"
       },
       submitOffline: function(e) {
+        console.log("test");
         if (_this.validateForms(this)) {
           // $(this).serialize()
           $.ajax({
@@ -168,11 +169,8 @@ Templates = {
             success: function(data) {
               console.log(data);
               if (data.status == "success") {
-                _this.offline.options.template = _this.getChatForms({
-                  description: "You have successfully sent your message."
-                });
-                _this.offline.replace();
-                _this.inputs.hidden();
+                _this.formSuccess.replace();
+                return false;
               }
             }
           });
@@ -187,13 +185,26 @@ Templates = {
       template:  this.getChatForms({
         description: this.settings.post_chat.description
       }),
-      className: "widget-block",
+      className: "widget-block postchat",
       tagName:   "form",
       events: {
-        "submit form.widget-block" : "submitPostChat"
+        "submit form.widget-block.postchat" : "submitPostChat"
       },
       submitPostChat: function(e) {
-        _this.validateForms(this);
+        console.log("test");
+        if(_this.validateForms(this)) {
+          $.ajax({
+            type: "POST",
+            url: Offerchat.src.api_url + "post_chat/" + Offerchat.params.api_key,
+            data: $(this).serialize(),
+            success: function(data) {
+              if (data.status == "success") {
+                _this.formSuccess.replace();
+                return false;
+              }
+            }
+          });
+        }
         return false;
       }
     });
@@ -204,10 +215,10 @@ Templates = {
         description: this.settings.pre_chat.description,
         message_required: this.settings.pre_chat.message_required
       }),
-      className: "widget-block",
+      className: "widget-block prechat",
       tagName:   "form",
       events: {
-        "submit form.widget-block" : "submitPreChat"
+        "submit form.widget-block.prechat" : "submitPreChat"
       },
       submitPreChat: function(e) {
         var form = _this.validateForms(this);
@@ -221,6 +232,13 @@ Templates = {
         }
         return false;
       }
+    });
+
+    // getFormsSuccess
+    this.formSuccess = this.generateTemplate({
+      section:   "div.widget-chat-viewer",
+      template: this.getFormsSuccess(),
+      className: "widget-block"
     });
 
     this.loader = this.generateTemplate({
@@ -427,6 +445,18 @@ Templates = {
                    '</div>';
 
     return forms;
+  },
+
+  getFormsSuccess: function(data) {
+    data = data || { message: "Your message has been sent", description: "Thank you! We will get back to you as soon as we can." };
+    var success =  '<div class="widget-pre-message">' +
+                   '  <h3>' +
+                   '    <i class="widget icon icon-check-large"></i>' + data.message +
+                   '  </h3>' +
+                      data.description +
+                   '</div>';
+
+    return success;
   },
 
   getMessageView: function(data) {
