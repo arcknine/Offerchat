@@ -160,7 +160,7 @@ module Offerchat
         requires :apikey, type: String, desc: "Api key."
       end
       route_param :apikey do
-        get do
+        post do
           website = Website.find_by_api_key(params[:apikey])
           to = website.settings(:offline).email
           from    = params[:email]

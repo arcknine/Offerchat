@@ -10,11 +10,11 @@ Chats = {
   init: function() {
     var _this = this, attach, details;
 
-    // init taffy db
-    this.agent   = Offerchat.agent({website_id: Offerchat.website.id}).first();
-    this.roster  = Offerchat.roster({website_id: Offerchat.website.id}).first();
+    this.agent    = Offerchat.agent({website_id: Offerchat.website.id}).first();
+    this.roster   = Offerchat.roster({website_id: Offerchat.website.id}).first();
     this.details  = Offerchat.details({id: Offerchat.website.id}).first();
-    this.visitor = Offerchat.visitor({website_id: Offerchat.website.id}).first();
+    this.visitor  = Offerchat.visitor({website_id: Offerchat.website.id}).first();
+    this.settings = Offerchat.website.settings;
 
     if (this.details.connect !== false) {
        Templates.loader.replace();
@@ -28,7 +28,17 @@ Chats = {
           _this.connect();
       });
     } else {
-      Templates.reconnect.replace();
+      console.log(this.details);
+      if (this.details.chatend === true) {
+        var reconnect = Templates.reconnect;
+        reconnect.options.template = Templates.getReconnect({
+          message: "Your chat session has ended",
+          button:  "Connect"
+        });
+        reconnect.replace();
+      } else {
+        Templates.reconnect.replace();
+      }
       this.loadChats();
     }
 
@@ -220,7 +230,6 @@ Chats = {
   },
 
   onPresence: function(presence) {
-    console.log(presence);
     var pres, from, type, show, jid, node, agent, index, current_agent;
     pres = $(presence);
     from = pres.attr('from');
@@ -284,6 +293,27 @@ Chats = {
       // transfer chat codes
     } else if (ended.length || body == "!endchat") {
       // chat ened code
+      if (Chats.settings.post_chat.enabled) {
+        Templates.postchat.replace();
+        Templates.inputs.hidden();
+      } else {
+        var reconnect = Templates.reconnect;
+        reconnect.options.template = Templates.getReconnect({
+          message: "Your chat session has ended",
+          button:  "Connect"
+        });
+        reconnect.replace();
+      }
+
+      Offerchat.details({id: Offerchat.website.id}).update({connect: false, chatend: true});
+      Offerchat.roster({website_id: Offerchat.website.id}).remove();
+      Offerchat.agent({website_id: Offerchat.website.id}).remove();
+
+      Chats.roster  = Offerchat.roster({website_id: Offerchat.website.id}).first();
+      Chats.agent   = Offerchat.agent({website_id: Offerchat.website.id}).first();
+      Chats.details = Offerchat.details({id: Offerchat.website.id}).first();
+
+      // _this.disconnect();
     } else if (body.length > 0) {
       var a = Chats.agent;
       if (!a) {

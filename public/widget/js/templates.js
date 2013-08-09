@@ -85,6 +85,13 @@ Templates = {
           $(".tooltip-options").removeClass("open");
           tooltip.addClass("open");
         }
+
+        /*var msg = "";
+        $.each(Chats.messages, function(key, value){
+          msg += "(" + value.time + ") "  + value.sender + ": " + value.message + "\n";
+        });
+
+        $('a[data-type=transcript]').attr('href', "data:text/octet-stream," + escape(msg));*/
       },
       toggleRating: function() {
         tooltip = $(".rating-options");
@@ -106,16 +113,21 @@ Templates = {
           $(e.target).text("Turn on sound");
           $(e.target).data("sound", "off");
           Offerchat.details({id: Offerchat.website.id}).update({sound: false});
+          $("#beep-notify").remove();
         } else {
           $(e.target).text("Turn off sound");
           $(e.target).data("sound", "on");
+          $(e.target).parent().append('<audio id="beep-notify" src="./images/sound.ogg"></audio>');
           Offerchat.details({id: Offerchat.website.id}).update({sound: true});
         }
-        console.log(_this);
-        window.open("data:text/json;charset=utf-8," + escape("Ur String Object goes here"), "Download");
       },
       downloadTranscript: function() {
-        console.log("test");
+        var msg = "";
+        $.each(Chats.messages, function(key, value){
+          msg += "(" + value.time + ") "  + value.sender + ": " + value.message + "\n";
+        });
+
+        window.open("data:text/json;charset=utf-8," + escape(msg), "Download");
       },
       togglePoweredBy: function() {
         window.open('//www.offerchat.com/?utm_medium=Widget_banner&utm_campaign=offerchat_widget&utm_source=www.offerchat.com', '_blank');
@@ -147,7 +159,25 @@ Templates = {
         "submit form.widget-block" : "submitOffline"
       },
       submitOffline: function(e) {
-        _this.validateForms(this);
+        if (_this.validateForms(this)) {
+          // $(this).serialize()
+          $.ajax({
+            type: "POST",
+            url: Offerchat.src.api_url + "offline/" + Offerchat.params.api_key,
+            data: $(this).serialize(),
+            success: function(data) {
+              console.log(data);
+              if (data.status == "success") {
+                _this.offline.options.template = _this.getChatForms({
+                  description: "You have successfully sent your message."
+                });
+                _this.offline.replace();
+                _this.inputs.hidden();
+              }
+            }
+          });
+        }
+
         return false;
       }
     });
@@ -324,10 +354,14 @@ Templates = {
     var inputs;
     data   = data || { placeholder: "Type your question and hit enter" };
     inputs = '<ul class="tooltip-options settings-options">' +
-             '  <li><a data-type="transcript">Download transcript</a></li>';
+             '  <li><a data-type="transcript">Open transcript</a></li>';
 
-    if (this.details.sound)
-      inputs += '  <li><a data-type="sound" data-sound="on">Turn off sound</a></li>';
+    if (this.details.sound) {
+      inputs += '<li>' +
+                '  <a data-type="sound" data-sound="on">Turn off sound</a>' +
+                '  <audio id="beep-notify" src="./images/sound.ogg"></audio>' +
+                '</li>';
+    }
     else
       inputs += '  <li><a data-type="sound" data-sound="off">Turn on sound</a></li>';
 
@@ -341,9 +375,8 @@ Templates = {
              '</ul>' +
              '<i class="widget icon icon-chat"></i>' +
              '<input class="widget-input-text" placeholder="' + data.placeholder + '" type="text">' +
-             '<a class="chat-settings"><i class="widget icon icon-gear"></i></a>' +
+             '<a class="chat-settings"><i class="widget icon icon-gear"></i></a>';
              // '<a class="chat-rating"><i class="widget icon icon-thumbs-up"></i></a>';
-             '<span id="sound-wrapper" style="display: none"></span>';
 
     return inputs;
   },
