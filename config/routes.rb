@@ -9,11 +9,7 @@ Dashboard::Application.routes.draw do
   resources :agents
   resource :settings
   resources :triggers
-  resources :plans do
-    collection do
-      post :stripe
-    end
-  end
+  resources :plans
   resources :subscriptions
 
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}, :controllers => {
@@ -38,9 +34,7 @@ Dashboard::Application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
-  # post 'signup_wizard/step_one' ,:controller => :signup_wizard, :action => 'create'
-  # post 'signup_wizard/step_three' ,:controller => :signup_wizard, :action => 'create'
-
+  mount StripeEvent::Engine => '/stripe_webhook'
 
   root :to => 'home#index'
 
