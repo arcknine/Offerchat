@@ -34,9 +34,7 @@ Dashboard::Application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
-  # post 'signup_wizard/step_one' ,:controller => :signup_wizard, :action => 'create'
-  # post 'signup_wizard/step_three' ,:controller => :signup_wizard, :action => 'create'
-
+  mount StripeEvent::Engine => '/stripe_webhook'
 
   root :to => 'home#index'
 

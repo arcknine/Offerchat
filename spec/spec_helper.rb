@@ -59,9 +59,9 @@ RSpec.configure do |config|
 
   config.include Devise::TestHelpers, :type => :controller
   config.extend ControllerMacros, :type => :controller
-  
+
   config.include Paperclip::Shoulda::Matchers
-  
+
   config.include RSpec::Rails::RequestExampleGroup, type: :request, example_group: { file_path: /spec\/api/ }
 end
 

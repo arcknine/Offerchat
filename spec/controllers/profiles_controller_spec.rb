@@ -48,7 +48,7 @@ describe ProfilesController do
         JSON.parse(response.body)["errors"].should_not be_blank
         response.code.should eq "422"
       end
-      
+
       it "should remove avatar if avatar value is 'remove'" do
         xhr :put, :update, id: @user.id, profile: {avatar_remove: true}, format: :json
         assigns(:profile).avatar.to_s.should eq "http://s3.amazonaws.com/offerchat/users/avatars/avatar.jpg"
@@ -65,7 +65,6 @@ describe ProfilesController do
 
       it "should not accept large size avatars" do
         post :update_avatar, :avatar => fixture_file_upload('/avatar/large.jpg')
-        puts assigns(:profile).avatar.inspect
         response.code.should eq "200"
       end
     end

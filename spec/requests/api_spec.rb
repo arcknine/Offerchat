@@ -2,8 +2,10 @@ require 'spec_helper'
 
 describe Offerchat::API do
   before(:each) do
-    @website = Fabricate(:website, :owner => Fabricate(:user))
+    owner = Fabricate(:user)
+    @website = Fabricate(:website, :owner => owner)
   end
+
   describe "GET token" do
     it "returns a json token" do
       get "/api/v1/widget/token/#{@website.api_key}"
@@ -31,6 +33,5 @@ describe Offerchat::API do
       response.status.should == 200
     end
   end
-
 
 end
