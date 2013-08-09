@@ -44,6 +44,7 @@ gem 'grape'
 
 # Payments
 gem 'stripe'
+gem 'stripe_event'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -69,6 +70,7 @@ end
 
 group :test do
   gem 'rspec-sidekiq'
+  gem 'webmock'
 end
 
 group :development do
