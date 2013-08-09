@@ -1,5 +1,5 @@
 class WidgetMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "Offercha Notifications <hello@offerchat.com>"
 
   def offline_form(to, name, from, message)
     @data = {:full_name => name, :from => from, :message => message }
