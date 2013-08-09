@@ -2,6 +2,20 @@
   %a.close ×
   %span
 
+.block-message.group.free-plan-notice.hide
+  %a.close x
+  You are currently on the
+  %strong Free
+  plan.
+  Upgrade your account to add more agents.
+
+.block-message.group.starter-plan-notice.hide
+  %a.close x
+  You are currently on the
+  %strong Starter
+  plan.
+  Upgrade your account to add more agents.
+
 .block.large
   %h1
     Plans and Pricing
