@@ -74,6 +74,7 @@ Templates = {
         "click input.widget-input-text" : "hideTooltips",
         "keyup input.widget-input-text" : "isTyping",
         "click a[data-type=sound]"      : "toggleSound",
+        "click a[data-type=transcript]" : "downloadTranscript",
         "click div.footer-credits a"    : "togglePoweredBy"
       },
       toggleSettings: function() {
@@ -112,6 +113,9 @@ Templates = {
         }
         console.log(_this);
         window.open("data:text/json;charset=utf-8," + escape("Ur String Object goes here"), "Download");
+      },
+      downloadTranscript: function() {
+        console.log("test");
       },
       togglePoweredBy: function() {
         window.open('//www.offerchat.com/?utm_medium=Widget_banner&utm_campaign=offerchat_widget&utm_source=www.offerchat.com', '_blank');
