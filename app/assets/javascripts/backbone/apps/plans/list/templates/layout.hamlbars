@@ -86,7 +86,7 @@
           up to 30 agent seats
         %li
           white labeled widget
-    .group
+    .group.starter-upgrade
       .block-message.inline.small
         {{starter.description}}
         %strong

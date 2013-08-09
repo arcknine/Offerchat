@@ -25,6 +25,7 @@
     initPlans: (plan) ->
       $(".starter-plan-notice").addClass "hide"
       $(".free-plan-notice").addClass "hide"
+      $(".group.starter-upgrade").removeClass "hide"
 
       if plan == "PERSONAL"
         $("#personal-button").html('<i class="icon icon-check-large-2"></i>')
@@ -33,6 +34,7 @@
       else if plan == "ENTERPRISE"
         $("#enterprise-button").html('<i class="icon icon-check-large-2"></i>')
       else if plan == "STARTER"
+        $(".group.starter-upgrade").addClass("hide")
         $(".starter-plan-notice").removeClass("hide")
       else if plan == "FREE"
         $(".free-plan-notice").removeClass("hide")
