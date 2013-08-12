@@ -22,14 +22,6 @@
         @visitorsList()
         @agentsList()
 
-      # @listenTo @messages, "add", (item) =>
-      #   console.log "last mes", @messages.last()
-      #   console.log "current ", item
-      #   # item.set { child: true, childclass: "child" } if @messages.last().get("jid") isnt item.get("jid") and @messages.last().get("viewing") is false
-      #   item.set { child: true, childclass: "child" } if @messages.last().get("jid") is item.get("jid") and @messages.last().get("viewing") is true
-      #   @messages.add(item)
-      #   console.log "nag addd tan-awa!!!"
-
       App.reqres.setHandler "get:chats:messages", =>
         @messages
 
@@ -75,6 +67,7 @@
       @connection.addHandler @onPresence, null, "presence"
       @connection.addHandler @onPrivateMessage, null, "message", "chat"
 
+
       @create_vcard()
       @sendPresence()
 
@@ -96,13 +89,11 @@
         @connection.sendIQ build
         sessionStorage.setItem("vcard", true)
 
-
     sendPresence: ->
       pres = $pres().c('priority').t('1').up().c('status').t("Online")
       @connection.send(pres)
 
     onPresence: (presence) =>
-      console.log presence
       from     = $(presence).attr("from")
       jid      = Strophe.getNodeFromJid from
       resource = Strophe.getResourceFromJid from
@@ -129,11 +120,10 @@
       true
 
     onPrivateMessage: (message) =>
-      console.log "tae message: ",message
+
       from    = $(message).attr("from")
       jid     = Strophe.getNodeFromJid from
       body    = $(message).find("body").text()
-      console.log "sugod sa private message"
       if body
         visitor = @visitors.findWhere { jid: jid }
         token = visitor.get("token")

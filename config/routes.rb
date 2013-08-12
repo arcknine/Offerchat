@@ -1,5 +1,4 @@
 Dashboard::Application.routes.draw do
-
   resource :profiles do
     collection do
       post "update_avatar"
@@ -37,6 +36,6 @@ Dashboard::Application.routes.draw do
   mount StripeEvent::Engine => '/stripe_webhook'
 
   root :to => 'home#index'
-
+  resources :exporters
   mount Offerchat::API => '/api/v1/widget/'
 end
