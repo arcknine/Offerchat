@@ -70,10 +70,10 @@
                   self.trigger "show:notification", file_too_large_error 
             else
               App.request "hide:preloader"
-              self.trigger "show:notification", file_too_large_error
+              self.trigger "show:notification", "#{file.name} is not a jpeg, or png image file"
               
           else
-            self.trigger "show:notification", "#{file.name} is not a jpeg, or png image file"
+            self.trigger "show:notification", file_too_large_error
             App.request "hide:preloader"
 
 
