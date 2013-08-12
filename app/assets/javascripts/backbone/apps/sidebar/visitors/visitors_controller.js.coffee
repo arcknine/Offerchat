@@ -117,6 +117,7 @@
       @displayCurrentUrl(token, jid, info.url)
 
       if type is "unavailable"
+        console.log "unavailable", visitor
         @visitors.remove visitor
       else if typeof visitor is "undefined"
         visitor = { jid: jid, token: token ,info: info, resource: resource }

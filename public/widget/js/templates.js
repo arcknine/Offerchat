@@ -117,7 +117,7 @@ Templates = {
         } else {
           $(e.target).text("Turn off sound");
           $(e.target).data("sound", "on");
-          $(e.target).parent().append('<audio id="beep-notify" src="./images/sound.ogg"></audio>');
+          $(e.target).parent().append('<audio id="beep-notify" src="//d3ocj2fkvch1xi.cloudfront.net/widget/images/sound.ogg"></audio>');
           Offerchat.details({id: Offerchat.website.id}).update({sound: true});
         }
       },
@@ -377,7 +377,7 @@ Templates = {
     if (this.details.sound) {
       inputs += '<li>' +
                 '  <a data-type="sound" data-sound="on">Turn off sound</a>' +
-                '  <audio id="beep-notify" src="./images/sound.ogg"></audio>' +
+                '  <audio id="beep-notify" src="//d3ocj2fkvch1xi.cloudfront.net/widget/images/sound.ogg"></audio>' +
                 '</li>';
     }
     else
