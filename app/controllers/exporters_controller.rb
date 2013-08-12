@@ -1,8 +1,5 @@
 class ExportersController < ApplicationController
-
-
   def index
-    # @content = "Hello World#{params[:type]}"
     if params[:data].present?
       jsonArray = params[:data]
       objArray = JSON.parse(jsonArray)
@@ -11,7 +8,6 @@ class ExportersController < ApplicationController
         @content += "(#{msg['time']}) #{msg['sender']}: #{msg['message']} \r\n"
       end
     end
-
     send_data @content,
       :type => 'text',
       :disposition => "attachment; filename=offerchat_chat_logs.txt"
