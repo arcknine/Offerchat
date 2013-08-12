@@ -1,7 +1,4 @@
 Dashboard::Application.routes.draw do
-
-  get "exporters/index"
-
   resource :profiles do
     collection do
       post "update_avatar"
