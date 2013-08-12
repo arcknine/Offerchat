@@ -1,3 +1,15 @@
+{{#if viewing}}
+.chat-item.group.small
+  .chat-table.chat-left-table
+    &nbsp;
+  .chat-table.chat-container-table
+    .viewing-current-url
+      viewing
+      %a {{message}}
+  .chat-time
+    {{timesimple}}
+
+{{else}}
 .chat-item.group{class: "{{childclass}}"}
   .chat-table.chat-left-table
     .chat-user{class: "{{sender}}"}
@@ -11,3 +23,4 @@
     %p {{message}}
 
   .chat-time {{timesimple}}
+{{/if}}

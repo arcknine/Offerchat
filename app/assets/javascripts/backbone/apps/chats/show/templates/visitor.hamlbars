@@ -3,9 +3,9 @@
 %ul.chat-list-info
   %li.visitor-name
     %a
-      {{jid}}
+      {{info.name}}
   %li
-    .flag-icon.flag-PH
-    Cebu, Philippines
+    .flag-icon{:class =>"flag-{{info.ccode}}"}
+    {{info.location}}
   %li
-    Windows / Google Chrome
+    {{info.OS}} / {{info.browser}}
