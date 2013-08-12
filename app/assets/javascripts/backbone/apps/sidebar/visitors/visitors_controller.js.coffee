@@ -76,7 +76,7 @@
       @connection.addHandler @onPrivateMessage, null, "message", "chat"
 
       @create_vcard()
-      @sendPresence
+      @sendPresence()
 
     create_vcard: ->
       vcard = sessionStorage.getItem("vcard")
