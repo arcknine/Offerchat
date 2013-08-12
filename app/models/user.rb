@@ -33,6 +33,10 @@ class User < ActiveRecord::Base
   #validates_attachment_content_type
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
 
+  def small_avatar
+    avatar.url(:small)
+  end
+  
   def account(website_id)
     accounts.where("website_id = ?", website_id).first
   end
