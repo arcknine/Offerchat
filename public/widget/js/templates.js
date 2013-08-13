@@ -21,7 +21,7 @@ Templates = {
 
         if (_this.settings.offline.enabled)
           $.postMessage({show: true}, Offerchat.params.current_url, parent);
-      } else if (_this.settings.pre_chat.enabled && !Offerchat.widget.prechat) {
+      } else if (_this.settings.pre_chat.enabled && !_this.details.prechat) {
         _this.prechat.replace();
         _this.inputs.destroy();
 
@@ -227,8 +227,21 @@ Templates = {
           _this.prechat.destroy();
           _this.inputs.replace();
 
-          Offerchat.widget.prechat = true;
-          localStorage.setItem("offerchat_widget", JSON.stringify(Offerchat.widget));
+          var data = Helpers.unserialize($(this).serialize());
+
+          Offerchat.details({id: Offerchat.website.id}).update({
+            prechat: true,
+            name: data.name,
+            email: data.email,
+            message: data.message ? data.message : null
+          });
+
+          _this.details.prechat = true;
+          _this.details.name    = data.name;
+          _this.details.email   = data.email;
+          _this.details.message = data.message ? data.message : null;
+
+          Chats.init();
         }
         return false;
       }

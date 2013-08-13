@@ -55,7 +55,7 @@ Chats = {
       $.ajax({
         type: "GET",
         url:  Offerchat.src.api_url + "checkin/" + Offerchat.params.secret_token + ".jsonp",
-        data: { browser: info.browser, location: loc.join(", ", loc) },
+        data: { name: info.name, browser: info.browser, location: loc.join(", ", loc), email: info.email, operating_system: info.OS, country_code: info.code },
         dataType: "jsonp",
         success: function(data) {
           if (typeof data.error == "undefined") {
@@ -170,6 +170,28 @@ Chats = {
     this.initTriggers();
     this.initTimeOut();
     this.loadChats();
+    this.sendPreChatMsg();
+  },
+
+  sendPreChatMsg: function() {
+    var _this = this;
+
+    var details = Offerchat.details({id: Offerchat.website.id}).first();
+    if (this.details.prechat === true && details.message) {
+      this.getAgent(function(agent) {
+        if (agent) {
+          _this.xmppSendMsg(_this.details.message, agent, "You");
+          _this.details.message = null;
+
+          Offerchat.details({id: Offerchat.website.id}).remove();
+          Offerchat.details.insert(_this.details);
+        } else {
+          Templates.offline.replace();
+          Templates.inputs.hidden();
+          _this.disconnect();
+        }
+      });
+    }
   },
 
   setCredentials: function() {
@@ -262,7 +284,6 @@ Chats = {
       }
 
       if (!type && node != agent.jabber_user && (!show || show == 'chat' || show == 'online') && $.inArray(node, Chats.agents) < 0) {
-        console.log("test??");
         Chats.agents.push(node);
       }
 
@@ -312,6 +333,8 @@ Chats = {
       Chats.roster  = Offerchat.roster({website_id: Offerchat.website.id}).first();
       Chats.agent   = Offerchat.agent({website_id: Offerchat.website.id}).first();
       Chats.details = Offerchat.details({id: Offerchat.website.id}).first();
+      // Chats.details.connect = false;
+      // Chats.details.chatend = true;
 
       // _this.disconnect();
     } else if (body.length > 0) {
@@ -576,6 +599,7 @@ Chats = {
         this.roster  = Offerchat.roster({website_id: Offerchat.website.id}).first();
         this.agent   = Offerchat.agent({website_id: Offerchat.website.id}).first();
         this.details = Offerchat.details({id: Offerchat.website.id}).first();
+        // this.details.connect = false;
 
         _this.disconnect();
         Templates.reconnect.replace();
