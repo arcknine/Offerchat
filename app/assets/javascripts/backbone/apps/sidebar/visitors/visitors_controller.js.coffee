@@ -7,9 +7,8 @@
       @currentUser = App.request "set:current:user", App.request "get:current:user:json"
       @visitors    = App.request "visitors:entities"
       @messages    = App.request "messeges:entities"
+      @currentSite = App.request "get:sidebar:selected:site"
       @layout      = @getLayout()
-
-      # @visitorsStorage.create @visitors
 
       App.reqres.setHandler "set:no:active:visitor:chat", =>
         @visitors.updateModels('active', null)
@@ -19,8 +18,12 @@
         @connected()
 
       @listenTo @layout, "show", =>
-        @visitorsList()
+        # @visitorsList()
         @agentsList()
+
+      @listenTo @currentSite, "change", =>
+        @visitorsList()
+        # console.log @currentSite
 
       App.reqres.setHandler "get:chats:messages", =>
         @messages
@@ -30,20 +33,27 @@
 
       @show @layout
 
-
-
     getLayout: ->
       new Visitors.Layout
 
-    getVisitorsView: ->
+    getVisitorsView: (visitors) ->
       new Visitors.List
-        collection: @visitors
+        collection: visitors
 
     getAgentsView: ->
       new Visitors.Agents
 
     visitorsList: ->
-      visitorsView = @getVisitorsView()
+      unless  @currentSite.get("all")
+        console.log @visitors
+
+        visitors = App.request "visitors:entities"
+        visitors.set @visitors.where { api_key: @currentSite.get("api_key") }
+      else
+        console.log @visitors
+        visitors = @visitors
+
+      visitorsView = @getVisitorsView(visitors)
 
       @listenTo visitorsView, "childview:click:visitor:tab", (visitor) =>
 
@@ -66,7 +76,6 @@
       @connection.vcard.init(@connection)
       @connection.addHandler @onPresence, null, "presence"
       @connection.addHandler @onPrivateMessage, null, "message", "chat"
-
 
       @create_vcard()
       @sendPresence()
@@ -103,16 +112,13 @@
       info     = JSON.parse($(presence).find('offerchat').text() || "{}")
       token    = info.token
       visitor  = @visitors.findWhere { token: token }
-      console.log info
 
       @displayCurrentUrl(token, jid, info.url)
 
       if type is "unavailable"
-        console.log "unavailable", visitor
         @visitors.remove visitor
       else if typeof visitor is "undefined"
-        visitor = { jid: jid, token: token ,info: info, resource: resource, email: info.email }
-        @visitors.add visitor
+        @visitors.add { jid: jid, token: token ,info: info, resource: resource, api_key: info.api_key }
       else
         visitor.set jid: jid
         @visitors.set visitor

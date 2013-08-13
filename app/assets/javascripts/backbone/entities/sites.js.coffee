@@ -61,6 +61,9 @@
         rounded:  (if not storage.rounded then true else storage.rounded)
         api_key:  (if not storage.api_key then false else storage.api_key)
 
+    newChatSite: ->
+      new Entities.Site
+
   App.reqres.setHandler "site:entities", ->
     API.getSites()
 
@@ -81,3 +84,6 @@
 
   App.reqres.setHandler "owned:sites:entities", ->
     API.getOwnedSites()
+
+  App.reqres.setHandler "new:selector:site", ->
+    API.newChatSite()
