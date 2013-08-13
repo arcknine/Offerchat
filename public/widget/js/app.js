@@ -1,5 +1,4 @@
 Offerchat = {
-  widget:   {},
   website:  {},
 
   version: global.version,
@@ -47,11 +46,13 @@ Offerchat = {
           browser:  BrowserDetect.browser,
           version:  BrowserDetect.version,
           OS:       BrowserDetect.OS,
-          sound:    true
+          sound:    true,
+          prechat:  false,
+          name:     null,
+          email:    null,
+          message:  null
         });
       }
-
-      _this.widget = JSON.parse(localStorage.getItem("offerchat_widget")) || {};
 
       // overwrite for ie
       _this.website.settings.style.gradient = BrowserDetect.browser == "Internet Explorer" ? false : _this.website.settings.style.gradient;
