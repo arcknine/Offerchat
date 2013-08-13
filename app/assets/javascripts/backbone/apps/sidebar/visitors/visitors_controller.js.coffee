@@ -111,7 +111,7 @@
         console.log "unavailable", visitor
         @visitors.remove visitor
       else if typeof visitor is "undefined"
-        visitor = { jid: jid, token: token ,info: info, resource: resource }
+        visitor = { jid: jid, token: token ,info: info, resource: resource, email: info.email }
         @visitors.add visitor
       else
         visitor.set jid: jid
