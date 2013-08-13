@@ -23,7 +23,6 @@
 
       @listenTo @currentSite, "change", =>
         @visitorsList()
-        # console.log @currentSite
 
       App.reqres.setHandler "get:chats:messages", =>
         @messages
@@ -45,12 +44,9 @@
 
     visitorsList: ->
       unless  @currentSite.get("all")
-        console.log @visitors
-
         visitors = App.request "visitors:entities"
         visitors.set @visitors.where { api_key: @currentSite.get("api_key") }
       else
-        console.log @visitors
         visitors = @visitors
 
       visitorsView = @getVisitorsView(visitors)
@@ -116,12 +112,23 @@
       @displayCurrentUrl(token, jid, info.url)
 
       if type is "unavailable"
-        @visitors.remove visitor
+        visitor   = @visitors.findWhere { jid: jid }
+        resources = visitor.get "resources"
+        index     = $.inArray(resource, resources)
+
+        resources.splice(index, 1) if index > -1
+
+        if resources.length is 0
+          @visitors.remove visitor
+        else
+          visitor.set { jid: jid, resources: resources }
+          @visitors.set visitor
       else if typeof visitor is "undefined"
-        @visitors.add { jid: jid, token: token ,info: info, resource: resource, api_key: info.api_key, email: info.email }
+        @visitors.add { jid: jid, token: token ,info: info, resources: [resource] api_key: info.api_key, email: info.email }
       else
-        visitor.set jid: jid
-        @visitors.set visitor
+        resources = visitor.get "resources"
+        resources.push(resource) if $.inArray(resource, resources) is -1
+        visitor.set { jid: jid, resources: resources }
 
       true
 
