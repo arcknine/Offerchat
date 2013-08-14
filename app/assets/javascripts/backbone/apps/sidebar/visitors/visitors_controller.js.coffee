@@ -118,7 +118,7 @@
       if type is "unavailable"
         @visitors.remove visitor
       else if typeof visitor is "undefined"
-        @visitors.add { jid: jid, token: token ,info: info, resource: resource, api_key: info.api_key }
+        @visitors.add { jid: jid, token: token ,info: info, resource: resource, api_key: info.api_key, email: info.email }
       else
         visitor.set jid: jid
         @visitors.set visitor
