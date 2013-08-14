@@ -41,6 +41,31 @@
       user: @options.model.toJSON()
       plan: @options.plan
 
+
+  class List.ModalDowngrade extends App.Views.Layout
+    template: "plans/list/downgrade"
+    className: "form form-inline"
+    regions:
+      agentsRegion: "#agents-region"
+    form:
+      title: "Downgrade Plan"
+      terms: true
+      footer: false
+      buttons:
+        nosubmit: false
+        primary: false
+        cancel: false
+
+  class List.Agent extends App.Views.ItemView
+    template:  "plans/list/agent"
+    className: "agent-inline-block agent-block-large"
+
+  class List.Agents extends App.Views.CompositeView
+    template: "plans/list/agents"
+    className: "block group agent-selection-form"
+    itemView: List.Agent
+    itemViewContainer: "#agent-list"
+
   class List.ModalProcessPayment extends App.Views.ItemView
     template: "plans/list/process_payment"
     className: "authorize-payment-overlay text-center"

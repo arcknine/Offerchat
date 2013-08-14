@@ -1,0 +1,14 @@
+.block-message.warning.small
+  %strong Warning:
+  Downgrading your plan will remove your agents from your dashboard
+
+.section-desc
+  Select
+  %strong
+  5 agents you want to be active:
+
+#agents-region
+
+.block.align-right
+  %a.btn.action
+    Next

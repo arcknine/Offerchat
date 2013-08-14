@@ -20,7 +20,29 @@
 
       @listenTo @plansView, "upgrade:plan", (e) =>
         plan = $(e.currentTarget).data('id')
-        @showModal(plan)
+        if @isDowngrade(plan)
+          @showDowngradeModal(plan)
+        else
+          @showModal(plan)
+
+    isDowngrade: (plan) ->
+      current_plan = @profile.get("plan_identifier")
+      if current_plan == "PERSONAL"
+        if plan == "STARTER"
+          true
+        else
+          false
+      else if current_plan == "BUSINESS"
+        if plan == "STARTER"
+          true
+        else if plan == "PERSONAL"
+          true
+        else
+          false
+      else if current_plan == "ENTERPRISE"
+        false
+      else if current_plan == "STARTER"
+        true
 
     initPlans: (plan) ->
       $(".starter-plan-notice").addClass "hide"
@@ -48,6 +70,15 @@
       new List.ModalPlan
         model: @profile
         plan: plan
+
+    getDowngradeModal: (plan) ->
+      new List.ModalDowngrade
+        model: @profile
+        plan: plan
+
+    getAgentList: (agents) ->
+      new List.Agents
+        collection: agents
 
     getProcessPaymentModal: ->
       new List.ModalProcessPayment
@@ -97,6 +128,21 @@
             @paymentFail()
 
         Stripe.createToken(card, handleStripeResponse)
+
+    showDowngradeModal: (plan) ->
+      agents = App.request "agents:only:entities"
+
+      App.execute "when:fetched", agents, =>
+        modalView  = @getDowngradeModal(plan)
+        formView = App.request "modal:wrapper", modalView
+
+        @listenTo formView, "show", ->
+          modalView.agentsRegion.show @getAgentList agents
+
+        @listenTo formView, "modal:cancel", (item) ->
+          formView.close()
+
+        App.modalRegion.show formView
 
     processPayment: =>
       modalView = @getProcessPaymentModal()

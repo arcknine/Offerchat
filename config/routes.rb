@@ -7,7 +7,11 @@ Dashboard::Application.routes.draw do
     end
   end
 
-  resources :agents
+  resources :agents do
+    collection do
+      get "only"
+    end
+  end
   resource :settings
   resources :triggers
   resources :plans

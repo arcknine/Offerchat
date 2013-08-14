@@ -8,6 +8,11 @@ class AgentsController < ApplicationController
     @owner = current_user
   end
 
+  def only
+    @owner = current_user
+    @agents = current_user.my_agents
+  end
+
   def create
     @owner = current_user
     accounts = []
