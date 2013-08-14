@@ -41,7 +41,6 @@
       user: @options.model.toJSON()
       plan: @options.plan
 
-
   class List.ModalDowngrade extends App.Views.Layout
     template: "plans/list/downgrade"
     className: "form form-inline"
@@ -65,6 +64,10 @@
     className: "block group agent-selection-form"
     itemView: List.Agent
     itemViewContainer: "#agent-list"
+    events:
+      "click .checkable" : "agentClicked"
+    agentClicked: (e) ->
+      @trigger "agent:clicked", e
 
   class List.ModalProcessPayment extends App.Views.ItemView
     template: "plans/list/process_payment"

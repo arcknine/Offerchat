@@ -131,13 +131,25 @@
 
     showDowngradeModal: (plan) ->
       agents = App.request "agents:only:entities"
+      plans = App.request "get:plan:by:name", plan
 
       App.execute "when:fetched", agents, =>
         modalView  = @getDowngradeModal(plan)
         formView = App.request "modal:wrapper", modalView
+        agentsView = @getAgentList(agents)
+
+
+        App.execute "when:fetched", plans, =>
+          @listenTo agentsView, "agent:clicked", (e) ->
+            next_plan = plans.first()
+
+            # T0d0: Check the agent limits here
+
+            $(e.currentTarget).parent().toggleClass "checked"
+            $(e.currentTarget).parent().toggleClass "disabled"
 
         @listenTo formView, "show", ->
-          modalView.agentsRegion.show @getAgentList agents
+          modalView.agentsRegion.show agentsView
 
         @listenTo formView, "modal:cancel", (item) ->
           formView.close()

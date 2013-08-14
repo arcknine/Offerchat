@@ -1,7 +1,8 @@
 %label.inline.checkbox.disabled
-  %span.icon
+  %span.icon.checkable
     .icon-check
-  .profile-image-container
+  .profile-image-container.checkable
     .profile-image
       %img{:src => "{{avatar}}"}
-  {{name}}
+  %span.checkable
+    {{name}}
