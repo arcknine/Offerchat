@@ -38,11 +38,14 @@
     model: Entities.Message
 
   class Entities.OnlineAgent extends App.Entities.Model
+    defaults:
+      unread:   null
+      active:   null
+      new_chat: null
+      bounce:   null
 
   class Entities.OnlineAgentsCollection extends App.Entities.Collection
     model: Entities.OnlineAgent
-
-
 
   API =
     setVisitor: ->

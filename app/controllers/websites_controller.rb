@@ -4,7 +4,8 @@ class WebsitesController < ApplicationController
   respond_to :json
 
   def index
-    @websites = current_user.all_sites
+    # @websites = current_user.all_sites
+    # @websites = @all_sites
   end
 
   def owned

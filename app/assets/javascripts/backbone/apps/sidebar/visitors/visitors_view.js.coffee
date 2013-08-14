@@ -9,26 +9,33 @@
   class Visitors.View extends App.Views.ItemView
     template:  "sidebar/visitors/visitor"
     triggers:
-      "click a.chat-item-tab" : "click:visitor:tab"
+      "click a.chat-item-tab": "click:visitor:tab"
 
     modelEvents:
-      "change" : "render"
+      "change": "render"
 
   class Visitors.List extends App.Views.CompositeView
     template: "sidebar/visitors/visitors"
     itemView: Visitors.View
     itemViewContainer: "div.visitors-wrapper"
+
     serializeData: ->
-      viewData = {}
-      viewData.visitors_count = @collection.length
-      viewData
+      visitors_count: @collection.length
 
     collectionEvents:
       "all": "render"
 
   class Visitors.Agent extends App.Views.ItemView
     template: "sidebar/visitors/agent"
+    triggers:
+      "click a.chat-item-tab": "click:agent:tab"
 
   class Visitors.Agents extends App.Views.CompositeView
     template: "sidebar/visitors/agents"
     itemView: Visitors.Agent
+
+    serializeData: ->
+      agents_count: @collection.length
+
+    collectionEvents:
+      "all": "render"
