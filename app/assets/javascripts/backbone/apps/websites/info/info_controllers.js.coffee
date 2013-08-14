@@ -4,6 +4,7 @@
 
     initialize: (options = {}) ->
       sites = App.request "get:sites:count"
+      # App.vent.trigger "show:chat:sidebar"
       @storage = JSON.parse(sessionStorage.getItem("newSite"))
       newWebsite = App.request "new:site:entity"
       newWebsite.url = Routes.websites_path()
