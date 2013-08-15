@@ -18,5 +18,5 @@
       %a.webmaster-code
         Send this code to your webmaster
     %p
-      %a.install-guide
+      %a.install-guide{ :href => "https://www.offerchat.com/blog/category/install-guides/", :target => "blank" }
         Offerchat Install Guide
