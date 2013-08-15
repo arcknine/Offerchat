@@ -53,13 +53,13 @@
   height: 220px
   overflow-y: scroll
 .note
-  padding: 10px
+  padding: 5px 10px
   float: left
   &.fixed
     width: 545px
   .date
     font-size: 12px
-    margin-top: 10px
+    margin-top: 5px
     color: $light-text-color
 .chat-header
   border-bottom: 1px solid $default-border-color
@@ -69,6 +69,8 @@
   -moz-box-sizing: border-box
   &.overflow
     overflow-y: auto
+  .agent-inline-block
+    margin-top: 20px
 .chat-right-sidebar
   float: right
   margin-top: 35px
@@ -105,6 +107,7 @@
   textarea
     height: 45px
     width: 100%
+    font-size: 14px
     &:hover
       border-color: $border-color
     &:focus
@@ -122,6 +125,9 @@
   border-top: 1px solid #f1f1f1
   padding: 10px 0
   position: relative
+  &.chat-transfer-item
+    .chat-container-table
+      width: 76% !important
   p
     margin: 0 0 10px 0
     &:last-child
@@ -138,8 +144,19 @@
     margin: 0 10px
     border-radius: 3px
     color: $text-color
-    
     font-size: 12px
+  .chat-transfer-message
+    margin-top: 5px
+    display: inline-block
+    color: #000
+    font-weight: bold
+  .chat-transfer-actions
+    display: inline-block 
+    float: right 
+    line-height: 1
+  .sub-text
+    font-size: 12px
+    color: $light-text-color
   .chat-table
     float: left
     &.chat-left-table
@@ -148,6 +165,7 @@
     &.chat-container-table
       width: 68%
       padding-left: 20px
+
     
   .viewing-current-url
     overflow: hidden
@@ -158,9 +176,8 @@
     &.agent
       color: darken($text-color, 20%)
     &.visitor
-      
-      
       color: $light-text-color
+
 .chat-time
   display: inline-block
   margin-left: 10px
@@ -172,17 +189,7 @@
 .show-prev-chats-label
   margin-right: 10px
 
-.transfer-chat-notification
-  margin: 5px 0
-  color: $light-text-color
-  font-size: 12px
-  padding: 3px
 
-span.transfer-chat-msg
-  vertical-align: top
-  margin-top: 10px
-  display: inline-block 
-  margin-left: 10px
 
 
 .chat-agent-name

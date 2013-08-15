@@ -29,6 +29,16 @@ class WebsitesController < ApplicationController
     @website = current_user.websites.find params[:id]
   end
 
+  def webmaster_code
+    if params[:email].present? && params[:api_key].present? && validate_email(params[:email].to_s)
+      UserMailer.delay.send_to_webmaster(params[:email], params[:api_key])
+      render json: { success: {"success" => ["email sent!"]} }, status: 200
+    else
+      render json: { errors: {"email" => ["should be valid and not blank"]} }, status: 401
+    end
+
+  end
+
   def create
 
     @website = current_user.websites.new(params[:website])
@@ -40,7 +50,6 @@ class WebsitesController < ApplicationController
 
     unless @website.save
       respond_with @website
-
     end
   end
 
@@ -72,4 +81,28 @@ class WebsitesController < ApplicationController
       head :no_content
     end
   end
+
+  private
+  def validate_email(email)
+    email_regex = %r{
+      ^ # Start of string
+      [0-9a-z] # First character
+      [0-9a-z.+]+ # Middle characters
+      [0-9a-z] # Last character
+      @ # Separating @ character
+      [0-9a-z] # Domain name begin
+      [0-9a-z.-]+ # Domain name middle
+      [0-9a-z] # Domain name end
+      $ # End of string
+    }xi # Case insensitive
+
+    if (email =~ email_regex) == 0
+      return true
+    else
+      return false
+    end
+  end
+
+
+
 end

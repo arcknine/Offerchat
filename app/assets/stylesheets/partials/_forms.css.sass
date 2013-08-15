@@ -67,6 +67,8 @@ label
   &.disabled
     cursor: default
     color: $light-text-color
+    opacity: .7
+    filter: alpha(opacity=80)
 
   
 
@@ -99,13 +101,20 @@ label
       opacity: 1
       filter: alpha(opacity=10)
   &.disabled
+
     .icon
       background-color: #c9d2d6
-      box-shadow: 0 1px 0 darken(#c9d2d6, 10%)
+      box-shadow: 0 1px 0 darken(#c9d2d6, 5%)
       cursor: default
     .icon-check
       opacity: 1
       filter: alpha(opacity=10)
+    &.uncheck
+      .icon
+        background-color: #c9d2d6
+      .icon-check
+        opacity: 0
+        ilter: alpha(opacity=0)
   .icon-check
     @include icon(16px, 16px, -28px, -9px)
     opacity: 0

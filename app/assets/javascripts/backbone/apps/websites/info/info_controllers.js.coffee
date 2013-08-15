@@ -24,9 +24,13 @@
         model: site
 
     initInfoView: (sites) ->
+      $('#connecting-region').remove();
+      $('.opacity').remove();
       if sites.length is 0
         $('#preview-checklist').addClass('checked')
         $('#preview-checklist').find('span').hide()
         $('#second-check').show()
+
+
 
 
