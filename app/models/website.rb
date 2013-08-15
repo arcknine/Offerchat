@@ -1,11 +1,13 @@
 class Website < ActiveRecord::Base
-
+  include ActiveModel::Validations
   attr_accessible :api_key, :name, :url, :owner
 
   before_create :generate_api_key
   after_create :generate_account
   after_create :generate_rosters
   before_validation :generate_website_name
+  before_validation :add_url_protocol
+
   after_destroy :delete_accounts
 
   has_many :accounts
@@ -16,7 +18,9 @@ class Website < ActiveRecord::Base
 
   validates_presence_of :url
   validates_presence_of :name
-  validates :url, :format => /^(http(s?):\/\/)?(www\.)?+[a-zA-Z0-9\-\_][a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,3})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/
+  # validates :url, :format => /^(http(s?):\/\/)?(www\.)?+[a-zA-Z0-9\-\_][a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,3})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/
+  validates :url, :presence => true, :url => true
+
 
   has_settings(:class_name => "WebsiteSettings") do |s|
     s.key :style, :defaults => { :theme => "greengrass", :position => "right", :rounded => false, :gradient => false }
@@ -131,5 +135,13 @@ class Website < ActiveRecord::Base
     self.settings(:post_chat).email = self.owner.email
     self.save!
   end
+
+  def add_url_protocol
+    unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
+      self.url = 'http://' + self.url
+    end
+  end
+
+
 
 end
