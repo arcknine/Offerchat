@@ -59,4 +59,22 @@ describe Account do
       }.to change(AgentRostersWorker.jobs, :size).by(1)
     end
   end
+
+  describe "before destroy user should be unsubscribe to visitors and agent" do
+    before(:each) do
+      @account  = Fabricate(:account)
+    end
+
+    it "should unsubscribe user to website rosters" do
+      expect {
+        @account.destroy
+      }.to change(UnsubscribeRostersWorker.jobs, :size).by(1)
+    end
+
+    it "should unsubscribe user to website agents" do
+      expect {
+        @account.destroy
+      }.to change(UnsubscribeAgentsWorker.jobs, :size).by(1)
+    end
+  end
 end

@@ -152,6 +152,7 @@ class User < ActiveRecord::Base
 
   def create_jabber_account
     self.update_attributes(:jabber_user => "#{self.id}#{self.created_at.to_i}", :jabber_password => SecureRandom.hex(8))
+
     # Create the account on Openfire
     JabberUserWorker.perform_async(self.id)
   end
