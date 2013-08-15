@@ -6,6 +6,7 @@
 
     regions:
       triggersRegion: "#triggers-region"
+      emptyRegion:    "#empty-triggers"
 
     events:
       "click #addTriggerBtn"  :   "addTrigger"
@@ -30,7 +31,6 @@
     changeRule: (e) ->
       @trigger "rule:changed", e
 
-
   class TriggersList.Empty extends App.Views.ItemView
     template: "settings/triggers/list/empty"
     tagName: "div"
@@ -47,4 +47,3 @@
   class TriggersList.Triggers extends App.Views.CompositeView
     template: "settings/triggers/list/triggers"
     itemView: TriggersList.Trigger
-    emptyView: TriggersList.Empty

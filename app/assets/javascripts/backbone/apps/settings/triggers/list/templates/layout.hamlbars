@@ -4,6 +4,8 @@
       Chat Triggers
     Set triggers to automatically open the widget once a condition is met
 
+  #empty-triggers
+
   .block-message{ :style => "display:none;" }
     %a.close
       &times;

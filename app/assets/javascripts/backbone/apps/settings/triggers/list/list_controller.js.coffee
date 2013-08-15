@@ -12,6 +12,9 @@
       @listenTo @layout, "show", =>
         @showTriggersList @triggers, options.currentSite.get("id")
 
+      @listenTo @triggers, "all", (ev) =>
+        @showEmptyView @triggers
+
       @listenTo @layout, "add:trigger:clicked", (e) ->
         trigger = App.request "new:trigger"
         formView = @getFormView trigger, options.currentSite.get("id")
@@ -34,6 +37,15 @@
 
         $(e.el).parents("#triggers-region").find("a.btn").removeClass "hide"
         $(e.el).append(triggerForm.render().$el)
+
+    showEmptyView: (triggers) ->
+      if triggers.length is 0
+        emptyView = @getEmptyView triggers
+        @layout.emptyRegion.show emptyView
+
+    getEmptyView: (triggers) ->
+      new TriggersList.Empty
+        collection: triggers
 
     removeInlineForms: (item) ->
       if item
