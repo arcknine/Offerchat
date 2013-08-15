@@ -31,8 +31,12 @@ class WebsitesController < ApplicationController
 
   def webmaster_code
     if params[:email].present? && params[:api_key].present? && validate_email(params[:email].to_s)
+<<<<<<< HEAD
 
       UserMailer.delay.send_to_webmaster( params[:email].to_s, current_user.name, params[:api_key].to_s )
+=======
+      UserMailer.delay.send_to_webmaster(params[:email], params[:api_key])
+>>>>>>> added fix on css and modal on send webmaster code
       render json: { success: {"success" => ["email sent!"]} }, status: 200
     else
       render json: { errors: {"email" => ["should be valid and not blank"]} }, status: 401
