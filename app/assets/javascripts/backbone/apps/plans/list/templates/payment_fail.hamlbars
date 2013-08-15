@@ -1,0 +1,8 @@
+#payment-fail.authorize-payment-success
+  %h3 Payment Error
+  Something went wrong while processing your payment. Please try again later.
+  .block.large
+    %i.icon.icon-agent-large
+  .block
+    %a.btn.action.btn-large.close
+      Back to Dashboard

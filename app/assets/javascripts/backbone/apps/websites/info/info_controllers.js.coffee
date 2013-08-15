@@ -4,8 +4,6 @@
 
     initialize: (options = {}) ->
       sites = App.request "get:sites:count"
-      # console.log "number of sites!!!"
-      # console.log sites.length
       @storage = JSON.parse(sessionStorage.getItem("newSite"))
       newWebsite = App.request "new:site:entity"
       newWebsite.url = Routes.websites_path()
@@ -18,10 +16,7 @@
         sessionStorage.setItem("newSite", JSON.stringify(@storage))
         App.navigate 'websites/key', trigger: true
 
-      #App.execute "when:fetched", sites, =>
       @initInfoView sites
-
-
 
     getWebsiteInfoView: (site) ->
       new Info.Website
@@ -32,4 +27,5 @@
         $('#preview-checklist').addClass('checked')
         $('#preview-checklist').find('span').hide()
         $('#second-check').show()
+
 

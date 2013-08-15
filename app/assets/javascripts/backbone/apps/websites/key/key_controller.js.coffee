@@ -19,9 +19,6 @@
       @listenTo newSiteView, "click:send:code", (item) ->
         console.log 'na click ang send code sa webmaster'
 
-      @listenTo newSiteView, "click:install:guide", (item) ->
-        console.log 'na click ang install guide'
-
     getWebsiteKeyView: (site) ->
       new Key.Code
         model: site

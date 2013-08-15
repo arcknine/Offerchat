@@ -2,6 +2,7 @@
 
   class Show.Layout extends App.Views.Layout
     template: "accounts/show/layout"
+    tagName: "span"
 
     regions:
       accountSidebarRegion:                       "#accounts-sidebar-region"
@@ -23,10 +24,9 @@
       "change input.file-input"         : "upload:button:change"
       "blur input.file-input"           : "upload:button:blur"
     form:
-      buttons:
-        primary: "Save Changes"
-        cancel: false
-        nosubmit: false
+      attributes:
+        method: "POST"
+        action: "test/action"
 
     events:
       "click .block-message a.close" :  "closeNotification"
@@ -36,22 +36,26 @@
 
     onShow: ->
       @$el.fileupload
-        dataType: 'json'
+        url: Routes.update_avatar_profiles_path()
+        formData: {authenticity_token: App.request("csrf-token")}
         add: (e, data) ->
-          console.log "adddinggggggggg"
-          console.log data
-          console.log data.form.context
-          console.log data.files[0]
-          $(data.form.context).find("button").click ->
-            data.submit()
+          types = /(\.|\/)(gif|jpe?g|png)$/i
+          file = data.files[0]
+          if types.test(file.type) || types.test(file.name)
+            data.context = $(tmpl("#template-upload", file))
+            $('.upload-avatar').append(data.context)
+            data.submit().done (e,data)->
+          else
+            self.showNotification "#{file.name} is not a gif, jpeg, or png image file"
 
   class Show.Password extends App.Views.ItemView
     template: "accounts/show/password"
-    form:
-      buttons:
-        primary: "Save Changes"
-        cancel: false
-        nosubmit: false
+
+    events:
+      "click .block-message a.close" :  "closeNotification"
+
+    closeNotification: (e) ->
+      $(e.currentTarget).parent("div").fadeOut()
 
   class Show.Notifications extends App.Views.ItemView
     template:  "accounts/show/notifications"

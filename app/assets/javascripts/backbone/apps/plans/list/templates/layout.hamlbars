@@ -1,0 +1,95 @@
+.block-message.payment-notify{:style => "display: none"}
+  %a.close ×
+  %span
+
+.block-message.group.free-plan-notice.hide
+  %a.close x
+  You are currently on the
+  %strong Free
+  plan.
+  Upgrade your account to add more agents.
+
+.block-message.group.starter-plan-notice.hide
+  %a.close x
+  You are currently on the
+  %strong Starter
+  plan.
+  Upgrade your account to add more agents.
+
+.block.large
+  %h1
+    Plans and Pricing
+  %h3
+    Pay only for what you need. Offerchat live chat offers flexible pricing plans to let you chat instantly with shoppers right on your site.
+
+.block.large
+  .plans.text-center
+    .plan-grid
+      .plan.plan-regular
+        %h2
+          {{business.name}}
+        %p.small
+          {{business.description}}
+        .block#business-button
+          %a.btn.action.upgrade{ data: { id: "{{business.plan_identifier}}" } }
+            Upgrade
+        .plan-price
+
+          .plan-value
+            %span.sign
+              $
+            {{business.price}}
+          per month
+      %ul.plan-features
+        %li
+          up to 10 agent seats
+        %li
+          white labeled widget
+
+    .plan-grid
+      .plan.plan-best
+        %h2
+          {{personal.name}}
+        %p.small
+          {{personal.description}}
+        .block#personal-button
+          %a.btn.success.upgrade{ data: { id: "{{personal.plan_identifier}}" } }
+            Upgrade
+        .plan-price
+          .plan-value
+            %span.sign
+              $
+            {{personal.price}}
+          per month
+      %ul.plan-features
+        %li
+          up to 4 agent seats
+        %li
+          white labeled widget
+    .plan-grid
+      .plan.plan-regular
+        %h2
+          {{enterprise.name}}
+        %p.small
+          {{enterprise.description}}
+        .block#enterprise-button
+          %a.btn.action.upgrade{ data: { id: "{{enterprise.plan_identifier}}" } }
+            Upgrade
+        .plan-price
+          .plan-value
+            %span.sign
+              $
+            {{enterprise.price}}
+          per month
+      %ul.plan-features
+        %li
+          up to 30 agent seats
+        %li
+          white labeled widget
+    .group.starter-upgrade
+      .block-message.inline.small
+        {{starter.description}}
+        %strong
+          ${{starter.price}}.
+        %a.hovered.upgrade{ :style => "margin-left: 10px", data: { id: "{{starter.plan_identifier}}" } }
+          Upgrade

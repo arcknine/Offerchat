@@ -1,0 +1,25 @@
+%fieldset
+  %label
+    Upload Photo
+  .input-container.group
+    .thumbnail-upload-container
+      %img{src: '{{avatar}}'}
+      .btn-selector-wrapper.upload-tool-btn-wrapper
+        .btn-selector
+          .btn.btn-action-selector
+            %i.icon.icon-arrow-down
+            %span.current-selection
+              Change Photo
+          .dropdown-options.dark
+            .caret.caret-dark
+            %ul
+              %li 
+                %a Upload Photo
+                .photo-selector
+                  %button.btn{ :type => "button" }
+                    Change Photo
+                .image-selector
+                  %input.file-input{ type: 'file', name: 'avatar' }
+              %li 
+                %a.remove Remove
+  %script#template-upload{type: "text/x-tmpl"}

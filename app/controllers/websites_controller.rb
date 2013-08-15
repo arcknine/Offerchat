@@ -44,11 +44,16 @@ class WebsitesController < ApplicationController
   end
 
   def update
-    @website = current_user.websites.find(params[:id])
-    # @website.save_settings(params[:settings])
+    if params[:website][:name].blank?
+      render json: { errors: {"name" => ["should not be blank"]} }, status: 401
+    elsif params[:website][:url].blank?
+      render json: { errors: {"url" => ["should not be blank"]} }, status: 401
+    else
+      @website = current_user.websites.find(params[:id])
 
-    unless @website.update_attributes(params[:website])
-      respond_with @website
+      unless @website.update_attributes(params[:website])
+        respond_with @website
+      end
     end
   end
 

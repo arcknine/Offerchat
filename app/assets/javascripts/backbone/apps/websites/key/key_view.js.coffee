@@ -6,7 +6,6 @@
     triggers:
       "click button"              : "click:finish:website"
       "click a.webmaster-code"    : "click:send:code"
-      "click a.install-guide"     : "click:install:guide"
 
     events:
       "click textarea.widget-code-text" : "selectAllCode"

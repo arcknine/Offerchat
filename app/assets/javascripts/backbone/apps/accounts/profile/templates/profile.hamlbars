@@ -1,0 +1,18 @@
+.column-content-container
+  .block.large
+    %h2
+      Profile
+
+    Change your basic account, language, display name, and location settings.
+
+  .block-message{ :style => "display:none;" }
+    %a.close
+      &times;
+    %span
+
+  .block.bordered-top.large.group#upload-photo-profile-region
+  .block.bordered-top.large.group#edit-profile-region
+  / .column-footer-actions.bordered
+  /   .block.large
+  /     %button.btn.action{ :type => "submit" }
+  /       Save Changes

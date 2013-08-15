@@ -12,7 +12,7 @@ describe AgentsController do
   end
 
   context "when signed in" do
-    login_user
+    login_personal_user
 
     let(:valid_user_post) do
       { "email" => "user001@offerchat.com" }
@@ -28,17 +28,6 @@ describe AgentsController do
         response.code.should eq "401"
       end
     end
-
-    # describe "GET 'index' as admin" do
-    #   before(:each) do
-    #     Fabricate(:account, :user => @user, :role => Account::ADMIN)
-    #   end
-
-    #   pending "should be viewed" do
-    #     xhr :get, :index, format: :json
-    #     response.code.should eq "200"
-    #   end
-    # end
 
     describe "GET 'index' user has website" do
       generate_website
@@ -62,17 +51,15 @@ describe AgentsController do
 
       let(:valid_account_post) do
         [{
-          "role"        => 2, 
-          "website_id"  => @website.id, 
-          "url"         => "http://www.yahoo.com"
+          "role"        => 2,
+          "website_id"  => @website.id
         }]
       end
 
       let(:invalid_account_post) do
         [{
-          "role"        => 2, 
-          "website_id"  => nil, 
-          "url"         => "http://www.yahoo.com"
+          "role"        => 2,
+          "website_id"  => nil
         }]
       end
 
@@ -119,13 +106,13 @@ describe AgentsController do
 
     describe "DELETE 'destroy" do
       generate_website
-
       before(:each) do
-        @account = Fabricate(:account)
+        @user1 = Fabricate(:user)
+        @account = Fabricate(:account, :user => @user1, :role => Account::AGENT, :website => @website)
       end
 
       def do_destroy
-        xhr :delete, :destroy, id: @account.id, format: :json
+        xhr :delete, :destroy, id: @user1.id, format: :json
       end
 
       it "should remove 1 agent" do
@@ -149,18 +136,16 @@ describe AgentsController do
 
       let(:valid_put) do
         [{
-          "id"          => @account.id,
-          "role"        => 2, 
-          "website_id"  => @website.id, 
-          "url"         => "http://www.yahoo.com"
+          "account_id"  => @account.id,
+          "role"        => 2,
+          "id"          => @website.id
         }]
       end
       let(:invalid_put) do
         [{
-          "id"          => @account.id,
-          "role"        => 2, 
-          "website_id"  => nil, 
-          "url"         => "http://www.yahoo.com"
+          "account_id"  => @account.id,
+          "role"        => 2,
+          "id"          => nil
         }]
       end
 
@@ -182,12 +167,6 @@ describe AgentsController do
         user = assigns(:user)
         assigns(:user).accounts.first.role.should eq(Account::ADMIN)
         assigns(:user).accounts.first.website_id.should eq(@website.id)
-      end
-
-      it "should not update user if no website is checked" do
-        do_update("invalid")
-        JSON.parse(response.body)["errors"].should_not be_blank
-        response.code.should eq "422"
       end
     end
   end

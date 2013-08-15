@@ -52,31 +52,13 @@
         .input-container
           %input.large{ :type => 'text', :value => '{{display_name}}', name: 'display_name' }
 
-  .block.bordered-top.large.group
-    .form
       %fieldset
         %label
           Full Name
         .input-container
           %input.large{ :type => 'text', :value => '{{name}}', name: 'name' }
-      %fieldset
-        %label
-          Language
-        .input-container
-          %select{:name => ""}
-            %option{:value => ""}
-              English
-            %option{:value => ""}
-              Portuguese
-            %option{:value => ""}
-              Deutsch
-            %option{:value => ""}
-              Polish
-            %option{:value => ""}
-              Spanish
-      %fieldset
-        %label
-          Country
-        .input-container
-          %select
-            %option Philippines
+
+  .column-footer-actions.bordered
+    .block.large
+      %button.btn.action{ :type => "submit" }
+        Save Changes

@@ -4,7 +4,7 @@
 
     initialize: ->
       currentUser = App.request "set:current:user", App.request "get:current:user:json"
-
+      App.selectorSidebarRegion.close()
       @storage = JSON.parse(sessionStorage.getItem("newSite"))
       website = App.request "new:site:entity"
       website.url = Routes.signup_wizard_path('step_three')
@@ -37,7 +37,12 @@
         if currentForm is 'greeting'
           @storage.greeting = model.get('greeting')
           sessionStorage.setItem("newSite", JSON.stringify(@storage))
-          @showColorView model
+
+          if model.get('greeting') is ''
+            @toggleErrorDisplay('show')
+          else
+            @toggleErrorDisplay('hide')
+            @showColorView model
         else if currentForm is 'colors'
           @storage.color = model.get('color')
           @storage.rounded = model.get('rounded')
@@ -48,6 +53,7 @@
           @storage.position = model.get('position')
           sessionStorage.setItem("newSite", JSON.stringify(@storage))
           App.previewRegion.close()
+          # App.vent.trigger "show:chat:sidebar"
           App.navigate 'websites/info', trigger: true
 
 
@@ -136,5 +142,16 @@
       counterValue = $("#greeting").val()
       remainLength = 33 - counterValue.length
       $("#greeting-count").text(remainLength)
+      App.selectorSidebarRegion.close()
+
+    toggleErrorDisplay:(status) ->
+      if status is 'show'
+        $("#greeting-name").addClass("field-error")
+        $("#greeting-name-error").show()
+      else
+        $("#greeting-name").removeClass("field-error")
+        $("#greeting-name-error").hide()
+
+
 
 

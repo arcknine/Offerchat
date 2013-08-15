@@ -21,7 +21,7 @@ describe TriggersController do
 
     describe "when website id is supplied" do
       it "'index' returns list of triggers" do
-        @website = Fabricate(:website)
+        @website = Fabricate(:website, :owner => Fabricate(:user))
         @triggers = Fabricate(:trigger, :website => @website)
         xhr :get, :index, website_id: @website.id, format: :json
         response.code.should eq "200"
@@ -38,7 +38,7 @@ describe TriggersController do
       end
 
       it "GET 'index' should have triggers" do
-        @website = Fabricate(:website)
+        @website = Fabricate(:website, :owner => Fabricate(:user))
         @triggers = Fabricate(:trigger, :website => @website)
         xhr :get, :index, website_id: @website.id, format: :json
         assigns(:triggers).should_not be_nil
@@ -47,6 +47,13 @@ describe TriggersController do
       let(:valid_put) do
         {
           "rule_type"  => 3,
+          "message" => "My Test Trigger Message"
+        }
+      end
+
+      let(:valid_put_time) do
+        {
+          "rule_type"  => "1",
           "message" => "My Test Trigger Message"
         }
       end
@@ -82,6 +89,11 @@ describe TriggersController do
 
         JSON.parse(response.body)["errors"].should_not be_blank
         response.code.should eq "422"
+      end
+
+      it "should not accept time less than 5 seconds" do
+        xhr :put, :update, id: @trigger.id, time: "3", trigger: valid_put_time, format: :json
+        JSON.parse(response.body)["errors"].should_not be_blank
       end
 
       def do_destroy

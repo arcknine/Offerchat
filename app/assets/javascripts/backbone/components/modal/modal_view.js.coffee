@@ -17,6 +17,7 @@
       "click [data-form-button='primary']" : "modal:submit"
       "click [data-form-button='cancel']"  : "modal:cancel"
       "click  a.close"                     : "modal:cancel"
+      "click  div.modal-backdrop"                     : "modal:cancel"
 
     modelEvents:
       "change:_errors"   : "changeErrors"
@@ -50,7 +51,7 @@
         if _.isEmpty(errors) then @removeErrors() else @addErrors errors
 
     removeErrors: ->
-      @$(".field-error").removeClass("field-error").find("span").remove()
+      @$(".field-error").removeClass("field-error").find(".block-text-message").remove()
 
     addErrors: (errors = {}) ->
       for name, array of errors

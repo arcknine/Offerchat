@@ -10,7 +10,11 @@ class PasswordsController < ApplicationController
     @user = User.find(current_user.id)
 
     if params[:password].blank? or params[:password_confirmation].blank? or params[:current_password].blank?
-      render json: {errors: ["All fields are required"]}, status: 401
+      err = {}
+      err[:current_password] = ["should not be blank"] if params[:current_password].blank?
+      err[:password] = ["should not be blank"] if params[:password].blank?
+      err[:password_confirmation] = ["should not be blank"] if params[:password_confirmation].blank?
+      render json: {errors: err}, status: 401
     else
       if @user.valid_password?(params[:current_password])
         if params[:password] == params[:password_confirmation]
@@ -22,10 +26,10 @@ class PasswordsController < ApplicationController
             respond_with @user
           end
         else
-          render json: {errors: {password: ["New password and verify password did not match"], password_confirmation: ["New password and verify password did not match"]}}, status: 401
+          render json: {errors: {password: ["does not match"], password_confirmation: ["does not match"]}}, status: 401
         end
       else
-        render json: {errors: {current_password: ["Incorrect current password"]}}, status: 401
+        render json: {errors: {current_password: ["is incorrect"]}}, status: 401
       end
     end
   end

@@ -25,8 +25,9 @@
       model.save data,
         collection: collection
 
-    # onClose: ->
-    #   console.log "onClose", @
+    onClose: ->
+      # console.log "onClose", @
+      App.request "hide:preloader"
 
     formContentRegion: ->
       @region = @formLayout.formContentRegion

@@ -1,7 +1,9 @@
 .header-wrapper
   position: relative
 
-
+.upgrade-header-section
+  float: right
+  margin: 12px 10px 0 0
 .global-notification
   text-align: center
   display: block
@@ -66,6 +68,7 @@
   height: 45px
 .header-inline-list
   float: right
+  margin-right: 5px
   & > li
     padding: 0
     float: left
@@ -73,7 +76,10 @@
     
     &.profile-settings
       & > a
-        padding: 12px
+        padding: 16px
+        height: 13px
+        .icon-list
+          font-size: 14px
         
         
     & > a
@@ -84,14 +90,10 @@
       @include transition(.2s)
       &:hover
         opacity: 1
-      &.header-nav-reports
-        background-image: image-url("image-sprite.png")
-        background-repeat: none
-        background-position: 10px -118px
-      &.header-nav-history
-        background-image: image-url("image-sprite.png")
-        background-repeat: none
-        background-position: 10px -156px
+      .icon-bars, .icon-drawer
+        top: -2px
+        margin-right: 5px
+        font-size: 16px
     &.open
       & > a
         background-color: darken(#363d45, 10%)
@@ -111,7 +113,7 @@
     .profile-status-dropdown
       margin-top: 0px
     .profile-image-container
-      top: 7px
+      top: 3px
 
 
 .profile-status-dropdown
@@ -130,6 +132,10 @@
   & > li
     display: block
     overflow: hidden
+    &.logout
+      border-top: 1px solid lighten($sidebar-color, 5%)
+      a
+        color: #ff5151
   a
     @include transition(.1s)
     padding: 7px 10px
@@ -139,6 +145,7 @@
     
     &:hover
       background-color: darken($sidebar-color, 5%)
+
   .status
     top: 3px
     margin-right: 10px
@@ -156,6 +163,6 @@
 .settings-dropdown
   @extend .profile-status-dropdown
   
-  left: -112px
+  left: -105px
   .dropdown-pointer
     right: 12px

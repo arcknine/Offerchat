@@ -10,6 +10,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'sidekiq/testing'
+require "paperclip/matchers"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -37,21 +38,31 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
+  config.add_setting(:seed_tables)
+  config.seed_tables = %w( plans )
+
   config.before(:suite) do
-   DatabaseCleaner.strategy = :truncation
-   DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.clean_with(:truncation, except: config.seed_tables)
   end
 
-  config.before(:each) do
+  config.around(:each) do |ex|
+    if ex.metadata[:no_transactions]
+      DatabaseCleaner.strategy = :truncation, { except: config.seed_tables }
+    else
+      DatabaseCleaner.strategy = :transaction
+    end
+
     DatabaseCleaner.start
-  end
-
-  config.after(:each) do
+    ex.run
     DatabaseCleaner.clean
   end
 
   config.include Devise::TestHelpers, :type => :controller
   config.extend ControllerMacros, :type => :controller
+
+  config.include Paperclip::Shoulda::Matchers
+
+  config.include RSpec::Rails::RequestExampleGroup, type: :request, example_group: { file_path: /spec\/api/ }
 end
 
 RSpec::Sidekiq.configure do |config|

@@ -1,4 +1,5 @@
 class Website < ActiveRecord::Base
+
   attr_accessible :api_key, :name, :url, :owner
 
   before_create :generate_api_key
@@ -10,19 +11,22 @@ class Website < ActiveRecord::Base
   has_many :accounts
   has_many :rosters
   has_many :triggers
+  has_many :visitors
   belongs_to :owner, :foreign_key => "owner_id", :class_name => "User"
 
   validates_presence_of :url
   validates_presence_of :name
-  validates :url, :format => /^(http(s?):\/\/)?(www\.)+[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,3})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/
+  validates :url, :format => /^(http(s?):\/\/)?(www\.)?+[a-zA-Z0-9\-\_][a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,3})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/
 
-  has_settings do |s|
+  has_settings(:class_name => "WebsiteSettings") do |s|
     s.key :style, :defaults => { :theme => "greengrass", :position => "right", :rounded => false, :gradient => false }
     s.key :online, :defaults => { :header => "Chat with us", :agent_label => "Got a question? We can help.", :greeting => "Hi, I am", :placeholder => "Type your message and hit enter" }
     s.key :pre_chat, :defaults => { :enabled => false, :message_required => false, :header => "Let me get to know you!", :description => "Fill out the form to start the chat." }
     s.key :post_chat, :defaults => { :enabled => true, :header => "Chat with me, I'm here to help", :description => "Please take a moment to rate this chat session", :email => "" }
     s.key :offline, :defaults => { :enabled => true,  :header => "Contact Us", :description => "Leave a message and we will get back to you ASAP.", :email => "" }
   end
+
+  after_create :after_create_settings
 
   # scope :as, ->(role) do
   #   joins(:accounts).where('role = ?', role)
@@ -34,12 +38,16 @@ class Website < ActiveRecord::Base
 
   def agents
     accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id = ? AND role != ?", self.id, Account::OWNER)
-    accounts.collect(&:user)
+    # accounts.collect(&:user)
+    ids = accounts.collect(&:user_id)
+    User.where(:id => ids)
   end
 
   def owner_and_agents
     accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id = ?", self.id)
-    accounts.collect(&:user)
+    # accounts.collect(&:user)
+    ids = accounts.collect(&:user_id)
+    User.where(:id => ids)
   end
 
   def unread; nil; end
@@ -47,7 +55,6 @@ class Website < ActiveRecord::Base
   def style
     settings.style
   end
-
 
   def save_settings(params)
     components = params.keys
@@ -61,6 +68,32 @@ class Website < ActiveRecord::Base
     self.save
   end
 
+  def available_roster
+    rosters.where("last_used <= ?", 5.minutes.ago).order("last_used ASC").each do |r|
+      response = Nokogiri::XML(open("#{CHAT_SERVER_URL}plugins/presence/status?jid=#{r.jabber_user}@#{CHAT_SERVER_NAME}&type=xml"))
+      presence = response.xpath("presence")
+      status = presence.xpath("status").inner_text
+      vacant_roster = status.to_s == "Unavailable" ? r : []
+      break vacant_roster
+    end
+  end
+
+  def available_agent
+    accounts = self.owner_and_agents
+    accounts.each do |r|
+      response = Nokogiri::XML(open("#{CHAT_SERVER_URL}plugins/presence/status?jid=#{r.jabber_user}@#{CHAT_SERVER_NAME}&type=xml"))
+      presence = response.xpath("presence")
+      status = presence.xpath("status").inner_text
+      vacant_agent = status.to_s == "Online" ? true : false
+      break vacant_agent
+    end
+  end
+
+  def widget_owner_agents
+    accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id = ?", self.id)
+    ids = accounts.collect(&:user_id)
+    User.where(:id => ids).select("id, jabber_user, name, display_name, avatar, avatar_content_type, avatar_file_name, avatar_file_size, avatar_updated_at, plan_id")
+  end
 
   private
 
@@ -71,24 +104,32 @@ class Website < ActiveRecord::Base
   end
 
   def generate_account
-    account = self.accounts.build
-    account.user = self.owner
-    account.role = Account::OWNER
+    account       = self.accounts.build
+    account.user  = self.owner
+    account.role  = Account::OWNER
+    account.owner = self.owner
     account.save
+    DripWorker.perform_async self.owner.id
   end
 
   def generate_rosters
     GenerateRostersWorker.perform_async(self.id)
   end
 
-
   def delete_accounts
     accounts.destroy_all
   end
 
   def generate_website_name
-    if name.blank?
-      name = url.to_s.gsub('.', ' ')
+    if self.name.blank?
+      self.name = url.to_s.gsub('.', ' ')
     end
   end
+
+  def after_create_settings
+    self.settings(:offline).email = self.owner.email
+    self.settings(:post_chat).email = self.owner.email
+    self.save!
+  end
+
 end

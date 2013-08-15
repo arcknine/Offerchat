@@ -2,27 +2,35 @@
 
   class AccountsApp.Router extends Marionette.AppRouter
     appRoutes:
-      "profiles"                :   "show"
+      "profiles"                :   "profile"
       "profiles/passwords"      :   "editPassword"
-      "profiles/notifications"  :   "editNotifications"
       "profiles/invoices"       :   "listInvoices"
+      #"profiles/notifications"  :   "editNotifications"
 
     API =
-      show: ->
-        new AccountsApp.Show.Controller
-          section: "profile"
-
+      profile: ->
+        new AccountsApp.Profile.Controller
+          section: 'profile'
+        
       editPassword: ->
-        new AccountsApp.Show.Controller
-          section: "password"
-
-      editNotifications: ->
-        new AccountsApp.Show.Controller
-          section: 'notifications'
+        new AccountsApp.Password.Controller
+          section: 'password'
 
       listInvoices: ->
-        new AccountsApp.Show.Controller
+        new AccountsApp.Invoice.Controller
           section: 'invoices'
+
+      #editPassword: ->
+      #  new AccountsApp.Password.Controller
+      #    section: "password"
+      #
+      #editNotifications: ->
+      #  new AccountsApp.Show.Controller
+      #    section: 'notifications'
+      #
+      #listInvoices: ->
+      #  new AccountsApp.Show.Controller
+      #    section: 'invoices'
 
 
     App.addInitializer ->

@@ -17,6 +17,8 @@
           section = (if section is 'offline' then '' else "/#{section}")
           App.navigate "settings/chat-forms/#{@currentSite.get("id")}#{section}", trigger: true
 
+        @text_counter "textarea[name=description]", ".text-limit-counter", 140
+
       @listenTo @currentSite, "updated", (site) =>
         @showNotification("Your changes have been saved!")
 
@@ -24,6 +26,7 @@
         $("#setting-notification").fadeOut()
 
       @show @layout
+
 
     getLayout: ->
       new ChatForms.Layout
@@ -88,12 +91,12 @@
       else if $(ev.currentTarget).data('name') is 'email'
         @settings.offline.email = $(ev.currentTarget).val()
 
-      @currentUser.set settings: @settings
+      @currentSite.set settings: @settings
 
     setPreChatData: (ev) ->
       if $(ev.currentTarget).data('name') is 'description'
         @settings.pre_chat.description = $(ev.currentTarget).val()
-      @currentUser.set settings: @settings
+      @currentSite.set settings: @settings
 
     setPostChatData: (ev) ->
       if $(ev.currentTarget).data('name') is 'description'
@@ -101,5 +104,20 @@
       else if $(ev.currentTarget).data('name') is 'email'
         @settings.post_chat.email = $(ev.currentTarget).val()
 
-      @currentUser.set settings: @settings
+      @currentSite.set settings: @settings
+
+    text_counter: (input, target, max) ->
+      init_text = $(input).val()
+      init_count = max - init_text.length
+      $(target).text init_count + " characters left"
+      $(input).bind 'input propertychange', ->
+        text = $(input).val()
+        count = max - text.length
+        $(target).text count + " characters left"
+        if count < 0
+          $(@).parent().addClass "field-error"
+        else
+          $(@).parent().removeClass "field-error"
+          $(@).parent().parent().removeClass "field-error"
+          $(@).parent().parent().find("label span.inline-label-message").remove()
 

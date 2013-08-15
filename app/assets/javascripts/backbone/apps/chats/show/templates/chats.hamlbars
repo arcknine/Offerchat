@@ -1,0 +1,40 @@
+%div{ :style => "padding: 0 5px" }
+  .chat-section-pane.chat-viewer-wrapper{ :style => "height: 413px" }
+    .chat-viewer-content
+      .chat-viewer-inner
+        .chat-item.group.small
+          .chat-table.chat-left-table
+            %i.icon.icon-alarm-clock
+          .chat-table.chat-container-table.chat-show-history-filter
+            %span.show-prev-chats-label show previous chats from:
+            %a.active Today
+            %span.middot
+            %a Yesterday
+            %span.middot
+            %a A week ago
+
+        #chats-collection
+
+.chat-section-pane.chat-response-wrapper
+  .group
+    .btn-selector-wrapper.left
+      .btn-selector
+        .btn.btn-action-selector.site-selector
+          %i.icon.icon-arrow-down
+          %span.current-selection
+            Actions
+
+        .dropdown-options.top.dark
+          %ul
+            %li{ data: {action: 'transfer'} }
+              %a Transfer Chat
+            %li{ data: {action: 'export'} }
+              %a Export Transcript
+            %li{ data: {action: 'ban'} }
+              %a Ban User
+          .caret.caret-dark.bottom
+
+    %a.btn.warning.left.end_chat
+      End Chat
+  .chat-response
+    %textarea{ :placeholder => "Enter your message and press enter" }
