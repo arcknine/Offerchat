@@ -15,6 +15,6 @@ describe OpenfireApi do
   end
 
   it "should return true on unsubscribe roster" do
-    OpenfireApi.unsubcribe_roster(@user2.jabber_user, @user.jabber_user, "test name", "test group").should eq(true)
+    OpenfireApi.unsubcribe_roster(@user2.jabber_user, @user.jabber_user).should eq(true)
   end
 end
