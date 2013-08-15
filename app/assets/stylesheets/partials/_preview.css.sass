@@ -63,7 +63,7 @@
     display: inline-block
     margin: 0 10px 0 0
     color: $text-color
-    border: 1px solid transparent
+    @include transition(.2s)
     label
       display: block
       margin-top: 5px
@@ -71,7 +71,7 @@
     &.active
       background-color: #60cba1
       color: #fff
-      border-color: darken(#60cba1, 15%)
+      
   .widget-screen
     width: 120px
     height: 70px

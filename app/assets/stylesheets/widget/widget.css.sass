@@ -1,5 +1,5 @@
 @import "modules/theme_mixin"
-/* custom scrollbar
+// custom scrollbar
 .widget-body::-webkit-scrollbar
   width: 6px
   background-color: transparent
@@ -43,7 +43,7 @@
     right: 10px
 i.widget
   &.icon
-    background-image: image-url("widget-sprite.png")
+    background-image: image-url("//d3ocj2fkvch1xi.cloudfront.net/widget/images/widget-sprite.png")
     display: inline-block
     position: relative
     &.icon-chat
@@ -69,15 +69,25 @@ i.widget
       width: 16px
       height: 16px
       background-position: 0 -41px
-    &.icon-widget-down
-      width: 22px
-      height: 16px
-      background-position: -23px 0
-    &.icon-widget-up
-      width: 22px
-      height: 16px
-      background-position: -46px 0
-/* RESET
+    
+    &.icon-bell
+      width: 13px
+      height: 13px
+      background-position: -28px -1px
+      top: 1px
+    &.icon-bell-off
+      @extend .icon-bell
+      background-position: -16px -1px
+    &.icon-transcript
+      width: 13px
+      height: 13px
+      background-position: -42px 0
+    &.icon-check-large
+      width: 32px
+      height: 32px
+      background-position: -52px 0
+
+// RESET
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
   margin: 0
   padding: 0
@@ -106,20 +116,51 @@ table
   border-spacing: 0
 
 .widget-preview-sample
-  margin: 0 20px 0 0
+  margin: 0 20px 5px 0
   padding: 0
   float: left
   background-color: transparent
-  overflow: hidden
-  /* z-index: 9999999999
+  
+  // z-index: 9999999999
   width: 295px
-  height: 395px
+  height: 425px
   position: relative
   .widget-box
     a
       cursor: default
-  .widget-body
-    height: 300px
+  .widget-footer, .widget-head
+    cursor: default
+    z-index: 99
+
+.widget-unlock-tooltip
+  font-size: 12px
+  position: absolute
+  bottom: 35px
+  right: 10px
+  background-color: #445362
+  z-index: 100
+  padding: 10px
+  width: 200px
+  border-radius: 3px
+  color: #fff
+
+  .caret
+    border-color: #445362 transparent transparent transparent 
+    border-width: 7px
+    border-style: solid
+    position: absolute
+    bottom: -13px
+    right: 30px
+    width: 0
+    height: 0
+
+  a.btn
+    padding: 3px 7px
+    font-size: 11px
+  .message
+    display: block
+    margin-bottom: 5px
+
 
 
 body .widget-box, .widget-box
@@ -179,7 +220,35 @@ body .widget-box, .widget-box
     position: relative
     top: -1px
 
+.widget-overlay
+  position: absolute
+  width: 100%
+  height: 100%
+  background-color: rgba(255,255,255,.5)
+  z-index: 990
+  
+  .widget-confirmation
+    position: relative
+    z-index: 991
+    padding: 20px
+    background: #fff
+    width: 200px
+    top: 20%
+    margin: 0 auto
+    text-align: center
+    box-shadow: 0 1px 3px rgba(0,0,0,.2)
+    border-radius: 5px
+    a.widget-btn
+      display: inline-block
+      padding: 5px 15px
+      border-radius: 3px
+      background-color: #445362
+      color: #fff
+      font-weight: bold
+      margin-top: 10px
+      font-size: 12px
 .widget-body
+  position: relative
   background-color: #ededed
   height: 379px
   border-right: 1px solid #e1e1e1
@@ -191,6 +260,7 @@ body .widget-box, .widget-box
   padding: 6px 
   height: 19px
   position: relative
+  z-index: 1000
   font-size: 10px
   text-shadow: 0 1px 0 #fff
   cursor: pointer
@@ -204,7 +274,7 @@ body .widget-box, .widget-box
     font-weight: bold
 
   .footer-logo
-    background-image: image-url('http://d3ocj2fkvch1xi.cloudfront.net/widget/images/widget-logo.png')
+    background-image: image-url('//d3ocj2fkvch1xi.cloudfront.net/widget/images/widget-logo.png')
     display: block
     width: 24px
     height: 24px
@@ -244,6 +314,16 @@ body .widget-box, .widget-box
   padding: 8px 8px 8px 43px
 .widget-pre-message
   margin: 5px 0 10px 0
+  h3
+    font-size: 12px
+    font-weight: bold
+    
+
+    .icon-check-large
+      float: left
+      top: 3px
+      margin-right: 5px
+
 
 .widget-tooltip
   position: absolute
@@ -839,7 +919,7 @@ a.chat-settings
     background-position: 0 0
 
 
-/* ANIMATE 
+// ANIMATE 
 .offerchat-animated
   -webkit-animation-fill-mode: both
   -moz-animation-fill-mode: both
