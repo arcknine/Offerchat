@@ -3,15 +3,8 @@
     .chat-viewer-content
       .chat-viewer-inner
         .chat-item.group.small
-          .chat-table.chat-left-table
-            %i.icon.icon-alarm-clock
-          .chat-table.chat-container-table.chat-show-history-filter
-            %span.show-prev-chats-label show previous chats from:
-            %a.active Today
-            %span.middot
-            %a Yesterday
-            %span.middot
-            %a A week ago
+          %a.chat-block-btn.btn
+            load previous messages
 
         #chats-collection
 
