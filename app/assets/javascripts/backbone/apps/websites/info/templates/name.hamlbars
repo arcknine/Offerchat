@@ -4,7 +4,7 @@
     %h2
       Add it to your website
     %p
-      Your almost done! Simply copy and paste your code to the website your entered
+      You're almost done! Simply copy and paste your code to the website your entered
   .block
     .form.form-inline
       %fieldset

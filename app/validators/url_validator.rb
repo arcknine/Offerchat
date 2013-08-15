@@ -1,14 +1,16 @@
+
 class UrlValidator < ActiveModel::EachValidator
+
   def validate_each(record, attribute, value)
-    begin
-      uri = Addressable::URI.parse(value)
-
-      if !["http","https","ftp"].include?(uri.scheme)
-        raise Addressable::URI::InvalidURIError
-      end
-    rescue Addressable::URI::InvalidURIError
-      record.errors[attribute] << "Invalid URL"
+    valid = begin
+      URI.parse(value).kind_of?(URI::HTTP)
+    rescue URI::InvalidURIError
+      false
     end
-  end
-end
+    unless valid || value.include?(".")
+      record.errors[attribute] << (options[:message] || "is an invalid URL")
+    end
 
+  end
+
+end
