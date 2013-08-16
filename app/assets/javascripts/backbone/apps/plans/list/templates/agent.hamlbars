@@ -1,4 +1,4 @@
-%label.inline.checkbox.disabled
+%label.inline.checkbox{ data: { id: "{{id}}" }, class: "{{class_names}}"}
   %span.icon.checkable
     .icon-check
   .profile-image-container.checkable

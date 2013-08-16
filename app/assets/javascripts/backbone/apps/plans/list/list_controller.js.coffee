@@ -40,9 +40,9 @@
         else
           false
       else if current_plan == "ENTERPRISE"
-        false
-      else if current_plan == "STARTER"
         true
+      else if current_plan == "STARTER"
+        false
 
     initPlans: (plan) ->
       $(".starter-plan-notice").addClass "hide"
@@ -92,7 +92,7 @@
       new List.ModalPaymentFail
         model: @profile
 
-    showModal: (plan) =>
+    showModal: (plan, agents=null) =>
       modalView = @getPlanModal(plan)
 
       formView  = App.request "modal:wrapper", modalView
@@ -114,10 +114,16 @@
 
         handleStripeResponse = (status, response) =>
           if status == 200
+            if agents != null
+              agent_params = _.map(agents.models, (a, k) ->
+                [a.get("id"), a.get("enabled")])
+
             $.post "/subscriptions",
               plan_id: plan
               card_token: response.id
+              agents: agent_params unless agents is null
             , (data) =>
+              console.log data
               @profile.set { plan_identifier: plan }
 
               App.reqres.setHandler "get:current:user", =>
@@ -129,32 +135,53 @@
 
         Stripe.createToken(card, handleStripeResponse)
 
-    showDowngradeModal: (plan) ->
-      agents = App.request "agents:only:entities"
-      plans = App.request "get:plan:by:name", plan
+    showDowngradeModal: (plan) =>
+      agents       = App.request "agents:only:entities"
+      new_plan     = App.request "get:plan:by:name", plan
+      current_plan = App.request "get:plan:by:name", @profile.get("plan_identifier")
+
+      @checked_agents = 1
 
       App.execute "when:fetched", agents, =>
-        modalView  = @getDowngradeModal(plan)
-        formView = App.request "modal:wrapper", modalView
-        agentsView = @getAgentList(agents)
+        App.execute "when:fetched", new_plan, =>
+          App.execute "when:fetched", current_plan, =>
 
+            modalView  = @getDowngradeModal(new_plan.first())
+            formView   = App.request "modal:wrapper", modalView
+            agentsView = @getAgentList(agents)
 
-        App.execute "when:fetched", plans, =>
-          @listenTo agentsView, "agent:clicked", (e) ->
-            next_plan = plans.first()
+            next          = new_plan.first()
+            new_max_seats = next.get("max_agent_seats")
 
-            # T0d0: Check the agent limits here
+            prev          = current_plan.first()
+            old_max_seats = prev.get("max_agent_seats")
 
-            $(e.currentTarget).parent().toggleClass "checked"
-            $(e.currentTarget).parent().toggleClass "disabled"
+            used_seats    = agents.length
 
-        @listenTo formView, "show", ->
-          modalView.agentsRegion.show agentsView
+            @listenTo agentsView, "childview:agent:clicked", (e) =>
+              agent_model = e.model
+              enabled = agent_model.get("enabled")
 
-        @listenTo formView, "modal:cancel", (item) ->
-          formView.close()
+              if typeof(enabled) == "undefined" || enabled == false
+                if @checked_agents < new_max_seats
+                  agent_model.set({class_names: "checked"})
+                  agent_model.set({enabled: true})
+                  @changeSeatCount(agent_model)
+              else
+                agent_model.set({class_names: ""})
+                agent_model.set({enabled: false})
+                @changeSeatCount(agent_model)
 
-        App.modalRegion.show formView
+            @listenTo modalView, "proceed:downgrade", (e) =>
+              @showModal(plan, agents)
+
+            @listenTo formView, "show", =>
+              modalView.agentsRegion.show agentsView
+
+            @listenTo formView, "modal:cancel", (item) =>
+              formView.close()
+
+            App.modalRegion.show formView
 
     processPayment: =>
       modalView = @getProcessPaymentModal()
@@ -186,3 +213,15 @@
         formView.close()
 
       App.modalRegion.show formView
+
+    changeSeatCount: (e) =>
+      curr = $("#seat-count").text()
+
+      if e.get("enabled")
+        newnum = parseInt(curr) - 1
+        $("#seat-count").html(newnum)
+        @checked_agents++
+      else
+        newnum = parseInt(curr) + 1
+        $("#seat-count").html(newnum)
+        @checked_agents--
