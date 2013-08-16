@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UnassignAgentsService do
-  it "should retain " do
+  xit "should retain " do
     @owner   = Fabricate(:personal_user)
     @website = Fabricate(:website, :owner => @owner)
     @agent1  = Fabricate(:user)
@@ -13,7 +13,7 @@ describe UnassignAgentsService do
     Fabricate(:agent, :owner => @owner, :user => @agent3, :website => @website)
 
     puts @owner.my_agents.count
-    agents = "{ \"0\": [#{@agent1.id}], \"1\": [#{@agent2.id}, true], \"2\": [#{@agent3.id}, false] }"
+    agents = JSON.parse "{ \"0\": [#{@agent1.id}], \"1\": [#{@agent2.id}, true], \"2\": [#{@agent3.id}, false] }"
     list = UnassignAgentsService.new(agents, @owner)
     list.unassign
     puts @owner.my_agents.count
