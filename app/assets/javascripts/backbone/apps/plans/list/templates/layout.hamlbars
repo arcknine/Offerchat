@@ -3,7 +3,7 @@
   %span
 
 .block-message.group.free-plan-notice.hide
-  
+
   You are currently on the
   %strong Free
   plan.
@@ -32,7 +32,7 @@
           {{business.description}}
         .block#business-button
           %a.btn.action.upgrade{ data: { id: "{{business.plan_identifier}}" } }
-            Upgrade
+            Choose Plan
         .plan-price
 
           .plan-value
@@ -42,7 +42,7 @@
           per month
         %small
           up to 10 agent seats
-        
+
 
     .plan-grid
       .plan.plan-best
@@ -52,7 +52,7 @@
           {{personal.description}}
         .block#personal-button
           %a.btn.action.upgrade{ data: { id: "{{personal.plan_identifier}}" } }
-            Upgrade
+            Choose Plan
         .plan-price
           .plan-value
             %span.sign
@@ -61,7 +61,7 @@
           per month
         %small
           up to 4 agent seats
-        
+
     .plan-grid
       .plan.plan-regular
         %h2
@@ -70,7 +70,7 @@
           {{enterprise.description}}
         .block#enterprise-button
           %a.btn.action.upgrade{ data: { id: "{{enterprise.plan_identifier}}" } }
-            Upgrade
+            Choose Plan
         .plan-price
           .plan-value
             %span.sign
@@ -79,14 +79,14 @@
           per month
         %small
           up to 30 agent seats
-        
+
     .group.starter-upgrade
       .block-message.inline.small
         {{starter.description}}
         %strong
           ${{starter.price}}.
         %a.hovered.upgrade{ :style => "margin-left: 10px", data: { id: "{{starter.plan_identifier}}" } }
-          Upgrade
+          Choose Plan
 
 .block.large.text-center
   .plan-feature-list
