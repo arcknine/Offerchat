@@ -43,7 +43,6 @@
         %small
           up to 10 agent seats
 
-
     .plan-grid
       .plan.plan-best
         %h2
@@ -61,7 +60,6 @@
           per month
         %small
           up to 4 agent seats
-
     .plan-grid
       .plan.plan-regular
         %h2

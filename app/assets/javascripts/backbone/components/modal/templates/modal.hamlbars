@@ -1,4 +1,4 @@
-
+#close-modal-backdrop
 .modal-backdrop
   .modal-window
     .modal#modal-form
