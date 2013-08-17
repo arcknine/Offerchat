@@ -17,7 +17,6 @@
         App.navigate "#", trigger: true
         App.request "new:site:created"
 
-
       @listenTo newSiteView, "click:send:code", (item) =>
         @showModal @newWebsite
 
