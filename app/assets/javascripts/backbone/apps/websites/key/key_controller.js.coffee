@@ -16,6 +16,9 @@
         $('#chat-sidebar-region').attr('class', 'chats-sidebar-container')
         App.navigate "websites", trigger: true
 
+      @listenTo newSiteView, "click:send:code", (item) =>
+        @showModal @newWebsite
+
     getWebsiteKeyView: (site) ->
       new Key.Code
         model: site
