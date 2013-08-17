@@ -73,7 +73,7 @@
 
   class List.Agents extends App.Views.CompositeView
     template: "plans/list/agents"
-    className: "block group agent-selection-form"
+    className: "group agent-selection-form"
     itemView: List.Agent
     itemViewContainer: "#agent-list"
 
