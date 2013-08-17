@@ -10,20 +10,22 @@
 
 .group.block.large
   .group
-    .widget-preview-sample.no-branding
+    .widget-preview-sample{ :class => "{{classname}}" }
+      {{#if paid}}
       .widget-unlock-tooltip
         .caret
         .message
           %strong
-            Do you want to show the footer?
-        %a.btn.small.action
+            You can hide or show the footer.
+        %a.btn.small.action.hide-footer
+          Hide
+        %a.btn.small.show-footer
           Show
-        %a.btn.small
-          No
+      {{/if}}
+
       .widget-box.widget-theme.theme-pink3#widget-header
         .widget-head.widget-rounded-head.group
           %img.agent-thumbnail{ :src => "{{user.avatar}}" }
-          / = image_tag user.avatar, :class => "agent-thumbnail"
 
           .widget-agent-name
             {{user.display_name}}
@@ -62,7 +64,6 @@
               %strong
                 %a
                   Offerchat
-      
 
 
     .widget-color-selector.settings-widget-selector
@@ -88,7 +89,6 @@
 
           %a.saddlebrown
           %a.darkchoco
-
 
           %a.gray34
           %a.gray77
@@ -147,12 +147,7 @@
               %span.icon
                 .icon-check
               Gradient
-.block-message.small
-  %strong
-    Tip:
-  You can remove the Offerchat footer by
-  %a
-    upgrading your free plan
+
 .column-footer-actions.bordered
   .block.large
     %button.btn.action{ :type => "submit" }

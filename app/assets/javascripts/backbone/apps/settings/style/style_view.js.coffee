@@ -5,10 +5,12 @@
     className: "column-content-container"
     events:
       "click #controlColorContent a" : "changeColor"
-      "click .toggle-check"            : "toggleGradient"
+      "click .toggle-check"          : "toggleGradient"
 
     triggers:
       "click #setting-notification" : "hide:notification"
+      "click .hide-footer"          : "style:hide:footer"
+      "click .show-footer"          : "style:show:footer"
 
     changeColor: (e) ->
       @trigger "style:color:clicked", e
@@ -19,3 +21,5 @@
     serializeData: ->
       user: @options.user.toJSON()
       website: @options.model.toJSON()
+      classname: @options.classname
+      paid: @options.paid
