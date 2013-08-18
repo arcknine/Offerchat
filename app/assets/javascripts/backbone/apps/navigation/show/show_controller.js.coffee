@@ -85,9 +85,11 @@
 
         App.reqres.setHandler "show:preloader", ->
           $("#canvas-loader").show()
+          NProgress.start()
 
         App.reqres.setHandler "hide:preloader", ->
           $("#canvas-loader").hide()
+          NProgress.done()
 
       App.commands.setHandler "avatar:change", (avatar) ->
         user.set avatar: avatar
