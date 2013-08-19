@@ -99,6 +99,7 @@
         sessionStorage.setItem("vcard", true)
 
     sendPresence: ->
+      console.log "send pres?"
       pres = $pres().c('priority').t('1').up().c('status').t("Online")
       @connection.send(pres)
 
@@ -112,6 +113,8 @@
       info     = JSON.parse($(presence).find('offerchat').text() || "{}")
       token    = info.token
       visitor  = @visitors.findWhere { token: token }
+      agent    = @agents.findWhere { jid: node }
+      console.log agent
 
       if type is "unavailable"
         visitor = @visitors.findWhere {  jid: node }
@@ -129,10 +132,9 @@
             @visitors.set visitor
         else
           # remove agent from list
-          agent = @agents.findWhere { jid: node }
           @agents.remove agent
 
-      else if !$(presence).find('offerchat').text()
+      else if !$(presence).find('offerchat').text() and typeof agent is "undefined"
         @connection.vcard.get ((stanza) =>
           info =
             name:         $(stanza).find("NAME").text()

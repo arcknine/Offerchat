@@ -40,11 +40,10 @@
               $
             {{business.price}}
           per month
-      %ul.plan-features
-        %li
-          up to 10 agent seats
-        %li
-          white labeled widget
+        %ul.plan-features
+          %li
+            up to 10 agent seats
+        
 
     .plan-grid
       .plan.plan-best
@@ -61,11 +60,10 @@
               $
             {{personal.price}}
           per month
-      %ul.plan-features
-        %li
-          up to 4 agent seats
-        %li
-          white labeled widget
+        %ul.plan-features
+          %li
+            up to 4 agent seats
+        
     .plan-grid
       .plan.plan-regular
         %h2
@@ -81,11 +79,10 @@
               $
             {{enterprise.price}}
           per month
-      %ul.plan-features
-        %li
-          up to 30 agent seats
-        %li
-          white labeled widget
+        %ul.plan-features
+          %li
+            up to 30 agent seats
+        
     .group.starter-upgrade
       .block-message.inline.small
         {{starter.description}}
@@ -93,3 +90,19 @@
           ${{starter.price}}.
         %a.hovered.upgrade{ :style => "margin-left: 10px", data: { id: "{{starter.plan_identifier}}" } }
           Upgrade
+
+.block.large
+  %ul.plan-feature-list
+    %li
+      %i.icon.icon-check-green
+      Unlimited websites
+    %li
+      Unlimited chats
+    %li
+      Widget customization
+    %li
+      SSL security
+    %li
+      Reports
+    %li
+      No offerchat logo
