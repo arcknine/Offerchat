@@ -7,10 +7,10 @@
 
   .profile-image-container
     .profile-image
-      %img{ :src => "{{avatar}}" }
+      %img{ :src => "{{info.avatar}}" }
 
     %span.status.online
       %i.icon.icon-check-small
 
   %span.chat-agent-name
-    {{display_name}}
+    {{info.name}}

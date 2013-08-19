@@ -1,5 +1,5 @@
-{{#if items.length}}
-%h4 Agents ({{items.length}})
+{{#if agents_count}}
+%h4 Agents ({{agents_count}})
 {{/if}}
 
 .agents-wrapper

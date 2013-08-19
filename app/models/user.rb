@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   def small_avatar
     avatar.url(:small)
   end
-  
+
   def account(website_id)
     accounts.where("website_id = ?", website_id).first
   end
@@ -46,7 +46,9 @@ class User < ActiveRecord::Base
   end
 
   def agents
-    agent_accounts.collect(&:user)
+    # agent_accounts.collect(&:user)
+    ids = agent_accounts.collect(&:user_id)
+    User.where(:id => ids)
   end
 
   def find_managed_sites(website_id)
@@ -61,7 +63,8 @@ class User < ActiveRecord::Base
   end
 
   def all_sites
-    accounts.collect(&:website)
+    website_id = accounts.collect(&:website_id)
+    Website.where(:id => website_id)
   end
 
   def seats_available
@@ -149,6 +152,7 @@ class User < ActiveRecord::Base
 
   def create_jabber_account
     self.update_attributes(:jabber_user => "#{self.id}#{self.created_at.to_i}", :jabber_password => SecureRandom.hex(8))
+
     # Create the account on Openfire
     JabberUserWorker.perform_async(self.id)
   end

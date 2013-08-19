@@ -6,6 +6,7 @@
     initialize: (options = {}) ->
       @currentUser = App.request "set:current:user", App.request "get:current:user:json"
       @visitors    = App.request "visitors:entities"
+      @agents      = App.request "online:agents:entities"
       @messages    = App.request "messeges:entities"
       @currentSite = App.request "get:sidebar:selected:site"
       @layout      = @getLayout()
@@ -17,13 +18,13 @@
         @connection = App.xmpp.connection
         @connected()
 
-      @listenTo @layout, "show", =>
+      # @listenTo @layout, "show", =>
         # @visitorsList()
-        @agentsList()
+        # @agentsList()
 
       @listenTo @currentSite, "change", =>
         @visitorsList()
-        # console.log @currentSite
+        @agentsList()
 
       App.reqres.setHandler "get:chats:messages", =>
         @messages
@@ -40,17 +41,15 @@
       new Visitors.List
         collection: visitors
 
-    getAgentsView: ->
+    getAgentsView: (agents) ->
       new Visitors.Agents
+        collection: agents
 
     visitorsList: ->
       unless  @currentSite.get("all")
-        console.log @visitors
-
         visitors = App.request "visitors:entities"
         visitors.set @visitors.where { api_key: @currentSite.get("api_key") }
       else
-        console.log @visitors
         visitors = @visitors
 
       visitorsView = @getVisitorsView(visitors)
@@ -69,7 +68,7 @@
       @layout.visitorsRegion.show visitorsView
 
     agentsList: ->
-      agentsView = @getAgentsView()
+      agentsView = @getAgentsView(@agents)
       @layout.agentsRegion.show agentsView
 
     connected: ->
@@ -91,8 +90,8 @@
 
         build = $iq({type: 'set'}).c('vCard', {xmlns: 'vcard-temp'})
                 .c('NAME').t(info.name).up()
-                .c('DN').t(info.display_name).up()
-                .c('AVATAR').c('TYPE').t(info.avatar_content_type).up().c('BINVAL').t(info.avatar).up().up()
+                .c('DISPLAY_NAME').t(info.display_name).up()
+                .c('AVATAR').c('TYPE').t(info.avatar_content_type).up().c('URL').t(info.avatar).up().up()
                 .c('JABBERID').t(info.jabber_user)
 
         @connection.sendIQ build
@@ -103,36 +102,69 @@
       @connection.send(pres)
 
     onPresence: (presence) =>
+      console.log presence
       from     = $(presence).attr("from")
-      jid      = Strophe.getNodeFromJid from
+      jid      = Strophe.getBareJidFromJid from
+      node     = Strophe.getNodeFromJid from
       resource = Strophe.getResourceFromJid from
       type     = $(presence).attr("type")
-      # visitor  = @visitors.findWhere { jid: jid }
-
       info     = JSON.parse($(presence).find('offerchat').text() || "{}")
       token    = info.token
       visitor  = @visitors.findWhere { token: token }
 
-      @displayCurrentUrl(token, jid, info.url)
-
       if type is "unavailable"
-        @visitors.remove visitor
+        visitor = @visitors.findWhere {  jid: node }
+        if visitor
+          # remove visitor from list
+          resources = visitor.get "resources"
+          index     = $.inArray(resource, resources)
+
+          resources.splice(index, 1) if index > -1
+
+          if resources.length is 0
+            @visitors.remove visitor
+          else
+            visitor.set { jid: node, resources: resources }
+            @visitors.set visitor
+        else
+          # remove agent from list
+          agent = @agents.findWhere { jid: node }
+          @agents.remove agent
+
+      else if !$(presence).find('offerchat').text()
+        @connection.vcard.get ((stanza) =>
+          info =
+            name:         $(stanza).find("NAME").text()
+            display_name: $(stanza).find("DISPLAY_NAME").text()
+            avatar:       $(stanza).find("URL").text()
+
+          @agents.add { jid: node, token: node, info: info, agent: true }
+        ), jid
+
       else if typeof visitor is "undefined"
-        @visitors.add { jid: jid, token: token ,info: info, resource: resource, api_key: info.api_key, email: info.email }
+        @displayCurrentUrl(token, node, info.url)
+        @visitors.add { jid: node, token: token ,info: info, resources: [resource], api_key: info.api_key, email: info.email }
       else
-        visitor.set jid: jid
-        @visitors.set visitor
+        @displayCurrentUrl(token, node, info.url)
+        resources = visitor.get "resources"
+        resources.push(resource) if $.inArray(resource, resources) is -1
+        visitor.set { jid: node, resources: resources }
 
       true
 
     onPrivateMessage: (message) =>
-
       from    = $(message).attr("from")
       jid     = Strophe.getNodeFromJid from
       body    = $(message).find("body").text()
+
       if body
         visitor = @visitors.findWhere { jid: jid }
-        token = visitor.get("token")
+        if visitor
+          token = visitor.get("token")
+        else
+          agent = @agents.findWhere { jid: jid }
+          token = visitor.get "token"
+          agent_info = agent.get "info"
 
         if @messages.last().get("jid") is jid and @messages.last().get("viewing") is false
           child = true
@@ -141,7 +173,7 @@
         @messages.add
           token:      token
           jid:        jid
-          sender:     "visitor"
+          sender:     (if jid is token then agent_info.name else "visitor")
           message:    body
           time:       new Date()
           viewing:    false
