@@ -46,30 +46,38 @@
         .widget-welcome-msg
           Hello! How can I help you today?
       .widget-body
-        .message-item
-          .group
-            .message-author.agent-author
-              Jill
-            .message-date
-              8:00am
-          .message
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, eligendi temporibus sint amet.
-        .message-item
-          .group
-            .message-author
-              You
-            .message-date
-              8:03am
-          .message
-            yes, can you help me?
-      .widget-input
-
-        %i.widget.icon.icon-chat
-        %input.widget-input-text{ :type => "text", :placeholder => "Type your question and hit enter" }
-        %a.chat-settings
-          %i.widget.icon.icon-gear
-        %a.chat-rating
-          %i.widget.icon.icon-thumbs-up
+        .widget-chat-viewer
+          .message-item
+            .group
+              .message-author.agent-author
+                {{user.display_name}}
+              .message-date
+                8:00am
+            .message
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, eligendi temporibus sint amet.
+          .message-item
+            .group
+              .message-author
+                You
+              .message-date
+                8:03am
+            .message
+              yes, can you help me?
+        
+        .widget-input
+          %i.widget.icon.icon-chat
+          %input.widget-input-text{ :type => "text", :placeholder => "Type your question and hit enter" }
+          %a.chat-settings
+            %i.widget.icon.icon-gear
+          %a.chat-rating
+            %i.widget.icon.icon-thumbs-up
+        .widget-footer
+          .footer-logo
+          .widget-footer-desc
+            Powered by
+            %strong
+              %a
+                Offerchat
 
 
   .block.inline

@@ -3,21 +3,14 @@
     .chat-viewer-content
       .chat-viewer-inner
         .chat-item.group.small
-          .chat-table.chat-left-table
-            %i.icon.icon-alarm-clock
-          .chat-table.chat-container-table.chat-show-history-filter
-            %span.show-prev-chats-label show previous chats from:
-            %a.active Today
-            %span.middot
-            %a Yesterday
-            %span.middot
-            %a A week ago
+          %a.chat-block-btn.btn
+            load previous messages
 
         #chats-collection
 
 .chat-section-pane.chat-response-wrapper
   .group
-    .btn-selector-wrapper.left
+    .btn-selector-wrapper
       .btn-selector
         .btn.btn-action-selector.site-selector
           %i.icon.icon-arrow-down
@@ -34,7 +27,7 @@
               %a Ban User
           .caret.caret-dark.bottom
 
-    %a.btn.warning.left.end_chat
+    %a.btn.warning.end_chat
       End Chat
   .chat-response
     %textarea{ :placeholder => "Enter your message and press enter" }
