@@ -40,9 +40,8 @@
               $
             {{business.price}}
           per month
-        %ul.plan-features
-          %li
-            up to 10 agent seats
+        %small
+          up to 10 agent seats
         
 
     .plan-grid
@@ -52,7 +51,7 @@
         %p.small
           {{personal.description}}
         .block#personal-button
-          %a.btn.success.upgrade{ data: { id: "{{personal.plan_identifier}}" } }
+          %a.btn.action.upgrade{ data: { id: "{{personal.plan_identifier}}" } }
             Upgrade
         .plan-price
           .plan-value
@@ -60,9 +59,8 @@
               $
             {{personal.price}}
           per month
-        %ul.plan-features
-          %li
-            up to 4 agent seats
+        %small
+          up to 4 agent seats
         
     .plan-grid
       .plan.plan-regular
@@ -79,9 +77,8 @@
               $
             {{enterprise.price}}
           per month
-        %ul.plan-features
-          %li
-            up to 30 agent seats
+        %small
+          up to 30 agent seats
         
     .group.starter-upgrade
       .block-message.inline.small
@@ -91,18 +88,25 @@
         %a.hovered.upgrade{ :style => "margin-left: 10px", data: { id: "{{starter.plan_identifier}}" } }
           Upgrade
 
-.block.large
-  %ul.plan-feature-list
-    %li
-      %i.icon.icon-check-green
-      Unlimited websites
-    %li
-      Unlimited chats
-    %li
-      Widget customization
-    %li
-      SSL security
-    %li
-      Reports
-    %li
-      No offerchat logo
+.block.large.text-center
+  .plan-feature-list
+
+    %ul
+      %li
+        %i.icon.icon-check-green
+        Unlimited websites
+      %li
+        %i.icon.icon-check-green
+        Unlimited chats
+      %li
+        %i.icon.icon-check-green
+        Widget customization
+      %li
+        %i.icon.icon-check-green
+        SSL security
+      %li
+        %i.icon.icon-check-green
+        Reports
+      %li
+        %i.icon.icon-check-green
+        No offerchat logo
