@@ -79,9 +79,9 @@ Dashboard::Application.configure do
   }
 
   # Openfire Config
-  CHAT_BOSH_URL         = "http://timereal.offerchat.com:7070/http-bind/"
-  CHAT_SERVER_NAME = "timereal.offerchat.com"
-  CHAT_SERVER_URL = "https://timereal.offerchat.com:9091"
-  CHAT_SERVER_SECRET = "0ff3rch@t"
-  USER_SERVICE_ENDPOINT = "plugins/userService/userservice?"
+  # CHAT_BOSH_URL         = "http://sb0.offerchat.com:7070/http-bind/"
+  # CHAT_SERVER_NAME      = "timereal.offerchat.com"
+  # CHAT_SERVER_URL       = "http://sb0.offerchat.com:9090"
+  # CHAT_SERVER_SECRET    = "0ff3rch@t"
+  # USER_SERVICE_ENDPOINT = "plugins/userService/userservice?"
 end
