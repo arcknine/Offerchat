@@ -1,4 +1,6 @@
 Dashboard::Application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
   resource :profiles do
     collection do
       post "update_avatar"
