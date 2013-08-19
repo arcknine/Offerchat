@@ -14,6 +14,12 @@ RailsAdmin.config do |config|
   # RailsAdmin may need a way to know who the current user is]
   config.current_user_method { current_user } # auto-generated
 
+
+  config.authenticate_with {} # leave it to authorize
+  config.authorize_with do
+    redirect_to "/" unless current_user.email.include?("@offerchat.com")
+  end
+
   # If you want to track changes on your models:
   # config.audit_with :history, 'User'
 
