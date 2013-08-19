@@ -1,6 +1,4 @@
-.block-message.small
-  %a.close
-    &times;
+.block-message.small{style: "margin-bottom:2px;"}
   Setup your chat triggers effectively.
   %a
     Learn more on how to effectively use chat triggers.
