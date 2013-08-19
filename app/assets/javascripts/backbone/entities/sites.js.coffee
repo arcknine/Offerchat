@@ -12,16 +12,19 @@
       new Entities.SiteCollection
 
     getSites: ->
-      site = new Entities.SiteCollection
+      sites = new Entities.SiteCollection
       App.request "show:preloader"
-      site.fetch
+      sites.fetch
         reset: true
         success: ->
           App.request "hide:preloader"
         error: ->
+          App.vent.trigger "show:wizard:sidebar"
+          $('#chat-sidebar-region').attr('class', 'tour-sidebar')
+
           App.request "hide:preloader"
           App.navigate 'websites/new', trigger: true
-      site
+      sites
 
     getOwnedSites: ->
       sites = new Entities.SiteCollection

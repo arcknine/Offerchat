@@ -24,11 +24,31 @@
     defaults = {
       version: '2.0.0',
       src: {
+        api_url: '//local.offerchat.com:3000/api/v1/widget/',
+        assets:  'http://local.offerchat.com:3000',
+        cdn:     'http://local.offerchat.com:3000'
+      }
+    };
+
+    // staging
+    /*defaults = {
+      version: '2.0.0',
+      src: {
+        api_url: '//staging.offerchat.com/api/v1/widget/',
+        assets:  '//staging.offerchat.com',
+        cdn:     '//staging.offerchat.com'
+      }
+    };*/
+
+    // production
+   /* defaults = {
+      version: '2.0.0',
+      src: {
         api_url: '//app.offerchat.com/api/v2/widgets/',
         assets:  'https://app.offerchat.com',
         cdn:     'http://d3ocj2fkvch1xi.cloudfront.net/'
       }
-    };
+    };*/
 
     src     = defaults.src;
     version = defaults.version;

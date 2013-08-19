@@ -9,6 +9,7 @@
       @agents      = App.request "online:agents:entities"
       @messages    = App.request "messeges:entities"
       @currentSite = App.request "get:sidebar:selected:site"
+      @sites       = App.request "get:sites:count"
 
       @layout      = @getLayout()
 
@@ -19,12 +20,14 @@
         @connection = App.xmpp.connection
         @connected()
 
-      # @listenTo @layout, "show", =>
-        # @visitorsList()
-        # @agentsList()
-
       @listenTo @currentSite, "change", =>
         @visitorsList()
+        @agentsList()
+
+      @listenTo @visitors, "add", =>
+        @visitorsList()
+
+      @listenTo @agents, "add", =>
         @agentsList()
 
       App.reqres.setHandler "get:chats:messages", =>
@@ -47,7 +50,7 @@
         collection: agents
 
     visitorsList: ->
-      unless  @currentSite.get("all")
+      unless @currentSite.get("all")
         visitors = App.request "visitors:entities"
         visitors.set @visitors.where { api_key: @currentSite.get("api_key") }
       else
@@ -69,7 +72,16 @@
       @layout.visitorsRegion.show visitorsView
 
     agentsList: ->
-      agentsView = @getAgentsView(@agents)
+      unless @currentSite.get("all")
+        api_key = @currentSite.get("api_key")
+        agents  = App.request "online:agents:entities"
+        $.each @agents.models, (key, value) ->
+          if $.inArray(api_key, value.get("api_keys")) > -1
+            agents.set value
+      else
+        agents = @agents
+
+      agentsView = @getAgentsView(agents)
       @layout.agentsRegion.show agentsView
 
     connected: ->
@@ -77,7 +89,9 @@
       @connection.addHandler @onPresence, null, "presence"
       @connection.addHandler @onPrivateMessage, null, "message", "chat"
 
-      @create_vcard()
+      App.execute "when:fetched", @sites, =>
+        @create_vcard()
+
       @sendPresence()
 
     create_vcard: ->
@@ -93,13 +107,13 @@
                 .c('NAME').t(info.name).up()
                 .c('DISPLAY_NAME').t(info.display_name).up()
                 .c('AVATAR').c('TYPE').t(info.avatar_content_type).up().c('URL').t(info.avatar).up().up()
-                .c('JABBERID').t(info.jabber_user)
+                .c('JABBERID').t(info.jabber_user).up()
+                .c('API_KEYS').t(JSON.stringify(@sites.pluck("api_key")))
 
         @connection.sendIQ build
         sessionStorage.setItem("vcard", true)
 
     sendPresence: ->
-      console.log "send pres?"
       pres = $pres().c('priority').t('1').up().c('status').t("Online")
       @connection.send(pres)
 
@@ -113,8 +127,7 @@
       info     = JSON.parse($(presence).find('offerchat').text() || "{}")
       token    = info.token
       visitor  = @visitors.findWhere { token: token }
-      agent    = @agents.findWhere { jid: node }
-      console.log agent
+      agent    = @agents.findWhere { token: node }
 
       if type is "unavailable"
         visitor = @visitors.findWhere {  jid: node }
@@ -141,7 +154,9 @@
             display_name: $(stanza).find("DISPLAY_NAME").text()
             avatar:       $(stanza).find("URL").text()
 
-          @agents.add { jid: node, token: node, info: info, agent: true }
+          api_keys = JSON.parse $(stanza).find("API_KEYS").text()
+
+          @agents.add { jid: node, token: node, info: info, agent: true, api_keys: api_keys }
         ), jid
 
       else if typeof visitor is "undefined"
