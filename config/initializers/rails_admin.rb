@@ -465,6 +465,10 @@ RailsAdmin.config do |config|
 
   ###  Website  ###
 
+  config.model 'Website' do
+    object_label_method :url     # Name of the method called for pretty printing an *instance* of ModelName
+  end
+
   # config.model 'Website' do
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your website.rb model definition
