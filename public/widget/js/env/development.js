@@ -13,7 +13,7 @@ var global, Widget, App, Helpers, Chats;
 global = {
   version: '2.0.0',
   src: {
-    script:   '//staging.offerchat.com/',
+    script:   '//local.offerchat.com:3000/',
     bosh_url: 'http://local.offerchat.com:7070/http-bind/',
     server:   '@local.offerchat.com',
     api_url:  '//local.offerchat.com:3000/api/v1/widget/',

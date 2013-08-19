@@ -24,9 +24,9 @@
     defaults = {
       version: '2.0.0',
       src: {
-        api_url: '//app.offerchat.com/api/v2/widgets/',
-        assets:  'https://app.offerchat.com',
-        cdn:     'http://d3ocj2fkvch1xi.cloudfront.net/'
+        api_url: '//staging.offerchat.com/api/v1/widget/',
+        assets:  '//staging.offerchat.com',
+        cdn:     '//staging.offerchat.com'
       }
     };
 
@@ -157,7 +157,7 @@
                 '</div>';
         $ofc('body').append(build);
 
-        path = src.cdn + "/widget/widget.html";
+        path = src.assets + "/widget/widget-staging.html";
         title = $ofc("head > title").text();
         // path = "http://10.10.1.22:3000/widget"
 

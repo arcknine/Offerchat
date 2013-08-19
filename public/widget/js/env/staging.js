@@ -16,7 +16,7 @@ global = {
     script:   '//staging.offerchat.com/',
     bosh_url: ('https:' == document.location.protocol ? 'https://sb1.offerchat.com:7443/http-bind/' : 'http://sb1.offerchat.com:7070/http-bind/'),
     server:   '@timereal.offerchat.com',
-    api_url:  '//staging.offerchat.com/api/v2/widgets/',
+    api_url:  '//staging.offerchat.com/api/v1/widget/',
     assets:   '//staging.offerchat.com'
   }
 };
