@@ -4,6 +4,7 @@
 
     initialize: (options = {}) ->
       sites = App.request "get:sites:count"
+      # App.vent.trigger "show:chat:sidebar"
       @storage = JSON.parse(sessionStorage.getItem("newSite"))
       newWebsite = App.request "new:site:entity"
       newWebsite.url = Routes.websites_path()
@@ -23,9 +24,13 @@
         model: site
 
     initInfoView: (sites) ->
+      $('#connecting-region').remove();
+      $('.opacity').remove();
       if sites.length is 0
         $('#preview-checklist').addClass('checked')
         $('#preview-checklist').find('span').hide()
         $('#second-check').show()
+
+
 
 

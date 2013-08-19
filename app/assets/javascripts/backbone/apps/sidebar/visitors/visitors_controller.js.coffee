@@ -9,6 +9,7 @@
       @agents      = App.request "online:agents:entities"
       @messages    = App.request "messeges:entities"
       @currentSite = App.request "get:sidebar:selected:site"
+
       @layout      = @getLayout()
 
       App.reqres.setHandler "set:no:active:visitor:chat", =>

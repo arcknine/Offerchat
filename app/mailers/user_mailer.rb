@@ -14,4 +14,9 @@ class UserMailer < ActionMailer::Base
     @account, @agent = account, agent
     mail(:to => @agent.email, :subject => "Your assigned website")
   end
+
+  def send_to_webmaster(email, apikey)
+    @data = apikey
+    mail(:to => email, :subject => "Offerchat Website Integration Code")
+  end
 end

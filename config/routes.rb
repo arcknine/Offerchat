@@ -19,6 +19,7 @@ Dashboard::Application.routes.draw do
     collection do
       get "owned"
       get "managed"
+      post "webmaster_code"
     end
     member do
       put "update_settings"

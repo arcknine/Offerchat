@@ -4,7 +4,7 @@
 
     initialize: ->
       currentUser = App.request "set:current:user", App.request "get:current:user:json"
-      App.selectorSidebarRegion.close()
+      # App.selectorSidebarRegion.close()
       @storage = JSON.parse(sessionStorage.getItem("newSite"))
       website = App.request "new:site:entity"
       website.url = Routes.signup_wizard_path('step_three')
@@ -142,7 +142,7 @@
       counterValue = $("#greeting").val()
       remainLength = 33 - counterValue.length
       $("#greeting-count").text(remainLength)
-      App.selectorSidebarRegion.close()
+      # App.selectorSidebarRegion.close()
 
     toggleErrorDisplay:(status) ->
       if status is 'show'

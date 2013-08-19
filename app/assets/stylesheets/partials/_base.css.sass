@@ -18,7 +18,7 @@ $base-line-height: 1.5
   left: 50%
   margin-left: -8px
 #tableHead1_content
-  margin-top: 41px
+  margin-top: 33px
 body
   font:
     family: $base-font-family
@@ -56,7 +56,7 @@ a
     padding: 10px
     display: block
     color: $light-text-color
-  
+
   &.block-link
     display: inline-block
     padding: $button-padding
@@ -200,7 +200,7 @@ h4
   -o-transition: all .2s
   transition: all .2s
 #wrapper
- 
+
   width: 100%
   top: 0
   bottom: 0
@@ -220,10 +220,9 @@ h4
   background-color: #fff
   min-width: 830px
   overflow-x: auto
-  
-  &.tour-content-view
-    left: 321px
-    width: 550px
+
+.tour-content-view
+  width: 830px
 .terms-text
   font-size: 12px
   color: $light-text-color
@@ -233,7 +232,7 @@ h4
   top: 45px
   width: 100%
   height: 100%
-  
+
 .block
   padding: $padding-10
   position: relative
@@ -243,7 +242,7 @@ h4
     display: inline-block
   &.bordered-top
     border-top: 1px solid #e1e1e1
-  
+
 
 .block-message
   a.close
@@ -278,18 +277,20 @@ h4
 .profile-image-container
   position: relative
   display: inline-block
+
   width: 37px
   height: 37px
+
   text-align: center
   &:hover
     .profile-user-tooltip
       opacity: 1
       visibility: visible
       top: -40px
-  .profile-image 
+  .profile-image
     display: block
     position: relative
-    
+
     img
       border-radius: 27%
       border: 2px solid $default-border-color
@@ -330,7 +331,7 @@ h4
 
     @include transition(.2s)
     .caret
-      border-color: $sidebar-color transparent transparent transparent 
+      border-color: $sidebar-color transparent transparent transparent
       border-width: 7px
       border-style: solid
       position: absolute
@@ -417,7 +418,7 @@ h4
     background-color: #53bb84
   &.red
     background-color:  #e13d3d
-  
+
 .msg-count
   display: inline-block
   padding: 3px 0
@@ -430,6 +431,8 @@ h4
   color: $text-color
   font-size: 11px
   font-weight: bold
+
+
 
 .link-list
   a
@@ -467,10 +470,26 @@ h4
 .tour-content-inner
   .block
     padding: 20px
+  .preview-code
+    float: right
+    font-family: 'Courier New', courier
+    font-size: 12px
+
+    width: 270px
+    p
+      margin: 0 0 2px 0
+    em
+      font-style: italic
+      color: #999
+    .red
+      color: red
+      font-weight: bold
+
 .widget-preview-form
   margin: 20px 0
   label
     margin-right: 15px
+
 
 .go-right
   float: right
@@ -542,7 +561,7 @@ h4
       border-color: #2599dc
     img
       max-width: 100%
-      
+
 .modal-inner-container
   height: 300px
   overflow-y: auto
@@ -559,7 +578,7 @@ h4
   bottom: 0
   z-index: 1100
   overflow-y: scroll
-  
+
 
 .modal-window
   padding-bottom: 50px
@@ -584,7 +603,7 @@ h4
 
   h2
     margin-bottom: 5px
-  
+
   .modal-body,
   .modal-header
     padding: 10px 15px
@@ -597,16 +616,16 @@ h4
     padding: 15px
     &.bordered
       border-top: 1px solid $border-color
-    .btn
-      margin-right: 10px
-  .modal-header, 
+  .chat-header
+    height: auto
+  .modal-header,
     .close
       color: #fff
       position: absolute
       top: 10px
       right: 15px
       font-size: 18px
-      
+
       width: 22px
       height: 22px
       background: #434343
@@ -619,9 +638,13 @@ h4
         background-color: #212121
   .modal-body
     &.bordered
-      border-top: 1px solid #e1e1e1  
+      border-top: 1px solid #e1e1e1
+  .block-message
+    padding: 10px 15px
 
-
+.history-btn-group
+  margin-top: 50px
+  float: right
 .block-list
   li
     position: relative
@@ -631,18 +654,18 @@ h4
       .checklist-admin
         top: 0px
 
-     
-    
+
+
   &.manage-agent-modal-list
     li
       padding: 10px
       overflow: hidden
       border-top: 1px solid #e1e1e1
-      
+
 a.block-list-item, .block-list-item
   display: block
   padding: 15px 0
-  
+
   &.bordered
     border-top: 1px solid #e1e1e1
 .site-block-list
@@ -679,7 +702,7 @@ a.block-list-item, .block-list-item
     min-height: 245px
     padding: 10px
     text-align: center
-    
+
     position: relative
     &.plan-regular
       background-color: #65b7dd
@@ -692,7 +715,7 @@ a.block-list-item, .block-list-item
       h2
         font-size: 28px
         letter-spacing: -1px
-    
+
     h2
       margin-top: 10px
       text-shadow: 0 -1px 0 rgba(0,0,0,.3)
@@ -702,7 +725,7 @@ a.block-list-item, .block-list-item
       top: 3px
       font-size: 24px
       vertical-align: top
-    
+
   .plan-value
     font-weight: 300
     font-size: 38px
@@ -710,13 +733,13 @@ a.block-list-item, .block-list-item
     display: block
     line-height: 1
     margin-top: 10px
-    
+
   .small
     font-size: 12px
-  
 
 
-.login-wrapper    
+
+.login-wrapper
   margin-top: 8%
 .login-form
   background-color: #fff
@@ -731,7 +754,7 @@ a.block-list-item, .block-list-item
     font-size: 18px
 
 .quick-answers-list
-  
+
   > li
     border-bottom: 1px solid #e1e1e1
     &:first-child
@@ -749,7 +772,7 @@ a.block-list-item, .block-list-item
       &.new-response
         color: $link-color
         font-weight: 700
-       
+
 
   .status-item
     margin-right: 5px
@@ -757,7 +780,7 @@ a.block-list-item, .block-list-item
 
 .sidebar-modal-fixed
   position: absolute
-  
+
   @include transition(.3s)
   height: 100%
   width: 420px
@@ -770,7 +793,7 @@ a.block-list-item, .block-list-item
   border-bottom-left-radius: 5px
   &.show
     right: 0
-    
+
   .close
     color: #999
     position: absolute
@@ -790,16 +813,18 @@ a.block-list-item, .block-list-item
     &:hover
       color: #676767
 
-.notes-sidebar
+.notes-section
   .agent-inline-block
     position: absolute
     .nickname
       margin-top: 5px
+      font-size: 12px
   .note
     padding-left: 100px
     font-size: 12px
   .profile-image-container
     cursor: default
+    text-align: left
 
 .modal-sidebar-viewer
   margin-top: 5px
@@ -830,6 +855,8 @@ a.block-list-item, .block-list-item
     margin-top: 12px
     &:hover
       text-decoration: underline
+  &.agent-block-large
+    width: 235px
 span.dot-seperator
   margin: 0 3px
   border-radius: 5px
@@ -855,7 +882,7 @@ span.dot-seperator
   overflow: hidden
   background-color: #fff
   z-index: 9999
-  
+
   .main-overlay-in
     position: absolute
     width: 100%
@@ -875,5 +902,5 @@ span.dot-seperator
     font-size: 24px
     margin: 10px 0 0 0
 
-  
+
 
