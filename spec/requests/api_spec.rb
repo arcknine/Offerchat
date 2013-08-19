@@ -27,11 +27,11 @@ describe Offerchat::API do
     end
   end
 
-  describe "GET any_agents_online" do
-    it "returns bolean if there is agent online" do
-      get "/api/v1/widget/any_agents_online/#{@website.api_key}"
-      response.status.should == 200
-    end
-  end
+  # describe "GET any_agents_online" do
+  #   it "returns bolean if there is agent online" do
+  #     get "/api/v1/widget/any_agents_online/#{@website.api_key}"
+  #     response.status.should == 200
+  #   end
+  # end
 
 end
