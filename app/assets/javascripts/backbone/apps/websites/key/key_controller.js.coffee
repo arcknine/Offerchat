@@ -29,8 +29,6 @@
         model: site
 
     showModal: (site) ->
-      console.log site
-      console.log "test na click na!!"
       modalView = @getModalView site
       formView  = App.request "modal:wrapper", modalView
 
