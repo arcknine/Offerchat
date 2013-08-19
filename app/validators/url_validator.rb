@@ -7,7 +7,10 @@ class UrlValidator < ActiveModel::EachValidator
     rescue URI::InvalidURIError
       false
     end
-    unless valid || value.include?(".")
+    if value.to_s.include?("localhost")
+      record.errors[attribute] << (options[:message] || "localhost is not allowed")
+    end
+    unless value.to_s.include?(".") || valid
       record.errors[attribute] << (options[:message] || "is an invalid URL")
     end
 
