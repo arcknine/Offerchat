@@ -77,11 +77,4 @@ Dashboard::Application.configure do
     :authentication => 'plain',
     :enable_starttls_auto => true
   }
-
-  # Openfire Config
-  # CHAT_BOSH_URL         = "http://sb0.offerchat.com:7070/http-bind/"
-  # CHAT_SERVER_NAME      = "timereal.offerchat.com"
-  # CHAT_SERVER_URL       = "http://sb0.offerchat.com:9090"
-  # CHAT_SERVER_SECRET    = "0ff3rch@t"
-  # USER_SERVICE_ENDPOINT = "plugins/userService/userservice?"
 end
