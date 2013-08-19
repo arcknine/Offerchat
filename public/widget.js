@@ -44,9 +44,9 @@
    /* defaults = {
       version: '2.0.0',
       src: {
-        api_url: '//app.offerchat.com/api/v2/widgets/',
-        assets:  'https://app.offerchat.com',
-        cdn:     'http://d3ocj2fkvch1xi.cloudfront.net/'
+        api_url: '//app.offerchat.com/api/v1/widget/',
+        assets:  '//app.offerchat.com',
+        cdn:     '//app.offerchat.com'
       }
     };*/
 

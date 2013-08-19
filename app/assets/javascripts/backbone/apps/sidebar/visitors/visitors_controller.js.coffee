@@ -16,6 +16,9 @@
       App.reqres.setHandler "set:no:active:visitor:chat", =>
         @visitors.updateModels('active', null)
 
+      App.reqres.setHandler "set:no:active:agent:chat", =>
+        @agents.updateModels('active', null)
+
       if App.xmpp.status is Strophe.Status.CONNECTED
         @connection = App.xmpp.connection
         @connected()
@@ -59,15 +62,14 @@
       visitorsView = @getVisitorsView(visitors)
 
       @listenTo visitorsView, "childview:click:visitor:tab", (visitor) =>
-
-        # remove all active visitors chat
+        App.request "set:no:active:agent:chat"
         App.request "set:no:active:visitor:chat"
 
         visitor.model.set
           unread: null
           active: 'active'
 
-        App.navigate "chats/#{visitor.model.get('token')}", trigger: true
+        App.navigate "chats/visitor/#{visitor.model.get('token')}", trigger: true
 
       @layout.visitorsRegion.show visitorsView
 
@@ -82,6 +84,18 @@
         agents = @agents
 
       agentsView = @getAgentsView(agents)
+
+      @listenTo agentsView, "childview:click:agent:tab", (agent) =>
+        App.request "set:no:active:agent:chat"
+        App.request "set:no:active:visitor:chat"
+
+        agent.model.set
+          unread: null
+          active: 'active'
+
+        # console.log agent
+        App.navigate "chats/agent/#{agent.model.get('token')}", trigger: false
+
       @layout.agentsRegion.show agentsView
 
     connected: ->
