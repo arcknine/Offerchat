@@ -343,72 +343,72 @@ RailsAdmin.config do |config|
 
   ###  User  ###
 
-  # config.model 'User' do
+  config.model 'User' do
 
-  #   # You can copy this to a 'rails_admin do ... end' block inside your user.rb model definition
+    # You can copy this to a 'rails_admin do ... end' block inside your user.rb model definition
 
-  #   # Found associations:
+    # Found associations:
 
-  #     configure :plan, :belongs_to_association 
-  #     configure :accounts, :has_many_association 
-  #     configure :websites, :has_many_association 
-  #     configure :agent_accounts, :has_many_association 
+      configure :plan, :belongs_to_association 
+      configure :accounts, :has_many_association 
+      configure :websites, :has_many_association 
+      configure :agent_accounts, :has_many_association 
 
-  #   # Found columns:
+    # Found columns:
 
-  #     configure :id, :integer 
-  #     configure :email, :string 
-  #     configure :password, :password         # Hidden 
-  #     configure :password_confirmation, :password         # Hidden 
-  #     configure :reset_password_token, :string         # Hidden 
-  #     configure :reset_password_sent_at, :datetime 
-  #     configure :remember_created_at, :datetime 
-  #     configure :sign_in_count, :integer 
-  #     configure :current_sign_in_at, :datetime 
-  #     configure :last_sign_in_at, :datetime 
-  #     configure :current_sign_in_ip, :string 
-  #     configure :last_sign_in_ip, :string 
-  #     configure :created_at, :datetime 
-  #     configure :updated_at, :datetime 
-  #     configure :name, :string 
-  #     configure :display_name, :string 
-  #     configure :avatar, :string 
-  #     configure :jabber_user, :string 
-  #     configure :jabber_password, :string 
-  #     configure :plan_id, :integer 
-  #     configure :avatar_file_name, :string         # Hidden 
-  #     configure :avatar_content_type, :string         # Hidden 
-  #     configure :avatar_file_size, :integer         # Hidden 
-  #     configure :avatar_updated_at, :datetime         # Hidden 
-  #     configure :avatar, :paperclip 
-  #     configure :plan_identifier, :string         # Hidden 
-  #     configure :billing_start_date, :date 
-  #     configure :stripe_customer_token, :string 
+      configure :id, :integer 
+      configure :email, :string 
+      # configure :password, :password         # Hidden 
+      # configure :password_confirmation, :password         # Hidden 
+      # configure :reset_password_token, :string         # Hidden 
+      configure :reset_password_sent_at, :datetime 
+      configure :remember_created_at, :datetime 
+      configure :sign_in_count, :integer 
+      configure :current_sign_in_at, :datetime 
+      configure :last_sign_in_at, :datetime 
+      configure :current_sign_in_ip, :string 
+      configure :last_sign_in_ip, :string 
+      configure :created_at, :datetime 
+      configure :updated_at, :datetime 
+      configure :name, :string 
+      configure :display_name, :string 
+      configure :avatar, :string 
+      configure :jabber_user, :string 
+      configure :jabber_password, :string 
+      configure :plan_id, :integer 
+      configure :plan_identifier, :string         # Hidden 
+      # configure :avatar_file_name, :string         # Hidden 
+      # configure :avatar_content_type, :string         # Hidden 
+      # configure :avatar_file_size, :integer         # Hidden 
+      # configure :avatar_updated_at, :datetime         # Hidden 
+      configure :avatar, :paperclip 
+      configure :billing_start_date, :date 
+      configure :stripe_customer_token, :string 
 
-  #   # Cross-section configuration:
+    # Cross-section configuration:
 
-  #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
-  #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
-  #     # label_plural 'My models'      # Same, plural
-  #     # weight 0                      # Navigation priority. Bigger is higher.
-  #     # parent OtherModel             # Set parent model for navigation. MyModel will be nested below. OtherModel will be on first position of the dropdown
-  #     # navigation_label              # Sets dropdown entry's name in navigation. Only for parents!
+      # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
+      # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
+      # label_plural 'My models'      # Same, plural
+      # weight 0                      # Navigation priority. Bigger is higher.
+      # parent OtherModel             # Set parent model for navigation. MyModel will be nested below. OtherModel will be on first position of the dropdown
+      # navigation_label              # Sets dropdown entry's name in navigation. Only for parents!
 
-  #   # Section specific configuration:
+    # Section specific configuration:
 
-  #     list do
-  #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
-  #       # items_per_page 100    # Override default_items_per_page
-  #       # sort_by :id           # Sort column (default is primary key)
-  #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
-  #     end
-  #     show do; end
-  #     edit do; end
-  #     export do; end
-  #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
-  #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
-  #     # using `field` instead of `configure` will exclude all other fields and force the ordering
-  # end
+      list do
+        filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
+        items_per_page 100    # Override default_items_per_page
+        sort_by :id           # Sort column (default is primary key)
+        sort_reverse true     # Sort direction (default is true for primary key, last created first)
+      end
+      show do; end
+      edit do; end
+      export do; end
+      # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
+      # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
+      # using `field` instead of `configure` will exclude all other fields and force the ordering
+  end
 
 
   ###  Visitor  ###
