@@ -33,6 +33,3 @@ rspec.xml
 #for openfire hosted in a different local machine
 /public/widget/js/env/local.js
 /public/widget/widget-local.html
-
-# Ignore config file
-/config/application.yml
