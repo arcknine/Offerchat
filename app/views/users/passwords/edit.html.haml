@@ -1,0 +1,22 @@
+.login-wrapper
+  .logo-large.centered
+  .login-form.form
+    - @user.errors.each do |key, val|
+      = "#{key}  #{val}"
+    %h2 Change your password
+
+    = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
+      = f.hidden_field :reset_password_token
+      %fieldset
+        %label
+          New Password
+        = f.email_field :password, :type => "text", :autofocus => true
+      %fieldset
+        %label
+          Confirm New Password
+        = f.password_field :password_confirmation
+      %fieldset
+        %button.btn.action{:type => "submit"}
+          Change my password
+        = link_to "Signup", signup_wizard_path('step_one'), :class =>"go-right", :style => "margin-top: 9px"
+
