@@ -14,6 +14,8 @@ gem 'nokogiri'
 gem 'activeadmin'
 gem 'meta_search', '>= 1.1.0.pre'
 
+gem 'rails_admin'
+
 # Backbone
 gem 'backbone-on-rails', '>= 1.0.0'
 
