@@ -5,7 +5,7 @@
     className: "column-content-container"
     events:
       "click #controlColorContent a" : "changeColor"
-      "click .toggle-check"          : "toggleGradient"
+      "click .toggle-check"            : "toggleGradient"
 
     triggers:
       "click #setting-notification" : "hide:notification"
