@@ -9,11 +9,12 @@
       = form_for(resource, :as => resource_name, url: wizard_path, :method => "put") do |f|
         .form.form-inline
           %fieldset{:class => (flash[:alert] ? "field-error" : "")}
-            %label
+            %label.label-top-fix
               Email name
             .input-container
               = f.email_field :email, :type => "text", :autofocus => true, :class => "large"
               %button.btn.action{:type => "submit"} Continue
+              .alert.alert-error
+                = flash[:alert]
 
-          %p.alert.alert-error{ :style =>"padding-left:150px;color:red"}
-            = flash[:alert]
+          
