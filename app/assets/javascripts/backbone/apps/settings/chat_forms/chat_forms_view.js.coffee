@@ -39,9 +39,11 @@
       unless $(ev.currentTarget).hasClass("toggle-off")
         @trigger "get:toggle:offline", false
         $(ev.currentTarget).addClass("toggle-off")
+        $(ev.currentTarget).closest("form").submit()
       else
         $(ev.currentTarget).removeClass("toggle-off")
         @trigger "get:toggle:offline", true
+        $(ev.currentTarget).closest("form").submit()
 
     updateWidgetMessage: (ev) ->
       $(".widget-pre-message").html($(ev.currentTarget).val())
@@ -80,9 +82,11 @@
       unless $(ev.currentTarget).hasClass("toggle-off")
         @trigger "get:toggle:prechat", false
         $(ev.currentTarget).addClass("toggle-off")
+        $(ev.currentTarget).closest("form").submit()
       else
         $(ev.currentTarget).removeClass("toggle-off")
         @trigger "get:toggle:prechat", true
+        $(ev.currentTarget).closest("form").submit()
 
     updateWidgetMessage: (ev) ->
       $(".widget-pre-message").html($(ev.currentTarget).val())
@@ -111,9 +115,11 @@
       unless $(ev.currentTarget).hasClass("toggle-off")
         @trigger "get:toggle:postchat", false
         $(ev.currentTarget).addClass("toggle-off")
+        $(ev.currentTarget).closest("form").submit()
       else
         $(ev.currentTarget).removeClass("toggle-off")
         @trigger "get:toggle:postchat", true
+        $(ev.currentTarget).closest("form").submit()
 
     updateWidgetMessage: (ev) ->
       $(".widget-pre-message").html($(ev.currentTarget).val())

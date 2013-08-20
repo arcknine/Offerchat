@@ -40,6 +40,7 @@
         @listenTo showForms, "get:toggle:offline", (enabled) =>
           @settings.offline.enabled = enabled
           @currentUser.set settings: @settings
+          
       else if section is 'prechat'
         showForms = @getPreChatFormView()
 
