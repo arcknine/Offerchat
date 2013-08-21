@@ -37,15 +37,10 @@
   class Entities.MessagesCollection extends App.Entities.Collection
     model: Entities.Message
 
-  class Entities.OnlineAgent extends App.Entities.Model
+  class Entities.WindowHeight extends App.Entities.Model
     defaults:
-      unread:   null
-      active:   null
-      new_chat: null
-      bounce:   null
-
-  class Entities.OnlineAgentsCollection extends App.Entities.Collection
-    model: Entities.OnlineAgent
+      height: $(window).height()
+      str_h:  ($(window).height() - 256)  + "px"
 
   API =
     setVisitor: ->
@@ -60,11 +55,8 @@
     messages: ->
       new Entities.MessagesCollection
 
-    agents: ->
-      new Entities.OnlineAgentsCollection
-
-    agent: ->
-      new Entities.OnlineAgent
+    windowHeight: ->
+      new Entities.WindowHeight
 
   App.reqres.setHandler "visitor:entity", ->
     API.setVisitor()
@@ -78,8 +70,5 @@
   App.reqres.setHandler "messeges:entities", ->
     API.messages()
 
-  App.reqres.setHandler "online:agents:entities", ->
-    API.agents()
-
-  App.reqres.setHandler "online:agent:entity", ->
-    API.agent()
+  App.reqres.setHandler "get:chat:window:height", ->
+    API.windowHeight()

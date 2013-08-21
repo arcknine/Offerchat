@@ -8,6 +8,7 @@
       @visitors    = App.request "visitors:entities"
       @agents      = App.request "online:agents:entities"
       @messages    = App.request "messeges:entities"
+      @agentMsgs   = App.request "messeges:entities"
       @currentSite = App.request "get:sidebar:selected:site"
       @sites       = App.request "get:sites:count"
 
@@ -36,8 +37,14 @@
       App.reqres.setHandler "get:chats:messages", =>
         @messages
 
+      App.reqres.setHandler "get:agent:chats:messages", =>
+        @agentMsgs
+
       App.reqres.setHandler "get:chats:visitors", =>
         @visitors
+
+      App.reqres.setHandler "get:online:agents", =>
+        @agents
 
       @show @layout
 
@@ -94,7 +101,7 @@
           active: 'active'
 
         # console.log agent
-        App.navigate "chats/agent/#{agent.model.get('token')}", trigger: false
+        App.navigate "chats/agent/#{agent.model.get('token')}", trigger: true
 
       @layout.agentsRegion.show agentsView
 
@@ -187,16 +194,14 @@
     onPrivateMessage: (message) =>
       from    = $(message).attr("from")
       jid     = Strophe.getNodeFromJid from
+      node    = Strophe.getNodeFromJid from
       body    = $(message).find("body").text()
+      agent   = @agents.findWhere jid: node
 
-      if body
+      if body and typeof agent is "undefined"
         visitor = @visitors.findWhere { jid: jid }
         if visitor
           token = visitor.get("token")
-        else
-          agent = @agents.findWhere { jid: jid }
-          token = visitor.get "token"
-          agent_info = agent.get "info"
 
         if @messages.last().get("jid") is jid and @messages.last().get("viewing") is false
           child = true
@@ -217,6 +222,29 @@
         if Backbone.history.fragment.indexOf(token)==-1
           @visitors.findWhere({token: token}).addUnread()
           @visitors.sort()
+
+      else if agent and body
+        token    = agent.get("token")
+        messages = App.request "messeges:entities"
+        info     = agent.get("info")
+        name     = (if info.name then info.name else info.display_name)
+
+        messages.add(@agentMsgs.where token: token)
+
+        agent_msg =
+          token:      token
+          name:       name
+          sender:     "visitor"
+          message:    body
+          time:       new Date()
+          viewing:    false
+          timesimple: moment().format('hh:mma')
+
+        if messages.last() and messages.last().get("name") is name
+          agent_msg.child      = true
+          agent_msg.childClass = "child"
+
+        @agentMsgs.add agent_msg
 
       true
 

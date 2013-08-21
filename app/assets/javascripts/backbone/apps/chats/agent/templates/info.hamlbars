@@ -1,0 +1,12 @@
+.agent-inline-block.full
+  .profile-image-container.large
+    .profile-image
+      %img{alt: "Avatar-large", src: "{{info.avatar}}"}
+    %span.status.online
+      %i.icon.icon-check-small
+  %label.profile-label-name.for-large
+    {{#if info.name}}
+    {{info.name}}
+    {{else}}
+    {{info.display_name}}
+    {{/if}}

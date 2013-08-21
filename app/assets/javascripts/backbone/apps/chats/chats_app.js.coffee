@@ -12,7 +12,7 @@
           token:  token
 
       agent: (token) ->
-        new ChatsApp.Show.Controller
+        new ChatsApp.Agent.Controller
           region: App.mainRegion
           token:  token
 
