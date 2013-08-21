@@ -17,6 +17,7 @@ global = {
     bosh_url: ('https:' == document.location.protocol ? 'https://b1.offerchat.com:7443/http-bind/' : 'http://b1.offerchat.com:7070/http-bind/'),
     server:   '@realtime.offerchat.com',
     api_url:  '//app.offerchat.com/api/v2/widgets/',
-    assets:   '//app.offerchat.com'
+    assets:   '//app.offerchat.com',
+    history:  '//history.offerchat.com'
   }
 };
