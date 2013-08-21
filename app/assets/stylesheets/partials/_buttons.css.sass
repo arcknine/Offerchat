@@ -14,6 +14,8 @@
   padding: $button-padding
   cursor: pointer
   text-shadow: 0 1px 0 lighten($button-bg-color, 10%)
+  box-sizing: border-box
+  -moz-box-sizing: border-box
   @include transition(.2s)
   // box-shadow: 0 1px 0 darken($button-bg-color, 15%)
   &:active, &.active
@@ -22,7 +24,7 @@
     border-top: 1px solid darken($button-bg-color, 20%)
   &.success
     background-color: $button-bg-success-color
-    text-shadow: 0 -1px 0 darken($button-bg-success-color, 20%)
+    text-shadow: 0 1px 0 darken($button-bg-success-color, 20%)
     color: #fff
     &:active
       background-color: darken($button-bg-success-color, 5%)
@@ -31,7 +33,7 @@
   &.action
     background-color: $button-bg-action-color
     // box-shadow: 0 1px 0 darken($button-bg-action-color, 15%)
-    text-shadow: 0 -1px 0 darken($button-bg-action-color, 20%)
+    text-shadow: 0 1px 0 darken($button-bg-action-color, 20%)
     color: #fff
     &:active
       background-color: darken($button-bg-action-color, 5%)
@@ -40,7 +42,7 @@
   &.warning
     background-color: $button-bg-warning-color
     // box-shadow: 0 1px 0 darken($button-bg-warning-color, 15%)
-    text-shadow: 0 -1px 0 darken($button-bg-warning-color, 20%)
+    text-shadow: 0 1px 0 darken($button-bg-warning-color, 20%)
     color: #fff
     &:active
       background-color: darken($button-bg-warning-color, 5%)
@@ -81,6 +83,7 @@
     padding-right: 80px
   &.btn-full
     width: 100%
+    text-align: center
   &.btn-line-fix
     line-height: 1
 

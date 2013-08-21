@@ -62,7 +62,9 @@ a
     color: $button-bg-warning-color
   &.right
     float: right
-
+.list
+  li
+    margin: 0 0 15px 0
 .align-right
   text-align: right
 .item
@@ -674,6 +676,7 @@ label
       overflow: hidden
       border-top: 1px solid #e1e1e1
 
+
 a.block-list-item, .block-list-item
   display: block
   padding: 15px 0
@@ -758,11 +761,16 @@ a.block-list-item, .block-list-item
 
 
 .login-wrapper
-  margin-top: 8%
+  margin-top: 40px
+  // this style below is temporary while on migration notice
+  margin-left: 10%
+  position: absolute
+  left: 300px
+
 .login-form
   background-color: #fff
   width: 320px
-  padding: 35px
+  padding: 20px
   border-radius: 10px
   margin: 35px auto 35px auto
   input[type=text],
@@ -967,13 +975,13 @@ span.dot-seperator
 
 
 .notice-overlay
-  position: fixed
+  float: left
   top: 0
   left: 0
   width: 350px
   height: 100%
   color: #fff
   background-color: rgba(0,0,0,.2)
-  font-size: 12px
+
   h2
     margin-bottom: 10px
