@@ -1,51 +1,45 @@
 @Offerchat.module "ChatsApp.Show", (Show, App, Backbone, Marionette, $, _) ->
 
   class Show.Controller extends App.Controllers.Base
-
-    visitorStorage: new Backbone.LocalStorage "visitor"
-
     interval:  null
     composing: null
 
     initialize: (options ={}) ->
       { @token }   = options
-      @connection = App.xmpp.connection
-      @layout     = @getLayout()
-      @allMessages = App.request "get:chats:messages"
+      @connection  = App.xmpp.connection
+      @layout      = @getLayout()
       visitors     = App.request "get:chats:visitors"
-      @visitor     = App.request "visitor:entity"
-      @messages    = App.request "messeges:entities"
+      @visitor     = visitors.findWhere token: @token
+      @visitor     = App.request "visitor:entity" if typeof @visitor is "undefined"
+      @height      = App.request "get:chat:window:height"
+      @messages    = App.request "get:chats:messages"
+      @currentMsgs = App.request "messeges:entities"
 
-      unless @allMessages.length is 0
-        @messages.add(@allMessages.where { token: @token })
+      @currentMsgs.add @messages.where({token: @token})
 
-      unless visitors.length is 0
-        @visitor.set visitors.findWhere({ token: @token }).attributes
+      @listenTo visitors, "add", =>
+        if @visitor.get("token") isnt @token
+          visitor = visitors.findWhere token: @token
+          @visitor.set visitor.attributes
 
-      @listenTo visitors, "add", (item) =>
-        if item.get("jid") is @token
-          @visitor.set item.attributes
-          @visitor.generateGravatarSource()
-
-      @listenTo @allMessages, "add", (item) =>
-        item.set { child: true, childclass: "child" } if @messages.last() and @messages.last().get("jid") is item.get("jid") and item.get("sender") isnt "agent"
-        @messages.add(item) if item.get("token") is @token
-
-        $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500);
+      @listenTo @messages, "add", (message) =>
+        if message.get("token") is @token
+          @currentMsgs.add message
 
       @listenTo @layout, "show", =>
-        @visitorInfoView @visitor
-        @chatsView @messages
+        @visitorInfoView()
+        @chatsView()
 
+      @resizeChatWrapper()
       @show @layout
 
-    visitorInfoView: (visitor) ->
-      visitor.generateGravatarSource()
-      visitorView = @getVisitorInfoView visitor
+    visitorInfoView: ->
+      @visitor.generateGravatarSource()
+      visitorView = @getVisitorInfoView()
       @layout.visitorRegion.show visitorView
 
-    chatsView: (messages) ->
-      chatsView = @getChatsView messages
+    chatsView: ->
+      chatsView = @getChatsView()
 
       @listenTo chatsView, "is:typing", @sendChat
       @listenTo chatsView, "end:chat", @endChat
@@ -147,24 +141,25 @@
 
         App.navigate Routes.root_path(), trigger: true
 
+
     sendChat: (ev) =>
       message = $(ev.currentTarget).val()
       clearInterval(@interval)
 
       if ev.keyCode is 13 and message isnt ""
-        if @messages.last() and @messages.last().get("sender") is "agent"
-          console.log @messages.last().get("sender")
-        @messages.add
+        currentMsg =
           token:      @token
           sender:     "agent"
           jid:        "You"
           message:    message
           time:       new Date()
           timesimple: moment().format('hh:mma')
-          child:      (if @messages.last() and @messages.last().get("sender") is "agent" then true else false)
-          childclass: (if @messages.last() and @messages.last().get("sender") is "agent" then "child" else "")
 
-        @allMessages.add @messages.last()
+        if @currentMsgs.last() and @currentMsgs.last().get("sender") is "agent"
+          currentMsg.child      = true
+          currentMsg.childClass = "child"
+
+        @messages.add currentMsg
 
         $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500);
         $(ev.currentTarget).val("")
@@ -192,14 +187,24 @@
           clearInterval @interval
         , 10000)
 
+
+    resizeChatWrapper: ->
+      visitor_height = ($(window).height() - 296) + "px"
+      @height.set visitor_chats: visitor_height
+
+      $(window).resize =>
+        @height.set
+          height:        $(window).height()
+          visitor_chats: ($(window).height() - 296) + "px"
+
     getLayout: ->
       new Show.Layout
 
-    getVisitorInfoView: (visitor) ->
+    getVisitorInfoView: ->
       new Show.VisitorInfo
-        model: visitor
+        model: @visitor
 
-    getChatsView: (messages) ->
+    getChatsView: ->
       new Show.ChatsList
-        collection: messages
-
+        collection: @currentMsgs
+        model:      @height

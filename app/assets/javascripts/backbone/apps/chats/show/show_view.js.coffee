@@ -26,9 +26,18 @@
       "keyup div.chat-response > textarea"    : "isTyping"
       "click div.dropdown-options > ul > li"  : "optionSelected"
 
+    collectionEvents:
+      "change" : "render"
+
+    modelEvents:
+      "change" : "render"
+
     triggers:
       "click a.end_chat"        : "end:chat"
       "click div.btn-selector"  : "actions:menu:clicked"
+
+    serializeData: ->
+      height: @options.model.toJSON()
 
     isTyping: (ev) ->
       @trigger "is:typing", ev

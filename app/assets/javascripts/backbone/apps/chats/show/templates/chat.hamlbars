@@ -10,7 +10,7 @@
     {{timesimple}}
 
 {{else}}
-.chat-item.group{class: "{{childclass}}"}
+.chat-item.group{class: "{{childClass}}"}
   .chat-table.chat-left-table
     .chat-user{class: "{{sender}}"}
       {{#if child}}

@@ -1,10 +1,12 @@
 %div{ :style => "padding: 0 5px" }
-  .chat-section-pane.chat-viewer-wrapper{ :style => "height: 413px" }
+  .chat-section-pane.chat-viewer-wrapper{ :style => "height: {{height.visitor_chats}}" }
     .chat-viewer-content
       .chat-viewer-inner
+        {{#if previousMsg}}
         .chat-item.group.small
           %a.chat-block-btn.btn
             load previous messages
+        {{/if}}
 
         #chats-collection
 

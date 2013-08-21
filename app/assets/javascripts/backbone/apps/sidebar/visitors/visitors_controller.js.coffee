@@ -11,8 +11,13 @@
       @agentMsgs   = App.request "messeges:entities"
       @currentSite = App.request "get:sidebar:selected:site"
       @sites       = App.request "get:sites:count"
-
       @layout      = @getLayout()
+
+      sidebar = ($(window).height() - 93) + "px"
+      $("#chat-sidebar-region").css("height", sidebar)
+
+      $(window).resize ->
+        $("#chat-sidebar-region").css("height", ($(window).height() - 93) + "px")
 
       App.reqres.setHandler "set:no:active:visitor:chat", =>
         @visitors.updateModels('active', null)
@@ -152,6 +157,7 @@
 
       if type is "unavailable"
         visitor = @visitors.findWhere {  jid: node }
+        console.log "visitor", visitor
         if visitor
           # remove visitor from list
           resources = visitor.get "resources"
@@ -164,6 +170,8 @@
           else
             visitor.set { jid: node, resources: resources }
             @visitors.set visitor
+
+          console.log "@visitors", @visitors
         else
           # remove agent from list
           @agents.remove agent
@@ -193,30 +201,33 @@
 
     onPrivateMessage: (message) =>
       from    = $(message).attr("from")
-      jid     = Strophe.getNodeFromJid from
+      jid     = Strophe.getBareJidFromJid from
       node    = Strophe.getNodeFromJid from
       body    = $(message).find("body").text()
       agent   = @agents.findWhere jid: node
 
       if body and typeof agent is "undefined"
-        visitor = @visitors.findWhere { jid: jid }
-        if visitor
-          token = visitor.get("token")
+        messages = App.request "messeges:entities"
+        visitor  = @visitors.findWhere { jid: node }
+        token    = visitor.get("token")
+        info     = visitor.get "info"
 
-        if @messages.last().get("jid") is jid and @messages.last().get("viewing") is false
-          child = true
-          childClass = "child"
+        messages.add(@messages.where token: token)
 
-        @messages.add
+        visitor_msg =
           token:      token
-          jid:        jid
+          jid:        info.name
           sender:     (if jid is token then agent_info.name else "visitor")
           message:    body
           time:       new Date()
           viewing:    false
-          child:      child || false
-          childclass: childClass || ""
           timesimple: moment().format('hh:mma')
+
+        if messages.last().get("jid") is info.name and messages.last().get("viewing") is false
+          visitor_msg.child      = true
+          visitor_msg.childClass = "child"
+
+        @messages.add visitor_msg
 
         # add ticker
         if Backbone.history.fragment.indexOf(token)==-1
