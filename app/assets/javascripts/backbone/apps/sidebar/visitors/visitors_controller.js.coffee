@@ -220,6 +220,7 @@
         token    = visitor.get("token")
         info     = visitor.get "info"
 
+
         messages.add(@messages.where token: token)
 
         visitor_msg =
