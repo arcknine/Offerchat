@@ -137,7 +137,7 @@
 
     endChat: (item) =>
       if confirm("Are you sure you want to end this chat session?")
-        jid = @visitor.get("jid")
+        jid = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
         msg = $msg({to: jid, type: "chat"}).c('body').t("!endchat")
 
         @connectionSend msg, jid    # function can be found in controller base
