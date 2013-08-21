@@ -2,12 +2,14 @@
 .login-wrapper
   .logo-large.centered
   .login-form.form
-    = devise_error_messages!
+    - @user.errors.each do |key, val|
+      .field-error
+        = "#{key}  #{val}"
     = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
-      %fieldset.field-error
+      %fieldset
         %label
           Email
-        = f.email_field :email, :autofocus => true
+        = f.email_field :email, :autofocus => true, :type =>"text"
 
       %fieldset
         %button.btn.action{:type => "submit"}

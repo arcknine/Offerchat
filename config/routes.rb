@@ -41,4 +41,6 @@ Dashboard::Application.routes.draw do
   root :to => 'home#index'
   resources :exporters
   mount Offerchat::API => '/api/v1/widget/'
+  # mount Migration::API => '/api/v1/migration/'
+
 end
