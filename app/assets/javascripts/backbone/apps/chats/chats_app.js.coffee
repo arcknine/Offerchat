@@ -2,11 +2,17 @@
 
   class ChatsApp.Router extends Marionette.AppRouter
     appRoutes:
-      "chats/:token" : "show"
+      "chats/visitor/:token" : "show"
+      "chats/agent/:token"   : "agent"
 
     API =
       show: (token) ->
         new ChatsApp.Show.Controller
+          region: App.mainRegion
+          token:  token
+
+      agent: (token) ->
+        new ChatsApp.Agent.Controller
           region: App.mainRegion
           token:  token
 

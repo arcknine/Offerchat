@@ -1,4 +1,4 @@
-%a.chat-item-tab.group-item-tab.group
+%a.chat-item-tab.group-item-tab.group{:class => "{{active}} {{new_chat}}" }
 
   {{#if unread}}
   .message-tick{:class => "{{bounce}}"}

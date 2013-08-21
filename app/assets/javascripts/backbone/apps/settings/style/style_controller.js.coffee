@@ -17,7 +17,7 @@
 
       @listenTo layout, "style:gradient:checked", (e) =>
         @changeGradient(e)
-        if $(e.currentTarget).parent().parent().hasClass("checked")
+        if $(e.currentTarget).hasClass("checked")
           settings.style.gradient = true
           options.currentSite.set settings: settings
         else
@@ -60,5 +60,5 @@
       $("#widget-header").addClass("widget-box widget-theme theme-#{$(e.currentTarget).attr('class')}").removeClass("active")
 
     changeGradient: (e) ->
-      $(e.currentTarget).parent().parent().toggleClass("checked")
+      $(e.currentTarget).toggleClass("checked")
       $("#widget-header").children(":first").toggleClass("widget-gradient")

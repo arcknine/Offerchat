@@ -6,7 +6,7 @@
       new SidebarApp.Selector.Controller
         region: App.selectorSidebarRegion
 
-    showVisitors: ->
+    showVisitors: (reconnect) ->
       new SidebarApp.Visitors.Controller
         region: App.chatSidebarRegion
 
@@ -21,9 +21,9 @@
   App.vent.on "show:wizard:sidebar", =>
     API.showWizards()
 
-  App.vent.on "show:chat:sidebar", =>
+  App.vent.on "show:chat:sidebar", (reconnect) =>
     App.chatSidebarRegion.close()
     API.showSelector()
-    API.showVisitors()
+    API.showVisitors(reconnect)
 
 

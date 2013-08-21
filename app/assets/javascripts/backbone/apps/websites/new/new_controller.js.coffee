@@ -6,8 +6,6 @@
       App.previewRegion.close()
       sessionStorage.clear()
 
-      @initViews()
-
       currentUser = App.request "set:current:user", App.request "get:current:user:json"
       newSite     = App.request "new:site:entity"
       newSite.url = Routes.signup_wizard_path('step_three')
@@ -43,13 +41,3 @@
     cleanWebsiteUrl: (url) ->
       url = "http://" + url  unless /^(f|ht)tps?:\/\//i.test(url)
       url
-
-    initViews: ->
-      sites = App.request "get:sites:count"
-      if sites.length is 0
-        App.vent.trigger "show:wizard:sidebar"
-        $('#chat-sidebar-region').attr('class', 'tour-sidebar')
-      App.execute "when:fetched", sites, =>
-        if sites.lenght isnt 0
-          App.vent.trigger "show:chat:sidebar"
-          $('#chat-sidebar-region').attr('class', 'chats-sidebar-container')

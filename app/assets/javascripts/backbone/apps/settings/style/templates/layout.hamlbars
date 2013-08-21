@@ -16,7 +16,7 @@
         .widget-head.widget-rounded-head.group
           %img.agent-thumbnail{ :src => "{{user.avatar}}" }
           / = image_tag user.avatar, :class => "agent-thumbnail"
-            
+
           .widget-agent-name
             {{user.display_name}}
           .widget-welcome-msg
@@ -39,7 +39,7 @@
                   8:03am
               .message
                 yes, can you help me?
-          
+
           .widget-input
             %i.widget.icon.icon-chat
             %input.widget-input-text{ :type => "text", :placeholder => "Type your question and hit enter" }
@@ -134,7 +134,7 @@
 
         .form.group{ :style => "margin-top: 10px" }
           %fieldset
-            %label.checkbox.inline{ :for => 'checkbox1' }
+            %label.checkbox.inline.toggle-check{ :for => 'checkbox1' }
               %span.icon
                 .icon-check
               Gradient

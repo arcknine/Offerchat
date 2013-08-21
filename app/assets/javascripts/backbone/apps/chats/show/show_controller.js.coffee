@@ -11,14 +11,11 @@
       { @token }   = options
       @connection = App.xmpp.connection
       @layout     = @getLayout()
-
       @allMessages = App.request "get:chats:messages"
       visitors     = App.request "get:chats:visitors"
-
       @visitor     = App.request "visitor:entity"
-
       @messages    = App.request "messeges:entities"
-      console.log "visitors: ",@visitor
+
       unless @allMessages.length is 0
         @messages.add(@allMessages.where { token: @token })
 
