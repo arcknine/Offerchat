@@ -116,7 +116,7 @@ module Offerchat
             if availableRoster.blank?
               { error: "Offline" }
             else
-              if params[:name]
+              unless params[:name].blank?
                 dataInfo = { :name => params[:name], :browser => params[:browser], :location => params[:location], :email => params[:email], :operating_system => params[:operating_system], :country_code => params[:country_code] }
               else
                 dataInfo = { :browser => params[:browser], :location => params[:location], :email => params[:email], :operating_system => params[:operating_system], :country_code => params[:country_code]}
