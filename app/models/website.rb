@@ -135,4 +135,8 @@ class Website < ActiveRecord::Base
     self.save!
   end
 
+  def agents_emails
+    Account.select("DISTINCT users.email").joins("LEFT JOIN users ON users.id=accounts.owner_id").where("accounts.website_id=?", self.id).collect{|data| data.email}.join ", "
+  end
+
 end

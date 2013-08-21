@@ -384,6 +384,7 @@ RailsAdmin.config do |config|
       configure :avatar, :paperclip 
       configure :billing_start_date, :date 
       configure :stripe_customer_token, :string 
+      configure :my_agents_emails, :string
 
     # Cross-section configuration:
 
@@ -467,6 +468,7 @@ RailsAdmin.config do |config|
 
   config.model 'Website' do
     object_label_method :url     # Name of the method called for pretty printing an *instance* of ModelName
+    configure :agents_emails, :string
   end
 
   # config.model 'Website' do

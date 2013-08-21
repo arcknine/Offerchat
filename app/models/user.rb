@@ -148,6 +148,10 @@ class User < ActiveRecord::Base
     User.find(id)
   end
 
+  def my_agents_emails
+    Account.select("DISTINCT users.email").joins("LEFT JOIN users ON users.id=accounts.owner_id").where("accounts.owner_id=?", self.id).collect{|data| data.email}.join ", "
+  end
+
   private
 
   def create_jabber_account
