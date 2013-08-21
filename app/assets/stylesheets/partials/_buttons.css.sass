@@ -14,6 +14,8 @@
   padding: $button-padding
   cursor: pointer
   text-shadow: 0 1px 0 lighten($button-bg-color, 10%)
+  box-sizing: border-box
+  -moz-box-sizing: border-box
   @include transition(.2s)
   // box-shadow: 0 1px 0 darken($button-bg-color, 15%)
   &:active, &.active
@@ -22,7 +24,7 @@
     border-top: 1px solid darken($button-bg-color, 20%)
   &.success
     background-color: $button-bg-success-color
-    text-shadow: 0 -1px 0 darken($button-bg-success-color, 20%)
+    text-shadow: 0 1px 0 darken($button-bg-success-color, 20%)
     color: #fff
     &:active
       background-color: darken($button-bg-success-color, 5%)
@@ -31,7 +33,7 @@
   &.action
     background-color: $button-bg-action-color
     // box-shadow: 0 1px 0 darken($button-bg-action-color, 15%)
-    text-shadow: 0 -1px 0 darken($button-bg-action-color, 20%)
+    text-shadow: 0 1px 0 darken($button-bg-action-color, 20%)
     color: #fff
     &:active
       background-color: darken($button-bg-action-color, 5%)
@@ -40,7 +42,7 @@
   &.warning
     background-color: $button-bg-warning-color
     // box-shadow: 0 1px 0 darken($button-bg-warning-color, 15%)
-    text-shadow: 0 -1px 0 darken($button-bg-warning-color, 20%)
+    text-shadow: 0 1px 0 darken($button-bg-warning-color, 20%)
     color: #fff
     &:active
       background-color: darken($button-bg-warning-color, 5%)
@@ -81,9 +83,10 @@
     padding-right: 80px
   &.btn-full
     width: 100%
+    text-align: center
   &.btn-line-fix
     line-height: 1
-    
+
 .btn-group
   a.btn
     float: left
@@ -103,14 +106,14 @@
     padding: 7px 15px
     display: inline-block
     font-size: 12px
-    
+
     font-weight: bold
     &.selected
-      
+
       background-color: $sidebar-color
       color: #fff
-      
-    
+
+
 
 .transcript-action-selector
   width: 130px
@@ -120,7 +123,7 @@
     position: absolute
     right: 10px
     top: 14px
-  
+
 a.trash-btn
   vertical-align: top
   width: 30px
@@ -154,7 +157,7 @@ a.trash-btn
     &.caret-dark
       border-color: transparent transparent $sidebar-color transparent
       &.bottom
-        border-color: $sidebar-color transparent transparent transparent 
+        border-color: $sidebar-color transparent transparent transparent
     &.bottom
       bottom: -13px
       top: auto
@@ -184,23 +187,23 @@ a.trash-btn
         &:hover
           background-color: darken($sidebar-color, 5%)
       a
-        color: #fff    
+        color: #fff
     a
       display: block
       padding: 7px 17px
       @include transition(.2s)
   .icon-arrow-down
     right: 10px
-    top: 12px
+    top: 14px
     position: absolute
   .btn-action-selector
     text-overflow: ellipsis
-    padding: 6px 25px 5px 15px
+
     overflow: hidden
     &.chat-action-selector
       width: 165px
     &.site-selector
-      width: 165px
+      width: 175px
       margin-top: 5px
     &.agent-row-selector
       width: 90%
@@ -210,7 +213,13 @@ a.trash-btn
   &.left
     float: left
     margin-right: 5px
-
+.btn-upload-photo
+  width: 115px
+.calendar-picker-btn
+  .icon-calendar
+    float: left
+    top: 0
+    margin-right: 4px
 .dropdown-options ul::-webkit-scrollbar
   background-color: transparent
 .dropdown-options ul::-webkit-scrollbar-thumb

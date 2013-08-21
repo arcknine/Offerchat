@@ -1,19 +1,49 @@
+.notice-overlay
+  .block.large
+    %h2
+      %i.icon.icon-gear-2
+      For existing users, migrate your old Offerchat account.
+
+    %p
+      Get ready for a completely new Offerchat live chat.
+    %ul.list
+      %li
+        1. Login to the old Offerchat dashboard.
+      %li
+        2. Click the "Migrate" link
+      %li
+        3. You will be asked to create a new password.
+      %li
+        4. Enjoy using the new Offerchat dashboard
+
+
+    %a.btn.btn-full.success
+      Migrate your account
+
+
 .login-wrapper
   .logo-large.centered
+
   .login-form.form
+    %h2
+      Sign in to Offerchat
     - flash.each do |key, value|
-      %div{:class => "alert-danger"}= value
+      %div{:style => "color: #e13d3d"}= value
     = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
       %fieldset
         %label
           Email
-        = f.email_field :email, :type => "text", :autofocus => true
+        .input-container
+          = f.email_field :email, :type => "text", :autofocus => true
       %fieldset
         %label
           Password
-        = f.password_field :password
+        .input-container
+          = f.password_field :password
+
       %fieldset
         %button.btn.action{:type => "submit"}
           Login
-        = link_to "Signup", signup_wizard_path('step_one'), :class =>"go-right", :style => "margin-top: 9px"
+        = link_to "Forgot your password?", new_password_path(resource_name), :class => "go-right", :style => "margin-top: 9px"
+        -# = link_to "Signup", signup_wizard_path('step_one'), :class =>"go-right", :style => "margin-top: 9px"
 

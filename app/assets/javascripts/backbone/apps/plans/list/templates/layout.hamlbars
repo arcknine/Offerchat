@@ -3,7 +3,7 @@
   %span
 
 .block-message.group.free-plan-notice.hide
-  %a.close x
+  
   You are currently on the
   %strong Free
   plan.
