@@ -1,12 +1,10 @@
 // @import "http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic"
 @import "http://fonts.googleapis.com/css?family=Roboto:400,400italic,700,300"
-
-
 @import "../modules/all"
 
 $base-font-family: "Roboto", "Helvetica Neue", "Helvetica", Arial, sans-serif
 // $base-font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif
-$base-font-weight: normal
+$base-font-weight: 400
 $base-font-size: 14px
 $base-line-height: 1.5
 #wrapper
@@ -202,6 +200,9 @@ h4
   text-transform: uppercase
   &.label
     color: $light-text-color
+label
+  &.small
+    font-size: 12px
 .hide
   display: none
 .fade
@@ -724,18 +725,18 @@ a.block-list-item, .block-list-item
       font-size: 12px
       color: #999
     &.plan-regular
-      
+
     &.plan-best
       width: 260px
       min-height: 265px
-      
+
       h2
         font-size: 28px
         letter-spacing: -1px
 
     h2
       margin-top: 10px
-      text-shadow: 0 -1px 0 rgba(0,0,0,.3)
+
   .plan-price
     .sign
       position: relative
@@ -848,11 +849,18 @@ a.block-list-item, .block-list-item
   overflow-y: auto
   overflow-x: hidden
   background-color: #fff
-
+.agent-selection-list
+  margin: 10px 0
+  padding: 20px 0
+  border-bottom: 1px solid #e1e1e1
+  h4
+    color: $light-text-color
+    margin-bottom: 10px
 .agent-inline-block
   display: inline-block
-  padding: 10px
+  padding: 6px
   float: left
+  margin: 0 10px 10px 0
   &.fixed
     text-align: center
     width: 145px
@@ -862,18 +870,35 @@ a.block-list-item, .block-list-item
   label
     vertical-align: top
     display: inline-block
+    margin-top: 9px
+    cursor: pointer
   .profile-image-container
-    margin: -7px 5px 0 0
+    margin: 0 5px 0 0
     vertical-align: top
   .profile-label-name
     &.for-large
-      margin-top: 12px
+      margin-top: 19px
   a.error
     margin-top: 12px
     &:hover
       text-decoration: underline
   &.agent-block-large
     width: 235px
+
+a.agent-inline-block
+  @include transition(.2s)
+  border-radius: 5px
+  &.agent-select-all
+    height: 37px
+    font-size: 12px
+    line-height: 3
+    padding: 6px 15px
+
+  &.selected
+    background-color: $link-color
+    color: #fff
+    box-shadow: 0 1px 1px darken($link-color,5%) inset
+
 span.dot-seperator
   margin: 0 3px
   border-radius: 5px
@@ -886,7 +911,7 @@ span.dot-seperator
   padding: 10px
   border-radius: 5px
   border: 1px solid $border-color
-  width: 256px
+  width: 192px
   float: left
   margin: 0 !important
 .billing-details
@@ -920,4 +945,35 @@ span.dot-seperator
     margin: 10px 0 0 0
 
 
+.stats-panel
+  display: inline-block
+  text-align: right
+  padding: 0 20px
+  h3
+    font-size: 24px
+    font-weight: 700
+    color: #3bb7d6
+    .suffix
+      font-size: 12px
+      color: $light-text-color
+      font-weight: 400
+  label
+    font-size: 12px
+.rating-bar
+  width: 220px
+  height: 5px
+  background-color: #f1f1f1
+  position: relative
 
+
+.notice-overlay
+  position: fixed
+  top: 0
+  left: 0
+  width: 350px
+  height: 100%
+  color: #fff
+  background-color: rgba(0,0,0,.2)
+  font-size: 12px
+  h2
+    margin-bottom: 10px

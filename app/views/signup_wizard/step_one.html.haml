@@ -14,7 +14,7 @@
             .input-container
               = f.email_field :email, :type => "text", :autofocus => true, :class => "large"
               %button.btn.action{:type => "submit"} Continue
-              .alert.alert-error
+              .block-text-message
                 = flash[:alert]
 
           

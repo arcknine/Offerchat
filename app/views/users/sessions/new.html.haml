@@ -1,3 +1,12 @@
+.notice-overlay
+  .block.large
+    %h2
+      %i.icon.icon-gear-2
+      Migrate your old Offerchat account
+
+    %p
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, natus maxime tempore atque quae dolorem facere aliquid obcaecati fugit officiis temporibus distinctio repudiandae numquam similique earum quo expedita rem quia optio voluptates dicta nostrum at debitis. Nisi, voluptates, facilis saepe voluptatum iure dignissimos praesentium aspernatur dolores explicabo repudiandae quaerat sapiente!
+
 .login-wrapper
   .logo-large.centered
   .login-form.form
@@ -7,13 +16,17 @@
       %fieldset
         %label
           Email
-        = f.email_field :email, :type => "text", :autofocus => true
+        .input-container
+          = f.email_field :email, :type => "text", :autofocus => true
       %fieldset
         %label
           Password
-        = f.password_field :password
+        .input-container
+          = f.password_field :password
+
       %fieldset
         %button.btn.action{:type => "submit"}
           Login
-        = link_to "Signup", signup_wizard_path('step_one'), :class =>"go-right", :style => "margin-top: 9px"
+        = link_to "Forgot your password?", new_password_path(resource_name), :class => "go-right", :style => "margin-top: 9px"
+        -# = link_to "Signup", signup_wizard_path('step_one'), :class =>"go-right", :style => "margin-top: 9px"
 

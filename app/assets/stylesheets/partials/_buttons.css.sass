@@ -83,7 +83,7 @@
     width: 100%
   &.btn-line-fix
     line-height: 1
-    
+
 .btn-group
   a.btn
     float: left
@@ -103,14 +103,14 @@
     padding: 7px 15px
     display: inline-block
     font-size: 12px
-    
+
     font-weight: bold
     &.selected
-      
+
       background-color: $sidebar-color
       color: #fff
-      
-    
+
+
 
 .transcript-action-selector
   width: 130px
@@ -120,7 +120,7 @@
     position: absolute
     right: 10px
     top: 14px
-  
+
 a.trash-btn
   vertical-align: top
   width: 30px
@@ -154,7 +154,7 @@ a.trash-btn
     &.caret-dark
       border-color: transparent transparent $sidebar-color transparent
       &.bottom
-        border-color: $sidebar-color transparent transparent transparent 
+        border-color: $sidebar-color transparent transparent transparent
     &.bottom
       bottom: -13px
       top: auto
@@ -184,23 +184,23 @@ a.trash-btn
         &:hover
           background-color: darken($sidebar-color, 5%)
       a
-        color: #fff    
+        color: #fff
     a
       display: block
       padding: 7px 17px
       @include transition(.2s)
   .icon-arrow-down
     right: 10px
-    top: 12px
+    top: 14px
     position: absolute
   .btn-action-selector
     text-overflow: ellipsis
-    padding: 6px 25px 5px 15px
+
     overflow: hidden
     &.chat-action-selector
       width: 165px
     &.site-selector
-      width: 165px
+      width: 175px
       margin-top: 5px
     &.agent-row-selector
       width: 90%
@@ -210,7 +210,13 @@ a.trash-btn
   &.left
     float: left
     margin-right: 5px
-
+.btn-upload-photo
+  width: 115px
+.calendar-picker-btn
+  .icon-calendar
+    float: left
+    top: 0
+    margin-right: 4px
 .dropdown-options ul::-webkit-scrollbar
   background-color: transparent
 .dropdown-options ul::-webkit-scrollbar-thumb
