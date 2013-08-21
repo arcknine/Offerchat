@@ -8,30 +8,43 @@
       @visitors    = App.request "visitors:entities"
       @agents      = App.request "online:agents:entities"
       @messages    = App.request "messeges:entities"
+      @agentMsgs   = App.request "messeges:entities"
       @currentSite = App.request "get:sidebar:selected:site"
+      @sites       = App.request "get:sites:count"
 
       @layout      = @getLayout()
 
       App.reqres.setHandler "set:no:active:visitor:chat", =>
         @visitors.updateModels('active', null)
 
+      App.reqres.setHandler "set:no:active:agent:chat", =>
+        @agents.updateModels('active', null)
+
       if App.xmpp.status is Strophe.Status.CONNECTED
         @connection = App.xmpp.connection
         @connected()
-
-      # @listenTo @layout, "show", =>
-        # @visitorsList()
-        # @agentsList()
 
       @listenTo @currentSite, "change", =>
         @visitorsList()
         @agentsList()
 
+      @listenTo @visitors, "add", =>
+        @visitorsList()
+
+      @listenTo @agents, "add", =>
+        @agentsList()
+
       App.reqres.setHandler "get:chats:messages", =>
         @messages
 
+      App.reqres.setHandler "get:agent:chats:messages", =>
+        @agentMsgs
+
       App.reqres.setHandler "get:chats:visitors", =>
         @visitors
+
+      App.reqres.setHandler "get:online:agents", =>
+        @agents
 
       @show @layout
 
@@ -47,7 +60,7 @@
         collection: agents
 
     visitorsList: ->
-      unless  @currentSite.get("all")
+      unless @currentSite.get("all")
         visitors = App.request "visitors:entities"
         visitors.set @visitors.where { api_key: @currentSite.get("api_key") }
       else
@@ -56,20 +69,40 @@
       visitorsView = @getVisitorsView(visitors)
 
       @listenTo visitorsView, "childview:click:visitor:tab", (visitor) =>
-
-        # remove all active visitors chat
+        App.request "set:no:active:agent:chat"
         App.request "set:no:active:visitor:chat"
 
         visitor.model.set
           unread: null
           active: 'active'
 
-        App.navigate "chats/#{visitor.model.get('token')}", trigger: true
+        App.navigate "chats/visitor/#{visitor.model.get('token')}", trigger: true
 
       @layout.visitorsRegion.show visitorsView
 
     agentsList: ->
-      agentsView = @getAgentsView(@agents)
+      unless @currentSite.get("all")
+        api_key = @currentSite.get("api_key")
+        agents  = App.request "online:agents:entities"
+        $.each @agents.models, (key, value) ->
+          if $.inArray(api_key, value.get("api_keys")) > -1
+            agents.set value
+      else
+        agents = @agents
+
+      agentsView = @getAgentsView(agents)
+
+      @listenTo agentsView, "childview:click:agent:tab", (agent) =>
+        App.request "set:no:active:agent:chat"
+        App.request "set:no:active:visitor:chat"
+
+        agent.model.set
+          unread: null
+          active: 'active'
+
+        # console.log agent
+        App.navigate "chats/agent/#{agent.model.get('token')}", trigger: true
+
       @layout.agentsRegion.show agentsView
 
     connected: ->
@@ -77,7 +110,9 @@
       @connection.addHandler @onPresence, null, "presence"
       @connection.addHandler @onPrivateMessage, null, "message", "chat"
 
-      @create_vcard()
+      App.execute "when:fetched", @sites, =>
+        @create_vcard()
+
       @sendPresence()
 
     create_vcard: ->
@@ -93,13 +128,13 @@
                 .c('NAME').t(info.name).up()
                 .c('DISPLAY_NAME').t(info.display_name).up()
                 .c('AVATAR').c('TYPE').t(info.avatar_content_type).up().c('URL').t(info.avatar).up().up()
-                .c('JABBERID').t(info.jabber_user)
+                .c('JABBERID').t(info.jabber_user).up()
+                .c('API_KEYS').t(JSON.stringify(@sites.pluck("api_key")))
 
         @connection.sendIQ build
         sessionStorage.setItem("vcard", true)
 
     sendPresence: ->
-      console.log "send pres?"
       pres = $pres().c('priority').t('1').up().c('status').t("Online")
       @connection.send(pres)
 
@@ -113,8 +148,7 @@
       info     = JSON.parse($(presence).find('offerchat').text() || "{}")
       token    = info.token
       visitor  = @visitors.findWhere { token: token }
-      agent    = @agents.findWhere { jid: node }
-      console.log agent
+      agent    = @agents.findWhere { token: node }
 
       if type is "unavailable"
         visitor = @visitors.findWhere {  jid: node }
@@ -141,7 +175,9 @@
             display_name: $(stanza).find("DISPLAY_NAME").text()
             avatar:       $(stanza).find("URL").text()
 
-          @agents.add { jid: node, token: node, info: info, agent: true }
+          api_keys = JSON.parse $(stanza).find("API_KEYS").text()
+
+          @agents.add { jid: node, token: node, info: info, agent: true, api_keys: api_keys }
         ), jid
 
       else if typeof visitor is "undefined"
@@ -158,16 +194,14 @@
     onPrivateMessage: (message) =>
       from    = $(message).attr("from")
       jid     = Strophe.getNodeFromJid from
+      node    = Strophe.getNodeFromJid from
       body    = $(message).find("body").text()
+      agent   = @agents.findWhere jid: node
 
-      if body
+      if body and typeof agent is "undefined"
         visitor = @visitors.findWhere { jid: jid }
         if visitor
           token = visitor.get("token")
-        else
-          agent = @agents.findWhere { jid: jid }
-          token = visitor.get "token"
-          agent_info = agent.get "info"
 
         if @messages.last().get("jid") is jid and @messages.last().get("viewing") is false
           child = true
@@ -188,6 +222,29 @@
         if Backbone.history.fragment.indexOf(token)==-1
           @visitors.findWhere({token: token}).addUnread()
           @visitors.sort()
+
+      else if agent and body
+        token    = agent.get("token")
+        messages = App.request "messeges:entities"
+        info     = agent.get("info")
+        name     = (if info.name then info.name else info.display_name)
+
+        messages.add(@agentMsgs.where token: token)
+
+        agent_msg =
+          token:      token
+          name:       name
+          sender:     "visitor"
+          message:    body
+          time:       new Date()
+          viewing:    false
+          timesimple: moment().format('hh:mma')
+
+        if messages.last() and messages.last().get("name") is name
+          agent_msg.child      = true
+          agent_msg.childClass = "child"
+
+        @agentMsgs.add agent_msg
 
       true
 

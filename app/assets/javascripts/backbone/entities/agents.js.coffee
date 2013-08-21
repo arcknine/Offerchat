@@ -9,6 +9,20 @@
     model: Entities.Agent
     url: Routes.agents_path()
 
+  class Entities.OnlineAgent extends App.Entities.Model
+    defaults:
+      unread:   null
+      active:   null
+      new_chat: null
+      bounce:   null
+      info:
+        display_name: "Support"
+        avatar:       "http://s3.amazonaws.com/offerchat/users/avatars/avatar.jpg"
+        name:         ""
+
+  class Entities.OnlineAgentsCollection extends App.Entities.Collection
+    model: Entities.OnlineAgent
+
   API =
     newAgent: ->
       new Entities.Agent
@@ -24,8 +38,20 @@
           App.request "hide:preloader"
       agents
 
+    onlineAgents: ->
+      new Entities.OnlineAgentsCollection
+
+    onlineAgent: ->
+      new Entities.OnlineAgent
+
   App.reqres.setHandler "agents:entities", ->
     API.getAgents()
 
   App.reqres.setHandler "new:agent:entity", ->
     API.newAgent()
+
+  App.reqres.setHandler "online:agents:entities", ->
+    API.onlineAgents()
+
+  App.reqres.setHandler "online:agent:entity", ->
+    API.onlineAgent()
