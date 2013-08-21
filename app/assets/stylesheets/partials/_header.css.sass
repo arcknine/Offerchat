@@ -164,3 +164,42 @@
   left: -105px
   .dropdown-pointer
     right: 12px
+
+
+// nprogress - fixed bar progress loader
+
+
+#nprogress
+  pointer-events: none
+  -webkit-pointer-events: none
+
+
+
+.nprogress-busy body
+  cursor: wait
+
+#nprogress
+  .bar
+    background: #2599dc
+    position: fixed
+    z-index: 100
+    top: 0
+    left: 0
+    width: 100%
+    height: 2px
+  .peg
+    display: block
+    position: absolute
+    right: 0px
+    width: 100px
+    height: 100%
+    box-shadow: 0 0 10px #29d, 0 0 5px #29d
+    opacity: 1.0
+    -webkit-transform: rotate(3deg) translate(0px, -4px)
+    -moz-transform: rotate(3deg) translate(0px, -4px)
+    -ms-transform: rotate(3deg) translate(0px, -4px)
+    -o-transform: rotate(3deg) translate(0px, -4px)
+    transform: rotate(3deg) translate(0px, -4px)
+
+
+
