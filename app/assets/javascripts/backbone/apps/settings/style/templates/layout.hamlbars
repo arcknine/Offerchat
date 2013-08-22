@@ -16,13 +16,11 @@
         .caret
         .message
           %strong
-            You can hide or show the footer.
-        %a.btn.small.action.hide-footer
-          Hide
-        %a.btn.small.show-footer
-          Show
-      {{/if}}
-
+            Do you want to hide this part?
+        %a.btn.small.action
+          Remove
+        %a.btn.small
+          No
       .widget-box.widget-theme.theme-pink3#widget-header
         .widget-head.widget-rounded-head.group
           %img.agent-thumbnail{ :src => "{{user.avatar}}" }
@@ -146,7 +144,6 @@
               %span.icon
                 .icon-check
               Gradient
-
 {{#unless paid}}
 .block-message.small
   %strong Tip:
