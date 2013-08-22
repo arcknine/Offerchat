@@ -13,22 +13,22 @@ module Dashmigrate
         test = '{
         "owner":
         {
-          "id":"45", "email":"test@owner52.com", "first_name":"tomas", "last_name":"samot"
+          "id":"45", "email":"test@owner62.com", "firstname":"tomas", "lastname":"samot"
         },
         "websites":
         [
           {"name":"adidas.com", "url":"http://www.adidas.com",
             "agents":
             [
-              {"first_name":"agent001", "last_name":"agent001", "display_name":"Support", "email":"agent51@test.com", "role":"3"},
-              {"first_name":"agent002", "last_name":"agent002", "display_name":"Support", "email":"agent52@test.com", "role":"2"}
+              {"firstname":"agent001", "lastname":"agent001", "display_name":"Support", "email":"agent61@test.com", "role":"3"},
+              {"firstname":"agent002", "lastname":"agent002", "display_name":"Support", "email":"agent62@test.com", "role":"2"}
             ]
           },
           {"name":"nike", "url":"http://www.nike.com",
             "agents":
             [
-              {"first_name":"agent003", "last_name":"agent003", "display_name":"Support", "email":"agent53@test.com" , "role":"3"},
-              {"first_name":"agent004", "last_name":"agent004", "display_name":"Support", "email":"agent54@test.com", "role":"2"}
+              {"firstname":"agent003", "lastname":"agent003", "display_name":"Support", "email":"agent63@test.com" , "role":"3"},
+              {"firstname":"agent004", "lastname":"agent004", "display_name":"Support", "email":"agent64@test.com", "role":"2"}
             ]
           }
         ]
@@ -43,7 +43,7 @@ module Dashmigrate
             password                   = Devise.friendly_token[0,8]
             user.password              = password
             user.password_confirmation = password
-            user.name                  = "#{owner['first_name']} #{owner['last_name']}"
+            user.name                  = "#{owner['firstname']} #{owner['lastname']}"
             user.reset_password_token  = User.reset_password_token
             # user.plan_id               = 4
             # user.plan_identifier       = "BUSINESS"
@@ -66,7 +66,7 @@ module Dashmigrate
                   allagents = key['agents']
                   allagents.each do | akey, aval |
                     agent_info = {
-                      :name => "#{akey['first_name']} #{akey['last_name']}",
+                      :name => "#{akey['firstname']} #{akey['lastname']}",
                       :email => akey['email']
 
                     }

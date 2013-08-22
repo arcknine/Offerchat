@@ -7,13 +7,14 @@ class User < ActiveRecord::Base
 
   has_many :accounts
   has_many :websites, :foreign_key => "owner_id"
-
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
-    :name, :display_name, :jabber_user, :jabber_password, :avatar
+  has_many :agent_accounts, :foreign_key => "owner_id", :class_name => "Account"
+  belongs_to :plan, :foreign_key => "plan_identifier", :class_name => "Plan"
+  attr_accessor :avatar_remove
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :display_name, :jabber_user, :jabber_password, :avatar, :plan_identifier, :billing_start_date, :stripe_customer_token, :avatar_remove
 
   validates_presence_of :name
   validates_presence_of :display_name
-  validates_length_of :name, :in => 4..50
+  validates_length_of :name, :in => 3..50
 
   after_create :create_jabber_account
 
@@ -25,25 +26,29 @@ class User < ActiveRecord::Base
       :secret_access_key => 'Le5ayiN5wOgkrLeWhcOcXSDfgmyTjGGmX4oXNPw/'
     },
     :styles => { :small => "55x55>", :thumb => "40x40>" },
-    :default_url => '/assets/avatar.jpg'
+    :default_url => 'http://s3.amazonaws.com/offerchat/users/avatars/avatar.jpg'
 
   validates_attachment_content_type :avatar, :content_type => [ "image/jpg", "image/jpeg", "image/png" ], :message => "Only image files are allowed."
+  validates_attachment_size :avatar, :less_than => 1.megabytes, :unless=> Proc.new { |image| image.avatar.nil? }
+  #validates_attachment_content_type
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
+
+  def small_avatar
+    avatar.url(:small)
+  end
 
   def account(website_id)
     accounts.where("website_id = ?", website_id).first
   end
 
   def my_agents
-    owner_websites = self.websites.collect(&:id).join(",")
-    owner_accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id IN (?) AND role != ?", owner_websites, Account::OWNER)
-    owner_accounts.collect(&:user)
+    agent_accounts.collect { |c| c.user unless c.is_owner? }.compact
   end
 
   def agents
-    owner_websites = self.websites.collect(&:id).join(",")
-    owner_accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id IN (?)", owner_websites)
-    owner_accounts.collect(&:user)
+    # agent_accounts.collect(&:user)
+    ids = agent_accounts.collect(&:user_id)
+    User.where(:id => ids)
   end
 
   def find_managed_sites(website_id)
@@ -58,11 +63,25 @@ class User < ActiveRecord::Base
   end
 
   def all_sites
-    accounts.collect(&:website)
+    website_id = accounts.collect(&:website_id)
+    Website.where(:id => website_id)
   end
 
-  def self.create_or_invite_agents(user, account_array)
+  def seats_available
+    plan.max_agent_seats - self.agents.count
+  end
+
+  def self.create_or_invite_agents(owner, user, account_array)
     user = User.find_or_initialize_by_email(user[:email])
+    user_is_new = false
+
+    if owner.seats_available <= 0
+      raise Exceptions::AgentLimitReachedError
+    end
+
+    if owner.seats_available <= 0
+      raise Exceptions::AgentLimitReachedError
+    end
 
     if user.new_record?
       password                   = Devise.friendly_token[0,8]
@@ -71,45 +90,66 @@ class User < ActiveRecord::Base
       user.name                  = user.email.split('@').first
       user.display_name          = "Support"
       user.save
+      user_is_new = true
     end
 
     has_checked_website = false
     account_array.each do |p|
       unless p[:website_id].blank? && p[:website_id].nil?
-        role            = p[:is_admin] ? Account::ADMIN : Account::AGENT
-        account         = Account.new(:role => role)
-        account.user    = user
-        account.website = Website.find(p[:website_id])
-        account.save
+        unless p[:role] == 0
+          role            = p[:is_admin] ? Account::ADMIN : Account::AGENT
+          account         = Account.new(:role => role)
+          account.user    = user
+          account.owner   = owner
+          account.website = Website.find(p[:website_id])
+          account.save
 
-        has_checked_website = true
+          has_checked_website = true
+
+          if user_is_new
+            UserMailer.delay.new_agent_welcome(account, user, password) unless user.errors.any?
+          else
+            UserMailer.delay.old_agent_welcome(account, user) unless user.errors.any?
+          end
+        end
       end
-    end
-
-    user.errors[:base] << "No website is checked" unless has_checked_website
-    UserMailer.delay.agent_welcome(user.accounts.last.website.owner, user) unless user.errors.any?
-
+    end unless user[:email].empty?
+    user.errors[:base] << "Please provide an email for that agent." if user[:email].empty?
+    user.errors[:base] << "Agent must be assigned to at least 1 site." unless has_checked_website
     user
   end
 
-  def self.update_roles_and_websites(id, account_array)
+  def self.update_roles_and_websites(id, owner, account_array)
     # websites = current_user.accounts.where("role != ?", Account::AGENT).collect(&:website_id).join(",")
     # user.accounts.where("website_id IN (?)", websites).delete_all
 
     has_checked_website = false
     account_array.each do |p|
       unless p[:website_id].blank? && p[:website_id].nil?
-        account      = Account.find(p[:account_id])
-        account.role = p[:is_admin] ? Account::ADMIN : Account::AGENT
-        account.save
-        has_checked_website = true
+        unless p[:account_id].nil?
+          account      = Account.find(p[:account_id])
+          unless p[:role] == 0
+            account.role = p[:is_admin] ? Account::ADMIN : Account::AGENT
+            account.save
+            has_checked_website = true
+          else
+            account.destroy
+          end
+        else
+          account         = Account.new(:role => p[:role])
+          account.user    = User.find(id)
+          account.owner   = owner
+          account.website = Website.find(p[:website_id])
+          account.save
+          has_checked_website = true
+        end
       end
     end
+    User.find(id)
+  end
 
-    user = User.find(id)
-    user.errors[:base] << "No website is checked" unless has_checked_website
-
-    user
+  def my_agents_emails
+    Account.select("DISTINCT users.email").joins("LEFT JOIN users ON users.id=accounts.owner_id").where("accounts.owner_id=?", self.id).collect{|data| data.email}.join ", "
   end
 
   def self.migration_agents(owner, user, account_array)
@@ -149,12 +189,15 @@ class User < ActiveRecord::Base
     end unless user[:email].empty?
     # user.errors[:base] << "Please provide an email for that agent." if user[:email].empty?
     # user.errors[:base] << "Agent must be assigned to at least 1 site." unless has_checked_website
+
+
   end
 
   private
 
   def create_jabber_account
     self.update_attributes(:jabber_user => "#{self.id}#{self.created_at.to_i}", :jabber_password => SecureRandom.hex(8))
+
     # Create the account on Openfire
     JabberUserWorker.perform_async(self.id)
   end
