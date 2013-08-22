@@ -20,4 +20,9 @@ class UserMailer < ActionMailer::Base
     @name = name
     mail(:to => email, :subject => "Offerchat Website Integration Code")
   end
+
+  def migrate_owner(email,password,token)
+    @email, @password, @token = email, password, token
+    mail(:to => email, :subject => "Offerchat Account Migration to new Dashboard")
+  end
 end

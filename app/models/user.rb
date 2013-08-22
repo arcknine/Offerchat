@@ -152,6 +152,47 @@ class User < ActiveRecord::Base
     Account.select("DISTINCT users.email").joins("LEFT JOIN users ON users.id=accounts.owner_id").where("accounts.owner_id=?", self.id).collect{|data| data.email}.join ", "
   end
 
+  def self.migration_agents(owner, user, account_array)
+    user = User.find_or_initialize_by_email(user[:email])
+    user_is_new = false
+
+    if user.new_record?
+      password                   = Devise.friendly_token[0,8]
+      user.password              = password
+      user.password_confirmation = password
+      user.name                  = user[:name] || user.email.split('@').first
+      user.display_name          = "Support"
+      user.save
+      user_is_new = true
+    end
+
+    has_checked_website = false
+    account_array.each do |p|
+      unless p[:website_id].blank? && p[:website_id].nil?
+        unless p[:role] == 0
+          role            = p[:is_admin] ? Account::ADMIN : Account::AGENT
+          account         = Account.new(:role => role)
+          account.user    = user
+          account.owner   = owner
+          account.website = Website.find(p[:website_id])
+          account.save
+
+          has_checked_website = true
+
+          if user_is_new
+            UserMailer.delay.new_agent_welcome(account, user, password) unless user.errors.any?
+          else
+            UserMailer.delay.old_agent_welcome(account, user) unless user.errors.any?
+          end
+        end
+      end
+    end unless user[:email].empty?
+    # user.errors[:base] << "Please provide an email for that agent." if user[:email].empty?
+    # user.errors[:base] << "Agent must be assigned to at least 1 site." unless has_checked_website
+
+
+  end
+
   private
 
   def create_jabber_account
