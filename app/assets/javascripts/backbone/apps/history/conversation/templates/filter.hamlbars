@@ -1,0 +1,50 @@
+.td-container.td-small 
+  .td-content
+    %label.checkbox#checkboxGradient{ :for => 'checkbox1' }
+      %span.icon
+        .icon-check
+.td-container.td-visitor
+  .td-content
+    Visitor
+.td-container.td-agent
+  .td-content
+    .btn-selector-wrapper.full.agent-selector-wrapper
+      .btn-selector
+        .btn.btn-action-selector.agent-row-selector
+          %i.icon.icon-arrow-down
+          %span.current-selection
+            All Agents
+        .dropdown-options.dark
+          .caret.caret-dark
+          %ul
+            %li 
+              %a Jonathan Kennedy
+            %li 
+              %a Harvey Enrile
+            %li 
+              %a Reina Figuracion
+            %li 
+              %a Jonathan Kennedy
+            %li 
+              %a Harvey Enrile
+            %li 
+              %a Reina Figuracion
+          
+   
+.td-container.td-time
+  .td-content
+    AHT
+.td-container.td-message
+  .td-content
+    Message
+.td-container.td-small
+  .td-content
+    &nbsp;
+.table-nav
+  1-10 of 50
+  .nav-link-inline
+    %a.nav-link.nav-prev
+
+      %i.icon.icon-arrow-left
+    %a.nav-link.nav-next
+      %i.icon.icon-arrow-right
