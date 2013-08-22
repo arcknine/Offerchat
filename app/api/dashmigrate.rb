@@ -68,6 +68,7 @@ module Dashmigrate
               else
                 return {status: "error"}
               end
+              return {status: "success", token: user.reset_password_token}
             else
               return {status: "error", message: "empty user data"}
             end
