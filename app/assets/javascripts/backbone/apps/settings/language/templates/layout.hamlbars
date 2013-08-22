@@ -51,17 +51,17 @@
             .group
               .message-author.agent-author
                 {{user.display_name}}
+            .message
               .message-date
                 8:00am
-            .message
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, eligendi temporibus sint amet.
           .message-item
             .group
               .message-author
-                You
+                Visitor
+            .message
               .message-date
                 8:03am
-            .message
               yes, can you help me?
         
         .widget-input
