@@ -88,7 +88,7 @@
         .input-container
           .input-append
             %input{ :type => "text", :id => "widget-label", :value => "Hello! How can I help you today?", :maxlength => 33, :name => "widget_label" }
-            %span.add-on#widget-label-count
+            .add-on#widget-label-count
               33
 
       %fieldset

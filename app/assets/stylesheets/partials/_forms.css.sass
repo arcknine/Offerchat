@@ -5,6 +5,7 @@ textarea
   box-sizing: border-box
   -moz-box-sizing: border-box
   padding: 8px
+  margin: 0
   font-size: 12px
   outline: none
   border: 2px solid lighten($border-color,5%)
@@ -248,11 +249,20 @@ label
     height: 70px
     width: 280px
 
+
 .input-append
-  display: inline-block
+  display: table
   font-size: 0
+  border-collapse: seperate
   white-space: nowrap
   vertical-align: middle
+  position: relative
+
+  .form-control
+    
+    vertical-align: middle
+    display: table-cell
+    width: 100%
   .add-on
     border-radius: 0 4px 4px 0
     background-color: #f1f1f1
@@ -260,15 +270,14 @@ label
     color: $light-text-color
     margin-left: -4px
     text-align: center
-    margin-top: 2px
-    vertical-align: top
-    display: inline-block
-    width: auto
-    height: 18px
-    min-width: 16px
-    padding: 6px
+    
+    vertical-align: middle
+    display: table-cell
+    
+    padding: 6px 12px
+    position: relative
+    left: -2px
     font-size: 12px
-    line-height: 20px
     border: 2px solid $border-color
 // Toggle
 .toggle
