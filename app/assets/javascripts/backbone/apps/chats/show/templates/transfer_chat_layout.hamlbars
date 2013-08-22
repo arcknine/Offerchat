@@ -7,8 +7,8 @@
 
         .btn.btn-action-selector.btn-large
           %i.icon.icon-arrow-down
-          %span.current-selection{data: {jid: "{{firstAgent.jabber_user}}"}}
-            {{firstAgent.name}}
+          %span.current-selection{data: {jid: "{{firstAgent.jid}}"}}
+            {{firstAgent.info.name}}
 
         #agents-list.dropdown-options.dark
 
