@@ -3,6 +3,7 @@ Chats = {
   reconnect:  false,
   is_attach:  false,
   reload_app: null,
+  has_conversation: false,
 
   messages: JSON.parse(localStorage.getItem("ofc-messages")) || [],
   agents:   JSON.parse(sessionStorage.getItem("offerchat_agents")) || [],
@@ -104,7 +105,7 @@ Chats = {
     bosh_url = Offerchat.src.bosh_url;
     jid      = roster.jabber_user + Offerchat.src.server + "/" + Helpers.randomString();
     password = roster.jabber_password;
-
+    
     this.connection = new Strophe.Connection(bosh_url);
     this.connection.connect(jid, password, function(status) {
       if (status === Strophe.Status.CONNECTED) {
@@ -522,6 +523,18 @@ Chats = {
     });
 
     chat.append();
+    if(!this.has_conversation){
+      self = this;
+      $.ajax({
+        type: "post",
+        url: Offerchat.src.history + "/chats/create/" + Offerchat.params.secret_token,
+        dataType: "jsonp",
+        data: {url: Offerchat.params.current_url, aid: this.agent.id, vname: this.visitor.name},
+        success: function(data) {
+          self.has_conversation = true;
+        }
+      });
+    }
 
     $(".widget-chat-viewer").animate({ scrollTop: $('.widget-chat-viewer')[0].scrollHeight}, 300);
     return msg;
