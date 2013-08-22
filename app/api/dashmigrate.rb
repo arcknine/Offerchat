@@ -10,7 +10,6 @@ module Dashmigrate
     end
 
     resource :user do
-
         post do
             old_data = params[:data]
             unless old_data.blank?
