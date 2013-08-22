@@ -22,9 +22,6 @@
     serializeData: ->
       visitors_count: @collection.length
 
-    collectionEvents:
-      "all": "render"
-
   class Visitors.Agent extends App.Views.ItemView
     template: "sidebar/visitors/agent"
     triggers:
@@ -37,5 +34,3 @@
     serializeData: ->
       agents_count: @collection.length
 
-    collectionEvents:
-      "all": "render"
