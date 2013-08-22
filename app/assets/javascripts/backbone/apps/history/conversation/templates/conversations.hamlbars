@@ -1,0 +1,4 @@
+.table-history-viewer-content#historyTableViewer
+  %h3.table-heading.history-table-heading.fixed#tableHead1
+    January 2, 2013
+  .table-row-wrapper#tableHead1_content
