@@ -23,7 +23,8 @@ Templates = {
           $.postMessage({show: true}, Offerchat.params.current_url, parent);
       } else if (_this.settings.pre_chat.enabled && !_this.details.prechat) {
         _this.prechat.replace();
-        _this.inputs.destroy();
+        _this.inputs.replace();
+        _this.inputs.hidden();
 
         $.postMessage({show: true}, Offerchat.params.current_url, parent);
       } else {
