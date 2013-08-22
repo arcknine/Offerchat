@@ -5,6 +5,7 @@
       reportsView = @getReports()
       console.log reportsView
       App.mainRegion.show reportsView
+      NProgress.inc()
 
     getReports: ->
       new Show.Reports
