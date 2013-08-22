@@ -39,7 +39,7 @@ Dashboard::Application.routes.draw do
   mount StripeEvent::Engine => '/stripe_webhook'
 
   root :to => 'home#index'
-  resources :exporters
+  resources :transcript, :only => [:show]
   mount Offerchat::API => '/api/v1/widget/'
 
   mount Dashmigrate::API => '/api/v1/migration/'
