@@ -8,6 +8,8 @@ development: &development
   CHAT_SERVER_SECRET: 0ff3rch@t
   USER_SERVICE_ENDPOINT: plugins/userService/userservice?
 
+  CHAT_HISTORY_URL: http://local.offerchat.com:9292/
+
 staging:
   STRIPE_API_KEY: sk_test_Nc1LdRAL1YAqOh60JUTHjI9V
   STRIPE_PUBLIC_KEY: pk_test_VWmJIaOTLzYZAUmg8x7sMKYr
@@ -17,6 +19,8 @@ staging:
   CHAT_SERVER_URL: http://sb0.offerchat.com:9090/
   CHAT_SERVER_SECRET: 0ff3rch@t
   USER_SERVICE_ENDPOINT: plugins/userService/userservice?
+
+  # CHAT_HISTORY_URL: http://sb0.offerchat.com:9292/
 
 production:
   STRIPE_API_KEY: xxx
@@ -28,6 +32,8 @@ production:
   CHAT_SERVER_SECRET: 0ff3rch@t
   USER_SERVICE_ENDPOINT: plugins/userService/userservice?
 
+  # CHAT_HISTORY_URL: http://sb0.offerchat.com:9292/
+
 test:
   STRIPE_API_KEY: sk_test_Nc1LdRAL1YAqOh60JUTHjI9V
   STRIPE_PUBLIC_KEY: pk_test_VWmJIaOTLzYZAUmg8x7sMKYr
@@ -37,3 +43,5 @@ test:
   CHAT_SERVER_URL: http://local.offerchat.com:9090/
   CHAT_SERVER_SECRET: 0ff3rch@t
   USER_SERVICE_ENDPOINT: plugins/userService/userservice?
+
+  CHAT_HISTORY_URL: http://local.offerchat.com:9292/

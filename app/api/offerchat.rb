@@ -82,23 +82,6 @@ module Offerchat
       end
     end
 
-    resource :export_transcript do
-      params do
-        requires :token, type: String, desc: "widget token."
-      end
-      route_param :token do
-        get do
-          visitor = Visitor.find_by_token(params[:token])
-          if visitor.nil?
-            { error: "Token not found!" }
-          else
-            # website = visitor.website
-            # request to get chat history
-          end
-        end
-      end
-    end
-
     resource :any_agents_online do
       params do
         requires :apikey, type: String, desc: "Api key."

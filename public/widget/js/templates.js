@@ -123,12 +123,8 @@ Templates = {
         }
       },
       downloadTranscript: function() {
-        var msg = "";
-        $.each(Chats.messages, function(key, value){
-          msg += "(" + value.time + ") "  + value.sender + ": " + value.message + "\n";
-        });
-
-        window.open("data:text/json;charset=utf-8," + escape(msg), "Download");
+        $("a.chat-settings").trigger("click");
+        window.location.href = "/transcript/"+Offerchat.params.secret_token;
       },
       togglePoweredBy: function() {
         window.open('//www.offerchat.com/?utm_medium=Widget_banner&utm_campaign=offerchat_widget&utm_source=www.offerchat.com', '_blank');
