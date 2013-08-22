@@ -7,10 +7,18 @@ Dashboard::Application.routes.draw do
     end
   end
 
-  resources :agents
+  resources :agents do
+    collection do
+      get "only"
+    end
+  end
   resource :settings
   resources :triggers
-  resources :plans
+  resources :plans do
+    collection do
+      get "by_name/:id", :action => "by_name"
+    end
+  end
   resources :subscriptions
 
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}, :controllers => {

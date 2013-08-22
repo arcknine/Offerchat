@@ -18,5 +18,20 @@
           App.request "hide:preloader"
       plans
 
+    getPlanByName: (name) ->
+      plans = new Entities.PlansCollection
+      plans.url = Routes.plans_path() + "/by_name/#{name}"
+      App.request "show:preloader"
+      plans.fetch
+        reset: true
+        success: ->
+          App.request "hide:preloader"
+        error: ->
+          App.request "hide:preloader"
+      plans
+
   App.reqres.setHandler "get:plans", ->
     API.getPlans()
+
+  App.reqres.setHandler "get:plan:by:name", (name) ->
+    API.getPlanByName(name)

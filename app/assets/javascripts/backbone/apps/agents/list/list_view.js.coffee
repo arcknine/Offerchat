@@ -46,10 +46,10 @@
     tagName: "fieldset"
     events:
       "blur input[name=email]" : "update_email_field"
-    
+
     initialize: ->
       console.log @model
-    
+
     update_email_field: (e)->
       @model.set
         email: $(e.target).val()
@@ -107,7 +107,7 @@
       if @$(e.currentTarget).hasClass "adminchecked"
         @$(e.currentTarget).removeClass "adminchecked"
         @model.set role: 3
-      else        
+      else
         $(e.currentTarget).addClass "adminchecked"
         @$("label.agent").addClass "agentchecked"
         @model.set role: 2

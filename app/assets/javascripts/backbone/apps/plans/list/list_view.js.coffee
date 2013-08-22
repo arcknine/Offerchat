@@ -26,7 +26,7 @@
     template: "plans/list/modal"
     className: "form form-inline"
     form:
-      title: "Upgrade Plan"
+      title: "Payment Details"
       terms: true
       footer: false
       buttons:
@@ -40,6 +40,42 @@
     serializeData: ->
       user: @options.model.toJSON()
       plan: @options.plan
+
+  class List.ModalDowngrade extends App.Views.Layout
+    template: "plans/list/downgrade"
+    className: "form form-inline"
+    regions:
+      agentsRegion: "#agents-region"
+    form:
+      title: "Downgrade Plan"
+      terms: true
+      footer: false
+      buttons:
+        nosubmit: false
+        primary: false
+        cancel: false
+
+    serializeData: ->
+      plan = @options.plan.toJSON()
+      available_seats = plan.max_agent_seats - 1
+      seats: available_seats
+
+    triggers:
+      "click #downgrade-agents" : "proceed:downgrade"
+
+  class List.Agent extends App.Views.ItemView
+    template:  "plans/list/agent"
+    className: "agent-inline-block agent-block-large"
+    triggers:
+      "click" : "agent:clicked"
+    modelEvents:
+      "change" : "render"
+
+  class List.Agents extends App.Views.CompositeView
+    template: "plans/list/agents"
+    className: "block group agent-selection-form"
+    itemView: List.Agent
+    itemViewContainer: "#agent-list"
 
   class List.ModalProcessPayment extends App.Views.ItemView
     template: "plans/list/process_payment"
