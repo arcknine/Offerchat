@@ -33,10 +33,14 @@
         @visitorsList()
         @agentsList()
 
-      @listenTo @visitors, "add", =>
+      @listenTo @currentSite, "show", =>
+        @visitorsList()
+        @agentsList()
+
+      @listenTo @visitors, "all", =>
         @visitorsList()
 
-      @listenTo @agents, "add", =>
+      @listenTo @agents, "all", =>
         @agentsList()
 
       App.reqres.setHandler "get:chats:messages", =>
@@ -105,7 +109,6 @@
           unread: null
           active: 'active'
 
-        # console.log agent
         App.navigate "chats/agent/#{agent.model.get('token')}", trigger: true
 
       @layout.agentsRegion.show agentsView
@@ -144,7 +147,6 @@
       @connection.send(pres)
 
     onPresence: (presence) =>
-      console.log presence
       from     = $(presence).attr("from")
       jid      = Strophe.getBareJidFromJid from
       node     = Strophe.getNodeFromJid from
@@ -157,7 +159,6 @@
 
       if type is "unavailable"
         visitor = @visitors.findWhere {  jid: node }
-        console.log "visitor", visitor
         if visitor
           # remove visitor from list
           resources = visitor.get "resources"
@@ -171,7 +172,6 @@
             visitor.set { jid: node, resources: resources }
             @visitors.set visitor
 
-          console.log "@visitors", @visitors
         else
           # remove agent from list
           @agents.remove agent
