@@ -11,6 +11,5 @@ class ExportersController < ApplicationController
     send_data @content,
       :type => 'text',
       :disposition => "attachment; filename=offerchat_chat_logs.txt"
-
   end
 end
