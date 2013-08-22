@@ -10,14 +10,14 @@
 
 .group.block.large
   .group
-    .widget-preview-sample
+    .widget-preview-sample.no-branding
       .widget-unlock-tooltip
         .caret
         .message
           %strong
-            Do you want to hide this part?
+            Do you want to show the footer?
         %a.btn.small.action
-          Remove
+          Show
         %a.btn.small
           No
       .widget-box.widget-theme.theme-pink3#widget-header
@@ -62,6 +62,7 @@
               %strong
                 %a
                   Offerchat
+      
 
 
     .widget-color-selector.settings-widget-selector
@@ -149,9 +150,9 @@
 .block-message.small
   %strong
     Tip:
-  You can show the widget footer.
+  You can remove the Offerchat footer by
   %a
-    Show
+    upgrading your free plan
 .column-footer-actions.bordered
   .block.large
     %button.btn.action{ :type => "submit" }
