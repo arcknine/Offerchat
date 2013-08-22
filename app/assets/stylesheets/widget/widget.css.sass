@@ -131,11 +131,15 @@ table
   .widget-footer, .widget-head
     cursor: default
     z-index: 99
-
+  &.no-branding
+    height: 401px
+    bottom: -25px
+    .widget-unlock-tooltip
+      display: none
 .widget-unlock-tooltip
   font-size: 12px
   position: absolute
-  bottom: 35px
+  bottom: 28px
   right: 10px
   background-color: #445362
   z-index: 100
@@ -159,7 +163,7 @@ table
     font-size: 11px
   .message
     display: block
-    margin-bottom: 5px
+    margin-bottom: 10px
 
 
 
