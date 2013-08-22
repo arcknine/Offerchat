@@ -16,7 +16,6 @@ class TranscriptController < ApplicationController
       content += "(#{sent_date}) #{sender}: #{msg['msg']} \r\n"
     end
 
-    # content = 'asdfasdfasdfasdf'
     send_data content,
       :type => 'text',
       :disposition => "attachment; filename=offerchat-#{token}.txt"
