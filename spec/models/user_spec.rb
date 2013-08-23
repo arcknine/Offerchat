@@ -290,5 +290,18 @@ describe User do
         a.account(@website.id).role.should_not eq(Account::OWNER)
        end
     end
+
+    it "should return groups" do
+      owner = Fabricate(:user)
+      user  = Fabricate(:user)
+      web1  = Fabricate(:website, :owner => owner)
+      web2  = Fabricate(:website, :owner => owner)
+      acc1  = Fabricate(:account, :owner => owner, :website => web1)
+      acc2  = Fabricate(:account, :owner => owner, :website => web2)
+      acc3  = Fabricate(:account, :owner => owner, :website => web1, :user => user)
+      acc4  = Fabricate(:account, :owner => owner, :website => web2, :user => user)
+
+      user.group(owner.id).should eq("#{web1.url} (Agent), #{web2.url} (Agent)")
+    end
   end
 end

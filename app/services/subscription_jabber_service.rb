@@ -22,13 +22,14 @@ class SubscriptionJabberService
 
   def subscribe_agents
     agents = @website.owner_and_agents
+    group  = @user.group(@website.owner.id)
     agents.each do |agent|
       if agent.jabber_user != @user.jabber_user
         sleep(1)
-        OpenfireApi.subcribe_roster(agent.jabber_user, @user.jabber_user, @user.name, "#{@website.url} (Agents)")
+        OpenfireApi.subcribe_roster(agent.jabber_user, @user.jabber_user, @user.name, group)
 
         sleep(1)
-        OpenfireApi.subcribe_roster(@user.jabber_user, agent.jabber_user, agent.name, "#{@website.url} (Agents)")
+        OpenfireApi.subcribe_roster(@user.jabber_user, agent.jabber_user, agent.name, group)
       end
     end
   end

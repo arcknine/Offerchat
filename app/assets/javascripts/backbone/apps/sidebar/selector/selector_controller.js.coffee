@@ -24,7 +24,7 @@
       App.reqres.setHandler "get:sidebar:selected:site", =>
         @currentSite
 
-      App.reqres.setHandler "get:sites:count", ->
+      App.reqres.setHandler "get:all:sites", ->
         sites
 
     bindLayoutEvents: ->

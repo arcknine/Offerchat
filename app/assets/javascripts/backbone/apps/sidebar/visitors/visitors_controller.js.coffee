@@ -10,7 +10,7 @@
       @messages    = App.request "messeges:entities"
       @agentMsgs   = App.request "messeges:entities"
       @currentSite = App.request "get:sidebar:selected:site"
-      @sites       = App.request "get:sites:count"
+      @sites       = App.request "get:all:sites"
       @layout      = @getLayout()
 
       sidebar = ($(window).height() - 93) + "px"
@@ -83,6 +83,7 @@
 
         visitor.model.set
           unread: null
+          newClass: null
           active: 'active'
 
         App.navigate "chats/visitor/#{visitor.model.get('token')}", trigger: true
@@ -90,14 +91,21 @@
       @layout.visitorsRegion.show visitorsView
 
     agentsList: ->
+      agents  = App.request "online:agents:entities"
       unless @currentSite.get("all")
-        api_key = @currentSite.get("api_key")
-        agents  = App.request "online:agents:entities"
-        $.each @agents.models, (key, value) ->
-          if $.inArray(api_key, value.get("api_keys")) > -1
-            agents.set value
+        api_keys = [@currentSite.get("api_key")]
       else
-        agents = @agents
+        api_keys = @sites.pluck("api_key")
+
+      $.each @agents.models, (key, value) ->
+        agents.set value if _.intersection(api_keys, value.get("api_keys")).length > 0
+          # console.log @agents.pluck("")
+          # $.each @agents.models, (key, value) ->
+
+          #   console.log keys
+
+
+        # agents = @agents
 
       agentsView = @getAgentsView(agents)
 
@@ -107,6 +115,7 @@
 
         agent.model.set
           unread: null
+          newClass: null
           active: 'active'
 
         App.navigate "chats/agent/#{agent.model.get('token')}", trigger: true
@@ -186,6 +195,7 @@
           api_keys = JSON.parse $(stanza).find("API_KEYS").text()
 
           @agents.add { jid: node, token: node, info: info, agent: true, api_keys: api_keys }
+          console.log @agents
         ), jid
 
       else if typeof visitor is "undefined"
