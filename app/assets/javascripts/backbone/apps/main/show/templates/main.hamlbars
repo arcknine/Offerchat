@@ -1,3 +1,8 @@
+.block-message{ :style => "display:none;" }
+  %a.close
+    &times;
+  %span
+
 .no-chat-view
   %i.icon.icon-chat-large
   %h2

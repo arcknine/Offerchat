@@ -14,7 +14,9 @@
       @listenTo newSiteView, "click:finish:website", (item) ->
         App.vent.trigger "show:chat:sidebar"
         $('#chat-sidebar-region').attr('class', 'chats-sidebar-container')
-        App.navigate "websites", trigger: true
+        App.navigate "#", trigger: true
+        App.request "new:site:created"
+
 
       @listenTo newSiteView, "click:send:code", (item) =>
         @showModal @newWebsite
