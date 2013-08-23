@@ -14,10 +14,10 @@
       buttonContainer: "ul.inline-list"
     triggers:
       "click [data-form-button='nosubmit']" : "modal:unsubmit"
-      "click [data-form-button='primary']" : "modal:submit"
-      "click [data-form-button='cancel']"  : "modal:cancel"
-      "click  a.close"                     : "modal:cancel"
-      "click  div.modal-backdrop"                     : "modal:cancel"
+      "click [data-form-button='primary']"  : "modal:submit"
+      "click [data-form-button='cancel']"   : "modal:cancel"
+      "click  a.close"                      : "modal:cancel"
+      "click  div#close-modal-backdrop"     : "modal:cancel"
 
     modelEvents:
       "change:_errors"   : "changeErrors"
