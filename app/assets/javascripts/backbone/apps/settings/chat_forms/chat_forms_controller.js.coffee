@@ -3,29 +3,31 @@
 
     initialize: (options) ->
       { @currentSite, region, section } = options
-      @currentUser     = App.request "set:current:user", App.request "get:current:user:json"
+      @currentUser     = App.request "get:current:profile"
       @currentSite.url = Routes.update_settings_website_path(@currentSite.get('id'))
 
-      @layout   = @getLayout()
-      @settings = @currentSite.get('settings')
+      App.execute "when:fetched", @currentUser, =>
+        @layout   = @getLayout()
+        @settings = @currentSite.get('settings')
 
-      @listenTo @layout, "show", =>
-        @getSection section
-        $(@layout.el).find("a[data-section='#{section}']").addClass("active")
+        @listenTo @layout, "show", =>
+          @getSection section
+          $(@layout.el).find("a[data-section='#{section}']").addClass("active")
 
-        @listenTo @layout, "navigate:sub:forms", (section) =>
-          section = (if section is 'offline' then '' else "/#{section}")
-          App.navigate "settings/chat-forms/#{@currentSite.get("id")}#{section}", trigger: true
+          @listenTo @layout, "navigate:sub:forms", (section) =>
+            section = (if section is 'offline' then '' else "/#{section}")
+            App.navigate "settings/chat-forms/#{@currentSite.get("id")}#{section}", trigger: true
 
-        @text_counter "textarea[name=description]", ".text-limit-counter", 140
+          @text_counter "textarea[name=description]", ".text-limit-counter", 140
 
-      @listenTo @currentSite, "updated", (site) =>
-        @showNotification("Your changes have been saved!")
+        @listenTo @currentSite, "updated", (site) =>
+          @showNotification("Your changes have been saved!")
 
-      @listenTo @layout, "hide:notification", =>
-        $("#setting-notification").fadeOut()
+        @listenTo @layout, "hide:notification", =>
+          $("#setting-notification").fadeOut()
 
-      @show @layout
+        @show @layout
+      
 
 
     getLayout: ->
