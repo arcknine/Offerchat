@@ -64,6 +64,10 @@
       filters
     
     getConversationsRegion: (collection)->
+<<<<<<< HEAD
+=======
+      console.log collection
+>>>>>>> Add conversation groups
       new Conversations.Groups
         collection: collection
     
@@ -72,4 +76,8 @@
       convos = App.request "new:converstationgroups:entities"
       _.each timestamps, (item, i)->
         convos.add conversations: collection.where({created: item}), created: item, id: i
+<<<<<<< HEAD
+=======
+      console.log convos
+>>>>>>> Add conversation groups
       convos

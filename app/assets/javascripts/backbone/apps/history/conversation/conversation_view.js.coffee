@@ -29,7 +29,7 @@
       agentsFilterRegion:   "#agents-filter-region"
     triggers:
       "click .agent-row-selector" : "agents:filter:clicked"
-  
+
   class Conversations.Item extends App.Views.ItemView
     template: "history/conversation/conversation"
     className: "table-row linkable group"
@@ -43,7 +43,6 @@
         m = @model.get("created")
         @model.set momentary: moment(m, '"YYYY-MM-DDTHH:mm:ss Z"').fromNow()
       , 60000
-      
   
   class Conversations.GroupItem extends App.Views.CompositeView
     template: "history/conversation/group_item"
