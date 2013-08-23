@@ -8,7 +8,7 @@
       
       App.execute "when:fetched", conversations, =>
         @listenTo @layout, "show", =>
-          convos = @organizeConverstations(conversations)
+          convos = @organizeConversations(conversations)
           @layout.headerRegion.show @getHeaderRegion()
           @layout.filterRegion.show @getFilterRegion()
           @layout.conversationsRegion.show @getConversationsRegion(convos)
@@ -24,10 +24,14 @@
       new Conversations.Filter
     
     getConversationsRegion: (collection)->
-      new Conversations.List
+      console.log collection
+      new Conversations.Groups
         collection: collection
     
-    organizeConverstations: (collection)->
-      convos = collection
+    organizeConversations: (collection)->
+      timestamps = _.uniq collection.pluck("created")
+      convos = App.request "new:converstationgroups:entities"
+      _.each timestamps, (item, i)->
+        convos.add conversations: collection.where({created: item}), created: item, id: i
       console.log convos
       convos

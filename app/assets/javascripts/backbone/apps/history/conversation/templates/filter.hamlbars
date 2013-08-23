@@ -40,11 +40,11 @@
 .td-container.td-small
   .td-content
     &nbsp;
-.table-nav
-  1-10 of 50
-  .nav-link-inline
-    %a.nav-link.nav-prev
-
-      %i.icon.icon-arrow-left
-    %a.nav-link.nav-next
-      %i.icon.icon-arrow-right
+/ .table-nav
+/   1-10 of 50
+/   .nav-link-inline
+/     %a.nav-link.nav-prev
+/ 
+/       %i.icon.icon-arrow-left
+/     %a.nav-link.nav-next
+/       %i.icon.icon-arrow-right

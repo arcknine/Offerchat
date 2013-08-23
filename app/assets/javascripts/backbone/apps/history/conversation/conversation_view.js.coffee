@@ -6,7 +6,7 @@
     regions:
       headerRegion:         "#history-header-region"
       filterRegion:         "#history-filter-region"
-      conversationsRegion:  "#history-conversations-region"
+      conversationsRegion:  "#history-conversation-region"
   
   class Conversations.Header extends App.Views.CompositeView
     template: "history/conversation/header"
@@ -15,11 +15,20 @@
     template: "history/conversation/filter"
     className: "table-row table-head shadow group"
   
-  class Conversations.ListItem extends App.Views.ItemView
-    template: "history/conversation/item"
+  class Conversations.Item extends App.Views.CompositeView
+    template: "history/conversation/conversation_item"
     className: "table-row linkable group"
+  
+  class Conversations.GroupItem extends App.Views.CompositeView
+    template: "history/conversation/group_item"
+    itemView: Conversations.Item
+    initialize: ->
+      @collection = App.request "new:conversations:entitites", @model.get("conversations")
+    appendHtml: (collectionView, itemView)->
+      collectionView.$(".table-row-wrapper").append(itemView.el)
     
-  class Conversations.List extends App.Views.CompositeView
-    template: "history/conversation/conversations"
-    itemView: Conversations.ListItem
-    className: "table-history-viewer"
+  class Conversations.Groups extends App.Views.CompositeView
+    template: "history/conversation/groups"
+    itemView: Conversations.GroupItem
+    className: "table-history-viewer-content"
+    id: "historyTableViewer"

@@ -1,0 +1,3 @@
+%h3.table-heading.history-table-heading.fixed{id: "tablehead{{id}}"}
+  {{created}}
+.table-row-wrapper{id: "tablehead{{id}}_content"}
