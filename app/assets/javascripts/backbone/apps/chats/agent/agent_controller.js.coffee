@@ -41,7 +41,33 @@
       chatsView = @getChats()
       @listenTo chatsView, "agent:is:typing", @sendChat
 
+      @listenTo chatsView, "childview:chat:transfer:accept", (msg) =>
+        @respondTransfer msg.model, 'accepted'
+
+        vtoken = msg.model.get('trn_vtoken')
+        App.navigate "chats/visitor/#{vtoken}", trigger: true   # navigate to visitor chat
+
+        App.request "set:no:active:agent:chat"
+        App.request "set:no:active:visitor:chat"
+
+        visitorList = App.request "get:chats:visitors"
+        visitor = visitorList.findWhere token: vtoken
+        visitor.set('active', 'active')
+
+      @listenTo chatsView, "childview:chat:transfer:decline", (msg) =>
+        @respondTransfer msg.model, 'declined'
+
       @layout.chatsRegion.show chatsView
+
+    respondTransfer: (model, response) ->
+      update_obj =
+        trn_responded: true
+        trn_status: response
+
+      if response is 'accepted' then update_obj.trn_accepted = true
+
+      model.set(update_obj)
+      true
 
     sendChat: (ev) =>
       message = $(ev.currentTarget).val()

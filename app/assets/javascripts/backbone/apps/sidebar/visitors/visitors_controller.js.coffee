@@ -253,13 +253,27 @@
         messages.add(@agentMsgs.where token: token)
 
         agent_msg =
-          token:      token
-          name:       name
-          sender:     "visitor"
-          message:    body
-          time:       new Date()
-          viewing:    false
-          timesimple: moment().format('hh:mma')
+            token:      token
+            name:       name
+            sender:     "visitor"
+            message:    body
+            time:       new Date()
+            viewing:    false
+            timesimple: moment().format('hh:mma')
+
+        transfer = $(message).find('transfer')
+
+        if transfer.length
+          reason = $(message).find('reason').text()
+          visitor_token = $(transfer).attr('token')
+          visitor_name = transfer.text()
+
+          agent_msg.transfer = true
+          agent_msg.trn_reason = reason
+          agent_msg.trn_vname = visitor_name
+          agent_msg.trn_vtoken = visitor_token
+          agent_msg.trn_responded = false
+          agent_msg.trn_accepted = false
 
         if messages.last() and messages.last().get("name") is name
           agent_msg.child      = true
@@ -278,5 +292,3 @@
         time:       new Date()
         timesimple: moment().format('hh:mma')
         viewing:    true
-
-
