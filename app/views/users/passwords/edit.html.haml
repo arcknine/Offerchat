@@ -1,16 +1,18 @@
 .login-wrapper
   .logo-large.centered
   .login-form.form
+    %h2
+      Change your password
     - @user.errors.each do |key, val|
-      = "#{key}  #{val}"
-    %h2 Change your password
+      %div{:style => "color: #e13d3d"}= val
 
     = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
       = f.hidden_field :reset_password_token
       %fieldset
         %label
           New Password
-        = f.email_field :password, :type => "text", :autofocus => true
+        = f.password_field :password, :autofocus => true
+
       %fieldset
         %label
           Confirm New Password
