@@ -7,7 +7,7 @@
       @currentSite = App.request "new:selector:site"
 
       App.execute "when:fetched", sites, =>
-        site = sites.first()
+        site = sites.last()
         site.attributes.all = false;
 
         @currentSite.set site.attributes
