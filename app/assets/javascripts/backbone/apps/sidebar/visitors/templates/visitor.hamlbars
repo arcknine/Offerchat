@@ -1,4 +1,4 @@
-%a.chat-item-tab.new{:class => "{{active}} {{new_chat}}" }
+%a.chat-item-tab{:class => "{{active}} {{new_chat}} {{newClass}}" }
 
   {{#if unread}}
   .message-tick{:class => "{{bounce}}"}

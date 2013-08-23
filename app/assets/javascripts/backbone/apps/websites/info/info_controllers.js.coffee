@@ -3,7 +3,7 @@
   class Info.Controller extends App.Controllers.Base
 
     initialize: (options = {}) ->
-      sites = App.request "get:sites:count"
+      sites = App.request "get:all:sites"
       # App.vent.trigger "show:chat:sidebar"
       @storage = JSON.parse(sessionStorage.getItem("newSite"))
       newWebsite = App.request "new:site:entity"

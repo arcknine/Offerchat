@@ -3,7 +3,7 @@
   class Key.Controller extends App.Controllers.Base
 
     initialize: (options = {}) ->
-      sites = App.request "get:sites:count"
+      sites = App.request "get:all:sites"
 
       @newWebsite = App.request "new:site:entity"
       newSiteView = @getWebsiteKeyView @newWebsite
