@@ -32,6 +32,9 @@ node do |website|
         :header      => website.settings(:offline).header,
         :description => website.settings(:offline).description,
         :email       => website.settings(:offline).email
+      },
+      :footer => {
+        :enabled     => website.settings(:footer).enabled
       }
     }
   }

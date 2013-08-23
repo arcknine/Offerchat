@@ -36,7 +36,7 @@
 
     events:
       "click textarea.widget-text-format" : "highlightCode"
-
+      "click input.apikey" : "highlightCode"
 
     highlightCode: (ev) ->
       $(ev.currentTarget).select()

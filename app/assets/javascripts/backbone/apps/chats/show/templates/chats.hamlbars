@@ -14,7 +14,7 @@
   .group
     .btn-selector-wrapper
       .btn-selector
-        .btn.btn-action-selector.site-selector
+        %a.btn.btn-action-selector.chat-actions-selector
           %i.icon.icon-arrow-down
           %span.current-selection
             Actions

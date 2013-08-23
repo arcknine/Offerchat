@@ -1,19 +1,21 @@
+
 .modal-backdrop
-.modal-window
-  .modal#modal-form
-    .modal-header
-      %a.close
-        &times;
-      %h2
-        {{title}}
-    .modal-body
-      #modal-content-region
-    {{#if footer}}
-    .modal-footer.bordered
-      {{#if buttons}}
-      .buttons
-        {{#each buttons}}
-        <button data-form-button="{{type}}" class="{{className}}">{{text}}</button>
-        {{/each}}
+  .modal-window
+    .modal#modal-form
+      .modal-header
+        %a.close
+          &times;
+        %h2
+          {{title}}
+      .modal-body
+        #modal-content-region
+      {{#if footer}}
+      .modal-footer.bordered
+        {{#if buttons}}
+        .buttons
+          {{#each buttons}}
+          <button data-form-button="{{type}}" class="{{className}}">{{text}}</button>
+          {{/each}}
+        {{/if}}
       {{/if}}
-    {{/if}}
+    .close-modal-backdrop

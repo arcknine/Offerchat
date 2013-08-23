@@ -24,6 +24,16 @@
           settings.style.gradient = false
           options.currentSite.set settings: settings
 
+      @listenTo layout, "style:hide:footer", =>
+        @hideFooter()
+        settings.footer.enabled = false
+        options.currentSite.set settings: settings
+
+      @listenTo layout, "style:show:footer", =>
+        @showFooter()
+        settings.footer.enabled = true
+        options.currentSite.set settings: settings
+
       @listenTo options.currentSite, "updated", (site) =>
         @showNotification("Your changes have been saved!")
 
@@ -48,10 +58,11 @@
         $(".checkbox.inline").addClass("checked")
 
     getLayoutView: (website) ->
-      console.log @currentUser
       new Style.Layout
         model: website
         user:  @currentUser
+        classname: if website.get("settings").footer.enabled then "" else "no-branding"
+        paid: if @currentUser.get("plan_identifier") == "FREE" then false else true
 
     changeColor: (e) ->
       $("#controlColorContent a").removeClass("active")
@@ -62,3 +73,10 @@
     changeGradient: (e) ->
       $(e.currentTarget).toggleClass("checked")
       $("#widget-header").children(":first").toggleClass("widget-gradient")
+
+    hideFooter: ->
+      $(".widget-preview-sample").addClass("no-branding")
+
+    showFooter: ->
+      $(".widget-preview-sample").removeClass("no-branding")
+

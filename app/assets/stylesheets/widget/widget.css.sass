@@ -120,11 +120,15 @@ table
   padding: 0
   float: left
   background-color: transparent
-
   // z-index: 9999999999
   width: 306px
   height: 425px
   position: relative
+  &:hover
+    .widget-unlock-tooltip
+      opacity: 1
+      visibility: visible
+      
   .widget-box
     a
       cursor: default
@@ -135,8 +139,17 @@ table
     height: 401px
     bottom: -25px
     .widget-unlock-tooltip
-      display: none
+      bottom: 6px
+    
 .widget-unlock-tooltip
+  -webkit-transition: all .2s
+  -moz-transition: all .2s
+  -ms-transition: all .2s
+  -o-transition: all .2s
+  transition: all .2s
+  
+  visibility: hidden
+  opacity: 0
   font-size: 12px
   position: absolute
   bottom: 28px

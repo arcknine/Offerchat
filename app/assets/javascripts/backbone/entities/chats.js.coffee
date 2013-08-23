@@ -6,6 +6,7 @@
       jid: "Visitor"
       unread: null
       active: null
+      newClass: null
       new_chat: null
       bounce: null
       email: "piki_pare_erap@yahoo.com"
@@ -13,7 +14,7 @@
 
     addUnread: ->
       if @get('unread') is null then @set new_chat: 'bounce1', bounce: 'bounce'
-      @set unread: @get('unread') + 1
+      @set unread: @get('unread') + 1, newClass: "new"
 
       setTimeout (=>
         @set {new_chat: null}
@@ -42,6 +43,8 @@
       height: $(window).height()
       str_h:  ($(window).height() - 256)  + "px"
 
+  class Entities.SelectedVisitor extends App.Entities.Model
+
   API =
     setVisitor: ->
       new Entities.Visitor
@@ -57,6 +60,9 @@
 
     windowHeight: ->
       new Entities.WindowHeight
+
+    selectedVisitor: ->
+      new Entities.SelectedVisitor
 
   App.reqres.setHandler "visitor:entity", ->
     API.setVisitor()

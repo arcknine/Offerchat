@@ -10,20 +10,22 @@
 
 .group.block.large
   .group
-    .widget-preview-sample
+    .widget-preview-sample{ :class => "{{classname}}" }
+      {{#if paid}}
       .widget-unlock-tooltip
         .caret
         .message
           %strong
-            Do you want to hide this part?
-        %a.btn.small.action
-          Remove
-        %a.btn.small
-          No
+            You can hide or show the footer.
+        %a.btn.small.action.hide-footer
+          Hide
+        %a.btn.small.show-footer
+          Show
+      {{/if}}
+
       .widget-box.widget-theme.theme-pink3#widget-header
         .widget-head.widget-rounded-head.group
           %img.agent-thumbnail{ :src => "{{user.avatar}}" }
-          / = image_tag user.avatar, :class => "agent-thumbnail"
 
           .widget-agent-name
             {{user.display_name}}
@@ -88,7 +90,6 @@
           %a.saddlebrown
           %a.darkchoco
 
-
           %a.gray34
           %a.gray77
           %a.gray93
@@ -146,12 +147,7 @@
               %span.icon
                 .icon-check
               Gradient
-.block-message.small
-  %strong
-    Tip:
-  You can show the widget footer.
-  %a
-    Show
+
 .column-footer-actions.bordered
   .block.large
     %button.btn.action{ :type => "submit" }
