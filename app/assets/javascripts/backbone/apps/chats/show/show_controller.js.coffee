@@ -239,4 +239,3 @@
       new Show.ChatsList
         collection: @currentMsgs
         model:      @height
-        token:      @token

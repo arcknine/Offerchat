@@ -25,8 +25,4 @@ class UserMailer < ActionMailer::Base
     @email, @password, @token = email, password, token
     mail(:to => email, :subject => "Offerchat Account Migration to new Dashboard")
   end
-
-  def send_to_webmaster(email, api_key)
-    mail(:to => email, :subject => "Offerchat Website Integration Code")
-  end
 end

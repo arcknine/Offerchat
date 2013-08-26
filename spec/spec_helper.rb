@@ -11,7 +11,6 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'sidekiq/testing'
 require "paperclip/matchers"
-require 'webmock/rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -19,8 +18,6 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 RSpec.configure do |config|
   config.mock_with :mocha
-
-  config.include FixtureHelper
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -55,16 +52,6 @@ RSpec.configure do |config|
       DatabaseCleaner.strategy = :transaction
     end
 
-    # =======
-    #   config.before(:all) do
-    #     load "#{Rails.root}/db/seeds.rb"
-    #   end
-    # 
-    #   config.before(:each) do
-    #     DatabaseCleaner.start
-    #   end
-    # >>>>>>> Load seeds before tests
-
     DatabaseCleaner.start
     ex.run
     DatabaseCleaner.clean
@@ -81,10 +68,4 @@ end
 RSpec::Sidekiq.configure do |config|
   # Clears all job queues before each example
   config.clear_all_enqueued_jobs = false # default => true
-end
-
-RSpec.configure do |config|
-  config.include RSpec::Rails::RequestExampleGroup, type: :request, example_group: {
-    file_path: /spec\/api/
-  }
 end

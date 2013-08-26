@@ -23,6 +23,10 @@
   class Entities.OnlineAgentsCollection extends App.Entities.Collection
     model: Entities.OnlineAgent
 
+  class Entities.AgentsOnlyCollection extends App.Entities.Collection
+    model: Entities.Agent
+    url: Routes.only_agents_path()
+
   API =
     newAgent: ->
       new Entities.Agent
@@ -44,6 +48,16 @@
     onlineAgent: ->
       new Entities.OnlineAgent
 
+    getAgentsOnly: ->
+      agents = new Entities.AgentsOnlyCollection
+      App.request "show:preloader"
+      agents.fetch
+        reset: true
+        success: ->
+          App.request "hide:preloader"
+        error: ->
+          App.request "hide:preloader"
+      agents
 
   App.reqres.setHandler "agents:entities", ->
     API.getAgents()
