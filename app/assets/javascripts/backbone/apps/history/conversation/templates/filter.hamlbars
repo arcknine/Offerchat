@@ -14,22 +14,8 @@
           %i.icon.icon-arrow-down
           %span.current-selection
             All Agents
-        .dropdown-options.dark
+        .dropdown-options.dark#agents-filter-region
           .caret.caret-dark
-          %ul
-            %li 
-              %a Jonathan Kennedy
-            %li 
-              %a Harvey Enrile
-            %li 
-              %a Reina Figuracion
-            %li 
-              %a Jonathan Kennedy
-            %li 
-              %a Harvey Enrile
-            %li 
-              %a Reina Figuracion
-          
    
 .td-container.td-time
   .td-content

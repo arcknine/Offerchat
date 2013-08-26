@@ -544,9 +544,9 @@ Chats = {
       self = this;
       $.ajax({
         type: "post",
-        url: Offerchat.src.history + "/chats/create/" + Offerchat.params.secret_token,
+        url: Offerchat.src.history + "/convo/create/" + Offerchat.params.secret_token,
         dataType: "jsonp",
-        data: {url: Offerchat.params.current_url, aid: this.agent.id, vname: this.visitor.name},
+        data: {url: Offerchat.params.current_url, aid: this.agent.id, vname: this.visitor.name, agent: this.agent.name},
         success: function(data) {
           self.has_conversation = true;
         }

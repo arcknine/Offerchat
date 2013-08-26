@@ -11,14 +11,16 @@
     
   class Entities.Conversations extends App.Entities.Collection
     model: Entities.Conversation
-    url: "http://history.offerchat.loc:9292"
+    url: "http://history.offerchat.loc:9292/convo"
   
   API =
-    getConversations: ->
-      conversations = new Entities.Conversations
+    getConversations: (conversations, aids = [])->
+      console.log conversations
+      conversations = new Entities.Conversations if conversations is null
       conversations.fetch
+        data: {aids: aids}
         dataType : "jsonp"
-        reset: true
+        processData: true
       conversations
     
     newConversations: (collection)->
@@ -31,8 +33,8 @@
     newConversationGroups: ->
       new Entities.ConversationGroups
   
-  App.reqres.setHandler "get:conversations:entitites", ->
-    API.getConversations()
+  App.reqres.setHandler "get:conversations:entitites", (collection, aid)->
+    API.getConversations(collection, aid)
 
   App.reqres.setHandler "new:conversations:entitites", (collection)->
     API.newConversations(collection)

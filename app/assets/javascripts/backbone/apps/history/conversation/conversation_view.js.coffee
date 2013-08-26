@@ -8,26 +8,56 @@
       filterRegion:         "#history-filter-region"
       conversationsRegion:  "#history-conversation-region"
   
+  class Conversations.Agent extends App.Views.ItemView
+    template: "history/conversation/agent"
+    tagName: "li"
+    triggers:
+      "click":              "agent:filter:selected"
+    
+  class Conversations.Agents extends App.Views.CollectionView
+    template: "history/conversation/agents"
+    itemView: Conversations.Agent
+    tagName: "ul"
+
   class Conversations.Header extends App.Views.CompositeView
     template: "history/conversation/header"
 
-  class Conversations.Filter extends App.Views.CompositeView
+  class Conversations.Filter extends App.Views.Layout
     template: "history/conversation/filter"
     className: "table-row table-head shadow group"
+    regions:
+      agentsFilterRegion:   "#agents-filter-region"
+    triggers:
+      "click .agent-row-selector" : "agents:filter:clicked"
   
-  class Conversations.Item extends App.Views.CompositeView
-    template: "history/conversation/conversation_item"
+  class Conversations.Item extends App.Views.ItemView
+    template: "history/conversation/conversation"
     className: "table-row linkable group"
+    modelEvents:
+      "change" : "render"
+
+    initialize: ->
+      m = @model.get("updated_at")
+      @model.set momentary: moment(m, '"YYYY-MM-DDTHH:mm:ss Z"').fromNow()
+      setInterval ->
+        m = @model.get("created")
+        @model.set momentary: moment(m, '"YYYY-MM-DDTHH:mm:ss Z"').fromNow()
+      , 60000
+      
   
   class Conversations.GroupItem extends App.Views.CompositeView
     template: "history/conversation/group_item"
     itemView: Conversations.Item
+    modelEvents:
+      "change" : "render"
     initialize: ->
+      momentary = @model.get("created")
+      @model.set momentary: moment(@model.get("created")).format("MMMM DD, YYYY")
       @collection = App.request "new:conversations:entitites", @model.get("conversations")
     appendHtml: (collectionView, itemView)->
       collectionView.$(".table-row-wrapper").append(itemView.el)
     
-  class Conversations.Groups extends App.Views.CompositeView
+  class Conversations.Groups extends App.Views.CollectionView
     template: "history/conversation/groups"
     itemView: Conversations.GroupItem
     className: "table-history-viewer-content"

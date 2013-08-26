@@ -46,11 +46,11 @@
         @hideDropdowns child
 
       @listenTo navView, "history:menu:clicked", (child) ->
-        # params =
-        #   element: child
-        #   openClass: "history-menu-link"
-        #   activeClass: false
-        # navView.toggleDropDown(params)
+        params =
+          element: child
+          openClass: "history-menu-link"
+          activeClass: false
+        navView.toggleDropDown(params)
         App.navigate "history", trigger: true
 
         # @hideDropdowns child
