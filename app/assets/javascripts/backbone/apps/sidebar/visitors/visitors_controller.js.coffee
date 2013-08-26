@@ -99,13 +99,6 @@
 
       $.each @agents.models, (key, value) ->
         agents.set value if _.intersection(api_keys, value.get("api_keys")).length > 0
-          # console.log @agents.pluck("")
-          # $.each @agents.models, (key, value) ->
-
-          #   console.log keys
-
-
-        # agents = @agents
 
       agentsView = @getAgentsView(agents)
 
@@ -168,6 +161,7 @@
 
       if type is "unavailable"
         visitor = @visitors.findWhere {  jid: node }
+
         if visitor
           # remove visitor from list
           resources = visitor.get "resources"
@@ -176,13 +170,16 @@
           resources.splice(index, 1) if index > -1
 
           if resources.length is 0
+            App.navigate Routes.root_path(), trigger: true if Backbone.history.fragment.indexOf(visitor.get("token")) != -1
+
             @visitors.remove visitor
           else
             visitor.set { jid: node, resources: resources }
             @visitors.set visitor
 
-        else
+        else if typeof agent isnt "undefined"
           # remove agent from list
+          App.navigate Routes.root_path(), trigger: true if Backbone.history.fragment.indexOf(agent.get("token")) != -1
           @agents.remove agent
 
       else if !$(presence).find('offerchat').text() and typeof agent is "undefined"

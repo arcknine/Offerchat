@@ -105,7 +105,7 @@ Chats = {
     bosh_url = Offerchat.src.bosh_url;
     jid      = roster.jabber_user + Offerchat.src.server + "/" + Helpers.randomString();
     password = roster.jabber_password;
-    
+
     this.connection = new Strophe.Connection(bosh_url);
     this.connection.connect(jid, password, function(status) {
       if (status === Strophe.Status.CONNECTED) {
@@ -340,7 +340,7 @@ Chats = {
       // _this.disconnect();
     } else if (body.length > 0) {
       var a = Chats.agent;
-      if (!a) {
+      if (!a || a.jabber_user != agent) {
         var agents = Offerchat.website.agents;
         $.each(agents, function(key, value){
           if (agent == value.jabber_user) {
@@ -359,6 +359,14 @@ Chats = {
             });
 
             header.replace();
+
+            //create chat history conversation
+            $.ajax({
+              type: "GET",
+              url: Offerchat.src.history + "/chats/create/" + Offerchat.params.secret_token,
+              dataType: "jsonp",
+              data: {url: Offerchat.params.current_url, aid: Chats.agent.id, vname: Chats.visitor.name},
+            });
           }
         });
       }
@@ -404,9 +412,9 @@ Chats = {
       });
 
       chat.append();
-      $(".widget-chat-viewer").scrollTop($('.widget-chat-viewer')[0].scrollHeight);
     });
 
+    $(".widget-chat-viewer").animate({ scrollTop: $('.widget-chat-viewer')[0].scrollHeight}, 300);
     localStorage.setItem("ofc-messages", JSON.stringify(this.messages));
   },
 
@@ -455,6 +463,14 @@ Chats = {
           agent = value;
           agent.website_id = Offerchat.website.id;
           Offerchat.agent.insert(value);
+
+          //create chat history conversation
+          $.ajax({
+            type: "GET",
+            url: Offerchat.src.history + "/chats/create/" + Offerchat.params.secret_token,
+            dataType: "jsonp",
+            data: {url: Offerchat.params.current_url, aid: Chats.agent.id, vname: Chats.visitor.name},
+          });
         }
       });
 
@@ -488,7 +504,7 @@ Chats = {
     cur = this.messages.length;
     d   = new Date();
 
-    message = message.replace("/me chat-trigger: ", "");
+    message = message.replace("!trigger ", "");
 
     classTag = sender != "You" ? " agent-message" : "";
     if (cur !== 0 && this.messages[cur - 1].sender == sender) {
@@ -523,21 +539,24 @@ Chats = {
     });
 
     chat.append();
-    if(!this.has_conversation){
-      self = this;
-      $.ajax({
-        type: "post",
-        url: Offerchat.src.history + "/chats/create/" + Offerchat.params.secret_token,
-        dataType: "jsonp",
-        data: {url: Offerchat.params.current_url, aid: this.agent.id, vname: this.visitor.name},
-        success: function(data) {
-          self.has_conversation = true;
-        }
-      });
-    }
-
     $(".widget-chat-viewer").animate({ scrollTop: $('.widget-chat-viewer')[0].scrollHeight}, 300);
+
+
+    this.initChatHistory(sender, message);
     return msg;
+  },
+
+  initChatHistory: function(sender, message) {
+    var a_name = this.agent.name ? this.agent.name : this.agent.display_name;
+    var name   = sender == "You" ? this.visitor.name : a_name;
+
+    $.ajax({
+      type: "GET",
+      url: Offerchat.src.history + "/chats/" + Offerchat.params.secret_token,
+      dataType: "jsonp",
+      data: { sender: name, msg: message }
+    });
+
   },
 
   initTriggers: function() {
@@ -558,7 +577,7 @@ Chats = {
 
       if ( value.status == 1 ) {
         setTimeout(function(){
-          var message = "/me chat-trigger: ";
+          var message = "!trigger ";
           switch(value.rule_type) {
             case 1:
               if (!rule2 && !rule3 && _this.messages.length === 0) {

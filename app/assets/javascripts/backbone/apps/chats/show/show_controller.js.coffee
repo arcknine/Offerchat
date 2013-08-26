@@ -26,6 +26,7 @@
       @listenTo @messages, "add", (message) =>
         if message.get("token") is @token
           @currentMsgs.add message
+          $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500);
 
       @listenTo @layout, "show", =>
         @visitorInfoView()
@@ -57,6 +58,7 @@
         # else if option is "ban"
 
       @layout.chatsRegion.show chatsView
+      $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500);
 
     transferChat: =>
       # only get online agents

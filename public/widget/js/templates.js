@@ -58,8 +58,17 @@ Templates = {
         "click div.widget-head" : "toggleWidget",
       },
       toggleWidget: function() {
+        // console.log($(window).height());
         $.postMessage({slide: true}, _this.params.current_url, parent);
         $(".tooltip-options").removeClass("open");
+        // console.log($(".widget-input-text").is(":focus"));
+        // $(".widget-input-text").focus();
+
+        // setTimeout(function(){
+        //   $(".widget-input-text").focus();
+        // }, 2000);
+
+        return false;
       }
     });
 
