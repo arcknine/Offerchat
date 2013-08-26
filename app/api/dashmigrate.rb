@@ -21,7 +21,7 @@ module Dashmigrate
               password                   = Devise.friendly_token[0,8]
               user.password              = password
               user.password_confirmation = password
-              temp_name                  = "#{owner['firstname']} #{owner['lastname']}" 
+              temp_name                  = "#{owner['firstname']} #{owner['lastname']}"
               user.name                  = (temp_name.to_s.length>3) ? temp_name : owner['email']
 
               user.reset_password_token  = User.reset_password_token
