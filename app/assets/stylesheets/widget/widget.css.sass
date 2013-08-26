@@ -128,7 +128,7 @@ table
     .widget-unlock-tooltip
       opacity: 1
       visibility: visible
-      
+
   .widget-box
     a
       cursor: default
@@ -138,16 +138,18 @@ table
   &.no-branding
     height: 401px
     bottom: -25px
+    .widget-footer
+      display: none
     .widget-unlock-tooltip
       bottom: 6px
-    
+
 .widget-unlock-tooltip
   -webkit-transition: all .2s
   -moz-transition: all .2s
   -ms-transition: all .2s
   -o-transition: all .2s
   transition: all .2s
-  
+
   visibility: hidden
   opacity: 0
   font-size: 12px
@@ -300,7 +302,7 @@ body .widget-box, .widget-box
     top: -5px
 .message-item
   padding: 5px 10px
-
+  word-wrap: break-word
   color: #000
   .message-author
 
@@ -742,12 +744,18 @@ a.chat-settings
     .widget-head
       @include themePaletteHead($gray93,#343434)
       border: 1px solid #e5e5e5
+      border-bottom: none
+      box-sizing: border-box
+      -moz-box-sizing: border-box
       &.widget-gradient
         @include themePaletteGradient($gray93)
   &.theme-white
     .widget-head
       @include themePaletteHead($white,#343434)
       border: 1px solid #e5e5e5
+      border-bottom: none
+      box-sizing: border-box
+      -moz-box-sizing: border-box
 
   &.theme-brightgray
     .widget-head
