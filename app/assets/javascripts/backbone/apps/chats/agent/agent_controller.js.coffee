@@ -54,15 +54,25 @@
         visitor = visitorList.findWhere token: vtoken
         visitor.set('active', 'active')
 
+        # send stanza to accept
+        agent_jid = "#{@token}@#{gon.chat_info.server_name}"
+        msg = $msg({to: agent_jid, type: "chat"}).c('transfer').c('accepted').t('true').up().c('vjid').t(vtoken)
+        @connectionSend msg, agent_jid
+
       @listenTo chatsView, "childview:chat:transfer:decline", (msg) =>
         @respondTransfer msg.model, 'declined'
+
+        # send stanza to decline
+        vtoken = msg.model.get('trn_vtoken')
+        agent_jid = "#{@token}@#{gon.chat_info.server_name}"
+        msg = $msg({to: agent_jid, type: "chat"}).c('transfer').c('accepted').t('false').up().c('vjid').t(vtoken)
+        @connectionSend msg, agent_jid
 
       @layout.chatsRegion.show chatsView
 
     respondTransfer: (model, response) ->
       update_obj =
         trn_responded: true
-        trn_status: response
 
       if response is 'accepted' then update_obj.trn_accepted = true
 

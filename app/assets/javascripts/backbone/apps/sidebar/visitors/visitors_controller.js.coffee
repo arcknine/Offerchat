@@ -215,6 +215,7 @@
       node    = Strophe.getNodeFromJid from
       body    = $(message).find("body").text()
       agent   = @agents.findWhere jid: node
+      transfer  = $(message).find("transfer")
 
       if body and typeof agent is "undefined"
         messages = App.request "messeges:entities"
@@ -244,15 +245,18 @@
           @visitors.findWhere({token: token}).addUnread()
           @visitors.sort()
 
-      else if agent and body
-        token    = agent.get("token")
-        messages = App.request "messeges:entities"
-        info     = agent.get("info")
-        name     = (if info.name then info.name else info.display_name)
+      else if agent# and body
 
-        messages.add(@agentMsgs.where token: token)
+        if body or transfer.length
 
-        agent_msg =
+          token    = agent.get("token")
+          messages = App.request "messeges:entities"
+          info     = agent.get("info")
+          name     = (if info.name then info.name else info.display_name)
+
+          messages.add(@agentMsgs.where token: token)
+
+          agent_msg =
             token:      token
             name:       name
             sender:     "visitor"
@@ -261,25 +265,41 @@
             viewing:    false
             timesimple: moment().format('hh:mma')
 
-        transfer = $(message).find('transfer')
+          if transfer.length
+            accepted = $(transfer).find('accepted')
 
-        if transfer.length
-          reason = $(message).find('reason').text()
-          visitor_token = $(transfer).attr('token')
-          visitor_name = transfer.text()
+            if accepted.length
+              vtoken = $(transfer).find('vjid').text()
+              msg = @agentMsgs.findWhere({token: token, trn_vtoken: vtoken})
 
-          agent_msg.transfer = true
-          agent_msg.trn_reason = reason
-          agent_msg.trn_vname = visitor_name
-          agent_msg.trn_vtoken = visitor_token
-          agent_msg.trn_responded = false
-          agent_msg.trn_accepted = false
+              res =
+                trn_responded: true
 
-        if messages.last() and messages.last().get("name") is name
-          agent_msg.child      = true
-          agent_msg.childClass = "child"
+              if accepted.text() is "true" then res.trn_accepted = true
+              else res.trn_accepted = false
 
-        @agentMsgs.add agent_msg
+              agent_msg = ""
+
+              msg.set res
+
+            else
+              reason        = $(transfer).find('reason').text()
+              visitor_token = $(transfer).find('vtoken').text()
+              visitor_name  = $(transfer).find('vjid').text()
+
+              agent_msg.transfer      = true
+              agent_msg.trn_reason    = reason
+              agent_msg.trn_vname     = visitor_name
+              agent_msg.trn_vtoken    = visitor_token
+              agent_msg.trn_responded = false
+              agent_msg.trn_accepted  = false
+
+          if messages.last() and messages.last().get("name") is name
+            agent_msg.child      = true
+            agent_msg.childClass = "child"
+
+
+          if agent_msg then @agentMsgs.add agent_msg
 
       true
 

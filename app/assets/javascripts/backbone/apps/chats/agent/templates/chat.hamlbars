@@ -10,8 +10,24 @@
 
     {{#if trn_accepted}}
 
+    {{#if trn_owned}}
+
+    .chat-transfer-message
+      {{name}} has accepted your request
+
+    {{else}}
+
     .chat-transfer-message
       You have accepted {{name}}'s chat transfer request
+
+    {{/if}}
+
+    {{else}}
+
+    {{#if trn_owned}}
+
+    .chat-transfer-message
+      {{name}} declined your request
 
     {{else}}
 
@@ -21,6 +37,16 @@
     .sub-text Declined chat transfer
 
     {{/if}}
+
+    {{/if}}
+
+    {{else}}
+
+    {{#if trn_owned}}
+
+    .chat-transfer-message
+      Waiting for {{name}} to accept transfer
+    .sub-text {{trn_reason}}
 
     {{else}}
 
@@ -34,6 +60,8 @@
         Decline
     .sub-text
       {{trn_reason}}
+
+    {{/if}}
 
     {{/if}}
 
