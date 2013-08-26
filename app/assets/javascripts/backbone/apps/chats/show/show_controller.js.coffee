@@ -54,7 +54,8 @@
 
         if option is "transfer"
           @transferChat()
-        # else if option is "export"
+        else if option is "export"
+          window.location = Routes.root_path()+"transcript/"+@token
         # else if option is "ban"
 
       @layout.chatsRegion.show chatsView
