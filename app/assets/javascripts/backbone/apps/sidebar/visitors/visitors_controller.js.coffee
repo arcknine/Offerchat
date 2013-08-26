@@ -267,10 +267,11 @@
 
           if transfer.length
             accepted = $(transfer).find('accepted')
+            transfer_id   = $(transfer).attr('id')
 
             if accepted.length
               vtoken = $(transfer).find('vjid').text()
-              msg = @agentMsgs.findWhere({token: token, trn_vtoken: vtoken})
+              msg = @agentMsgs.findWhere({token: token, trn_id: transfer_id})
 
               res =
                 trn_responded: true
@@ -293,6 +294,7 @@
               agent_msg.trn_vtoken    = visitor_token
               agent_msg.trn_responded = false
               agent_msg.trn_accepted  = false
+              agent_msg.trn_id        = transfer_id
 
           if messages.last() and messages.last().get("name") is name
             agent_msg.child      = true

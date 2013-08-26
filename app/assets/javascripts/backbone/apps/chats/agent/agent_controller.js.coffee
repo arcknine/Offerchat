@@ -56,7 +56,7 @@
 
         # send stanza to accept
         agent_jid = "#{@token}@#{gon.chat_info.server_name}"
-        msg = $msg({to: agent_jid, type: "chat"}).c('transfer').c('accepted').t('true').up().c('vjid').t(vtoken)
+        msg = $msg({to: agent_jid, type: "chat"}).c('transfer', {id: msg.model.get('trn_id')}).c('accepted').t('true').up().c('vjid').t(vtoken)
         @connectionSend msg, agent_jid
 
       @listenTo chatsView, "childview:chat:transfer:decline", (msg) =>
@@ -65,7 +65,7 @@
         # send stanza to decline
         vtoken = msg.model.get('trn_vtoken')
         agent_jid = "#{@token}@#{gon.chat_info.server_name}"
-        msg = $msg({to: agent_jid, type: "chat"}).c('transfer').c('accepted').t('false').up().c('vjid').t(vtoken)
+        msg = $msg({to: agent_jid, type: "chat"}).c('transfer', {id: msg.model.get('trn_id')}).c('accepted').t('false').up().c('vjid').t(vtoken)
         @connectionSend msg, agent_jid
 
       @layout.chatsRegion.show chatsView

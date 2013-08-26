@@ -92,6 +92,8 @@
               agent_jid = agent_elem.data("jid") # get agent jid
               agent_name = agent_elem.text()
 
+              transfer_id = "#{Number(new Date())}"
+
               currentMsg =
                 token:      "#{agent_jid}"
                 sender:     "agent"
@@ -101,6 +103,7 @@
                 timesimple: moment().format('hh:mma')
 
                 transfer:   true
+                trn_id:     transfer_id
                 trn_owned:  true
                 trn_reason: reason.val()
                 trn_responded: false
@@ -111,7 +114,7 @@
 
               agent_jid = "#{agent_jid}@#{gon.chat_info.server_name}"
               visitor_jid = @visitor.get("jid")
-              msg = $msg({to: agent_jid, type: "chat"}).c('transfer').c('reason').t(reason.val()).up().c('vjid').t(visitor_jid).up().c('vtoken').t(@visitor.get("token"))  # create xmpp msg
+              msg = $msg({to: agent_jid, type: "chat"}).c('transfer',{id: transfer_id}).c('reason').t(reason.val()).up().c('vjid').t(visitor_jid).up().c('vtoken').t(@visitor.get("token"))  # create xmpp msg
               @connectionSend msg, agent_jid
 
               formView.close()
