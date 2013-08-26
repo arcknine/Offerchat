@@ -148,6 +148,13 @@
                 .icon-check
               Gradient
 
+{{#unless paid}}
+.block-message.small
+  %strong Tip:
+  You can remove the Offerchat footer by
+  %a.upgrade-tip upgrading your free plan
+{{/unless}}
+
 .column-footer-actions.bordered
   .block.large
     %button.btn.action{ :type => "submit" }
