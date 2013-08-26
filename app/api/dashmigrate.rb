@@ -11,21 +11,25 @@ module Dashmigrate
 
     resource :user do
 
-        get do
-            old_data = params[:user]
-            if old_data
-              data   = JSON old_data
+        post do
+            old_data = params[:data]
+            unless old_data.blank?
+              data   = ActiveSupport::JSON.decode old_data
               owner  = data['owner']
               websites = data['websites']
               user = User.new()
               password                   = Devise.friendly_token[0,8]
               user.password              = password
               user.password_confirmation = password
-              user.name                  = "#{owner['firstname']} #{owner['lastname']}"
+              temp_name                  = "#{owner['firstname']} #{owner['lastname']}" 
+              user.name                  = (temp_name.to_s.length>3) ? temp_name : owner['email']
+
               user.reset_password_token  = User.reset_password_token
               user.plan_identifier       = "PERSONAL"
               user.email                 = owner['email']
               user.display_name          = owner['display_name'] || "Support"
+              user.reset_password_sent_at = DateTime.now
+
 
               if user.save
                 #send email
