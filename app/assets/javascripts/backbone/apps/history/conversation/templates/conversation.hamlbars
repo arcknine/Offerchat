@@ -26,4 +26,4 @@
       {{msg}}
 .td-container.td-small
   .td-content
-    %i.icon.icon-thumbs-up-green
+    //%i.icon.icon-thumbs-up-green

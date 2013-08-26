@@ -59,6 +59,7 @@
         collection: collection
       @listenTo filters, "childview:agent:filter:selected", (item)->
         App.execute "converstations:fetch", [item.model.get("id")]
+        filters.closeDropDown()
 
       filters
     

@@ -2,6 +2,6 @@
 .table-data-wrapper.history-table-wrapper
   .table-data
     #history-filter-region
-  .table-history-viewer
-    #history-conversation-region
+    .table-history-viewer
+      #history-conversation-region
     

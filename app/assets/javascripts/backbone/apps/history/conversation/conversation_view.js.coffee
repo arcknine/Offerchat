@@ -57,8 +57,12 @@
     appendHtml: (collectionView, itemView)->
       collectionView.$(".table-row-wrapper").append(itemView.el)
     
+  class Conversations.EmptyView extends App.Views.ItemView
+    template: "history/conversation/empty"
+    
   class Conversations.Groups extends App.Views.CollectionView
     template: "history/conversation/groups"
     itemView: Conversations.GroupItem
+    emptyView: Conversations.EmptyView
     className: "table-history-viewer-content"
     id: "historyTableViewer"
