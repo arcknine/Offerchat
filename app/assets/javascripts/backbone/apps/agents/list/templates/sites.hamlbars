@@ -1,4 +1,4 @@
-%li.list-head.small{ :style => "text-align: right" }
+%li.list-head.small.align-right
   Agent
   .checklist-admin
     Admin
