@@ -39,7 +39,6 @@
     serializeData: ->
       height: @options.model.toJSON()
 
-
     isTyping: (ev) ->
       @trigger "is:typing", ev
 
