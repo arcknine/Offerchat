@@ -41,7 +41,43 @@
       chatsView = @getChats()
       @listenTo chatsView, "agent:is:typing", @sendChat
 
+      @listenTo chatsView, "childview:chat:transfer:accept", (msg) =>
+        @respondTransfer msg.model, 'accepted'
+
+        vtoken = msg.model.get('trn_vtoken')
+        App.navigate "chats/visitor/#{vtoken}", trigger: true   # navigate to visitor chat
+
+        App.request "set:no:active:agent:chat"
+        App.request "set:no:active:visitor:chat"
+
+        visitorList = App.request "get:chats:visitors"
+        visitor = visitorList.findWhere token: vtoken
+        visitor.set('active', 'active')
+
+        # send stanza to accept
+        agent_jid = "#{@token}@#{gon.chat_info.server_name}"
+        msg = $msg({to: agent_jid, type: "chat"}).c('transfer', {id: msg.model.get('trn_id')}).c('accepted').t('true').up().c('vjid').t(vtoken)
+        @connectionSend msg, agent_jid
+
+      @listenTo chatsView, "childview:chat:transfer:decline", (msg) =>
+        @respondTransfer msg.model, 'declined'
+
+        # send stanza to decline
+        vtoken = msg.model.get('trn_vtoken')
+        agent_jid = "#{@token}@#{gon.chat_info.server_name}"
+        msg = $msg({to: agent_jid, type: "chat"}).c('transfer', {id: msg.model.get('trn_id')}).c('accepted').t('false').up().c('vjid').t(vtoken)
+        @connectionSend msg, agent_jid
+
       @layout.chatsRegion.show chatsView
+
+    respondTransfer: (model, response) ->
+      update_obj =
+        trn_responded: true
+
+      if response is 'accepted' then update_obj.trn_accepted = true
+
+      model.set(update_obj)
+      true
 
     sendChat: (ev) =>
       message = $(ev.currentTarget).val()
