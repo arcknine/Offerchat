@@ -552,7 +552,6 @@ Chats = {
         }
       });
     }
-
     $(".widget-chat-viewer").animate({ scrollTop: $('.widget-chat-viewer')[0].scrollHeight}, 300);
 
     this.initChatHistory(sender, message);
