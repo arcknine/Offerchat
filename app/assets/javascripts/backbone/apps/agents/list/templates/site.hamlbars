@@ -1,11 +1,14 @@
-.checklist-admin
-  %label.inline.checkbox.red.admin{class: '{{adminchecked}}', :for => 'admincheckbox{{id}}', data: {for: "admin", id: '{{id}}'}}
+%strong
+  {{name}}
+%span.url-desc
+  {{url}}
+.go-right.site-checkbox-list
+  %label.checkbox.agent{class: '{{agentchecked}}', :for => 'websitecheckbox{{id}}', data: {for: "website", id: '{{id}}'} }
     %span.icon
-      .icon-check.admin
-%label.inline.checkbox.agent{class: '{{agentchecked}}', :for => 'websitecheckbox{{id}}', data: {for: "website", id: '{{id}}'} }
-  %span.icon
-    .icon-check.website
-  %strong
-    {{name}}
-  %span.url-desc
-    {{url}}
+      .icon-check.website
+
+  .checklist-admin
+    %label.checkbox.red.admin.inline{class: '{{adminchecked}}', :for => 'admincheckbox{{id}}', data: {for: "admin", id: '{{id}}'}}
+      %span.icon
+        .icon-check.admin
+
