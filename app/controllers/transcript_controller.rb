@@ -5,7 +5,7 @@ class TranscriptController < ApplicationController
   def show
     token = params[:id]
 
-    url = "#{ENV["CHAT_HISTORY_URL"]}chats/#{token}.json"
+    url = "#{ENV["CHAT_HISTORY_URL"]}chats/#{token}"
 
     response = open(url).read
     objArray = JSON.parse(response)
