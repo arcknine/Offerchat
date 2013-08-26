@@ -102,7 +102,6 @@ Chats = {
 
     _this    = this;
     roster   = this.roster;
-    console.log(Offerchat.src.history);
     bosh_url = Offerchat.src.bosh_url;
     jid      = roster.jabber_user + Offerchat.src.server + "/" + Helpers.randomString();
     password = roster.jabber_password;
