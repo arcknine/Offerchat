@@ -5,6 +5,7 @@ class HomeController < ApplicationController
     @user         = current_user
     gon.chat_info = { :bosh_url => ENV["CHAT_BOSH_URL"], :server_name => ENV["CHAT_SERVER_NAME"] }
     gon.current_user = current_user
-    # gon.rabl "app/views/users/show.rabl", as: "current_user"
+
+    redirect_to "/rails_admin" if current_admin
   end
 end

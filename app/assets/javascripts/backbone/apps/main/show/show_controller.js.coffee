@@ -8,7 +8,7 @@
       App.mainRegion.show mainView
 
       App.reqres.setHandler "new:site:created", =>
-        @showNotification("Your changes have been saved")
+        @showNotification("Your website has been added successfully!")
 
     getMainView: ->
       new Show.Main

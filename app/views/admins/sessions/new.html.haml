@@ -1,0 +1,23 @@
+.login-wrapper{ :style => "margin: 40px auto 0 auto; position:relative; left: 0;" }
+  .logo-large.centered
+
+  .login-form.form
+    %h2
+      Sign in to the Admin Panel
+    - flash.each do |key, value|
+      %div{:style => "color: #e13d3d"}= value
+    = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      %fieldset
+        %label
+          Email
+        .input-container
+          = f.email_field :email, :type => "text", :autofocus => true
+      %fieldset
+        %label
+          Password
+        .input-container
+          = f.password_field :password
+
+      %fieldset
+        %button.btn.action{:type => "submit"}
+          Login

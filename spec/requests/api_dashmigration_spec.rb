@@ -29,10 +29,10 @@ describe Dashmigrate::API do
     }
   end
 
-  describe "GET users data" do
+  describe "POST users data" do
     it "returns a json token" do
-      get "/api/v1/migration/user"
-      response.status.should == 200
+      post "/api/v1/migration/user"
+      response.status.should == 201
     end
   end
 end

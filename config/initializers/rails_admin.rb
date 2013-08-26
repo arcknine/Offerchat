@@ -1,23 +1,14 @@
-# RailsAdmin config file. Generated on August 19, 2013 14:37
-# See github.com/sferik/rails_admin for more informations
-
 RailsAdmin.config do |config|
-
-
-  ################  Global configuration  ################
-
-  # Set the admin name here (optional second array element will appear in red). For example:
-  config.main_app_name = ['Dashboard', 'Admin']
+  config.main_app_name = ['Admin']
   # or for a more dynamic name:
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
 
   # RailsAdmin may need a way to know who the current user is]
-  config.current_user_method { current_user } # auto-generated
-
+  config.current_user_method { current_admin } # auto-generated
 
   config.authenticate_with {} # leave it to authorize
   config.authorize_with do
-    redirect_to "/" unless current_user.email.include?("@offerchat.com")
+    redirect_to main_app.new_admin_session_path unless current_admin
   end
 
   # If you want to track changes on your models:
@@ -47,6 +38,7 @@ RailsAdmin.config do |config|
   # Each model configuration can alternatively:
   #   - stay here in a `config.model 'ModelName' do ... end` block
   #   - go in the model definition file in a `rails_admin do ... end` block
+  config.model 'Admin'
 
   # This is your choice to make:
   #   - This initializer is loaded once at startup (modifications will show up when restarting the application) but all RailsAdmin configuration would stay in one place.
@@ -66,19 +58,19 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :user, :belongs_to_association 
-  #     configure :website, :belongs_to_association 
-  #     configure :owner, :belongs_to_association 
+  #     configure :user, :belongs_to_association
+  #     configure :website, :belongs_to_association
+  #     configure :owner, :belongs_to_association
 
   #   # Found columns:
 
-  #     configure :id, :integer 
-  #     configure :user_id, :integer         # Hidden 
-  #     configure :website_id, :integer         # Hidden 
-  #     configure :role, :integer 
-  #     configure :created_at, :datetime 
-  #     configure :updated_at, :datetime 
-  #     configure :owner_id, :integer         # Hidden 
+  #     configure :id, :integer
+  #     configure :user_id, :integer         # Hidden
+  #     configure :website_id, :integer         # Hidden
+  #     configure :role, :integer
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime
+  #     configure :owner_id, :integer         # Hidden
 
   #   # Cross-section configuration:
 
@@ -114,16 +106,16 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :visitor, :belongs_to_association 
-  #     configure :roster, :belongs_to_association 
+  #     configure :visitor, :belongs_to_association
+  #     configure :roster, :belongs_to_association
 
   #   # Found columns:
 
-  #     configure :id, :integer 
-  #     configure :visitor_id, :integer         # Hidden 
-  #     configure :roster_id, :integer         # Hidden 
-  #     configure :created_at, :datetime 
-  #     configure :updated_at, :datetime 
+  #     configure :id, :integer
+  #     configure :visitor_id, :integer         # Hidden
+  #     configure :roster_id, :integer         # Hidden
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime
 
   #   # Cross-section configuration:
 
@@ -159,19 +151,19 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :users, :has_many_association 
+  #     configure :users, :has_many_association
 
   #   # Found columns:
 
-  #     configure :id, :integer 
-  #     configure :name, :string 
-  #     configure :description, :string 
-  #     configure :price, :float 
-  #     configure :max_agent_seats, :integer 
-  #     configure :created_at, :datetime 
-  #     configure :updated_at, :datetime 
-  #     configure :features, :serialized 
-  #     configure :plan_identifier, :string 
+  #     configure :id, :integer
+  #     configure :name, :string
+  #     configure :description, :string
+  #     configure :price, :float
+  #     configure :max_agent_seats, :integer
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime
+  #     configure :features, :serialized
+  #     configure :plan_identifier, :string
 
   #   # Cross-section configuration:
 
@@ -207,18 +199,18 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :website, :belongs_to_association 
-  #     configure :chat_sessions, :has_many_association 
+  #     configure :website, :belongs_to_association
+  #     configure :chat_sessions, :has_many_association
 
   #   # Found columns:
 
-  #     configure :id, :integer 
-  #     configure :website_id, :integer         # Hidden 
-  #     configure :jabber_user, :string 
-  #     configure :jabber_password, :string 
-  #     configure :created_at, :datetime 
-  #     configure :updated_at, :datetime 
-  #     configure :last_used, :datetime 
+  #     configure :id, :integer
+  #     configure :website_id, :integer         # Hidden
+  #     configure :jabber_user, :string
+  #     configure :jabber_password, :string
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime
+  #     configure :last_used, :datetime
 
   #   # Cross-section configuration:
 
@@ -258,15 +250,15 @@ RailsAdmin.config do |config|
 
   #   # Found columns:
 
-  #     configure :id, :integer 
-  #     configure :response, :text 
-  #     configure :created_at, :datetime 
-  #     configure :updated_at, :datetime 
-  #     configure :event_id, :string 
-  #     configure :created, :string 
-  #     configure :livemode, :boolean 
-  #     configure :data, :text 
-  #     configure :previous_attributes, :text 
+  #     configure :id, :integer
+  #     configure :response, :text
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime
+  #     configure :event_id, :string
+  #     configure :created, :string
+  #     configure :livemode, :boolean
+  #     configure :data, :text
+  #     configure :previous_attributes, :text
 
   #   # Cross-section configuration:
 
@@ -302,18 +294,18 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :website, :belongs_to_association 
+  #     configure :website, :belongs_to_association
 
   #   # Found columns:
 
-  #     configure :id, :integer 
-  #     configure :website_id, :integer         # Hidden 
-  #     configure :message, :string 
-  #     configure :rule_type, :integer 
-  #     configure :status, :integer 
-  #     configure :created_at, :datetime 
-  #     configure :updated_at, :datetime 
-  #     configure :params, :serialized 
+  #     configure :id, :integer
+  #     configure :website_id, :integer         # Hidden
+  #     configure :message, :string
+  #     configure :rule_type, :integer
+  #     configure :status, :integer
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime
+  #     configure :params, :serialized
 
   #   # Cross-section configuration:
 
@@ -349,41 +341,41 @@ RailsAdmin.config do |config|
 
     # Found associations:
 
-      configure :plan, :belongs_to_association 
-      configure :accounts, :has_many_association 
-      configure :websites, :has_many_association 
-      configure :agent_accounts, :has_many_association 
+      configure :plan, :belongs_to_association
+      configure :accounts, :has_many_association
+      configure :websites, :has_many_association
+      configure :agent_accounts, :has_many_association
 
     # Found columns:
 
-      configure :id, :integer 
-      configure :email, :string 
-      # configure :password, :password         # Hidden 
-      # configure :password_confirmation, :password         # Hidden 
-      # configure :reset_password_token, :string         # Hidden 
-      configure :reset_password_sent_at, :datetime 
-      configure :remember_created_at, :datetime 
-      configure :sign_in_count, :integer 
-      configure :current_sign_in_at, :datetime 
-      configure :last_sign_in_at, :datetime 
-      configure :current_sign_in_ip, :string 
-      configure :last_sign_in_ip, :string 
-      configure :created_at, :datetime 
-      configure :updated_at, :datetime 
-      configure :name, :string 
-      configure :display_name, :string 
-      configure :avatar, :string 
-      configure :jabber_user, :string 
-      configure :jabber_password, :string 
-      configure :plan_id, :integer 
-      configure :plan_identifier, :string         # Hidden 
-      # configure :avatar_file_name, :string         # Hidden 
-      # configure :avatar_content_type, :string         # Hidden 
-      # configure :avatar_file_size, :integer         # Hidden 
-      # configure :avatar_updated_at, :datetime         # Hidden 
-      configure :avatar, :paperclip 
-      configure :billing_start_date, :date 
-      configure :stripe_customer_token, :string 
+      configure :id, :integer
+      configure :email, :string
+      # configure :password, :password         # Hidden
+      # configure :password_confirmation, :password         # Hidden
+      # configure :reset_password_token, :string         # Hidden
+      configure :reset_password_sent_at, :datetime
+      configure :remember_created_at, :datetime
+      configure :sign_in_count, :integer
+      configure :current_sign_in_at, :datetime
+      configure :last_sign_in_at, :datetime
+      configure :current_sign_in_ip, :string
+      configure :last_sign_in_ip, :string
+      configure :created_at, :datetime
+      configure :updated_at, :datetime
+      configure :name, :string
+      configure :display_name, :string
+      configure :avatar, :string
+      configure :jabber_user, :string
+      configure :jabber_password, :string
+      configure :plan_id, :integer
+      configure :plan_identifier, :string         # Hidden
+      # configure :avatar_file_name, :string         # Hidden
+      # configure :avatar_content_type, :string         # Hidden
+      # configure :avatar_file_size, :integer         # Hidden
+      # configure :avatar_updated_at, :datetime         # Hidden
+      configure :avatar, :paperclip
+      configure :billing_start_date, :date
+      configure :stripe_customer_token, :string
       configure :my_agents_emails, :string
 
     # Cross-section configuration:
@@ -420,23 +412,23 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :website, :belongs_to_association 
-  #     configure :chat_sessions, :has_many_association 
+  #     configure :website, :belongs_to_association
+  #     configure :chat_sessions, :has_many_association
 
   #   # Found columns:
 
-  #     configure :id, :integer 
-  #     configure :token, :string 
-  #     configure :website_id, :integer         # Hidden 
-  #     configure :created_at, :datetime 
-  #     configure :updated_at, :datetime 
-  #     configure :location, :string 
-  #     configure :ipaddress, :string 
-  #     configure :browser, :string 
-  #     configure :email, :string 
-  #     configure :name, :string 
-  #     configure :country_code, :string 
-  #     configure :operating_system, :string 
+  #     configure :id, :integer
+  #     configure :token, :string
+  #     configure :website_id, :integer         # Hidden
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime
+  #     configure :location, :string
+  #     configure :ipaddress, :string
+  #     configure :browser, :string
+  #     configure :email, :string
+  #     configure :name, :string
+  #     configure :country_code, :string
+  #     configure :operating_system, :string
 
   #   # Cross-section configuration:
 
@@ -477,22 +469,22 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :owner, :belongs_to_association 
-  #     configure :accounts, :has_many_association 
-  #     configure :rosters, :has_many_association 
-  #     configure :triggers, :has_many_association 
-  #     configure :visitors, :has_many_association 
-  #     configure :setting_objects, :has_many_association 
+  #     configure :owner, :belongs_to_association
+  #     configure :accounts, :has_many_association
+  #     configure :rosters, :has_many_association
+  #     configure :triggers, :has_many_association
+  #     configure :visitors, :has_many_association
+  #     configure :setting_objects, :has_many_association
 
   #   # Found columns:
 
-  #     configure :id, :integer 
-  #     configure :url, :string 
-  #     configure :name, :string 
-  #     configure :api_key, :string 
-  #     configure :owner_id, :integer         # Hidden 
-  #     configure :created_at, :datetime 
-  #     configure :updated_at, :datetime 
+  #     configure :id, :integer
+  #     configure :url, :string
+  #     configure :name, :string
+  #     configure :api_key, :string
+  #     configure :owner_id, :integer         # Hidden
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime
 
   #   # Cross-section configuration:
 
@@ -528,17 +520,17 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :target, :polymorphic_association 
+  #     configure :target, :polymorphic_association
 
   #   # Found columns:
 
-  #     configure :id, :integer 
-  #     configure :var, :string 
-  #     configure :value, :serialized 
-  #     configure :target_id, :integer         # Hidden 
-  #     configure :target_type, :string         # Hidden 
-  #     configure :created_at, :datetime 
-  #     configure :updated_at, :datetime 
+  #     configure :id, :integer
+  #     configure :var, :string
+  #     configure :value, :serialized
+  #     configure :target_id, :integer         # Hidden
+  #     configure :target_type, :string         # Hidden
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime
 
   #   # Cross-section configuration:
 
