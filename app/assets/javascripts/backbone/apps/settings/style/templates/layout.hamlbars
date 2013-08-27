@@ -39,7 +39,7 @@
               .message
                 .message-date
                   8:00am
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, eligendi temporibus sint amet.
+                Hello! Thanks for dropping by. Anything I can help you with?
             .message-item
               .group
                 .message-author
@@ -47,7 +47,7 @@
               .message
                 .message-date
                   8:03am
-                yes, can you help me?
+                Yes, do you offer free shipping?
 
           .widget-input
             %i.widget.icon.icon-chat

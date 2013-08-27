@@ -5,7 +5,7 @@
 .tour-content-inner
   .block
     %h2
-      Install javascript code
+      Install widget code
     %p
       Copy and paste the code right before the closing head
       %strong
@@ -41,5 +41,5 @@
       %a.webmaster-code
         Send this code to your webmaster
     %p
-      %a.install-guide{ :href => "https://www.offerchat.com/blog/category/install-guides/", :target => "blank" }
+      %a.install-guide{ :href => "http://support.offerchat.com/getting-started-with-offerchat-live-chat-widget/", :target => "blank" }
         Offerchat Install Guide

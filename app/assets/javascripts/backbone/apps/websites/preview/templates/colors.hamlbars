@@ -10,8 +10,8 @@
 .control-body
   #controlColorContent
     %h2
-      Pick your color
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi, deserunt distinction
+      Pick your widget color
+    Select which color you want the widget to appear. Grab attention by picking a color that matches your website theme yet stands out from the reset
     .widget-color-selector.group
       %a.maroon
       %a.cadmiumreddeep.active

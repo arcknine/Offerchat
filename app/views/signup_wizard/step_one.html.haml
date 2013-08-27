@@ -10,7 +10,7 @@
         .form.form-inline
           %fieldset{:class => (flash[:alert] ? "field-error" : "")}
             %label.label-top-fix
-              Email name
+              Email
             .input-container
               = f.email_field :email, :type => "text", :autofocus => true, :class => "large"
               %button.btn.action{:type => "submit"} Continue
