@@ -1,0 +1,29 @@
+.td-container.td-small
+  .td-content
+    %label.checkbox#checkboxGradient{ :for => 'checkbox1' }
+      %span.icon
+        .icon-check
+.td-container.td-visitor
+  .td-content
+    {{vname}}
+.td-container.td-agent
+  .td-content
+    {{agent}}
+.td-container.td-time
+  .td-content
+    {{momentary}}
+    //1
+    //%small.time-currency
+    //  min
+    //22
+    //%small.time-currency
+    //  secs
+.td-container.td-message
+  .td-content
+    .td-content-message
+      .msg-count
+        {{len}}
+      {{msg}}
+.td-container.td-small
+  .td-content
+    //%i.icon.icon-thumbs-up-green

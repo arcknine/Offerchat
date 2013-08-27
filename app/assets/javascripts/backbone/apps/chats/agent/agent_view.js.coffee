@@ -16,6 +16,10 @@
   class Agent.Chat extends App.Views.ItemView
     template:  "chats/agent/chat"
 
+    triggers:
+      "click .chat-transfer-actions a.success"  : "chat:transfer:accept"
+      "click .chat-transfer-actions a.warning"  : "chat:transfer:decline"
+
   class Agent.Chats extends App.Views.CompositeView
     template:  "chats/agent/chats"
     className: "chat-pane-container"

@@ -2,7 +2,7 @@
   %a.btn.action.go-right#new-website New website
   %h2 Websites
   
-  Manage your websites
+  All your websites with the Offerchat widget
 
 .block-message{ :style => "display:none;" }
   %a.close

@@ -26,12 +26,17 @@ class User < ActiveRecord::Base
       :secret_access_key => 'Le5ayiN5wOgkrLeWhcOcXSDfgmyTjGGmX4oXNPw/'
     },
     :styles => { :small => "55x55>", :thumb => "40x40>" },
-    :default_url => 'http://s3.amazonaws.com/offerchat/users/avatars/avatar.jpg'
+    :default_style => :small,
+    :default_url => :generate_random_avatar
 
   validates_attachment_content_type :avatar, :content_type => [ "image/jpg", "image/jpeg", "image/png" ], :message => "Only image files are allowed."
   validates_attachment_size :avatar, :less_than => 1.megabytes, :unless=> Proc.new { |image| image.avatar.nil? }
   #validates_attachment_content_type
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
+
+  def generate_random_avatar
+    "https://s3.amazonaws.com/offerchat/users/avatars/avatar#{Random.rand(1..5)}.jpg"
+  end
 
   def group(owner_id)
     owner = User.find(owner_id)

@@ -17,4 +17,4 @@
 %fieldset
   %label.label-top-fix API Key
   .input-container
-    %input.large.apikey{ :name => "api_key", :type => "text", :value => "{{api_key}}"}
+    %input.large.apikey{ :name => "api_key", :readonly => "" , :type => "text", :value => "{{api_key}}"}

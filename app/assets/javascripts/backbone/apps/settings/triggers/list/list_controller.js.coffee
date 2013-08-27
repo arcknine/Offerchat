@@ -15,6 +15,9 @@
       @listenTo @triggers, "all", (ev) =>
         @showEmptyView @triggers
 
+      App.commands.setHandler "show:trigger:items", ->
+        $(".trigger-item").show()
+
       @listenTo @layout, "add:trigger:clicked", (e) ->
         trigger = App.request "new:trigger"
         formView = @getFormView trigger, options.currentSite.get("id")

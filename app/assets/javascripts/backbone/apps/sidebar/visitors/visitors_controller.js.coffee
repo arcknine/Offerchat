@@ -99,13 +99,6 @@
 
       $.each @agents.models, (key, value) ->
         agents.set value if _.intersection(api_keys, value.get("api_keys")).length > 0
-          # console.log @agents.pluck("")
-          # $.each @agents.models, (key, value) ->
-
-          #   console.log keys
-
-
-        # agents = @agents
 
       agentsView = @getAgentsView(agents)
 
@@ -168,6 +161,7 @@
 
       if type is "unavailable"
         visitor = @visitors.findWhere {  jid: node }
+
         if visitor
           # remove visitor from list
           resources = visitor.get "resources"
@@ -176,13 +170,16 @@
           resources.splice(index, 1) if index > -1
 
           if resources.length is 0
+            App.navigate Routes.root_path(), trigger: true if Backbone.history.fragment.indexOf(visitor.get("token")) != -1
+
             @visitors.remove visitor
           else
             visitor.set { jid: node, resources: resources }
             @visitors.set visitor
 
-        else
+        else if typeof agent isnt "undefined"
           # remove agent from list
+          App.navigate Routes.root_path(), trigger: true if Backbone.history.fragment.indexOf(agent.get("token")) != -1
           @agents.remove agent
 
       else if !$(presence).find('offerchat').text() and typeof agent is "undefined"
@@ -215,6 +212,7 @@
       node    = Strophe.getNodeFromJid from
       body    = $(message).find("body").text()
       agent   = @agents.findWhere jid: node
+      transfer  = $(message).find("transfer")
 
       if body and typeof agent is "undefined"
         messages = App.request "messeges:entities"
@@ -244,28 +242,63 @@
           @visitors.findWhere({token: token}).addUnread()
           @visitors.sort()
 
-      else if agent and body
-        token    = agent.get("token")
-        messages = App.request "messeges:entities"
-        info     = agent.get("info")
-        name     = (if info.name then info.name else info.display_name)
+      else if agent# and body
 
-        messages.add(@agentMsgs.where token: token)
+        if body or transfer.length
 
-        agent_msg =
-          token:      token
-          name:       name
-          sender:     "visitor"
-          message:    body
-          time:       new Date()
-          viewing:    false
-          timesimple: moment().format('hh:mma')
+          token    = agent.get("token")
+          messages = App.request "messeges:entities"
+          info     = agent.get("info")
+          name     = (if info.name then info.name else info.display_name)
 
-        if messages.last() and messages.last().get("name") is name
-          agent_msg.child      = true
-          agent_msg.childClass = "child"
+          messages.add(@agentMsgs.where token: token)
 
-        @agentMsgs.add agent_msg
+          agent_msg =
+            token:      token
+            name:       name
+            sender:     "visitor"
+            message:    body
+            time:       new Date()
+            viewing:    false
+            timesimple: moment().format('hh:mma')
+
+          if transfer.length
+            accepted = $(transfer).find('accepted')
+            transfer_id   = $(transfer).attr('id')
+
+            if accepted.length
+              vtoken = $(transfer).find('vjid').text()
+              msg = @agentMsgs.findWhere({token: token, trn_id: transfer_id})
+
+              res =
+                trn_responded: true
+
+              if accepted.text() is "true" then res.trn_accepted = true
+              else res.trn_accepted = false
+
+              agent_msg = ""
+
+              msg.set res
+
+            else
+              reason        = $(transfer).find('reason').text()
+              visitor_token = $(transfer).find('vtoken').text()
+              visitor_name  = $(transfer).find('vjid').text()
+
+              agent_msg.transfer      = true
+              agent_msg.trn_reason    = reason
+              agent_msg.trn_vname     = visitor_name
+              agent_msg.trn_vtoken    = visitor_token
+              agent_msg.trn_responded = false
+              agent_msg.trn_accepted  = false
+              agent_msg.trn_id        = transfer_id
+
+          if messages.last() and messages.last().get("name") is name
+            agent_msg.child      = true
+            agent_msg.childClass = "child"
+
+
+          if agent_msg then @agentMsgs.add agent_msg
 
       true
 
@@ -278,5 +311,3 @@
         time:       new Date()
         timesimple: moment().format('hh:mma')
         viewing:    true
-
-

@@ -60,6 +60,8 @@ Templates = {
       toggleWidget: function() {
         $.postMessage({slide: true}, _this.params.current_url, parent);
         $(".tooltip-options").removeClass("open");
+
+        return false;
       }
     });
 
@@ -155,7 +157,6 @@ Templates = {
         "submit form.widget-block.offline" : "submitOffline"
       },
       submitOffline: function(e) {
-        console.log("test");
         if (_this.validateForms(this)) {
           // $(this).serialize()
           $.ajax({
@@ -163,7 +164,6 @@ Templates = {
             url: Offerchat.src.api_url + "offline/" + Offerchat.params.api_key,
             data: $(this).serialize(),
             success: function(data) {
-              console.log(data);
               if (data.status == "success") {
                 _this.formSuccess.replace();
                 return false;
@@ -187,7 +187,6 @@ Templates = {
         "submit form.widget-block.postchat" : "submitPostChat"
       },
       submitPostChat: function(e) {
-        console.log("test");
         if(_this.validateForms(this)) {
           $.ajax({
             type: "POST",

@@ -14,6 +14,7 @@
       @height      = App.request "get:chat:window:height"
       @messages    = App.request "get:chats:messages"
       @currentMsgs = App.request "messeges:entities"
+      @agentMsgs   = App.request "get:agent:chats:messages"
 
       @currentMsgs.add @messages.where({token: @token})
 
@@ -25,6 +26,7 @@
       @listenTo @messages, "add", (message) =>
         if message.get("token") is @token
           @currentMsgs.add message
+          $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500);
 
       @listenTo @layout, "show", =>
         @visitorInfoView()
@@ -52,10 +54,12 @@
 
         if option is "transfer"
           @transferChat()
-        # else if option is "export"
+        else if option is "export"
+          window.location = Routes.root_path()+"transcript/"+@token
         # else if option is "ban"
 
       @layout.chatsRegion.show chatsView
+      $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500);
 
     transferChat: =>
       # only get online agents
@@ -87,10 +91,33 @@
             reason = $(item.view.el).find('textarea.large')
 
             if reason.val()
-              agent_jid = $(item.view.el).find(".current-selection").data("jid") # get agent jid
+              agent_elem = $(item.view.el).find(".current-selection")
+              agent_jid = agent_elem.data("jid") # get agent jid
+              agent_name = agent_elem.text()
+
+              transfer_id = "#{Number(new Date())}"
+
+              currentMsg =
+                token:      "#{agent_jid}"
+                sender:     "agent"
+                jid:        "You"
+                name:       agent_name
+                time:       new Date()
+                timesimple: moment().format('hh:mma')
+
+                transfer:   true
+                trn_id:     transfer_id
+                trn_owned:  true
+                trn_reason: reason.val()
+                trn_responded: false
+                trn_vtoken: @visitor.get("token")
+                trn_accepted: false
+
+              @agentMsgs.add currentMsg
+
               agent_jid = "#{agent_jid}@#{gon.chat_info.server_name}"
               visitor_jid = @visitor.get("jid")
-              msg = $msg({to: agent_jid, type: "chat"}).c('transfer').t(visitor_jid).up().c('reason').t(reason.val())  # create xmpp msg
+              msg = $msg({to: agent_jid, type: "chat"}).c('transfer',{id: transfer_id}).c('reason').t(reason.val()).up().c('vjid').t(visitor_jid).up().c('vtoken').t(@visitor.get("token"))  # create xmpp msg
               @connectionSend msg, agent_jid
 
               formView.close()

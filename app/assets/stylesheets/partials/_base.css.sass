@@ -546,6 +546,8 @@ label
 
 .trigger-item
   @include transition(.1s)
+  display: block
+
   white-space: nowrap
   border-bottom: 1px solid #f1f1f1
   .icon-lightning
@@ -553,6 +555,16 @@ label
 .trigger-value
   font-weight: bold
   color: $text-color
+  &.trigger-message
+    display: block
+    width: 500px
+    text-overflow: ellipsis
+    overflow: hidden
+    font-size: 12px
+    color: $light-text-color
+    font-weight: normal
+    font-style: italic
+    padding-left: 17px
 .linkable
   cursor: pointer
 
@@ -884,11 +896,11 @@ a.block-list-item, .block-list-item
     margin-top: 9px
     cursor: pointer
   .profile-image-container
-    margin: 0 5px 0 0
+    margin: -7px 5px 0 0
     vertical-align: top
   .profile-label-name
     &.for-large
-      margin-top: 19px
+      margin-top: 12px
   a.error
     margin-top: 12px
     &:hover
