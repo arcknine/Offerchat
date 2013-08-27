@@ -10,7 +10,7 @@
   #controlGreeting
     %h3
       Set your welcome greeting
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi, deserunt distinction
+    Enter a personalized welcome greeting visible to everyone who opens the chat widget. Greeting appears below your name
     .form.form-inline.hero-form
       %fieldset#greeting-name
         .input-container

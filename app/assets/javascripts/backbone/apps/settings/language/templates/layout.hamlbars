@@ -1,7 +1,7 @@
 .block.large
   %h2
     Languange and Labels
-  Take the time to customize the widget's language and labels to be more effective in your marketing and support.
+  Customize the widget language and label
 
 .block-message#setting-notification{:style => "display: none"}
   %a.close ×

@@ -1,6 +1,6 @@
 .block.large
   %h2 Widget Position
-  Set the position of your widget from left to right
+  Set the position of your widget on your website
 
 .block-message#setting-notification{:style => "display: none"}
   %a.close ×

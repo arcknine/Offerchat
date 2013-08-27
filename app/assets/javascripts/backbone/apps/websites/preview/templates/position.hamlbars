@@ -12,7 +12,7 @@
   #controlPositionContent
     %h2
       Align your widget
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi, deserunt distinction
+    Choose where to position the widget on your site
     .widget-position-selector
       %a#left
         .widget-screen
