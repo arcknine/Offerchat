@@ -39,10 +39,10 @@
 
     .widget-box.widget-theme.theme-pink3#widget-header
       .widget-head.widget-rounded-head.group
-        = image_tag "avatar-large5.jpg", :class => "agent-thumbnail"
+        %img.agent-thumbnail{ :src => "{{user.avatar}}" }
 
         .widget-agent-name
-          Jill
+          {{user.display_name}}
         .widget-welcome-msg
           Hello! How can I help you today?
       .widget-body
