@@ -4,7 +4,8 @@
     initialize: (options) ->
       layout = @getLayoutView(options.currentSite)
 
-      @currentUser = App.request "set:current:user", App.request "get:current:user:json"
+      @currentUser = App.request "get:current:profile"
+      
       options.currentSite.url = Routes.update_settings_website_path(options.currentSite.get("id"))
       settings = options.currentSite.get('settings')
 
@@ -24,6 +25,9 @@
       formView = App.request "form:wrapper", layout
       layout.url = Routes.websites_path()
       @show formView
+      
+      App.commands.setHandler "avatar:change", (avatar) ->
+        @currentUser.set avatar: avatar
 
       @initWidget(options.currentSite)
 

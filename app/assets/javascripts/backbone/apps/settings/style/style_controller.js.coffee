@@ -2,53 +2,55 @@
   class Style.Controller extends App.Controllers.Base
 
     initialize: (options) ->
-      @currentUser = App.request "set:current:user", App.request "get:current:user:json"
+      @currentUser = App.request "get:current:profile"
+                
+      App.execute "when:fetched", @currentUser, =>
+        layout = @getLayoutView(options.currentSite)
 
-      layout = @getLayoutView(options.currentSite)
+        options.currentSite.url = Routes.update_settings_website_path(options.currentSite.get("id"))
+        settings = options.currentSite.get("settings")
 
-      options.currentSite.url = Routes.update_settings_website_path(options.currentSite.get("id"))
-      settings = options.currentSite.get("settings")
-
-      @listenTo layout, "style:color:clicked", (e) =>
-        @changeColor(e)
-        klass = $(e.currentTarget).attr('class')
-        settings.style.theme = $.trim(klass.replace("active",""))
-        options.currentSite.set settings: settings
-
-      @listenTo layout, "style:gradient:checked", (e) =>
-        @changeGradient(e)
-        if $(e.currentTarget).hasClass("checked")
-          settings.style.gradient = true
-          options.currentSite.set settings: settings
-        else
-          settings.style.gradient = false
+        @listenTo layout, "style:color:clicked", (e) =>
+          @changeColor(e)
+          klass = $(e.currentTarget).attr('class')
+          settings.style.theme = $.trim(klass.replace("active",""))
           options.currentSite.set settings: settings
 
-      @listenTo layout, "style:hide:footer", =>
-        @hideFooter()
-        settings.footer.enabled = false
-        options.currentSite.set settings: settings
+        @listenTo layout, "style:gradient:checked", (e) =>
+          @changeGradient(e)
+          if $(e.currentTarget).hasClass("checked")
+            settings.style.gradient = true
+            options.currentSite.set settings: settings
+          else
+            settings.style.gradient = false
+            options.currentSite.set settings: settings
 
-      @listenTo layout, "style:show:footer", =>
-        @showFooter()
-        settings.footer.enabled = true
-        options.currentSite.set settings: settings
+        @listenTo layout, "style:hide:footer", =>
+          @hideFooter()
+          settings.footer.enabled = false
+          options.currentSite.set settings: settings
 
-      @listenTo options.currentSite, "updated", (site) =>
-        @showNotification("Your changes have been saved!")
+        @listenTo layout, "style:show:footer", =>
+          @showFooter()
+          settings.footer.enabled = true
+          options.currentSite.set settings: settings
 
-      @listenTo layout, "hide:notification", =>
-        $("#setting-notification").fadeOut()
+        @listenTo options.currentSite, "updated", (site) =>
+          @showNotification("Your changes have been saved!")
 
-      @listenTo layout, "redirect:upgrade", =>
-        App.navigate Routes.plans_path(), trigger: true
+        @listenTo layout, "hide:notification", =>
+          $("#setting-notification").fadeOut()
 
-      formView = App.request "form:wrapper", layout
-      layout.url = Routes.websites_path()
-      @show formView
+        @listenTo layout, "redirect:upgrade", =>
+          App.navigate Routes.plans_path(), trigger: true
 
-      # Get the widget's settings from the DB
-      @initWidget(options.currentSite)
+        formView = App.request "form:wrapper", layout
+        layout.url = Routes.websites_path()
+        @show formView
+
+
+        # Get the widget's settings from the DB
+        @initWidget(options.currentSite)
 
     initWidget: (website) ->
       $("#controlColorContent a").removeClass("active")
