@@ -18,6 +18,6 @@ global = {
     server:   '@local.offerchat.com',
     api_url:  '//local.offerchat.com:3000/api/v1/widget/',
     assets:   '//local.offerchat.com:3000',
-    history:  '//history.offerchat.com:9292'
+    history:  '//history.offerchat.loc:9292'
   }
 };
