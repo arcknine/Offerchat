@@ -76,10 +76,6 @@
     className: "group agent-selection-form"
     itemView: List.Agent
     itemViewContainer: "#agent-list"
-    events:
-      "click .checkable" : "agentClicked"
-    agentClicked: (e) ->
-      @trigger "agent:clicked", e
 
   class List.ModalProcessPayment extends App.Views.ItemView
     template: "plans/list/process_payment"
