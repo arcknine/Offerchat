@@ -26,7 +26,8 @@
       src: {
         api_url: '//local.offerchat.com:3000/api/v1/widget/',
         assets:  'http://local.offerchat.com:3000',
-        cdn:     'http://local.offerchat.com:3000'
+        cdn:     '//local.offerchat.com:3000',
+        widget:  '//local.offerchat.com:3000/widget/widget-development.html'
       }
     };
 
@@ -35,8 +36,9 @@
       version: '2.0.0',
       src: {
         api_url: '//staging.offerchat.com/api/v1/widget/',
-        assets:  '//staging.offerchat.com',
-        cdn:     '//staging.offerchat.com'
+        assets:  'https://staging.offerchat.com',
+        cdn:     '//staging.offerchat.com',
+        widget:  '//staging.offerchat.com/widget/widget-development.html'
       }
     };*/
 
@@ -45,8 +47,9 @@
       version: '2.0.0',
       src: {
         api_url: '//app.offerchat.com/api/v1/widget/',
-        assets:  '//app.offerchat.com',
-        cdn:     '//app.offerchat.com'
+        assets:  'https://app.offerchat.com',
+        cdn:     '//app.offerchat.com',
+        widget:  '//app.offerchat.com/widget/widget-development.html'
       }
     };*/
 
@@ -58,6 +61,7 @@
         state:    "hide",
         referrer: document.referrer,
         position: "right",
+        footer:   true,
         token:    null
       },
 
@@ -88,7 +92,8 @@
           $ofc('#offerchatbox').animate({height: '45px'}, 100);
           this.info.state = 'hide';
         } else {
-          $ofc('#offerchatbox').animate({height: '421px'}, 100);
+          height = this.info.footer ? '421px' : '400px';
+          $ofc('#offerchatbox').animate({height: height}, 100);
           this.info.state = 'show';
         }
 
@@ -116,6 +121,7 @@
             token:    info.token ? info.token : null,
             referrer: document.referrer ? document.referrer : info.referrer,
             position: info.position ? info.position : "right",
+            footer:   info.footer === false ? info.footer : true,
             state:    info.state ? info.state : "show",
             api_key:  ofc_key
           };
@@ -135,6 +141,7 @@
             success: function(data) {
               if (typeof data.error == "undefined") {
                 _this.info.position = data.position;
+                _this.info.footer   = data.footer;
                 localStorage.setItem("ofc-widget-info", JSON.stringify(_this.info));
                 sessionStorage.setItem("ofc-widget-position", data.position);
                 callback();
@@ -171,13 +178,17 @@
       generateIframeWrapper: function() {
         var build, height, path, title;
 
-        height = this.info.state == "show" ? "421px" : "45px";
+        if (this.info.footer)
+          height = this.info.state == "show" ? "421px" : "45px";
+        else
+          height = this.info.state == "show" ? "400px" : "45px";
+
         build = '<div id="offerchatbox" style="position: fixed; bottom: 0; ' + this.info.position + ': 20px; margin: 0;  padding: 0; background-color: transparent; overflow: hidden; z-index: 99999999; height: ' + height + '; width: 306px; display: none">' +
                 ' <iframe scrolling="0" name="offerchat_frame" frameBorder="0" id="offerchatFrameContainer" src="" style="background-color: transparent;vertical-align: text-bottom; overflow: hidden; position: relative;width: 100%;height: 100%;margin: 0px; z-index: 999999;"></iframe>' +
                 '</div>';
         $ofc('body').append(build);
 
-        path = src.cdn + "/widget/widget.html";
+        path = src.widget;
         title = $ofc("head > title").text();
         // path = "http://10.10.1.22:3000/widget"
 
