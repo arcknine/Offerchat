@@ -39,7 +39,7 @@
           true
         else
           false
-      else if current_plan == "ENTERPRISE"
+      else if current_plan == "ENTERPRISE" 
         true
       else if current_plan == "STARTER"
         false

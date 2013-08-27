@@ -22,5 +22,5 @@
     {{/if}}
 
   say
-  %span.trigger-value
+  %span.trigger-value.trigger-message
     {{message}}

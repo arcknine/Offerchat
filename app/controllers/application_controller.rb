@@ -5,5 +5,12 @@ class ApplicationController < ActionController::Base
     @websites = current_user.all_sites
     head :unauthorized if @websites.empty?
   end
-
+    
+  def after_sign_in_path_for(resource)
+    if resource.class.name == "User"
+      root_url
+    elsif resource.class.name == "Admin"
+      "/admins"
+    end
+  end
 end

@@ -1,2 +1,4 @@
-#new-agent-region
+.form.form-inline.invite-user-form
+  #new-agent-region
+
 #new-agent-sites-region

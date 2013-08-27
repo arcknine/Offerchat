@@ -31,5 +31,5 @@ rspec.xml
 *.rdb
 
 #for openfire hosted in a different local machine
-/public/widget/js/env/local.js
-/public/widget/widget-local.html
+public/widget/js/env/local.js
+public/widget/widget-local.html

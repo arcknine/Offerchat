@@ -17,6 +17,7 @@ global = {
     bosh_url: 'http://local.offerchat.com:7070/http-bind/',
     server:   '@local.offerchat.com',
     api_url:  '//local.offerchat.com:3000/api/v1/widget/',
-    assets:   '//local.offerchat.com:3000'
+    assets:   '//local.offerchat.com:3000',
+    history:  '//history.offerchat.com:9292'
   }
 };

@@ -7,7 +7,7 @@
       @currentSite = App.request "new:selector:site"
 
       App.execute "when:fetched", sites, =>
-        site = sites.first()
+        site = sites.last()
         site.attributes.all = false;
 
         @currentSite.set site.attributes
@@ -24,7 +24,7 @@
       App.reqres.setHandler "get:sidebar:selected:site", =>
         @currentSite
 
-      App.reqres.setHandler "get:sites:count", ->
+      App.reqres.setHandler "get:all:sites", ->
         sites
 
     bindLayoutEvents: ->

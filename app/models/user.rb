@@ -34,6 +34,17 @@ class User < ActiveRecord::Base
   #validates_attachment_content_type
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
 
+  def group(owner_id)
+    owner = User.find(owner_id)
+    accs  = self.accounts.collect(&:website_id)
+    sites = owner.websites
+    arr   = []
+    sites.each do |s|
+      arr.push("#{s.url} (Agent)") if accs.include? s.id
+    end
+    arr.join(", ")
+  end
+
   def small_avatar
     avatar.url(:small)
   end

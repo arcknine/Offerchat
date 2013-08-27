@@ -41,9 +41,13 @@
         @listenTo layout, "hide:notification", =>
           $("#setting-notification").fadeOut()
 
+        @listenTo layout, "redirect:upgrade", =>
+          App.navigate Routes.plans_path(), trigger: true
+
         formView = App.request "form:wrapper", layout
         layout.url = Routes.websites_path()
         @show formView
+
 
         # Get the widget's settings from the DB
         @initWidget(options.currentSite)

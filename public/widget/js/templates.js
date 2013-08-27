@@ -23,7 +23,6 @@ Templates = {
           $.postMessage({show: true}, Offerchat.params.current_url, parent);
       } else if (_this.settings.pre_chat.enabled && !_this.details.prechat) {
         _this.prechat.replace();
-        _this.inputs.replace();
         _this.inputs.hidden();
 
         $.postMessage({show: true}, Offerchat.params.current_url, parent);
@@ -59,8 +58,17 @@ Templates = {
         "click div.widget-head" : "toggleWidget",
       },
       toggleWidget: function() {
+        // console.log($(window).height());
         $.postMessage({slide: true}, _this.params.current_url, parent);
         $(".tooltip-options").removeClass("open");
+        // console.log($(".widget-input-text").is(":focus"));
+        // $(".widget-input-text").focus();
+
+        // setTimeout(function(){
+        //   $(".widget-input-text").focus();
+        // }, 2000);
+
+        return false;
       }
     });
 
@@ -222,7 +230,7 @@ Templates = {
         if (form) {
           // _this.loader.replace();
           _this.prechat.destroy();
-          _this.inputs.replace();
+          _this.inputs.visible();
 
           var data = Helpers.unserialize($(this).serialize());
 
@@ -331,6 +339,11 @@ Templates = {
       hidden: function() {
         $(this.options.section + " > " + this.options.tagName).css("visibility", "hidden");
         $(this.options.section + " > " + this.options.tagName).css("opacity", 0);
+      },
+
+      visible: function() {
+        $(this.options.section + " > " + this.options.tagName).css("visibility", "visible");
+        $(this.options.section + " > " + this.options.tagName).css("opacity", 1);
       },
 
       show: function() {

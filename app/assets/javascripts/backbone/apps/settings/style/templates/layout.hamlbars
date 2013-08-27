@@ -1,4 +1,3 @@
-
 .block.large
   %h2
     Style and Color
@@ -147,6 +146,13 @@
               %span.icon
                 .icon-check
               Gradient
+
+{{#unless paid}}
+.block-message.small
+  %strong Tip:
+  You can remove the Offerchat footer by
+  %a.upgrade-tip upgrading your free plan
+{{/unless}}
 
 .column-footer-actions.bordered
   .block.large

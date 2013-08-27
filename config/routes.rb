@@ -1,6 +1,4 @@
 Dashboard::Application.routes.draw do
-  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
-
   resource :profiles do
     collection do
       post "update_avatar"
@@ -19,6 +17,7 @@ Dashboard::Application.routes.draw do
       get "by_name/:id", :action => "by_name"
     end
   end
+
   resources :subscriptions
 
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}, :controllers => {
@@ -40,6 +39,8 @@ Dashboard::Application.routes.draw do
   resources :signup_wizard
   resource :passwords
 
+  devise_for :admins
+  mount RailsAdmin::Engine => '/admins', :as => 'rails_admin'
 
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
@@ -51,6 +52,4 @@ Dashboard::Application.routes.draw do
   mount Offerchat::API => '/api/v1/widget/'
 
   mount Dashmigrate::API => '/api/v1/migration/'
-
-
 end

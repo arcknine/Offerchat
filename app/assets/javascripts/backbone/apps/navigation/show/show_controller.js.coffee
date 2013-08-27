@@ -51,6 +51,7 @@
           openClass: "history-menu-link"
           activeClass: false
         navView.toggleDropDown(params)
+        App.navigate "history", trigger: true
 
         # @hideDropdowns child
 
@@ -85,9 +86,11 @@
 
         App.reqres.setHandler "show:preloader", ->
           $("#canvas-loader").show()
+          NProgress.start()
 
         App.reqres.setHandler "hide:preloader", ->
           $("#canvas-loader").hide()
+          NProgress.done()
 
       App.commands.setHandler "avatar:change", (avatar) ->
         user.set avatar: avatar

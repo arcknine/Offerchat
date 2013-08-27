@@ -1,5 +1,5 @@
 .widget-head.group.widget-rounded-head
-  %img.agent-thumbnail{:alt => "Avatar-large", :src => "/assets/avatar-large.jpg"}/
+  %img.agent-thumbnail{:alt => "Avatar-large", :src => "{{avatar}}"}/
   .widget-agent-name
     {{display_name}}
   .widget-welcome-msg
