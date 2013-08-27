@@ -7,7 +7,7 @@ do (Backbone) ->
       Backbone.history.navigate route, options
 
       # remove all active chats in sidebar
-      Backbone.trigger('no-active-chat')
+      Backbone.trigger 'execute:route:change:events'
 
     getCurrentRoute: ->
       frag = Backbone.history.fragment

@@ -19,11 +19,6 @@
       $(window).resize ->
         $("#chat-sidebar-region").css("height", ($(window).height() - 93) + "px")
 
-      # event can be found in 'config/marionette/application.js.coffee'
-      # event will execute every change of url
-      Backbone.on 'no-active-chat', ->
-        App.execute "set:no:active:chat"
-
       App.commands.setHandler "set:no:active:chat", =>
         @visitors.updateModels('active', null)
         @agents.updateModels('active', null)
