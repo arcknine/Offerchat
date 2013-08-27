@@ -19,10 +19,8 @@
       $(window).resize ->
         $("#chat-sidebar-region").css("height", ($(window).height() - 93) + "px")
 
-      App.reqres.setHandler "set:no:active:visitor:chat", =>
+      App.commands.setHandler "set:no:active:chat", =>
         @visitors.updateModels('active', null)
-
-      App.reqres.setHandler "set:no:active:agent:chat", =>
         @agents.updateModels('active', null)
 
       if App.xmpp.status is Strophe.Status.CONNECTED
@@ -78,15 +76,13 @@
       visitorsView = @getVisitorsView(visitors)
 
       @listenTo visitorsView, "childview:click:visitor:tab", (visitor) =>
-        App.request "set:no:active:agent:chat"
-        App.request "set:no:active:visitor:chat"
+
+        App.navigate "chats/visitor/#{visitor.model.get('token')}", trigger: true
 
         visitor.model.set
           unread: null
           newClass: null
           active: 'active'
-
-        App.navigate "chats/visitor/#{visitor.model.get('token')}", trigger: true
 
       @layout.visitorsRegion.show visitorsView
 
@@ -103,15 +99,13 @@
       agentsView = @getAgentsView(agents)
 
       @listenTo agentsView, "childview:click:agent:tab", (agent) =>
-        App.request "set:no:active:agent:chat"
-        App.request "set:no:active:visitor:chat"
+
+        App.navigate "chats/agent/#{agent.model.get('token')}", trigger: true
 
         agent.model.set
           unread: null
           newClass: null
           active: 'active'
-
-        App.navigate "chats/agent/#{agent.model.get('token')}", trigger: true
 
       @layout.agentsRegion.show agentsView
 
