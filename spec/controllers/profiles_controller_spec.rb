@@ -51,7 +51,7 @@ describe ProfilesController do
 
       it "should remove avatar if avatar value is 'remove'" do
         xhr :put, :update, id: @user.id, profile: {avatar_remove: true}, format: :json
-        assigns(:profile).avatar.to_s.should eq "http://s3.amazonaws.com/offerchat/users/avatars/avatar.jpg"
+        assigns(:profile).avatar.to_s.should eq "//s3.amazonaws.com/offerchat/users/avatars/avatar#{@user.id % 5}.jpg"
         response.code.should eq "200"
       end
     end
@@ -59,7 +59,7 @@ describe ProfilesController do
     describe "uploading avatars" do
       it "should be able to update avatar" do
         post :update_avatar, :avatar => fixture_file_upload('/avatar/avatar.jpg')
-        assigns(:profile).avatar.to_s.should_not eq "http://s3.amazonaws.com/offerchat/users/avatars/avatar.jpg"
+        assigns(:profile).avatar.to_s.should_not eq "//s3.amazonaws.com/offerchat/users/avatars/avatar.jpg"
         response.code.should eq "200"
       end
 
