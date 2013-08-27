@@ -16,6 +16,7 @@
       $(e.currentTarget).parent("div").fadeOut()
 
     addTrigger: (e) ->
+      App.execute "show:trigger:items"
       @trigger "add:trigger:clicked", e
 
   class TriggersList.Form extends App.Views.ItemView
@@ -38,8 +39,13 @@
   class TriggersList.Trigger extends App.Views.ItemView
     template: "settings/triggers/list/trigger"
 
-    triggers:
-      "click .trigger-item"      : "trigger:item:clicked"
+    events:
+      "click .trigger-item"       : "clickTrigger"
+
+    clickTrigger: (e) ->
+      App.execute "show:trigger:items"
+      $(e.currentTarget).hide()
+      @trigger "trigger:item:clicked"
 
     modelEvents:
       "updated" :  "render"
