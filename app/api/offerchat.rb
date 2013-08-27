@@ -37,7 +37,7 @@ module Offerchat
         get do
           website = Website.find_by_api_key(params[:apikey])
           if website
-            {position: website.settings(:style).position}
+            { position: website.settings(:style).position, footer: website.settings(:footer).enabled }
           else
             {error: "Api key not found!"}
           end

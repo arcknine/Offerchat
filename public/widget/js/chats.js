@@ -29,7 +29,6 @@ Chats = {
           _this.connect();
       });
     } else {
-      console.log(this.details);
       if (this.details.chatend === true) {
         var reconnect = Templates.reconnect;
         reconnect.options.template = Templates.getReconnect({
@@ -389,8 +388,6 @@ Chats = {
     var msg   = this.messages.slice();
     var keys  = [];
 
-    // console.log("wtf??");
-
     for(var i = this.messages.length - 1; i >= 0; i--) {
       var time_diff = Math.ceil((new Date().getTime() - msg[i].created_at) / 1000);
       if (time_diff > 259200) {
@@ -401,8 +398,6 @@ Chats = {
         this.messages.splice(i, 1);
       }
     }
-
-    // console.log(this.messages);
 
     $.each(this.messages, function(key, value){
       var chat = Templates.generateTemplate({
