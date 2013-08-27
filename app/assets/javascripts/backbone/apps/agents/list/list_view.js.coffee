@@ -69,7 +69,7 @@
 
   class List.ShowLayout extends App.Views.Layout
     template:  "agents/list/new_layout"
-    className: "form form-inline invite-user-form"
+    className: "invite-user-form"
     regions:
       agentRegion: "#new-agent-region"
       sitesRegion: "#new-agent-sites-region"
