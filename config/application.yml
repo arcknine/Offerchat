@@ -21,8 +21,8 @@ staging:
   CHAT_HISTORY_URL: http://ch0.offerchat.com
 
 production:
-  STRIPE_API_KEY: xxx
-  STRIPE_PUBLIC_KEY: xxx
+  STRIPE_API_KEY: sk_live_APQHCHL51kI3kqK1kX8Qj0W5
+  STRIPE_PUBLIC_KEY: pk_live_RAVYaiNNzG7YRGfnUmC4Tjb7
 
   CHAT_BOSH_URL: http://b0.offerchat.com:7070/http-bind/
   CHAT_SERVER_NAME: realtime.offerchat.com
