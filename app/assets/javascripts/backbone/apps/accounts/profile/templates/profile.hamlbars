@@ -11,7 +11,7 @@
     %span
 
   .block.bordered-top.large.group#upload-photo-profile-region
-  .block.bordered-top.large.group#edit-profile-region
+  #edit-profile-region
   / .column-footer-actions.bordered
   /   .block.large
   /     %button.btn.action{ :type => "submit" }

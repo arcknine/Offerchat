@@ -1,24 +1,25 @@
-%fieldset
-  %label
-    Email
-    %span.inline-label-message
+.block.bordered-top.large.group
+  %fieldset
+    %label
+      Email
+      %span.inline-label-message
 
-  .input-container
-    %input.large{ :type => 'text', :value => '{{email}}', name: 'email'}
+    .input-container
+      %input.large{ :type => 'text', :value => '{{email}}', name: 'email'}
 
-%fieldset
-  %label
-    Display Name
-    %span.inline-label-message
+  %fieldset
+    %label
+      Display Name
+      %span.inline-label-message
 
-  .input-container
-    %input.large{ :type => 'text', :value => '{{display_name}}', name: 'display_name' }
+    .input-container
+      %input.large{ :type => 'text', :value => '{{display_name}}', name: 'display_name' }
 
-  %fieldset.item-desc.small
-    .block-text-message.text-limit-counter
+    %fieldset.item-desc.small
+      .block-text-message.text-limit-counter
 
-%fieldset
-  %label
-    Full Name
-  .input-container
-    %input.large{ :type => 'text', :value => '{{name}}', name: 'name' }
+  %fieldset
+    %label
+      Full Name
+    .input-container
+      %input.large{ :type => 'text', :value => '{{name}}', name: 'name' }
