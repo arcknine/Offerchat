@@ -78,6 +78,17 @@
     tagName: "ul"
 
 
+  class Show.TransciptModal extends App.Views.ItemView
+    template: "chats/show/transcript_modal"
+    className: "form"
+    form:
+      buttons:
+        primary: " Send Transcript "
+        nosubmit: false
+        cancel:  false
+      title: "Export Transcript"
+
+
 
 
 

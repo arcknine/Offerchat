@@ -55,7 +55,10 @@
         if option is "transfer"
           @transferChat()
         else if option is "export"
-          window.location = Routes.root_path()+"transcript/"+@token
+          @showTranscriptModalView @visitor
+          # dont erase :D
+          # window.location = Routes.root_path()+"transcript/"+@token
+
         # else if option is "ban"
 
       @layout.chatsRegion.show chatsView
@@ -239,3 +242,18 @@
       new Show.ChatsList
         collection: @currentMsgs
         model:      @height
+
+    getTranscriptModalView:(model) ->
+      # site.url = Routes.webmaster_code_websites_path
+      new Show.TransciptModal
+        model: model
+
+    showTranscriptModalView: (visitor)->
+      modalView = @getTranscriptModalView visitor
+      formView  = App.request "modal:wrapper", modalView
+
+      @listenTo formView, "modal:cancel", (item)->
+        formView.close()
+
+      App.modalRegion.show formView
+
