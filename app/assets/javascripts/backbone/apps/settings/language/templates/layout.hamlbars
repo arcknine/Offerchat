@@ -7,7 +7,7 @@
   %a.close ×
   %span
 
-.language-selector
+.language-selector.block.large
   %a.set-language.selected
     = image_tag "lang/english.png"
     %label
