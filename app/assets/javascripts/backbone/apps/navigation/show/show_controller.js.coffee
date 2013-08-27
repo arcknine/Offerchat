@@ -51,6 +51,7 @@
           openClass: "history-menu-link"
           activeClass: false
         navView.toggleDropDown(params)
+        App.navigate "history", trigger: true
 
         # @hideDropdowns child
 

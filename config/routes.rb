@@ -17,6 +17,7 @@ Dashboard::Application.routes.draw do
       get "by_name/:id", :action => "by_name"
     end
   end
+
   resources :subscriptions
 
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}, :controllers => {

@@ -539,8 +539,19 @@ Chats = {
     });
 
     chat.append();
+    if(!this.has_conversation){
+      self = this;
+      $.ajax({
+        type: "post",
+        url: Offerchat.src.history + "/convo/create/" + Offerchat.params.secret_token,
+        dataType: "jsonp",
+        data: {url: Offerchat.params.current_url, aid: this.agent.id, vname: this.visitor.name, agent: this.agent.name},
+        success: function(data) {
+          self.has_conversation = true;
+        }
+      });
+    }
     $(".widget-chat-viewer").animate({ scrollTop: $('.widget-chat-viewer')[0].scrollHeight}, 300);
-
 
     this.initChatHistory(sender, message);
     return msg;

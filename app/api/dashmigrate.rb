@@ -10,7 +10,6 @@ module Dashmigrate
     end
 
     resource :user do
-
         post do
             old_data = params[:data]
             unless old_data.blank?
@@ -68,6 +67,7 @@ module Dashmigrate
               else
                 return {status: "error"}
               end
+              return {status: "success", token: user.reset_password_token}
             else
               return {status: "error", message: "empty user data"}
             end
