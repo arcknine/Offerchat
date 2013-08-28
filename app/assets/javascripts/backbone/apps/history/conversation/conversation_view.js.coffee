@@ -44,10 +44,10 @@
     initialize: ->
       m = @model.get("updated_at")
       @model.set momentary: moment(m, '"YYYY-MM-DDTHH:mm:ss Z"').fromNow()
-      setInterval ->
-        m = @model.get("created")
-        @model.set momentary: moment(m, '"YYYY-MM-DDTHH:mm:ss Z"').fromNow()
-      , 60000
+      #model = @model
+      # setInterval ->
+      #   model.set momentary: moment(m, '"YYYY-MM-DDTHH:mm:ss Z"').fromNow()
+      # , 3000
   
   class Conversations.GroupItem extends App.Views.CompositeView
     template: "history/conversation/group_item"
@@ -89,3 +89,28 @@
   class Conversations.Chats extends App.Views.CompositeView
     template: "history/conversation/chat_messages"
     itemView: Conversations.ChatMessage
+
+  class Conversations.ChatModalFooter extends App.Views.ItemView
+    template: "history/conversation/chat_modal_footer"
+    events:
+      "click #forwardToEmailBtn"        : "show_forward_email"
+      "click #cancelTranscriptFormBtn"  : "hide_forward_email"
+      "click .forward-to-email-btn"     : "forward_convo_to_email"
+      "click .delete-conversation"      : "delete_convo"
+
+    show_forward_email: (evt)->
+      @$(".transcript-email-form").removeClass("hide")
+      @$(".transcript-actions").addClass("hide")
+
+    hide_forward_email: (evt)->
+      @$(".transcript-email-form").addClass("hide")
+      @$(".transcript-actions").removeClass("hide")
+
+    forward_convo_to_email: (evt)->
+      console.log "Process forwarding to email here"
+      console.log @$(".forwarding-recipient").val()
+
+    delete_convo: (evt)->
+      console.log "Process deleting of this conversation"
+      console.log @model
+      # Create an dashboard endpoint in deleting this conversation for security purposes. Just to make sure that the logged in user has the right to delete the conversation

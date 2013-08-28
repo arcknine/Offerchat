@@ -67,6 +67,12 @@
 
         modalViewRegion.bodyRegion.show modalRegionBody
 
+        modalRegionFooter = new Conversations.ChatModalFooter
+          model: model
+
+        modalViewRegion.footerRegion.show modalRegionFooter
+
+
       @listenTo modalViewRegion, "close:chats:modal", ->
         modalViewRegion.close()
 
