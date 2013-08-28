@@ -43,6 +43,12 @@
   class Entities.MessagesCollection extends App.Entities.Collection
     model: Entities.Message
 
+  # class Entities.Message extends App.Entities.Model
+
+  # class Entities.ChatLogCollection extends App.Entities.Collection
+  #   model: Entities.Message
+  #   url: "http://history.offerchat.com:9292/chats/nABOEJ0eFjJDXdNte-XW6A"
+
   class Entities.WindowHeight extends App.Entities.Model
     defaults:
       height: $(window).height()
@@ -77,6 +83,18 @@
     selectedVisitor: ->
       new Entities.SelectedVisitor
 
+    getChatLogs: (chatlogs)->
+      console.log "awa"
+      chatlogs = new Entities.MessagesCollection
+      chatlogs.url = "http://history.offerchat.com:9292/chats/nABOEJ0eFjJDXdNte-XW6A"
+      chatlogs.fetch
+        dataType : "jsonp"
+        processData: true
+        success: ->
+          console.log "success...."
+      chatlogs
+
+
   App.reqres.setHandler "visitor:entity", ->
     API.setVisitor()
 
@@ -94,3 +112,7 @@
 
   App.reqres.setHandler "get:visitor:info:entity", (id)->
     API.getVisitorInfo(id)
+
+  App.reqres.setHandler "get:chat:logs", (chatlogs)->
+    API.getChatLogs(chatlogs)
+

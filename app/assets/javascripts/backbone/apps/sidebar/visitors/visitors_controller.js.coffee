@@ -213,9 +213,10 @@
         visitor  = @visitors.findWhere { jid: node }
         token    = visitor.get("token")
         info     = visitor.get "info"
-
-        messages.add(@messages.where token: token)
-
+        # console.log "ni message ang agent"
+        new_message = @messages.where token: token
+        messages.add(new_message)
+        localStorage.setItem("chatlog-"+token, JSON.stringify(new_message))
         visitor_msg =
           token:      token
           jid:        info.name

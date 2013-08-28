@@ -13,9 +13,12 @@
       @visitor     = App.request "visitor:entity" if typeof @visitor is "undefined"
       @height      = App.request "get:chat:window:height"
       @messages    = App.request "get:chats:messages"
+
+      if @messages.length is 0
+        @messages.add JSON.parse(localStorage.getItem("chatlog-"+@token))
+
       @currentMsgs = App.request "messeges:entities"
       @agentMsgs   = App.request "get:agent:chats:messages"
-
       @currentMsgs.add @messages.where({token: @token})
 
       @listenTo visitors, "add", =>
@@ -251,9 +254,10 @@
     showTranscriptModalView: (visitor)->
       modalView = @getTranscriptModalView visitor
       formView  = App.request "modal:wrapper", modalView
+      App.modalRegion.show formView
 
       @listenTo formView, "modal:cancel", (item)->
         formView.close()
 
-      App.modalRegion.show formView
+
 
