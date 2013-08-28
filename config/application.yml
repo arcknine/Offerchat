@@ -7,7 +7,7 @@ development: &development
   CHAT_SERVER_URL: http://local.offerchat.com:9090/
   CHAT_SERVER_SECRET: 0ff3rch@t
   USER_SERVICE_ENDPOINT: plugins/userService/userservice?
-  CHAT_HISTORY_URL: http://history.offerchat.com:9292/
+  CHAT_HISTORY_URL: http://history.offerchat.loc:9292/
 
 staging:
   STRIPE_API_KEY: sk_test_Nc1LdRAL1YAqOh60JUTHjI9V
@@ -18,7 +18,7 @@ staging:
   CHAT_SERVER_URL: https://sb0.offerchat.com:9091/
   CHAT_SERVER_SECRET: 0ff3rch@t
   USER_SERVICE_ENDPOINT: plugins/userService/userservice?
-  CHAT_HISTORY_URL: http://ch0.offerchat.com
+  CHAT_HISTORY_URL: http://ec2-174-129-161-42.compute-1.amazonaws.com
 
 production:
   STRIPE_API_KEY: sk_live_APQHCHL51kI3kqK1kX8Qj0W5
