@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe VisitorsController do
   context "when not login" do
-  	before(:each) do
-  		@visitor = Fabricate(:visitor)
-  	end
+    before(:each) do
+      @visitor = Fabricate(:visitor)
+    end
     it "'index' should not be acceptable" do
       xhr :get, :show, id: @visitor.id ,format: :json
       response.code.should eq "401"
@@ -15,9 +15,9 @@ describe VisitorsController do
     login_user
 
     describe "when the visitor exists" do
-    	before(:each) do
-	  		@visitor = Fabricate(:visitor)
-	  	end
+      before(:each) do
+        @visitor = Fabricate(:visitor)
+      end
       it "GET 'show' should be viewable" do
         xhr :get, :show, id: @visitor.id, format: :json
         response.code.should eq "200"
