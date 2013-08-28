@@ -55,7 +55,6 @@ group :assets do
   gem 'hamlbars', '~> 2.0'
   gem 'handlebars_assets'
   gem 'jquery-fileupload-rails'
-  gem 'asset_sync'
 end
 
 group :development, :test do
@@ -90,4 +89,8 @@ group :development do
   gem 'capistrano_colors'
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
+end
+
+group :production do
+  gem 'asset_sync'
 end

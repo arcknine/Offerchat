@@ -345,6 +345,7 @@ Chats = {
           if (agent == value.jabber_user) {
             a = value;
             a.website_id = Offerchat.website.id;
+            a.new_convo = false;
 
             Offerchat.agent({website_id: Offerchat.website.id}).remove();
             Offerchat.agent.insert(a);
@@ -360,12 +361,7 @@ Chats = {
             header.replace();
 
             //create chat history conversation
-            $.ajax({
-              type: "GET",
-              url: Offerchat.src.history + "/chats/create/" + Offerchat.params.secret_token,
-              dataType: "jsonp",
-              data: {url: Offerchat.params.current_url, aid: Chats.agent.id, vname: Chats.visitor.name},
-            });
+            Chats.createChatHistoryConversation(Chats.agent);
           }
         });
       }
@@ -456,16 +452,11 @@ Chats = {
       $.each(Offerchat.website.agents, function(key, value){
         if (value.jabber_user == selected_agent) {
           agent = value;
+          agent.new_convo = false;
           agent.website_id = Offerchat.website.id;
           Offerchat.agent.insert(value);
 
-          //create chat history conversation
-          $.ajax({
-            type: "GET",
-            url: Offerchat.src.history + "/chats/create/" + Offerchat.params.secret_token,
-            dataType: "jsonp",
-            data: {url: Offerchat.params.current_url, aid: Chats.agent.id, vname: Chats.visitor.name},
-          });
+          _this.createChatHistoryConversation(agent);
         }
       });
 
@@ -487,6 +478,7 @@ Chats = {
 
         _this.loadChats();
         _this.agent = agent;
+
         callback(agent);
       }, 2000);
     } else {
@@ -534,35 +526,45 @@ Chats = {
     });
 
     chat.append();
-    if(!this.has_conversation){
-      self = this;
-      $.ajax({
-        type: "post",
-        url: Offerchat.src.history + "/convo/create/" + Offerchat.params.secret_token,
-        dataType: "jsonp",
-        data: {url: Offerchat.params.current_url, aid: this.agent.id, vname: this.visitor.name, agent: this.agent.name},
-        success: function(data) {
-          self.has_conversation = true;
-        }
-      });
-    }
+
     $(".widget-chat-viewer").animate({ scrollTop: $('.widget-chat-viewer')[0].scrollHeight}, 300);
 
-    this.initChatHistory(sender, message);
+    this.createChatHistory(sender, message);
     return msg;
   },
 
-  initChatHistory: function(sender, message) {
+  createChatHistoryConversation: function(agent){
+    var _this = this;
+    $.ajax({
+      type: "GET",
+      url: Offerchat.src.history + "/convo/create/" + Offerchat.params.secret_token,
+      dataType: "jsonp",
+      data: {url: Offerchat.params.current_url, aid: agent.id, vname: this.visitor.name, agent: agent.name},
+      success: function(){
+        Offerchat.agent({website_id: Offerchat.website.id}).update({new_convo: true});
+        _this.agent = Offerchat.agent({website_id: Offerchat.website.id}).first();
+      }
+    });
+  },
+
+  createChatHistory: function(sender, message) {
+    var _this = this;
     var a_name = this.agent.name ? this.agent.name : this.agent.display_name;
     var name   = sender == "You" ? this.visitor.name : a_name;
 
-    $.ajax({
-      type: "GET",
-      url: Offerchat.src.history + "/chats/" + Offerchat.params.secret_token,
-      dataType: "jsonp",
-      data: { sender: name, msg: message }
-    });
-
+    _this.agent = Offerchat.agent({website_id: Offerchat.website.id}).first();
+    setTimeout(function(){
+      if (_this.agent.new_convo == true) {
+        $.ajax({
+          type: "GET",
+          url: Offerchat.src.history + "/chats/create/" + Offerchat.params.secret_token,
+          dataType: "jsonp",
+          data: { sender: name, msg: message }
+        });
+      } else {
+        _this.createChatHistory(sender, message);
+      }
+    }, 100);
   },
 
   initTriggers: function() {

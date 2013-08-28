@@ -64,7 +64,7 @@ module Offerchat
             online = { agent_label: online.agent_label, greeting: online.greeting, header: online.header, placeholder: online.placeholder }
 
             pre_chat = website.settings(:pre_chat)
-            pre_chat = { description: pre_chat.description, enabled: pre_chat.enabled, header: pre_chat.header, message_required: pre_chat.message_required, email_required: prechat.email_required }
+            pre_chat = { description: pre_chat.description, enabled: pre_chat.enabled, header: pre_chat.header, message_required: pre_chat.message_required, email_required: pre_chat.email_required }
 
             post_chat = website.settings(:post_chat)
             post_chat = { description: post_chat.description, enabled: post_chat.enabled, header: post_chat.header, email: post_chat.email }
