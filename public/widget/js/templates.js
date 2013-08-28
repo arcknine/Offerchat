@@ -55,7 +55,7 @@ Templates = {
       }),
       tagName:   'span',
       events: {
-        "click div.widget-head" : "toggleWidget",
+        "click div.widget-head" : "toggleWidget"
       },
       toggleWidget: function() {
         $.postMessage({slide: true}, _this.params.current_url, parent);
