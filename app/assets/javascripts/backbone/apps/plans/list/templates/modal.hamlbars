@@ -1,10 +1,16 @@
 %input{ :type => "hidden", :name => "plan_id", :value => "{{plan}}" }
-
+%p
+  Fill up the form to complete this transaction. Your credit card information will not be stored in any way.
 %fieldset
-  %label
+  %label.label-top-fix
     Credit Card #
   .input-container
     %input.large{ :type => "text", :name => "credit_card_number", :value => "", :maxlength => 15 }
+    %fieldset
+      = image_tag "credit-card-visa-32.png"
+      = image_tag "credit-card-mastercard-32.png"
+      = image_tag "credit-card-discover-32.png"
+      = image_tag "credit-card-american-32.png"
 %fieldset
   %label
     CV Code
