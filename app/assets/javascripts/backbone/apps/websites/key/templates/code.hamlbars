@@ -34,6 +34,16 @@
           %em //body of your website
 
 .block.large.bordered-top
+  %h2
+    For plugins, extensions and modules
+  %p
+    Use this api key only when configuring plugins
+    %small.disabled
+      (e.g. Magento, Prestashop, Joomla, etc)
+  %strong
+    API Key:
+  {{api_key}}
+.block.large.bordered-top
   %button.btn.action{:type => "button"}
     Finish
   .go-right
