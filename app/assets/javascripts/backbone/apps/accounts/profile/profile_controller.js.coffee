@@ -99,7 +99,7 @@
       profileView = @getEditProfileRegion(model)
       formView = App.request "form:wrapper", profileView
       
-      @profileLayout.editProfileRegion.show formView
+      @profileLayout.editProfileRegion.show formView 
 
     text_counter: (input, target, max) ->
       init_text = $(input).val()

@@ -29,6 +29,7 @@
     serializeData: ->
       footer: @config.footer
       buttons: @buttons?.toJSON() ? false
+      btncontainercls: @config.btncontainercls
 
     onShow: ->
       _.defer =>

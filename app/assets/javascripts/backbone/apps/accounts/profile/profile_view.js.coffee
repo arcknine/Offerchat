@@ -81,6 +81,7 @@
     template: "accounts/profile/edit"
     className: "form"
     form:
+      btncontainercls: "buttons block bordered-top large group"
       buttons:
         nosubmit: false
         primary: "Save Changes"

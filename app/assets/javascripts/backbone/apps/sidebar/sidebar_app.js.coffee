@@ -25,5 +25,3 @@
     App.chatSidebarRegion.close()
     API.showSelector()
     API.showVisitors(reconnect)
-
-
