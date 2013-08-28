@@ -18,6 +18,7 @@ node do |website|
       :pre_chat => {
         :enabled          => website.settings(:pre_chat).enabled,
         :message_required => website.settings(:pre_chat).message_required,
+        :email_required   => website.settings(:pre_chat).email_required,
         :header           => website.settings(:pre_chat).header,
         :description      => website.settings(:pre_chat).description
       },

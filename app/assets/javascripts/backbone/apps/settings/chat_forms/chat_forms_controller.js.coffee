@@ -50,6 +50,9 @@
         @listenTo showForms, "get:prechat:message:check", (checked) =>
           @settings.pre_chat.message_required = checked
           @currentUser.set settings: @settings
+        @listenTo showForms, "get:prechat:email:check", (checked) =>
+          @settings.pre_chat.email_required = checked
+          @currentUser.set settings: @settings
         @listenTo showForms, "get:toggle:prechat", (enabled) =>
           @settings.pre_chat.enabled = enabled
           @currentUser.set settings: @settings
@@ -72,6 +75,10 @@
       if !@settings.pre_chat.message_required and section is 'prechat'
         $(".widget-input-container > textarea").hide()
         $("#prechat-message-checkbox").removeClass("checked")
+
+      if !@settings.pre_chat.email_required and section is 'prechat'
+        $(".widget-input-container > input.prechat-email").hide()
+        $("#prechat-email-checkbox").removeClass("checked")
 
     getOfflineFormView: ->
       new ChatForms.Offline

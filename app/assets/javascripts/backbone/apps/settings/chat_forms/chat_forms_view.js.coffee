@@ -62,6 +62,7 @@
     events:
       "blur .widget-label-form textarea"         : "getMessage"
       "click #prechat-message-checkbox"          : "checkMessage"
+      "click #prechat-email-checkbox"            : "checkEmail"
       "click #prechat-toggle"                    : "toggleSlider"
       "input .widget-label-form textarea"        : "updateWidgetMessage"
 
@@ -77,6 +78,16 @@
         $(ev.currentTarget).removeClass("checked")
         @trigger "get:prechat:message:check", false
         $(".widget-input-container > textarea").hide()
+
+    checkEmail: (ev) ->
+      unless $(ev.currentTarget).hasClass("checked")
+        $(ev.currentTarget).addClass("checked")
+        @trigger "get:prechat:email:check", true
+        $(".widget-input-container > input.prechat-email").show()
+      else
+        $(ev.currentTarget).removeClass("checked")
+        @trigger "get:prechat:email:check", false
+        $(".widget-input-container > input.prechat-email").hide()
 
     toggleSlider: (ev) ->
       unless $(ev.currentTarget).hasClass("toggle-off")
