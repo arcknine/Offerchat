@@ -1,0 +1,59 @@
+.widget-preview-sample
+
+  .widget-box.widget-theme#widget-header{ :class => "theme-{{model.settings.style.theme}}" }
+    .widget-head.widget-rounded-head.group
+      %img.agent-thumbnail{ :src => "{{user.avatar}}" }
+
+      .widget-agent-name
+        {{user.display_name}}
+      .widget-welcome-msg
+        {{model.settings.online.agent_label}}
+    .widget-body
+      .widget-chat-viewer
+        .message-item
+          .group
+            .message-author.agent-author
+              {{user.display_name}}
+          .message
+            .message-date
+              8:00am
+            Hello! Thanks for dropping by. Anything I can help you with?
+        .message-item
+          .group
+            .message-author
+              Visitor
+          .message
+            .message-date
+              8:03am
+            Yes, do you offer free shipping?
+
+      .widget-input
+        %i.widget.icon.icon-chat
+        %input.widget-input-text{ :type => "text", :placeholder => "Type your question and hit enter" }
+        %a.chat-settings
+          %i.widget.icon.icon-gear
+        %a.chat-rating
+          %i.widget.icon.icon-thumbs-up
+      .widget-footer
+        .footer-logo
+        .widget-footer-desc
+          Powered by
+          %strong
+            %a
+              Offerchat
+
+
+.block.inline
+  .form.widget-label-form
+    %fieldset
+      %label
+        Widget Label
+      .input-container
+        .input-append
+          %input{ :type => "text", :id => "widget-label", :value => "{{model.settings.online.agent_label}}", :maxlength => 33, :name => "widget_label" }
+          .add-on#widget-label-count
+            {{counter}}
+
+    %fieldset
+      %button.btn.action{ :type => "submit" }
+        Save Changes

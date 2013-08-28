@@ -1,96 +1,14 @@
 .block.large
   %h2
-    Languange and Labels
-  Customize the widget language and label
+    / Languange and Labels
+    Labels
+  / Customize the widget language and label
+  Customize the widget label
 
 .block-message#setting-notification{:style => "display: none"}
   %a.close ×
   %span
 
-.language-selector.block.large
-  %a.set-language.selected
-    = image_tag "lang/english.png"
-    %label
-      English
-  %a.set-language
-    = image_tag "lang/deutsch.png"
-    %label
-      Deutsch
-  %a.set-language
-    = image_tag "lang/french.png"
-    %label
-      French
-  %a.set-language
-    = image_tag "lang/espanol.png"
-    %label
-      Espanol
-  %a.set-language
-    = image_tag "lang/portuguese.png"
-    %label
-      Portuguese
-  %a.set-language
-    = image_tag "lang/polish.png"
-    %label
-      Polish
+#language-region
 
-.group.block.large
-
-  .widget-preview-sample
-
-    .widget-box.widget-theme.theme-pink3#widget-header
-      .widget-head.widget-rounded-head.group
-        %img.agent-thumbnail{ :src => "{{user.avatar}}" }
-
-        .widget-agent-name
-          {{user.display_name}}
-        .widget-welcome-msg
-          Hello! How can I help you today?
-      .widget-body
-        .widget-chat-viewer
-          .message-item
-            .group
-              .message-author.agent-author
-                {{user.display_name}}
-            .message
-              .message-date
-                8:00am
-              Hello! Thanks for dropping by. Anything I can help you with?
-          .message-item
-            .group
-              .message-author
-                Visitor
-            .message
-              .message-date
-                8:03am
-              Yes, do you offer free shipping?
-        
-        .widget-input
-          %i.widget.icon.icon-chat
-          %input.widget-input-text{ :type => "text", :placeholder => "Type your question and hit enter" }
-          %a.chat-settings
-            %i.widget.icon.icon-gear
-          %a.chat-rating
-            %i.widget.icon.icon-thumbs-up
-        .widget-footer
-          .footer-logo
-          .widget-footer-desc
-            Powered by
-            %strong
-              %a
-                Offerchat
-
-
-  .block.inline
-    .form.widget-label-form
-      %fieldset
-        %label
-          Widget Label
-        .input-container
-          .input-append
-            %input{ :type => "text", :id => "widget-label", :value => "Hello! How can I help you today?", :maxlength => 33, :name => "widget_label" }
-            .add-on#widget-label-count
-              33
-
-      %fieldset
-        %button.btn.action{ :type => "submit" }
-          Save Changes
+#label-region
