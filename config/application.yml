@@ -31,6 +31,9 @@ production:
   USER_SERVICE_ENDPOINT: plugins/userService/userservice?
   CHAT_HISTORY_URL: http://history.offerchat.com
 
+  AWS_ACCESS_KEY_ID: AKIAI4KRAOR4GE6GES7Q
+  AWS_SECRET_ACCESS_KEY: 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
+
 test:
   STRIPE_API_KEY: sk_test_Nc1LdRAL1YAqOh60JUTHjI9V
   STRIPE_PUBLIC_KEY: pk_test_VWmJIaOTLzYZAUmg8x7sMKYr
