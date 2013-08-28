@@ -1,5 +1,10 @@
 @Offerchat.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
+  class Entities.VisitorInfo extends App.Entities.Model
+    urlRoot: Routes.visitors_path()
+    generateGravatarSource: ->
+      @set { gravatar: "https://www.gravatar.com/avatar/#{ MD5.hexdigest($.trim(@get("email")).toLowerCase()) }?s=100&d=mm" }
+
   class Entities.Visitor extends App.Entities.Model
 
     defaults:
@@ -49,6 +54,14 @@
     setVisitor: ->
       new Entities.Visitor
 
+    getVisitorInfo: (id)->
+      visitor = new Entities.VisitorInfo
+      visitor.set id: id
+      visitor.fetch
+        id: id
+        reset: true
+      visitor
+
     visitors: ->
       new Entities.VisitorsCollection
 
@@ -78,3 +91,6 @@
 
   App.reqres.setHandler "get:chat:window:height", ->
     API.windowHeight()
+
+  App.reqres.setHandler "get:visitor:info:entity", (id)->
+    API.getVisitorInfo(id)

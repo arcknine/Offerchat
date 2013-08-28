@@ -72,11 +72,21 @@
     className: "table-history-viewer-content"
     id: "historyTableViewer"
 
+  class Conversations.ChatsModalRegion extends App.Views.Layout
+    template: "history/conversation/chats_modal"
+    regions:
+      headerRegion:   "#chat-modal-header-region"
+      bodyRegion:     "#chat-modal-body-region"
+      footerRegion:   "#chat-modal-footer-region"
+    triggers:
+      "click a.close" : "close:chats:modal"
+
+  class Conversations.ChatModalHeader extends App.Views.ItemView
+    template: "history/conversation/chats_modal_header"
+
   class Conversations.ChatMessage extends App.Views.ItemView
     template: "history/conversation/chat_message"
 
   class Conversations.Chats extends App.Views.CompositeView
     template: "history/conversation/chats"
     itemView: Conversations.ChatMessage
-    triggers:
-      "click a.close" : "close:chats:modal"

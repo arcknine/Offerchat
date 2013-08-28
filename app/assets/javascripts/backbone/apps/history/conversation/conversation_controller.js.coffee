@@ -41,22 +41,32 @@
       new Conversations.Layout
 
     getConversationModal: (model)->
-      console.log model
-      messages = App.request "messeges:entities"
-      messages.url = "http://history.offerchat.loc:9292/chats/#{model.get('token')}"
-      messages.fetch
-        dataType : "jsonp"
-        processData: true
-        reset: true
-        success: (data)->
-          console.log data
+      visitor = App.request "get:visitor:info:entity", model.get("vid")
+      visitor.generateGravatarSource()
 
-      modalView = new Conversations.Chats
+      modalViewRegion = new Conversations.ChatsModalRegion
         model: model
 
-      @listenTo modalView, "close:chats:modal", ->
-        modalView.close()
-      App.modalRegion.show modalView
+      App.execute "when:fetched", visitor, (item) =>
+
+        modalRegionHeader = new Conversations.ChatModalHeader
+          model: visitor
+
+        modalViewRegion.headerRegion.show modalRegionHeader
+
+        messages = App.request "messeges:entities"
+        messages.url = "http://history.offerchat.loc:9292/chats/#{model.get('token')}"
+        messages.fetch
+          dataType : "jsonp"
+          processData: true
+          reset: true
+          success: (data)->
+            console.log data
+
+      @listenTo modalViewRegion, "close:chats:modal", ->
+        modalViewRegion.close()
+
+      App.modalRegion.show modalViewRegion
     
     getHeaderRegion: ->
       new Conversations.Header
