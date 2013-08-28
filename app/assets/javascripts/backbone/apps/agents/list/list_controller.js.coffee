@@ -59,8 +59,16 @@
                 agents.add model
                 self.showNotification("Invitation sent!")
                 modalAgentView.close()
-              error: (data, error)->
-                self.showNotification _.first JSON.parse(error.responseText).errors.base
+              error: (data, response)->
+                if response.status == 422
+                  errs = []
+                  errors  = $.parseJSON(response.responseText).errors
+                  for attribute, messages of errors
+                    if attribute isnt "base"
+                      errs.push "#{attribute.charAt(0).toUpperCase()}#{attribute.slice(1)} #{message}" for message in messages
+                    else
+                      errs.push "#{message}" for message in messages
+                  self.showNotification _.first(errs)
                 modalAgentView.close()
 
           addAgentViewLayout.agentRegion.show addAgentView 
@@ -99,7 +107,7 @@
                   self.showNotification("Your changes have been saved!")
                   modalAgentView.close()
                 error: (data)->
-                  console.log data
+                  console.log "error", data
                   #modalAgentView.close()
                   #self.showNotification("Your changes have been saved!")
               
