@@ -77,7 +77,7 @@
         $("#prechat-message-checkbox").removeClass("checked")
 
       if !@settings.pre_chat.email_required and section is 'prechat'
-        $(".widget-input-container > input[placeholder=Email]").hide()
+        $(".widget-input-container > input.email").hide()
         $("#prechat-email-checkbox").removeClass("checked")
 
     getOfflineFormView: ->
