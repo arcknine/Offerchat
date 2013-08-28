@@ -41,6 +41,7 @@
       new Conversations.Layout
 
     getConversationModal: (model)->
+      console.log model
       messages = App.request "messeges:entities"
       messages.url = "http://history.offerchat.loc:9292/chats/#{model.get('token')}"
       messages.fetch
