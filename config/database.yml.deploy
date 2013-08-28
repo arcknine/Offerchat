@@ -11,7 +11,7 @@ staging:
   socket: /var/run/mysqld/mysqld.sock
 
 production:
-  host: offerchatproduction.cl880wgyx5p7.us-east-1.rds.amazonaws.com
+  host: offerchat-production.cl880wgyx5p7.us-east-1.rds.amazonaws.com
   adapter: mysql2
   encoding: utf8
   collation: utf8_general_ci
