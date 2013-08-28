@@ -9,9 +9,13 @@
       @settings    = @currentSite.get("settings")
       @counter     = 33 - (@settings.online.agent_label.length)
 
+      @currentSite.url = Routes.update_settings_website_path(@currentSite.get('id'))
+
       App.execute "when:fetched", @currentUser , =>
         @setlabels()
-        console.log @currentUser
+
+      @listenTo @currentSite, "updated", (site) =>
+        @showNotification("Your changes have been saved!")
 
       @listenTo @layout, "show", =>
         @setLanguages()
@@ -28,13 +32,16 @@
         $(labelsView.el).find("#widget-label-count").text(@counter)
 
       @listenTo labelsView, "label:value:update", (e) =>
-        label = $(labelsView) $(e.target).val()
+        label = $(e.target).val()
         @settings.online.agent_label = label
         @currentSite.set settings: @settings
 
-        console.log @currentSite
-
       formView = App.request "form:wrapper", labelsView
+      console.log formView.el
+      $(formView.el).submit ->
+        # console.log "test"
+        return false
+
       @layout.labelRegion.show formView
 
     setLanguages: ->
