@@ -106,10 +106,6 @@
                   agents.fetch()
                   self.showNotification("Your changes have been saved!")
                   modalAgentView.close()
-                error: (data)->
-                  console.log "error", data
-                  #modalAgentView.close()
-                  #self.showNotification("Your changes have been saved!")
               
             showAgentViewLayout.sitesRegion.show sitesView
 
