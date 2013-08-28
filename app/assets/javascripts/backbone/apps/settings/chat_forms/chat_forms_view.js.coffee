@@ -83,11 +83,11 @@
       unless $(ev.currentTarget).hasClass("checked")
         $(ev.currentTarget).addClass("checked")
         @trigger "get:prechat:email:check", true
-        $(".widget-input-container > input.email").show()
+        $(".widget-input-container > input.prechat-email").show()
       else
         $(ev.currentTarget).removeClass("checked")
         @trigger "get:prechat:email:check", false
-        $(".widget-input-container > input.email").hide()
+        $(".widget-input-container > input.prechat-email").hide()
 
     toggleSlider: (ev) ->
       unless $(ev.currentTarget).hasClass("toggle-off")

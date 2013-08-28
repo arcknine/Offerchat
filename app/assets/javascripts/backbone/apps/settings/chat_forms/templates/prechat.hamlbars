@@ -21,7 +21,7 @@ If you want to get to know your visitors first for a more personalized chat sess
             .widget-input-container
               %input{ placeholder: "Name", type: "text" }
             .widget-input-container
-              %input.email{ placeholder: "Email", type: "text" }
+              %input.prechat-email{ placeholder: "Email", type: "text" }
             .widget-input-container
               %textarea{ placeholder: "Message" }
             .widget-input-container
