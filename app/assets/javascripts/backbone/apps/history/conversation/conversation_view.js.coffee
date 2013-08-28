@@ -36,7 +36,6 @@
     modelEvents:
       "change" : "render"
     events:
-      #"click" : "select:conversation:clicked"
       "click" : "select_conversation"
     select_conversation: (evt)->
       console.log @
