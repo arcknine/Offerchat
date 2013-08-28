@@ -6,9 +6,9 @@
     %li
       %a{data: {section: 'position'}} Widget Position
     %li
-      %a{data: {section: 'language'}}Language and Labels
-    %li
-      %a{data: {section: 'attention-grabbers'}} Attention Grabbers
+      %a{data: {section: 'language'}} Labels
+    / %li
+    /   %a{data: {section: 'attention-grabbers'}} Attention Grabbers
     %li
       %a{data: {section: 'chat-forms'}} Chat Forms
     %li

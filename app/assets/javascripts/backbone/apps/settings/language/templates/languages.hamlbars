@@ -1,0 +1,24 @@
+%a.set-language.selected
+  = image_tag "lang/english.png"
+  %label
+    English
+%a.set-language
+  = image_tag "lang/deutsch.png"
+  %label
+    Deutsch
+%a.set-language
+  = image_tag "lang/french.png"
+  %label
+    French
+%a.set-language
+  = image_tag "lang/espanol.png"
+  %label
+    Espanol
+%a.set-language
+  = image_tag "lang/portuguese.png"
+  %label
+    Portuguese
+%a.set-language
+  = image_tag "lang/polish.png"
+  %label
+    Polish

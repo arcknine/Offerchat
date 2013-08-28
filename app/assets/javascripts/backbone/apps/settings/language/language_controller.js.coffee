@@ -2,57 +2,53 @@
 
   class Language.Controller extends App.Controllers.Base
     initialize: (options) ->
-      layout = @getLayoutView(options.currentSite)
-
+      { @currentSite } = options
+      console.log @currentSite
       @currentUser = App.request "get:current:profile"
-      
-      options.currentSite.url = Routes.update_settings_website_path(options.currentSite.get("id"))
-      settings = options.currentSite.get('settings')
+      @layout      = @getLayoutView()
+      @settings    = @currentSite.get("settings")
+      @counter     = 33 - (@settings.online.agent_label.length)
 
-      @listenTo layout, "language:value:changed", (e) =>
-        @updateWidgetLabel()
+      App.execute "when:fetched", @currentUser , =>
+        @setlabels()
+        console.log @currentUser
 
-      @listenTo layout, "language:value:update", (e) =>
-        settings.online.agent_label = $("#widget-label").val()
-        options.currentSite.set settings: settings
+      @listenTo @layout, "show", =>
+        @setLanguages()
+        @setlabels()
 
-      @listenTo options.currentSite, "updated", (site) =>
-        @showNotification("Your changes have been saved!")
+      @show @layout
 
-      @listenTo layout, "hide:notification", =>
-        $("#setting-notification").fadeOut()
+    setlabels: ->
+      labelsView = @getLabelView()
 
-      formView = App.request "form:wrapper", layout
-      layout.url = Routes.websites_path()
-      @show formView
-      
-      App.commands.setHandler "avatar:change", (avatar) ->
-        @currentUser.set avatar: avatar
+      @listenTo labelsView, "label:value:changed", (e) =>
+        $(labelsView.el).find(".widget-welcome-msg").text $(e.target).val()
+        @counter = 33 - ($(e.target).val().length)
+        $(labelsView.el).find("#widget-label-count").text(@counter)
 
-      @initWidget(options.currentSite)
+      @listenTo labelsView, "label:value:update", (e) =>
+        label = $(labelsView) $(e.target).val()
+        @settings.online.agent_label = label
+        @currentSite.set settings: @settings
 
-    getLayoutView: (website) ->
+        console.log @currentSite
+
+      formView = App.request "form:wrapper", labelsView
+      @layout.labelRegion.show formView
+
+    setLanguages: ->
+      languageView = @getLanguageView()
+      # @layout.languageRegion.show languageView
+
+    getLabelView: ->
+      new Language.Labels
+        model: @currentSite
+        user:  @currentUser
+        counter: @counter
+
+    getLanguageView: ->
+      new Language.Langs
+
+    getLayoutView: ->
       new Language.Layout
-        model: website
-
-    updateWidgetLabel: ->
-      $("#widget-label-count").text(33 - $("#widget-label").val().length)
-      $(".widget-welcome-msg").text($("#widget-label").val())
-
-    initWidget: (website) ->
-      # Display name
-      $(".widget-agent-name").text(@currentUser.attributes.display_name)
-
-      # Labels
-      $(".widget-welcome-msg").text(website.attributes.settings.online.agent_label)
-      $("#widget-label").val(website.attributes.settings.online.agent_label)
-
-      # Label limit
-      $("#widget-label-count").text(33 - website.attributes.settings.online.agent_label.length)
-
-      # Widget style
-      $("#widget-header").removeClass()
-      $("#widget-header").addClass("widget-box widget-theme theme-#{website.attributes.settings.style.theme}")
-
-      if website.attributes.settings.style.gradient
-        $("#widget-header").children(":first").addClass("widget-gradient")

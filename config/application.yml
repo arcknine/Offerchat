@@ -13,9 +13,9 @@ staging:
   STRIPE_API_KEY: sk_test_Nc1LdRAL1YAqOh60JUTHjI9V
   STRIPE_PUBLIC_KEY: pk_test_VWmJIaOTLzYZAUmg8x7sMKYr
 
-  CHAT_BOSH_URL: http://sb0.offerchat.com:7070/http-bind/
+  CHAT_BOSH_URL: https://sb0.offerchat.com:7443/http-bind/
   CHAT_SERVER_NAME: timereal.offerchat.com
-  CHAT_SERVER_URL: http://sb0.offerchat.com:9090/
+  CHAT_SERVER_URL: https://sb0.offerchat.com:9091/
   CHAT_SERVER_SECRET: 0ff3rch@t
   USER_SERVICE_ENDPOINT: plugins/userService/userservice?
   CHAT_HISTORY_URL: http://ch0.offerchat.com
@@ -24,9 +24,9 @@ production:
   STRIPE_API_KEY: sk_live_APQHCHL51kI3kqK1kX8Qj0W5
   STRIPE_PUBLIC_KEY: pk_live_RAVYaiNNzG7YRGfnUmC4Tjb7
 
-  CHAT_BOSH_URL: http://b0.offerchat.com:7070/http-bind/
-  CHAT_SERVER_NAME: realtime.offerchat.com
-  CHAT_SERVER_URL: https://b0.offerchat.com:9091/
+  CHAT_BOSH_URL: https://im.offerchat.com:7443/http-bind/
+  CHAT_SERVER_NAME: im.offerchat.com
+  CHAT_SERVER_URL: https://im.offerchat.com:9091/
   CHAT_SERVER_SECRET: 0ff3rch@t
   USER_SERVICE_ENDPOINT: plugins/userService/userservice?
   CHAT_HISTORY_URL: http://history.offerchat.com
