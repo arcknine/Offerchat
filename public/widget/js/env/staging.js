@@ -18,6 +18,6 @@ global = {
     server:   '@timereal.offerchat.com',
     api_url:  '//staging.offerchat.com/api/v1/widget/',
     assets:   '//staging.offerchat.com',
-    history:  '//ch0.offerchat.com'
+    history:  '//ec2-174-129-161-42.compute-1.amazonaws.com'
   }
 };
