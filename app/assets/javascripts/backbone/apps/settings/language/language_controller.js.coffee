@@ -3,7 +3,6 @@
   class Language.Controller extends App.Controllers.Base
     initialize: (options) ->
       { @currentSite } = options
-      console.log @currentSite
       @currentUser = App.request "get:current:profile"
       @layout      = @getLayoutView()
       @settings    = @currentSite.get("settings")
@@ -37,11 +36,6 @@
         @currentSite.set settings: @settings
 
       formView = App.request "form:wrapper", labelsView
-      console.log formView.el
-      $(formView.el).submit ->
-        # console.log "test"
-        return false
-
       @layout.labelRegion.show formView
 
     setLanguages: ->
