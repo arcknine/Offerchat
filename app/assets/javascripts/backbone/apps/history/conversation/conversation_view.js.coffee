@@ -88,5 +88,5 @@
     template: "history/conversation/chat_message"
 
   class Conversations.Chats extends App.Views.CompositeView
-    template: "history/conversation/chats"
+    template: "history/conversation/chat_messages"
     itemView: Conversations.ChatMessage

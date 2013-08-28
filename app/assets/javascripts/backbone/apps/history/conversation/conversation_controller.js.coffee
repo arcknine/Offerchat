@@ -42,6 +42,8 @@
 
     getConversationModal: (model)->
       visitor = App.request "get:visitor:info:entity", model.get("vid")
+      messages = App.request "messeges:entities"
+
       visitor.generateGravatarSource()
 
       modalViewRegion = new Conversations.ChatsModalRegion
@@ -54,14 +56,16 @@
 
         modalViewRegion.headerRegion.show modalRegionHeader
 
-        messages = App.request "messeges:entities"
+        modalRegionBody = new Conversations.Chats
+          collection: messages
+
         messages.url = "http://history.offerchat.loc:9292/chats/#{model.get('token')}"
         messages.fetch
           dataType : "jsonp"
           processData: true
           reset: true
-          success: (data)->
-            console.log data
+
+        modalViewRegion.bodyRegion.show modalRegionBody
 
       @listenTo modalViewRegion, "close:chats:modal", ->
         modalViewRegion.close()

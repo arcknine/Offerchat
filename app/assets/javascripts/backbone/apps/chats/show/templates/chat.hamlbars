@@ -5,7 +5,7 @@
   .chat-table.chat-container-table
     .viewing-current-url
       viewing
-      %a {{message}}
+      %a {{msg}}
   .chat-time
     {{timesimple}}
 
@@ -20,7 +20,7 @@
       {{/if}}
 
   .chat-table.chat-container-table
-    %p {{message}}
+    %p {{msg}}
 
   .chat-time {{timesimple}}
 {{/if}}
