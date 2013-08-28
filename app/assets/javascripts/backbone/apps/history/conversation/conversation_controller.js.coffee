@@ -6,14 +6,14 @@
       @layout = @getLayout()
       agents = App.request "agents:entities"
       currentUser = App.request "get:current:user"
-      
+      self = @
 
       App.request "show:preloader"
       App.execute "when:fetched", agents, (item)=>
         conversations = App.request "get:conversations:entitites", null, agents.pluck("id")
 
-        App.commands.setHandler "converstations:fetch", (aids)=>
-          self = @
+        App.commands.setHandler "conversations:fetch", (aids)=>
+          
           App.request "show:preloader"
           conversations.fetch
             data: {aids: aids}
@@ -41,8 +41,18 @@
       new Conversations.Layout
 
     getConversationModal: (model)->
+      messages = App.request "messeges:entities"
+      messages.url = "http://history.offerchat.loc:9292/chats/#{model.get('token')}"
+      messages.fetch
+        dataType : "jsonp"
+        processData: true
+        reset: true
+        success: (data)->
+          console.log data
+
       modalView = new Conversations.Chats
         model: model
+
       @listenTo modalView, "close:chats:modal", ->
         modalView.close()
       App.modalRegion.show modalView
@@ -70,7 +80,7 @@
       filters = new Conversations.Agents
         collection: collection
       @listenTo filters, "childview:agent:filter:selected", (item)->
-        App.execute "converstations:fetch", [item.model.get("id")]
+        App.execute "conversations:fetch", [item.model.get("id")]
         filters.closeDropDown()
 
       filters

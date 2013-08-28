@@ -39,6 +39,7 @@
       #"click" : "select:conversation:clicked"
       "click" : "select_conversation"
     select_conversation: (evt)->
+      console.log @
       App.execute "open:conversation:modal", @model
 
     initialize: ->
@@ -71,7 +72,11 @@
     className: "table-history-viewer-content"
     id: "historyTableViewer"
 
-  class Conversations.Chats extends App.Views.ItemView
+  class Conversations.ChatMessage extends App.Views.ItemView
+    template: "history/conversation/chat_message"
+
+  class Conversations.Chats extends App.Views.CompositeView
     template: "history/conversation/chats"
+    itemView: Conversations.ChatMessage
     triggers:
       "click a.close" : "close:chats:modal"
