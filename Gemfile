@@ -55,6 +55,7 @@ group :assets do
   gem 'hamlbars', '~> 2.0'
   gem 'handlebars_assets'
   gem 'jquery-fileupload-rails'
+  gem 'asset_sync'
 end
 
 group :development, :test do

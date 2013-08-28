@@ -43,11 +43,10 @@ Dashboard::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  # config.action_controller.asset_host = "http://assets.example.com"
+  config.action_controller.asset_host = "//assets.offerchat.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( signupwizard.css, signupwizard.js )
-
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
@@ -77,9 +76,4 @@ Dashboard::Application.configure do
     :authentication => 'plain',
     :enable_starttls_auto => true
   }
-  # Openfire Config
-  # CHAT_SERVER_NAME = "realtime.offerchat.com"
-  # CHAT_SERVER_URL = "https://realtime.offerchat.com:9091"
-  # CHAT_SERVER_SECRET = "0ff3rch@t"
-  # USER_SERVICE_ENDPOINT = "plugins/userService/userservice?"
 end
