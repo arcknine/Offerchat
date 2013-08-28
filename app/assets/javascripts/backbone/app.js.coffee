@@ -36,4 +36,9 @@
     @startHistory()
     @navigate(@rootRoute, trigger: true) unless @getCurrentRoute()
 
+  # event can be found in 'config/marionette/application.js.coffee'
+  # event will execute every change of url
+  Backbone.on 'execute:route:change:events', ->
+    App.execute "set:no:active:chat"
+
   App

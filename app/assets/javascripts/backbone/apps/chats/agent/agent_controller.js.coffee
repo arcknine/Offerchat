@@ -47,8 +47,7 @@
         vtoken = msg.model.get('trn_vtoken')
         App.navigate "chats/visitor/#{vtoken}", trigger: true   # navigate to visitor chat
 
-        App.request "set:no:active:agent:chat"
-        App.request "set:no:active:visitor:chat"
+        App.execute "set:no:active:chat"
 
         visitorList = App.request "get:chats:visitors"
         visitor = visitorList.findWhere token: vtoken
