@@ -6,34 +6,46 @@
       @layout = @getLayout()
       agents = App.request "agents:entities"
       currentUser = App.request "get:current:user"
-      conversations = App.request "get:conversations:entitites", null, [currentUser.id]
-
-      App.commands.setHandler "converstations:fetch", (aids)=>
-        self = @
-        App.request "show:preloader"
-        conversations.fetch
-          data: {aids: aids}
-          dataType : "jsonp"
-          processData: true
-          reset: true
-          success: ->
-            convos = self.organizeConversations(conversations)
-            self.layout.conversationsRegion.show self.getConversationsRegion(convos)
-            App.request "hide:preloader"
+      
 
       App.request "show:preloader"
-      App.execute "when:fetched", conversations, (item)=>
-        @listenTo @layout, "show", =>
-          convos = @organizeConversations(conversations)
-          @layout.headerRegion.show @getHeaderRegion()
-          App.execute "when:fetched", agents, (item)=>
+      App.execute "when:fetched", agents, (item)=>
+        conversations = App.request "get:conversations:entitites", null, agents.pluck("id")
+
+        App.commands.setHandler "converstations:fetch", (aids)=>
+          self = @
+          App.request "show:preloader"
+          conversations.fetch
+            data: {aids: aids}
+            dataType : "jsonp"
+            processData: true
+            reset: true
+            success: ->
+              convos = self.organizeConversations(conversations)
+              self.layout.conversationsRegion.show self.getConversationsRegion(convos)
+              App.request "hide:preloader"
+
+        App.execute "when:fetched", conversations, (item)=>
+          @listenTo @layout, "show", =>
+            convos = @organizeConversations(conversations)
+            @layout.headerRegion.show @getHeaderRegion()
             @layout.filterRegion.show @getFilterRegion(agents)
-          @layout.conversationsRegion.show @getConversationsRegion(convos)
-          App.request "hide:preloader"
-        @show @layout
+            @layout.conversationsRegion.show @getConversationsRegion(convos)
+            App.request "hide:preloader"
+          @show @layout
+
+        App.commands.setHandler "open:conversation:modal", (item)=>
+          @getConversationModal(item)
     
     getLayout: ->
       new Conversations.Layout
+
+    getConversationModal: (model)->
+      modalView = new Conversations.Chats
+        model: model
+      @listenTo modalView, "close:chats:modal", ->
+        modalView.close()
+      App.modalRegion.show modalView
     
     getHeaderRegion: ->
       new Conversations.Header

@@ -35,6 +35,11 @@
     className: "table-row linkable group"
     modelEvents:
       "change" : "render"
+    events:
+      #"click" : "select:conversation:clicked"
+      "click" : "select_conversation"
+    select_conversation: (evt)->
+      App.execute "open:conversation:modal", @model
 
     initialize: ->
       m = @model.get("updated_at")
@@ -65,3 +70,8 @@
     emptyView: Conversations.EmptyView
     className: "table-history-viewer-content"
     id: "historyTableViewer"
+
+  class Conversations.Chats extends App.Views.ItemView
+    template: "history/conversation/chats"
+    triggers:
+      "click a.close" : "close:chats:modal"
