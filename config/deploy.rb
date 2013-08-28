@@ -21,6 +21,14 @@ set :deploy_via, :remote_cache
 set :scm, :git
 set :repository, "git@bitbucket.org:offerchat/dashboard.git"
 
+# Sidekiq
+set :sidekiq_cmd, "bundle exec sidekiq -q mailer -q default -c 100"
+set :sidekiqctl_cmd, "bundle exec sidekiqctl"
+set :sidekiq_timeout, 10
+set :sidekiq_role, :app
+set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
+set :sidekiq_processes, 1
+
 # DB Config
 after 'deploy:finalize_update', 'db:update_config'
 namespace :db do
