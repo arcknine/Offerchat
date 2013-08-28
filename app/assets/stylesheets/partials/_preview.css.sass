@@ -27,7 +27,12 @@
   z-index: 1100
   width: 100%
   height: 100%
-
+.iframe-wrapper
+  z-index: 99999
+  background: #fff
+  position: absolute
+  width: 100%
+  height: 100%
 .control-modal
   background: #fff
   box-shadow: 0 1px 15px rgba(0, 0, 0, 0.4)
@@ -63,7 +68,7 @@
     display: inline-block
     margin: 0 10px 0 0
     color: $text-color
-    border: 1px solid transparent
+    @include transition(.2s)
     label
       display: block
       margin-top: 5px
@@ -71,7 +76,7 @@
     &.active
       background-color: #60cba1
       color: #fff
-      border-color: darken(#60cba1, 15%)
+      
   .widget-screen
     width: 120px
     height: 70px

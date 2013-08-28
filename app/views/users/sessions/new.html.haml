@@ -1,17 +1,28 @@
+
+= render :partial => "users/sidebar"
 .login-wrapper
   .logo-large.centered
+
   .login-form.form
+    %h2
+      Sign in to Offerchat
+    - flash.each do |key, value|
+      %div{:style => "color: #e13d3d"}= value
     = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
       %fieldset
         %label
           Email
-        = f.email_field :email, :autofocus => true
+        .input-container
+          = f.email_field :email, :type => "text", :autofocus => true
       %fieldset
         %label
           Password
-        = f.password_field :password
+        .input-container
+          = f.password_field :password
+
       %fieldset
         %button.btn.action{:type => "submit"}
           Login
-        = link_to "Signup", signup_wizard_path('step_one'), :class =>"go-right", :style => "margin-top: 9px"
+        = link_to "Forgot your password?", new_password_path(resource_name), :class => "go-right", :style => "margin-top: 9px"
+        -# = link_to "Signup", signup_wizard_path('step_one'), :class =>"go-right", :style => "margin-top: 9px"
 

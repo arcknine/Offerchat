@@ -79,12 +79,13 @@ a.site-selector
     position: absolute
     top: -5px
     right: -5px
+
 .group-item-tab
   .profile-image-container
     margin-right: 10px
     float: left
   .more
-    margin-top: 8px
+    margin-top: 10px
 
 .column.sidebar
   float: left
@@ -104,9 +105,11 @@ a.site-selector
   box-shadow: 0 1px 2px rgba(0,0,0,.4)
   span
     position: relative
-    top: 1px
+    top: -3px
+    line-height: 1
     color: #fff
     font-size: 11px
+
 
 .chats-sidebar-container
   position: absolute
@@ -119,16 +122,16 @@ a.site-selector
 
   a.chat-item-tab
     @include transition(.2s)
-    padding: $padding-10
+    padding: 8px
     background: #fff
     border-radius: $button-radius
     color: $light-text-color
     margin: 10px 0
     display: block
-    line-height: 1.3
+    line-height: 1
     position: relative
-    box-shadow: 0 2px 0 #bebebe
-    font-weight: bold
+
+
     &:hover
       background: #e8e8e8
       color: $text-color
@@ -148,6 +151,8 @@ a.site-selector
     .small-help-block
       font-style: normal
       font-size: 12px
+      line-height: 1.4
+
 .chats-sidebar
   padding: 10px
   color: #fff
@@ -173,7 +178,7 @@ a.site-selector
 
 .tour-sidebar
   position: absolute
-  width: 320px
+  width: 270px
   height: 100%
   color: #fff
   background-color: #445362
@@ -204,9 +209,10 @@ a.site-selector
       .checklist
         background-color: #54c694
         border-color: darken(#54c694, 10%)
-        .value
-          left: 11px
-          top: 13px
+      .value
+        top: 9px
+        left: 9px
+
 
 
 

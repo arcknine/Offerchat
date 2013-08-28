@@ -1,47 +1,5 @@
 .header-wrapper
   .header-wrapper-inner
     .header.group
-      %a.logo
+      %a.logo{:href => root_path}
       %ul.header-inline-list.primary-user-nav
-        %li
-          %a.header-nav-reports
-            Reports
-        %li
-          %a.header-nav-history
-            History
-        %li.profile-status
-          %a
-            .profile-image-container
-              .profile-image
-                %img{:alt => "Widget-agent", :src => "/assets/widget-agent.jpg"}/
-              %span.status.online
-                %i.icon.icon-check-small
-          %ul.profile-status-dropdown.hide
-            %li
-              %a
-                %span.status
-                  %i.icon.icon-check-small
-                Away
-            %li
-              %a
-                %span.status.signout
-                  %i.icon.icon-small-x
-                Signout
-            .dropdown-pointer
-        %li.profile-settings.header-settings
-          %a
-            %i.icon.icon-gear-large
-          %ul.settings-dropdown.hide
-            %li
-              %a
-                Settings
-            %li
-              %a
-                Agent Management
-            %li
-              %a
-                Websites
-            %li
-              %a
-                Account
-            .dropdown-pointer

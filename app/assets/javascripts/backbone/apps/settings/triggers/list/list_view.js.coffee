@@ -6,6 +6,7 @@
 
     regions:
       triggersRegion: "#triggers-region"
+      emptyRegion:    "#empty-triggers"
 
     events:
       "click #addTriggerBtn"  :   "addTrigger"
@@ -15,6 +16,7 @@
       $(e.currentTarget).parent("div").fadeOut()
 
     addTrigger: (e) ->
+      App.execute "show:trigger:items"
       @trigger "add:trigger:clicked", e
 
   class TriggersList.Form extends App.Views.ItemView
@@ -30,7 +32,6 @@
     changeRule: (e) ->
       @trigger "rule:changed", e
 
-
   class TriggersList.Empty extends App.Views.ItemView
     template: "settings/triggers/list/empty"
     tagName: "div"
@@ -38,8 +39,13 @@
   class TriggersList.Trigger extends App.Views.ItemView
     template: "settings/triggers/list/trigger"
 
-    triggers:
-      "click .trigger-item"      : "trigger:item:clicked"
+    events:
+      "click .trigger-item"       : "clickTrigger"
+
+    clickTrigger: (e) ->
+      App.execute "show:trigger:items"
+      $(e.currentTarget).hide()
+      @trigger "trigger:item:clicked"
 
     modelEvents:
       "updated" :  "render"
@@ -47,4 +53,3 @@
   class TriggersList.Triggers extends App.Views.CompositeView
     template: "settings/triggers/list/triggers"
     itemView: TriggersList.Trigger
-    emptyView: TriggersList.Empty

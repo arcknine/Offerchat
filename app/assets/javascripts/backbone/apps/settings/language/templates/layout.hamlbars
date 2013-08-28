@@ -1,12 +1,13 @@
+.block.large
+  %h2
+    Languange and Labels
+  Customize the widget language and label
+
 .block-message#setting-notification{:style => "display: none"}
   %a.close ×
   %span
 
-.block.large
-  %h2
-    Languange and Labels
-  Take the time to customize the widget's language and labels to be more effective in your marketing and support.
-.language-selector
+.language-selector.block.large
   %a.set-language.selected
     = image_tag "lang/english.png"
     %label
@@ -32,45 +33,51 @@
     %label
       Polish
 
-/ WIDGET PREVIEW FOR SETTINGS
 .group.block.large
 
   .widget-preview-sample
 
     .widget-box.widget-theme.theme-pink3#widget-header
       .widget-head.widget-rounded-head.group
-        = image_tag "avatar-large5.jpg", :class => "agent-thumbnail"
+        %img.agent-thumbnail{ :src => "{{user.avatar}}" }
 
         .widget-agent-name
-          Jill
+          {{user.display_name}}
         .widget-welcome-msg
           Hello! How can I help you today?
       .widget-body
-        .message-item
-          .group
-            .message-author.agent-author
-              Jill
-            .message-date
-              8:00am
-          .message
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, eligendi temporibus sint amet.
-        .message-item
-          .group
-            .message-author
-              You
-            .message-date
-              8:03am
-          .message
-            yes, can you help me?
-      .widget-input
-
-        %i.widget.icon.icon-chat
-        %input.widget-input-text{ :type => "text", :placeholder => "Type your question and hit enter" }
-        %a.chat-settings
-          %i.widget.icon.icon-gear
-        %a.chat-rating
-          %i.widget.icon.icon-thumbs-up
-
+        .widget-chat-viewer
+          .message-item
+            .group
+              .message-author.agent-author
+                {{user.display_name}}
+            .message
+              .message-date
+                8:00am
+              Hello! Thanks for dropping by. Anything I can help you with?
+          .message-item
+            .group
+              .message-author
+                Visitor
+            .message
+              .message-date
+                8:03am
+              Yes, do you offer free shipping?
+        
+        .widget-input
+          %i.widget.icon.icon-chat
+          %input.widget-input-text{ :type => "text", :placeholder => "Type your question and hit enter" }
+          %a.chat-settings
+            %i.widget.icon.icon-gear
+          %a.chat-rating
+            %i.widget.icon.icon-thumbs-up
+        .widget-footer
+          .footer-logo
+          .widget-footer-desc
+            Powered by
+            %strong
+              %a
+                Offerchat
 
 
   .block.inline
@@ -80,8 +87,8 @@
           Widget Label
         .input-container
           .input-append
-            %input{ :type => "text", :id => "widget-label", :value => "Hello! How can I help you today?", :maxlength => 33 }
-            %span.add-on#widget-label-count
+            %input{ :type => "text", :id => "widget-label", :value => "Hello! How can I help you today?", :maxlength => 33, :name => "widget_label" }
+            .add-on#widget-label-count
               33
 
       %fieldset

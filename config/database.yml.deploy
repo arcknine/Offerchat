@@ -9,3 +9,15 @@ staging:
   username: offerchatstaging
   password: offerchat123
   socket: /var/run/mysqld/mysqld.sock
+
+production:
+  host: offerchatproduction.cl880wgyx5p7.us-east-1.rds.amazonaws.com
+  adapter: mysql2
+  encoding: utf8
+  collation: utf8_general_ci
+  reconnect: true
+  database: dashboard_production
+  pool: 40
+  username: offerchat
+  password: cebucity2013
+  socket: /var/run/mysqld/mysqld.sock

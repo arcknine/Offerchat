@@ -14,6 +14,8 @@ gem 'nokogiri'
 gem 'activeadmin'
 gem 'meta_search', '>= 1.1.0.pre'
 
+gem 'rails_admin'
+
 # Backbone
 gem 'backbone-on-rails', '>= 1.0.0'
 
@@ -31,6 +33,7 @@ gem 'jquery-rails'
 # Jobs
 gem 'sidekiq'
 gem 'sinatra', :require => nil
+gem 'slim', '>= 1.1.0'
 
 gem "js-routes"
 
@@ -38,8 +41,12 @@ gem "js-routes"
 gem 'aws-sdk'
 gem 'wicked'
 
-# Openfire
-gem 'openfire_api', :git => 'git://github.com/paulasmuth/openfire_api.git'
+# API
+gem 'grape'
+
+# Payments
+gem 'stripe'
+gem 'stripe_event'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -54,13 +61,17 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.0'
   gem 'rspec_junit_formatter'
   gem 'guard-rspec'
-  gem 'rspec-sidekiq'
   gem 'shoulda-matchers'
   gem 'mocha', :require => false
   gem 'database_cleaner'
   gem 'fabrication'
   gem 'simplecov', :require => false
   gem 'email_spec'
+  gem "rack-test", require: "rack/test"
+end
+
+group :test do
+  gem 'rspec-sidekiq'
 end
 
 group :development do

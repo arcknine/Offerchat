@@ -24,18 +24,28 @@ class TriggersController < ApplicationController
     params[:trigger][:rule_type] = params[:rule_type]
     params[:trigger][:params] = {"time" => params[:time],"url" => params[:url]}
     params[:trigger][:message] = params[:message]
-    @trigger = website.triggers.new(params[:trigger])
 
-    unless @trigger.save
-      respond_with @trigger
+    if params[:time].to_i < 5  && (params[:trigger][:rule_type]=="1" or params[:trigger][:rule_type]=="2")
+      render json: { errors: {"time" => "should be at least 5 seconds"} }, status: 401
+    else
+      @trigger = website.triggers.new(params[:trigger])
+
+      unless @trigger.save
+        respond_with @trigger
+      end
     end
   end
 
   def update
     @trigger = Trigger.find_by_id(params[:id])
     params[:trigger][:params] = {"time" => params[:time],"url" => params[:url]}
-    unless @trigger.update_attributes(params[:trigger].except(:website_id))
-      respond_with @trigger
+
+    if params[:time].to_i < 5 && (params[:trigger][:rule_type]=="1" or params[:trigger][:rule_type]=="2")
+      render json: { errors: {"time" => "should be at least 5 seconds"} }, status: 401
+    else
+      unless @trigger.update_attributes(params[:trigger].except(:website_id))
+        respond_with @trigger
+      end
     end
   end
 

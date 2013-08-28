@@ -28,3 +28,11 @@ rspec.xml
 
 # Ignore vim swap files
 *.swp
+*.rdb
+
+#for openfire hosted in a different local machine
+public/widget/js/env/local.js
+public/widget/widget-local.html
+
+# Ignore DS_Store
+**/.DS_Store

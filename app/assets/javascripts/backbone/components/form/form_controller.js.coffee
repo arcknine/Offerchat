@@ -25,8 +25,9 @@
       model.save data,
         collection: collection
 
-    # onClose: ->
-    #   console.log "onClose", @
+    onClose: ->
+      # console.log "onClose", @
+      App.request "hide:preloader"
 
     formContentRegion: ->
       @region = @formLayout.formContentRegion
@@ -36,6 +37,9 @@
 
       config = @getDefaultConfig _.result(@contentView, "form")
       _.extend config, options
+      
+      if typeof config.btncontainercls isnt "undefined"
+        btncontainercls = config.btncontainercls
 
       if typeof config.buttons isnt "undefined"
         buttons = @getButtons config.buttons
@@ -44,6 +48,7 @@
         config: config
         model: @contentView.model
         buttons: buttons
+        btncontainercls: btncontainercls
 
     getDefaultConfig: (config = {}) ->
       _.defaults config,

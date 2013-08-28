@@ -3,8 +3,10 @@ input[type=password],
 input[type=email],
 textarea
   box-sizing: border-box
+  -moz-box-sizing: border-box
   padding: 8px
-  font-size: $base-font-size
+  margin: 0
+  font-size: 12px
   outline: none
   border: 2px solid lighten($border-color,5%)
   font-family: $base-font-family
@@ -40,6 +42,7 @@ textarea
     font-size: 12px
     color: $light-text-color
 select
+  margin: 0
   padding: 8px
   border: 2px solid lighten($border-color,5%)
   outline: none
@@ -66,6 +69,11 @@ label
   &.disabled
     cursor: default
     color: $light-text-color
+    opacity: .7
+    filter: alpha(opacity=80)
+  &.block-label-adjust
+    position: relative
+    top: 3px
 
 
 
@@ -98,14 +106,20 @@ label
       opacity: 1
       filter: alpha(opacity=10)
   &.disabled
+
     .icon
       background-color: #c9d2d6
-      box-shadow: 0 1px 0 darken(#c9d2d6, 10%)
+      box-shadow: 0 1px 0 darken(#c9d2d6, 5%)
       cursor: default
     .icon-check
       opacity: 1
       filter: alpha(opacity=10)
-
+    &.uncheck
+      .icon
+        background-color: #c9d2d6
+      .icon-check
+        opacity: 0
+        ilter: alpha(opacity=0)
   .icon-check
     @include icon(16px, 16px, -28px, -9px)
     opacity: 0
@@ -127,6 +141,7 @@ label
     padding: 10px
     border: 1px solid #e7e7e7
 
+
 .form
   fieldset
     margin: 5px 0 20px 0
@@ -142,12 +157,13 @@ label
     display: block
     font-weight: bold
     .inline-label-message
-      font-weight: 100
+      font-weight: 400
     &.label-top-fix
       vertical-align: top
       padding-top: 10px
+
   &.invite-user-form
-    padding: 10px
+    margin-bottom: 15px
 
   &.form-inline
     .input-container,
@@ -158,12 +174,28 @@ label
       &.block
         display: block
         padding: 0
+  &.form-small
+    textarea, input, button, a
+      font-size: 12px
+    fieldset
+      margin: 5px 0
+  &.form-input-head
+    margin-bottom: 15px
+
 
 
   &.hero-form
     padding: 20px 0
-
+.checklist-admin
+  display: inline-block
+  position: relative
+  text-align: right
+  width: 65px
+  vertical-align: top
+  .checkbox
+    margin-right: 0
 .trigger-form
+
   padding: 10px 20px
   margin: 20px 0
   border-radius: 5px
@@ -175,7 +207,8 @@ label
     &.short
       min-width: 70px
       width: 115px
-
+    &.time-input-fix
+      width: 250px
 .input-container
   &.top
     vertical-align: top
@@ -193,6 +226,7 @@ label
     color: $error-color
   .block-text-message
     color: $error-color
+
 .block-text-message
   margin-top: 5px
 .field-success
@@ -228,26 +262,35 @@ label
     height: 70px
     width: 280px
 
+
 .input-append
-  display: inline-block
+  display: table
   font-size: 0
+  border-collapse: seperate
   white-space: nowrap
   vertical-align: middle
+  position: relative
+
+  .form-control
+
+    vertical-align: middle
+    display: table-cell
+    width: 100%
   .add-on
     border-radius: 0 4px 4px 0
     background-color: #f1f1f1
     text-shadow: 0 1px 0 #fff
     color: $light-text-color
     margin-left: -4px
-    margin-top: 2px
-    vertical-align: top
-    display: inline-block
-    width: auto
-    height: 19px
-    min-width: 16px
-    padding: 7px
-    font-size: 14px
-    line-height: 20px
+    text-align: center
+
+    vertical-align: middle
+    display: table-cell
+
+    padding: 6px 12px
+    position: relative
+    left: -2px
+    font-size: 12px
     border: 2px solid $border-color
 // Toggle
 .toggle
@@ -308,7 +351,6 @@ label
     opacity: .01
 
 .language-selector
-  padding: 10px
   border-bottom: 1px solid #e5e5e5
   a
     width: 90px
@@ -358,3 +400,39 @@ label
       background-image: image-url('toggle/icon-on-2x.png')
       background-size: 30px 29px
 
+.progress
+  height: 10px
+  overflow: hidden
+  background-color: #f7f7f7
+  border-radius: 10px
+  width: 250px
+  display: block
+  margin: 10px auto
+  &.full
+    width: 100%
+  h3
+
+
+  .progress-bar
+    float: left
+    width: 100%
+    height: 100%
+    font-size: 12px
+    color: #fff
+    text-align: center
+
+    background-color: #2599dc
+    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent))
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+    background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+    -webkit-background-size: 40px 40px
+    -moz-background-size: 40px 40px
+    -o-background-size: 40px 40px
+    background-size: 40px 40px
+    -webkit-animation: progress-bar-stripes 2s linear infinite
+    -moz-animation: progress-bar-stripes 2s linear infinite
+    -ms-animation: progress-bar-stripes 2s linear infinite
+    -o-animation: progress-bar-stripes 2s linear infinite
+    animation: progress-bar-stripes 2s linear infinite

@@ -2,5 +2,4 @@
 
   class Info.Website extends App.Views.ItemView
     template:   "websites/info/name"
-    className:  "main-content-view tour-content-view"
-
+    className:  "tour-content-view"

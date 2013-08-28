@@ -1,0 +1,8 @@
+%label.inline.checkbox{ data: { id: "{{id}}" }, class: "{{class_names}}"}
+  %span.icon.checkable
+    .icon-check
+  .profile-image-container.checkable
+    .profile-image
+      %img{:src => "{{avatar}}"}
+  %span.checkable
+    {{name}}

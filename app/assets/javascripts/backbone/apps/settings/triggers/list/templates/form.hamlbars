@@ -13,10 +13,10 @@
           visits specified url
 
   %fieldset.field-inline
-    .input-container.short#time
+    .input-container.time-input-fix.short#time
       %label.block
         Time
-      %input.short{ :type => "text", :placeholder => "5", :value => "{{params.time}}", name: "time" }
+      %input.short{ :type => "text", :placeholder => "", :value => "{{params.time}}", name: "time" }
         secs
 
   %fieldset
@@ -28,11 +28,13 @@
   %fieldset
     %label.block
       Message
-    %textarea.large{ :placeholder => "message", name: "message" }
+    %textarea.full{ :placeholder => "message", name: "message" }
       = "{{message}}"
 
   %fieldset.last
-    %a.btn.save-trigger
-      Save Changes
-    %a.btn.warning.remove-trigger
-      Remove
+    %a.btn.action.save-trigger
+      Save
+    %a.btn
+      Cancel
+    %a.warning.remove-trigger.go-right{ :style => "margin-top: 7px" }
+      Remove Trigger

@@ -1,7 +1,11 @@
+.block-message{ :style => "display:none;" }
+  %a.close
+    &times;
+  %span
 .tour-content-inner
   .block
     %h2
-      Install javascript code
+      Install widget code
     %p
       Copy and paste the code right before the closing head
       %strong
@@ -9,6 +13,25 @@
       of your website
     %textarea.large.widget-code-text{:readonly => "readonly"}
       <!--start of Offerchat js code--><script type='text/javascript'>var ofc_key = '{{api_key}}';(function(){  var oc = document.createElement('script'); oc.type = 'text/javascript'; oc.async = true;  oc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'www.offerchat.com/offerchat_widget.min.js?r='+ Math.random();  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(oc, s);}());</script><!--end of Offerchat js code-->
+
+    .preview-code
+      %p
+        \&lt;html&gt;
+      %p
+        \&nbsp;
+        \&lt;head&gt;
+      %p.red
+        \&nbsp; &nbsp;
+        paste your offerchat script here
+      %p
+        \&nbsp;
+        \&lt;/head&gt;
+      %p
+        \&nbsp;
+        \&lt;body&gt;
+        %br
+          \&nbsp; &nbsp;
+          %em //body of your website
 
 .block.large.bordered-top
   %button.btn.action{:type => "button"}
@@ -18,5 +41,5 @@
       %a.webmaster-code
         Send this code to your webmaster
     %p
-      %a.install-guide
+      %a.install-guide{ :href => "http://support.offerchat.com/getting-started-with-offerchat-live-chat-widget/", :target => "blank" }
         Offerchat Install Guide

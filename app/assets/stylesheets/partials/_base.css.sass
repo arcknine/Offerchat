@@ -1,12 +1,10 @@
 // @import "http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic"
-@import "http://fonts.googleapis.com/css?family=Roboto:400,700,400italic,700italic"
-
-
+@import "http://fonts.googleapis.com/css?family=Roboto:400,400italic,700,300"
 @import "../modules/all"
 
 $base-font-family: "Roboto", "Helvetica Neue", "Helvetica", Arial, sans-serif
 // $base-font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif
-$base-font-weight: normal
+$base-font-weight: 400
 $base-font-size: 14px
 $base-line-height: 1.5
 #wrapper
@@ -17,7 +15,8 @@ $base-line-height: 1.5
   top: 12px
   left: 50%
   margin-left: -8px
-    
+#tableHead1_content
+  margin-top: 33px
 body
   font:
     family: $base-font-family
@@ -29,6 +28,7 @@ body
   overflow: hidden
   -webkit-font-smoothing: antialiased
   -webkit-text-size-adjust: 100%
+  text-rendering: optimizeLegibility
   &.body-dark
     background-color: $sidebar-color
 p
@@ -54,20 +54,17 @@ a
     padding: 10px
     display: block
     color: $light-text-color
-  &.add-more-btn
-    font-size: 11px
-    font-weight: bold
+
+  &.block-link
     display: inline-block
-    padding: 3px 5px
-    background: #ec2972
-    color: #fff
-    border-radius: 3px
-    border: 1px solid darken(#ec2972, 10%)
-    position: relative
-    top: -2px
-    margin-right: 5px
-    text-shadow: 0 -1px 0 darken(#ec2972, 10%)
-    
+    padding: $button-padding
+  &.warning
+    color: $button-bg-warning-color
+  &.right
+    float: right
+.list
+  li
+    margin: 0 0 15px 0
 .align-right
   text-align: right
 .item
@@ -78,6 +75,17 @@ a
     font-size: 12px
 .mark-admin
   margin-top: 18px
+.no-chat-view
+  display: block
+  text-align: center
+  position: relative
+  margin-top: 20%
+  color: $light-text-color
+  h2
+    margin: 10px 0 0 0
+    font-weight: bold
+  p
+    font-size: 12px
 .website-items-list
   .profile-image-container
     vertical-align: top
@@ -108,14 +116,9 @@ a
       left: -1px
       font-weight: 400
 
-      
 
-.checklist-admin
-  display: inline-block
-  position: relative
 
-  width: 65px
-  vertical-align: top
+
 
 a.agent-selection-item
   display: inline-block
@@ -149,6 +152,7 @@ a.agent-selection-item
     color: $link-color
     border: 2px dashed #e1e1e1
     box-sizing: content-box
+    -moz-box-sizing: content-box
     .profile-image
       width: 55px
       height: 55px
@@ -173,9 +177,19 @@ a.agent-selection-item
   background-image: image-url("logo-large.png")
   &.centered
     margin: 0 auto
-
+.logo-single
+  display: inline-block
+  width: 55px
+  height: 55px
+  background-image: image-url("logo-single.png")
+  background-repeat: no-repeat
+h1
+  font-size: 30px
+  letter-spacing: -1px
 h2
   font-size: 18px
+  &.sub
+    color: $light-text-color
 
 h4
   font-size: 10px
@@ -183,6 +197,9 @@ h4
   text-transform: uppercase
   &.label
     color: $light-text-color
+label
+  &.small
+    font-size: 12px
 .hide
   display: none
 .fade
@@ -192,7 +209,7 @@ h4
   -o-transition: all .2s
   transition: all .2s
 #wrapper
- 
+
   width: 100%
   top: 0
   bottom: 0
@@ -202,7 +219,7 @@ h4
 .content
   position: relative
 .main-inner
-  height: 100%
+  // height: 100%
 .main-content-view
   position: absolute
   left: 270px
@@ -212,10 +229,9 @@ h4
   background-color: #fff
   min-width: 830px
   overflow-x: auto
-  
-  &.tour-content-view
-    left: 321px
-    width: 550px
+
+.tour-content-view
+  width: 830px
 .terms-text
   font-size: 12px
   color: $light-text-color
@@ -225,7 +241,7 @@ h4
   top: 45px
   width: 100%
   height: 100%
-  
+
 .block
   padding: $padding-10
   position: relative
@@ -235,6 +251,7 @@ h4
     display: inline-block
   &.bordered-top
     border-top: 1px solid #e1e1e1
+
 
 .block-message
   a.close
@@ -251,35 +268,46 @@ h4
   background-color: #f4efd1
   font-size: 14px
   box-sizing: border-box
+  -moz-box-sizing: border-box
   &.small
     font-size: 12px
     a.close
       margin-top: -2px
   &.align-center
     text-align: center
-
+  &.inline
+    display: inline-block
+  &.warning
+    color: #9c342e
+    background-color: #f7d9d7
+  &.success
+    background-color: #cdf2dd
+    color: #3b5f4a
 .profile-image-container
   position: relative
-  line-height: .6
-  top: 3px
   display: inline-block
-  cursor: pointer
+
+  width: 37px
+  height: 37px
+
   text-align: center
   &:hover
     .profile-user-tooltip
       opacity: 1
       visibility: visible
       top: -40px
-  .profile-image 
+  .profile-image
     display: block
     position: relative
-    top: -4px
+
     img
       border-radius: 27%
       border: 2px solid $default-border-color
       width: 33px
       height: 33px
   &.large
+    width: 59px
+    height: 59px
     img
       width: 55px
       height: 55px
@@ -295,7 +323,7 @@ h4
 
   .status
     position: absolute
-    bottom: 4px
+    bottom: 0
     right: 0
   .profile-user-tooltip
     background-color: $sidebar-color
@@ -312,7 +340,7 @@ h4
 
     @include transition(.2s)
     .caret
-      border-color: $sidebar-color transparent transparent transparent 
+      border-color: $sidebar-color transparent transparent transparent
       border-width: 7px
       border-style: solid
       position: absolute
@@ -377,7 +405,7 @@ h4
   vertical-align: top
   line-height: .6
   &.online
-    background-color: #67cc73
+    background-color: #1fde4c
   &.signout
     background-color: #ee5c5c
   &.site-list-status
@@ -399,18 +427,21 @@ h4
     background-color: #53bb84
   &.red
     background-color:  #e13d3d
-  
+
 .msg-count
   display: inline-block
-  padding: 1px 0
+  padding: 3px 0
+  line-height: 1
   width: 20px
   text-align: center
-  background-color: #e1e1e1
+  background-color: #e5e5e5
   text-shadow: 0 1px 0 #fff
   border-radius: 3px
-  color: $light-text-color
+  color: $text-color
   font-size: 11px
   font-weight: bold
+
+
 
 .link-list
   a
@@ -448,10 +479,26 @@ h4
 .tour-content-inner
   .block
     padding: 20px
+  .preview-code
+    float: right
+    font-family: 'Courier New', courier
+    font-size: 12px
+
+    width: 270px
+    p
+      margin: 0 0 2px 0
+    em
+      font-style: italic
+      color: #999
+    .red
+      color: red
+      font-weight: bold
+
 .widget-preview-form
   margin: 20px 0
   label
     margin-right: 15px
+
 
 .go-right
   float: right
@@ -499,6 +546,8 @@ h4
 
 .trigger-item
   @include transition(.1s)
+  display: block
+
   white-space: nowrap
   border-bottom: 1px solid #f1f1f1
   .icon-lightning
@@ -506,6 +555,16 @@ h4
 .trigger-value
   font-weight: bold
   color: $text-color
+  &.trigger-message
+    display: block
+    width: 500px
+    text-overflow: ellipsis
+    overflow: hidden
+    font-size: 12px
+    color: $light-text-color
+    font-weight: normal
+    font-style: italic
+    padding-left: 17px
 .linkable
   cursor: pointer
 
@@ -523,22 +582,57 @@ h4
       border-color: #2599dc
     img
       max-width: 100%
-      
 
-.modal
+.modal-inner-container
+  height: 300px
+  overflow-y: auto
+  border: 1px solid #e1e1e1
+
+.modal-backdrop
+  background-color: rgba(0,0,0,.6)
+  position: fixed
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  z-index: 1100
+  overflow-y: scroll
+
+.close-modal-backdrop
+  background: transparent
+  left: 0
+  top: 0
+  z-index: 1100
+  width: 100%
+  height: 100%
+  position: fixed
+
+.modal-window
+  padding-bottom: 50px
   position: absolute
-  z-index: 1101
-  background-color: #f4f4f4
+  z-index: 1110
   width: 560px
-
   left: 50%
-  top: 10%
+  top: 40px
   margin-left: -280px
+  &.modal-window-large
+    width: 755px
+    margin-left: -378px
+    .chat-table.chat-container-table
+      width: 490px
+.modal
+  position: relative
+  width: 100%
+  z-index: 1120
+  background-color: #f4f4f4
   border-radius: 5px
   box-shadow: 0 0 20px rgba(0,0,0,.3)
+
   h2
     margin-bottom: 5px
-  
+
   .modal-body,
   .modal-header
     padding: 10px 15px
@@ -551,37 +645,35 @@ h4
     padding: 15px
     &.bordered
       border-top: 1px solid $border-color
-    .btn
-      margin-right: 10px
-  .modal-header, 
+  .chat-header
+    height: auto
+  .modal-header,
     .close
-      color: #999
+      color: #fff
       position: absolute
       top: 10px
       right: 15px
-      font-size: 28px
-      text-shadow: 0 1px 0 #fff
-      width: 24px
-      height: 24px
-      line-height: 24px
+      font-size: 18px
+
+      width: 22px
+      height: 22px
+      background: #434343
+      border-radius: 50%
+      line-height: 22px
       text-align: center
-      border: 1px solid #e1e1e1
-      border-radius: 3px
-      box-shadow: 0 1px 0 #fff
       z-index: 100
       @include transition(.2s)
       &:hover
-        color: #676767
-  &.history-modal
-    width: 840px
-    margin-left: -420px
-  &.attention-grabber-modal,
-  &.modal-large
-    width: 755px
-    margin-left: -378px
-    // .agent-inline-block
-    //   width: 325px
+        background-color: #212121
+  .modal-body
+    &.bordered
+      border-top: 1px solid #e1e1e1
+  .block-message
+    padding: 10px 15px
 
+.history-btn-group
+  margin-top: 50px
+  float: right
 .block-list
   li
     position: relative
@@ -591,18 +683,19 @@ h4
       .checklist-admin
         top: 0px
 
-     
-    
+
+
   &.manage-agent-modal-list
     li
       padding: 10px
       overflow: hidden
       border-top: 1px solid #e1e1e1
-      
+
+
 a.block-list-item, .block-list-item
   display: block
   padding: 15px 0
-  
+
   &.bordered
     border-top: 1px solid #e1e1e1
 .site-block-list
@@ -620,72 +713,128 @@ a.block-list-item, .block-list-item
   &.full
     display: block
 
-.plans
-  a.plan
-    display: block
-    padding: 25px 15px
-    font-size: 18px
-    
-    @include transition(.2s)
-    .plan-agents,
-    .plan-price
-      display: inline-block
-    .plan-agents
-      color: $light-text-color
-      font-size: 14px
-      margin-left: 15px
-    .plan-price
-      float: right
-      color: $text-color
-      text-align: right
-      sub
-        display: inline-block
-        font-size: 14px
-    &:hover
-      background-color: #f1f1f1
-    &.selected
-      background-color: #61c6ab
-      border-bottom: 1px solid #61c6ab
-      color: #fff
-      .plan-price,
-      .plan-agents
-        color: #fff
-      .icon-check-2
-        margin-right: 5px
-        top: -2px
+.plan-feature-list
+  li
+    display: inline-block
+    padding: 10px
+    min-width: 250px
 
-.login-wrapper    
-  margin-top: 8%
+.plans
+  .plan-features
+    margin-top: 15px
+    font-size: 12px
+    li
+      padding: 10px
+  .plan-grid
+    display: inline-block
+    margin: 0 20px 20px 0
+  .plan
+    width: 220px
+    border-radius: 10px
+    box-sizing: border-box
+    -moz-box-sizing: border-box
+    vertical-align: top
+    min-height: 245px
+    padding: 10px
+    text-align: center
+    border: 1px dashed #e1e1e1
+    position: relative
+    small
+      font-size: 12px
+      color: #999
+    &.plan-regular
+
+    &.plan-best
+      width: 260px
+      min-height: 265px
+
+      h2
+        font-size: 28px
+        letter-spacing: -1px
+
+    h2
+      margin-top: 10px
+
+  .plan-price
+    .sign
+      position: relative
+      top: 3px
+      font-size: 24px
+      vertical-align: top
+
+  .plan-value
+    font-weight: 300
+    font-size: 38px
+    letter-spacing: -1px
+    display: block
+    line-height: 1
+    margin-top: 10px
+
+  .small
+    font-size: 12px
+
+
+
+.login-wrapper
+  margin-top: 40px
+  // this style below is temporary while on migration notice
+  margin-left: 10%
+  position: absolute
+  left: 300px
+
 .login-form
   background-color: #fff
   width: 320px
-  padding: 35px
+  padding: 20px
   border-radius: 10px
   margin: 35px auto 35px auto
   input[type=text],
   input[type=password]
     width: 100%
-    
     padding: 10px
     font-size: 18px
 
+.quick-answers-list
+
+  > li
+    border-bottom: 1px solid #e1e1e1
+    &:first-child
+      border-top: 1px solid #e1e1e1
+    &:hover
+      .meta-actions
+        visibility: visible
+        opacity: 1
+        @include transition(.2s)
+    > a
+      padding: 10px
+      font-size: 12px
+      color: $text-color
+      display: block
+      &.new-response
+        color: $link-color
+        font-weight: 700
+
+
+  .status-item
+    margin-right: 5px
+    background-color: $link-color
+
 .sidebar-modal-fixed
   position: absolute
-  opacity: 0
-  visibility: hidden
-  @include transition(.2s)
+
+  @include transition(.3s)
   height: 100%
   width: 420px
-  right: -20px
+  right: -640px
   top: 0
   z-index: 1110
   background-color: #f4f4f4
-  box-shadow: 3px 0 20px rgba(0,0,0,.3)
-  
+  box-shadow: 5px 0 20px rgba(0,0,0,.5)
+  border-top-left-radius: 5px
+  border-bottom-left-radius: 5px
   &.show
     right: 0
-    opacity: 1
-    visibility: visible
+
   .close
     color: #999
     position: absolute
@@ -705,26 +854,36 @@ a.block-list-item, .block-list-item
     &:hover
       color: #676767
 
-.notes-sidebar
+.notes-section
   .agent-inline-block
     position: absolute
     .nickname
       margin-top: 5px
+      font-size: 12px
   .note
     padding-left: 100px
+    font-size: 12px
   .profile-image-container
     cursor: default
+    text-align: left
 
-.note-group
+.modal-sidebar-viewer
   margin-top: 5px
   overflow-y: auto
   overflow-x: hidden
   background-color: #fff
-
+.agent-selection-list
+  margin: 10px 0
+  padding: 20px 0
+  border-bottom: 1px solid #e1e1e1
+  h4
+    color: $light-text-color
+    margin-bottom: 10px
 .agent-inline-block
   display: inline-block
-  padding: 10px
+  padding: 6px
   float: left
+  margin: 0 10px 10px 0
   &.fixed
     text-align: center
     width: 145px
@@ -734,6 +893,8 @@ a.block-list-item, .block-list-item
   label
     vertical-align: top
     display: inline-block
+    margin-top: 9px
+    cursor: pointer
   .profile-image-container
     margin: -7px 5px 0 0
     vertical-align: top
@@ -744,35 +905,98 @@ a.block-list-item, .block-list-item
     margin-top: 12px
     &:hover
       text-decoration: underline
+  &.agent-block-large
+    width: 235px
 
+a.agent-inline-block
+  @include transition(.2s)
+  border-radius: 5px
+  &.agent-select-all
+    height: 37px
+    font-size: 12px
+    line-height: 3
+    padding: 6px 15px
+
+  &.selected
+    background-color: $link-color
+    color: #fff
+    box-shadow: 0 1px 1px darken($link-color,5%) inset
+
+span.dot-seperator
+  margin: 0 3px
+  border-radius: 5px
+  background-color: $light-text-color
+  width: 4px
+  height: 4px
+  display: inline-block
+  vertical-align: middle
 .settings-widget-selector
   padding: 10px
   border-radius: 5px
   border: 1px solid $border-color
-  width: 289px
+  width: 192px
   float: left
   margin: 0 !important
-
-
-
-  
-
-
-.modal-inner-container
-  height: 300px
-  overflow-y: auto
-  border: 1px solid #e1e1e1
-
-.modal-backdrop
-  background-color: black
-  opacity: .5
+.billing-details
+  p
+    margin: 3px 0
+.main-overlay-fixed
   position: fixed
   width: 100%
   height: 100%
+  overflow: hidden
+  background-color: #fff
+  z-index: 9999
+
+  .main-overlay-in
+    position: absolute
+    width: 100%
+    top: 50%
+    margin-top: -88px
+    text-align: center
+    font-size: 12px
+    color: #999
+.authorize-payment-overlay
+  h4
+    color: #999
+    font-size: 12px
+    text-shadow: 0 1px 0 #fff
+
+.authorize-payment-success
+  h3
+    font-size: 24px
+    margin: 10px 0 0 0
+
+
+.stats-panel
+  display: inline-block
+  text-align: right
+  padding: 0 20px
+  h3
+    font-size: 24px
+    font-weight: 700
+    color: #3bb7d6
+    .suffix
+      font-size: 12px
+      color: $light-text-color
+      font-weight: 400
+  label
+    font-size: 12px
+.rating-bar
+  width: 220px
+  height: 5px
+  background-color: #f1f1f1
+  position: relative
+
+
+.notice-overlay
+  float: left
   top: 0
   left: 0
-  right: 0
-  bottom: 0
-  z-index: 1100
-  
+  width: 350px
+  height: 100%
+  color: #fff
+  background-color: rgba(0,0,0,.2)
 
+  h2
+    margin-bottom: 10px

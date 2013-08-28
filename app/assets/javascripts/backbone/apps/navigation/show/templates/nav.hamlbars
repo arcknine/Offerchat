@@ -5,53 +5,61 @@
     Great! Your chat widget is installed successfully, you’re ready to chat.
     %a Change your chat preferences here
 
-.header.group
-  %a#root-path-link.logo
-  #canvas-loader
-  %ul.header-inline-list.primary-user-nav
+.header-wrapper-inner
+  .header.group
+    %a#root-path-link.logo
+    #canvas-loader
+    %ul.header-inline-list.primary-user-nav
 
-    %li.reports-menu-link
-      %a
-        Reports
+      %li.reports-menu-link
+        %a
+          Reports
 
-    %li.history-menu-link
-      %a
-        History
+      %li.history-menu-link
+        %a
+          History
 
-    %li.profile-status
-      %a
-        .profile-image-container
-          .profile-image
-            %img{src: '{{avatar}}'}
-          %span.status.online
-            %i.icon.icon-check-small
-      %ul.profile-status-dropdown
-        %li
-          %a
-            %span.status
+      %li.profile-status
+        %a
+          .profile-image-container
+            .profile-image
+              %img{src: '{{avatar}}'}
+            %span.status{class: "{{status}}"}
               %i.icon.icon-check-small
-            Away
-        %li
-          %a
-            %span.status.signout
-              %i.icon.icon-small-x
-            Signout
-        .dropdown-pointer
+        %ul.profile-status-dropdown
+          %li
+            %a#changeStatus{data: {status: "away"}}
+              %span.status
+                %i.icon.icon-check-small
+              %span#current-status
+                Away
+          %li
+            %a{href: "/logout", data: {status: "logout"}}
+              %span.status.signout
+                %i.icon.icon-small-x
+              Signout
+          .dropdown-pointer
 
-    %li.profile-settings.header-settings
-      %a
-        %i.icon.icon-gear-large
-      %ul.settings-dropdown
-        %li
-          %a#settings-menu-link
-            Settings
-        %li
-          %a#websites-menu-link
-            Websites
-        %li
-          %a#agent-menu-link
-            Agent Management
-        %li
-          %a#account-menu-link
-            Account
-        .dropdown-pointer
+      %li.profile-settings.header-settings
+        %a
+          %i.icon.icon-list
+            %span
+            %span
+            %span
+        %ul.settings-dropdown
+          %li
+            %a#settings-menu-link
+              Settings
+          %li
+            %a#websites-menu-link
+              Websites
+          %li
+            %a#agent-menu-link
+              Agent Management
+          %li
+            %a#account-menu-link
+              Account
+          .dropdown-pointer
+
+    .upgrade-header-section
+      %a.add-more-btn.btn Upgrade

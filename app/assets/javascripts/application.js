@@ -14,6 +14,7 @@
 //= require lib/underscore
 //= require lib/backbone
 //= require lib/marionette
+//= require_tree ./lib
 //= require handlebars.runtime
 //= require ./strophe/base64
 //= require ./strophe/md5
@@ -32,3 +33,4 @@
 //= require_tree ./backbone/components
 //= require_tree ./backbone/apps
 //= require jquery-fileupload/basic
+//= require backbone/init_app

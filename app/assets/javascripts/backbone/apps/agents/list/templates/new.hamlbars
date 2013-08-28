@@ -1,4 +1,6 @@
-%label
-  Email
-.input-container
-  %input.large{ :type => "text", name: "email"}
+.form.form-inline.form-input-head
+  %label 
+    Email
+  .input-container
+    %input.large{ :type => "text", name: "email"}
+    

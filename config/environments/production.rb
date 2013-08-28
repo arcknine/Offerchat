@@ -66,9 +66,20 @@ Dashboard::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
+  config.action_mailer.default_url_options = { :host => 'www.offerchat.com', :protocol => 'https' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address => "smtp.sendgrid.net",
+    :port => 587,
+    :domain => 'drip.offerchat.com',
+    :user_name => 'buyrealmarketing',
+    :password => 'buy1212',
+    :authentication => 'plain',
+    :enable_starttls_auto => true
+  }
   # Openfire Config
-  CHAT_SERVER_NAME = "realtime.offerchat.com"
-  CHAT_SERVER_URL = "https://realtime.offerchat.com:9091"
-  CHAT_SERVER_SECRET = "0ff3rch@t"
-  USER_SERVICE_ENDPOINT = "plugins/userService/userservice?"
+  # CHAT_SERVER_NAME = "realtime.offerchat.com"
+  # CHAT_SERVER_URL = "https://realtime.offerchat.com:9091"
+  # CHAT_SERVER_SECRET = "0ff3rch@t"
+  # USER_SERVICE_ENDPOINT = "plugins/userService/userservice?"
 end

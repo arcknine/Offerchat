@@ -1,0 +1,84 @@
+{{#if transfer}}
+
+.chat-item.chat-transfer-item.group
+  .chat-table.chat-left-table
+    .chat-user
+      %i.icon.icon-add-user
+  .chat-table.chat-container-table.group
+
+    {{#if trn_responded}}
+
+    {{#if trn_accepted}}
+
+    {{#if trn_owned}}
+
+    .chat-transfer-message
+      {{name}} has accepted your request
+
+    {{else}}
+
+    .chat-transfer-message
+      You have accepted {{name}}'s chat transfer request
+
+    {{/if}}
+
+    {{else}}
+
+    {{#if trn_owned}}
+
+    .chat-transfer-message
+      {{name}} declined your request
+
+    {{else}}
+
+    .chat-transfer-message
+      %strong {{name}}
+      wants you to accept {{trn_vname}}
+    .sub-text Declined chat transfer
+
+    {{/if}}
+
+    {{/if}}
+
+    {{else}}
+
+    {{#if trn_owned}}
+
+    .chat-transfer-message
+      Waiting for {{name}} to accept transfer
+    .sub-text {{trn_reason}}
+
+    {{else}}
+
+    .chat-transfer-message
+      %strong {{name}}
+      wants you to accept {{trn_vname}}
+    .chat-transfer-actions
+      %a.btn.success.small
+        Accept
+      %a.btn.warning.small
+        Decline
+    .sub-text
+      {{trn_reason}}
+
+    {{/if}}
+
+    {{/if}}
+
+{{else}}
+
+.chat-item.group{class: "{{childclass}}"}
+  .chat-table.chat-left-table
+    .chat-user{class: "{{sender}}"}
+      {{#if child}}
+      &nbsp;
+      {{else}}
+      {{name}}
+      {{/if}}
+
+  .chat-table.chat-container-table
+    %p {{message}}
+
+  .chat-time {{timesimple}}
+
+{{/if}}

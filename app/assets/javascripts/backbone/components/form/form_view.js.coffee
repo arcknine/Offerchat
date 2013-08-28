@@ -29,6 +29,7 @@
     serializeData: ->
       footer: @config.footer
       buttons: @buttons?.toJSON() ? false
+      btncontainercls: @config.btncontainercls
 
     onShow: ->
       _.defer =>
@@ -56,7 +57,11 @@
         @addError name, array[0]
 
     addError: (name, error) ->
-      el = @$("[name='#{name}']")
+      if /setting_objects./.test(name)
+        el = @$("[name='#{name.replace(/setting\_objects\./,"")}']")
+      else
+        el = @$("[name='#{name}']")
+
       sm = $("<span>", class: 'inline-label-message').text(error)
       el.closest("fieldset").addClass("field-error").children().first().append(sm)
 

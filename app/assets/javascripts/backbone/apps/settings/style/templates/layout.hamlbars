@@ -1,53 +1,68 @@
-.block-message#setting-notification{:style => "display: none"}
-  %a.close ×
-  %span
-
 .block.large
   %h2
     Style and Color
   Have the widget match your site's look and feel.
 
-/ WIDGET PREVIEW FOR SETTINGS
+.block-message#setting-notification{:style => "display: none"}
+  %a.close ×
+  %span
+
 .group.block.large
   .group
-    .widget-preview-sample
+    .widget-preview-sample{ :class => "{{classname}}" }
+      {{#if paid}}
+      .widget-unlock-tooltip
+        .caret
+        .message
+          %strong
+            You can hide or show the footer.
+        %a.btn.small.action.hide-footer
+          Hide
+        %a.btn.small.show-footer
+          Show
+      {{/if}}
 
       .widget-box.widget-theme.theme-pink3#widget-header
         .widget-head.widget-rounded-head.group
           %img.agent-thumbnail{ :src => "{{user.avatar}}" }
-          / = image_tag user.avatar, :class => "agent-thumbnail"
-          .widget-msg-count
-            %span
-              3
+
           .widget-agent-name
             {{user.display_name}}
           .widget-welcome-msg
             {{website.settings.online.agent_label}}
         .widget-body
-          .message-item
-            .group
-              .message-author.agent-author
-                {{user.display_name}}
-              .message-date
-                8:00am
-            .message
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, eligendi temporibus sint amet.
-          .message-item
-            .group
-              .message-author
-                You
-              .message-date
-                8:03am
-            .message
-              yes, can you help me?
-        .widget-input
+          .widget-chat-viewer
+            .message-item
+              .group
+                .message-author.agent-author
+                  {{user.display_name}}
+              .message
+                .message-date
+                  8:00am
+                Hello! Thanks for dropping by. Anything I can help you with?
+            .message-item
+              .group
+                .message-author
+                  Visitor
+              .message
+                .message-date
+                  8:03am
+                Yes, do you offer free shipping?
 
-          %i.widget.icon.icon-chat
-          %input.widget-input-text{ :type => "text", :placeholder => "Type your question and hit enter" }
-          %a.chat-settings
-            %i.widget.icon.icon-gear
-          %a.chat-rating
-            %i.widget.icon.icon-thumbs-up
+          .widget-input
+            %i.widget.icon.icon-chat
+            %input.widget-input-text{ :type => "text", :placeholder => "Type your question and hit enter" }
+            %a.chat-settings
+              %i.widget.icon.icon-gear
+            %a.chat-rating
+              %i.widget.icon.icon-thumbs-up
+          .widget-footer
+            .footer-logo
+            .widget-footer-desc
+              Powered by
+              %strong
+                %a
+                  Offerchat
 
 
     .widget-color-selector.settings-widget-selector
@@ -73,7 +88,6 @@
 
           %a.saddlebrown
           %a.darkchoco
-
 
           %a.gray34
           %a.gray77
@@ -128,10 +142,17 @@
 
         .form.group{ :style => "margin-top: 10px" }
           %fieldset
-            %label.checkbox.inline{ :for => 'checkbox1' }
+            %label.checkbox.inline.toggle-check{ :for => 'checkbox1' }
               %span.icon
                 .icon-check
               Gradient
+
+{{#unless paid}}
+.block-message.small
+  %strong Tip:
+  You can remove the Offerchat footer by
+  %a.upgrade-tip upgrading your free plan
+{{/unless}}
 
 .column-footer-actions.bordered
   .block.large

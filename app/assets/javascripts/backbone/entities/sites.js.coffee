@@ -12,15 +12,19 @@
       new Entities.SiteCollection
 
     getSites: ->
-      site = new Entities.SiteCollection
+      sites = new Entities.SiteCollection
       App.request "show:preloader"
-      site.fetch
+      sites.fetch
         reset: true
         success: ->
           App.request "hide:preloader"
         error: ->
+          App.vent.trigger "show:wizard:sidebar"
+          $('#chat-sidebar-region').attr('class', 'tour-sidebar')
+
           App.request "hide:preloader"
-      site
+          App.navigate 'websites/new', trigger: true
+      sites
 
     getOwnedSites: ->
       sites = new Entities.SiteCollection
@@ -60,17 +64,29 @@
         rounded:  (if not storage.rounded then true else storage.rounded)
         api_key:  (if not storage.api_key then false else storage.api_key)
 
+    newChatSite: ->
+      new Entities.Site
+
   App.reqres.setHandler "site:entities", ->
     API.getSites()
 
   App.reqres.setHandler "new:site:entities", ->
     API.newSites()
 
-  App.reqres.setHandler "site:new:entity", ->
+  App.reqres.setHandler "new:site:entity", ->
     API.newSite()
+
+  App.reqres.setHandler "new:site:entity", ->
+    API.newSite()
+
+  App.reqres.setHandler "get:website:triggers", (website_id) ->
+    API.getWebsiteTriggers website_id
 
   App.reqres.setHandler "manage:sites:entities", ->
     API.getManageSites()
 
   App.reqres.setHandler "owned:sites:entities", ->
     API.getOwnedSites()
+
+  App.reqres.setHandler "new:selector:site", ->
+    API.newChatSite()

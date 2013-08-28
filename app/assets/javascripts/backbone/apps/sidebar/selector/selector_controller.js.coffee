@@ -3,15 +3,17 @@
   class Selector.Controller extends App.Controllers.Base
 
     initialize: ->
-      sites  = App.request "site:entities"
+      sites        = App.request "site:entities"
+      @currentSite = App.request "new:selector:site"
 
       App.execute "when:fetched", sites, =>
-        site = sites.first()
+        site = sites.last()
+        site.attributes.all = false;
+
+        @currentSite.set site.attributes
+
         @layout = @getLayoutView()
         @bindLayoutEvents()
-
-        App.reqres.setHandler "get:current:selector:site", ->
-          site
 
         @listenTo @layout, "show", ->
           @initSiteSelectorRegion(site)
@@ -19,16 +21,18 @@
 
         @show @layout
 
-      App.reqres.setHandler "get:sites:count", ->
+      App.reqres.setHandler "get:sidebar:selected:site", =>
+        @currentSite
+
+      App.reqres.setHandler "get:all:sites", ->
         sites
 
     bindLayoutEvents: ->
-      @listenTo @layout, "selector:all:websites", ->
+      @listenTo @layout, "selector:all:websites", =>
         @hideDropDown()
         $(@layout.el).find(".site-selector > div > span").html("All websites")
 
-        App.reqres.setHandler "get:current:selector:site", ->
-          "all"
+        @currentSite.set { all: true }
 
       @listenTo @layout, "selector:new:website", ->
         @hideDropDown()
@@ -52,11 +56,11 @@
     initWebsitesRegion: (collection) ->
       websitesView = @getWebsitesView(collection)
 
-      @listenTo websitesView, "childview:selected:website:clicked", (item) ->
+      @listenTo websitesView, "childview:selected:website:clicked", (item) =>
         @hideDropDown()
 
-        App.reqres.setHandler "get:current:selector:site", ->
-          item.model
+        item.model.attributes.all = false;
+        @currentSite.set item.model.attributes
 
         @initSiteSelectorRegion item.model
 

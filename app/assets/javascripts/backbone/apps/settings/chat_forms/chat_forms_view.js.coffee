@@ -30,7 +30,7 @@
       "blur .widget-label-form textarea"         : "getMessage"
       "blur .widget-label-form input[type=text]" : "getMessage"
       "click #offline-toggle"                    : "toggleSlider"
-      "keyup .widget-label-form textarea"        : "updateWidgetMessage"
+      "input .widget-label-form textarea"        : "updateWidgetMessage"
 
     getMessage: (ev) ->
       @trigger "get:offline:form:event", ev
@@ -39,9 +39,11 @@
       unless $(ev.currentTarget).hasClass("toggle-off")
         @trigger "get:toggle:offline", false
         $(ev.currentTarget).addClass("toggle-off")
+        $(ev.currentTarget).closest("form").submit()
       else
         $(ev.currentTarget).removeClass("toggle-off")
         @trigger "get:toggle:offline", true
+        $(ev.currentTarget).closest("form").submit()
 
     updateWidgetMessage: (ev) ->
       $(".widget-pre-message").html($(ev.currentTarget).val())
@@ -60,8 +62,9 @@
     events:
       "blur .widget-label-form textarea"         : "getMessage"
       "click #prechat-message-checkbox"          : "checkMessage"
+      "click #prechat-email-checkbox"            : "checkEmail"
       "click #prechat-toggle"                    : "toggleSlider"
-      "keyup .widget-label-form textarea"        : "updateWidgetMessage"
+      "input .widget-label-form textarea"        : "updateWidgetMessage"
 
     getMessage: (ev) ->
       @trigger "get:prechat:form:event", ev
@@ -76,13 +79,25 @@
         @trigger "get:prechat:message:check", false
         $(".widget-input-container > textarea").hide()
 
+    checkEmail: (ev) ->
+      unless $(ev.currentTarget).hasClass("checked")
+        $(ev.currentTarget).addClass("checked")
+        @trigger "get:prechat:email:check", true
+        $(".widget-input-container > input.prechat-email").show()
+      else
+        $(ev.currentTarget).removeClass("checked")
+        @trigger "get:prechat:email:check", false
+        $(".widget-input-container > input.prechat-email").hide()
+
     toggleSlider: (ev) ->
       unless $(ev.currentTarget).hasClass("toggle-off")
         @trigger "get:toggle:prechat", false
         $(ev.currentTarget).addClass("toggle-off")
+        $(ev.currentTarget).closest("form").submit()
       else
         $(ev.currentTarget).removeClass("toggle-off")
         @trigger "get:toggle:prechat", true
+        $(ev.currentTarget).closest("form").submit()
 
     updateWidgetMessage: (ev) ->
       $(".widget-pre-message").html($(ev.currentTarget).val())
@@ -102,7 +117,7 @@
       "blur .widget-label-form textarea"         : "getMessage"
       "blur .widget-label-form input[type=text]" : "getMessage"
       "click #postchat-toggle"                   : "toggleSlider"
-      "keyup .widget-label-form textarea"        : "updateWidgetMessage"
+      "input .widget-label-form textarea"        : "updateWidgetMessage"
 
     getMessage: (ev) ->
       @trigger "get:postchat:form:event", ev
@@ -111,9 +126,11 @@
       unless $(ev.currentTarget).hasClass("toggle-off")
         @trigger "get:toggle:postchat", false
         $(ev.currentTarget).addClass("toggle-off")
+        $(ev.currentTarget).closest("form").submit()
       else
         $(ev.currentTarget).removeClass("toggle-off")
         @trigger "get:toggle:postchat", true
+        $(ev.currentTarget).closest("form").submit()
 
     updateWidgetMessage: (ev) ->
       $(".widget-pre-message").html($(ev.currentTarget).val())

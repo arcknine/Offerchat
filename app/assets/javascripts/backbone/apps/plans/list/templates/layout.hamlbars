@@ -1,0 +1,109 @@
+.block-message.payment-notify{:style => "display: none"}
+  %a.close ×
+  %span
+
+.block-message.group.free-plan-notice.hide
+  You are currently on the
+  %strong Free
+  plan.
+  Upgrade your account to add more agents.
+
+.block-message.group.starter-plan-notice.hide
+  %a.close x
+  You are currently on the
+  %strong Starter
+  plan.
+  Upgrade your account to add more agents.
+
+.block.large
+  %h1
+    Plans and Pricing
+  %h3
+    Pay only for what you need. Offerchat live chat offers flexible pricing plans to let you chat instantly with shoppers right on your site.
+
+.block.large
+  .plans.text-center
+    .plan-grid
+      .plan.plan-regular
+        %h2
+          {{business.name}}
+        %p.small
+          {{business.description}}
+        .block#business-button
+          %a.btn.action.upgrade{ data: { id: "{{business.plan_identifier}}" } }
+            Choose Plan
+        .plan-price
+
+          .plan-value
+            %span.sign
+              $
+            {{business.price}}
+          per month
+        %small
+          up to 10 agent seats
+
+    .plan-grid
+      .plan.plan-best
+        %h2
+          {{personal.name}}
+        %p.small
+          {{personal.description}}
+        .block#personal-button
+          %a.btn.action.upgrade{ data: { id: "{{personal.plan_identifier}}" } }
+            Choose Plan
+        .plan-price
+          .plan-value
+            %span.sign
+              $
+            {{personal.price}}
+          per month
+        %small
+          up to 4 agent seats
+    .plan-grid
+      .plan.plan-regular
+        %h2
+          {{enterprise.name}}
+        %p.small
+          {{enterprise.description}}
+        .block#enterprise-button
+          %a.btn.action.upgrade{ data: { id: "{{enterprise.plan_identifier}}" } }
+            Choose Plan
+        .plan-price
+          .plan-value
+            %span.sign
+              $
+            {{enterprise.price}}
+          per month
+        %small
+          up to 30 agent seats
+
+    .group.starter-upgrade
+      .block-message.inline.small
+        {{starter.description}}
+        %strong
+          ${{starter.price}}.
+        %a.hovered.upgrade{ :style => "margin-left: 10px", data: { id: "{{starter.plan_identifier}}" } }
+          Choose Plan
+
+.block.large.text-center
+  .plan-feature-list
+
+    %ul
+      %li
+        %i.icon.icon-check-green
+        Unlimited websites
+      %li
+        %i.icon.icon-check-green
+        Unlimited chats
+      %li
+        %i.icon.icon-check-green
+        Widget customization
+      %li
+        %i.icon.icon-check-green
+        SSL security
+      %li
+        %i.icon.icon-check-green
+        Reports
+      %li
+        %i.icon.icon-check-green
+        No offerchat logo

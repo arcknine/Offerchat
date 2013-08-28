@@ -3,7 +3,7 @@
   %label.toggle-radio ON
   %label.toggle-radio OFF
 
-Gather visitors feedback about the chat session that has ended to measure chat effectivess and service quality.
+Gather additional feedback from customers after the chat has ended.
 %p/
 
 .group
@@ -32,12 +32,14 @@ Gather visitors feedback about the chat session that has ended to measure chat e
       %fieldset
         %label Message
         .input-container
-          %textarea{data: {name: 'description'}} {{site.settings.post_chat.description}}
+          %textarea{name: 'description', data: {name: 'description'}} {{site.settings.post_chat.description}}
+          %fieldset.item-desc.small
+            .block-text-message.text-limit-counter
 
       %fieldset
         %label Forward messages to email
         .input-container
-          %input{type: "text", placeholder: "admin@example.com", value: "{{site.settings.post_chat.email}}", data: {name: 'email'}}
+          %input{name: 'email', type: "text", placeholder: "admin@example.com", value: "{{site.settings.post_chat.email}}", data: {name: 'email'}}
 
       %fieldset
         %button.btn.action{type: "submit"} Save Changes

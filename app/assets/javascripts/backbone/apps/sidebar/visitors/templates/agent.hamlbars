@@ -1,0 +1,16 @@
+%a.chat-item-tab.group-item-tab.group{:class => "{{active}} {{new_chat}}" }
+
+  {{#if unread}}
+  .message-tick{:class => "{{bounce}}"}
+    %span {{unread}}
+  {{/if}}
+
+  .profile-image-container
+    .profile-image
+      %img{ :src => "{{info.avatar}}" }
+
+    %span.status.online
+      %i.icon.icon-check-small
+
+  %span.chat-agent-name
+    {{info.name}}

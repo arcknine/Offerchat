@@ -1,7 +1,7 @@
 .panel.radius
   #form-content-region
   {{#if buttons}}
-  .buttons
+  %div{:class => "{{btncontainercls}}"}
     {{#each buttons}}
     <button data-form-button="{{type}}" class="{{className}}">{{text}}</button>
     {{/each}}

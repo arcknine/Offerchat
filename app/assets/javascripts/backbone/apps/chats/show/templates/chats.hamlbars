@@ -1,0 +1,35 @@
+%div{ :style => "padding: 0 5px" }
+  .chat-section-pane.chat-viewer-wrapper{ :style => "height: {{height.visitor_chats}}" }
+    .chat-viewer-content
+      .chat-viewer-inner
+        {{#if previousMsg}}
+        .chat-item.group.small
+          %a.chat-block-btn.btn
+            load previous messages
+        {{/if}}
+
+        #chats-collection
+
+.chat-section-pane.chat-response-wrapper
+  .group
+    .btn-selector-wrapper
+      .btn-selector
+        %a.btn.btn-action-selector.chat-actions-selector
+          %i.icon.icon-arrow-down
+          %span.current-selection
+            Actions
+
+        .dropdown-options.top.dark
+          %ul
+            %li{ data: {action: 'transfer'} }
+              %a Transfer Chat
+            %li{ data: {action: 'export'} }
+              %a Export Transcript
+            %li{ data: {action: 'ban'} }
+              %a Ban User
+          .caret.caret-dark.bottom
+
+    %a.btn.warning.end_chat
+      End Chat
+  .chat-response
+    %textarea{ :placeholder => "Enter your message and press enter" }
