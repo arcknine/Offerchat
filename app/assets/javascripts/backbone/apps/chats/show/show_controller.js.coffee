@@ -13,9 +13,14 @@
       @visitor     = App.request "visitor:entity" if typeof @visitor is "undefined"
       @height      = App.request "get:chat:window:height"
       @messages    = App.request "get:chats:messages"
+      @transcript  = App.request "transcript:entity"
+      @transcript.url = Routes.webmaster_code_websites_path
 
       if @messages.length is 0
-        @messages.add JSON.parse(localStorage.getItem("chatlog-"+@token))
+        console.log "loadi ug chat logs!"
+        @messages.add JSON.parse(localStorage.getItem("ofc-chatlog-"+@token))
+      else
+        localStorage.setItem("ofc-chatlog-"+@token, JSON.stringify(@messages))
 
       @currentMsgs = App.request "messeges:entities"
       @agentMsgs   = App.request "get:agent:chats:messages"
@@ -59,6 +64,8 @@
           @transferChat()
         else if option is "export"
           @showTranscriptModalView @visitor
+          @transcript.set messages: $('#transcript-collection').html()
+          console.log "transcript", @transcript
           # dont erase :D
           # window.location = Routes.root_path()+"transcript/"+@token
 
@@ -197,7 +204,7 @@
           currentMsg.childClass = "child"
 
         @messages.add currentMsg
-
+        localStorage.setItem("ofc-chatlog-"+@token, JSON.stringify(currentMsg))
         $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500);
         $(ev.currentTarget).val("")
         @composing = null
@@ -246,18 +253,22 @@
         collection: @currentMsgs
         model:      @height
 
-    getTranscriptModalView:(model) ->
-      # site.url = Routes.webmaster_code_websites_path
-      new Show.TransciptModal
-        model: model
+    getTranscriptModalView: ->
 
-    showTranscriptModalView: (visitor)->
-      modalView = @getTranscriptModalView visitor
+      new Show.TransciptModal
+        collection: @currentMsgs
+        model: @transcript
+
+    showTranscriptModalView: (messages)->
+      modalView = @getTranscriptModalView messages
       formView  = App.request "modal:wrapper", modalView
       App.modalRegion.show formView
 
       @listenTo formView, "modal:cancel", (item)->
         formView.close()
+
+      @listenTo @transcript, "created", (model) =>
+        console.log "test"
 
 
 

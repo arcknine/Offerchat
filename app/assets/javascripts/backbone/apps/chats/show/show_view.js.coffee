@@ -78,8 +78,13 @@
     tagName: "ul"
 
 
-  class Show.TransciptModal extends App.Views.ItemView
+  class Show.ChatTranscript extends App.Views.ItemView
+    template: "chats/show/transcript_chat"
+
+  class Show.TransciptModal extends App.Views.CompositeView
     template: "chats/show/transcript_modal"
+    itemView:  Show.ChatTranscript
+    itemViewContainer: "div#transcript-collection"
     className: "form"
     form:
       buttons:
@@ -87,6 +92,10 @@
         nosubmit: false
         cancel:  false
       title: "Export Transcript"
+
+
+
+
 
 
 

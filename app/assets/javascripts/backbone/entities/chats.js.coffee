@@ -56,6 +56,8 @@
 
   class Entities.SelectedVisitor extends App.Entities.Model
 
+  class Entities.Transcript extends App.Entities.Model
+
   API =
     setVisitor: ->
       new Entities.Visitor
@@ -94,6 +96,8 @@
           console.log "success...."
       chatlogs
 
+    setTranscript: ->
+      new Entities.Transcript
 
   App.reqres.setHandler "visitor:entity", ->
     API.setVisitor()
@@ -115,4 +119,7 @@
 
   App.reqres.setHandler "get:chat:logs", (chatlogs)->
     API.getChatLogs(chatlogs)
+
+  App.reqres.setHandler "transcript:entity", ->
+    API.setTranscript()
 

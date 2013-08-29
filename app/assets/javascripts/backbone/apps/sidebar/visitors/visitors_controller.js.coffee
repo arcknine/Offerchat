@@ -209,6 +209,7 @@
       transfer  = $(message).find("transfer")
 
       if body and typeof agent is "undefined"
+        console.log "aaaaa sssss"
         messages = App.request "messeges:entities"
         visitor  = @visitors.findWhere { jid: node }
         token    = visitor.get("token")
@@ -216,7 +217,7 @@
         # console.log "ni message ang agent"
         new_message = @messages.where token: token
         messages.add(new_message)
-        localStorage.setItem("chatlog-"+token, JSON.stringify(new_message))
+        localStorage.setItem("ofc-chatlog-"+token, JSON.stringify(new_message))
         visitor_msg =
           token:      token
           jid:        info.name
@@ -298,7 +299,7 @@
       true
 
     displayCurrentUrl:(token, jid, url) ->
-      @messages.add
+      curUrl =
         token:      token
         jid:        jid
         sender:     "visitor"
@@ -306,3 +307,8 @@
         time:       new Date()
         timesimple: moment().format('hh:mma')
         viewing:    true
+      @messages.add curUrl
+
+
+      localStorage.setItem("ofc-chatlog-"+token, JSON.stringify(curUrl))
+
