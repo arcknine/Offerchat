@@ -1,0 +1,46 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title= @subject
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+  %body{:style => "margin: 0; padding: 0;"}
+    %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+      %tr
+        %td{:style => "padding: 10px 0 30px 0;"}
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "border: 1px solid #cccccc; border-collapse: collapse;", :width => "600"}
+            %tr
+              %td{:align => "center", :bgcolor => "#1d2532", :style => "color: #153643; font-size: 28px; font-weight: bold; font-family: Arial, sans-serif;"}
+                %img{:alt => "Offerchat", :height => "77", :src => "https://d1qsh505towr9b.cloudfront.net/wp-content/uploads/2013/07/h1.gif", :style => "display: block;", :width => "202"}/
+            %tr
+              %td{:bgcolor => "#ffffff", :style => "padding: 40px 30px 40px 30px; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;" }
+                %table{:style => "width: 100%;"}
+                  %tr
+                    %td
+                      %p
+                        Your data have been successfully migrated and saved to your New Offerchat Dashboard.
+                      %p Check out the additional features and updated functionalities of your website’s live chat tool.
+                      %p
+                        = link_to 'Click here to change your password', "#{root_url}password/edit?reset_password_token=#{@token}"
+                      %p
+                        Thanks,
+                        %br
+                          Offerchat
+
+            %tr
+              %td{:bgcolor => "#1c2532", :style => "padding: 20px 30px 10px 30px;"}
+                %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                  %tr
+                    %td{:align => "center"}
+                      %a{:href => "https://twitter.com/offerchat", :style => "color: #1c2532;"}
+                        %img{:alt => "Twitter", :border => "0", :height => "33", :src => "https://d1qsh505towr9b.cloudfront.net/wp-content/uploads/2013/07/tw.gif", :width => "33"}/
+                      %a{:href => "https://www.facebook.com/Offerchat", :style => "color: #ffffff;padding-left: 10px;"}
+                        %img{:alt => "Facebook", :border => "0", :height => "33", :src => "https://d1qsh505towr9b.cloudfront.net/wp-content/uploads/2013/07/fb.gif", :width => "33"}/
+                  %tr
+                    %td{:style => "text-align: center; color: #ffffff; font-family: Arial, sans-serif; font-size: 12px;", :width => "100%"}
+                      %p
+                        \© 2013 Offerchat
+                        %br/
+                        Crown 7 Building, Juan Luna Ave, Cebu City, Philippines, 6000
+
+
