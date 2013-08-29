@@ -315,8 +315,7 @@
 
           if messages.last() and messages.last().get("name") is name
             agent_msg.child      = true
-            agent_msg.childClass = "child"
-
+            agent_msg.childclass = "child"
 
           if agent_msg
             @agentMsgs.add agent_msg

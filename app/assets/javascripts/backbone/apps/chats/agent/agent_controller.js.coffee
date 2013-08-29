@@ -14,13 +14,19 @@
       @height     = App.request "get:chat:window:height"
       @layout     = @getLayout()
 
+      @currentMsgs = App.request "messeges:entities"
+      @currentMsgs.add @messages.where({token: @token})
+
       @listenTo @agents, "all", (type) =>
         unless type is "remove"
           agent = @agents.findWhere token: @token
           @agent.set agent.attributes
 
       @listenTo @messages, "add", (message) =>
-        $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500);
+        console.log message
+        if message.get("token") is @token
+          @currentMsgs.add message
+          $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500);
 
       $(window).resize =>
         @height.set
@@ -86,7 +92,7 @@
         messages = App.request "messeges:entities"
         messages.add(@messages.where token: @token)
 
-        @messages.add
+        msgs =
           token:      @token
           sender:     "agent"
           name:       "You"
@@ -95,6 +101,8 @@
           timesimple: moment().format('hh:mma')
           child:      (if messages.last() and messages.last().get("sender") is "agent" then true else false)
           childclass: (if messages.last() and messages.last().get("sender") is "agent" then "child" else "")
+
+        @messages.add msgs
 
         $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500);
         $(ev.currentTarget).val("")
@@ -131,5 +139,5 @@
 
     getChats: ->
       new Agent.Chats
-        collection: @messages
+        collection: @currentMsgs
         model: @height
