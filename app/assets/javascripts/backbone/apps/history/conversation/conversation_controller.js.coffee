@@ -64,7 +64,7 @@
           dataType : "jsonp"
           processData: true
           reset: true
-
+          
         modalViewRegion.bodyRegion.show modalRegionBody
 
         modalRegionFooter = new Conversations.ChatModalFooter

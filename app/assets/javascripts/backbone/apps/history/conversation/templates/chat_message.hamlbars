@@ -1,13 +1,9 @@
 .chat-item.group{class: "{{childClass}}"}
   .chat-table.chat-left-table
-    .chat-user{class: "{{sender}}"}
-      {{#if child}}
-      &nbsp;
-      {{else}}
-      {{jid}}
-      {{/if}}
+    .chat-user.agent
+      {{sender}}
 
   .chat-table.chat-container-table
     %p {{msg}}
 
-  .chat-time {{timesimple}}
+  .chat-time {{sent}}

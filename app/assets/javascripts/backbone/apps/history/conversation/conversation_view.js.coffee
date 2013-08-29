@@ -38,7 +38,6 @@
     events:
       "click" : "select_conversation"
     select_conversation: (evt)->
-      console.log @
       App.execute "open:conversation:modal", @model
 
     initialize: ->
@@ -85,6 +84,11 @@
 
   class Conversations.ChatMessage extends App.Views.ItemView
     template: "history/conversation/chat_message"
+    modelEvents:
+      "change" : "render"
+    initialize: ->
+      momentary = @model.get("sent")
+      @model.set sent: moment(@model.get("sent")).format("hh:mma")
 
   class Conversations.Chats extends App.Views.CompositeView
     template: "history/conversation/chat_messages"
