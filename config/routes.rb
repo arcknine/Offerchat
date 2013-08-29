@@ -12,6 +12,7 @@ Dashboard::Application.routes.draw do
   end
   resource :settings
   resources :triggers
+  resources :visitors
   resources :plans do
     collection do
       get "by_name/:id", :action => "by_name"

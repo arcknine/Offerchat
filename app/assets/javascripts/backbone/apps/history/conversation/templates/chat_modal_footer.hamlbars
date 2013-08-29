@@ -1,0 +1,15 @@
+%a.btn.warning.right.delete-conversation
+  Delete Conversation
+.transcript-actions-form
+  .transcript-actions
+    %a.btn
+      \.pdf
+    %a.btn#forwardToEmailBtn
+      Forward to email
+    
+  .transcript-email-form.hide
+    %input.forwarding-recipient{ :type => "text", :placeholder => "email address" }
+    %button.btn.action.forward-to-email-btn
+      Send
+    %button.btn#cancelTranscriptFormBtn
+      Cancel
