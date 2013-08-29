@@ -21,6 +21,8 @@
 
   class Conversations.Header extends App.Views.CompositeView
     template: "history/conversation/header"
+    triggers:
+      "click .trash-btn"    : "remove:conversations:clicked"
 
   class Conversations.Filter extends App.Views.Layout
     template: "history/conversation/filter"
@@ -36,8 +38,24 @@
     modelEvents:
       "change" : "render"
     events:
-      "click" : "select_conversation"
+      "click"                 : "open_conversation"
+      "click label.checkbox"  : "select_conversation"
+
     select_conversation: (evt)->
+      evt.stopPropagation()
+      evt.preventDefault()
+      checkbox = $(evt.target).closest("label.checkbox")
+      if checkbox.hasClass("checked") 
+        checkbox.removeClass("checked")
+        $(evt.target).closest(".table-row").removeAttr("data-id")
+        $(evt.target).closest(".table-row").removeAttr("data-checked")
+      else
+        checkbox.addClass("checked")
+        $(evt.target).closest(".table-row").attr("data-id", @model.get("_id"))
+        $(evt.target).closest(".table-row").attr("data-checked", true)
+
+    open_conversation: (evt)->
+      console.log evt
       App.execute "open:conversation:modal", @model
 
     initialize: ->
@@ -116,5 +134,15 @@
 
     delete_convo: (evt)->
       console.log "Process deleting of this conversation"
-      console.log @model
-      # Create an dashboard endpoint in deleting this conversation for security purposes. Just to make sure that the logged in user has the right to delete the conversation
+      self = @
+      conversations = @collection
+      ids = [@model.get("_id")]
+      self.trigger "close:chats:modal"
+      $.ajax
+        url: "#{gon.history_url}/convo/remove"
+        data: {ids: ids}
+        dataType : "jsonp"
+        processData: true
+        success: ->
+          self.trigger "close:chats:modal"
+          App.execute "conversations:fetch"

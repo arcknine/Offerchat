@@ -11,7 +11,7 @@
     
   class Entities.Conversations extends App.Entities.Collection
     model: Entities.Conversation
-    url: "http://history.offerchat.loc:9292/convo"
+    url: "#{gon.history_url}/convo"
   
   API =
     getConversations: (conversations, aids = [])->

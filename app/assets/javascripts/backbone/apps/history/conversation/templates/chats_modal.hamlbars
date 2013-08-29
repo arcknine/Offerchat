@@ -29,9 +29,9 @@
         // CHAT HISTORY
         .chat-viewer-content.bordered#historyTabSection
           .chat-viewer-inner.static
-            .chat-item
-              %a.chat-block-btn.btn
-                Load previous messages
+            / .chat-item
+            /   %a.chat-block-btn.btn
+            /     Load previous messages
             #chat-modal-body-region
       .modal-footer.bordered#chat-modal-footer-region
         

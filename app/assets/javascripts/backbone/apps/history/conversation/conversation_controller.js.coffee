@@ -28,7 +28,23 @@
         App.execute "when:fetched", conversations, (item)=>
           @listenTo @layout, "show", =>
             convos = @organizeConversations(conversations)
-            @layout.headerRegion.show @getHeaderRegion()
+            headerRegion = @getHeaderRegion()
+            @listenTo headerRegion, "remove:conversations:clicked", ->
+              ids = []
+              _.map $(".table-row[data-checked='true']"), (item)->
+                ids.push $(item).data("id")
+              $.ajax
+                url: "#{gon.history_url}/convo/remove"
+                data: {ids: ids}
+                dataType : "jsonp"
+                processData: true
+                success: ->
+                  conversations.each (item)->
+                    if ($.inArray(item.get("_id"), ids) isnt -1)
+                      item.destroy()
+
+
+            @layout.headerRegion.show headerRegion
             @layout.filterRegion.show @getFilterRegion(agents)
             @layout.conversationsRegion.show @getConversationsRegion(convos)
             App.request "hide:preloader"
@@ -59,7 +75,7 @@
         modalRegionBody = new Conversations.Chats
           collection: messages
 
-        messages.url = "http://history.offerchat.loc:9292/chats/#{model.get('token')}"
+        messages.url = "#{gon.history_url}/chats/#{model.get('token')}"
         messages.fetch
           dataType : "jsonp"
           processData: true
@@ -70,8 +86,10 @@
         modalRegionFooter = new Conversations.ChatModalFooter
           model: model
 
-        modalViewRegion.footerRegion.show modalRegionFooter
+        @listenTo modalRegionFooter, "close:chats:modal", ->
+          modalViewRegion.close()
 
+        modalViewRegion.footerRegion.show modalRegionFooter
 
       @listenTo modalViewRegion, "close:chats:modal", ->
         modalViewRegion.close()
