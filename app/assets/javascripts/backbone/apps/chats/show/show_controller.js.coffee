@@ -14,10 +14,9 @@
       @height      = App.request "get:chat:window:height"
       @messages    = App.request "get:chats:messages"
       @transcript  = App.request "transcript:entity"
-      @transcript.url = Routes.webmaster_code_websites_path
+      @transcript.url = Routes.email_export_transcript_index_path
 
       if @messages.length is 0
-        console.log "loadi ug chat logs!"
         @messages.add JSON.parse(localStorage.getItem("ofc-chatlog-"+@token))
       else
         localStorage.setItem("ofc-chatlog-"+@token, JSON.stringify(@messages))
@@ -268,7 +267,8 @@
         formView.close()
 
       @listenTo @transcript, "created", (model) =>
-        console.log "test"
+        formView.close()
+        @showNotification("Transcript has been success fully sent!")
 
 
 

@@ -186,7 +186,7 @@
           api_keys = JSON.parse $(stanza).find("API_KEYS").text()
 
           @agents.add { jid: node, token: node, info: info, agent: true, api_keys: api_keys }
-          console.log @agents
+          # console.log @agents
         ), jid
 
       else if typeof visitor is "undefined"
@@ -209,12 +209,10 @@
       transfer  = $(message).find("transfer")
 
       if body and typeof agent is "undefined"
-        console.log "aaaaa sssss"
         messages = App.request "messeges:entities"
         visitor  = @visitors.findWhere { jid: node }
         token    = visitor.get("token")
         info     = visitor.get "info"
-        # console.log "ni message ang agent"
         new_message = @messages.where token: token
         messages.add(new_message)
         localStorage.setItem("ofc-chatlog-"+token, JSON.stringify(new_message))
@@ -308,7 +306,5 @@
         timesimple: moment().format('hh:mma')
         viewing:    true
       @messages.add curUrl
-
-
       localStorage.setItem("ofc-chatlog-"+token, JSON.stringify(curUrl))
 
