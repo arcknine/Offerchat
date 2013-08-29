@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
 
   def generate_random_avatar
-    "//s3.amazonaws.com/offerchat/users/avatars/avatar#{id % 5}.jpg"
+    "//s3.amazonaws.com/offerchat-dashboard/users/avatars/avatar#{id % 5}.jpg"
   end
 
   def group(owner_id)
