@@ -199,7 +199,6 @@
           currentMsg.childClass = "child"
 
         @messages.add currentMsg
-        # console.log "ni chat ang agent", currentMsg
         localStorage.setItem("ofc-chatlog-"+@token, JSON.stringify(@messages))
         $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500)
         $(ev.currentTarget).val("")
