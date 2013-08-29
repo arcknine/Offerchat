@@ -293,6 +293,13 @@
 
               msg.set res
 
+              # focus and set to active
+              App.navigate "chats/agent/#{token}", trigger: true
+              agent.set
+                unread: null
+                newClass: null
+                active: 'active'
+
             else
               reason        = $(transfer).find('reason').text()
               visitor_token = $(transfer).find('vtoken').text()
