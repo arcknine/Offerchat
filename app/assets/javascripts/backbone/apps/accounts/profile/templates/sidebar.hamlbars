@@ -7,5 +7,3 @@
     %a.profile.selected{href: ""} Profile
   %li
     %a.password{href: ""} Password
-  %li
-    %a.invoices{href: ""} Invoices
