@@ -11,6 +11,7 @@
       @agentMsgs   = App.request "messeges:entities"
       @currentSite = App.request "get:sidebar:selected:site"
       @sites       = App.request "get:all:sites"
+      @siteAgents  = App.request "online:agents:entities"
       @layout      = @getLayout()
 
       sidebar = ($(window).height() - 93) + "px"
@@ -28,6 +29,7 @@
         @connected()
 
       @listenTo @currentSite, "change", =>
+        @siteAgents = App.request "online:agents:entities"
         @visitorsList()
         @agentsList()
 
@@ -87,16 +89,16 @@
       @layout.visitorsRegion.show visitorsView
 
     agentsList: ->
-      agents  = App.request "online:agents:entities"
       unless @currentSite.get("all")
         api_keys = [@currentSite.get("api_key")]
       else
         api_keys = @sites.pluck("api_key")
 
-      $.each @agents.models, (key, value) ->
-        agents.set value if _.intersection(api_keys, value.get("api_keys")).length > 0
+      $.each @agents.models, (key, value) =>
+        val = @siteAgents.findWhere jid: value.get("jid")
+        @siteAgents.add value if _.intersection(api_keys, value.get("api_keys")).length > 0 and typeof val is "undefined"
 
-      agentsView = @getAgentsView(agents)
+      agentsView = @getAgentsView @siteAgents
 
       @listenTo agentsView, "childview:click:agent:tab", (agent) =>
 
