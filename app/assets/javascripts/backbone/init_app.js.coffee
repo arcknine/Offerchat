@@ -28,5 +28,7 @@ $ ->
     else if status is Strophe.Status.DISCONNECTED
       Offerchat.xmpp.status = status
 
-# window.onbeforeunload = (e) ->
-#   "Are your sure you want to reload this page?"
+window.onbeforeunload = (e) ->
+  # "Are your sure you want to reload this page?"
+  # true
+  ""
