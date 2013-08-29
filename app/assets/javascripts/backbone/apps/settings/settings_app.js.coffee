@@ -5,7 +5,7 @@
       "settings"                         : "show"
       "settings/style/:id"               : "editStyle"
       "settings/position/:id"            : "editPosition"
-      "settings/language/:id"            : "editLanguage"
+      "settings/labels/:id"              : "editLabels"
       "settings/chat-forms/:id"          : "chatForms"
       "settings/chat-forms/:id/prechat"  : "prechatForm"
       "settings/chat-forms/:id/postchat" : "postChatForm"
@@ -57,8 +57,8 @@
             currentSite: show.currentSite
             section: 'postchat'
 
-      editLanguage: (id) ->
-        show = API.show(id, 'language')
+      editLabels: (id) ->
+        show = API.show(id, 'labels')
         show.listenTo show.layout, "show", =>
           new SettingsApp.Language.Controller
             region: show.layout.settingsRegion

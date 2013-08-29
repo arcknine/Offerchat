@@ -6,7 +6,7 @@
     %li
       %a{data: {section: 'position'}} Widget Position
     %li
-      %a{data: {section: 'language'}} Labels
+      %a{data: {section: 'labels'}} Labels
     / %li
     /   %a{data: {section: 'attention-grabbers'}} Attention Grabbers
     %li
