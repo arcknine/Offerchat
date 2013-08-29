@@ -58,3 +58,7 @@ end
 
 # Cleanup
 after 'deploy:restart', 'deploy:cleanup'
+
+# Airbrake
+require './config/boot'
+require 'airbrake/capistrano'
