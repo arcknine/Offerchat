@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
   has_attached_file :avatar,
     :storage => :s3,
-    :bucket => Rails.env.production? ? 'offerchat' : 'offerchat-staging',
+    :bucket => Rails.env.production? ? 'offerchat-dashboard' : 'offerchat-staging',
     :s3_credentials => {
       :access_key_id => 'AKIAI4KRAOR4GE6GES7Q',
       :secret_access_key => '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'
