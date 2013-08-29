@@ -186,7 +186,7 @@
           api_keys = JSON.parse $(stanza).find("API_KEYS").text()
 
           @agents.add { jid: node, token: node, info: info, agent: true, api_keys: api_keys }
-          console.log @agents
+          # console.log @agents
         ), jid
 
       else if typeof visitor is "undefined"
@@ -213,9 +213,9 @@
         visitor  = @visitors.findWhere { jid: node }
         token    = visitor.get("token")
         info     = visitor.get "info"
-
-        messages.add(@messages.where token: token)
-
+        new_message = @messages.where token: token
+        messages.add(new_message)
+        localStorage.setItem("ofc-chatlog-"+token, JSON.stringify(new_message))
         visitor_msg =
           token:      token
           jid:        info.name
@@ -297,7 +297,7 @@
       true
 
     displayCurrentUrl:(token, jid, url) ->
-      @messages.add
+      curUrl =
         token:      token
         jid:        jid
         sender:     "visitor"
@@ -305,3 +305,6 @@
         time:       new Date()
         timesimple: moment().format('hh:mma')
         viewing:    true
+      @messages.add curUrl
+      localStorage.setItem("ofc-chatlog-"+token, JSON.stringify(curUrl))
+

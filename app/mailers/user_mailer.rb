@@ -25,4 +25,9 @@ class UserMailer < ActionMailer::Base
     @email, @password, @token = email, password, token
     mail(:to => email, :subject => "Offerchat Account Migration to new Dashboard")
   end
+
+  def send_transcript(email,message)
+    @message = message
+    mail(:to => email, :subject => "Offerchat Transcript Export")
+  end
 end
