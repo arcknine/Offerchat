@@ -19,7 +19,7 @@
   %h1
     Plans and Pricing
   %h3
-    Pay only for what you need. Offerchat live chat offers flexible pricing plans to let you chat instantly with shoppers right on your site.
+    Offerchat live chat offers flexible pricing plans to let you chat instantly with shoppers right on your site.
 
 .block.large
   .plans.text-center
@@ -32,15 +32,17 @@
         .block#business-button
           %a.btn.action.upgrade{ data: { id: "{{business.plan_identifier}}" } }
             Choose Plan
+        .agent-count
+          up to 10 agent seats
         .plan-price
-
           .plan-value
             %span.sign
               $
             {{business.price}}
           per month
         %small
-          up to 10 agent seats
+          $8.70 / agent seat
+
 
     .plan-grid
       .plan.plan-best
@@ -51,6 +53,8 @@
         .block#personal-button
           %a.btn.action.upgrade{ data: { id: "{{personal.plan_identifier}}" } }
             Choose Plan
+        .agent-count
+          up to 4 agent seats
         .plan-price
           .plan-value
             %span.sign
@@ -58,7 +62,7 @@
             {{personal.price}}
           per month
         %small
-          up to 4 agent seats
+          $9.25 / agent seat
     .plan-grid
       .plan.plan-regular
         %h2
@@ -68,6 +72,8 @@
         .block#enterprise-button
           %a.btn.action.upgrade{ data: { id: "{{enterprise.plan_identifier}}" } }
             Choose Plan
+        .agent-count
+          up to 30 agent seats
         .plan-price
           .plan-value
             %span.sign
@@ -75,7 +81,8 @@
             {{enterprise.price}}
           per month
         %small
-          up to 30 agent seats
+          $6.55 / agent seat
+
 
     .group.starter-upgrade
       .block-message.inline.small
@@ -84,26 +91,67 @@
           ${{starter.price}}.
         %a.hovered.upgrade{ :style => "margin-left: 10px", data: { id: "{{starter.plan_identifier}}" } }
           Choose Plan
+.block.large
+  %ul.features-icon-list.text-center
+    %li
+      %i.icon.icon-feature.icon-feature-1
+      %span
+        Unlimited Websites
+    %li
+      %i.icon.icon-feature.icon-feature-2
+      %span
+        SSL Security
+    %li
+      %i.icon.icon-feature.icon-feature-3
+      %span
+        Agent Seats
+    %li
+      %i.icon.icon-feature.icon-feature-4
+      %span
+        Your Logo
+    %li
+      %i.icon.icon-feature.icon-feature-5
+      %span
+        Unlimited Chats
+    %li
+      %i.icon.icon-feature.icon-feature-6
+      %span
+        Widget Customization
+
+
+
+
+
 
 .block.large.text-center
-  .plan-feature-list
-
+  .plan-faq-list.group
     %ul
       %li
-        %i.icon.icon-check-green
-        Unlimited websites
+        %h3
+          Why do I sign up for Free when I want a paid plan
+        The free signup is only to create your Offerchat account. You can click upgrade to a Paid plan and start your subscription right after registration.
       %li
-        %i.icon.icon-check-green
-        Unlimited chats
+        %h3
+          Do I have to go through a Free trial?
+        No, you don't have to. There is no required free trial in Offerchat. Once, you've signed up, you can immediately upgrade to a paid plan from the dashboard anytime you need to.
       %li
-        %i.icon.icon-check-green
-        Widget customization
+        %h3
+          Are there existing feature limitations in each plan?
+        No. Pricing revolves around the number of agent seats and not features. So you can enjoy all Offerchat features fully no matter which plan you choose. Sounds good? Great!
       %li
-        %i.icon.icon-check-green
-        SSL security
+        %h3
+          What modes of payment do you accept?
+        You can pay your subscription through all major credit cards
+
       %li
-        %i.icon.icon-check-green
-        Reports
+        %h3
+          Can I use paypal?
+        Currently, our billing system cannot accept Paypal.
+
       %li
-        %i.icon.icon-check-green
-        No offerchat logo
+        %h3
+          Refunds, Fraud, Service Cancellation
+        See our
+        %a{ :href => "https://www.offerchat.com/terms-of-use/" }
+          Terms of Use
+        for all necessary information.

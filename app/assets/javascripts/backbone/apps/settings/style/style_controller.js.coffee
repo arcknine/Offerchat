@@ -3,12 +3,14 @@
 
     initialize: (options) ->
       @currentUser = App.request "get:current:profile"
-                
+
       App.execute "when:fetched", @currentUser, =>
         layout = @getLayoutView(options.currentSite)
 
         options.currentSite.url = Routes.update_settings_website_path(options.currentSite.get("id"))
         settings = options.currentSite.get("settings")
+
+
 
         @listenTo layout, "style:color:clicked", (e) =>
           @changeColor(e)
