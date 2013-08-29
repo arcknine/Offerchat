@@ -18,7 +18,7 @@ class PasswordsController < ApplicationController
     else
       if @user.valid_password?(params[:current_password])
         if params[:password] == params[:password_confirmation]
-          if @user.update_with_password(params.except(:id).except(:action).except(:controller).except(:success).except(:msg))
+          if @user.update_with_password(params.except(:id).except(:action).except(:controller).except(:success).except(:msg).except(:avatar))
             # Sign in the user by passing validation in case his password changed
             sign_in @user, :bypass => true
             render json: {success: true, msg: "Your changes have been saved"}
