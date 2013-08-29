@@ -3,8 +3,7 @@
   class Preview.Controller extends App.Controllers.Base
 
     initialize: ->
-      currentUser = App.request "set:current:user", App.request "get:current:user:json"
-      # App.selectorSidebarRegion.close()
+      currentUser = App.request "get:current:profile"
       @storage = JSON.parse(sessionStorage.getItem("newSite"))
       website = App.request "new:site:entity"
       website.url = Routes.signup_wizard_path('step_three')
@@ -12,13 +11,13 @@
 
 
       @layout = @getLayoutView()
+      App.execute "when:fetched", currentUser, =>
+        @listenTo @layout, "show", =>
+          @iframeRegion website
+          @settingsRegion website
+          @widgetRegion currentUser
 
-      @listenTo @layout, "show", =>
-        @iframeRegion website
-        @settingsRegion website
-        @widgetRegion currentUser
-
-      App.previewRegion.show @layout
+        App.previewRegion.show @layout
 
 
     iframeRegion: (website) ->

@@ -1,13 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-        <!-- Facebook sharing information tags -->
-        <meta property="og:title" content="*|MC:SUBJECT|*" />
-
-        <title>Lorem Ipsum is simply</title>
-    <style type="text/css">
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    / Facebook sharing information tags
+    %meta{:content => "*|MC:SUBJECT|*", :property => "og:title"}/
+    %title Lorem Ipsum is simply
+    :css
       /* Client-specific Styles */
       #outlook a{padding:0;} /* Force Outlook to provide a "view in browser" button. */
       body{width:100% !important;} .ReadMsgBody{width:100%;} .ExternalClass{width:100%;} /* Force Hotmail to display emails at full width */
@@ -315,116 +313,67 @@
       #monkeyRewards img{
         max-width:190px;
       }
-    </style>
-  </head>
-    <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
-      <center>
-          <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable">
-              <tr>
-                  <td align="center" valign="top" style="padding-top:20px;">
-                      <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateContainer">
-                          <tr>
-                              <td align="center" valign="top">
-                                    <!-- // Begin Template Header \\ -->
-                                  <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader">
-                                        <tr>
-                                            <td class="headerContent">
-                                              <img src="<%= root_url.to_s%>assets/offerchat_logo.png" alt="logo" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <!-- // End Template Header \\ -->
-                                </td>
-                            </tr>
-                          <tr>
-                              <td align="center" valign="top">
-                                    <!-- // Begin Template Body \\ -->
-                                  <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
-                                      <tr>
-                                            <td valign="top">
-
-                                                <!-- // Begin Module: Standard Content \\ -->
-                                                <table border="0" cellpadding="20" cellspacing="0" width="100%">
-                                                    <tr>
-                                                        <td valign="top" class="bodyContent">
-                                                            <div mc:edit="std_content00">
-
-
-                                                                <table style="width: 100%;">
-                                                                  <tr>
-                                                                   <td>
-                                                                   <p>
-                                                                     Please copy and paste the Offerchat widget code on http://www.buyrealmarketing.com before the closing <strong>&lt;/head&gt;</strong> of our site.
-                                                                     </p>
-                                                                     <p>
-                                                                      &lt;!-- offerchat script begins here --&gt;<br ><br >
-                                                                      <%= @apikey%>
-                                                                      <br ><br >&nbsp;
-                                                                     </p>
-                                                                     <p>Thanks, <br>
-                                                                     <%= @name%>
-                                                                     </p>
-
-                                                                   </td>
-                                                                  </tr>
-
-
-                                                                </table>
-                                                            </div>
-                            </td>
-                                                    </tr>
-
-                                                </table>
-                                                <!-- // End Module: Standard Content \\ -->
-
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <!-- // End Template Body \\ -->
-                                </td>
-                            </tr>
-                          <tr>
-                              <td align="center" valign="top">
-                                    <!-- // Begin Template Footer \\ -->
-                                  <table border="0" cellpadding="10" cellspacing="0" width="600" id="templateFooter">
-                                      <tr>
-                                          <td valign="top" class="footerContent">
-
-                                                <!-- // Begin Module: Transactional Footer \\ -->
-                                                <table border="0" cellpadding="10" cellspacing="0" width="100%">
-                                                    <tr>
-                                                        <td valign="top">
-                                                            <div mc:edit="std_footer">
-                                <p><strong>Here's a guide to install Offerchat</strong></p>
-                                <p>
-                                  <a href="http://support.offerchat.com/getting-started-with-offerchat-live-chat-widget/">Getting Started with Offerchat Live Chat Widget</a>
-                                </p>
-                                <p>
-                                  <a href="https://www.offerchat.com/blog/adding-chat-for-wordpress/">Adding Offerchat in your wordpress site</a>
-                                </p>
-                                <p>
-                                  <a href="https://www.offerchat.com/blog/add-a-live-help-chat-on-your-shopify-store-installation-guide/">
+      %body{:leftmargin => "0", :marginheight => "0", :marginwidth => "0", :offset => "0", :topmargin => "0"}
+    %center
+      %table#backgroundTable{:border => "0", :cellpadding => "0", :cellspacing => "0", :height => "100%", :width => "100%"}
+        %tr
+          %td{:align => "center", :style => "padding-top:20px;", :valign => "top"}
+            %table#templateContainer{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+              %tr
+                %td{:align => "center", :valign => "top"}
+                  / // Begin Template Header \\
+                  %table#templateHeader{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+                    %tr
+                      %td.headerContent
+                        = image_tag "offerchat_logo.png"
+                  / // End Template Header \\
+              %tr
+                %td{:align => "center", :valign => "top"}
+                  / // Begin Template Body \\
+                  %table#templateBody{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+                    %tr
+                      %td{:valign => "top"}
+                        / // Begin Module: Standard Content \\
+                        %table{:border => "0", :cellpadding => "20", :cellspacing => "0", :width => "100%"}
+                          %tr
+                            %td.bodyContent{:valign => "top"}
+                              %div{"mc:edit" => "std_content00"}
+                                %table{:style => "width: 100%;"}
+                                  %tr
+                                    %td
+                                      %p
+                                        Chat Transcript
+                                      %div
+                                        = @message.html_safe
+                                        %br
+                                          %br
+                                            \&nbsp;
+                                      %p
+                                        Thanks,
+                                        %br
+                                          Offerchat
+                        / // End Module: Standard Content \\
+                  / // End Template Body \\
+              %tr
+                %td{:align => "center", :valign => "top"}
+                  / // Begin Template Footer \\
+                  %table#templateFooter{:border => "0", :cellpadding => "10", :cellspacing => "0", :width => "600"}
+                    %tr
+                      %td.footerContent{:valign => "top"}
+                        / // Begin Module: Transactional Footer \\
+                        %table{:border => "0", :cellpadding => "10", :cellspacing => "0", :width => "100%"}
+                          %tr
+                            %td{:valign => "top"}
+                              %div{"mc:edit" => "std_footer"}
+                                %p
+                                  %strong Here's a guide to install Offerchat
+                                %p
+                                  %a{:href => "http://support.offerchat.com/getting-started-with-offerchat-live-chat-widget/"} Getting Started with Offerchat Live Chat Widget
+                                %p
+                                  %a{:href => "https://www.offerchat.com/blog/adding-chat-for-wordpress/"} Adding Offerchat in your wordpress site
+                                %p
+                                  %a{:href => "https://www.offerchat.com/blog/add-a-live-help-chat-on-your-shopify-store-installation-guide/"}
                                     Add Offerchat on your Shopify store
-                                  </a>
-                                </p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-
-                                                </table>
-                                                <!-- // End Module: Transactional Footer \\ -->
-
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <!-- // End Template Footer \\ -->
-                                </td>
-                            </tr>
-                        </table>
-                        <br />
-                    </td>
-                </tr>
-            </table>
-        </center>
-    </body>
-</html>
+                        / // End Module: Transactional Footer \\
+                  / // End Template Footer \\
+            %br/
