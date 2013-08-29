@@ -5,7 +5,7 @@
   .chat-table.chat-container-table
     .viewing-current-url
       viewing
-      %a {{message}}
+      %a{:href => "{{message}}", :target => "_blank" } {{message}}
   .chat-time
     {{timesimple}}
 
