@@ -13,9 +13,16 @@
       @visitor     = App.request "visitor:entity" if typeof @visitor is "undefined"
       @height      = App.request "get:chat:window:height"
       @messages    = App.request "get:chats:messages"
+      @transcript  = App.request "transcript:entity"
+      @transcript.url = Routes.email_export_transcript_index_path
+
+      if @messages.length is 0
+        @messages.add JSON.parse(localStorage.getItem("ofc-chatlog-"+@token))
+      else
+        localStorage.setItem("ofc-chatlog-"+@token, JSON.stringify(@messages))
+
       @currentMsgs = App.request "messeges:entities"
       @agentMsgs   = App.request "get:agent:chats:messages"
-
       @currentMsgs.add @messages.where({token: @token})
 
       @listenTo visitors, "add", =>
@@ -55,7 +62,8 @@
         if option is "transfer"
           @transferChat()
         else if option is "export"
-          window.location = Routes.root_path()+"transcript/"+@token
+          @showTranscriptModalView @visitor
+          @transcript.set messages: $('#transcript-collection').html()
         # else if option is "ban"
 
       @layout.chatsRegion.show chatsView
@@ -191,8 +199,8 @@
           currentMsg.childClass = "child"
 
         @messages.add currentMsg
-
-        $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500);
+        localStorage.setItem("ofc-chatlog-"+@token, JSON.stringify(@messages))
+        $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500)
         $(ev.currentTarget).val("")
         @composing = null
 
@@ -239,3 +247,24 @@
       new Show.ChatsList
         collection: @currentMsgs
         model:      @height
+
+    getTranscriptModalView: ->
+
+      new Show.TransciptModal
+        collection: @currentMsgs
+        model: @transcript
+
+    showTranscriptModalView: (messages)->
+      modalView = @getTranscriptModalView messages
+      formView  = App.request "modal:wrapper", modalView
+      App.modalRegion.show formView
+
+      @listenTo formView, "modal:cancel", (item)->
+        formView.close()
+
+      @listenTo @transcript, "created", (model) =>
+        formView.close()
+        @showNotification("Transcript has been success fully sent!")
+
+
+

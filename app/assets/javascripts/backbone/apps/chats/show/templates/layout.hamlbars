@@ -1,2 +1,6 @@
 #visitor-info-region
+.block-message{ :style => "display:none;" }
+  %a.close
+    &times;
+  %span
 #chats-region

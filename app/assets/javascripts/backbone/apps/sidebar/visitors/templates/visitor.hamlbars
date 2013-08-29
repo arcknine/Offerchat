@@ -1,10 +1,12 @@
-%a.chat-item-tab{:class => "{{active}} {{new_chat}} {{newClass}}" }
+%a.chat-item-tab{:class => "{{active}} {{new_chat}} {{newClass}}", :title => "{{title}}" }
 
   {{#if unread}}
   .message-tick{:class => "{{bounce}}"}
     %span {{unread}}
   {{/if}}
-
+  {{#if available}}
+  .visitor-status{:class => "{{status}}"}
+  {{/if}}
   {{info.name}}
   .small-help-block
     {{info.title}}

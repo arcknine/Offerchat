@@ -1,6 +1,5 @@
 module OpenfireApi
   def self.create_user(username, password)
-
     url = "#{ENV["CHAT_SERVER_URL"]}#{ENV["USER_SERVICE_ENDPOINT"]}type=add&secret=#{ENV["CHAT_SERVER_SECRET"]}&username=#{username}&password=#{password}"
     url = url.gsub(" ", "+")
 
@@ -16,6 +15,8 @@ module OpenfireApi
   end
 
   def self.subcribe_roster(agent, visitor, name, groups)
+    name   = URI.escape(name)
+    groups = URI.escape(groups)
 
     url = "#{ENV["CHAT_SERVER_URL"]}#{ENV["USER_SERVICE_ENDPOINT"]}type=add_roster&secret=#{ENV["CHAT_SERVER_SECRET"]}&username=#{agent}&item_jid=#{visitor}@#{ENV["CHAT_SERVER_NAME"]}&name=#{name}&groups=#{groups}&subscription=3"
     url = url.gsub(" ", "+")
@@ -31,6 +32,9 @@ module OpenfireApi
   end
 
   def self.update_roster(agent, visitor, name, groups)
+    name   = URI.escape(name)
+    groups = URI.escape(groups)
+
     if groups.blank?
       url = "#{ENV["CHAT_SERVER_URL"]}#{ENV["USER_SERVICE_ENDPOINT"]}type=update_roster&secret=#{ENV["CHAT_SERVER_SECRET"]}&username=#{agent}&item_jid=#{visitor}@#{ENV["CHAT_SERVER_NAME"]}&name=#{name}&subscription=3"
     else

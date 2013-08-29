@@ -359,6 +359,7 @@ Chats = {
             header.replace();
 
             //create chat history conversation
+            Chats.sendPresence();
             Chats.createChatHistoryConversation(Chats.agent);
           }
         });
@@ -445,7 +446,12 @@ Chats = {
   getAgent: function(callback) {
     var _this = this;
     var agent = this.agent;
-    if (!agent) {
+    if (!Chats.agents || Chats.agents.length === 0) {
+      setTimeout(function(){
+        _this.getAgent(callback);
+      }, 200);
+    } else if (!agent && this.agents.length > 0) {
+
       selected_agent = this.agents[Math.floor(Math.random() * this.agents.length)];
       $.each(Offerchat.website.agents, function(key, value){
         if (value.jabber_user == selected_agent) {
@@ -454,7 +460,9 @@ Chats = {
           agent.website_id = Offerchat.website.id;
           Offerchat.agent.insert(value);
 
+          _this.agent = agent;
           _this.createChatHistoryConversation(agent);
+          _this.sendPresence();
         }
       });
 
@@ -537,7 +545,7 @@ Chats = {
       type: "GET",
       url: Offerchat.src.history + "/convo/create/" + Offerchat.params.secret_token,
       dataType: "jsonp",
-      data: {url: Offerchat.params.current_url, aid: agent.id, vname: this.visitor.name, agent: agent.name},
+      data: {url: Offerchat.params.current_url, aid: agent.id, vname: this.visitor.name, agent: agent.name, vid: this.visitor.id},
       success: function(){
         Offerchat.agent({website_id: Offerchat.website.id}).update({new_convo: true});
         _this.agent = Offerchat.agent({website_id: Offerchat.website.id}).first();

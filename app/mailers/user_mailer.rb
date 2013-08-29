@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "Offercha Notifications <hello@offerchat.com>"
+  default from: "Offerchat Notifications <hello@offerchat.com>"
 
   def registration_welcome(email)
     mail(:to => email, :subject => "Welcome to Offerchat Site")
@@ -24,5 +24,10 @@ class UserMailer < ActionMailer::Base
   def migrate_owner(email,password,token)
     @email, @password, @token = email, password, token
     mail(:to => email, :subject => "Offerchat Account Migration to new Dashboard")
+  end
+
+  def send_transcript(email,message)
+    @message = message
+    mail(:to => email, :subject => "Offerchat Transcript Export")
   end
 end

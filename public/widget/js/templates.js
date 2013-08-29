@@ -125,7 +125,7 @@ Templates = {
       },
       downloadTranscript: function() {
         $("a.chat-settings").trigger("click");
-        window.location.href = "/transcript/"+Offerchat.params.secret_token;
+        window.location.href = Offerchat.src.history + "/transcript/" + Offerchat.params.secret_token;
       },
       togglePoweredBy: function() {
         window.open('//www.offerchat.com/?utm_medium=Widget_banner&utm_campaign=offerchat_widget&utm_source=www.offerchat.com', '_blank');
@@ -208,7 +208,8 @@ Templates = {
       section:   "div.widget-chat-viewer",
       template:  this.getChatForms({
         description: this.settings.pre_chat.description,
-        message_required: this.settings.pre_chat.message_required
+        message_required: this.settings.pre_chat.message_required,
+        email_required: this.settings.pre_chat.email_required
       }),
       className: "widget-block prechat",
       tagName:   "form",
@@ -442,10 +443,12 @@ Templates = {
                    '</div>' +
                    '<div class="widget-input-container">' +
                    '  <input placeholder="Name" name="name" type="text">' +
-                   '</div>' +
-                   '<div class="widget-input-container">' +
+                   '</div>';
+    if (typeof data.email_required == "undefined" || data.email_required === true) {
+      forms     += '<div class="widget-input-container">' +
                    '  <input placeholder="Email" name="email" type="text">' +
                    '</div>';
+    }
 
     if (typeof data.message_required == "undefined" || data.message_required === true) {
       forms     += '<div class="widget-input-container">' +

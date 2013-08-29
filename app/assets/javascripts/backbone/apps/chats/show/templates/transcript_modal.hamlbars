@@ -1,0 +1,10 @@
+%fieldset
+  %label
+    Export to email
+  .input-container
+    %input.large{:type => "text",:name => "email"}
+
+%fieldset
+  #transcript-collection.transcript-content
+
+

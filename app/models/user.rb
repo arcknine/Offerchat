@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
   has_attached_file :avatar,
     :storage => :s3,
-    :bucket => Rails.env.production? ? 'offerchat' : 'offerchat-staging',
+    :bucket => Rails.env.production? ? 'offerchat-dashboard' : 'offerchat-staging',
     :s3_credentials => {
       :access_key_id => 'AKIAI4KRAOR4GE6GES7Q',
       :secret_access_key => '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'
@@ -118,14 +118,15 @@ class User < ActiveRecord::Base
           account.user    = user
           account.owner   = owner
           account.website = Website.find(p[:website_id])
-          account.save
-
-          has_checked_website = true
-
-          if user_is_new
-            UserMailer.delay.new_agent_welcome(account, user, password) unless user.errors.any?
+          if account.save
+            has_checked_website = true
+            if user_is_new
+              UserMailer.delay.new_agent_welcome(account, user, password) unless user.errors.any?
+            else
+              UserMailer.delay.old_agent_welcome(account, user) unless user.errors.any?
+            end
           else
-            UserMailer.delay.old_agent_welcome(account, user) unless user.errors.any?
+            puts account.errors
           end
         end
       end

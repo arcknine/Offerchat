@@ -12,6 +12,7 @@ Dashboard::Application.routes.draw do
   end
   resource :settings
   resources :triggers
+  resources :visitors
   resources :plans do
     collection do
       get "by_name/:id", :action => "by_name"
@@ -48,7 +49,13 @@ Dashboard::Application.routes.draw do
   mount StripeEvent::Engine => '/stripe_webhook'
 
   root :to => 'home#index'
-  resources :transcript, :only => [:show]
+  # resources :transcript, :only => [:show]
+  resources :transcript do
+    collection do
+      post "email_export"
+    end
+  end
+
   mount Offerchat::API => '/api/v1/widget/'
 
   mount Dashmigrate::API => '/api/v1/migration/'

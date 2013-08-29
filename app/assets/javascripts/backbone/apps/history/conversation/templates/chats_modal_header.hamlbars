@@ -1,0 +1,20 @@
+.chat-image
+  %img{ :src=> "{{gravatar}}" }
+%ul.chat-list-info
+  %li.visitor-name
+    %a
+      {{name}}
+  %li
+    .flag-icon{class: "flag-{{country_code}}"}
+    {{location}}
+  %li
+    {{operating_system}} 
+    %span.dot-seperator
+    {{browser}}
+    %i.icon.icon-browser-iesucks
+
+/ .btn-group.history-btn-group
+/   %a.btn.active#chatTabBtn
+/     Chat
+/   %a.btn#notesTabBtn
+/     Notes

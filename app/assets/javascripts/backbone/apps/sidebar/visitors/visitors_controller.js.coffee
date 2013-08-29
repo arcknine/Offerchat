@@ -153,6 +153,13 @@
       visitor  = @visitors.findWhere { token: token }
       agent    = @agents.findWhere { token: node }
 
+      if info.chatting
+        chatting  = (if info.chatting.status then "busy" else null)
+        chatting  = (if gon.current_user.jabber_user is info.chatting.agent then "online" else chatting)
+        available = (if chatting isnt null then true else false)
+        title     = (if chatting isnt null then "Chatting with #{info.chatting.name}" else "")
+        title     = (if chatting is "online" then "Chatting with You" else title)
+
       if type is "unavailable"
         visitor = @visitors.findWhere {  jid: node }
 
@@ -186,17 +193,27 @@
           api_keys = JSON.parse $(stanza).find("API_KEYS").text()
 
           @agents.add { jid: node, token: node, info: info, agent: true, api_keys: api_keys }
-          console.log @agents
         ), jid
 
       else if typeof visitor is "undefined"
+
         @displayCurrentUrl(token, node, info.url)
-        @visitors.add { jid: node, token: token ,info: info, resources: [resource], api_key: info.api_key, email: info.email }
+        @visitors.add
+          jid:       node
+          token:     token
+          info:      info
+          resources: [resource]
+          api_key:   info.api_key
+          email:     info.email
+          status:    chatting
+          available: available
+          title:     title
       else
         @displayCurrentUrl(token, node, info.url)
         resources = visitor.get "resources"
         resources.push(resource) if $.inArray(resource, resources) is -1
-        visitor.set { jid: node, resources: resources }
+        visitor.set { jid: node, resources: resources, info: info, status: chatting, available: available, title: title }
+        @visitors.set visitor
 
       true
 
@@ -213,9 +230,9 @@
         visitor  = @visitors.findWhere { jid: node }
         token    = visitor.get("token")
         info     = visitor.get "info"
-
-        messages.add(@messages.where token: token)
-
+        new_message = @messages.where token: token
+        messages.add(new_message)
+        localStorage.setItem("ofc-chatlog-"+token, JSON.stringify(new_message))
         visitor_msg =
           token:      token
           jid:        info.name
@@ -297,7 +314,7 @@
       true
 
     displayCurrentUrl:(token, jid, url) ->
-      @messages.add
+      curUrl =
         token:      token
         jid:        jid
         sender:     "visitor"
@@ -305,3 +322,6 @@
         time:       new Date()
         timesimple: moment().format('hh:mma')
         viewing:    true
+      @messages.add curUrl
+      localStorage.setItem("ofc-chatlog-"+token, JSON.stringify(curUrl))
+

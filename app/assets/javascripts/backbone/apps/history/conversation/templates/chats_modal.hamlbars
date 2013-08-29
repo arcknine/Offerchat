@@ -1,0 +1,40 @@
+.modal-backdrop
+  .modal-window.modal-window-large#historyModal
+    .modal
+      .modal-header
+        %a.close
+          &times;
+        .chat-header#chat-modal-header-region
+          .chat-image
+          %ul.chat-list-info
+            %li.visitor-name
+              %a
+                Visitor
+            %li
+              .flag-icon.flag-PH
+              Location
+            %li
+              Operating System
+              %span.dot-seperator
+              Browser
+              %i.icon.icon-browser-iesucks
+       
+          / .btn-group.history-btn-group
+          /   %a.btn.active#chatTabBtn
+          /     Chat
+          /   %a.btn#notesTabBtn
+          /     Notes
+        
+      .modal-body
+        // CHAT HISTORY
+        .chat-viewer-content.bordered#historyTabSection
+          .chat-viewer-inner.static
+            / .chat-item
+            /   %a.chat-block-btn.btn
+            /     Load previous messages
+            #chat-modal-body-region
+      .modal-footer.bordered#chat-modal-footer-region
+        
+
+        
+
