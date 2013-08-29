@@ -125,7 +125,7 @@ Templates = {
       },
       downloadTranscript: function() {
         $("a.chat-settings").trigger("click");
-        window.location.href = Offerchat.src.history + "/transcript/" + Offerchat.params.secret_token;
+        window.location.href = Offerchat.src.history + "/transcript/visitor/" + Offerchat.params.secret_token;
       },
       togglePoweredBy: function() {
         window.open('//www.offerchat.com/?utm_medium=Widget_banner&utm_campaign=offerchat_widget&utm_source=www.offerchat.com', '_blank');
