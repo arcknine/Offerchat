@@ -2,6 +2,7 @@
   display: inline-block
   position: relative
   vertical-align: middle
+  background-repeat: none
   &.icon-arrow-down
     @include icon(11px,8px, 0 ,0)
   &.icon-arrow-left
@@ -83,11 +84,29 @@
         margin-bottom: 0
   &.icon-gear-2
     background-image: image-url('gear-icon.png')
-    background-repeat: none
     width: 81px
     height: 81px
     display: block
     margin: 0 auto 0 auto
+
+  &.icon-feature
+    width: 80px
+    height: 80px
+    background-size: 100%
+    &.icon-feature-1
+      background-image: image-url('pricing-feature-icons-1.png')
+    &.icon-feature-2
+      background-image: image-url('pricing-feature-icons-2.png')
+    &.icon-feature-3
+      background-image: image-url('pricing-feature-icons-3.png')
+    &.icon-feature-4
+      background-image: image-url('pricing-feature-icons-4.png')
+    &.icon-feature-5
+      background-image: image-url('pricing-feature-icons-5.png')
+    &.icon-feature-6
+      background-image: image-url('pricing-feature-icons-6.png')
+
+
 
 
 

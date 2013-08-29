@@ -6,6 +6,9 @@
       plans = App.request "get:plans"
       @profile = App.request "get:current:user"
 
+      $(window).resize ->
+        $("#main-region > .column-content-container").css("height", ($(window).height() - 45) + "px")
+
       @plansView = @getPlansView plans
 
       @listenTo @profile, "change", =>
@@ -17,6 +20,9 @@
       App.execute "when:fetched", plans, =>
         App.mainRegion.show @plansView
         @initPlans(@profile.get("plan_identifier"))
+
+        height = ($(window).height() - 45) + "px"
+        $("#main-region > .column-content-container").css("height", height)
 
       @listenTo @plansView, "upgrade:plan", (e) =>
         plan = $(e.currentTarget).data('id')
@@ -39,7 +45,7 @@
           true
         else
           false
-      else if current_plan == "ENTERPRISE" 
+      else if current_plan == "ENTERPRISE"
         true
       else if current_plan == "STARTER"
         false
