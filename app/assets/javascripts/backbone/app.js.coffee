@@ -2,7 +2,7 @@
 
   App = new Marionette.Application
 
-  console.log Routes
+  # console.log Routes
 
   App.on "initialize:before", (options) ->
     App.currentUser = options.currentUser
