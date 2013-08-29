@@ -13,11 +13,11 @@ var global, Widget, App, Helpers, Chats;
 global = {
   version: '2.0.0',
   src: {
-    script:   '//www.offerchat.com/',
-    bosh_url: ('https:' == document.location.protocol ? 'https://b1.offerchat.com:7443/http-bind/' : 'http://b1.offerchat.com:7070/http-bind/'),
-    server:   '@realtime.offerchat.com',
-    api_url:  '//app.offerchat.com/api/v2/widgets/',
-    assets:   '//app.offerchat.com',
+    script:   '//new.offerchat.com/',
+    bosh_url: ('https:' == document.location.protocol ? 'https://im.offerchat.com:7443/http-bind/' : 'http://im.offerchat.com:7070/http-bind/'),
+    server:   '@im.offerchat.com',
+    api_url:  '//new.offerchat.com/api/v1/widget/',
+    assets:   '//new.offerchat.com',
     history:  '//history.offerchat.com'
   }
 };
