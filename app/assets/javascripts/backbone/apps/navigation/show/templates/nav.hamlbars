@@ -11,9 +11,9 @@
     #canvas-loader
     %ul.header-inline-list.primary-user-nav
 
-      %li.reports-menu-link
-        %a
-          Reports
+      / %li.reports-menu-link
+      /   %a
+      /     Reports
 
       %li.history-menu-link
         %a
