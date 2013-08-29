@@ -11,13 +11,8 @@
 
   class Entities.Conversations extends App.Entities.Collection
     model: Entities.Conversation
-<<<<<<< HEAD
     url: "#{gon.history_url}/convo"
   
-=======
-    url: "http://history.offerchat.loc:9292/convo"
-
->>>>>>> added chatlog local storage
   API =
     getConversations: (conversations, aids = [])->
       console.log conversations
