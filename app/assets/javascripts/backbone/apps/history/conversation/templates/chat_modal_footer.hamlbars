@@ -2,9 +2,9 @@
   Delete Conversation
 .transcript-actions-form
   .transcript-actions
-    %a.btn
-      \.pdf
-    %a.btn#forwardToEmailBtn
+    %a.btn#downloadTranscript
+      Download
+    %a.btn#forwardToEmailBtn.hide
       Forward to email
     
   .transcript-email-form.hide

@@ -119,6 +119,11 @@
       "click #cancelTranscriptFormBtn"  : "hide_forward_email"
       "click .forward-to-email-btn"     : "forward_convo_to_email"
       "click .delete-conversation"      : "delete_convo"
+      "click #downloadTranscript"       : "download_transcript"
+
+    download_transcript: (evt)->
+      evt.preventDefault()
+      window.location.href = "#{gon.history_url}/transcript/agent/#{@model.get('token')}"
 
     show_forward_email: (evt)->
       @$(".transcript-email-form").removeClass("hide")

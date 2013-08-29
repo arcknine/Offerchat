@@ -111,7 +111,7 @@
         status_elem.text("Away")
         $(elem.currentTarget).find(".status").removeClass("online")
         $(".profile-status > a").find(".status").addClass("online")
-        pres_status = $pres().c('show').t('online').up().c('priority').t('1').up().c('status').t("Online")
+        pres_status = $pres().c('priority').t('1').up().c('status').t("Online")
 
       @connection.send pres_status
 

@@ -293,6 +293,13 @@
 
               msg.set res
 
+              # focus and set to active
+              App.navigate "chats/agent/#{token}", trigger: true
+              agent.set
+                unread: null
+                newClass: null
+                active: 'active'
+
             else
               reason        = $(transfer).find('reason').text()
               visitor_token = $(transfer).find('vtoken').text()
@@ -308,10 +315,13 @@
 
           if messages.last() and messages.last().get("name") is name
             agent_msg.child      = true
-            agent_msg.childClass = "child"
+            agent_msg.childclass = "child"
 
+          if agent_msg
+            @agentMsgs.add agent_msg
 
-          if agent_msg then @agentMsgs.add agent_msg
+            if Backbone.history.fragment.indexOf(token)==-1
+              agent.addUnread()
 
       true
 

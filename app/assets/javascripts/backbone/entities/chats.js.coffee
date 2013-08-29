@@ -17,18 +17,6 @@
       email: "piki_pare_erap@yahoo.com"
       gravatar: null
 
-    addUnread: ->
-      if @get('unread') is null then @set new_chat: 'bounce1', bounce: 'bounce'
-      @set unread: @get('unread') + 1, newClass: "new"
-
-      setTimeout (=>
-        @set {new_chat: null}
-      ), 1000
-
-      setTimeout (=>
-        @set {bounce: null}
-      ), 10000
-
     generateGravatarSource: ->
       @set { gravatar: "https://www.gravatar.com/avatar/#{ MD5.hexdigest($.trim(@get("email")).toLowerCase()) }?s=100&d=mm" }
 
