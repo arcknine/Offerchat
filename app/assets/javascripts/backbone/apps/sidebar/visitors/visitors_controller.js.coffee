@@ -309,7 +309,11 @@
             agent_msg.childClass = "child"
 
 
-          if agent_msg then @agentMsgs.add agent_msg
+          if agent_msg
+            @agentMsgs.add agent_msg
+
+            if Backbone.history.fragment.indexOf(token)==-1
+              agent.addUnread()
 
       true
 
