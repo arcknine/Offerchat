@@ -446,7 +446,12 @@ Chats = {
   getAgent: function(callback) {
     var _this = this;
     var agent = this.agent;
-    if (!agent) {
+    if (!Chats.agents || Chats.agents.length === 0) {
+      setTimeout(function(){
+        _this.getAgent(callback);
+      }, 200);
+    } else if (!agent && this.agents.length > 0) {
+
       selected_agent = this.agents[Math.floor(Math.random() * this.agents.length)];
       $.each(Offerchat.website.agents, function(key, value){
         if (value.jabber_user == selected_agent) {
