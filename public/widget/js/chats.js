@@ -333,10 +333,8 @@ Chats = {
       Chats.roster  = Offerchat.roster({website_id: Offerchat.website.id}).first();
       Chats.agent   = Offerchat.agent({website_id: Offerchat.website.id}).first();
       Chats.details = Offerchat.details({id: Offerchat.website.id}).first();
-      // Chats.details.connect = false;
-      // Chats.details.chatend = true;
 
-      // _this.disconnect();
+      Chats.disconnect();
     } else if (body.length > 0) {
       var a = Chats.agent;
       if (!a || a.jabber_user != agent) {

@@ -38,7 +38,7 @@
         api_url: '//staging.offerchat.com/api/v1/widget/',
         assets:  'https://staging.offerchat.com',
         cdn:     '//staging.offerchat.com',
-        widget:  '//staging.offerchat.com/widget/widget-development.html'
+        widget:  '//staging.offerchat.com/widget/widget-staging.html'
       }
     };*/
 
@@ -46,10 +46,10 @@
    /* defaults = {
       version: '2.0.0',
       src: {
-        api_url: '//app.offerchat.com/api/v1/widget/',
-        assets:  'https://app.offerchat.com',
-        cdn:     '//app.offerchat.com',
-        widget:  '//app.offerchat.com/widget/widget-development.html'
+        api_url: '//new.offerchat.com/api/v1/widget/',
+        assets:  'https://new.offerchat.com',
+        cdn:     '//new.offerchat.com',
+        widget:  '//new.offerchat.com/widget/widget-development.html'
       }
     };*/
 
