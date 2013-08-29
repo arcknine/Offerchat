@@ -5,7 +5,7 @@
   %label.label-top-fix
     Credit Card #
   .input-container
-    %input.large{ :type => "text", :name => "credit_card_number", :value => "", :maxlength => 15 }
+    %input.large{ :type => "text", :name => "credit_card_number", :value => "", :maxlength => 16 }
     %fieldset
       = image_tag "credit-card-visa-32.png"
       = image_tag "credit-card-mastercard-32.png"
