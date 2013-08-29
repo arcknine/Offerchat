@@ -64,10 +64,6 @@
         else if option is "export"
           @showTranscriptModalView @visitor
           @transcript.set messages: $('#transcript-collection').html()
-          console.log "transcript", @transcript
-          # dont erase :D
-          # window.location = Routes.root_path()+"transcript/"+@token
-
         # else if option is "ban"
 
       @layout.chatsRegion.show chatsView
