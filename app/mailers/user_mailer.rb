@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "Offercha Notifications <hello@offerchat.com>"
+  default from: "Offerchat Notifications <hello@offerchat.com>"
 
   def registration_welcome(email)
     mail(:to => email, :subject => "Welcome to Offerchat Site")
