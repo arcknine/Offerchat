@@ -38,6 +38,8 @@
       formView = App.request "form:wrapper", labelsView
       @layout.labelRegion.show formView
 
+      $(".widget-preview-sample > div > div").addClass('widget-gradient') if @settings.style.gradient
+
     setLanguages: ->
       languageView = @getLanguageView()
       # @layout.languageRegion.show languageView
