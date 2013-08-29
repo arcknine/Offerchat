@@ -88,7 +88,7 @@
       .block-message.inline.small
         {{starter.description}}
         %strong
-          ${{starter.price}}.
+          ${{starter.price}}/month Solo Plan.
         %a.hovered.upgrade{ :style => "margin-left: 10px", data: { id: "{{starter.plan_identifier}}" } }
           Choose Plan
 .block.large
