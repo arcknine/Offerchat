@@ -81,6 +81,8 @@
 
         App.navigate "chats/visitor/#{visitor.model.get('token')}", trigger: true
 
+        App.execute "set:no:active:chat"
+
         visitor.model.set
           unread: null
           newClass: null
@@ -103,6 +105,8 @@
       @listenTo agentsView, "childview:click:agent:tab", (agent) =>
 
         App.navigate "chats/agent/#{agent.model.get('token')}", trigger: true
+
+        App.execute "set:no:active:chat"
 
         agent.model.set
           unread: null
