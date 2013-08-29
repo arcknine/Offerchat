@@ -359,6 +359,7 @@ Chats = {
             header.replace();
 
             //create chat history conversation
+            Chats.sendPresence();
             Chats.createChatHistoryConversation(Chats.agent);
           }
         });
@@ -454,7 +455,9 @@ Chats = {
           agent.website_id = Offerchat.website.id;
           Offerchat.agent.insert(value);
 
+          _this.agent = agent;
           _this.createChatHistoryConversation(agent);
+          _this.sendPresence();
         }
       });
 
