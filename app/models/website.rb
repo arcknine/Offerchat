@@ -69,12 +69,14 @@ class Website < ActiveRecord::Base
   end
 
   def available_roster
-    rosters.where("last_used <= ?", 5.minutes.ago).order("last_used ASC").each do |r|
+    a_rosters = rosters.where("last_used <= ?", 5.minutes.ago).order("last_used ASC")
+    a_rosters.each do |r|
       response = Nokogiri::XML(open("#{ENV["CHAT_SERVER_URL"]}plugins/presence/status?jid=#{r.jabber_user}@#{ENV["CHAT_SERVER_NAME"]}&type=xml"))
       presence = response.xpath("presence")
       status = presence.xpath("status").inner_text
       vacant_roster = status.to_s == "Unavailable" ? r : []
-      break vacant_roster
+      break vacant_roster if status.to_s == "Unavailable"
+      break vacant_roster if a_rosters.last.id == r.id
     end
   end
 
