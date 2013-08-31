@@ -565,7 +565,7 @@ Chats = {
           type: "GET",
           url: Offerchat.src.history + "/chats/create/" + Offerchat.params.secret_token,
           dataType: "jsonp",
-          data: { sender: name, msg: message }
+          data: { sender: name, msg: message, agent: _this.agent.name, vid: _this.visitor.id, aid: _this.agent.id, vname: _this.visitor.name, url: Offerchat.params.current_url }
         });
       } else {
         _this.createChatHistory(sender, message);
