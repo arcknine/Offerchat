@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
       :access_key_id => 'AKIAI4KRAOR4GE6GES7Q',
       :secret_access_key => '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'
     },
+    :s3_protocol => 'https',
     :styles => { :small => "55x55>", :thumb => "40x40>" },
     :default_style => :small,
     :default_url => :generate_random_avatar
