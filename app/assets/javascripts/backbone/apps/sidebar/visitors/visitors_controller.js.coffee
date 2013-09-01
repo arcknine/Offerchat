@@ -24,6 +24,11 @@
         @visitors.updateModels('active', null)
         @agents.updateModels('active', null)
 
+      App.commands.setHandler "chat:sound:notify", =>
+        try
+          sound = document.getElementById("beep-notify")
+          sound.play() if sound
+
       if App.xmpp.status is Strophe.Status.CONNECTED
         @connection = App.xmpp.connection
         @connected()
@@ -259,6 +264,10 @@
           @visitors.findWhere({token: token}).addUnread()
           @visitors.sort()
 
+          # chat sound here
+          # only sound if not focused
+          App.execute "chat:sound:notify"
+
       else if agent# and body
 
         if body or transfer.length
@@ -326,6 +335,10 @@
 
             if Backbone.history.fragment.indexOf(token)==-1
               agent.addUnread()
+
+              # chat sound here
+              # only sound if not focused
+              App.execute "chat:sound:notify"
 
       true
 
