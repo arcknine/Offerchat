@@ -11,7 +11,7 @@
     {{operating_system}} 
     %span.dot-seperator
     {{browser}}
-    %i.icon.icon-browser-iesucks
+    /%i.icon{class: "icon-browser-#{browser}"}
 
 / .btn-group.history-btn-group
 /   %a.btn.active#chatTabBtn
