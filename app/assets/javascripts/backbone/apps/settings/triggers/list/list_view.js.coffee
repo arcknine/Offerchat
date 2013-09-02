@@ -24,6 +24,7 @@
 
     triggers:
       "click a.save-trigger" : "save:trigger:clicked"
+      "click a.cancel-trigger" : "cancel:trigger:clicked"
       "click a.remove-trigger" : "remove:trigger:clicked"
 
     events:
