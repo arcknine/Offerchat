@@ -49,6 +49,7 @@ Dashboard::Application.routes.draw do
   mount StripeEvent::Engine => '/stripe_webhook'
 
   root :to => 'home#index'
+  get "/touch/:id" => "agents#touch"
   # resources :transcript, :only => [:show]
   resources :transcript do
     collection do

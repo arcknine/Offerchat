@@ -1,7 +1,13 @@
 class AgentsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :current_user_has_website?
+  before_filter :authenticate_user!, :except => [:touch]
+  before_filter :current_user_has_website?, :except => [:touch]
   respond_to :json
+
+  def touch
+    id = params[:id]
+    Account.find(params[:id]).touch
+    redirect_to root_url
+  end
 
   def index
     @agents = current_user.agents
