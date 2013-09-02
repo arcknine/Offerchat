@@ -499,7 +499,7 @@ Templates = {
   },
 
   getReconnect: function(data) {
-    data  = data || { message: "Your chat has been idle for more than 5 minutes.", button: "Connect" };
+    data  = data || { message: "Your chat has been idle for too long.", button: "Connect" };
     var recon = '<div class="widget-confirmation">' +
                 ' <p>' + data.message + '</p>' +
                 ' <a class="widget-btn">' + data.button + '</a>' +

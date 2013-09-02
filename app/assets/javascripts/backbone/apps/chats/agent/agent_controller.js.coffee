@@ -20,7 +20,7 @@
       @listenTo @agents, "all", (type) =>
         unless type is "remove"
           agent = @agents.findWhere token: @token
-          @agent.set agent.attributes
+          @agent.set agent.attributes unless typeof agent is "undefined"
 
       @listenTo @messages, "add", (message) =>
         console.log message

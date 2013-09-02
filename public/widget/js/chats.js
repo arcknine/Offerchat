@@ -29,17 +29,24 @@ Chats = {
           _this.connect();
       });
     } else {
-      if (this.details.chatend === true) {
+      var dc = sessionStorage.getItem("ofc-disconnect");
+      if (this.details.chatend === true && dc == "true") {
         var reconnect = Templates.reconnect;
         reconnect.options.template = Templates.getReconnect({
           message: "Your chat session has ended",
           button:  "Connect"
         });
         reconnect.replace();
-      } else {
+        this.loadChats();
+      } else if (dc == "true") {
         Templates.reconnect.replace();
+        this.loadChats();
+      } else {
+        this.getAvailableRoster(function(){
+          Offerchat.details({id: Offerchat.website.id}).update({connect: true, chatend: false});
+          _this.connect();
+        });
       }
-      this.loadChats();
     }
 
   },
@@ -326,6 +333,7 @@ Chats = {
         reconnect.replace();
       }
 
+      sessionStorage.setItem("ofc-disconnect", true);
       Offerchat.details({id: Offerchat.website.id}).update({connect: false, chatend: true});
       Offerchat.roster({website_id: Offerchat.website.id}).remove();
       Offerchat.agent({website_id: Offerchat.website.id}).remove();
@@ -395,13 +403,15 @@ Chats = {
     }
 
     $.each(this.messages, function(key, value){
-      var chat = Templates.generateTemplate({
-        section:   "div.widget-chat-viewer",
-        template:  Templates.getMessageView(value),
-        className: "message-item" + value.class
-      });
+      if (Offerchat.website.id === value.web_id) {
+        var chat = Templates.generateTemplate({
+          section:   "div.widget-chat-viewer",
+          template:  Templates.getMessageView(value),
+          className: "message-item" + value.class
+        });
 
-      chat.append();
+        chat.append();
+      }
     });
 
     $(".widget-chat-viewer").animate({ scrollTop: $('.widget-chat-viewer')[0].scrollHeight}, 300);
@@ -637,7 +647,8 @@ Chats = {
 
 
       // will disconnect on 5mins
-      if (time_diff > 420 && _this.connection !== null) {
+      if (time_diff > 1200 && _this.connection !== null) {
+        sessionStorage.setItem("ofc-disconnect", true);
         Offerchat.details({id: Offerchat.website.id}).update({connect: false});
         Offerchat.roster({website_id: Offerchat.website.id}).remove();
         Offerchat.agent({website_id: Offerchat.website.id}).remove();
