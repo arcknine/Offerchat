@@ -32,7 +32,13 @@
     deleteSite: (site) ->
       if confirm("Are you sure you want to delete this website?")
         site.model.destroy()
-        App.vent.trigger "show:chat:sidebar"
+        if @sites.length isnt 1 and @sites.length isnt 0
+          App.vent.trigger "show:chat:sidebar"
+        else
+          App.vent.trigger "show:wizard:sidebar"
+          $('#chat-sidebar-region').attr('class', 'tour-sidebar')
+          $('#siteSelector').hide()
+          App.navigate "#websites/new", trigger: true
 
     showModal: (site) ->
 
@@ -50,6 +56,6 @@
       @listenTo formView, "modal:cancel", (item)->
         formView.close()
 
-      console.log "formView", formView
+      # console.log "formView", formView
 
       App.modalRegion.show formView
