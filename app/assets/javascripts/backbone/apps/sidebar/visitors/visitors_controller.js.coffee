@@ -20,6 +20,21 @@
       $(window).resize ->
         $("#chat-sidebar-region").css("height", ($(window).height() - 93) + "px")
 
+      App.commands.setHandler "set:new:chat:title", (new_title) =>
+        # change title here
+        title = $('title')
+
+        @title_interval = setInterval(=>
+          if title.text() == "Offerchat"
+            title.text new_title + " sent you a message..."
+          else
+            title.text "Offerchat"
+        , 2000)
+
+      App.commands.setHandler "set:original:title", =>
+        $('title').text "Offerchat"
+        clearInterval @title_interval
+
       App.commands.setHandler "set:no:active:chat", =>
         @visitors.updateModels('active', null)
         @agents.updateModels('active', null)
@@ -263,6 +278,8 @@
           @visitors.findWhere({token: token}).addUnread()
           @visitors.sort()
 
+          App.execute "set:new:chat:title", info.name
+
         # chat sound here
         App.execute "chat:sound:notify"
 
@@ -333,6 +350,8 @@
 
             if Backbone.history.fragment.indexOf(token)==-1
               agent.addUnread()
+
+              App.execute "set:new:chat:title", name
 
             # chat sound here
             App.execute "chat:sound:notify"
