@@ -41,4 +41,6 @@
   Backbone.on 'execute:route:change:events', ->
     App.execute "set:no:active:chat"
 
+    App.execute "set:original:title"
+
   App
