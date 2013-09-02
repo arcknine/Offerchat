@@ -143,6 +143,7 @@ GEM
     formatador (0.2.4)
     formtastic (2.2.1)
       actionpack (>= 3.0)
+    gabba (1.0.1)
     gon (4.1.1)
       actionpack (>= 2.3.0)
       json
@@ -444,6 +445,7 @@ DEPENDENCIES
   email_spec
   fabrication
   figaro
+  gabba
   gon
   grape
   guard-rspec
