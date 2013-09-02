@@ -88,7 +88,7 @@ class Website < ActiveRecord::Base
       status = presence.xpath("status").inner_text
       vacant_agent = status.to_s == "Online" ? true : false
       break vacant_agent if vacant_agent == true
-      break false if vacant_agent == true && accounts.last.id == r.id
+      break false if vacant_agent == false && accounts.last.id == r.id
     end
   end
 
