@@ -34,7 +34,7 @@
   %fieldset.last
     %a.btn.action.save-trigger
       Save
-    %a.btn
+    %a.btn.cancel-trigger
       Cancel
     %a.warning.remove-trigger.go-right{ :style => "margin-top: 7px" }
       Remove Trigger
