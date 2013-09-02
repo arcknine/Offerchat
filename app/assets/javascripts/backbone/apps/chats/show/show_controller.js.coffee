@@ -28,7 +28,7 @@
       @listenTo visitors, "add", =>
         if @visitor.get("token") isnt @token
           visitor = visitors.findWhere token: @token
-          @visitor.set visitor.attributes
+          @visitor.set visitor.attributes unless typeof visitor is "undefined"
 
       @listenTo @messages, "add", (message) =>
         if message.get("token") is @token
