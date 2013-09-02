@@ -8,6 +8,7 @@ class RegistrationsController < Devise::RegistrationsController
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
+        Gabba::Gabba.new("UA-40743854-1", "offerchat.com").page_view("signup", "/thank_you");
         redirect_to :controller => :home, :action=>:index, :anchor => "websites/new"
       end
     else
