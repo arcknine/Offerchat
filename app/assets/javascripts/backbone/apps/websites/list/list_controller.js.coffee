@@ -32,6 +32,7 @@
     deleteSite: (site) ->
       if confirm("Are you sure you want to delete this website?")
         site.model.destroy()
+        App.vent.trigger "show:chat:sidebar"
 
     showModal: (site) ->
 
