@@ -263,9 +263,8 @@
           @visitors.findWhere({token: token}).addUnread()
           @visitors.sort()
 
-          # chat sound here
-          # only sound if not focused
-          App.execute "chat:sound:notify"
+        # chat sound here
+        App.execute "chat:sound:notify"
 
       else if agent# and body
 
@@ -335,9 +334,8 @@
             if Backbone.history.fragment.indexOf(token)==-1
               agent.addUnread()
 
-              # chat sound here
-              # only sound if not focused
-              App.execute "chat:sound:notify"
+            # chat sound here
+            App.execute "chat:sound:notify"
 
       true
 
