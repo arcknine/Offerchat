@@ -120,6 +120,7 @@ class User < ActiveRecord::Base
           account.owner   = owner
           account.website = Website.find(p[:website_id])
           if account.save
+            account.add_rosters
             has_checked_website = true
             if user_is_new
               UserMailer.delay.new_agent_welcome(account, user, password) unless user.errors.any?
@@ -159,6 +160,7 @@ class User < ActiveRecord::Base
           account.owner   = owner
           account.website = Website.find(p[:website_id])
           account.save
+          account.add_rosters
           has_checked_website = true
         end
       end
@@ -194,6 +196,7 @@ class User < ActiveRecord::Base
           account.owner   = owner
           account.website = Website.find(p[:website_id])
           account.save
+          account.add_rosters
 
           has_checked_website = true
 
