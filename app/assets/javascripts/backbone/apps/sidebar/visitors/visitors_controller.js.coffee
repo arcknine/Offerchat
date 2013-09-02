@@ -224,7 +224,6 @@
         resources = visitor.get "resources"
         resources.push(resource) if $.inArray(resource, resources) is -1
         visitor.set { jid: node, resources: resources, info: info, status: chatting, available: available, title: title }
-        @visitors.set visitor
 
       true
 
