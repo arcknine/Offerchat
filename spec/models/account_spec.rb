@@ -30,32 +30,35 @@ describe Account do
     end
 
     it "should create rosters for agent" do
+      agent = Fabricate(:agent, :user => @user, :website => @website)
       expect {
-        Fabricate(:agent, :user => @user, :website => @website)
+        agent.add_rosters
       }.to change(SubscribeRostersWorker.jobs, :size).by(1)
     end
 
     it "should create rosters for admin" do
+      admin = Fabricate(:admin, :user => @user, :website => @website)
       expect {
-        Fabricate(:admin, :user => @user, :website => @website)
+        admin.add_rosters
       }.to change(SubscribeRostersWorker.jobs, :size).by(1)
     end
 
     it "should add existing agents to the new agent's roster" do
       Fabricate(:agent, :user => Fabricate(:user), :website => @website)
       Fabricate(:admin, :user => Fabricate(:user), :website => @website)
-
+      agent = Fabricate(:agent, :user => Fabricate(:user), :website => @website)
       expect{
-        Fabricate(:agent, :user => Fabricate(:user), :website => @website)
+        agent.add_rosters
       }.to change(AgentRostersWorker.jobs, :size).by(1)
     end
 
     it "should add existing agents to the new admin's roster" do
       Fabricate(:agent, :user => Fabricate(:user), :website => @website)
       Fabricate(:admin, :user => Fabricate(:user), :website => @website)
+      admin = Fabricate(:admin, :user => Fabricate(:user), :website => @website)
 
       expect{
-        Fabricate(:admin, :user => Fabricate(:user), :website => @website)
+        admin.add_rosters
       }.to change(AgentRostersWorker.jobs, :size).by(1)
     end
   end
