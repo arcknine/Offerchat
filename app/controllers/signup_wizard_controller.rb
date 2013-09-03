@@ -104,7 +104,7 @@ class SignupWizardController < ApplicationController
     case step
     when :step_one, :step_two
       if user_signed_in?
-        redirect_to signup_wizard_path('step_three')
+        redirect_to root_path()
       end
     when :step_three, :step_four, :step_five
       authenticate_user!
