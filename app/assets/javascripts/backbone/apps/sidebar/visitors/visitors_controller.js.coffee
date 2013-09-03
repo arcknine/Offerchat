@@ -20,6 +20,14 @@
       $(window).resize ->
         $("#chat-sidebar-region").css("height", ($(window).height() - 93) + "px")
 
+
+      App.commands.setHandler "add:is:typing", (vname) =>
+        isTyping = @getTypingView vname
+        $('#chats-collection').append(isTyping.render().$el)
+
+      App.commands.setHandler "remove:is:typing", =>
+        $("#chats-collection").find(".is-typing").remove()
+
       App.commands.setHandler "set:new:chat:title", (new_title) =>
         # change title here
         title = $('title')
@@ -87,6 +95,10 @@
     getAgentsView: (agents) ->
       new Visitors.Agents
         collection: agents
+
+    getTypingView: (vname) ->
+      new Visitors.Typing
+        name: vname
 
     visitorsList: ->
       unless @currentSite.get("all")
@@ -243,14 +255,27 @@
       true
 
     onPrivateMessage: (message) =>
-      from    = $(message).attr("from")
-      jid     = Strophe.getBareJidFromJid from
-      node    = Strophe.getNodeFromJid from
-      body    = $(message).find("body").text()
-      agent   = @agents.findWhere jid: node
+      from      = $(message).attr("from")
+      jid       = Strophe.getBareJidFromJid from
+      node      = Strophe.getNodeFromJid from
+      body      = $(message).find("body").text()
+      agent     = @agents.findWhere jid: node
       transfer  = $(message).find("transfer")
+      comp      = $(message).find("composing")
+      paused    = $(message).find("paused")
 
-      if body and typeof agent is "undefined"
+      if comp.length or paused.length
+        visitor  = @visitors.findWhere { jid: node }
+        info     = visitor.get("info")
+        token    = visitor.get("token")
+
+        if Backbone.history.fragment.indexOf(token) isnt -1
+          if paused.length
+            App.execute "remove:is:typing"
+          else
+            App.execute "add:is:typing", info.name
+
+      else if body and typeof agent is "undefined"
         messages = App.request "messeges:entities"
         visitor  = @visitors.findWhere { jid: node }
         token    = visitor.get("token")
@@ -279,6 +304,9 @@
           @visitors.sort()
 
           App.execute "set:new:chat:title", info.name
+
+        else
+          App.execute "remove:is:typing"
 
         # chat sound here
         App.execute "chat:sound:notify"
@@ -352,6 +380,8 @@
               agent.addUnread()
 
               App.execute "set:new:chat:title", name
+            else
+              App.execute "remove:is:typing"
 
             # chat sound here
             App.execute "chat:sound:notify"

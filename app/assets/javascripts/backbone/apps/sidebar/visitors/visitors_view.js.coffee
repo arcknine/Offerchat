@@ -34,3 +34,8 @@
     serializeData: ->
       agents_count: @collection.length
 
+  class Visitors.Typing extends App.Views.ItemView
+    template: "sidebar/visitors/is_typing"
+
+    serializeData: ->
+      visitor_name: @options.name

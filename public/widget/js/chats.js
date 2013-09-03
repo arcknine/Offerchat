@@ -9,6 +9,7 @@ Chats = {
   agents:   JSON.parse(sessionStorage.getItem("offerchat_agents")) || [],
 
   composing: false,
+  paused_interval: null,
 
   init: function() {
     var _this = this, attach, details;
@@ -426,13 +427,15 @@ Chats = {
 
   sendChat: function(ev, input) {
     var message = $(input).val();
+    var _this   = this;
 
     if (ev.keyCode == 13) {
-      var _this = this;
 
       this.getAgent(function(agent) {
         if (agent) {
           _this.xmppSendMsg(message, agent, "You");
+          clearInterval(_this.paused_interval);
+          _this.composing = false;
         } else {
           Templates.offline.replace();
           Templates.inputs.hidden();
@@ -445,7 +448,6 @@ Chats = {
 
       if(!this.composing){
         if(this.agent){
-
           var this_agent  = this.agent;
           var conn        = this.connection;
 
@@ -453,13 +455,13 @@ Chats = {
           composing       = $msg({type: 'chat', to: to}).c('composing', {xmlns: 'http://jabber.org/protocol/chatstates'});
           conn.send(composing.tree());
 
-          this.composing  = true;
+          _this.composing  = true;
 
-          paused_interval = setInterval(function() {
+          _this.paused_interval = setInterval(function() {
             paused = $msg({type: 'chat', to: to}).c('paused', {xmlns: 'http://jabber.org/protocol/chatstates'})
             conn.send(paused.tree());
-            this.composing = false;
-            clearInterval(paused_interval);
+            _this.composing = false;
+            clearInterval(_this.paused_interval);
           }, 10000);
 
         }
