@@ -59,6 +59,7 @@
       plan = @options.plan.toJSON()
       available_seats = plan.max_agent_seats - 1
       seats: available_seats
+      starter: plan.plan_identifier == "STARTER" ? true : false
 
     triggers:
       "click #downgrade-agents" : "proceed:downgrade"
