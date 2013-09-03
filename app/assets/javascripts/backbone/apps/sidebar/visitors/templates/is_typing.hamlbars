@@ -1,0 +1,6 @@
+.chat-item.group.is-typing
+  .chat-table.chat-left-table
+    .chat-user.visitor {{visitor_name}}
+
+  .chat-table.chat-container-table
+    %p.status-typing is typing

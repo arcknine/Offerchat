@@ -8,6 +8,9 @@ Chats = {
   messages: JSON.parse(localStorage.getItem("ofc-messages")) || [],
   agents:   JSON.parse(sessionStorage.getItem("offerchat_agents")) || [],
 
+  composing: false,
+  paused_interval: null,
+
   init: function() {
     var _this = this, attach, details;
 
@@ -313,10 +316,14 @@ Chats = {
     body   = html || body;
     agent  = Strophe.getNodeFromJid(from);
 
+    Templates.paused();
+
     if (comp.length > 0) {
       // composing chat codes
+      Templates.composing(Chats.agent.display_name);
     } else if (paused.length > 0) {
       // paused chat codes
+      // Templates.paused();
     } else if (trnsfr.length > 0 || body == '!transfer') {
       // transfer chat codes
     } else if (ended.length || body == "!endchat") {
@@ -381,6 +388,9 @@ Chats = {
           sound.play();
       } catch(e) {}
 
+      // show if closed
+      $.postMessage({new_msg: true}, Offerchat.params.current_url, parent);
+
     }
 
     return true;
@@ -420,12 +430,15 @@ Chats = {
 
   sendChat: function(ev, input) {
     var message = $(input).val();
+    var _this   = this;
+
     if (ev.keyCode == 13) {
-      var _this = this;
 
       this.getAgent(function(agent) {
         if (agent) {
           _this.xmppSendMsg(message, agent, "You");
+          clearInterval(_this.paused_interval);
+          _this.composing = false;
         } else {
           Templates.offline.replace();
           Templates.inputs.hidden();
@@ -435,6 +448,27 @@ Chats = {
 
       $(input).val("");
     } else {
+
+      if(!this.composing){
+        if(this.agent){
+          var this_agent  = this.agent;
+          var conn        = this.connection;
+
+          to              = this_agent.jabber_user + Offerchat.src.server + "/ofc-widget";
+          composing       = $msg({type: 'chat', to: to}).c('composing', {xmlns: 'http://jabber.org/protocol/chatstates'});
+          conn.send(composing.tree());
+
+          _this.composing  = true;
+
+          _this.paused_interval = setInterval(function() {
+            paused = $msg({type: 'chat', to: to}).c('paused', {xmlns: 'http://jabber.org/protocol/chatstates'})
+            conn.send(paused.tree());
+            _this.composing = false;
+            clearInterval(_this.paused_interval);
+          }, 5000);
+
+        }
+      }
 
     }
   },

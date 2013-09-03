@@ -110,36 +110,37 @@
       @listenTo modalView, "authorize:payment", (e) =>
         Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
 
-        @processPayment()
-
         card =
           number:   $(e.view.el).find("input[name=credit_card_number]").val()
           cvc:      $(e.view.el).find("input[name=cvv]").val()
           expMonth: $(e.view.el).find("input[name=month]").val()
           expYear:  $(e.view.el).find("input[name=year]").val()
-
-        handleStripeResponse = (status, response) =>
-          if status == 200
-            if agents != null
-              agent_params = _.map(agents.models, (a, k) ->
-                [a.get("id"), a.get("enabled")])
-
-            $.post "/subscriptions",
-              plan_id: plan
-              card_token: response.id
-              agents: agent_params unless agents is null
-            , (data) =>
-              console.log data
-              @profile.set { plan_identifier: plan }
-
-              App.reqres.setHandler "get:current:user", =>
-                @profile
-
-              @paymentSuccess()
-          else
-            @paymentFail()
-
-        Stripe.createToken(card, handleStripeResponse)
+          
+        if @validateCard(card, e)
+          @processPayment()
+          
+          handleStripeResponse = (status, response) =>
+            if status == 200
+              if agents != null
+                agent_params = _.map(agents.models, (a, k) ->
+                  [a.get("id"), a.get("enabled")])
+  
+              $.post "/subscriptions",
+                plan_id: plan
+                card_token: response.id
+                agents: agent_params unless agents is null
+              , (data) =>
+                console.log data
+                @profile.set { plan_identifier: plan }
+  
+                App.reqres.setHandler "get:current:user", =>
+                  @profile
+  
+                @paymentSuccess()
+            else
+              @paymentFail()
+  
+          Stripe.createToken(card, handleStripeResponse)
 
     showDowngradeModal: (plan) =>
       agents       = App.request "agents:only:entities"
@@ -151,43 +152,46 @@
       App.execute "when:fetched", agents, =>
         App.execute "when:fetched", new_plan, =>
           App.execute "when:fetched", current_plan, =>
-
-            modalView  = @getDowngradeModal(new_plan.first())
-            formView   = App.request "modal:wrapper", modalView
-            agentsView = @getAgentList(agents)
-
-            next          = new_plan.first()
-            new_max_seats = next.get("max_agent_seats")
-
-            prev          = current_plan.first()
-            old_max_seats = prev.get("max_agent_seats")
-
-            used_seats    = agents.length
-
-            @listenTo agentsView, "childview:agent:clicked", (e) =>
-              agent_model = e.model
-              enabled = agent_model.get("enabled")
-
-              if typeof(enabled) == "undefined" || enabled == false
-                if @checked_agents < new_max_seats
-                  agent_model.set({class_names: "checked"})
-                  agent_model.set({enabled: true})
+          
+            if agents.length == 0
+              @showModal(plan)
+            else
+              modalView  = @getDowngradeModal(new_plan.first())
+              formView   = App.request "modal:wrapper", modalView
+              agentsView = @getAgentList(agents)
+  
+              next          = new_plan.first()
+              new_max_seats = next.get("max_agent_seats")
+  
+              prev          = current_plan.first()
+              old_max_seats = prev.get("max_agent_seats")
+  
+              used_seats    = agents.length
+  
+              @listenTo agentsView, "childview:agent:clicked", (e) =>
+                agent_model = e.model
+                enabled = agent_model.get("enabled")
+  
+                if typeof(enabled) == "undefined" || enabled == false
+                  if @checked_agents < new_max_seats
+                    agent_model.set({class_names: "checked"})
+                    agent_model.set({enabled: true})
+                    @changeSeatCount(agent_model)
+                else
+                  agent_model.set({class_names: ""})
+                  agent_model.set({enabled: false})
                   @changeSeatCount(agent_model)
-              else
-                agent_model.set({class_names: ""})
-                agent_model.set({enabled: false})
-                @changeSeatCount(agent_model)
-
-            @listenTo modalView, "proceed:downgrade", (e) =>
-              @showModal(plan, agents)
-
-            @listenTo formView, "show", =>
-              modalView.agentsRegion.show agentsView
-
-            @listenTo formView, "modal:cancel", (item) =>
-              formView.close()
-
-            App.modalRegion.show formView
+  
+              @listenTo modalView, "proceed:downgrade", (e) =>
+                @showModal(plan, agents)
+  
+              @listenTo formView, "show", =>
+                modalView.agentsRegion.show agentsView
+  
+              @listenTo formView, "modal:cancel", (item) =>
+                formView.close()
+  
+              App.modalRegion.show formView
 
     processPayment: =>
       modalView = @getProcessPaymentModal()
@@ -231,3 +235,25 @@
         newnum = parseInt(curr) + 1
         $("#seat-count").html(newnum)
         @checked_agents--
+        
+    validateCard: (card, e) =>
+      $("fieldset").removeClass("field-error")
+      $(".block-text-message").addClass("hide")
+      
+      valid = true
+      if card.number == ""
+        $(e.view.el).find("input[name=credit_card_number]").parent().parent().addClass("field-error")
+        $(e.view.el).find("input[name=credit_card_number]").next().removeClass("hide")
+        valid = false
+        
+      if card.cvc == ""
+        $(e.view.el).find("input[name=cvv]").parent().parent().addClass("field-error")
+        $(e.view.el).find("input[name=cvv]").next().removeClass("hide")
+        valid = false
+        
+      if card.expMonth == "" || card.expYear == ""
+        $(e.view.el).find("input[name=month]").parent().parent().addClass("field-error")
+        $(e.view.el).find("input[name=year]").next().removeClass("hide")
+        valid = false
+        
+      return valid

@@ -83,6 +83,12 @@
             $ofc("#offerchatbox").show();
           } else if (data.slide == 'true') {
             _this.toggleWidget();
+          } else if (data.new_msg == 'true') {
+            if(_this.info.state == 'hide'){
+              height = _this.info.footer ? '421px' : '400px';
+              $ofc('#offerchatbox').animate({height: height}, 100);
+              _this.info.state = 'show';
+            }
           }
         }, src.assets);
       },
