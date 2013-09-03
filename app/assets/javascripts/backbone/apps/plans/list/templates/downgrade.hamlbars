@@ -3,9 +3,13 @@
   Downgrading your plan will remove your agents from your dashboard
 
 .section-desc
+  {{#if starter}}
+  Downgrading will remove all of these agents from your account.
+  {{else}}
   You can select
   %strong#seat-count {{seats}}
   agents you want to be active:
+  {{/if}}
 
 #agents-region
 
