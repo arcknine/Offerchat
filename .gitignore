@@ -36,3 +36,5 @@ public/widget/widget-local.html
 
 # Ignore DS_Store
 **/.DS_Store
+*/.DS_Store
+.DS_Store
