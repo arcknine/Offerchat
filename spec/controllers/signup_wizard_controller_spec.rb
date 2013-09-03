@@ -69,7 +69,7 @@ describe SignupWizardController do
 
     it "should redirect to step three on viewing step one" do
       get 'show', id:'step_one'
-      response.should redirect_to signup_wizard_path('step_three')
+      response.should redirect_to root_path()
     end
 
     it "should instantiate a login user and a new website" do
