@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
   end
 
   def all_sites
-    website_id = accounts.collect(&:website_id)
+    website_id = accounts.where("role > ?", 0).collect(&:website_id)
     Website.where(:id => website_id)
   end
 

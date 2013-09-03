@@ -79,6 +79,10 @@
       @listenTo the_form, "save:trigger:clicked", (item) ->
         @saveEntry item, wid
 
+      @listenTo the_form, "cancel:trigger:clicked", (item) ->
+        @removeInlineForms()
+        App.execute "show:trigger:items"
+
       @listenTo the_form, "remove:trigger:clicked", (item) ->
         if confirm("Are you sure you want to delete this trigger?")
           item.model.destroy()

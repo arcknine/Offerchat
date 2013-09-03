@@ -47,7 +47,10 @@
       App.modalRegion.show formView
 
     initKeyView: (sites) ->
-      $('.opacity').remove();
+      if sites.length > 0
+        App.vent.trigger "show:chat:sidebar"
+        $('#chat-sidebar-region').attr('class', 'chats-sidebar-container')
+      $('.opacity').remove()
       if sites.length is 0
         $('#install-checklist').addClass('checked')
         $('#install-checklist').find('span').hide()
