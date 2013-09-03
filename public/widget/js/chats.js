@@ -313,10 +313,14 @@ Chats = {
     body   = html || body;
     agent  = Strophe.getNodeFromJid(from);
 
+    Templates.paused();
+
     if (comp.length > 0) {
       // composing chat codes
+      Templates.composing(Chats.agent.display_name);
     } else if (paused.length > 0) {
       // paused chat codes
+      // Templates.paused();
     } else if (trnsfr.length > 0 || body == '!transfer') {
       // transfer chat codes
     } else if (ended.length || body == "!endchat") {

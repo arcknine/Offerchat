@@ -357,6 +357,22 @@ Templates = {
     return obj;
   },
 
+  composing: function (agent_name){
+    var composing = '<div class="message-item agent-message is-typing">' +
+                    ' <div class="group">' +
+                    '   <div class="message-author">'+ agent_name +'<div>' +
+                    '   <div class="message">' +
+                    '     <div class="status-typing"> is typing</div>' +
+                    '   </div>' +
+                    ' </div>' +
+                    '</div>';
+    $(".widget-chat-viewer").append(composing);
+  },
+
+  paused: function(){
+    $(".widget-chat-viewer").find('.is-typing').remove();
+  },
+
   getLayout: function(data) {
     data = data || { gradient: "" };
     var layout = '<div class="widget-head widget-rounded-head group ' + data.gradient + '"></div>' +
