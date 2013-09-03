@@ -388,6 +388,9 @@ Chats = {
           sound.play();
       } catch(e) {}
 
+      // show if closed
+      $.postMessage({new_msg: true}, Offerchat.params.current_url, parent);
+
     }
 
     return true;
