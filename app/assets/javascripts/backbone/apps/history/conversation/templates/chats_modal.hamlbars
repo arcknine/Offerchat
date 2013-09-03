@@ -5,20 +5,6 @@
         %a.close
           &times;
         .chat-header#chat-modal-header-region
-          .chat-image
-          %ul.chat-list-info
-            %li.visitor-name
-              %a
-                Visitor
-            %li
-              .flag-icon.flag-PH
-              Location
-            %li
-              Operating System
-              %span.dot-seperator
-              Browser
-              %i.icon.icon-browser-iesucks
-       
           / .btn-group.history-btn-group
           /   %a.btn.active#chatTabBtn
           /     Chat
@@ -33,6 +19,7 @@
             /   %a.chat-block-btn.btn
             /     Load previous messages
             #chat-modal-body-region
+              Fetching Conversation...
       .modal-footer.bordered#chat-modal-footer-region
         
 
