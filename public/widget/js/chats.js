@@ -462,7 +462,7 @@ Chats = {
             conn.send(paused.tree());
             _this.composing = false;
             clearInterval(_this.paused_interval);
-          }, 10000);
+          }, 5000);
 
         }
       }

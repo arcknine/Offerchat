@@ -219,12 +219,12 @@
           @connection.send composing
           @composing = true
 
-        #send paused after 10s
+        #send paused after 5s
         @interval = setInterval(=>
           @composing = null
           @connection.send paused
           clearInterval @interval
-        , 10000)
+        , 5000)
 
 
     resizeChatWrapper: ->
