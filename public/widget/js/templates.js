@@ -367,6 +367,7 @@ Templates = {
                     ' </div>' +
                     '</div>';
     $(".widget-chat-viewer").append(composing);
+    $(".widget-chat-viewer").animate({ scrollTop: $('.widget-chat-viewer')[0].scrollHeight}, 300);
   },
 
   paused: function(){

@@ -8,6 +8,8 @@ Chats = {
   messages: JSON.parse(localStorage.getItem("ofc-messages")) || [],
   agents:   JSON.parse(sessionStorage.getItem("offerchat_agents")) || [],
 
+  composing: false,
+
   init: function() {
     var _this = this, attach, details;
 
@@ -424,6 +426,7 @@ Chats = {
 
   sendChat: function(ev, input) {
     var message = $(input).val();
+
     if (ev.keyCode == 13) {
       var _this = this;
 
@@ -439,6 +442,28 @@ Chats = {
 
       $(input).val("");
     } else {
+
+      if(!this.composing){
+        if(this.agent){
+
+          var this_agent  = this.agent;
+          var conn        = this.connection;
+
+          to              = this_agent.jabber_user + Offerchat.src.server + "/ofc-widget";
+          composing       = $msg({type: 'chat', to: to}).c('composing', {xmlns: 'http://jabber.org/protocol/chatstates'});
+          conn.send(composing.tree());
+
+          this.composing  = true;
+
+          paused_interval = setInterval(function() {
+            paused = $msg({type: 'chat', to: to}).c('paused', {xmlns: 'http://jabber.org/protocol/chatstates'})
+            conn.send(paused.tree());
+            this.composing = false;
+            clearInterval(paused_interval);
+          }, 10000);
+
+        }
+      }
 
     }
   },
