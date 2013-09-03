@@ -19,6 +19,9 @@
           @initSiteSelectorRegion(site)
           @initWebsitesRegion(sites)
 
+        @listenTo @layout, "selector:clicked", (item) ->
+          @toggleSiteSelector item.view
+
         @show @layout
 
       App.reqres.setHandler "get:sidebar:selected:site", =>
@@ -44,9 +47,6 @@
     initSiteSelectorRegion: (model)->
       selectedSiteView = @getSiteSelectorView(model)
 
-      @listenTo selectedSiteView, "selector:clicked", (item)->
-        @toggleSiteSelector item.view
-
       @layout.selectedSiteRegion.show selectedSiteView
 
     getSiteSelectorView: (model) ->
@@ -71,11 +71,11 @@
         collection: collection
 
     toggleSiteSelector: (view)->
-      if $(view.el).parent().hasClass("active")
-        $(view.el).parent().removeClass("active")
+      if $(view.el).find("#siteSelector").hasClass("active")
+        $(view.el).find("#siteSelector").removeClass("active")
         $(@region.currentView.el).parent().removeClass("open")
       else
-        $(view.el).parent().addClass("active")
+        $(view.el).find("#siteSelector").addClass("active")
         $(@region.currentView.el).parent().addClass("open")
 
     hideDropDown: ->

@@ -10,11 +10,10 @@
     triggers:
       "click a#selector-all-websites" : "selector:all:websites"
       "click a.new-website-link"      : "selector:new:website"
+      "click a.site-selector"         : "selector:clicked"
 
   class Selector.SiteSelector extends App.Views.CompositeView
     template: "sidebar/selector/site_selector"
-    triggers:
-      "click"    : "selector:clicked"
 
   class Selector.Website extends App.Views.ItemView
     template: "sidebar/selector/website"
