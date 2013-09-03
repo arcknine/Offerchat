@@ -5,6 +5,7 @@
     initialize: ->
       sites        = App.request "site:entities"
       @currentSite = App.request "new:selector:site"
+      @readMsgs    = App.request "total:unread:messages"
 
       App.execute "when:fetched", sites, =>
         site = sites.last()
@@ -30,6 +31,9 @@
       App.reqres.setHandler "get:all:sites", ->
         sites
 
+      App.reqres.setHandler "get:total:unread:messages", =>
+        @readMsgs
+
     bindLayoutEvents: ->
       @listenTo @layout, "selector:all:websites", =>
         @hideDropDown()
@@ -45,6 +49,11 @@
       new Selector.Layout
 
     initSiteSelectorRegion: (model)->
+      @listenTo @readMsgs, "change", =>
+        unreadClass = (if @readMsgs.get("unread") > 0 then "" else "hide")
+        model.set unread: @readMsgs.get("unread"), unreadClass: unreadClass
+        console.log @currentSite
+
       selectedSiteView = @getSiteSelectorView(model)
 
       @layout.selectedSiteRegion.show selectedSiteView

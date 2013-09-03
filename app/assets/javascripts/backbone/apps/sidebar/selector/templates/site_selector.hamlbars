@@ -1,5 +1,6 @@
-.message-tick.animated.bounce.hide
-  %span/
+.message-tick.animated.bounce{class: "{{unreadClass}}"}
+  %span {{unread}}
+
 %span
   {{name}}
 %i.icon.icon-arrow-down

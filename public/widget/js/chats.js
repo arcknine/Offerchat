@@ -681,7 +681,8 @@ Chats = {
 
 
       // will disconnect on 5mins
-      if (time_diff > 1200 && _this.connection !== null) {
+      // 1200 - 20mins
+      if (time_diff > 20 && _this.connection !== null) {
         sessionStorage.setItem("ofc-disconnect", true);
         Offerchat.details({id: Offerchat.website.id}).update({connect: false});
         Offerchat.roster({website_id: Offerchat.website.id}).remove();

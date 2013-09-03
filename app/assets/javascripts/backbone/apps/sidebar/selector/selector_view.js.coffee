@@ -14,6 +14,11 @@
 
   class Selector.SiteSelector extends App.Views.CompositeView
     template: "sidebar/selector/site_selector"
+    modelEvents:
+      "change": "render"
+
+    triggers:
+      "click"    : "selector:clicked"
 
   class Selector.Website extends App.Views.ItemView
     template: "sidebar/selector/website"

@@ -2,6 +2,8 @@
 
   class Entities.Site extends App.Entities.Model
     urlRoot: Routes.websites_path()
+    defaults:
+      unreadClass: "hide"
 
   class Entities.SiteCollection extends App.Entities.Collection
     model: Entities.Site

@@ -13,6 +13,7 @@
       @sites       = App.request "get:all:sites"
       @siteAgents  = App.request "online:agents:entities"
       @layout      = @getLayout()
+      @readMsgs    = App.request "get:total:unread:messages"
 
       sidebar = ($(window).height() - 93) + "px"
 
@@ -220,6 +221,7 @@
             App.navigate Routes.root_path(), trigger: true if Backbone.history.fragment.indexOf(visitor.get("token")) != -1
 
             @visitors.remove visitor
+            @readMsgs.set({read: (@readMsgs.get("read") - 1)})
           else
             visitor.set { jid: node, resources: resources }
             @visitors.set visitor
@@ -228,6 +230,7 @@
           # remove agent from list
           App.navigate Routes.root_path(), trigger: true if Backbone.history.fragment.indexOf(agent.get("token")) != -1
           @agents.remove agent
+          @readMsgs.set({read: (@readMsgs.get("read") - 1)})
 
       else if !$(presence).find('offerchat').text() and typeof agent is "undefined"
         @connection.vcard.get ((stanza) =>
@@ -238,6 +241,7 @@
 
           api_keys = JSON.parse $(stanza).find("API_KEYS").text()
 
+          @readMsgs.set({read: (@readMsgs.get("read") + 1)})
           @agents.add { jid: node, token: node, info: info, agent: true, api_keys: api_keys }
         ), jid
 
@@ -254,6 +258,8 @@
           status:    chatting
           available: available
           title:     title
+
+        @readMsgs.set({read: (@readMsgs.get("read") + 1)})
       else
         @displayCurrentUrl(token, node, info.url)
         resources = visitor.get "resources"
@@ -397,6 +403,11 @@
 
             # chat sound here
             App.execute "chat:sound:notify"
+
+      # console.log @sites
+      visitorsMsgs = @visitors.length - @visitors.where({unread: null}).length
+      agentsMsgs   = @agents.length - @agents.where({unread: null}).length
+      @readMsgs.set unread: (visitorsMsgs + agentsMsgs)
 
       true
 
