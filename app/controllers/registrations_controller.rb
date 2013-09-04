@@ -8,10 +8,10 @@ class RegistrationsController < Devise::RegistrationsController
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
-        if Rails.env.production?
-          Gabba::Gabba.new("UA-40743854-1", "offerchat.com").page_view("signup", "/salamat")
-        end
-        redirect_to :controller => :home, :action=>:index, :anchor => "websites/new"
+        # if Rails.env.production?
+        #    Gabba::Gabba.new("UA-40743854-1", "offerchat.com").page_view("signup", "/salamat")
+        # end
+        redirect_to :controller => :home, :action=>:index, :anchor => "websites/new?type=new"
       end
     else
       clean_up_passwords resource
