@@ -19,12 +19,11 @@ a.site-selector
   font-weight: bold
   display: block
   padding: 14px 45px 13px 15px
-  border-right: 1px solid darken($button-bg-color, 10%)
   position: relative
   overflow: hidden
   text-overflow: ellipsis
   &.active
-    box-shadow: 0 1px 3px darken(#e7e7e7, 5%)
+    box-shadow: 0 1px 3px darken(#e7e7e7, 5%) inset
 
   .message-tick
     position: absolute
@@ -43,7 +42,7 @@ a.site-selector
   @include transition(.1s)
   position: absolute
   width: 100%
-  background: #fff
+  background: #f1f1f1
 
   z-index: 90
   opacity: 0
@@ -59,8 +58,6 @@ a.site-selector
     padding: 10px 15px
     color: $text-color
     @include transition(.2s)
-    &:hover
-      background-color: #f1f1f1
     &.new
       font-weight: $bold
       color: darken($text-color, 30%)
@@ -72,7 +69,7 @@ a.site-selector
   opacity: 1
   visibility: visible
   margin-top: 0
-  box-shadow: 0 1px 3px rgba(0,0,0,.2)
+  
 
 .chat-item-tab
   .message-tick
