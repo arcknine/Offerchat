@@ -28,13 +28,14 @@
       App.commands.setHandler "remove:is:typing", =>
         $("#chats-collection").find(".is-typing").remove()
 
-      App.commands.setHandler "set:new:chat:title", (new_title) =>
+      App.commands.setHandler "set:new:chat:title", =>
         # change title here
         title = $('title')
 
+        clearInterval(@title_interval)
         @title_interval = setInterval(=>
           if title.text() == "Offerchat"
-            title.text new_title + " sent you a message..."
+            title.text "New message"
           else
             title.text "Offerchat"
         , 2000)
@@ -303,7 +304,7 @@
           @visitors.findWhere({token: token}).addUnread()
           @visitors.sort()
 
-          App.execute "set:new:chat:title", info.name
+          App.execute "set:new:chat:title"
 
         else
           App.execute "remove:is:typing"
@@ -379,7 +380,7 @@
             if Backbone.history.fragment.indexOf(token)==-1
               agent.addUnread()
 
-              App.execute "set:new:chat:title", name
+              App.execute "set:new:chat:title"
             else
               App.execute "remove:is:typing"
 
