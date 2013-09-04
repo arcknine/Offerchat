@@ -189,7 +189,7 @@ a.agent-selection-item
   background-repeat: no-repeat
 h1
   font-size: 30px
-  letter-spacing: -1px
+
 h2
   font-size: 18px
   &.sub
@@ -743,11 +743,12 @@ a.block-list-item, .block-list-item
     box-sizing: border-box
     -moz-box-sizing: border-box
     vertical-align: top
-    min-height: 245px
-    padding: 10px
+    min-height: 295px
+    overflow: hidden
     text-align: center
-    border: 1px dashed #e1e1e1
+    background-color: #f1f1f1
     position: relative
+
     small
       font-size: 12px
       color: #999
@@ -755,14 +756,23 @@ a.block-list-item, .block-list-item
 
     &.plan-best
       width: 260px
-      min-height: 265px
+      min-height: 310px
 
       h2
         font-size: 28px
-        letter-spacing: -1px
 
     h2
-      margin-top: 10px
+      padding: 7px
+      color: #fff
+      background-color: $sidebar-color
+      margin-bottom: 20px
+      font-weight: bold
+    .plan-description
+      font-size: 12px
+      font-weight: normal
+    .plan-action
+      height: 45px
+      padding-top: 15px
 
   .plan-price
     .sign
@@ -1029,3 +1039,5 @@ span.dot-seperator
     background-color: #1fde4c
   &.busy
     background-color: #e13d3d
+.pricing-header
+  margin-top: 20px
