@@ -41,3 +41,14 @@
     highlightCode: (ev) ->
       $(ev.currentTarget).select()
 
+  class List.ModalDelete extends App.Views.ItemView
+    template: "websites/list/delete_modal"
+    className: "form form-inline"
+    form:
+      buttons:
+        primary: false
+        cancel: "Cancel"
+        nosubmit: "Delete Website"
+
+      title: "Website"
+
