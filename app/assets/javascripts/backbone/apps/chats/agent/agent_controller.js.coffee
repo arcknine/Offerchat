@@ -23,7 +23,6 @@
           @agent.set agent.attributes unless typeof agent is "undefined"
 
       @listenTo @messages, "add", (message) =>
-        console.log message
         if message.get("token") is @token
           @currentMsgs.add message
           $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500);

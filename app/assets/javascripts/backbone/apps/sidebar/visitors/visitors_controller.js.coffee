@@ -266,9 +266,13 @@
       paused    = $(message).find("paused")
 
       if comp.length or paused.length
-        visitor  = @visitors.findWhere { jid: node }
-        info     = visitor.get("info")
-        token    = visitor.get("token")
+        if agent is "undefined"
+          visitor  = @visitors.findWhere { jid: node }
+          info     = visitor.get("info")
+          token    = visitor.get("token")
+        else
+          info     = agent.get("info")
+          token    = agent.get("token")
 
         if Backbone.history.fragment.indexOf(token) isnt -1
           if paused.length
