@@ -49,11 +49,6 @@
       new Selector.Layout
 
     initSiteSelectorRegion: (model)->
-      @listenTo @readMsgs, "change", =>
-        unreadClass = (if @readMsgs.get("unread") > 0 then "" else "hide")
-        model.set unread: @readMsgs.get("unread"), unreadClass: unreadClass
-        console.log @currentSite
-
       selectedSiteView = @getSiteSelectorView(model)
 
       @layout.selectedSiteRegion.show selectedSiteView
