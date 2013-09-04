@@ -64,6 +64,38 @@
         msg = $msg({to: agent_jid, type: "chat"}).c('transfer', {id: msg.model.get('trn_id')}).c('accepted').t('true').up().c('vjid').t(vtoken)
         @connectionSend msg, agent_jid
 
+
+        # this is where the magic begins
+        # send a chat informing visitor about the transfer
+        currentMsgs = App.request "messeges:entities"
+        messages    = App.request "get:chats:messages"
+        currentMsgs.add messages.where({token: vtoken})
+
+        message = "Hello I will be assisting you from hereon."
+        currentMsg =
+          token:      vtoken
+          sender:     "agent"
+          jid:        "You"
+          message:    message
+          time:       new Date()
+          timesimple: moment().format('hh:mma')
+
+        if currentMsgs.last() and currentMsgs.last().get("sender") is "agent"
+          currentMsg.child      = true
+          currentMsg.childClass = "child"
+
+        messages.add currentMsg
+
+        localStorage.setItem("ofc-chatlog-"+vtoken, JSON.stringify(messages))
+        $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500)
+
+        # send msg to visitor that accepted
+        to  = "#{visitor.get("jid")}@#{gon.chat_info.server_name}"
+        msg = $msg({to: to, type: "chat"}).c('body').t($.trim(message))
+
+        @connectionSend msg, to
+
+
       @listenTo chatsView, "childview:chat:transfer:decline", (msg) =>
         @respondTransfer msg.model, 'declined'
 
