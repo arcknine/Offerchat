@@ -4,8 +4,8 @@
 
     initialize: ->
 
-      @sites     = App.request "manage:sites:entities"
-      @sites     = App.request "owned:sites:entities"
+      @manageSites   = App.request "manage:sites:entities"
+      @sites         = App.request "owned:sites:entities"
 
       sitesView = @getWebsitesView @sites
 
@@ -32,9 +32,10 @@
     deleteSite: (site) ->
       if confirm("Are you sure you want to delete this website?")
         site.model.destroy()
-        if @sites.length isnt 1 and @sites.length isnt 0
+        siteLeft = @manageSites.length - 1
+        if siteLeft >= 1
           App.vent.trigger "show:chat:sidebar"
-        else
+        else if siteLeft is 0
           App.vent.trigger "show:wizard:sidebar"
           $('#chat-sidebar-region').attr('class', 'tour-sidebar')
           $('#siteSelector').hide()
@@ -59,3 +60,4 @@
       # console.log "formView", formView
 
       App.modalRegion.show formView
+
