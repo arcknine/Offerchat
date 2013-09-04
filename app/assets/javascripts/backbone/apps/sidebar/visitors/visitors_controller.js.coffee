@@ -15,11 +15,13 @@
       @layout      = @getLayout()
 
       sidebar = ($(window).height() - 93) + "px"
-      $("#chat-sidebar-region").css("height", sidebar)
+
+      if ( $( "#chat-sidebar-region" ).hasClass(".chats-sidebar-container") )
+        $("#chat-sidebar-region").css("height", sidebar)
 
       $(window).resize ->
-        $("#chat-sidebar-region").css("height", ($(window).height() - 93) + "px")
-
+        if ( $( "#chat-sidebar-region" ).hasClass(".chats-sidebar-container") )
+          $("#chat-sidebar-region").css("height", ($(window).height() - 93) + "px")
 
       App.commands.setHandler "add:is:typing", (vname) =>
         isTyping = @getTypingView vname
