@@ -273,7 +273,7 @@
       paused    = $(message).find("paused")
 
       if comp.length or paused.length
-        if agent is "undefined"
+        if typeof agent is "undefined"
           visitor  = @visitors.findWhere { jid: node }
           info     = visitor.get("info")
           token    = visitor.get("token")
