@@ -9,7 +9,7 @@
     .profile-image
       %img{ :src => "{{info.avatar}}" }
 
-    %span.status.online
+    %span.status{:class => "{{status}}"}
       %i.icon.icon-check-small
 
   %span.chat-agent-name

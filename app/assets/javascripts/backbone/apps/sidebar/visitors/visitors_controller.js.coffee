@@ -193,6 +193,11 @@
       token    = info.token
       visitor  = @visitors.findWhere { token: token }
       agent    = @agents.findWhere { token: node }
+      status   = $(presence).find('status').text()
+
+      if agent
+        # set online/offline here
+        if status is 'Online' then agent.set("status", "online") else agent.set("status", null)
 
       if info.chatting
         chatting  = (if info.chatting.status then "busy" else null)
