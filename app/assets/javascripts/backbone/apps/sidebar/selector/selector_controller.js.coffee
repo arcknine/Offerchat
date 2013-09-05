@@ -5,7 +5,7 @@
     initialize: ->
       sites        = App.request "site:entities"
       @currentSite = App.request "new:selector:site"
-      @readMsgs    = App.request "total:unread:messages"
+      @unreadMsgs  = App.request "unread:messages:entities"
 
       App.execute "when:fetched", sites, =>
         site = sites.last()
@@ -25,14 +25,28 @@
 
         @show @layout
 
+      @listenTo sites, "change", =>
+        counter = 0
+        unreads = sites.pluck("unread")
+        $.each unreads, (key, value) =>
+          counter += value
+
+        data = { allUnread: counter, unreadClass: "" }
+        data.unreadClass = "hide" if counter is 0 || counter is null
+
+        $.each sites.models, (key, value) =>
+          value.set allUnread: counter, unreadClass: ""
+
+        @currentSite.set data
+
       App.reqres.setHandler "get:sidebar:selected:site", =>
         @currentSite
 
       App.reqres.setHandler "get:all:sites", ->
         sites
 
-      App.reqres.setHandler "get:total:unread:messages", =>
-        @readMsgs
+      App.reqres.setHandler "get:unread:messages", =>
+        @unreadMsgs
 
     bindLayoutEvents: ->
       @listenTo @layout, "selector:all:websites", =>
@@ -49,7 +63,8 @@
       new Selector.Layout
 
     initSiteSelectorRegion: (model)->
-      selectedSiteView = @getSiteSelectorView(model)
+      @currentSite.set model
+      selectedSiteView = @getSiteSelectorView @currentSite
 
       @layout.selectedSiteRegion.show selectedSiteView
 

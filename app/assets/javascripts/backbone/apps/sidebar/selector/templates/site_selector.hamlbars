@@ -1,5 +1,5 @@
 .message-tick.animated.bounce{class: "{{unreadClass}}"}
-  %span {{unread}}
+  %span {{allUnread}}
 
 %span
   {{name}}

@@ -46,10 +46,10 @@
 
   class Entities.Transcript extends App.Entities.Model
 
-  class Entities.TotalUnreadMsgs extends App.Entities.Model
-    defaults:
-      read: 0
-      unread: 0
+  class Entities.UnreadMessage extends App.Entities.Model
+
+  class Entities.UnreadMessages extends App.Entities.Collection
+    model: Entities.UnreadMessage
 
   API =
     setVisitor: ->
@@ -92,8 +92,8 @@
     setTranscript: ->
       new Entities.Transcript
 
-    totalUnreadMsgs: ->
-      new Entities.TotalUnreadMsgs
+    UnreadMessages: ->
+      new Entities.UnreadMessages
 
   App.reqres.setHandler "visitor:entity", ->
     API.setVisitor()
@@ -119,6 +119,6 @@
   App.reqres.setHandler "transcript:entity", ->
     API.setTranscript()
 
-  App.reqres.setHandler "total:unread:messages", ->
-    API.totalUnreadMsgs()
+  App.reqres.setHandler "unread:messages:entities", ->
+    API.UnreadMessages()
 

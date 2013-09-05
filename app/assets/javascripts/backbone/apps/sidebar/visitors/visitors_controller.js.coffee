@@ -13,7 +13,7 @@
       @sites       = App.request "get:all:sites"
       @siteAgents  = App.request "online:agents:entities"
       @layout      = @getLayout()
-      @readMsgs    = App.request "get:total:unread:messages"
+      @unreadMsgs  = App.request "unread:messages:entities"
 
       sidebar = ($(window).height() - 93) + "px"
 
@@ -75,6 +75,15 @@
       @listenTo @agents, "all", =>
         @agentsList()
 
+      @listenTo @unreadMsgs, "all", (type) =>
+        unreads = []
+        $.each @sites.models, (key, value) =>
+          unreads = @unreadMsgs.where api_key: value.get("api_key")
+          if unreads.length > 0
+            value.set unread: unreads.length, "new": true, newClass: "new"
+          else
+            value.set unread: unreads.length, "new": false, newClass: ""
+
       App.reqres.setHandler "get:chats:messages", =>
         @messages
 
@@ -124,6 +133,8 @@
           newClass: null
           active: 'active'
 
+        @subtractCounter "visitor", visitor.model
+
       @layout.visitorsRegion.show visitorsView
 
     agentsList: ->
@@ -148,6 +159,8 @@
           unread: null
           newClass: null
           active: 'active'
+
+        @subtractCounter "agent", agent.model
 
       @layout.agentsRegion.show agentsView
 
@@ -274,6 +287,7 @@
       comp      = $(message).find("composing")
       paused    = $(message).find("paused")
 
+<<<<<<< HEAD
       if comp.length or paused.length
         if typeof agent is "undefined"
           visitor  = @visitors.findWhere { jid: node }
@@ -282,6 +296,12 @@
         else
           info     = agent.get("info")
           token    = agent.get("token")
+=======
+      if (comp.length or paused.length) and typeof agent is "undefined"
+        visitor  = @visitors.findWhere { jid: node }
+        info     = visitor.get("info")
+        token    = visitor.get("token")
+>>>>>>> Added website counter
 
         if Backbone.history.fragment.indexOf(token) isnt -1
           if paused.length
@@ -316,6 +336,7 @@
         if Backbone.history.fragment.indexOf(token)==-1
           @visitors.findWhere({token: token}).addUnread()
           @visitors.sort()
+          @addCounter "visitor", @visitors.findWhere({token: token})
 
           App.execute "set:new:chat:title"
 
@@ -392,6 +413,7 @@
 
             if Backbone.history.fragment.indexOf(token)==-1
               agent.addUnread()
+              @addCounter "agent", agent
 
               App.execute "set:new:chat:title"
             else
@@ -400,12 +422,30 @@
             # chat sound here
             App.execute "chat:sound:notify"
 
-      # console.log @sites
-      visitorsMsgs = @visitors.length - @visitors.where({unread: null}).length
-      agentsMsgs   = @agents.length - @agents.where({unread: null}).length
-      # @readMsgs.set unread: (visitorsMsgs + agentsMsgs)
-
       true
+
+    addCounter: (type, model) ->
+      if type is "agent"
+        counter  = 0
+        api_keys = model.get("api_keys")
+        $.each api_keys, (key, api_key) =>
+          $.each @agents.models, (inner_key, inner_value) =>
+            unread = @unreadMsgs.findWhere api_key: api_key, token: model.get("token")
+            if _.intersection(api_keys, inner_value.get("api_keys")).length > 0 && typeof unread is "undefined"
+              @unreadMsgs.add api_key: api_key, token: model.get("token")
+      else
+        unread = @unreadMsgs.findWhere api_key: model.get("api_key"), token: model.get("token")
+        @unreadMsgs.add api_key: model.get("api_key"), token: model.get("token") if typeof unread is "undefined"
+
+    subtractCounter: (type, model) ->
+      if type is "agent"
+        api_keys = model.get("api_keys")
+        $.each api_keys, (key, api_key) =>
+          unread = @unreadMsgs.findWhere api_key: api_key, token: model.get("token")
+          @unreadMsgs.remove unread unless typeof unread is "undefined"
+      else
+        unread = @unreadMsgs.findWhere api_key: model.get("api_key"), token: model.get("token")
+        @unreadMsgs.remove unread unless typeof unread is "undefined"
 
     displayCurrentUrl:(token, jid, url) ->
       curUrl =

@@ -30,3 +30,6 @@
     template: "sidebar/selector/websites"
     itemView: Selector.Website
     tagName: "ul"
+
+    collectionEvents:
+      "change": "render"

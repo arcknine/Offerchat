@@ -1,4 +1,6 @@
-%a
+%a{ class: "{{newClass}}"}
+  {{#if new}}
   %span.msg-count-unread
     {{unread}}
+  {{/if}}
   {{name}}
