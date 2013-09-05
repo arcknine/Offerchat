@@ -11,6 +11,7 @@
 
   class Entities.OnlineAgent extends App.Entities.Model
     defaults:
+      status:   'online'
       unread:   null
       active:   null
       new_chat: null
