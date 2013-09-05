@@ -123,6 +123,15 @@
 
               @agentMsgs.add currentMsg
 
+              App.navigate "chats/agent/#{agent_jid}", trigger: true
+              App.execute "set:no:active:chat"
+
+              this_agent = agents.findWhere token: "#{agent_jid}"
+              this_agent.set
+                unread: null
+                newClass: null
+                active: 'active'
+
               agent_jid = "#{agent_jid}@#{gon.chat_info.server_name}"
               visitor_jid = @visitor.get("jid")
               msg = $msg({to: agent_jid, type: "chat"}).c('transfer',{id: transfer_id}).c('reason').t(reason.val()).up().c('vjid').t(visitor_jid).up().c('vtoken').t(@visitor.get("token"))  # create xmpp msg
@@ -130,7 +139,6 @@
 
               formView.close()
 
-              # App.navigate Routes.root_path()
             else
               reason.closest("fieldset").addClass("field-error")
               reason.next("div").html("Please provide a reason for transferring")
@@ -264,7 +272,4 @@
 
       @listenTo @transcript, "created", (model) =>
         formView.close()
-        @showNotification("Transcript has been success fully sent!")
-
-
-
+        @showNotification("Transcript has been successfully sent!")

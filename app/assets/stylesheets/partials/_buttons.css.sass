@@ -194,6 +194,9 @@ a.trash-btn
       display: block
       padding: 7px 17px
       @include transition(.2s)
+      text-overflow: ellipsis
+      overflow: hidden
+      white-space: nowrap
   .icon-arrow-down
     right: 10px
     top: 14px
@@ -202,11 +205,14 @@ a.trash-btn
     text-overflow: ellipsis
     vertical-align: bottom
     overflow: hidden
+    white-space: nowrap
     &.chat-action-selector
       width: 165px
     &.site-selector
       width: 203px
       margin-top: 5px
+      padding-right: 30px
+
     &.agent-row-selector
       width: 90%
       padding: 5px 11px 4px 11px

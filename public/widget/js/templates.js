@@ -360,10 +360,10 @@ Templates = {
   composing: function (agent_name){
     var composing = '<div class="message-item agent-message is-typing">' +
                     ' <div class="group">' +
-                    '   <div class="message-author">'+ agent_name +'<div>' +
-                    '   <div class="message">' +
-                    '     <div class="status-typing"> is typing</div>' +
-                    '   </div>' +
+                    '   <div class="message-author">'+
+                    '     '+ agent_name +
+                    '     <span class="status-typing"> is typing</span>' +
+                    '   <div>' +
                     ' </div>' +
                     '</div>';
     $(".widget-chat-viewer").append(composing);
@@ -403,7 +403,7 @@ Templates = {
     var inputs;
     data   = data || { placeholder: "Type your question and hit enter" };
     inputs = '<ul class="tooltip-options settings-options">' +
-             '  <li><a data-type="transcript">Open transcript</a></li>';
+             '  <li><a data-type="transcript">Download Transcript</a></li>';
 
     if (this.details.sound) {
       inputs += '<li>' +

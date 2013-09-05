@@ -15,11 +15,13 @@
       @layout      = @getLayout()
 
       sidebar = ($(window).height() - 93) + "px"
-      $("#chat-sidebar-region").css("height", sidebar)
+
+      if ( $( "#chat-sidebar-region" ).hasClass(".chats-sidebar-container") )
+        $("#chat-sidebar-region").css("height", sidebar)
 
       $(window).resize ->
-        $("#chat-sidebar-region").css("height", ($(window).height() - 93) + "px")
-
+        if ( $( "#chat-sidebar-region" ).hasClass(".chats-sidebar-container") )
+          $("#chat-sidebar-region").css("height", ($(window).height() - 93) + "px")
 
       App.commands.setHandler "add:is:typing", (vname) =>
         isTyping = @getTypingView vname
@@ -28,13 +30,14 @@
       App.commands.setHandler "remove:is:typing", =>
         $("#chats-collection").find(".is-typing").remove()
 
-      App.commands.setHandler "set:new:chat:title", (new_title) =>
+      App.commands.setHandler "set:new:chat:title", =>
         # change title here
         title = $('title')
 
+        clearInterval(@title_interval)
         @title_interval = setInterval(=>
           if title.text() == "Offerchat"
-            title.text new_title + " sent you a message..."
+            title.text "New message"
           else
             title.text "Offerchat"
         , 2000)
@@ -190,6 +193,11 @@
       token    = info.token
       visitor  = @visitors.findWhere { token: token }
       agent    = @agents.findWhere { token: node }
+      status   = $(presence).find('status').text()
+
+      if agent
+        # set online/offline here
+        if status is 'Online' then agent.set("status", "online") else agent.set("status", null)
 
       if info.chatting
         chatting  = (if info.chatting.status then "busy" else null)
@@ -265,9 +273,13 @@
       paused    = $(message).find("paused")
 
       if comp.length or paused.length
-        visitor  = @visitors.findWhere { jid: node }
-        info     = visitor.get("info")
-        token    = visitor.get("token")
+        if agent is "undefined"
+          visitor  = @visitors.findWhere { jid: node }
+          info     = visitor.get("info")
+          token    = visitor.get("token")
+        else
+          info     = agent.get("info")
+          token    = agent.get("token")
 
         if Backbone.history.fragment.indexOf(token) isnt -1
           if paused.length
@@ -303,7 +315,7 @@
           @visitors.findWhere({token: token}).addUnread()
           @visitors.sort()
 
-          App.execute "set:new:chat:title", info.name
+          App.execute "set:new:chat:title"
 
         else
           App.execute "remove:is:typing"
@@ -379,7 +391,7 @@
             if Backbone.history.fragment.indexOf(token)==-1
               agent.addUnread()
 
-              App.execute "set:new:chat:title", name
+              App.execute "set:new:chat:title"
             else
               App.execute "remove:is:typing"
 
