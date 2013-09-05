@@ -272,7 +272,4 @@
 
       @listenTo @transcript, "created", (model) =>
         formView.close()
-        @showNotification("Transcript has been success fully sent!")
-
-
-
+        @showNotification("Transcript has been successfully sent!")

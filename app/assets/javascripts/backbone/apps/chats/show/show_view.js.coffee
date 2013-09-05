@@ -92,12 +92,3 @@
         nosubmit: false
         cancel:  false
       title: "Export Transcript"
-
-
-
-
-
-
-
-
-

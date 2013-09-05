@@ -403,7 +403,7 @@ Templates = {
     var inputs;
     data   = data || { placeholder: "Type your question and hit enter" };
     inputs = '<ul class="tooltip-options settings-options">' +
-             '  <li><a data-type="transcript">Open transcript</a></li>';
+             '  <li><a data-type="transcript">Download Transcript</a></li>';
 
     if (this.details.sound) {
       inputs += '<li>' +
