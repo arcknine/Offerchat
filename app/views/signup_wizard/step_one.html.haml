@@ -13,8 +13,8 @@
               Email
             .input-container
               = f.email_field :email, :type => "text", :autofocus => true, :class => "large"
-              %button.btn.action{:type => "submit"} Continue
+              %button.btn.action{:type => "submit", :onclick => "_gaq.push(['_trackEvent', 'Join', 'Sign Up']);"} Continue
               .block-text-message
                 = flash[:alert]
 
-          
+
