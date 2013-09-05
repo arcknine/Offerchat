@@ -6,22 +6,23 @@
       sites        = App.request "site:entities"
       @currentSite = App.request "new:selector:site"
       @unreadMsgs  = App.request "unread:messages:entities"
+      @layout      = @getLayoutView()
 
       App.execute "when:fetched", sites, =>
         site = sites.last()
         site.attributes.all = false;
 
         @currentSite.set site.attributes
-
-        @layout = @getLayoutView()
         @bindLayoutEvents()
 
         @listenTo @layout, "show", ->
-          @initSiteSelectorRegion(site)
           @initWebsitesRegion(sites)
 
         @listenTo @layout, "selector:clicked", (item) ->
           @toggleSiteSelector item.view
+
+        @listenTo @layout, "render", =>
+          @initWebsitesRegion(sites)
 
         @show @layout
 
@@ -49,39 +50,28 @@
         @unreadMsgs
 
     bindLayoutEvents: ->
-      @listenTo @layout, "selector:all:websites", =>
-        @hideDropDown()
-        $(@layout.el).find(".site-selector > div > span").html("All websites")
+      @listenTo @layout, "selector:all:websites", (item) =>
+        @toggleSiteSelector item.view
+        @currentSite.set { all: true, name: "All websites" }
+        # $(item.view.el).find(".site-selector > span").html("All websites")
 
-        @currentSite.set { all: true }
-
-      @listenTo @layout, "selector:new:website", ->
-        @hideDropDown()
+      @listenTo @layout, "selector:new:website", (item) =>
+        @toggleSiteSelector item.view
         App.navigate Routes.new_website_path(), trigger: true
 
     getLayoutView: ->
       new Selector.Layout
-
-    initSiteSelectorRegion: (model)->
-      @currentSite.set model
-      selectedSiteView = @getSiteSelectorView @currentSite
-
-      @layout.selectedSiteRegion.show selectedSiteView
-
-    getSiteSelectorView: (model) ->
-      new Selector.SiteSelector
-        model: model
+        model: @currentSite
 
     initWebsitesRegion: (collection) ->
       websitesView = @getWebsitesView(collection)
 
       @listenTo websitesView, "childview:selected:website:clicked", (item) =>
-        @hideDropDown()
+        @toggleSiteSelector @layout
+        item.model.attributes.unreadClass = "hide" if item.model.get("unread") is 0
+        item.model.attributes.all = false
 
-        item.model.attributes.all = false;
         @currentSite.set item.model.attributes
-
-        @initSiteSelectorRegion item.model
 
       @layout.optionsRegion.show websitesView
 
@@ -90,16 +80,11 @@
         collection: collection
 
     toggleSiteSelector: (view)->
-      if $(view.el).find("#siteSelector").hasClass("active")
-        $(view.el).find("#siteSelector").removeClass("active")
-        $(@region.currentView.el).parent().removeClass("open")
+      if $(view.el).hasClass("open")
+        $(view.el).removeClass("open")
       else
-        $(view.el).find("#siteSelector").addClass("active")
-        $(@region.currentView.el).parent().addClass("open")
+        $(view.el).addClass("open")
 
     hideDropDown: ->
       $(@layout.el).find(".site-selector").removeClass("active")
       $("#site-selector-region").removeClass("open")
-
-
-

@@ -287,7 +287,6 @@
       comp      = $(message).find("composing")
       paused    = $(message).find("paused")
 
-<<<<<<< HEAD
       if comp.length or paused.length
         if typeof agent is "undefined"
           visitor  = @visitors.findWhere { jid: node }
@@ -296,12 +295,6 @@
         else
           info     = agent.get("info")
           token    = agent.get("token")
-=======
-      if (comp.length or paused.length) and typeof agent is "undefined"
-        visitor  = @visitors.findWhere { jid: node }
-        info     = visitor.get("info")
-        token    = visitor.get("token")
->>>>>>> Added website counter
 
         if Backbone.history.fragment.indexOf(token) isnt -1
           if paused.length
