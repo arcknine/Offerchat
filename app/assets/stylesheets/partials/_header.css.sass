@@ -69,13 +69,7 @@
 .header-inline-list
   float: right
   margin-right: 5px
-  .profile-settings
-    & > a
-      padding: 16px
-      height: 13px
-    .icon-list
-      font-size: 14px
-      top: -5px
+
   & > li
     padding: 0
     float: left
@@ -97,7 +91,7 @@
         background-color: darken(#363d45, 10%)
         opacity: 1
         box-shadow: 0 1px 3px black inset
-      .profile-status-dropdown
+      .settings-dropdown
         visibility: visible
         opacity: 1
         margin-top: 7px
@@ -108,13 +102,16 @@
       opacity: 1
       padding: 4px 13px 4px
 
-    .profile-status-dropdown
+    .settings-dropdown
       margin-top: 0px
     .profile-image-container
       top: 6px
 
 
-.profile-status-dropdown
+
+
+.settings-dropdown
+
   z-index: 110
   opacity: 0
   visibility: hidden
@@ -124,16 +121,29 @@
   box-shadow: 0 1px 3px rgba(0,0,0,.2)
   margin-top: 5px
   min-width: 150px
-  left: -94px
+
   padding: 7px 0
   border-radius: 5px
+  left: -100px
+
+  .dropdown-pointer
+    position: absolute
+    top: -12px
+    right: 12px
+    width: 0
+    height: 0
+    border-color: transparent transparent $sidebar-color transparent
+    border-width: 6px
+    border-style: solid
+
   & > li
     display: block
     overflow: hidden
     &.logout
-      border-top: 1px solid lighten($sidebar-color, 5%)
       a
         color: #ff5151
+    &.bordered
+      border-top: 1px solid lighten($sidebar-color, 5%)
   a
     @include transition(.1s)
     padding: 7px 10px
@@ -143,27 +153,11 @@
 
     &:hover
       background-color: darken($sidebar-color, 5%)
-
   .status
     top: 3px
     margin-right: 10px
     float: left
 
-  .dropdown-pointer
-    position: absolute
-    top: -12px
-    right: 18px
-    width: 0
-    height: 0
-    border-color: transparent transparent $sidebar-color transparent
-    border-width: 6px
-    border-style: solid
-.settings-dropdown
-  @extend .profile-status-dropdown
-
-  left: -105px
-  .dropdown-pointer
-    right: 12px
 
 
 // nprogress - fixed bar progress loader

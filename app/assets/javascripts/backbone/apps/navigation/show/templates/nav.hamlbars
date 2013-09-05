@@ -26,27 +26,8 @@
               %img{src: '{{avatar}}'}
             %span.status{class: "{{status}}"}
               %i.icon.icon-check-small
-        %ul.profile-status-dropdown
-          %li
-            %a#changeStatus{data: {status: "away"}}
-              %span.status
-                %i.icon.icon-check-small
-              %span#current-status
-                Away
-          %li
-            %a{href: "/logout", data: {status: "logout"}}
-              %span.status.signout
-                %i.icon.icon-small-x
-              Signout
-          .dropdown-pointer
-
-      %li.profile-settings.header-settings
-        %a
-          %i.icon.icon-list
-            %span
-            %span
-            %span
         %ul.settings-dropdown
+
           %li
             %a#settings-menu-link
               Settings
@@ -59,7 +40,24 @@
           %li
             %a#account-menu-link
               Account
+          %li.bordered
+            %a#changeStatus{data: {status: "away"}}
+              %span.status
+                %i.icon.icon-check-small
+              %span#current-status
+                Away
+          %li.logout.bordered
+            %a{href: "/logout", data: {status: "logout"}}
+              %span.status.signout
+                %i.icon.icon-small-x
+              Signout
           .dropdown-pointer
+
+
+
+
+
+
 
     .upgrade-header-section
       %a.add-more-btn.btn Upgrade
