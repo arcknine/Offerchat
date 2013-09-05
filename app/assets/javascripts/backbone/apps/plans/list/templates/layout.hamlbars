@@ -15,9 +15,9 @@
   plan.
   Upgrade your account to add more agents.
 
-.block.large
+.block.large.text-center.pricing-header
   %h1
-    Plans and Pricing
+    Pay only for agent seats, enjoy all features
   %h3
     Offerchat live chat offers flexible pricing plans to let you chat instantly with shoppers right on your site.
 
@@ -27,9 +27,9 @@
       .plan.plan-regular
         %h2
           {{business.name}}
-        %p.small
-          {{business.description}}
-        .block#business-button
+          .plan-description
+            {{business.description}}
+        .block.plan-action#business-button
           %a.btn.action.upgrade{ data: { id: "{{business.plan_identifier}}" } }
             Choose Plan
         .agent-count
@@ -48,9 +48,9 @@
       .plan.plan-best
         %h2
           {{personal.name}}
-        %p.small
-          {{personal.description}}
-        .block#personal-button
+          .plan-description
+            {{personal.description}}
+        .block.plan-action#personal-button
           %a.btn.action.upgrade{ data: { id: "{{personal.plan_identifier}}" } }
             Choose Plan
         .agent-count
@@ -67,9 +67,9 @@
       .plan.plan-regular
         %h2
           {{enterprise.name}}
-        %p.small
-          {{enterprise.description}}
-        .block#enterprise-button
+          .plan-description
+            {{enterprise.description}}
+        .block.plan-action#enterprise-button
           %a.btn.action.upgrade{ data: { id: "{{enterprise.plan_identifier}}" } }
             Choose Plan
         .agent-count
