@@ -143,10 +143,10 @@ GEM
     formatador (0.2.4)
     formtastic (2.2.1)
       actionpack (>= 3.0)
-    gabba (1.0.1)
     gon (4.1.1)
       actionpack (>= 2.3.0)
       json
+    google-analytics-rails (0.0.4)
     grape (0.5.0)
       activesupport
       builder
@@ -445,8 +445,8 @@ DEPENDENCIES
   email_spec
   fabrication
   figaro
-  gabba
   gon
+  google-analytics-rails
   grape
   guard-rspec
   haml-rails

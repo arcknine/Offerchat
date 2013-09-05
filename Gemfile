@@ -97,5 +97,5 @@ end
 group :production do
   gem 'asset_sync'
   gem 'newrelic_rpm'
-  gem 'gabba'
+  gem 'google-analytics-rails'
 end
