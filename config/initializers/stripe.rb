@@ -6,7 +6,7 @@ StripeEvent.setup do
     s = StripeMessage.new
     s.event_id            = event.id
     s.created             = event.created
-    s.livemod             = event.livemode
+    s.livemode            = event.livemode
     s.data                = event.data
     begin
       s.previous_attributes = event.previous_attributes
