@@ -8,13 +8,24 @@
       agents = App.request "agents:entities"
       @websites = App.request "owned:sites:entities"
 
+      online_agents = App.request "get:online:agents"
+
       App.execute "when:fetched", @websites , =>
         App.execute "when:fetched", agents , =>
           self = @
           agents.each (agent, index) ->
+
+            res = online_agents.findWhere {token: agent.get("jabber_user")}
+            agent.set("status", res.get("status")) if res
+
             if agent.get("id") is self.currentUser.id
               agent.set
                 is_admin: true
+
+          @listenTo online_agents, "all", =>
+            online_agents.each (agent, idx) ->
+              this_agent = agents.findWhere {jabber_user: agent.get("token")}
+              this_agent.set("status", agent.get("status")) if this_agent
 
       @layout.on "show", =>
         @showAgents agents
@@ -28,17 +39,17 @@
     showAgents: (agents) ->
       agentsView = @getAgentsView agents
       self = @
-      
+
       @listenTo agentsView, "new:agent:clicked", (item) ->
         agent = App.request "new:agent:entity"
         addAgentViewLayout = @getNewAgentViewLayout(agent)
         modalAgentView = App.request "modal:wrapper", addAgentViewLayout
-        
+
         modalAgentView.on "show", =>
           addAgentView = @getNewAgentView(agent)
-          
+
           sites = App.request "new:site:entities"
-          
+
           @websites.each (site, index) ->
             sites.add
               role: 0
@@ -50,7 +61,7 @@
               is_agent: false
 
           sitesView = @getSitesView(sites)
-          
+
           @listenTo modalAgentView, "modal:unsubmit", (ob)->
             agent.set
               websites: sites
@@ -71,25 +82,25 @@
                   self.showNotification _.first(errs)
                 modalAgentView.close()
 
-          addAgentViewLayout.agentRegion.show addAgentView 
-          addAgentViewLayout.sitesRegion.show sitesView  
-          
+          addAgentViewLayout.agentRegion.show addAgentView
+          addAgentViewLayout.sitesRegion.show sitesView
+
         @listenTo modalAgentView, "modal:cancel", (item)->
           modalAgentView.close()
-          
+
         App.modalRegion.show modalAgentView
-      
+
       @listenTo agentsView, "childview:agent:selection:clicked", (item)->
         agent = item.model
         showAgentViewLayout = @getShowAgentViewLayout(agent)
         modalAgentView = App.request "modal:wrapper", showAgentViewLayout
-        
+
         modalAgentView.on "show", =>
           showAgentView = @getShowAgentView(agent)
           showAgentViewLayout.agentRegion.show showAgentView
           sites = App.request "new:site:entities"
           sites.add agent.get("websites")
-          
+
           @listenTo showAgentView, "remove:agent:clicked", (item) ->
             agent.destroy()
             self.showNotification("Your changes have been saved!")
@@ -97,7 +108,7 @@
 
           if agent.get("id") isnt @currentUser.id
             sitesView = @getSitesView(sites)
-            
+
             @listenTo modalAgentView, "modal:unsubmit", (ob)->
               agent.set
                 websites: sites
@@ -106,7 +117,7 @@
                   agents.fetch()
                   self.showNotification("Your changes have been saved!")
                   modalAgentView.close()
-              
+
             showAgentViewLayout.sitesRegion.show sitesView
 
           App.commands.setHandler "check:selected:sites", (item) =>

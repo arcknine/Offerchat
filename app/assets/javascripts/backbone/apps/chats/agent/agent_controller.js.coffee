@@ -142,6 +142,7 @@
         to  = "#{@agent.get("jid")}@#{gon.chat_info.server_name}"
         msg = $msg({to: to, type: "chat"}).c('body').t($.trim(message))
 
+        console.log msg.toString()
         @connectionSend msg, to
 
       else

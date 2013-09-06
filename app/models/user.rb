@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
 
   def generate_random_avatar
-    "//s3.amazonaws.com/offerchat-dashboard/users/avatars/avatar#{id % 5}.jpg"
+    "//d2rbi2fqode2pf.cloudfront.net/users/avatars/avatar#{id % 5}.jpg"
   end
 
   def group(owner_id)
@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
   end
 
   def all_sites
-    website_id = accounts.where("role > ?", 0).collect(&:website_id)
+    website_id = accounts.where("role != ?", 0).collect(&:website_id)
     Website.where(:id => website_id)
   end
 

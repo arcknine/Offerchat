@@ -13,6 +13,7 @@
       @sites       = App.request "get:all:sites"
       @siteAgents  = App.request "online:agents:entities"
       @layout      = @getLayout()
+      @unreadMsgs  = App.request "unread:messages:entities"
 
       sidebar = ($(window).height() - 93) + "px"
 
@@ -74,6 +75,15 @@
       @listenTo @agents, "all", =>
         @agentsList()
 
+      @listenTo @unreadMsgs, "all", (type) =>
+        unreads = []
+        $.each @sites.models, (key, value) =>
+          unreads = @unreadMsgs.where api_key: value.get("api_key")
+          if unreads.length > 0
+            value.set unread: unreads.length, "new": true, newClass: "new"
+          else
+            value.set unread: unreads.length, "new": false, newClass: ""
+
       App.reqres.setHandler "get:chats:messages", =>
         @messages
 
@@ -123,6 +133,8 @@
           newClass: null
           active: 'active'
 
+        @subtractCounter "visitor", visitor.model
+
       @layout.visitorsRegion.show visitorsView
 
     agentsList: ->
@@ -147,6 +159,8 @@
           unread: null
           newClass: null
           active: 'active'
+
+        @subtractCounter "agent", agent.model
 
       @layout.agentsRegion.show agentsView
 
@@ -197,7 +211,13 @@
 
       if agent
         # set online/offline here
-        if status is 'Online' then agent.set("status", "online") else agent.set("status", null)
+        if status
+          if status is 'Online'
+            agent.set("status", "online")
+          else
+            agent.set("status", null)
+
+
 
       if info.chatting
         chatting  = (if info.chatting.status then "busy" else null)
@@ -254,6 +274,7 @@
           status:    chatting
           available: available
           title:     title
+
       else
         @displayCurrentUrl(token, node, info.url)
         resources = visitor.get "resources"
@@ -314,6 +335,7 @@
         if Backbone.history.fragment.indexOf(token)==-1
           @visitors.findWhere({token: token}).addUnread()
           @visitors.sort()
+          @addCounter "visitor", @visitors.findWhere({token: token})
 
           App.execute "set:new:chat:title"
 
@@ -390,6 +412,7 @@
 
             if Backbone.history.fragment.indexOf(token)==-1
               agent.addUnread()
+              @addCounter "agent", agent
 
               App.execute "set:new:chat:title"
             else
@@ -399,6 +422,29 @@
             App.execute "chat:sound:notify"
 
       true
+
+    addCounter: (type, model) ->
+      if type is "agent"
+        counter  = 0
+        api_keys = model.get("api_keys")
+        $.each api_keys, (key, api_key) =>
+          $.each @agents.models, (inner_key, inner_value) =>
+            unread = @unreadMsgs.findWhere api_key: api_key, token: model.get("token")
+            if _.intersection(api_keys, inner_value.get("api_keys")).length > 0 && typeof unread is "undefined"
+              @unreadMsgs.add api_key: api_key, token: model.get("token")
+      else
+        unread = @unreadMsgs.findWhere api_key: model.get("api_key"), token: model.get("token")
+        @unreadMsgs.add api_key: model.get("api_key"), token: model.get("token") if typeof unread is "undefined"
+
+    subtractCounter: (type, model) ->
+      if type is "agent"
+        api_keys = model.get("api_keys")
+        $.each api_keys, (key, api_key) =>
+          unread = @unreadMsgs.findWhere api_key: api_key, token: model.get("token")
+          @unreadMsgs.remove unread unless typeof unread is "undefined"
+      else
+        unread = @unreadMsgs.findWhere api_key: model.get("api_key"), token: model.get("token")
+        @unreadMsgs.remove unread unless typeof unread is "undefined"
 
     displayCurrentUrl:(token, jid, url) ->
       curUrl =

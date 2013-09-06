@@ -3,6 +3,16 @@ STRIPE_PUBLIC_KEY = ENV["STRIPE_PUBLIC_KEY"]
 
 StripeEvent.setup do
   subscribe do |event|
-    StripeMessage.create(:event_id => event.id, :created => event.created, :livemode => event.livemode, :data => event.data, :previous_attributes => event.previous_attributes)
+    s = StripeMessage.new
+    s.event_id            = event.id
+    s.created             = event.created
+    s.livemode            = event.livemode
+    s.data                = event.data
+    begin
+      s.previous_attributes = event.previous_attributes
+    rescue
+      s.previous_attributes = nil
+    end
+    s.save
   end
 end

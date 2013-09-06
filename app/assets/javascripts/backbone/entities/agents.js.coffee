@@ -4,6 +4,7 @@
     urlRoot: Routes.agents_path()
     defaults:
       email: ""
+      status: null
 
   class Entities.AgentsCollection extends App.Entities.Collection
     model: Entities.Agent
