@@ -27,6 +27,7 @@
       App.commands.setHandler "add:is:typing", (vname) =>
         isTyping = @getTypingView vname
         $('#chats-collection').append(isTyping.render().$el)
+        $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500)
 
       App.commands.setHandler "remove:is:typing", =>
         $("#chats-collection").find(".is-typing").remove()
