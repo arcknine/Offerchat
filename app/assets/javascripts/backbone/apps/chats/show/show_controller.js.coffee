@@ -16,6 +16,8 @@
       @transcript  = App.request "transcript:entity"
       @transcript.url = Routes.email_export_transcript_index_path
 
+      @visitor.setActiveChat() if @visitor
+
       if @messages.length is 0
         @messages.add JSON.parse(localStorage.getItem("ofc-chatlog-"+@token))
       else
@@ -28,7 +30,9 @@
       @listenTo visitors, "add", =>
         if @visitor.get("token") isnt @token
           visitor = visitors.findWhere token: @token
-          @visitor.set visitor.attributes unless typeof visitor is "undefined"
+          unless typeof visitor is "undefined"
+            visitor.setActiveChat()
+            @visitor.set visitor.attributes
 
       @listenTo @messages, "add", (message) =>
         if message.get("token") is @token

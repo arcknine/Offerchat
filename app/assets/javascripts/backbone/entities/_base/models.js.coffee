@@ -49,3 +49,10 @@
       setTimeout (=>
         @set {bounce: null}
       ), 10000
+
+    setActiveChat: ->
+      App.execute "set:no:active:chat"
+      @set
+        unread: null
+        newClass: null
+        active: 'active'

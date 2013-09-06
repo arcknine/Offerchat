@@ -14,13 +14,17 @@
       @height     = App.request "get:chat:window:height"
       @layout     = @getLayout()
 
+      @agent.setActiveChat() if @agent
+
       @currentMsgs = App.request "messeges:entities"
       @currentMsgs.add @messages.where({token: @token})
 
       @listenTo @agents, "all", (type) =>
         unless type is "remove"
           agent = @agents.findWhere token: @token
-          @agent.set agent.attributes unless typeof agent is "undefined"
+          unless typeof agent is "undefined"
+            agent.setActiveChat()
+            @agent.set agent.attributes
 
       @listenTo @messages, "add", (message) =>
         if message.get("token") is @token
