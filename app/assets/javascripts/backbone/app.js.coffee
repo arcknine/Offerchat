@@ -39,7 +39,9 @@
   # event can be found in 'config/marionette/application.js.coffee'
   # event will execute every change of url
   Backbone.on 'execute:route:change:events', ->
-    App.execute "set:no:active:chat"
+
+    if Backbone.history.fragment.indexOf("chats") is -1
+      App.execute "set:no:active:chat"
 
     App.execute "set:original:title"
 

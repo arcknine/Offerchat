@@ -124,16 +124,7 @@
       visitorsView = @getVisitorsView(visitors)
 
       @listenTo visitorsView, "childview:click:visitor:tab", (visitor) =>
-
         App.navigate "chats/visitor/#{visitor.model.get('token')}", trigger: true
-
-        App.execute "set:no:active:chat"
-
-        visitor.model.set
-          unread: null
-          newClass: null
-          active: 'active'
-
         @subtractCounter "visitor", visitor.model
 
       @layout.visitorsRegion.show visitorsView
@@ -151,16 +142,7 @@
       agentsView = @getAgentsView @siteAgents
 
       @listenTo agentsView, "childview:click:agent:tab", (agent) =>
-
         App.navigate "chats/agent/#{agent.model.get('token')}", trigger: true
-
-        App.execute "set:no:active:chat"
-
-        agent.model.set
-          unread: null
-          newClass: null
-          active: 'active'
-
         @subtractCounter "agent", agent.model
 
       @layout.agentsRegion.show agentsView
@@ -384,12 +366,9 @@
 
               msg.set res
 
-              # focus and set to active
-              App.navigate "chats/agent/#{token}", trigger: true
-              agent.set
-                unread: null
-                newClass: null
-                active: 'active'
+              # the requesting agent will be redirected to the chat window
+              # of the answering agent???
+              # App.navigate "chats/agent/#{token}", trigger: true
 
             else
               reason        = $(transfer).find('reason').text()
