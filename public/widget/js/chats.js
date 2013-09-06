@@ -293,7 +293,7 @@ Chats = {
         if (index > -1) Chats.agents.splice(index, 1);
       }
 
-      if (!type && node != agent.jabber_user && (!show || show == 'chat' || show == 'online') && $.inArray(node, Chats.agents) < 0) {
+      if (!type && (!show || show == 'chat' || show == 'online') && $.inArray(node, Chats.agents) < 0) {
         Chats.agents.push(node);
       }
 
