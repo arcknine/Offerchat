@@ -127,14 +127,8 @@
 
               @agentMsgs.add currentMsg
 
+              # navigate to agent chat after transfering visitor
               App.navigate "chats/agent/#{agent_jid}", trigger: true
-              App.execute "set:no:active:chat"
-
-              this_agent = agents.findWhere token: "#{agent_jid}"
-              this_agent.set
-                unread: null
-                newClass: null
-                active: 'active'
 
               agent_jid = "#{agent_jid}@#{gon.chat_info.server_name}"
               visitor_jid = @visitor.get("jid")

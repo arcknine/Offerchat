@@ -20,10 +20,13 @@
       @currentMsgs.add @messages.where({token: @token})
 
       @listenTo @agents, "all", (type) =>
+        agent = @agents.findWhere token: @token
+
+        if type is "add" and typeof agent isnt "undefined"
+          agent.setActiveChat()
+
         unless type is "remove"
-          agent = @agents.findWhere token: @token
           unless typeof agent is "undefined"
-            agent.setActiveChat()
             @agent.set agent.attributes
 
       @listenTo @messages, "add", (message) =>
@@ -55,8 +58,6 @@
 
         vtoken = msg.model.get('trn_vtoken')
         App.navigate "chats/visitor/#{vtoken}", trigger: true   # navigate to visitor chat
-
-        App.execute "set:no:active:chat"
 
         visitorList = App.request "get:chats:visitors"
         visitor = visitorList.findWhere token: vtoken

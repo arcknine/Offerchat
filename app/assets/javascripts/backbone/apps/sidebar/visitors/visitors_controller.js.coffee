@@ -366,12 +366,9 @@
 
               msg.set res
 
-              # focus and set to active
-              App.navigate "chats/agent/#{token}", trigger: true
-              agent.set
-                unread: null
-                newClass: null
-                active: 'active'
+              # the requesting agent will be redirected to the chat window
+              # of the answering agent???
+              # App.navigate "chats/agent/#{token}", trigger: true
 
             else
               reason        = $(transfer).find('reason').text()
