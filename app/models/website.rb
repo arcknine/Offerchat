@@ -51,6 +51,7 @@ class Website < ActiveRecord::Base
   end
 
   def unread; nil; end
+  def new; false; end
 
   def style
     settings.style

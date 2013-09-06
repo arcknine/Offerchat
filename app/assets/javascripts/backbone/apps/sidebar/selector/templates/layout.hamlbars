@@ -1,4 +1,11 @@
-%a#siteSelector.site-selector
+%a.site-selector
+  .message-tick.animated.bounce{class: "{{unreadClass}}"}
+    %span {{allUnread}}
+
+  %span
+    {{name}}
+  %i.icon.icon-arrow-down
+
 .site-selector-options
   .group#options-selector
   %ul

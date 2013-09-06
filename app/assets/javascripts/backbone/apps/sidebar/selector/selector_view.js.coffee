@@ -3,17 +3,26 @@
   class Selector.Layout extends App.Views.Layout
     template: "sidebar/selector/layout"
     regions:
-      selectedSiteRegion: "#siteSelector"
+      # selectedSiteRegion: "#siteSelector"
       optionsRegion:  "#options-selector"
-    tagName: "span"
+    className: "site-selector-container"
+
+    modelEvents:
+      "change": "render"
 
     triggers:
       "click a#selector-all-websites" : "selector:all:websites"
       "click a.new-website-link"      : "selector:new:website"
       "click a.site-selector"         : "selector:clicked"
 
-  class Selector.SiteSelector extends App.Views.CompositeView
-    template: "sidebar/selector/site_selector"
+  # class Selector.SiteSelector extends App.Views.CompositeView
+  #   template: "sidebar/selector/site_selector"
+  #   tagName: "span"
+  #   modelEvents:
+  #     "change": "render"
+
+  #   triggers:
+  #     "click"    : "selector:clicked"
 
   class Selector.Website extends App.Views.ItemView
     template: "sidebar/selector/website"
@@ -25,3 +34,6 @@
     template: "sidebar/selector/websites"
     itemView: Selector.Website
     tagName: "ul"
+
+    collectionEvents:
+      "change": "render"
