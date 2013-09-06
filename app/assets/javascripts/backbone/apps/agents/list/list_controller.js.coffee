@@ -15,17 +15,17 @@
           self = @
           agents.each (agent, index) ->
 
+            res = online_agents.findWhere {token: agent.get("jabber_user")}
+            agent.set("status", res.get("status")) if res
+
             if agent.get("id") is self.currentUser.id
               agent.set
                 is_admin: true
 
           @listenTo online_agents, "all", =>
             online_agents.each (agent, idx) ->
-              console.log 'this online agent: ', agent
               this_agent = agents.findWhere {jabber_user: agent.get("token")}
               this_agent.set("status", agent.get("status")) if this_agent
-
-              console.log 'agent', this_agent
 
       @layout.on "show", =>
         @showAgents agents
