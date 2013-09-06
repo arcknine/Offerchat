@@ -211,7 +211,13 @@
 
       if agent
         # set online/offline here
-        if status is 'Online' then agent.set("status", "online") else agent.set("status", null)
+        if status
+          if status is 'Online'
+            agent.set("status", "online")
+          else
+            agent.set("status", null)
+
+
 
       if info.chatting
         chatting  = (if info.chatting.status then "busy" else null)
