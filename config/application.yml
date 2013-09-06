@@ -10,8 +10,8 @@ development: &development
   CHAT_HISTORY_URL: http://history.offerchat.loc:9292
 
 staging:
-  STRIPE_API_KEY: sk_test_Nc1LdRAL1YAqOh60JUTHjI9V
-  STRIPE_PUBLIC_KEY: pk_test_VWmJIaOTLzYZAUmg8x7sMKYr
+  STRIPE_API_KEY: sk_test_JwblAWeyUlT2irydz9zLP8gs
+  STRIPE_PUBLIC_KEY: pk_test_hByZ1zpometN4skLWA2Npi8C
 
   CHAT_BOSH_URL: http://sb0.offerchat.com:7070/http-bind/
   CHAT_SERVER_NAME: timereal.offerchat.com
