@@ -16,6 +16,8 @@
       @transcript  = App.request "transcript:entity"
       @transcript.url = Routes.email_export_transcript_index_path
 
+      @visitor.setActiveChat() if @visitor
+
       if @messages.length is 0
         @messages.add JSON.parse(localStorage.getItem("ofc-chatlog-"+@token))
       else
@@ -28,7 +30,9 @@
       @listenTo visitors, "add", =>
         if @visitor.get("token") isnt @token
           visitor = visitors.findWhere token: @token
-          @visitor.set visitor.attributes unless typeof visitor is "undefined"
+          unless typeof visitor is "undefined"
+            visitor.setActiveChat()
+            @visitor.set visitor.attributes
 
       @listenTo @messages, "add", (message) =>
         if message.get("token") is @token
@@ -123,14 +127,8 @@
 
               @agentMsgs.add currentMsg
 
+              # navigate to agent chat after transfering visitor
               App.navigate "chats/agent/#{agent_jid}", trigger: true
-              App.execute "set:no:active:chat"
-
-              this_agent = agents.findWhere token: "#{agent_jid}"
-              this_agent.set
-                unread: null
-                newClass: null
-                active: 'active'
 
               agent_jid = "#{agent_jid}@#{gon.chat_info.server_name}"
               visitor_jid = @visitor.get("jid")
