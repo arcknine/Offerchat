@@ -200,8 +200,6 @@
           else
             agent.set("status", null)
 
-
-
       if info.chatting
         chatting  = (if info.chatting.status then "busy" else null)
         chatting  = (if gon.current_user.jabber_user is info.chatting.agent then "online" else chatting)
@@ -244,7 +242,7 @@
           @agents.add { jid: node, token: node, info: info, agent: true, api_keys: api_keys }
         ), jid
 
-      else if typeof visitor is "undefined"
+      else if typeof visitor is "undefined" && info && info.api_key
 
         @displayCurrentUrl(token, node, info.url)
         @visitors.add
