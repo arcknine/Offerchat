@@ -2,7 +2,7 @@
   .profile-image-container.large
     .profile-image
       %img{alt: "Avatar-large", src: "{{info.avatar}}"}
-    %span.status.online
+    %span.status{:class => "{{status}}"}
       %i.icon.icon-check-small
   %label.profile-label-name.for-large
     {{#if info.name}}
