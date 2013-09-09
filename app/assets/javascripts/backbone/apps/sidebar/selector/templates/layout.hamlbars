@@ -1,5 +1,5 @@
 %a.site-selector
-  .message-tick.animated.bounce{class: "{{unreadClass}}"}
+  .message-tick{class: "{{unreadClass}}"}
     %span {{allUnread}}
 
   %span
