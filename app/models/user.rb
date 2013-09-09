@@ -64,8 +64,7 @@ class User < ActiveRecord::Base
   def agents
     # agent_accounts.collect(&:user)
     ids = agent_accounts.collect(&:user_id)
-    ids.push self.id
-    User.where(:id => ids.uniq)
+    User.where(:id => ids.push(self.id).uniq)
   end
 
   def find_managed_sites(website_id)
