@@ -15,15 +15,6 @@
       @layout      = @getLayout()
       @unreadMsgs  = App.request "unread:messages:entities"
 
-      sidebar = ($(window).height() - 93) + "px"
-
-      if ( $( "#chat-sidebar-region" ).hasClass(".chats-sidebar-container") )
-        $("#chat-sidebar-region").css("height", sidebar)
-
-      $(window).resize ->
-        if ( $( "#chat-sidebar-region" ).hasClass(".chats-sidebar-container") )
-          $("#chat-sidebar-region").css("height", ($(window).height() - 93) + "px")
-
       App.commands.setHandler "add:is:typing", (vname) =>
         isTyping = @getTypingView vname
         $('#chats-collection').append(isTyping.render().$el)
@@ -98,6 +89,14 @@
         @agents
 
       @show @layout
+
+      $(window).resize ->
+        # console.log $("#chat-sidebar-region").has("class")
+        if ( $("#chat-sidebar-region").hasClass("chats-sidebar-container") )
+          $("#chat-sidebar-region").css("height", ($(window).height() - 93) + "px")
+
+      if ($("#chat-sidebar-region").hasClass("chats-sidebar-container") )
+        $("#chat-sidebar-region").css("height", ($(window).height() - 93) + "px")
 
     getLayout: ->
       new Visitors.Layout
@@ -200,8 +199,6 @@
           else
             agent.set("status", null)
 
-
-
       if info.chatting
         chatting  = (if info.chatting.status then "busy" else null)
         chatting  = (if gon.current_user.jabber_user is info.chatting.agent then "online" else chatting)
@@ -244,7 +241,7 @@
           @agents.add { jid: node, token: node, info: info, agent: true, api_keys: api_keys }
         ), jid
 
-      else if typeof visitor is "undefined"
+      else if typeof visitor is "undefined" && info && info.api_key
 
         @displayCurrentUrl(token, node, info.url)
         @visitors.add
