@@ -31,6 +31,9 @@
 
       @listenTo navView, "nav:invoices:clicked", (item) =>
         App.navigate '#profiles/invoices', trigger: true
+      
+      @listenTo navView, "nav:instructions:clicked", (item) =>
+        App.navigate '#profiles/instructions', trigger: true
 
       @layout.accountSidebarRegion.show navView
 
