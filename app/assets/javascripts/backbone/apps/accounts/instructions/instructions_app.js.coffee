@@ -8,6 +8,12 @@
       accountSidebarRegion:                       "#accounts-sidebar-region"
       accountRegion:                              "#accounts-main-region"
       
+    events:
+      "click input" : "highlight"
+      
+    highlight: (e) ->
+      e.currentTarget.select()
+     
     serializeData: ->
       user: @options.model.toJSON()
 
