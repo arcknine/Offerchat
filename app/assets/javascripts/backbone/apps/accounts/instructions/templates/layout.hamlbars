@@ -1,0 +1,43 @@
+#accounts-sidebar-region.column.sidebar
+#accounts-main-region.column-content-container
+  .block.large
+    %h2
+      IM Integrations
+    Use the details belows to configure your IM Clients.
+
+  .block.large
+    .form.form-inline
+      %fieldset
+        %label
+          Username
+        .input-container
+          %input.large-2{ :type => "text", :readonly => "readonly", :value => "{{user.jabber_user}}" }
+      %fieldset
+        %label
+          Password
+        .input-container
+          %input.large-2{ :type => "text", :readonly => "readonly", :value => "{{user.jabber_password}}" }
+      %fieldset
+        %label
+          Domain
+        .input-container
+          %input.large-2{ :type => "text", :readonly => "readonly", :value => "im.offerchat.com" }
+  .block.large.group.bordered-top
+    %p
+      Here are a list of guides to using Offerchat on 3rd party chat applications
+    %ul.list
+      %li
+        %a{ :href => "http://support.offerchat.com/im-integrations/offerchat-and-imo-for-android-integration/", :target => "_blank" }
+          Offerchat and imo for Android Integration
+        
+      %li
+        %a{ :href => "http://support.offerchat.com/im-integrations/offerchat-and-imo-app-integration-for-iphone/", :target => "_blank" }
+          Offerchat and imo App Integration for iPhone
+      %li
+        %a{ :href => "http://support.offerchat.com/im-integrations/adium-integration/", :target => "_blank" }
+          Adium Integration
+      %li
+        %a{ :href => "http://support.offerchat.com/im-integrations/integrating-offerchat-live-chat-with-pidgin/", :target => "_blank" }
+          Integrating Offerchat live chat with Pidgin
+
+

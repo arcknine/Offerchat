@@ -3,7 +3,8 @@ $ ->
   connect()
 
   window.onbeforeunload = (e) ->
-    "" unless Offerchat.xmpp.status is Strophe.Status.DISCONNECTED
+    status = Offerchat.xmpp.status
+    "" unless status is Strophe.Status.DISCONNECTED or status is "logout"
 
 closeApp = ->
   Offerchat.xmpp.connection.disconnect()  if Offerchat.xmpp and Offerchat.xmpp.connection
@@ -35,6 +36,7 @@ connect = ->
       ), 20000
 
     else if status is Strophe.Status.DISCONNECTED
-      Offerchat.xmpp.status = status
-      $("#connecting-region").show()
-      location.reload()
+      unless Offerchat.xmpp.status is "logout"
+        location.reload()
+        $("#connecting-region").show()
+        Offerchat.xmpp.status = status

@@ -48,6 +48,9 @@
           sound = document.getElementById("beep-notify")
           sound.play() if sound
 
+      App.reqres.setHandler "detect:url:from:string", (str) =>
+        @detectURL str
+
       if App.xmpp.status is Strophe.Status.CONNECTED
         @connection = App.xmpp.connection
         @connected()
@@ -91,7 +94,6 @@
       @show @layout
 
       $(window).resize ->
-        # console.log $("#chat-sidebar-region").has("class")
         if ( $("#chat-sidebar-region").hasClass("chats-sidebar-container") )
           $("#chat-sidebar-region").css("height", ($(window).height() - 93) + "px")
 
@@ -263,6 +265,16 @@
 
       true
 
+    detectURL: (str) ->
+      urlPattern          = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim
+      pseudoUrlPattern    = /(^|[^\/])(www\.[\S]+(\b|$))/gim
+      emailAddressPattern = /\w+@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6})+/gim
+
+      str
+        .replace(urlPattern, '<a href="$&" target="_blank">$&</a>')
+        .replace(pseudoUrlPattern, '$1<a href="http://$2" target="_blank">$2</a>')
+        .replace(emailAddressPattern, '<a href="mailto:$&">$&</a>')
+
     onPrivateMessage: (message) =>
       from      = $(message).attr("from")
       jid       = Strophe.getBareJidFromJid from
@@ -272,6 +284,9 @@
       transfer  = $(message).find("transfer")
       comp      = $(message).find("composing")
       paused    = $(message).find("paused")
+
+      if body
+        body = App.request "detect:url:from:string", body
 
       if comp.length or paused.length
         if typeof agent is "undefined"

@@ -5,6 +5,7 @@
       "profiles"                :   "profile"
       "profiles/passwords"      :   "editPassword"
       "profiles/invoices"       :   "listInvoices"
+      "profiles/instructions"   :   "imInstructions"
       #"profiles/notifications"  :   "editNotifications"
 
     API =
@@ -19,6 +20,10 @@
       listInvoices: ->
         new AccountsApp.Invoice.Controller
           section: 'invoices'
+          
+      imInstructions: ->
+        new AccountsApp.Instructions.Controller
+          section: 'instructions'
 
       #editPassword: ->
       #  new AccountsApp.Password.Controller

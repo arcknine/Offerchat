@@ -6,8 +6,8 @@
   %li
     %a.profile{href: ""} Profile
   %li
-    %a.password.selected{href: ""} Password
+    %a.password{href: ""} Password
   %li
-    %a.instructions{href: ""} 
+    %a.instructions.selected{href: ""}
       IM Instructions
       %span.tag-new new

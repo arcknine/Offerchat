@@ -40,6 +40,7 @@
           %li
             %a#account-menu-link
               Account
+              %span.tag-new new
           %li.bordered
             %a#changeStatus{data: {status: "away"}}
               %span.status
@@ -47,7 +48,7 @@
               %span#current-status
                 Away
           %li.logout.bordered
-            %a{href: "/logout", data: {status: "logout"}}
+            %a{data: {status: "logout"}}
               %span.status.signout
                 %i.icon.icon-small-x
               Signout

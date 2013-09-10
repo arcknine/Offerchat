@@ -143,8 +143,9 @@
 
 
           @listenTo agentListView, "childview:select:transfer:agent", (item) =>
+            agent_info = item.model.get("info")
             current_agent = $(item.el).parents('div.btn-selector').find(".current-selection")
-            current_agent.attr("data-jid", item.model.get("jabber_user")).html(item.model.get("name"))
+            current_agent.attr("data-jid", item.model.get("jid")).html(agent_info.name)
 
             agentListView.closeDropDown()
             $(agentListView.el).parents(".btn-selector").find(".btn-action-selector").removeClass("active")
@@ -192,6 +193,13 @@
       clearInterval(@interval)
 
       if ev.keyCode is 13 and message isnt ""
+
+        to  = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
+        msg = $msg({to: to, type: "chat"}).c('body').t($.trim(message))
+        @connectionSend msg, to
+
+        message = App.request "detect:url:from:string", message
+
         currentMsg =
           token:      @token
           sender:     "agent"
@@ -209,11 +217,6 @@
         $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500)
         $(ev.currentTarget).val("")
         @composing = null
-
-        to  = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
-        msg = $msg({to: to, type: "chat"}).c('body').t($.trim(message))
-
-        @connectionSend msg, to
 
       else
         to        = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"

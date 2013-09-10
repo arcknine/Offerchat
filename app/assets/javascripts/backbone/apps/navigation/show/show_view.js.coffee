@@ -23,7 +23,19 @@
       "click a#changeStatus"             : "changeStatus"
 
     logout: ->
-      location.href = Routes.destroy_user_session_path()
+      try
+        conn = App.xmpp.connection
+        conn.sync = true
+        conn.flush()
+        conn.disconnect()
+        conn = null
+
+      $("#connecting-region").remove()
+      App.xmpp.status = "logout"
+
+      setTimeout (->
+        location.href = Routes.destroy_user_session_path()
+      ), 200
 
     changeStatus: (e) ->
       @trigger "change:user:status", e
