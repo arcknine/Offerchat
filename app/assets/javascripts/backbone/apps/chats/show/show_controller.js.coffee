@@ -143,8 +143,9 @@
 
 
           @listenTo agentListView, "childview:select:transfer:agent", (item) =>
+            agent_info = item.model.get("info")
             current_agent = $(item.el).parents('div.btn-selector').find(".current-selection")
-            current_agent.attr("data-jid", item.model.get("jabber_user")).html(item.model.get("name"))
+            current_agent.attr("data-jid", item.model.get("jid")).html(agent_info.name)
 
             agentListView.closeDropDown()
             $(agentListView.el).parents(".btn-selector").find(".btn-action-selector").removeClass("active")
