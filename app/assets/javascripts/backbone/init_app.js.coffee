@@ -17,7 +17,7 @@ connect = ->
 
   Offerchat.xmpp.connection = new Strophe.Connection bosh_url
   Offerchat.xmpp.connection.connect username, password, (status) ->
-    console.log status
+
     if status is Strophe.Status.CONNECTED
       $("#connecting-region").fadeOut()
 
