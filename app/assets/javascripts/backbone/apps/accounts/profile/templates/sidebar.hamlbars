@@ -8,4 +8,6 @@
   %li
     %a.password{href: ""} Password
   %li
-    %a.instructions{href: ""} IM Instructions
+    %a.instructions{href: ""}
+      IM Instructions
+      %span.tag-new new
