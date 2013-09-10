@@ -91,7 +91,6 @@
       @show @layout
 
       $(window).resize ->
-        # console.log $("#chat-sidebar-region").has("class")
         if ( $("#chat-sidebar-region").hasClass("chats-sidebar-container") )
           $("#chat-sidebar-region").css("height", ($(window).height() - 93) + "px")
 
@@ -228,8 +227,6 @@
           # remove agent from list
           App.navigate Routes.root_path(), trigger: true if Backbone.history.fragment.indexOf(agent.get("token")) != -1
           @agents.remove agent
-          console.log @agents
-          console.log agent
 
       else if !$(presence).find('offerchat').text() and typeof agent is "undefined"
         @connection.vcard.get ((stanza) =>
