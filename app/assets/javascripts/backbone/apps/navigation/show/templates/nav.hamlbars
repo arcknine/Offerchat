@@ -47,7 +47,7 @@
               %span#current-status
                 Away
           %li.logout.bordered
-            %a{href: "/logout", data: {status: "logout"}}
+            %a{data: {status: "logout"}}
               %span.status.signout
                 %i.icon.icon-small-x
               Signout

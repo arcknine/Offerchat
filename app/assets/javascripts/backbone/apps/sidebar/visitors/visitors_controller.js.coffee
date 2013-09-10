@@ -228,6 +228,8 @@
           # remove agent from list
           App.navigate Routes.root_path(), trigger: true if Backbone.history.fragment.indexOf(agent.get("token")) != -1
           @agents.remove agent
+          console.log @agents
+          console.log agent
 
       else if !$(presence).find('offerchat').text() and typeof agent is "undefined"
         @connection.vcard.get ((stanza) =>
