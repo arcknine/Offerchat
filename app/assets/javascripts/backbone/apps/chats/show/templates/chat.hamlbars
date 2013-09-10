@@ -20,7 +20,7 @@
       {{/if}}
 
   .chat-table.chat-container-table
-    %p {{message}}
+    %p {{{message}}}
 
   .chat-time {{timesimple}}
 {{/if}}

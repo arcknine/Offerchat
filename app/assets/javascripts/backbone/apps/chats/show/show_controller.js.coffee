@@ -192,6 +192,13 @@
       clearInterval(@interval)
 
       if ev.keyCode is 13 and message isnt ""
+
+        to  = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
+        msg = $msg({to: to, type: "chat"}).c('body').t($.trim(message))
+        @connectionSend msg, to
+
+        message = App.request "detect:url:from:string", message
+
         currentMsg =
           token:      @token
           sender:     "agent"
@@ -209,11 +216,6 @@
         $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500)
         $(ev.currentTarget).val("")
         @composing = null
-
-        to  = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
-        msg = $msg({to: to, type: "chat"}).c('body').t($.trim(message))
-
-        @connectionSend msg, to
 
       else
         to        = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
