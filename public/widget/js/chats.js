@@ -542,6 +542,7 @@ Chats = {
     d   = new Date();
 
     message = message.replace("!trigger ", "");
+    message = Helpers.detectURL(message);
 
     classTag = sender != "You" ? " agent-message" : "";
     if (cur !== 0 && this.messages[cur - 1].sender == sender) {

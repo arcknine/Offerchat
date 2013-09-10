@@ -128,6 +128,12 @@
         messages = App.request "messeges:entities"
         messages.add(@messages.where token: @token)
 
+        to  = "#{@agent.get("jid")}@#{gon.chat_info.server_name}"
+        msg = $msg({to: to, type: "chat"}).c('body').t($.trim(message))
+        @connectionSend msg, to
+
+        message = App.request "detect:url:from:string", message
+
         msgs =
           token:      @token
           sender:     "agent"
@@ -143,11 +149,6 @@
         $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500);
         $(ev.currentTarget).val("")
         @composing = null
-
-        to  = "#{@agent.get("jid")}@#{gon.chat_info.server_name}"
-        msg = $msg({to: to, type: "chat"}).c('body').t($.trim(message))
-
-        @connectionSend msg, to
 
       else
         to        = "#{@agent.get("jid")}@#{gon.chat_info.server_name}"
