@@ -91,7 +91,6 @@
       @show @layout
 
       $(window).resize ->
-        # console.log $("#chat-sidebar-region").has("class")
         if ( $("#chat-sidebar-region").hasClass("chats-sidebar-container") )
           $("#chat-sidebar-region").css("height", ($(window).height() - 93) + "px")
 
