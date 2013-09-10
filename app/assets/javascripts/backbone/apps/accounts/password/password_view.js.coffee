@@ -15,7 +15,7 @@
       "click a.profile" :                         "nav:accounts:clicked"
       "click a.password" :                        "nav:password:clicked"
       "click a.invoices" :                        "nav:invoices:clicked"
-      #"click a.notifications" :                   "nav:notifications:clicked"
+      "click a.instructions" :                    "nav:instructions:clicked"
 
   class Password.View extends App.Views.ItemView
     template: "accounts/password/password"

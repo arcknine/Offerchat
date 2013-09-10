@@ -26,6 +26,9 @@
 
       @listenTo navView, "nav:password:clicked", (item) =>
         App.navigate '#profiles/passwords', trigger: true
+        
+      @listenTo navView, "nav:instructions:clicked", (item) =>
+        App.navigate '#profiles/instructions', trigger: true
 
       @layout.accountSidebarRegion.show navView
       @setSelectedNav(navView, section)

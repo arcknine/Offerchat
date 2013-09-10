@@ -1,0 +1,4 @@
+#accounts-sidebar-region.column.sidebar
+#accounts-main-region.column-content-container
+  IM User: {{user.jabber_user}}
+  IM Password: {{user.jabber_password}}
