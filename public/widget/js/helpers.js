@@ -38,9 +38,9 @@ Helpers = {
   },
 
   detectURL: function(str) {
-    var urlPattern          = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim
-    var pseudoUrlPattern    = /(^|[^\/])(www\.[\S]+(\b|$))/gim
-    var emailAddressPattern = /\w+@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6})+/gim
+    var urlPattern          = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
+    var pseudoUrlPattern    = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+    var emailAddressPattern = /\w+@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6})+/gim;
 
     return str
       .replace(urlPattern, '<a href="$&" target="_blank">$&</a>')
