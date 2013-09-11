@@ -229,6 +229,7 @@
         else if typeof agent isnt "undefined"
           # remove agent from list
           App.navigate Routes.root_path(), trigger: true if Backbone.history.fragment.indexOf(agent.get("token")) != -1
+          @siteAgents.remove agent
           @agents.remove agent
 
       else if !$(presence).find('offerchat').text() and typeof agent is "undefined"
