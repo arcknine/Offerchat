@@ -4,6 +4,7 @@ $ ->
 
   window.onbeforeunload = (e) ->
     status = Offerchat.xmpp.status
+    sessionStorage.setItem("refresh", true)
     "" unless status is Strophe.Status.DISCONNECTED or status is "logout"
 
 closeApp = ->

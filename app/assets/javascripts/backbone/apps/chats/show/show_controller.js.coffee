@@ -10,36 +10,41 @@
       @layout      = @getLayout()
       visitors     = App.request "get:chats:visitors"
       @visitor     = visitors.findWhere token: @token
+      visitor      = @visitor
       @visitor     = App.request "visitor:entity" if typeof @visitor is "undefined"
       @height      = App.request "get:chat:window:height"
       @messages    = App.request "get:chats:messages"
       @transcript  = App.request "transcript:entity"
       @transcript.url = Routes.email_export_transcript_index_path
+      @scroll      = false
 
       @visitor.setActiveChat() if @visitor
 
-      if @messages.length is 0
-        @messages.add JSON.parse(localStorage.getItem("ofc-chatlog-"+@token))
-      else
-        localStorage.setItem("ofc-chatlog-"+@token, JSON.stringify(@messages))
-
-      @currentMsgs = App.request "messeges:entities"
       @agentMsgs   = App.request "get:agent:chats:messages"
-      @currentMsgs.add @messages.where({token: @token})
+      if typeof visitor isnt "undefined" and @visitor.get("history") isnt true
+        @parseChatHistory()
+      else
+        @currentMsgs = App.request "messeges:entities"
+        @currentMsgs.add @messages.where({token: @token})
 
       @listenTo visitors, "add", =>
+        console.log "add", new Date().getTime()
         if @visitor.get("token") isnt @token
           visitor = visitors.findWhere token: @token
           unless typeof visitor is "undefined"
             visitor.setActiveChat()
+            visitor.set history: true
             @visitor.set visitor.attributes
+
+            @parseChatHistory()
 
       @listenTo @messages, "add", (message) =>
         if message.get("token") is @token
           @currentMsgs.add message
-          $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500);
+          $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500) if @scroll is true
 
       @listenTo @layout, "show", =>
+        console.log "show", new Date().getTime()
         @visitorInfoView()
         @chatsView()
 
@@ -213,7 +218,7 @@
           currentMsg.childClass = "child"
 
         @messages.add currentMsg
-        localStorage.setItem("ofc-chatlog-"+@token, JSON.stringify(@messages))
+        # localStorage.setItem("ofc-chatlog-"+@token, JSON.stringify(@messages))
         $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500)
         $(ev.currentTarget).val("")
         @composing = null
@@ -274,3 +279,36 @@
       @listenTo @transcript, "created", (model) =>
         formView.close()
         @showNotification("Transcript has been successfully sent!")
+
+    parseChatHistory: ->
+      history      = App.request "get:chats:history", @token
+      @currentMsgs = App.request "messeges:entities"
+
+      App.execute "when:fetched", history, =>
+        messages = @messages.where token: @token
+        @messages.remove messages
+        @visitor.set history: true
+        @scroll = false
+        $.each history.models, (index, model) =>
+          sender = (if model.get("sender") is @visitor.get("info").name then "visitor" else model.get("sender"))
+          jid    = (if model.get("sender") is @visitor.get("info").name then @visitor.get("jid") else "You")
+          msgs =
+            jid:     jid
+            message: model.get("msg")
+            sender:  sender
+            time:    model.get("sent")
+            timesimple: moment(model.get("sent")).format('hh:mma')
+            token:   @token
+            viewing: false
+            scroll:  false
+
+          if @currentMsgs.last() and @currentMsgs.last().get("sender") is sender
+            msgs.child      = true
+            msgs.childClass = "child"
+
+          # @currentMsgs.add msgs
+          @messages.add msgs
+
+        @messages.add messages[0]
+        $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 100)
+        @scroll = true
