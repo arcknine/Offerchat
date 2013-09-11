@@ -2411,12 +2411,12 @@ Strophe.Connection.prototype = {
             if (req.sends > 1) {
                 // Using a cube of the retry number creates a nicely
                 // expanding retry window
-                sessionStorage.setItem('ofc_reconnect', true);
+                // sessionStorage.setItem('ofc_reconnect', true);
                 var backoff = Math.min(Math.floor(Strophe.TIMEOUT * this.wait),
                                        Math.pow(req.sends, 3)) * 1000;
                 setTimeout(sendFunc, backoff);
             } else {
-                sessionStorage.setItem('ofc_reconnect', false);
+                // sessionStorage.setItem('ofc_reconnect', false);
                 sendFunc();
             }
 

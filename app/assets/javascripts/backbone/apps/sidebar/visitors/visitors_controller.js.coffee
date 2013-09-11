@@ -68,6 +68,8 @@
         @visitorsList()
 
       @listenTo @agents, "all", =>
+        # agents = @agents.where token: "41376457245"
+        # @agents.remove agents
         @agentsList()
 
       @listenTo @unreadMsgs, "all", (type) =>
@@ -311,7 +313,7 @@
         info     = visitor.get "info"
         new_message = @messages.where token: token
         messages.add(new_message)
-        localStorage.setItem("ofc-chatlog-"+token, JSON.stringify(new_message))
+        # localStorage.setItem("ofc-chatlog-"+token, JSON.stringify(new_message))
         visitor_msg =
           token:      token
           jid:        info.name
@@ -449,5 +451,5 @@
         timesimple: moment().format('hh:mma')
         viewing:    true
       @messages.add curUrl
-      localStorage.setItem("ofc-chatlog-"+token, JSON.stringify(curUrl))
+      # localStorage.setItem("ofc-chatlog-"+token, JSON.stringify(curUrl))
 
