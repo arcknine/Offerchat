@@ -128,6 +128,8 @@ module Offerchat
               availableRoster.update_attributes(:last_used => Time.now )
               availableRoster.save
 
+              UpdateRosterWorker.perform_async(availableRoster.id, visitor.name)
+
               { roster: availableRoster, visitor: visitor }
             end
           end
