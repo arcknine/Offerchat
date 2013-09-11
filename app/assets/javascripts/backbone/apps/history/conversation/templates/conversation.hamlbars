@@ -11,7 +11,8 @@
     {{agent}}
 .td-container.td-time
   .td-content
-    {{momentary}}
+    %small
+      {{momentary}}
     //1
     //%small.time-currency
     //  min
