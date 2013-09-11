@@ -19,9 +19,6 @@
     itemView: Visitors.View
     itemViewContainer: "div.visitors-wrapper"
 
-    collectionEvents:
-      "change" : "render"
-
     serializeData: ->
       visitors_count: @collection.length
 
@@ -33,9 +30,6 @@
   class Visitors.Agents extends App.Views.CompositeView
     template: "sidebar/visitors/agents"
     itemView: Visitors.Agent
-
-    collectionEvents:
-      "change" : "render"
 
     serializeData: ->
       agents_count: @collection.length
