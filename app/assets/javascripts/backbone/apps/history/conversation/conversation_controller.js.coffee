@@ -8,7 +8,6 @@
       currentUser = App.request "get:current:user"
       self = @
 
-      App.request "show:preloader"
       App.execute "when:fetched", agents, (item)=>
         conversations = App.request "get:conversations:entitites", null, agents.pluck("id")
 
@@ -23,7 +22,6 @@
             success: ->
               convos = self.organizeConversations(conversations)
               self.layout.conversationsRegion.show self.getConversationsRegion(convos)
-              App.request "hide:preloader"
 
         App.execute "when:fetched", conversations, (item)=>
           @listenTo @layout, "show", =>
@@ -42,6 +40,9 @@
                   conversations.each (item)->
                     if ($.inArray(item.get("_id"), ids) isnt -1)
                       item.destroy()
+                  App.request "hide:preloader"
+                error: ->
+                  App.request "hide:preloader"
 
 
             @layout.headerRegion.show headerRegion
