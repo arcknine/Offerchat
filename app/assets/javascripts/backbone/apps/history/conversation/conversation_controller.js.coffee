@@ -40,14 +40,14 @@
                     if ($.inArray(item.get("_id"), ids) isnt -1)
                       item.destroy()
                   App.request "hide:preloader"
-                # error: ->
-                #   App.request "hide:preloader"
+                error: ->
+                  App.request "hide:preloader"
 
 
             @layout.headerRegion.show headerRegion
             @layout.filterRegion.show @getFilterRegion(agents)
             @layout.conversationsRegion.show @getConversationsRegion(convos)
-            # App.request "hide:preloader"
+            App.request "hide:preloader"
           @show @layout
 
         App.commands.setHandler "open:conversation:modal", (item)=>
