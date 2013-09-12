@@ -16,10 +16,3 @@
               %button.btn.action{:type => "submit"} Continue
               .block-text-message
                 = flash[:alert]
-      - if Rails.env.production?
-        :javascript
-          $('#new_user').submit(function(e) {
-          _gaq.push(['_trackEvent', 'Join', 'Sign Up']);
-          $(':button', this).attr('disabled', true);
-          });
-

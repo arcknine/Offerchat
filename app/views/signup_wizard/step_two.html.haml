@@ -1,3 +1,7 @@
+- if Rails.env.production?
+  :javascript
+    _gaq.push(['_trackEvent', 'Join', 'Sign Up']);
+
 .main-content-view.tour-content-view
   .tour-content-inner
 
