@@ -21,6 +21,8 @@ Dashboard::Application.routes.draw do
 
   resources :subscriptions
 
+  resources :quick_responses
+
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}, :controllers => {
     :registrations => "registrations"
   }
@@ -44,6 +46,9 @@ Dashboard::Application.routes.draw do
   mount RailsAdmin::Engine => '/admins', :as => 'rails_admin'
 
   require 'sidekiq/web'
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == 'admin' && password == '0ff3rch@t'
+  end
   mount Sidekiq::Web => '/sidekiq'
 
   mount StripeEvent::Engine => '/stripe_webhook'
