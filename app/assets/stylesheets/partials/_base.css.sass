@@ -256,6 +256,15 @@ label
   &.bordered-top
     border-top: 1px solid #e1e1e1
 
+.alert-block-message
+  padding: 10px 0
+  font-size: 12px
+  
+  .btn
+    padding: 3px 7px
+  &.warning
+    span.message
+      color: $button-bg-warning-color
 
 .block-message
   a.close
@@ -829,11 +838,6 @@ a.block-list-item, .block-list-item
     border-bottom: 1px solid #e1e1e1
     &:first-child
       border-top: 1px solid #e1e1e1
-    &:hover
-      .meta-actions
-        visibility: visible
-        opacity: 1
-        @include transition(.2s)
     > a
       padding: 10px
       font-size: 12px

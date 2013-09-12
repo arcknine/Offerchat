@@ -261,10 +261,11 @@
           title:     title
 
       else
-        @displayCurrentUrl(token, node, info.url)
-        resources = visitor.get "resources"
-        resources.push(resource) if $.inArray(resource, resources) is -1
-        visitor.set { jid: node, resources: resources, info: info, status: chatting, available: available, title: title }
+        unless agent
+          @displayCurrentUrl(token, node, info.url)
+          resources = visitor.get "resources"
+          resources.push(resource) if $.inArray(resource, resources) is -1
+          visitor.set { jid: node, resources: resources, info: info, status: chatting, available: available, title: title }
 
       true
 

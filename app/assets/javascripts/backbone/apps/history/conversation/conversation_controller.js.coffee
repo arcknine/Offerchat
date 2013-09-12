@@ -13,8 +13,6 @@
         conversations = App.request "get:conversations:entitites", null, agents.pluck("id")
 
         App.commands.setHandler "conversations:fetch", (aids)=>
-          
-          App.request "show:preloader"
           conversations.fetch
             data: {aids: aids}
             dataType : "jsonp"
@@ -23,7 +21,6 @@
             success: ->
               convos = self.organizeConversations(conversations)
               self.layout.conversationsRegion.show self.getConversationsRegion(convos)
-              App.request "hide:preloader"
 
         App.execute "when:fetched", conversations, (item)=>
           @listenTo @layout, "show", =>
@@ -42,6 +39,9 @@
                   conversations.each (item)->
                     if ($.inArray(item.get("_id"), ids) isnt -1)
                       item.destroy()
+                  App.request "hide:preloader"
+                error: ->
+                  App.request "hide:preloader"
 
 
             @layout.headerRegion.show headerRegion

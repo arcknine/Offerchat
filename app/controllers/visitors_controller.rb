@@ -3,6 +3,11 @@ class VisitorsController < ApplicationController
   respond_to :json
 
   def show
-  	@visitor = Visitor.find params[:id]
+    begin
+  	  @visitor = Visitor.find params[:id]
+      respond_with @visitor
+    rescue
+      render json: []
+    end
   end
 end
