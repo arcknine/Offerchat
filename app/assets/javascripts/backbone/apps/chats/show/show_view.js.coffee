@@ -7,6 +7,10 @@
       visitorRegion:  "#visitor-info-region"
       chatsRegion:    "#chats-region"
 
+    serializeData: ->
+      is_chatting: @options.is_chatting
+      agent_name: @options.agent_name
+
   class Show.VisitorInfo extends App.Views.ItemView
     template:  "chats/show/visitor"
     className: "block chat-header"

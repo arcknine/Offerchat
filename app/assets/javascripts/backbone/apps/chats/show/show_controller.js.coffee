@@ -7,7 +7,6 @@
     initialize: (options ={}) ->
       { @token }   = options
       @connection  = App.xmpp.connection
-      @layout      = @getLayout()
       visitors     = App.request "get:chats:visitors"
       @visitor     = visitors.findWhere token: @token
       visitor      = @visitor
@@ -17,6 +16,8 @@
       @transcript  = App.request "transcript:entity"
       @transcript.url = Routes.email_export_transcript_index_path
       @scroll      = false
+
+      @layout      = @getLayout()
 
       @visitor.setActiveChat() if @visitor
 
@@ -28,7 +29,6 @@
         @currentMsgs.add @messages.where({token: @token})
 
       @listenTo visitors, "add", =>
-        console.log "add", new Date().getTime()
         if @visitor.get("token") isnt @token
           visitor = visitors.findWhere token: @token
           unless typeof visitor is "undefined"
@@ -43,8 +43,7 @@
           @currentMsgs.add message
           $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500) if @scroll is true
 
-      @listenTo @layout, "show", =>
-        console.log "show", new Date().getTime()
+      @listenTo @layout, "show", (e) =>
         @visitorInfoView()
         @chatsView()
 
@@ -250,8 +249,16 @@
           height:        $(window).height()
           visitor_chats: ($(window).height() - 296) + "px"
 
-    getLayout: ->
+    getLayout: =>
+      visitor_info = @visitor.get("info")
+      chatting = visitor_info.chatting
+
+      active_chat = true
+      if chatting.agent is gon.current_user.jabber_user then active_chat = false
+
       new Show.Layout
+        is_chatting: active_chat
+        agent_name: chatting.name
 
     getVisitorInfoView: ->
       new Show.VisitorInfo
@@ -263,7 +270,6 @@
         model:      @height
 
     getTranscriptModalView: ->
-
       new Show.TransciptModal
         collection: @currentMsgs
         model: @transcript
