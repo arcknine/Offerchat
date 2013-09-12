@@ -8,12 +8,11 @@
       currentUser = App.request "get:current:user"
       self = @
 
+      App.request "show:preloader"
       App.execute "when:fetched", agents, (item)=>
         conversations = App.request "get:conversations:entitites", null, agents.pluck("id")
 
         App.commands.setHandler "conversations:fetch", (aids)=>
-          
-          App.request "show:preloader"
           conversations.fetch
             data: {aids: aids}
             dataType : "jsonp"
