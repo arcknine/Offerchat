@@ -31,11 +31,11 @@ module OpenfireApi
     end
   end
 
-  def self.update_roster(agent, visitor, name, groups)
+  def self.update_roster(agent, visitor, name, groups = "")
     name   = URI.escape(name)
     groups = URI.escape(groups)
 
-    if groups.blank?
+    if groups.empty?
       url = "#{ENV["CHAT_SERVER_URL"]}#{ENV["USER_SERVICE_ENDPOINT"]}type=update_roster&secret=#{ENV["CHAT_SERVER_SECRET"]}&username=#{agent}&item_jid=#{visitor}@#{ENV["CHAT_SERVER_NAME"]}&name=#{name}&subscription=3"
     else
       url = "#{ENV["CHAT_SERVER_URL"]}#{ENV["USER_SERVICE_ENDPOINT"]}type=update_roster&secret=#{ENV["CHAT_SERVER_SECRET"]}&username=#{agent}&item_jid=#{visitor}@#{ENV["CHAT_SERVER_NAME"]}&name=#{name}&groups=#{groups}&subscription=3"

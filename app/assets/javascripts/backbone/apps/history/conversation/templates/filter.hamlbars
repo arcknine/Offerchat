@@ -19,7 +19,7 @@
    
 .td-container.td-time
   .td-content
-    AHT
+    Date
 .td-container.td-message
   .td-content
     Message

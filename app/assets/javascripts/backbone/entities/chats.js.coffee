@@ -16,6 +16,7 @@
       bounce: null
       email: "piki_pare_erap@yahoo.com"
       gravatar: null
+      history: false
 
     generateGravatarSource: ->
       @set { gravatar: "https://www.gravatar.com/avatar/#{ MD5.hexdigest($.trim(@get("email")).toLowerCase()) }?s=100&d=mm" }
@@ -50,6 +51,11 @@
 
   class Entities.UnreadMessages extends App.Entities.Collection
     model: Entities.UnreadMessage
+
+  class Entities.ChatHistory extends App.Entities.Model
+
+  class Entities.ChatsHistory extends App.Entities.Collection
+    model: Entities.ChatHistory
 
   API =
     setVisitor: ->
@@ -95,6 +101,16 @@
     UnreadMessages: ->
       new Entities.UnreadMessages
 
+    getChatsHistory: (token) ->
+      history = new Entities.ChatsHistory
+      history.url = "#{gon.history_url}/chats/#{token}"
+      history.fetch
+        dataType: "jsonp"
+        data:
+          aid: gon.current_user.id
+        processData: true
+      history
+
   App.reqres.setHandler "visitor:entity", ->
     API.setVisitor()
 
@@ -122,3 +138,5 @@
   App.reqres.setHandler "unread:messages:entities", ->
     API.UnreadMessages()
 
+  App.reqres.setHandler "get:chats:history", (token) ->
+    API.getChatsHistory token
