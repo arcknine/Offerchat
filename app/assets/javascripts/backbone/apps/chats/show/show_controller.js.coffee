@@ -253,8 +253,9 @@
       visitor_info = @visitor.get("info")
       chatting = visitor_info.chatting
 
-      active_chat = true
-      if chatting.agent is gon.current_user.jabber_user then active_chat = false
+      active_chat = false
+      if chatting.agent isnt "" and chatting.agent isnt gon.current_user.jabber_user
+        active_chat = true
 
       new Show.Layout
         is_chatting: active_chat
