@@ -76,7 +76,7 @@ class Website < ActiveRecord::Base
       presence = response.xpath("presence")
       status = presence.xpath("status").inner_text
       vacant_roster = status.to_s == "Unavailable" ? r : []
-      break vacant_roster if status.to_s == "Unavailable"
+      break vacant_roster if ["away", "Unavailable"].include? status.to_s
       break vacant_roster if a_rosters.last.id == r.id
     end
   end
