@@ -8,12 +8,11 @@
       currentUser = App.request "get:current:user"
       self = @
 
+      App.request "show:preloader"
       App.execute "when:fetched", agents, (item)=>
         conversations = App.request "get:conversations:entitites", null, agents.pluck("id")
 
         App.commands.setHandler "conversations:fetch", (aids)=>
-          
-          App.request "show:preloader"
           conversations.fetch
             data: {aids: aids}
             dataType : "jsonp"
@@ -41,14 +40,14 @@
                     if ($.inArray(item.get("_id"), ids) isnt -1)
                       item.destroy()
                   App.request "hide:preloader"
-                error: ->
-                  App.request "hide:preloader"
+                # error: ->
+                #   App.request "hide:preloader"
 
 
             @layout.headerRegion.show headerRegion
             @layout.filterRegion.show @getFilterRegion(agents)
             @layout.conversationsRegion.show @getConversationsRegion(convos)
-            App.request "hide:preloader"
+            # App.request "hide:preloader"
           @show @layout
 
         App.commands.setHandler "open:conversation:modal", (item)=>
