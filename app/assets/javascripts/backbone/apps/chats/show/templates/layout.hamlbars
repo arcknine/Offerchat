@@ -1,3 +1,9 @@
+{{#if is_chatting}}
+.block-message.chat-actions-notifications.warning
+  %strong {{agent_name}}
+  is actively chatting. Engaging a chat might cause interruptions.
+{{/if}}
+
 #visitor-info-region
 .block-message{ :style => "display:none;" }
   %a.close
