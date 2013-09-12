@@ -261,7 +261,7 @@
           title:     title
 
       else
-        if !status
+        unless agent
           @displayCurrentUrl(token, node, info.url)
           resources = visitor.get "resources"
           resources.push(resource) if $.inArray(resource, resources) is -1
