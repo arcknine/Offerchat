@@ -79,7 +79,7 @@
                       errs.push "#{attribute.charAt(0).toUpperCase()}#{attribute.slice(1)} #{message}" for message in messages
                     else
                       errs.push "#{message}" for message in messages
-                  self.showNotification _.first(errs)
+                  self.showNotification _.first(errs), 'warning'
                 modalAgentView.close()
 
           addAgentViewLayout.agentRegion.show addAgentView
