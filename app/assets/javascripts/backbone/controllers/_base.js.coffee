@@ -18,9 +18,9 @@
       @listenTo view, "close", @close
       @region.show view
 
-    showNotification: (message) ->
+    showNotification: (message, type="success") ->
       $(".block-message").find("span").html(message)
-      $(".block-message").fadeIn()
+      $(".block-message").addClass(type).fadeIn()
 
       setTimeout ->
         $(".block-message").fadeOut()
