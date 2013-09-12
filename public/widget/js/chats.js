@@ -262,6 +262,7 @@ Chats = {
   },
 
   onPresence: function(presence) {
+    console.log(presence);
     var pres, from, type, show, jid, node, agent, index, current_agent;
     pres = $(presence);
     from = pres.attr('from');
@@ -278,14 +279,21 @@ Chats = {
       if (node == agent.node)
         clearInterval(Chats.reload_app);
 
-      if (agent.node == node && type == "unavailable") {
+      console.log("agent node: ", agent.jabber_user, "node: ", node);
+      console.log("type: ", type);
+      if (agent.jabber_user == node && type == "unavailable") {
+        // console.log("sud dri?");
         index = $.inArray(node, Chats.agents);
         if (index > -1) Chats.agents.splice(index, 1);
 
+        var interval = 0;
         Chats.reload_app = setTimeout(function(){
+          console.log(interval);
           Offerchat.agent({website_id: Offerchat.website.id}).remove();
           Chats.agent = Offerchat.agent({website_id: Offerchat.website.id}).first();
 
+          console.log(Chats.agents);
+          interval++;
           clearInterval(Chats.reload_app);
         }, 15000);
       } else if (type == "unavailable" || show == "away") {
@@ -683,7 +691,7 @@ Chats = {
 
       // will disconnect on 5mins
       // 1200 - 20mins
-      if (time_diff > 1200 && _this.connection !== null) {
+      if (time_diff > 300 && _this.connection !== null) {
         sessionStorage.setItem("ofc-disconnect", true);
         Offerchat.details({id: Offerchat.website.id}).update({connect: false});
         Offerchat.roster({website_id: Offerchat.website.id}).remove();
