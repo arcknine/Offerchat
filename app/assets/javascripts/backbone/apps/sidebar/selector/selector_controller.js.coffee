@@ -9,10 +9,8 @@
       @layout      = @getLayoutView()
 
       App.execute "when:fetched", sites, =>
-        site = sites.last()
-        site.attributes.all = false;
+        @currentSite.set { all: true, name: "All websites" }
 
-        @currentSite.set site.attributes
         @bindLayoutEvents()
 
         @listenTo @layout, "show", ->
