@@ -193,7 +193,7 @@
 
 
     sendChat: (ev) =>
-      message = $(ev.currentTarget).val()
+      message = $.trim($(ev.currentTarget).val())
       clearInterval(@interval)
 
       if ev.keyCode is 13 and message isnt ""
