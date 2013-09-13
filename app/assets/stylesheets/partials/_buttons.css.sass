@@ -48,6 +48,15 @@
       background-color: darken($button-bg-warning-color, 5%)
       box-shadow: 0 1px 1px darken($button-bg-warning-color, 15%) inset
       border-top: 1px solid darken($button-bg-warning-color, 20%)
+  &.disabled
+    color: $light-text-color
+    cursor: pointer
+    &:active
+      box-shadow: none
+    .icon
+      opacity: .5
+
+
   &.add-more-btn
     font-size: 11px
     font-weight: bold
@@ -217,7 +226,7 @@ a.trash-btn
       width: 100%
       
       .icon-arrow-down
-        top: 12px
+        top: 14px
   &.left
     float: left
     margin-right: 5px
