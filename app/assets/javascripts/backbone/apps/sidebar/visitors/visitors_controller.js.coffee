@@ -211,28 +211,29 @@
         title     = (if chatting is "online" then "Chatting with You" else title)
 
       if type is "unavailable"
-        visitor = @visitors.findWhere {  jid: node }
+        if node
+          visitor = @visitors.findWhere {  jid: node }
 
-        if visitor
-          # remove visitor from list
-          resources = visitor.get "resources"
-          index     = $.inArray(resource, resources)
+          if visitor
+            # remove visitor from list
+            resources = visitor.get "resources"
+            index     = $.inArray(resource, resources)
 
-          resources.splice(index, 1) if index > -1
+            resources.splice(index, 1) if index > -1
 
-          if resources.length is 0
-            App.navigate Routes.root_path(), trigger: true if Backbone.history.fragment.indexOf(visitor.get("token")) != -1
+            if resources.length is 0
+              App.navigate Routes.root_path(), trigger: true if Backbone.history.fragment.indexOf(visitor.get("token")) != -1
 
-            @visitors.remove visitor
-          else
-            visitor.set { jid: node, resources: resources }
-            @visitors.set visitor
+              @visitors.remove visitor
+            else
+              visitor.set { jid: node, resources: resources }
+              @visitors.set visitor
 
-        else if typeof agent isnt "undefined"
-          # remove agent from list
-          App.navigate Routes.root_path(), trigger: true if Backbone.history.fragment.indexOf(agent.get("token")) != -1
-          @siteAgents.remove agent
-          @agents.remove agent
+          else if typeof agent isnt "undefined"
+            # remove agent from list
+            App.navigate Routes.root_path(), trigger: true if Backbone.history.fragment.indexOf(agent.get("token")) != -1
+            @siteAgents.remove agent
+            @agents.remove agent
 
       else if !$(presence).find('offerchat').text() and typeof agent is "undefined"
         @connection.vcard.get ((stanza) =>
