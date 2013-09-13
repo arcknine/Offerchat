@@ -62,9 +62,10 @@ class User < ActiveRecord::Base
   end
 
   def agents
-    # agent_accounts.collect(&:user)
     ids = agent_accounts.collect(&:user_id)
-    User.where(:id => ids.push(self.id).uniq)
+    weeds = admin_sites.collect{|w| w.id}
+    uids = Account.where(website_id: weeds).where("role = ?", Account::AGENT).collect(&:user_id)
+    User.where(:id => ids.push(self.id).push(uids).uniq)
   end
 
   def find_managed_sites(website_id)
