@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>Offerchat</title>
+    <link href="/widget/css/widget.css" media="all" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="//s3.amazonaws.com/offerchat-widget/staging/js/offerchat-lib.min.js"></script>
+    <script type="text/javascript" src="/widget/js/env/development.js"></script>
+    <script type="text/javascript" src="/widget/js/helpers.js"></script>
+    <script type="text/javascript" src="/widget/new/chats.js?r=3222"></script>
+    <script type="text/javascript" src="/widget/new/templates.js?r=122"></script>
+    <script type="text/javascript" src="/widget/new/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        var get_params = {},
+        args = location.search.substr(1).split(/&/);
+        for (var i=0; i< args.length; ++i) {
+          var tmp = args[i].split(/=/);
+          if (tmp[0] != "") {
+            get_params[decodeURIComponent(tmp[0])] = decodeURIComponent(tmp.slice(1).join("").replace("+", " "));
+          }
+        }
+
+        Offerchat.init({
+          params: get_params
+        });
+      });
+    </script>
+  </body>
+</html>

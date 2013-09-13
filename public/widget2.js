@@ -7,7 +7,7 @@
       api_url: '//local.offerchat.com:3000/api/v1/widget/',
       assets:  'http://local.offerchat.com:3000',
       cdn:     '//local.offerchat.com:3000',
-      widget:  '//local.offerchat.com:3000/widget/widget-development.html'
+      widget:  '//local.offerchat.com:3000/widget/widget-new.html'
     }
   };
 
