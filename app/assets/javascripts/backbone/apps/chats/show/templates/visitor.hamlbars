@@ -8,4 +8,4 @@
     .flag-icon{:class =>"flag-{{info.ccode}}"}
     {{info.location}}
   %li
-    {{info.OS}} / {{info.browser}}
+    {{info.OS}} &middot; {{info.browser}}
