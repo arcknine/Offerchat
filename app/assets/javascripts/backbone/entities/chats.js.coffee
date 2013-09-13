@@ -17,6 +17,7 @@
       email: "piki_pare_erap@yahoo.com"
       gravatar: null
       history: false
+      yours: 2            # values: 1 = yours, 2 = vacant, 3 = chatting with other agents
 
     generateGravatarSource: ->
       @set { gravatar: "https://www.gravatar.com/avatar/#{ MD5.hexdigest($.trim(@get("email")).toLowerCase()) }?s=100&d=mm" }
@@ -26,6 +27,8 @@
 
     comparator: (visitor) ->
       -visitor.get("unread")
+      +visitor.get("yours")
+
 
   class Entities.Message extends App.Entities.Model
 

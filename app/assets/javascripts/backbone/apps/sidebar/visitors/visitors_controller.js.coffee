@@ -209,6 +209,8 @@
         available = (if chatting isnt null then true else false)
         title     = (if chatting isnt null then "Chatting with #{info.chatting.name}" else "")
         title     = (if chatting is "online" then "Chatting with You" else title)
+        yours     = (if chatting is "busy" then 3 else 1)
+        yours     = (if chatting is null then 2 else yours)
 
       if type is "unavailable"
         if node
@@ -260,13 +262,14 @@
           status:    chatting
           available: available
           title:     title
+          yours:     yours
 
       else
         unless agent
           @displayCurrentUrl(token, node, info.url)
           resources = visitor.get "resources"
           resources.push(resource) if $.inArray(resource, resources) is -1
-          visitor.set { jid: node, resources: resources, info: info, status: chatting, available: available, title: title }
+          visitor.set { jid: node, resources: resources, info: info, status: chatting, available: available, title: title, yours: yours }
 
       true
 
@@ -333,9 +336,12 @@
 
         # add ticker
         if Backbone.history.fragment.indexOf(token)==-1
-          @visitors.findWhere({token: token}).addUnread()
+          visitor = @visitors.findWhere({token: token})
+          visitor.addUnread()
+          visitor.set("yours", 1)
+
           @visitors.sort()
-          @addCounter "visitor", @visitors.findWhere({token: token})
+          @addCounter "visitor", visitor
 
           App.execute "set:new:chat:title"
 

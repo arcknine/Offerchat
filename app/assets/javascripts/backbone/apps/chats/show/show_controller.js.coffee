@@ -198,6 +198,8 @@
 
       if ev.keyCode is 13 and message isnt ""
 
+        @visitor.set("yours", 1)
+
         to  = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
         msg = $msg({to: to, type: "chat"}).c('body').t($.trim(message))
         @connectionSend msg, to
