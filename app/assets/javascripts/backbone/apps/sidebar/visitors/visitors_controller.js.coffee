@@ -184,7 +184,6 @@
       @connection.send(pres)
 
     onPresence: (presence) =>
-      console.log presence
       from     = $(presence).attr("from")
       jid      = Strophe.getBareJidFromJid from
       node     = Strophe.getNodeFromJid from
