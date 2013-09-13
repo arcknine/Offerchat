@@ -150,4 +150,4 @@
         processData: true
         success: ->
           self.trigger "close:chats:modal"
-          App.execute "conversations:fetch"
+          self.model.destroy()
