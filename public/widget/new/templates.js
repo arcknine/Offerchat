@@ -1,26 +1,28 @@
 Templates = {
   init: function(options) {
+    var _this = this;
     options       = options || {};
     this.params   = options.params;
     this.settings = options.settings;
     this.agents   = options.agents;
-    this.agent    = Offerchat.agent({website_id: Offerchat.website.id}).first();
-    this.details  = Offerchat.details({id: Offerchat.website.id}).first();
 
-    var _this = this;
+    this.agent    = Offerchat.agent;
+    this.details  = Offerchat.details;
+
     this.loadTemplates(function(){
       _this.layout.append();
       _this.header.append();
       _this.inputs.append();
       _this.footer.append();
 
-      if (Offerchat.any_agents_online === false && !_this.agent) {
+      if (Offerchat.any_agents_online === false) {
         _this.offline.replace();
         _this.inputs.hidden();
-        Chats.disconnect();
+        // Chats.disconnect();
 
         if (_this.settings.offline.enabled)
           $.postMessage({show: true}, Offerchat.params.current_url, parent);
+
       } else if (_this.settings.pre_chat.enabled && !_this.details.prechat) {
         _this.prechat.replace();
         _this.inputs.hidden();
@@ -60,6 +62,9 @@ Templates = {
       toggleWidget: function() {
         $.postMessage({slide: true}, _this.params.current_url, parent);
         $(".tooltip-options").removeClass("open");
+
+        // if (Chats.connection === null)
+        //   Chats.connect();
 
         return false;
       }
@@ -114,13 +119,15 @@ Templates = {
         if ($(e.target).data("sound") == "on") {
           $(e.target).text("Turn on sound");
           $(e.target).data("sound", "off");
-          Offerchat.details({id: Offerchat.website.id}).update({sound: false});
+          Offerchat.details.sound = false;
+          Offerchat.storeData("ofc-details", Offerchat.details, localStorage);
           $("#beep-notify").remove();
         } else {
           $(e.target).text("Turn off sound");
           $(e.target).data("sound", "on");
           $(e.target).parent().append('<audio id="beep-notify" src="//d3ocj2fkvch1xi.cloudfront.net/widget/images/sound.ogg"></audio>');
-          Offerchat.details({id: Offerchat.website.id}).update({sound: true});
+          Offerchat.details.sound = true;
+          Offerchat.storeData("ofc-details", Offerchat.details, localStorage);
         }
       },
       downloadTranscript: function() {
@@ -225,17 +232,12 @@ Templates = {
 
           var data = Helpers.unserialize($(this).serialize());
 
-          Offerchat.details({id: Offerchat.website.id}).update({
-            prechat: true,
-            name: data.name,
-            email: data.email,
-            message: data.message ? data.message : null
-          });
-
           _this.details.prechat = true;
           _this.details.name    = data.name;
           _this.details.email   = data.email;
           _this.details.message = data.message ? data.message : null;
+
+          Offerchat.storeData("ofc-details", _this.details, localStorage);
 
           Chats.init();
         }
@@ -264,7 +266,8 @@ Templates = {
         "click a.widget-btn" : "reconnect"
       },
       reconnect: function(e) {
-        Offerchat.details({id: Offerchat.website.id}).update({connect: true});
+        Offerchat.details.connect = true;
+        Offerchat.storeData("ofc-details", Offerchat.details, localStorage);
         Chats.init();
         _this.reconnect.destroy();
         _this.loader.replace();
