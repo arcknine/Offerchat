@@ -57,11 +57,19 @@
         @respondTransfer msg.model, 'accepted'
 
         vtoken = msg.model.get('trn_vtoken')
-        App.navigate "chats/visitor/#{vtoken}", trigger: true   # navigate to visitor chat
 
         visitorList = App.request "get:chats:visitors"
         visitor = visitorList.findWhere token: vtoken
-        visitor.set('active', 'active')
+
+        info = visitor.get("info")
+        info.chatting =
+          agent: gon.current_user.jabber_user
+          name: gon.current_user.display_name
+          status: true
+
+        visitor.set {info: info}
+
+        App.navigate "chats/visitor/#{vtoken}", trigger: true   # navigate to visitor chat
 
         # send stanza to accept
         agent_jid = "#{@token}@#{gon.chat_info.server_name}"

@@ -43,7 +43,7 @@
           @currentMsgs.add message
           $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500) if @scroll is true
 
-      @listenTo @layout, "show", (e) =>
+      @listenTo @layout, "show", =>
         @visitorInfoView()
         @chatsView()
 
@@ -316,6 +316,6 @@
           # @currentMsgs.add msgs
           @messages.add msgs
 
-        @messages.add messages[0]
+        # @messages.add messages[0]
         $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 100)
         @scroll = true
