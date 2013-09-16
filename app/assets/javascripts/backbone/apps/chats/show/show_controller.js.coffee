@@ -80,6 +80,7 @@
     transferChat: =>
       # only get online agents
       agents = App.request "get:online:agents"
+      siteAgents  = App.request "online:agents:entities"
 
       App.execute "when:fetched", agents, =>
 
@@ -91,7 +92,11 @@
           modalView = @getTransferChatModalView @visitor
           formView  = App.request "modal:wrapper", modalView
 
-          agentListView = @getAgents agents
+          $.each agents.models, (key, value) =>
+            val = siteAgents.findWhere jid: value.get("jid")
+            siteAgents.add value if typeof val is "undefined"
+
+          agentListView = @getAgents siteAgents
 
           @listenTo formView, "show", =>
             modalView.agentsListRegion.show agentListView
