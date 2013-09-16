@@ -73,6 +73,8 @@
 
         visitor.set {info: info}
 
+        visitorList.sort()
+
         App.navigate "chats/visitor/#{vtoken}", trigger: true   # navigate to visitor chat
 
         # send stanza to accept

@@ -392,6 +392,8 @@
 
               msg.set res
 
+              @visitors.sort()
+
               # the requesting agent will be redirected to the chat window
               # of the answering agent???
               # App.navigate "chats/agent/#{token}", trigger: true
