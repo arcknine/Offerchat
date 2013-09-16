@@ -58,6 +58,9 @@
     chatsView: ->
       chatsView = @getChatsView()
 
+      @listenTo chatsView, "show", ->
+        $(chatsView.el).find("textarea").focus()
+
       @listenTo chatsView, "is:typing", @sendChat
       @listenTo chatsView, "end:chat", @endChat
 
