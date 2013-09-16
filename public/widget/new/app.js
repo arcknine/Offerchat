@@ -43,8 +43,17 @@ Offerchat = {
           prechat:  false,
           name:     null,
           email:    null,
-          message:  null
+          message:  null,
+          wversion: _this.version
         };
+        _this.storeData("ofc-details", _this.details, localStorage);
+      } else if (_this.details.wversion != _this.version) {
+        localStorage.removeItem("offerchat_details");
+        localStorage.removeItem("offerchat_LjAKRZBdrkc");
+        localStorage.removeItem("offerchat_c2KtON93PneNpnmp/QBRKw==");
+        localStorage.removeItem("offerchat_CebnSNzizB7khOg3YURskQ==");
+
+        _this.details.wversion = _this.version;
         _this.storeData("ofc-details", _this.details, localStorage);
       } else {
         _this.details = details;
