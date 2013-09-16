@@ -184,7 +184,6 @@
       @connection.send(pres)
 
     onPresence: (presence) =>
-      console.log presence
       from     = $(presence).attr("from")
       jid      = Strophe.getBareJidFromJid from
       node     = Strophe.getNodeFromJid from
@@ -226,13 +225,9 @@
 
             if resources.length is 0
               App.navigate Routes.root_path(), trigger: true if Backbone.history.fragment.indexOf(visitor.get("token")) != -1
-
               @visitors.remove visitor
             else
               visitor.set { jid: node, resources: resources }
-              @visitors.set visitor
-
-            console.log "unavailable", @visitors
 
           else if typeof agent isnt "undefined"
             # remove agent from list
