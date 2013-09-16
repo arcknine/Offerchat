@@ -59,6 +59,8 @@
     visitorInfoView: ->
       @visitor.generateGravatarSource()
       visitorView = @getVisitorInfoView()
+      @listenTo visitorView, "show:quick_responses", =>
+        console.log("quick")
       @layout.visitorRegion.show visitorView
 
     chatsView: ->

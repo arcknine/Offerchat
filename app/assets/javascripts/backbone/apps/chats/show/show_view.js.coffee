@@ -16,6 +16,9 @@
     className: "block chat-header"
     modelEvents:
       "change" : "render"
+      
+    triggers:
+      "click a.btn.show-responses" : "show:quick_responses"
 
   class Show.Chat extends App.Views.ItemView
     template:  "chats/show/chat"
