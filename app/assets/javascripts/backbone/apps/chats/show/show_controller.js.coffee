@@ -300,7 +300,8 @@
         @scroll = false
         $.each history.models, (index, model) =>
           sender = (if model.get("sender") is @visitor.get("info").name then "visitor" else model.get("sender"))
-          jid    = (if model.get("sender") is @visitor.get("info").name then @visitor.get("jid") else "You")
+          jid    = (if model.get("sender") is @visitor.get("info").name then @visitor.get("info").name else "You")
+          console.log @visitor
           msgs =
             jid:     jid
             message: model.get("msg")
