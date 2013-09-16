@@ -30,7 +30,7 @@ module ApplicationHelper
   def ofc_js
     js = <<-eos
       <!--start of Offerchat js code-->
-      <script type='text/javascript'>var ofc_key = 'd797224b4535d5943c6b5f83941e7374';
+      <script type='text/javascript'>var ofc_key = '87f13f29aad8db0985044b0395964087';
       (function(){  var oc = document.createElement('script'); oc.type = 'text/javascript';
       oc.async = true;  oc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') +
       'd1cpaygqxflr8n.cloudfront.net/p/js/widget.min.js?r=1';
