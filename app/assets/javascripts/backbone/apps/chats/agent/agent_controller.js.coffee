@@ -51,6 +51,10 @@
 
     loadChatsView: ->
       chatsView = @getChats()
+
+      @listenTo chatsView, "show", ->
+        $(chatsView.el).find("textarea").focus()
+
       @listenTo chatsView, "agent:is:typing", @sendChat
 
       @listenTo chatsView, "childview:chat:transfer:accept", (msg) =>
