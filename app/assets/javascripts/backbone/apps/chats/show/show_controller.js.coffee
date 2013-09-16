@@ -58,6 +58,9 @@
     chatsView: ->
       chatsView = @getChatsView()
 
+      @listenTo chatsView, "show", ->
+        $(chatsView.el).find("textarea").focus()
+
       @listenTo chatsView, "is:typing", @sendChat
       @listenTo chatsView, "end:chat", @endChat
 
@@ -80,6 +83,7 @@
     transferChat: =>
       # only get online agents
       agents = App.request "get:online:agents"
+      siteAgents  = App.request "online:agents:entities"
 
       App.execute "when:fetched", agents, =>
 
@@ -91,7 +95,11 @@
           modalView = @getTransferChatModalView @visitor
           formView  = App.request "modal:wrapper", modalView
 
-          agentListView = @getAgents agents
+          $.each agents.models, (key, value) =>
+            val = siteAgents.findWhere jid: value.get("jid")
+            siteAgents.add value if typeof val is "undefined"
+
+          agentListView = @getAgents siteAgents
 
           @listenTo formView, "show", =>
             modalView.agentsListRegion.show agentListView
@@ -301,7 +309,6 @@
         $.each history.models, (index, model) =>
           sender = (if model.get("sender") is @visitor.get("info").name then "visitor" else model.get("sender"))
           jid    = (if model.get("sender") is @visitor.get("info").name then @visitor.get("info").name else "You")
-          console.log @visitor
           msgs =
             jid:     jid
             message: model.get("msg")
