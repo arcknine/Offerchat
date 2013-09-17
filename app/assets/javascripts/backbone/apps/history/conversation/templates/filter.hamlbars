@@ -10,12 +10,18 @@
   .td-content
     .btn-selector-wrapper.full.agent-selector-wrapper
       .btn-selector
-        .btn.btn-action-selector.agent-row-selector
+        .btn.btn-action-selector.agent-row-selector{class: '{{dropdown_disabled_class}}'}
           %i.icon.icon-arrow-down
           %span.current-selection
+            {{#unless agents_count}}
+            {{agent}}
+            {{else}}
             All Agents
+            {{/unless}}
+        {{#if agents_count}}
         .dropdown-options.dark#agents-filter-region
           .caret.caret-dark
+        {{/if}}
    
 .td-container.td-time
   .td-content

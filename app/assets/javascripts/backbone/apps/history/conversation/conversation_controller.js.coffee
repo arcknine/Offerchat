@@ -99,8 +99,9 @@
     getHeaderRegion: ->
       new Conversations.Header
     
-    getFilterView: ->
+    getFilterView: (collection)->
       new Conversations.Filter
+        collection: collection
         
     getFilterRegion: (collection)->
       filterView = @getFilterView(collection)
