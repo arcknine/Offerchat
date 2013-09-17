@@ -29,12 +29,14 @@
     className: "table-row table-head shadow group"
     regions:
       agentsFilterRegion:   "#agents-filter-region"
+
     triggers:
       "click .agent-row-selector" : "agents:filter:clicked"
 
     serializeData: ->
       agents_count: @collection.length > 1
-      agent: @collection.first().get("display_name")
+      agent: @collection.at(0).get("name")
+
 
   class Conversations.Item extends App.Views.ItemView
     template: "history/conversation/conversation"
