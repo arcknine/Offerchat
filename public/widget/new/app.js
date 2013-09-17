@@ -31,6 +31,7 @@ Offerchat = {
     var _this = this, details;
     this.loadSettings(function(){
       details = _this.loadData("ofc-details", localStorage);
+
       if (!details) {
         _this.details = {
           location: null,
@@ -48,12 +49,40 @@ Offerchat = {
         };
         _this.storeData("ofc-details", _this.details, localStorage);
       } else if (_this.details.wversion != _this.version) {
+        // console.log("Removing stored data...");
+        // remove old storage
         localStorage.removeItem("offerchat_details");
         localStorage.removeItem("offerchat_LjAKRZBdrkc");
         localStorage.removeItem("offerchat_c2KtON93PneNpnmp/QBRKw==");
         localStorage.removeItem("offerchat_CebnSNzizB7khOg3YURskQ==");
 
-        _this.details.wversion = _this.version;
+        // remove localStorage
+        // _this.removeData("ofc-messages", localStorage);
+        _this.removeData("ofc-agent", localStorage);
+        _this.removeData("ofc-roster", localStorage);
+        _this.removeData("ofc-visitor", localStorage);
+
+        // remove sessionStorage
+        _this.removeData("ofc-agents", sessionStorage);
+        _this.removeData("ofc-settings", sessionStorage);
+        _this.removeData("ofc-credential", sessionStorage);
+        _this.removeData("ofc-disconnect", sessionStorage);
+
+        _this.details = {
+          location: null,
+          city:     null,
+          code:     null,
+          browser:  BrowserDetect.browser,
+          version:  BrowserDetect.version,
+          OS:       BrowserDetect.OS,
+          sound:    true,
+          prechat:  false,
+          name:     null,
+          email:    null,
+          message:  null,
+          wversion: _this.version
+        };
+
         _this.storeData("ofc-details", _this.details, localStorage);
       } else {
         _this.details = details;
