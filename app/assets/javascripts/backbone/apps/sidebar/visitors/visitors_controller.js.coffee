@@ -249,7 +249,7 @@
 
       else if typeof visitor is "undefined" && info && info.api_key
 
-        @displayCurrentUrl(token, node, info.url)
+        # @displayCurrentUrl(token, node, info.url)
         @visitors.add
           jid:       node
           token:     token
@@ -264,7 +264,7 @@
 
       else
         unless agent
-          @displayCurrentUrl(token, node, info.url)
+          # @displayCurrentUrl(token, node, info.url)
           resources = visitor.get "resources"
           resources.push(resource) if $.inArray(resource, resources) is -1
           visitor.set { jid: node, resources: resources, info: info, status: chatting, available: available, title: title, yours: yours }

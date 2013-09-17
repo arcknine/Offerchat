@@ -18,6 +18,7 @@
       @scroll      = false
 
       @layout      = @getLayout()
+      # console.log "layout", @visitor
 
       @visitor.setActiveChat() if @visitor
 
@@ -35,8 +36,8 @@
             visitor.setActiveChat()
             visitor.set history: true
             @visitor.set visitor.attributes
-
             @parseChatHistory()
+            @layout = @getLayout()
 
       @listenTo @visitor, "all", =>
         visitors.sort()
@@ -263,17 +264,23 @@
           height:        $(window).height()
           visitor_chats: ($(window).height() - 296) + "px"
 
-    getLayout: =>
+    getLayout: ->
       visitor_info = @visitor.get("info")
-      chatting = visitor_info.chatting
+      # console.log visitor_info
+      unless typeof visitor_info is "undefined"
+        chatting = visitor_info.chatting
 
-      active_chat = false
-      if chatting.agent isnt "" and chatting.agent isnt gon.current_user.jabber_user
-        active_chat = true
+        active_chat = false
+        if chatting.agent isnt "" and chatting.agent isnt gon.current_user.jabber_user
+          active_chat = true
 
-      new Show.Layout
-        is_chatting: active_chat
-        agent_name: chatting.name
+        layout = new Show.Layout
+          is_chatting: active_chat
+          agent_name: chatting.name
+      else
+        layout = new Show.Layout
+
+      layout
 
     getVisitorInfoView: ->
       new Show.VisitorInfo
@@ -310,9 +317,34 @@
         @messages.remove messages
         @visitor.set history: true
         @scroll = false
+        info    = @visitor.get("info")
+
+        if info.referrer && history.models.length is 0
+          referrer =
+            token:      @token
+            sender:     "visitor"
+            message:    info.referrer
+            time:       new Date()
+            timesimple: moment().format('hh:mma')
+            referrer:   true
+
+          @messages.add referrer
+
         $.each history.models, (index, model) =>
           sender = (if model.get("sender") is @visitor.get("info").name then "visitor" else model.get("sender"))
           jid    = (if model.get("sender") is @visitor.get("info").name then @visitor.get("info").name else "You")
+
+          if info.referrer && index is 0
+            referrer =
+              token:      @token
+              sender:     "visitor"
+              message:    info.referrer
+              time:       new Date()
+              timesimple: moment(model.get("sent")).format('hh:mma')
+              referrer:   true
+
+            @messages.add referrer
+
           msgs =
             jid:     jid
             message: model.get("msg")
