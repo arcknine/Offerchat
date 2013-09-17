@@ -1,8 +1,8 @@
 .chat-image
   %img{ :src=> "{{gravatar}}" }
 %ul.chat-list-info
-  %li.visitor-name
-    %a
+  %li
+    %a.visitor-name
       {{info.name}}
 
     %a.url{ href: "{{info.url}}", target: "_blank" } {{info.url}}

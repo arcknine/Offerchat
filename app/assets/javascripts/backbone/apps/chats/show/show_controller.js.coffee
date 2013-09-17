@@ -317,9 +317,34 @@
         @messages.remove messages
         @visitor.set history: true
         @scroll = false
+        info    = @visitor.get("info")
+
+        if info.referrer && history.models.length is 0
+          referrer =
+            token:      @token
+            sender:     "visitor"
+            message:    info.referrer
+            time:       new Date()
+            timesimple: moment().format('hh:mma')
+            referrer:   true
+
+          @messages.add referrer
+
         $.each history.models, (index, model) =>
           sender = (if model.get("sender") is @visitor.get("info").name then "visitor" else model.get("sender"))
           jid    = (if model.get("sender") is @visitor.get("info").name then @visitor.get("info").name else "You")
+
+          if info.referrer && index is 0
+            referrer =
+              token:      @token
+              sender:     "visitor"
+              message:    info.referrer
+              time:       new Date()
+              timesimple: moment(model.get("sent")).format('hh:mma')
+              referrer:   true
+
+            @messages.add referrer
+
           msgs =
             jid:     jid
             message: model.get("msg")
