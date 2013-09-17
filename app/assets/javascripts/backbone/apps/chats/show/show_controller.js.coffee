@@ -38,6 +38,9 @@
 
             @parseChatHistory()
 
+      @listenTo @visitor, "all", =>
+        visitors.sort()
+
       @listenTo @messages, "add", (message) =>
         if message.get("token") is @token
           @currentMsgs.add message
