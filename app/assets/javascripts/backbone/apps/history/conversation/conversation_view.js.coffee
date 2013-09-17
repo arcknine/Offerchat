@@ -32,13 +32,9 @@
     triggers:
       "click .agent-row-selector" : "agents:filter:clicked"
 
-    initialize: ->
-      console.log @collection.first().get("display_name")
-
     serializeData: ->
       agents_count: @collection.length > 1
       agent: @collection.first().get("display_name")
-      dropdown_disabled_class: if @collection.length > 1  then '' else 'disabled'
 
   class Conversations.Item extends App.Views.ItemView
     template: "history/conversation/conversation"
