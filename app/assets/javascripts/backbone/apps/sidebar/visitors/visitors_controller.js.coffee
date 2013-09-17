@@ -249,7 +249,7 @@
 
       else if typeof visitor is "undefined" && info && info.api_key
 
-        @displayCurrentUrl(token, node, info.url)
+        # @displayCurrentUrl(token, node, info.url)
         @visitors.add
           jid:       node
           token:     token
@@ -264,7 +264,7 @@
 
       else
         unless agent
-          @displayCurrentUrl(token, node, info.url)
+          # @displayCurrentUrl(token, node, info.url)
           resources = visitor.get "resources"
           resources.push(resource) if $.inArray(resource, resources) is -1
           visitor.set { jid: node, resources: resources, info: info, status: chatting, available: available, title: title, yours: yours }
@@ -326,9 +326,10 @@
           viewing:    false
           timesimple: moment().format('hh:mma')
 
-        if messages.last().get("jid") is info.name and messages.last().get("viewing") is false
-          visitor_msg.child      = true
-          visitor_msg.childClass = "child"
+        if typeof messages.last() isnt "undefined"
+          if messages.last().get("jid") is info.name and messages.last().get("viewing") is false
+            visitor_msg.child      = true
+            visitor_msg.childClass = "child"
 
         @messages.add visitor_msg
 
@@ -338,13 +339,14 @@
           visitor.addUnread()
           visitor.set("yours", 1)
 
-          @visitors.sort()
           @addCounter "visitor", visitor
 
           App.execute "set:new:chat:title"
 
         else
           App.execute "remove:is:typing"
+
+        @visitors.sort()
 
         # chat sound here
         App.execute "chat:sound:notify"

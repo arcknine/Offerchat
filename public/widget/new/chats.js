@@ -341,7 +341,7 @@ Chats = {
             a.website_id = Offerchat.website.id;
             a.new_convo = false;
 
-            Offerchat.storeData("ofc-details", a, localStorage);
+            Offerchat.storeData("ofc-agent", a, localStorage);
             Chats.agent = a;
 
             var header = Templates.header;
@@ -493,8 +493,7 @@ Chats = {
     var message = $(input).val();
     var _this   = this;
 
-    if (ev.keyCode == 13) {
-
+    if (ev.keyCode == 13 && $.trim(message).length > 0) {
       this.getAgent(function(agent) {
         if (agent) {
           _this.xmppSendMsg(message, agent, "You");
@@ -508,6 +507,8 @@ Chats = {
       });
 
       $(input).val("");
+    } else if ($.trim(message).length === 0) {
+      return false;
     } else {
 
       if(!this.composing){
@@ -546,6 +547,9 @@ Chats = {
     setTimeout(function() {
       conn.send(active.tree());
     }, 100);
+
+    // show if closed
+    $.postMessage({new_msg: true}, Offerchat.params.current_url, parent);
   },
 
   getAgent: function(callback) {

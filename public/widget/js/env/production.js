@@ -11,7 +11,7 @@ if (!DEBUG_MODE) {
 var global, Widget, App, Helpers, Chats;
 
 global = {
-  version: '2.0.0',
+  version: '2.1.1',
   src: {
     script:   '//new.offerchat.com/',
     bosh_url: ('https:' == document.location.protocol ? 'https://im.offerchat.com:7443/http-bind/' : 'http://im.offerchat.com:7070/http-bind/'),

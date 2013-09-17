@@ -1,13 +1,23 @@
-{{#if viewing}}
+{{#if referrer}}
+/ .chat-item.group.small
+/   .chat-table.chat-left-table
+/     &nbsp;
+/   .chat-table.chat-container-table
+/     .viewing-current-url
+/       viewing
+/       %a{:href => "{{message}}", :target => "_blank" } {{message}}
+/   .chat-time
+/     {{timesimple}}
+
 .chat-item.group.small
   .chat-table.chat-left-table
-    &nbsp;
+    .icon.icon-flag
   .chat-table.chat-container-table
-    .viewing-current-url
-      viewing
-      %a{:href => "{{message}}", :target => "_blank" } {{message}}
+    arrived from
+    %a{:href => "{{message}}", :target => "_blank" } {{message}}
   .chat-time
     {{timesimple}}
+
 
 {{else}}
 .chat-item.group{class: "{{childClass}}"}
