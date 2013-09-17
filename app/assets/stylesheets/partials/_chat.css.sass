@@ -10,15 +10,20 @@
 .chat-list-info
   vertical-align: top
   display: inline-block
-  margin-top: 5px
+  margin-top: 10px
   li
-    margin: 7px 0
+    margin: 5px 0 0 0
+    font-size: 12px
   & >
     .visitor-name
       a
         font-size: 16px
         color: $text-color
         font-weight: $bold
+        margin-right: 10px
+  span.url
+    color: $light-text-color
+    font-style: italic
 
 .chat-type-selector
   position: relative
@@ -167,6 +172,9 @@
     &.chat-container-table
       width: 68.8%
       padding-left: 10px
+    .chat-trigger-message
+      font-style: italic
+      color: $light-text-color
 
 
   .viewing-current-url
@@ -174,7 +182,8 @@
     text-overflow: ellipsis
     white-space: nowrap
   .chat-user
-
+    .icon-lightning
+      top: 3px
     &.agent
       color: darken($text-color, 20%)
     &.visitor
