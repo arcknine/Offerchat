@@ -4,6 +4,6 @@
       {{sender}}
 
   .chat-table.chat-container-table
-    %p {{msg}}
+    %p {{{msg}}}
 
   .chat-time {{sent}}
