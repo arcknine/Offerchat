@@ -4,8 +4,8 @@
   %li.visitor-name
     %a
       {{info.name}}
-    %span.url
-      https://new.offerchat.com/#chats/visitor/q-3HfzTRCrjUjPvXqLwYag
+
+    %a.url{ href: "{{info.url}}", target: "_blank" } {{info.url}}
   %li
     .flag-icon{:class =>"flag-{{info.ccode}}"}
     {{info.location}}
