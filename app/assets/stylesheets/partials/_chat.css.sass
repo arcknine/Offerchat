@@ -11,19 +11,24 @@
   vertical-align: top
   display: inline-block
   margin-top: 10px
+  width: 65%
+  overflow: hidden
   li
     margin: 5px 0 0 0
     font-size: 12px
-  & >
-    .visitor-name
-      a
-        font-size: 16px
-        color: $text-color
-        font-weight: $bold
-        margin-right: 10px
-  span.url
+    white-space: nowrap
+  a.visitor-name
+    
+    font-size: 16px
+    color: $text-color
+    font-weight: $bold
+    margin-right: 10px
+  a.url
     color: $light-text-color
     font-style: italic
+    white-space: nowrap
+    
+
 
 .chat-type-selector
   position: relative
