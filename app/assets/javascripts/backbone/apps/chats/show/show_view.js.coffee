@@ -102,3 +102,9 @@
         nosubmit: false
         cancel:  false
       title: "Export Transcript"
+      
+  class Show.ModalQuickResponses extends App.Views.ItemView
+    template: "chats/show/quick_responses"
+    className: "form form-inline"
+    form:
+      title: "Quick Responses"

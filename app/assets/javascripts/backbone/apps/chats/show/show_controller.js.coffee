@@ -61,7 +61,17 @@
       visitorView = @getVisitorInfoView()
       @listenTo visitorView, "show:quick_responses", =>
         console.log("quick")
+        @qrSidebarView()
       @layout.visitorRegion.show visitorView
+      
+    qrSidebarView: ->
+      sidebarView = @getSidebarView()
+      formView  = App.request "sidebar:wrapper", sidebarView
+      App.sidebarRegion.show formView
+      
+    getSidebarView: ->
+      new Show.ModalQuickResponses
+        model: @visitor
 
     chatsView: ->
       chatsView = @getChatsView()

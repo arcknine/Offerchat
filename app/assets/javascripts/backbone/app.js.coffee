@@ -22,6 +22,7 @@
     tourSidebarRegion:      "#tour-sidebar-region"
     mainRegion:             "#main-region"
     modalRegion:            "#modal-region"
+    sidebarRegion:          "#sidebar-region"
     previewRegion:          ModalRegion
 
   App.addInitializer ->
