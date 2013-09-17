@@ -453,10 +453,10 @@ Chats = {
   },
 
   sendChat: function(ev, input) {
-    var message = $(input).val();
+    var message = $.trim($(input).val());
     var _this   = this;
 
-    if (ev.keyCode == 13) {
+    if (ev.keyCode == 13 && message != "") {
 
       this.getAgent(function(agent) {
         if (agent) {
