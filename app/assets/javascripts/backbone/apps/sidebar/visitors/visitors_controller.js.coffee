@@ -326,9 +326,10 @@
           viewing:    false
           timesimple: moment().format('hh:mma')
 
-        if messages.last().get("jid") is info.name and messages.last().get("viewing") is false
-          visitor_msg.child      = true
-          visitor_msg.childClass = "child"
+        if typeof messages.last() isnt "undefined"
+          if messages.last().get("jid") is info.name and messages.last().get("viewing") is false
+            visitor_msg.child      = true
+            visitor_msg.childClass = "child"
 
         @messages.add visitor_msg
 
@@ -338,13 +339,14 @@
           visitor.addUnread()
           visitor.set("yours", 1)
 
-          @visitors.sort()
           @addCounter "visitor", visitor
 
           App.execute "set:new:chat:title"
 
         else
           App.execute "remove:is:typing"
+
+        @visitors.sort()
 
         # chat sound here
         App.execute "chat:sound:notify"
