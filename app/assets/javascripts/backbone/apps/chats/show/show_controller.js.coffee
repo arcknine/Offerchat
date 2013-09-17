@@ -38,6 +38,9 @@
 
             @parseChatHistory()
 
+      @listenTo @visitor, "all", =>
+        visitors.sort()
+
       @listenTo @messages, "add", (message) =>
         if message.get("token") is @token
           @currentMsgs.add message
@@ -207,6 +210,7 @@
       if ev.keyCode is 13 and message isnt ""
 
         @visitor.set("yours", 1)
+        $(".chat-actions-notifications").remove()
 
         to  = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
         msg = $msg({to: to, type: "chat"}).c('body').t($.trim(message))
