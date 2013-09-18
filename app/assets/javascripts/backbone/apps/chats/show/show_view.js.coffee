@@ -106,5 +106,12 @@
   class Show.ModalQuickResponses extends App.Views.ItemView
     template: "chats/show/quick_responses"
     className: "form form-inline"
+    
+    events:
+      "click .new-response" : "newResponse"
+      
+    newResponse: (e) ->
+      
+    
     form:
       title: "Quick Responses"

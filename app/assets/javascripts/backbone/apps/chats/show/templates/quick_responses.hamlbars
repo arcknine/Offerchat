@@ -1,9 +1,9 @@
 %ul.quick-answers-list
   %li
     %a.new-response + New Response
-    .form.form-small{ :style => "display: block;" }
+    .form.form-small.hide{ :style => "display: block;" }
       %fieldset
         %textarea.full{ :placeholder => "Enter your /command then message (ex. /response message" }
       %fieldset
-        %btn.action{ :type => "submit" } Save
+        %button.btn.action{ :type => "submit" } Save
         %a.warning.right{ :style => "margin-top: 7px;" } Cancel
