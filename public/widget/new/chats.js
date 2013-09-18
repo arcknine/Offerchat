@@ -412,6 +412,7 @@ Chats = {
     d   = new Date();
 
     message = message.replace("!trigger ", "");
+    message = Helpers.htmlEntities(message);
     message = Helpers.detectURL(message);
 
     classTag = sender != "You" ? " agent-message" : "";

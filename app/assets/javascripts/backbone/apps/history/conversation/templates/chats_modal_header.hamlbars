@@ -1,14 +1,14 @@
 .chat-image
   %img{ :src=> "{{gravatar}}" }
 %ul.chat-list-info
-  %li.visitor-name
-    %a
+  %li
+    %a.visitor-name
       {{name}}
   %li
     .flag-icon{class: "flag-{{country_code}}"}
     {{location}}
   %li
-    {{operating_system}} 
+    {{operating_system}}
     %span.dot-seperator
     {{browser}}
     /%i.icon{class: "icon-browser-#{browser}"}
