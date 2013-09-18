@@ -105,7 +105,7 @@
         // console.log(info);
         this.info = {
           token:    info.token ? info.token : null,
-          referrer: document.referrer ? document.referrer : info.referrer,
+          referrer: info.referrer ? info.referrer : document.referrer,
           position: info.position ? info.position : "right",
           footer:   info.footer === false ? info.footer : true,
           state:    info.state ? info.state : "show",
