@@ -407,10 +407,11 @@ Chats = {
   },
 
   generateMessage: function(message, sender, options) {
-    var cur, msg, d, chat, classTag;
+    var cur, msg, d, chat, classTag, flag;
     cur = this.messages.length;
     d   = new Date();
 
+    flag    = message.replace("!trigger ", "[Chat Trigger] ");
     message = message.replace("!trigger ", "");
     message = Helpers.htmlEntities(message);
     message = Helpers.detectURL(message);
@@ -448,6 +449,10 @@ Chats = {
     });
 
     chat.append();
+
+    message = Helpers.htmlEntities(flag);
+    message = Helpers.detectURL(message);
+    msg.message = message;
 
     $(".widget-chat-viewer").animate({ scrollTop: $('.widget-chat-viewer')[0].scrollHeight}, 300);
     this.createChatHistory(sender, message);
@@ -538,11 +543,11 @@ Chats = {
 
   xmppSendMsg: function(message, agent, sender) {
     var msg, to, active, conn;
-    conn   = this.connection;
-    msg    = this.generateMessage(message, sender);
-    to     = agent.jabber_user + Offerchat.src.server + "/ofc-widget";
-    msg    = $msg({to: to, type: "chat", id: conn.getUniqueId("chat")}).c("body").t(message).up().c("active", {xmlns: "http://jabber.org/protocol/chatstates"});
-    active = $msg({to: to, type: "chat", id: conn.getUniqueId("active")}).c("active", {xmlns: "http://jabber.org/protocol/chatstates"});
+    conn    = this.connection;
+    msg     = this.generateMessage(message, sender);
+    to      = agent.jabber_user + Offerchat.src.server + "/ofc-widget";
+    msg     = $msg({to: to, type: "chat", id: conn.getUniqueId("chat")}).c("body").t(msg.message).up().c("active", {xmlns: "http://jabber.org/protocol/chatstates"});
+    active  = $msg({to: to, type: "chat", id: conn.getUniqueId("active")}).c("active", {xmlns: "http://jabber.org/protocol/chatstates"});
 
     conn.send(msg.tree());
     setTimeout(function() {
