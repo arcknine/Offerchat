@@ -127,8 +127,12 @@
       visitorsView = @getVisitorsView(visitors)
 
       @listenTo visitorsView, "childview:click:visitor:tab", (visitor) =>
-        App.navigate "chats/visitor/#{visitor.model.get('token')}", trigger: true
         @subtractCounter "visitor", visitor.model
+
+        App.navigate Routes.root_path(), trigger: true
+        setTimeout(->
+          App.navigate "chats/visitor/#{visitor.model.get('token')}", trigger: true
+        , 100)
 
       @layout.visitorsRegion.show visitorsView
 
