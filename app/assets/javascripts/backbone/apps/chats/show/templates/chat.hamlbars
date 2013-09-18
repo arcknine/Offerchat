@@ -1,3 +1,16 @@
+{{#if trigger}}
+.chat-item.group
+  .chat-table.chat-left-table
+    .chat-user.agent
+      %i.icon.icon-lightning
+
+  .chat-table.chat-container-table
+    %p.chat-trigger-message
+      {{message}}
+  .chat-time
+    {{timesimple}}
+
+{{else}}
 {{#if referrer}}
 / .chat-item.group.small
 /   .chat-table.chat-left-table
@@ -13,8 +26,9 @@
   .chat-table.chat-left-table
     .icon.icon-flag
   .chat-table.chat-container-table
-    arrived from
-    %a{:href => "{{message}}", :target => "_blank" } {{message}}
+    .viewing-current-url
+      arrived from
+      %a{:href => "{{message}}", :target => "_blank" } {{message}}
   .chat-time
     {{timesimple}}
 
@@ -33,4 +47,5 @@
     %p {{{message}}}
 
   .chat-time {{timesimple}}
+{{/if}}
 {{/if}}

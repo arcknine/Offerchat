@@ -127,8 +127,12 @@
       visitorsView = @getVisitorsView(visitors)
 
       @listenTo visitorsView, "childview:click:visitor:tab", (visitor) =>
-        App.navigate "chats/visitor/#{visitor.model.get('token')}", trigger: true
         @subtractCounter "visitor", visitor.model
+
+        App.navigate Routes.root_path(), trigger: true
+        setTimeout(->
+          App.navigate "chats/visitor/#{visitor.model.get('token')}", trigger: true
+        , 100)
 
       @layout.visitorsRegion.show visitorsView
 
@@ -316,7 +320,7 @@
         info     = visitor.get "info"
         new_message = @messages.where token: token
         messages.add(new_message)
-        # localStorage.setItem("ofc-chatlog-"+token, JSON.stringify(new_message))
+
         visitor_msg =
           token:      token
           jid:        info.name
@@ -325,6 +329,11 @@
           time:       new Date()
           viewing:    false
           timesimple: moment().format('hh:mma')
+
+        regex = /\[Chat Trigger\]\s(.*)/
+        if regex.test(body)
+          visitor_msg.message = body.replace("[Chat Trigger] ", "")
+          visitor_msg.trigger = true
 
         if typeof messages.last() isnt "undefined"
           if messages.last().get("jid") is info.name and messages.last().get("viewing") is false

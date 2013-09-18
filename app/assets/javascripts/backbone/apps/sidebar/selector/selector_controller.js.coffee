@@ -50,7 +50,11 @@
     bindLayoutEvents: ->
       @listenTo @layout, "selector:all:websites", (item) =>
         @toggleSiteSelector item.view
-        @currentSite.set { all: true, name: "All websites" }
+        App.navigate Routes.root_path(), trigger: true unless Backbone.history.fragment.indexOf("chats") is -1
+
+        setTimeout(=>
+          @currentSite.set { all: true, name: "All websites" }
+        ,100)
         # $(item.view.el).find(".site-selector > span").html("All websites")
 
       @listenTo @layout, "selector:new:website", (item) =>
@@ -69,7 +73,10 @@
         item.model.attributes.unreadClass = "hide" if item.model.get("unread") is 0
         item.model.attributes.all = false
 
-        @currentSite.set item.model.attributes
+        App.navigate Routes.root_path(), trigger: true unless Backbone.history.fragment.indexOf("chats") is -1
+        setTimeout(=>
+          @currentSite.set item.model.attributes
+        , 100)
 
       @layout.optionsRegion.show websitesView
 

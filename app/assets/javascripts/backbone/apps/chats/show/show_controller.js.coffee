@@ -318,6 +318,7 @@
         @visitor.set history: true
         @scroll = false
         info    = @visitor.get("info")
+        regex   = /\[Chat Trigger\]\s(.*)/
 
         if info.referrer && history.models.length is 0
           referrer =
@@ -354,6 +355,10 @@
             token:   @token
             viewing: false
             scroll:  false
+
+          if regex.test(msgs.message)
+            msgs.message = msgs.message.replace("[Chat Trigger] ", "")
+            msgs.trigger = true
 
           if @currentMsgs.last() and @currentMsgs.last().get("sender") is sender
             msgs.child      = true
