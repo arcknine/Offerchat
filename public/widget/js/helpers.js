@@ -46,5 +46,9 @@ Helpers = {
       .replace(urlPattern, '<a href="$&" target="_blank">$&</a>')
       .replace(pseudoUrlPattern, '$1<a href="http://$2" target="_blank">$2</a>')
       .replace(emailAddressPattern, '<a href="mailto:$&">$&</a>');
+  },
+
+  htmlEntities: function(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 };
