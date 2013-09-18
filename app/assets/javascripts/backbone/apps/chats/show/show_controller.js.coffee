@@ -16,6 +16,7 @@
       @transcript  = App.request "transcript:entity"
       @transcript.url = Routes.email_export_transcript_index_path
       @scroll      = false
+      @last_agent_msg = ""
 
       @layout      = @getLayout()
       # console.log "layout", @visitor
@@ -205,37 +206,60 @@
 
 
     sendChat: (ev) =>
-      message = $.trim($(ev.currentTarget).val())
+      input_elem = $(ev.currentTarget)
+      message = $.trim(input_elem.val())
       clearInterval(@interval)
+
+      if message is ""
+        @last_agent_msg = ""
 
       if ev.keyCode is 13 and message isnt ""
 
-        @visitor.set("yours", 1)
-        $(".chat-actions-notifications").remove()
+        if @last_agent_msg isnt ""
+          @last_agent_msg.set message: message, time: new Date()
+          @last_agent_msg = ""
 
-        to  = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
-        msg = $msg({to: to, type: "chat"}).c('body').t($.trim(message))
-        @connectionSend msg, to
+          to  = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
+          msg = $msg({to: to, type: "chat", edit: true}).c('body').t($.trim(message))
+          @connectionSend msg, to
 
-        message = App.request "detect:url:from:string", message
+        else
 
-        currentMsg =
-          token:      @token
-          sender:     "agent"
-          jid:        "You"
-          message:    message
-          time:       new Date()
-          timesimple: moment().format('hh:mma')
+          @visitor.set("yours", 1)
+          $(".chat-actions-notifications").remove()
 
-        if @currentMsgs.last() and @currentMsgs.last().get("sender") is "agent"
-          currentMsg.child      = true
-          currentMsg.childClass = "child"
+          to  = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
+          msg = $msg({to: to, type: "chat"}).c('body').t($.trim(message))
+          @connectionSend msg, to
 
-        @messages.add currentMsg
-        # localStorage.setItem("ofc-chatlog-"+@token, JSON.stringify(@messages))
+          message = App.request "detect:url:from:string", message
+
+          currentMsg =
+            token:      @token
+            sender:     "agent"
+            jid:        "You"
+            message:    message
+            time:       new Date()
+            timesimple: moment().format('hh:mma')
+
+          if @currentMsgs.last() and @currentMsgs.last().get("sender") is "agent"
+            currentMsg.child      = true
+            currentMsg.childClass = "child"
+
+          @messages.add currentMsg
+          # localStorage.setItem("ofc-chatlog-"+@token, JSON.stringify(@messages))
+
         $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500)
-        $(ev.currentTarget).val("")
+        input_elem.val("")
         @composing = null
+
+      else if ev.keyCode is 38 and message is ""
+        agent_msgs = @currentMsgs.where sender: "agent"
+        if agent_msgs.length > 0
+          @last_agent_msg = agent_msgs[agent_msgs.length - 1]
+          msg = @last_agent_msg.get("message")
+
+          input_elem.val msg
 
       else
         to        = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
