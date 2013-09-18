@@ -4,7 +4,7 @@
 
     initialize: ->
       plans = App.request "get:plans"
-      @profile = App.request "get:current:user"
+      @profile = App.request "get:current:profile"
 
       $(window).resize ->
         $("#main-region > .column-content-container").css("height", ($(window).height() - 45) + "px")
@@ -47,6 +47,8 @@
           false
       else if current_plan == "ENTERPRISE"
         true
+      else if current_plan == "PREMIUM"
+        true
       else if current_plan == "STARTER"
         false
 
@@ -54,6 +56,7 @@
       $(".starter-plan-notice").addClass "hide"
       $(".free-plan-notice").addClass "hide"
       $(".group.starter-upgrade").removeClass "hide"
+      $(".premium-trial-notice").addClass("hide")
 
       if plan == "PERSONAL"
         $("#personal-button").html('<i class="icon icon-check-large-2"></i>')
@@ -66,6 +69,8 @@
         $(".starter-plan-notice").removeClass("hide")
       else if plan == "FREE"
         $(".free-plan-notice").removeClass("hide")
+      else if plan == "PREMIUM"
+        $(".premium-trial-notice").removeClass("hide")
 
     getPlansView: (plans) ->
       new List.Layout
