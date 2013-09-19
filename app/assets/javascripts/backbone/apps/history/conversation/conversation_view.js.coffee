@@ -30,6 +30,20 @@
     regions:
       agentsFilterRegion:   "#agents-filter-region"
 
+    events:
+      "click #checkboxGradient"   : "select_conversations"
+
+    select_conversations: (evt)->
+      evt.stopPropagation()
+      evt.preventDefault()
+      checkbox = @$("label.checkbox")
+      if checkbox.hasClass("checked") 
+        $(".table-row").removeAttr("data-checked")
+        $("label.checkbox").removeClass("checked")
+      else
+        $("label.checkbox").addClass("checked")
+        $(".table-row").attr("data-checked", true)
+
     triggers:
       "click .agent-row-selector" : "agents:filter:clicked"
 
@@ -41,11 +55,20 @@
   class Conversations.Item extends App.Views.ItemView
     template: "history/conversation/conversation"
     className: "table-row linkable group"
+
+    remove: ->
+      console.log @$el.remove()
+
     modelEvents:
       "change" : "render"
+      "destroy": "remove"
+      
     events:
       "click"                 : "open_conversation"
       "click label.checkbox"  : "select_conversation"
+    render: ->
+      @$el.attr("data-id", @model.get("_id"))
+      super()
 
     select_conversation: (evt)->
       evt.stopPropagation()
@@ -53,6 +76,8 @@
       checkbox = $(evt.target).closest("label.checkbox")
       if checkbox.hasClass("checked")
         checkbox.removeClass("checked")
+        $("label#checkboxGradient").removeClass("checked")
+        $("label#checkboxGradient").closest(".table-row").removeAttr("data-checked")
         $(evt.target).closest(".table-row").removeAttr("data-id")
         $(evt.target).closest(".table-row").removeAttr("data-checked")
       else

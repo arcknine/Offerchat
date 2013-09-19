@@ -34,11 +34,13 @@
         App.execute "when:fetched", conversations, (item)=>
           @listenTo @layout, "show", =>
             convos = @organizeConversations(conversations)
-            headerRegion = @getHeaderRegion()
-            @listenTo headerRegion, "remove:conversations:clicked", ->
-              ids = []
-              _.map $(".table-row[data-checked='true']"), (item)->
+            headerRegion = @getHeaderRegion(conversations)
+            ids = []
+            items = []
+            @listenTo headerRegion, "remove:conversations:clicked", (item)->
+              _.each $(".table-row[data-checked='true']"), (item)->
                 ids.push $(item).data("id")
+
               $.ajax
                 url: "#{gon.history_url}/convo/remove"
                 data: {ids: ids}
@@ -47,7 +49,7 @@
                 success: ->
                   conversations.each (item)->
                     if ($.inArray(item.get("_id"), ids) isnt -1)
-                      item.destroy()
+                      console.log item, item.trigger "destroy"
                 error: ->
                   App.request "hide:preloader"
 
@@ -102,9 +104,10 @@
         modalViewRegion.close()
 
       App.modalRegion.show modalViewRegion
-
-    getHeaderRegion: ->
+    
+    getHeaderRegion: (conversations)->
       new Conversations.Header
+        conversations: conversations
 
     getFilterView: (collection)->
       new Conversations.Filter
