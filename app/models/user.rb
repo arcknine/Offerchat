@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :agent_accounts, :foreign_key => "owner_id", :class_name => "Account"
   belongs_to :plan, :foreign_key => "plan_identifier", :class_name => "Plan"
   attr_accessor :avatar_remove
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :display_name, :jabber_user, :jabber_password, :avatar, :plan_identifier, :billing_start_date, :stripe_customer_token, :avatar_remove
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :display_name, :jabber_user, :jabber_password, :avatar, :plan_identifier, :billing_start_date, :stripe_customer_token, :avatar_remove, :trial_days_left
 
   validates_presence_of :name
   validates_presence_of :display_name
@@ -210,8 +210,11 @@ class User < ActiveRecord::Base
     end unless user[:email].empty?
     # user.errors[:base] << "Please provide an email for that agent." if user[:email].empty?
     # user.errors[:base] << "Agent must be assigned to at least 1 site." unless has_checked_website
+  end
 
-
+  def trial_days_left
+    expire_date = created_at + 60.days
+    ((expire_date - DateTime.now)/86400).round
   end
 
   private
