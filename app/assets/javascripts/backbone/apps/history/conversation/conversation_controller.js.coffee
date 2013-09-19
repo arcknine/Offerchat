@@ -1,5 +1,5 @@
 @Offerchat.module "HistoryApp.Conversations", (Conversations, App, Backbone, Marionette, $, _) ->
-  
+
   class Conversations.Controller extends App.Controllers.Base
 
     initialize: ->
@@ -8,6 +8,9 @@
 
       currentUser = App.request "get:current:user"
       self = @
+
+      @listenTo @layout, "show", =>
+        App.request "hide:preloader"
 
       App.request "show:preloader"
       App.execute "when:fetched", agents, (item)=>
@@ -45,7 +48,6 @@
                   conversations.each (item)->
                     if ($.inArray(item.get("_id"), ids) isnt -1)
                       item.destroy()
-                  App.request "hide:preloader"
                 error: ->
                   App.request "hide:preloader"
 
@@ -57,7 +59,7 @@
 
         App.commands.setHandler "open:conversation:modal", (item)=>
           @getConversationModal(item)
-    
+
     getLayout: ->
       new Conversations.Layout
 
@@ -85,7 +87,7 @@
           dataType : "jsonp"
           processData: true
           reset: true
-          
+
         modalViewRegion.bodyRegion.show modalRegionBody
 
         modalRegionFooter = new Conversations.ChatModalFooter
@@ -100,14 +102,14 @@
         modalViewRegion.close()
 
       App.modalRegion.show modalViewRegion
-    
+
     getHeaderRegion: ->
       new Conversations.Header
-    
+
     getFilterView: (collection)->
       new Conversations.Filter
         collection: collection
-        
+
     getFilterRegion: (collection)->
       filterView = @getFilterView(collection)
 
@@ -117,11 +119,11 @@
           openClass: "btn-selector"
           activeClass: "agent-row-selector"
         filterView.toggleDropDown(params)
-      
+
       @listenTo filterView, "show", =>
         filterView.agentsFilterRegion.show @getAgentFilters(collection)
       filterView
-    
+
     getAgentFilters: (collection)->
       filters = new Conversations.Agents
         collection: collection
@@ -138,11 +140,11 @@
         filters.closeDropDown()
 
       filters
-    
+
     getConversationsRegion: (collection)->
       new Conversations.Groups
         collection: collection
-    
+
     organizeConversations: (collection)->
       timestamps = _.uniq collection.pluck("created")
       convos = App.request "new:converstationgroups:entities"
