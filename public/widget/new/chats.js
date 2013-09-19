@@ -66,6 +66,9 @@ Chats = {
     _this.connection = new Strophe.Connection(bosh_url);
     _this.connection.connect(jid, password, function(status) {
       if (status === Strophe.Status.CONNECTED) {
+        Offerchat.removeData("ofc-agents", sessionStorage);
+        Offerchat.removeData("offerchat-credential", sessionStorage);
+
         _this.reconnect = true;
         _this.connected();
       }
