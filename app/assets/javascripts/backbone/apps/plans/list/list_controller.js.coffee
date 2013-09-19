@@ -12,7 +12,10 @@
       @plansView = @getPlansView plans
 
       @listenTo @profile, "change", =>
-        @initPlans(@profile.get("plan_identifier"))
+        pid = @profile.get("plan_identifier")
+        @initPlans(pid)
+        @profile.set trial: pid == "PREMIUM" ? true : false
+        $("#premium-trial").addClass("hide")
 
       @listenTo @plansView, "hide:notification", =>
         $(".payment-notify").fadeOut()
