@@ -4,6 +4,7 @@ Fabricator(:user) do
   password_confirmation  "password"
   name                   { sequence(:name) { |i| "User #{i}" } }
   display_name           { sequence(:display_name) { |i| "Display #{i}" } }
+  plan_identifier        "FREE"
 end
 
 Fabricator(:starter_user, class_name: "User") do
