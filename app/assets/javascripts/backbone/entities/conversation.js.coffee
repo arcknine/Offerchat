@@ -15,7 +15,6 @@
 
   API =
     getConversations: (conversations, aids = [])->
-      console.log conversations
       conversations = new Entities.Conversations if conversations is null
       conversations.fetch
         data: {aids: aids}

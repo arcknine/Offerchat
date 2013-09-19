@@ -1,6 +1,6 @@
 .td-container.td-small 
   .td-content
-    %label.checkbox#checkboxGradient{ :for => 'checkbox1' }
+    %label.checkbox#checkboxGradient
       %span.icon
         .icon-check
 .td-container.td-visitor
