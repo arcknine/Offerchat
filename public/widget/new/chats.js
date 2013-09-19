@@ -283,6 +283,7 @@ Chats = {
     var agent, body, comp, ended, from, html, paused, trnsfr;
 
     from   = $(message).attr("from");
+    edit   = $(message).attr("edit");
     comp   = $(message).find("composing");
     paused = $(message).find("paused");
     ended  = $(message).find("inactive");
@@ -360,7 +361,11 @@ Chats = {
         });
       }
 
-      var msg = Chats.generateMessage(body, a.display_name);
+      if(edit){
+        Chats.generateMessage(body, a.display_name, {edit: true});
+      } else{
+        var msg = Chats.generateMessage(body, a.display_name);
+      }
 
       try {
         var sound = document.getElementById("beep-notify");
@@ -407,7 +412,7 @@ Chats = {
   },
 
   generateMessage: function(message, sender, options) {
-    var cur, msg, d, chat, classTag, flag;
+    var cur, msg, d, chat, classTag, flag, found, ctr;
     cur = this.messages.length;
     d   = new Date();
 
@@ -417,6 +422,33 @@ Chats = {
     message = Helpers.detectURL(message);
 
     classTag = sender != "You" ? " agent-message" : "";
+
+    if(cur!==0){
+      if(sender!="You" && typeof options != "undefined" && options.edit == true){
+        ctr = cur;
+        found = false;
+        while(found == false){
+          if(this.messages[ctr -1].sender != "You"){
+            this.messages[ctr - 1].message = message;
+            this.messages[ctr - 1].time = moment().format('hh:mma');
+            // update view in widget here
+            // look for the last agent message
+            var last_elem = $(".widget-chat-viewer").find(".agent-message").last();
+            var msg_content = "<div class='message-date'>"+moment().format('hh:mma')+"</div>"+message;
+            last_elem.find(".message").html(msg_content);
+
+            Offerchat.storeData("ofc-messages", this.messages, localStorage);
+
+            found = true;
+          } else{
+            ctr = ctr - 1;
+          }
+        }
+
+        return false;
+      }
+    }
+
     if (cur !== 0 && this.messages[cur - 1].sender == sender) {
       msg = {
         web_id:     Offerchat.website.id,
