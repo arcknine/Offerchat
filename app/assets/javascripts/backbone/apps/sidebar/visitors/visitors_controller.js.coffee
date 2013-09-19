@@ -129,10 +129,11 @@
       @listenTo visitorsView, "childview:click:visitor:tab", (visitor) =>
         @subtractCounter "visitor", visitor.model
 
-        App.navigate Routes.root_path(), trigger: true
-        setTimeout(->
-          App.navigate "chats/visitor/#{visitor.model.get('token')}", trigger: true
-        , 100)
+        unless Backbone.history.fragment.indexOf(visitor.model.get("token")) != -1
+          App.navigate Routes.root_path(), trigger: true
+          setTimeout(->
+            App.navigate "chats/visitor/#{visitor.model.get('token')}", trigger: true
+          , 100)
 
       @layout.visitorsRegion.show visitorsView
 
@@ -149,8 +150,13 @@
       agentsView = @getAgentsView @siteAgents
 
       @listenTo agentsView, "childview:click:agent:tab", (agent) =>
-        App.navigate "chats/agent/#{agent.model.get('token')}", trigger: true
         @subtractCounter "agent", agent.model
+
+        unless Backbone.history.fragment.indexOf(agent.model.get("token")) != -1
+          App.navigate Routes.root_path(), trigger: true
+          setTimeout(->
+            App.navigate "chats/agent/#{agent.model.get('token')}", trigger: true
+          , 100)
 
       @layout.agentsRegion.show agentsView
 
