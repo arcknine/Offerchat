@@ -49,7 +49,7 @@
                 success: ->
                   conversations.each (item)->
                     if ($.inArray(item.get("_id"), ids) isnt -1)
-                      console.log item, item.trigger "destroy"
+                      item.trigger "destroy"
                 error: ->
                   App.request "hide:preloader"
 
