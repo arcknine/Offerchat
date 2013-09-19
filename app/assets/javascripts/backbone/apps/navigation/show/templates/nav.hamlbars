@@ -55,7 +55,7 @@
           .dropdown-pointer
 
     .upgrade-header-section
-      .tag-small
+      .premium-trial
         %a.icon-help
           %span ?
         %strong Premium Trial:

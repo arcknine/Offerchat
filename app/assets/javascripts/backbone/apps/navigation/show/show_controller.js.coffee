@@ -9,6 +9,8 @@
       user = App.request "set:current:user", user_json
 
       navView = @getNavView user
+    
+      @initTrialView(user.get("plan_identifier"))
 
       @listenTo navView, "change:user:status", (elem) ->
         @changeStatus elem
@@ -146,3 +148,10 @@
 
       loaderObj = document.getElementById("canvasLoader")
       loaderObj.style.position = "absolute"
+      
+    initTrialView: (plan) ->
+      console.log plan
+      if plan == "PREMIUM"
+        $(".premium-trial").removeClass("hide")
+      else
+        $(".premium-trial").addClass("hide")
