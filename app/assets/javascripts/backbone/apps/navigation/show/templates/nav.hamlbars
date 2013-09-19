@@ -52,10 +52,16 @@
               %span.status.signout
                 %i.icon.icon-small-x
               Signout
-          .dropdown-pointer
+          .caret.caret-top.caret-pull-right
 
     .upgrade-header-section
       .tag-small
+        .tooltip.tooltip-large{ :style => "left: -10px" }
+          .caret.caret-top.caret-pull-left
+          You're in a Premium Trial by default as a special gift for signing up. Add unlimited agents plus other perks for FREE! Enjoy it for 60 days then upgrade or automatically go back to the regular free account.
+          %div
+            %a
+              More information
         %a.icon-help
           %span ?
         %strong Premium Trial:

@@ -26,7 +26,7 @@
             %li{ data: {action: 'export'} }
               %a Export Transcript
 
-          .caret.caret-dark.bottom
+          
 
     %a.btn.warning.end_chat
       End Chat
