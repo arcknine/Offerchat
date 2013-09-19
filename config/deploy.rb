@@ -4,6 +4,9 @@ require 'rvm/capistrano'
 require 'capistrano/ext/multistage'
 require 'sidekiq/capistrano'
 
+set :whenever_command, "bundle exec whenever"
+require 'whenever/capistrano'
+
 # Basic
 set :stages, %w(staging production)
 set :application, "Offerchat"
