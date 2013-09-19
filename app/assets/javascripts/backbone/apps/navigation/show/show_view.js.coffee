@@ -39,3 +39,6 @@
 
     changeStatus: (e) ->
       @trigger "change:user:status", e
+      
+    serializeData: ->
+      days_left: @options.days_left

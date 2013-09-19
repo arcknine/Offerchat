@@ -7,6 +7,11 @@
   %strong Free
   plan.
   Upgrade your account to add more agents.
+  
+.block-message.group.premium-trial-notice.hide
+  You are currently have {{user.trial_days_left}} days until your
+  %strong Premium 
+  trial ends.
 
 .block-message.group.starter-plan-notice.hide
   %a.close x
@@ -73,7 +78,7 @@
           %a.btn.action.upgrade{ data: { id: "{{enterprise.plan_identifier}}" } }
             Choose Plan
         .agent-count
-          up to 30 agent seats
+          unlimited agent seats
         .plan-price
           .plan-value
             %span.sign
@@ -117,10 +122,6 @@
       %i.icon.icon-feature.icon-feature-6
       %span
         Widget Customization
-
-
-
-
 
 
 .block.large.text-center

@@ -54,11 +54,10 @@
               Signout
           .dropdown-pointer
 
-
-
-
-
-
-
     .upgrade-header-section
+      .tag-small
+        %a.icon-help
+          %span ?
+        %strong Premium Trial:
+        {{days_left}} days left
       %a.add-more-btn.btn Upgrade

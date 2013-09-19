@@ -4,7 +4,7 @@
 
     initialize: ->
       @connection = App.xmpp.connection
-
+    
       user_json = App.request "get:current:user:json"
       user = App.request "set:current:user", user_json
 
@@ -121,10 +121,10 @@
       ), 100
 
 
-
     getNavView: (user)->
       new Show.Nav
         model: user
+        days_left: gon.trial_days_left
 
     hideDropdowns: (child) ->
       childViews = $(child.view.el)
