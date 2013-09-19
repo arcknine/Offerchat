@@ -85,6 +85,7 @@ GEM
     capistrano_colors (0.5.5)
     celluloid (0.14.1)
       timers (>= 1.0.0)
+    chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.1)
@@ -419,6 +420,9 @@ GEM
       descendants_tracker (~> 0.0.1)
     warden (1.2.1)
       rack (>= 1.0)
+    whenever (0.8.4)
+      activesupport (>= 2.3.4)
+      chronic (>= 0.6.3)
     wicked (0.6.0)
       activesupport (>= 3.0.7)
       rails (>= 3.0.7)
@@ -487,4 +491,5 @@ DEPENDENCIES
   stripe_event
   thin
   uglifier (>= 1.0.3)
+  whenever
   wicked
