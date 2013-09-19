@@ -55,9 +55,11 @@
           .dropdown-pointer
 
     .upgrade-header-section
-      .tag-small
+      {{#if trial}}
+      #premium-trial.tag-small
         %a.icon-help
           %span ?
         %strong Premium Trial:
-        {{days_left}} days left
+        {{trial_days_left}} days left
+      {{/if}}
       %a.add-more-btn.btn Upgrade
