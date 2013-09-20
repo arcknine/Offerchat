@@ -28,14 +28,23 @@
       "click label.desktop-notification"   : "toggleNotification"
 
     toggleNotification: (e) ->
-      console.log 'ee: ', e
-
-      window.webkitNotifications.requestPermission(->
+      curr_elem = $(e.currentTarget)
+      if curr_elem.hasClass("checked")
+        localStorage.setItem("notification", false)
+        curr_elem.removeClass("checked")
+      else
         havePermission = window.webkitNotifications.checkPermission()
-
-        curr = $(e.currentTarget)
         if havePermission is 0
-          curr.addClass("checked")
+          curr_elem.addClass("checked")
+          localStorage.setItem("notification", true)
         else
-          curr.removeClass("checked")
-      )
+          window.webkitNotifications.requestPermission(->
+            havePermission = window.webkitNotifications.checkPermission()
+            if havePermission is 0
+              curr_elem.addClass("checked")
+              localStorage.setItem("notification", true)
+            else
+              curr_elem.removeClass("checked")
+              localStorage.setItem("notification", false)
+              alert "Please check your browser settings to allow notifications."
+          )

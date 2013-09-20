@@ -453,20 +453,23 @@
 
     desktopNotify: (from, msg) ->
       unless App.request "is:active:tab"
-        havePermission = window.webkitNotifications.checkPermission()
-        if havePermission is 0    # allowed
-          icon    = '/assets/desktop_notify_logo.png'
-          title   = 'New Message Received'
-          content = from + ": " + msg
-          notification = window.webkitNotifications.createNotification(icon, title, content)
-          notification.onclick = ->
-            notification.close()
+        permission = localStorage.getItem("notification")
 
-          setTimeout(->
-            notification.close()
-          , 5000)
+        if permission is "true"
+          havePermission = window.webkitNotifications.checkPermission()
+          if havePermission is 0    # allowed
+            icon    = '/assets/desktop_notify_logo.png'
+            title   = 'New Message Received'
+            content = from + ": " + msg
+            notification = window.webkitNotifications.createNotification(icon, title, content)
+            notification.onclick = ->
+              notification.close()
 
-          notification.show()
+            setTimeout(->
+              notification.close()
+            , 5000)
+
+            notification.show()
 
     addCounter: (type, model) ->
       if type is "agent"
