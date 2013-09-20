@@ -280,6 +280,16 @@ describe User do
       end
     end
 
+    it "should return agent accounts under my account" do
+      user = Fabricate(:user)
+      User.create_or_invite_agents(@owner, user, @account)
+
+      @owner.my_agents_accounts.each do |a|
+        a.account(@website.id).role.should_not eq(Account::OWNER)
+        a.class.name.should eq("Account")
+      end
+    end
+
     it "should return all agents including the owner" do
       user = Fabricate(:user)
       User.create_or_invite_agents(@owner, user, @account)
@@ -302,6 +312,23 @@ describe User do
       acc4  = Fabricate(:account, :owner => owner, :website => web2, :user => user)
 
       user.group(owner.id).should eq("#{web1.url} (Agent), #{web2.url} (Agent)")
+    end
+
+    it "should return correct trial days left depending on creation date" do
+      @owner.trial_days_left.should eq(60)
+    end
+
+    it "should return users with expired trials" do
+      user = Fabricate(:user, :created_at => DateTime.parse((Time.now - 60.days).to_s))
+      User.expired_trials.should_not eq nil
+    end
+
+    it "should convert premium users to free and remove their agents" do
+      user = Fabricate(:premium_user, :created_at => DateTime.parse((Time.now - 60.days).to_s))
+      User.create_or_invite_agents(@owner, user, @account)
+      User.freeify
+
+      @owner.my_agents_accounts.should be_blank
     end
   end
 end
