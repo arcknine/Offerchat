@@ -10,3 +10,7 @@
           %span.icon
             .icon-check
           Enable Desktop Notifications
+          %div
+            %small.disabled
+              (Works with Google Chrome and Apple Safari browsers)
+
