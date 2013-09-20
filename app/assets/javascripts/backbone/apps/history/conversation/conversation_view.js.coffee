@@ -21,8 +21,52 @@
 
   class Conversations.Header extends App.Views.CompositeView
     template: "history/conversation/header"
+
     triggers:
       "click .trash-btn"    : "remove:conversations:clicked"
+    
+    events:
+      "click .calendar-picker-btn" : "toggle_date_picker"
+      "click #apply-date"          : "filter_conversations"
+      "click .date-today"          : "set_date_today"
+      "click .date-this-week"      : "set_date_this_week"
+      "click .date-this-month"     : "set_date_this_month"
+      "click #close-datepicker"    : "toggle_date_picker"
+
+    filter_conversations: ->
+      App.execute "filter:conversations", @get_dates()
+
+    get_dates: ->
+      $('#historyDate').DatePickerGetDate(true)
+
+    set_date_today: ->
+      $('#historyDate').DatePickerSetDate(moment(new Date).format("YYYY-MM-DD"))
+
+    set_date_this_week: ->
+      today = new Date
+      d = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay())
+      $('#historyDate').DatePickerSetDate([moment(d).format("YYYY-MM-DD"),new Date])
+
+    set_date_this_month: ->
+      today = new Date
+      d = new Date(today.getFullYear(), today.getMonth(), 1)
+      $('#historyDate').DatePickerSetDate([d,moment(new Date).format("YYYY-MM-DD")])
+
+    render_date_picker: ->
+      d = new Date()
+      $('#historyDate').html('').children().off()
+      $('#historyDate').DatePicker
+        flat: true,
+        date: moment(d).format("YYYY-MM-DD")
+        current: moment(d).format("YYYY-MM-DD")
+        calendars: 3
+        mode: 'range'
+        starts: 1
+      @
+
+    toggle_date_picker: ->
+      @render_date_picker()
+      $(".history-date-wrapper").toggleClass("hide")
 
   class Conversations.Filter extends App.Views.Layout
     template: "history/conversation/filter"
@@ -57,7 +101,7 @@
     className: "table-row linkable group"
 
     remove: ->
-      console.log @$el.remove()
+      @$el.remove()
 
     modelEvents:
       "change" : "render"
@@ -91,7 +135,8 @@
 
     initialize: ->
       m = @model.get("updated_at")
-      @model.set momentary: moment(m, '"YYYY-MM-DDTHH:mm:ss Z"').fromNow()
+      #@model.set momentary: moment(m, '"YYYY-MM-DDTHH:mm:ss Z"').fromNow()
+      @model.set momentary: moment(m).format("hh:mma")
       #model = @model
       # setInterval ->
       #   model.set momentary: moment(m, '"YYYY-MM-DDTHH:mm:ss Z"').fromNow()
