@@ -1,0 +1,12 @@
+.column-content-container
+  .block.large.group.bordered-top
+    %h2
+      Desktop Notifications
+    .section-desc.child-desc Receive notifications right on your desktop screen
+
+    .form
+      %fieldset
+        %label.checkbox.inline.desktop-notification{ :class => "{{allowed}}" }
+          %span.icon
+            .icon-check
+          Enable Desktop Notifications

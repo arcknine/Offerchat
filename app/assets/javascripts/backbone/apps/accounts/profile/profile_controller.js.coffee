@@ -1,17 +1,17 @@
 @Offerchat.module "AccountsApp.Profile", (Profile, App, Backbone, Marionette, $, _) ->
 
   class Profile.Controller extends App.Controllers.Base
-    
+
     initialize: (options)->
 
       profile = App.request "get:current:profile"
-      
+
       @listenTo profile, "updated", (item) ->
         @showNotification "Your changes have been saved!"
-      
+
       App.execute "when:fetched", profile, =>
         @layout = @getLayoutView()
-        
+
         @listenTo @layout, "show", =>
           @sidebarRegion(options.section)
           @getProfileRegion(profile)
@@ -29,9 +29,12 @@
       @listenTo navView, "nav:password:clicked", (item) =>
         App.navigate '#profiles/passwords', trigger: true
 
+      @listenTo navView, "nav:notifications:clicked", (item) =>
+        App.navigate '#profiles/notifications', trigger: true
+
       @listenTo navView, "nav:invoices:clicked", (item) =>
         App.navigate '#profiles/invoices', trigger: true
-      
+
       @listenTo navView, "nav:instructions:clicked", (item) =>
         App.navigate '#profiles/instructions', trigger: true
 
@@ -39,13 +42,13 @@
 
     getProfileRegion: (profile) ->
       @profileLayout = @getProfileLayout(profile)
-      
+
       @listenTo @profileLayout, "show", (item) =>
         @uploadPhotoRegion(profile)
         @editProfileRegion(profile)
 
       profile.url = Routes.profiles_path()
-      @layout.accountRegion.show @profileLayout 
+      @layout.accountRegion.show @profileLayout
 
     getEditProfileRegion: (model)->
       new Profile.Edit
@@ -71,10 +74,10 @@
       uploadPhotoView = @getUploadPhotoRegion profile
       formView = App.request "form:wrapper", uploadPhotoView
       formView.$el.addClass "upload-avatar"
-      
+
       @listenTo uploadPhotoView, "show:notification", (item) =>
         @showNotification item
-      
+
       @listenTo uploadPhotoView, "change:photo:clicked", (item) =>
         params =
           element: item
@@ -82,7 +85,7 @@
           activeClass: "btn-action-selector"
 
         uploadPhotoView.toggleDropDown params
-      
+
       @listenTo uploadPhotoView, "remove:photo:clicked", (item) =>
         App.request "show:preloader"
         profile.set
@@ -94,15 +97,15 @@
       App.commands.setHandler "hide:avatar:dropdown", (item)->
         uploadPhotoView.$el.find(".btn-selector").removeClass("open").attr("disabled", true)
         uploadPhotoView.$el.find(".btn-action-selector").removeClass("active")
-        
+
 
       @profileLayout.uploadPhotoRegion.show formView
-    
+
     editProfileRegion: (model)->
       profileView = @getEditProfileRegion(model)
       formView = App.request "form:wrapper", profileView
-      
-      @profileLayout.editProfileRegion.show formView 
+
+      @profileLayout.editProfileRegion.show formView
 
     text_counter: (input, target, max) ->
       init_text = $(input).val()
