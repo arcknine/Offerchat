@@ -5,6 +5,7 @@ SimpleCov.start do
   add_filter "/spec"
   add_filter "/config"
   add_filter "/app/workers"
+  add_filter "/spec/mailers"
 end
 
 require File.expand_path("../../config/environment", __FILE__)

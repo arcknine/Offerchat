@@ -323,6 +323,11 @@ describe User do
       User.expired_trials.should_not eq nil
     end
 
+    it "should return the users expiring depending on params" do
+      user = Fabricate(:user, :created_at => DateTime.parse((Time.now - 55.days).to_s))
+      User.expiring_in(5).should_not eq nil
+    end
+
     it "should convert premium users to free and remove their agents" do
       user = Fabricate(:premium_user, :created_at => DateTime.parse((Time.now - 60.days).to_s))
       User.create_or_invite_agents(@owner, user, @account)
