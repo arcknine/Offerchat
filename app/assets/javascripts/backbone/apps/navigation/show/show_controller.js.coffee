@@ -12,7 +12,7 @@
       App.execute "when:fetched", user, =>
         App.execute "when:fetched", @profile, => 
           trial = @profile.get("plan_identifier") == "PREMIUM" ? true : false
-          @profile.set trial: trial
+          @profile.set trial: trial, status: user.get("status")
           
         navView = @getNavView @profile
           
