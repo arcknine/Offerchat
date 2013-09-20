@@ -612,6 +612,8 @@ Chats = {
 
   createChatHistoryConversation: function(agent){
     var _this = this;
+    console.log("creating chat history conversation");
+    alert(1);
     $.ajax({
       type: "GET",
       url: Offerchat.src.history + "/convo/create/" + Offerchat.params.secret_token,
@@ -625,12 +627,13 @@ Chats = {
   },
 
   createChatHistory: function(sender, message) {
+    alert(1);
     var _this = this;
     var a_name = this.agent.name ? this.agent.name : this.agent.display_name;
     var name   = sender == "You" ? this.visitor.name : a_name;
-
     _this.agent = Offerchat.agent({website_id: Offerchat.website.id}).first();
     setTimeout(function(){
+      console.log("Sending chat");
       if (_this.agent.new_convo == true) {
         $.ajax({
           type: "GET",

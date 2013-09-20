@@ -7,5 +7,4 @@
         {{currentSite.name}}
 
     .dropdown-options.dark
-      .caret.caret-dark
       %ul

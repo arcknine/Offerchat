@@ -1,29 +1,30 @@
 %h2 Chat History
-%div{ :style => "margin-top: 10px" }
+%div
   / .search-wrapper
   /   .form.form-inline.search-form.pull-right
   /     %input.rounded{ :type => "text", :placeholder => "search a conversation" }
   /     %button.btn-search{ :type => "submit" }
   /       %i.icon.icon-search
-  / .calendar-picker-wrapper
-  /   %a.btn.btn-large.calendar-picker-btn
-  /     %i.icon.icon-calendar
-  /     Today
-  /     %i.icon.icon-arrow-down
-  /   .history-date-wrapper.hide
-  /     #historyDate
-  /     .date-control
-  /       %div{ :style => "float: left" }
-  /         .btn-group
-  /           %a.btn.small
-  /             Today
-  /           %a.btn.small
-  /             This week
-  /           %a.btn.small
-  /             This month
-  /       %button.btn.action{ :type => "submit", :style => "margin-right: 20px" }
-  /         Apply
-  /       %a
-  /         Cancel
+  .calendar-picker-wrapper.hide
+    %a.btn.btn-large.calendar-picker-btn
+      %i.icon.icon-calendar
+      Today
+      %i.icon.icon-arrow-down
+    .history-date-wrapper.hide
+      #historyDate
+        asdf
+      .date-control
+        %div{ :style => "float: left" }
+          .btn-group
+            %a.btn.small.date-today
+              Today
+            %a.btn.small.date-this-week
+              This week
+            %a.btn.small.date-this-month
+              This month
+        %button.btn.action#apply-date{ :type => "submit", :style => "margin-right: 20px" }
+          Apply
+        %a#close-datepicker
+          Cancel
   %a.btn.trash-btn.warning
     %i.icon.icon-trash

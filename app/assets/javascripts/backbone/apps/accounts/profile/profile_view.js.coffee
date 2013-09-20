@@ -14,6 +14,7 @@
       "click a" :                                 "nav:clicked"
       "click a.profile" :                         "nav:accounts:clicked"
       "click a.password" :                        "nav:password:clicked"
+      "click a.notifications":                    "nav:notifications:clicked"
       "click a.invoices" :                        "nav:invoices:clicked"
       "click a.instructions" :                    "nav:instructions:clicked"
 
@@ -31,7 +32,7 @@
   class Profile.Photo extends App.Views.ItemView
     template: "accounts/profile/upload_photo"
     className: "form"
-    
+
     events:
       "click input.file-input": (e)->
         App.execute "hide:avatar:dropdown"
@@ -39,7 +40,7 @@
     triggers:
       "click div.btn-action-selector"   : "change:photo:clicked"
       "click a.remove"                  : "remove:photo:clicked"
-      
+
     modelEvents:
       "change"                          : "render"
     form:
@@ -67,11 +68,11 @@
                 self.trigger "show:notification", "Your avatar have been saved!"
               ).fail (jqXHR, textStatus, errorThrown)->
                 if JSON.parse(jqXHR.responseText).errors.avatar_file_size.length > 0
-                  self.trigger "show:notification", file_too_large_error 
+                  self.trigger "show:notification", file_too_large_error
             else
               App.request "hide:preloader"
               self.trigger "show:notification", "#{file.name} is not a jpeg, or png image file"
-              
+
           else
             self.trigger "show:notification", file_too_large_error
             App.request "hide:preloader"

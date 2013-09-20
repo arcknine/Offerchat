@@ -61,6 +61,10 @@ class User < ActiveRecord::Base
     agent_accounts.collect { |c| c.user unless c.is_owner? }.compact
   end
 
+  def my_agents_accounts
+    agent_accounts.collect { |c| c unless c.is_owner? }.compact
+  end
+
   def agents
     ids = agent_accounts.collect(&:user_id)
     weeds = admin_sites.collect{|w| w.id}
@@ -215,6 +219,37 @@ class User < ActiveRecord::Base
   def trial_days_left
     expire_date = created_at + 60.days
     ((expire_date - DateTime.now)/86400).round
+  end
+
+  def self.expired_trials
+    where("plan_identifier = 'PREMIUM' and date(created_at) = :sixty_days_ago", :sixty_days_ago => Date.today - 60.days).limit(50)
+  end
+
+  def self.expiring_in(days)
+    where("plan_identifier = 'PREMIUM' and date(created_at) = :fifty_five_days_ago", :fifty_five_days_ago => Date.today - (60 - days).days).limit(50)
+  end
+
+  def self.freeify
+    unless expired_trials.empty?
+      expired_trials.each do |e|
+        e.my_agents_accounts.each do |a|
+          a.destroy
+        end
+      end
+      expired_trials.update_all(:plan_identifier => "FREE")
+    end
+  end
+
+  def self.notify_expiring(days)
+    expiring_in(days).each do |e|
+      if days == 5
+        TrialMailer.delay.five_days_remaining(e)
+      elsif days == 3
+        TrialMailer.delay.three_days_remaining(e)
+      elsif days == 1
+        TrialMailer.delay.one_day_remaining(e)
+      end
+    end
   end
 
   private

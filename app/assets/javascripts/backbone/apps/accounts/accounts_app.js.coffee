@@ -6,13 +6,13 @@
       "profiles/passwords"      :   "editPassword"
       "profiles/invoices"       :   "listInvoices"
       "profiles/instructions"   :   "imInstructions"
-      #"profiles/notifications"  :   "editNotifications"
+      "profiles/notifications"  :   "editNotifications"
 
     API =
       profile: ->
         new AccountsApp.Profile.Controller
           section: 'profile'
-        
+
       editPassword: ->
         new AccountsApp.Password.Controller
           section: 'password'
@@ -20,18 +20,14 @@
       listInvoices: ->
         new AccountsApp.Invoice.Controller
           section: 'invoices'
-          
+
       imInstructions: ->
         new AccountsApp.Instructions.Controller
           section: 'instructions'
 
-      #editPassword: ->
-      #  new AccountsApp.Password.Controller
-      #    section: "password"
-      #
-      #editNotifications: ->
-      #  new AccountsApp.Show.Controller
-      #    section: 'notifications'
+      editNotifications: ->
+       new AccountsApp.Notifications.Controller
+         section: 'notifications'
       #
       #listInvoices: ->
       #  new AccountsApp.Show.Controller

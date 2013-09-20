@@ -366,6 +366,10 @@
         # chat sound here
         App.execute "chat:sound:notify"
 
+        # add condition if window is active or not
+        # desktop notification here
+        @desktopNotify info.name, body
+
       else if agent# and body
 
         if body or transfer.length
@@ -441,7 +445,31 @@
             # chat sound here
             App.execute "chat:sound:notify"
 
+            # add condition if window is active or not
+            # desktop notification here
+            @desktopNotify name, body
+
       true
+
+    desktopNotify: (from, msg) ->
+      unless App.request "is:active:tab"
+        permission = localStorage.getItem("notification")
+
+        if permission is "true"
+          havePermission = window.webkitNotifications.checkPermission()
+          if havePermission is 0    # allowed
+            icon    = '/assets/desktop_notify_logo.png'
+            title   = 'New Message Received'
+            content = from + ": " + msg
+            notification = window.webkitNotifications.createNotification(icon, title, content)
+            notification.onclick = ->
+              notification.close()
+
+            setTimeout(->
+              notification.close()
+            , 5000)
+
+            notification.show()
 
     addCounter: (type, model) ->
       if type is "agent"

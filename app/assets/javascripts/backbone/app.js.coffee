@@ -7,6 +7,14 @@
   App.on "initialize:before", (options) ->
     App.currentUser = options.currentUser
 
+    App.tab_active = true
+
+    $(window).focus ->
+      App.tab_active = true
+
+    $(window).blur ->
+      App.tab_active = false
+
   App.addRegions
     navigationRegion:       "#header-region"
     selectorSidebarRegion:  "#site-selector-region"
@@ -19,6 +27,9 @@
   App.addInitializer ->
     App.module("NavigationApp").start()
     App.module("SidebarApp").start()
+
+  App.reqres.setHandler "is:active:tab", ->
+    App.tab_active
 
   App.reqres.setHandler "get:current:user:json", ->
     $.parseJSON App.currentUser

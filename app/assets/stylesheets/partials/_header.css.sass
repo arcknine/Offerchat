@@ -4,6 +4,15 @@
 .upgrade-header-section
   float: right
   margin: 12px 10px 0 0
+  .tooltip
+    opacity: 0
+    visibility: hidden
+    @include transition(.2s)
+  &:hover
+    .tooltip
+      opacity: 1
+      visibility: visible
+
 .global-notification
   text-align: center
   display: block
@@ -94,7 +103,7 @@
       .settings-dropdown
         visibility: visible
         opacity: 1
-        margin-top: 7px
+        margin-top: 8px
 
   .profile-status
     margin-top: -6px
@@ -157,6 +166,8 @@
     top: 3px
     margin-right: 10px
     float: left
+
+
 
 
 

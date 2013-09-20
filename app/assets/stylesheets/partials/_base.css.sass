@@ -352,15 +352,33 @@ label
     visibility: hidden
 
     @include transition(.2s)
-    .caret
-      border-color: $sidebar-color transparent transparent transparent
-      border-width: 7px
-      border-style: solid
-      position: absolute
-      bottom: -13px
-      left: 10px
-      width: 0
-      height: 0
+.caret  
+  border-width: 7px
+  border-style: solid
+  position: absolute
+  width: 0
+  height: 0
+  &.caret-top
+    top: -13px
+    border-color: transparent transparent $sidebar-color transparent
+  &.caret-bottom
+    bottom: -13px
+    border-color: $sidebar-color transparent transparent transparent
+  &.caret-pull-left
+    left: 10px
+  &.caret-pull-right
+    right: 10px
+.tooltip
+  position: absolute
+  background-color: $sidebar-color
+  padding: 10px
+  font-size: 12px
+  border-radius: 3px
+  z-index: 10
+  top: 38px
+  &.tooltip-large
+    width: 250px
+
 
 
 
@@ -1065,5 +1083,5 @@ span.dot-seperator
   display: inline-block
   margin: 0 10px
   font-size: 12px
-  color: $light-text-color
+  
   position: relative
