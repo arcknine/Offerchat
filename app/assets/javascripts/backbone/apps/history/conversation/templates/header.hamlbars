@@ -1,5 +1,5 @@
 %h2 Chat History
-%div{ :style => "margin-top: 10px" }
+%div
   / .search-wrapper
   /   .form.form-inline.search-form.pull-right
   /     %input.rounded{ :type => "text", :placeholder => "search a conversation" }
