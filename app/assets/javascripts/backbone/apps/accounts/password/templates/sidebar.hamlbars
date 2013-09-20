@@ -8,6 +8,9 @@
   %li
     %a.password.selected{href: ""} Password
   %li
-    %a.instructions{href: ""} 
-      IM Instructions
+    %a.notifications{href: ""}
+      Notifications
       %span.tag-new new
+  %li
+    %a.instructions{href: ""}
+      IM Instructions
