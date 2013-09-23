@@ -11,7 +11,7 @@ class ProfilesController < ApplicationController
     if params[:profile][:avatar_remove]
       @profile.avatar = nil
     end
-    unless @profile.update_attributes params[:profile].except(:id).except(:avatar)
+    unless @profile.update_attributes params[:profile].except(:id).except(:avatar).except(:trial_days_left)
       respond_with @profile
     end
   end
