@@ -61,7 +61,7 @@
           .caret.caret-top.caret-pull-left
           You're in a Premium Trial by default as a special gift for signing up. Add unlimited agents plus other perks for FREE! Enjoy it for 60 days then upgrade or automatically go back to the regular free account.
           %div
-            %a
+            %a{ :href => "https://www.offerchat.com/blog/surprise-treat-for-new-offerchat-users-2/",  :target => "_blank" }
               More information
         %a.icon-help
           %span ?
