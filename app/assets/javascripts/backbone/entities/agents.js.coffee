@@ -33,13 +33,13 @@
     newAgent: ->
       new Entities.Agent
 
-    getAgents: ->
+    getAgents: (hide_loader) ->
       agents = new Entities.AgentsCollection
       App.request "show:preloader"
       agents.fetch
         reset: true
         success: ->
-          App.request "hide:preloader"
+          App.request "hide:preloader" if hide_loader
         error: ->
           App.request "hide:preloader"
       agents
@@ -61,8 +61,8 @@
           App.request "hide:preloader"
       agents
 
-  App.reqres.setHandler "agents:entities", ->
-    API.getAgents()
+  App.reqres.setHandler "agents:entities", (hide_loader = true) ->
+    API.getAgents hide_loader
 
   App.reqres.setHandler "agents:only:entities", ->
     API.getAgentsOnly()

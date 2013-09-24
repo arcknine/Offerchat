@@ -4,12 +4,12 @@
 
     initialize: ->
       @layout = @getLayout()
-      agents = App.request "agents:entities"
+      agents = App.request "agents:entities", false
 
       currentUser = App.request "get:current:user"
       self = @
 
-      @listenTo @layout, "show", =>
+      @listenTo @layout.conversationsRegion, "show", =>
         App.request "hide:preloader"
 
       App.request "show:preloader"
@@ -37,6 +37,7 @@
             headerRegion = @getHeaderRegion(conversations)
             ids = []
             items = []
+
             @listenTo headerRegion, "remove:conversations:clicked", (item)->
               r = confirm "Are you sure you want to delete the selected conversations?"
               if r is true
@@ -54,7 +55,6 @@
                         item.trigger "destroy"
                   error: ->
                     App.request "hide:preloader"
-
 
             @layout.headerRegion.show headerRegion
             @layout.filterRegion.show @getFilterRegion(agents)
@@ -106,7 +106,7 @@
         modalViewRegion.close()
 
       App.modalRegion.show modalViewRegion
-    
+
     getHeaderRegion: (conversations)->
       new Conversations.Header
         conversations: conversations
