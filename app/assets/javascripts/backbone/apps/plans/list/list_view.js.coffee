@@ -110,3 +110,7 @@
       footer: false
       buttons:
         nosubmit: true
+    triggers:
+      "click .back-to-checkout" : "back:to:checkout"
+    backToCheckout: (e) ->
+      @trigger "back:to:checkout", e
