@@ -110,9 +110,7 @@
       footer: false
       buttons:
         nosubmit: true
-    serializeData: ->
-      plan: @options.plan
-    events:
-      "click .back-to-checkout" : "backToCheckout"
+    triggers:
+      "click .back-to-checkout" : "back:to:checkout"
     backToCheckout: (e) ->
       @trigger "back:to:checkout", e

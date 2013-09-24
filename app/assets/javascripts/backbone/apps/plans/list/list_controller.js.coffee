@@ -102,10 +102,9 @@
       new List.ModalPaymentSuccess
         model: @profile
 
-    getPaymentFailModal: (plan) ->
+    getPaymentFailModal: ->
       new List.ModalPaymentFail
         model: @profile
-        plan: plan
 
     showModal: (plan, agents=null) =>
       modalView = @getPlanModal(plan)
@@ -225,14 +224,14 @@
       App.modalRegion.show formView
 
     paymentFail: (plan) =>
-      modalView = @getPaymentFailModal(plan)
+      modalView = @getPaymentFailModal()
       formView  = App.request "modal:wrapper", modalView
 
       @listenTo formView, "modal:cancel", (item) ->
         formView.close()
         
       @listenTo modalView, "back:to:checkout", (e) ->
-        console.log e
+        @showModal(plan)
 
       App.modalRegion.show formView
 
