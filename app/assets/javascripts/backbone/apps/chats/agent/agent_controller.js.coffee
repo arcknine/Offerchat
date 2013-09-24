@@ -42,6 +42,7 @@
       @listenTo @layout, "show", =>
         @agentInfo()
         @loadChatsView()
+        App.execute "subtract:unread", 'agent', @agent
 
       @show @layout
 

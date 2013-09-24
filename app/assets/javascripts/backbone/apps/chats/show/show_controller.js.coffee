@@ -51,6 +51,7 @@
       @listenTo @layout, "show", =>
         @visitorInfoView()
         @chatsView()
+        App.execute "subtract:unread", 'visitor', @visitor
 
       @resizeChatWrapper()
       @show @layout
