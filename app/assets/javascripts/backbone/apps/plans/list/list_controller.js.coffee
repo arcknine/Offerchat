@@ -267,4 +267,19 @@
         $(e.view.el).find("input[name=year]").next().removeClass("hide")
         valid = false
         
+      if !card.number.match(/^\d+$/)
+        $(e.view.el).find("input[name=credit_card_number]").parent().parent().addClass("field-error")
+        $(e.view.el).find("input[name=credit_card_number]").next().removeClass("hide")
+        valid = false
+        
+      if !card.cvc.match(/^\d+$/)
+        $(e.view.el).find("input[name=cvv]").parent().parent().addClass("field-error")
+        $(e.view.el).find("input[name=cvv]").next().removeClass("hide")
+        valid = false
+        
+      if !card.expMonth.match(/^\d+$/)
+        $(e.view.el).find("input[name=month]").parent().parent().addClass("field-error")
+        $(e.view.el).find("input[name=year]").next().removeClass("hide")
+        valid = false
+        
       return valid
