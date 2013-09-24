@@ -6,7 +6,7 @@
     Credit Card #
   .input-container
     %input.large{ :type => "text", :name => "credit_card_number", :value => "", :maxlength => 16 }
-    .block-text-message.hide Your credit card number is required
+    .block-text-message.hide Your credit card number is invalid
     %fieldset
       = image_tag "credit-card-visa-32.png"
       = image_tag "credit-card-mastercard-32.png"
@@ -17,14 +17,14 @@
     CVV Code
   .input-container
     %input.short{ :type => "text", :name => "cvv", :placeholder => "XXX", :value => "", :maxlength => 3 }
-    .block-text-message.hide Your CVV code is required
+    .block-text-message.hide Your CVV code is invalid
 %fieldset
   %label
     Expiry
   .input-container
     %input.short{ :type => "text", :name => "month", :placeholder => "MM", :value => "", :maxlength => 2 }
     %input{ :type => "text", :name => "year", :placeholder => "YYYY", :style => "width: 60px;", :value => "", :maxlength => 4 }
-    .block-text-message.hide Your card expiry date is required
+    .block-text-message.hide Your card expiry date is invalid
 
 %fieldset
   .terms-text
