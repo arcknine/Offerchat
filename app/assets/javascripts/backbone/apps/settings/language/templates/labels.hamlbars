@@ -53,15 +53,7 @@
           %input{ :type => "text", :id => "widget-label", :value => "{{model.settings.online.agent_label}}", :maxlength => 33, :name => "widget_label" }
           .add-on#widget-label-count
             {{counter}}
-    %fieldset
-      %label
-        Widget Placeholder
-      .input-container
-        .input-append
-          %input{ :type => "text", :value => "Type your question and hit enter" }
-          .add-on
-            35
-
+  
     %fieldset
       %button.btn.action{ :type => "submit" }
         Save Changes
