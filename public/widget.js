@@ -189,7 +189,7 @@
         else
           height = this.info.state == "show" ? "400px" : "45px";
 
-        build = '<div id="offerchatbox" style="position: fixed; bottom: 0; ' + this.info.position + ': 20px; margin: 0;  padding: 0; background-color: transparent; overflow: hidden; z-index: 99999999; height: ' + height + '; width: 306px; display: none">' +
+        build = '<div id="offerchatbox" style="position: fixed; bottom: 0; ' + this.info.position + ': 20px; margin: 0;  padding: 0; background-color: transparent; overflow: hidden; z-index: 99999999; height: ' + height + '; width: 318px; display: none">' +
                 ' <iframe scrolling="0" name="offerchat_frame" frameBorder="0" id="offerchatFrameContainer" src="" style="background-color: transparent;vertical-align: text-bottom; overflow: hidden; position: relative;width: 100%;height: 100%;margin: 0px; z-index: 999999;"></iframe>' +
                 '</div>';
         $ofc('body').append(build);
