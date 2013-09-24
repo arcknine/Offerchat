@@ -146,7 +146,7 @@
   
                 @paymentSuccess()
             else
-              @paymentFail()
+              @paymentFail(plan)
   
           Stripe.createToken(card, handleStripeResponse)
 
@@ -223,12 +223,15 @@
 
       App.modalRegion.show formView
 
-    paymentFail: =>
+    paymentFail: (plan) =>
       modalView = @getPaymentFailModal()
       formView  = App.request "modal:wrapper", modalView
 
       @listenTo formView, "modal:cancel", (item) ->
         formView.close()
+        
+      @listenTo modalView, "back:to:checkout", (e) ->
+        @showModal(plan)
 
       App.modalRegion.show formView
 
@@ -260,6 +263,21 @@
         valid = false
         
       if card.expMonth == "" || card.expYear == ""
+        $(e.view.el).find("input[name=month]").parent().parent().addClass("field-error")
+        $(e.view.el).find("input[name=year]").next().removeClass("hide")
+        valid = false
+        
+      if !card.number.match(/^\d+$/)
+        $(e.view.el).find("input[name=credit_card_number]").parent().parent().addClass("field-error")
+        $(e.view.el).find("input[name=credit_card_number]").next().removeClass("hide")
+        valid = false
+        
+      if !card.cvc.match(/^\d+$/)
+        $(e.view.el).find("input[name=cvv]").parent().parent().addClass("field-error")
+        $(e.view.el).find("input[name=cvv]").next().removeClass("hide")
+        valid = false
+        
+      if !card.expMonth.match(/^\d+$/)
         $(e.view.el).find("input[name=month]").parent().parent().addClass("field-error")
         $(e.view.el).find("input[name=year]").next().removeClass("hide")
         valid = false

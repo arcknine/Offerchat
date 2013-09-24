@@ -4,12 +4,12 @@
 
     initialize: ->
       @layout = @getLayout()
-      agents = App.request "agents:entities"
+      agents = App.request "agents:entities", false
 
       currentUser = App.request "get:current:user"
       self = @
 
-      @listenTo @layout, "show", =>
+      @listenTo @layout.conversationsRegion, "show", =>
         App.request "hide:preloader"
 
       App.request "show:preloader"
@@ -37,22 +37,24 @@
             headerRegion = @getHeaderRegion(conversations)
             ids = []
             items = []
+
             @listenTo headerRegion, "remove:conversations:clicked", (item)->
-              _.each $(".table-row[data-checked='true']"), (item)->
-                ids.push $(item).data("id")
+              r = confirm "Are you sure you want to delete the selected conversations?"
+              if r is true
+                _.each $(".table-row[data-checked='true']"), (item)->
+                  ids.push $(item).data("id")
 
-              $.ajax
-                url: "#{gon.history_url}/convo/remove"
-                data: {ids: ids}
-                dataType : "jsonp"
-                processData: true
-                success: ->
-                  conversations.each (item)->
-                    if ($.inArray(item.get("_id"), ids) isnt -1)
-                      item.trigger "destroy"
-                error: ->
-                  App.request "hide:preloader"
-
+                $.ajax
+                  url: "#{gon.history_url}/convo/remove"
+                  data: {ids: ids}
+                  dataType : "jsonp"
+                  processData: true
+                  success: ->
+                    conversations.each (item)->
+                      if ($.inArray(item.get("_id"), ids) isnt -1)
+                        item.trigger "destroy"
+                  error: ->
+                    App.request "hide:preloader"
 
             @layout.headerRegion.show headerRegion
             @layout.filterRegion.show @getFilterRegion(agents)
@@ -104,7 +106,7 @@
         modalViewRegion.close()
 
       App.modalRegion.show modalViewRegion
-    
+
     getHeaderRegion: (conversations)->
       new Conversations.Header
         conversations: conversations

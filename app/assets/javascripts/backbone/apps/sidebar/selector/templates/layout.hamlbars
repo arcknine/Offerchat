@@ -4,7 +4,7 @@
 
   %span
     {{name}}
-  %i.icon.icon-arrow-down
+  %i.icon.icon-arrow-down-light
 
 .site-selector-options
   .group#options-selector

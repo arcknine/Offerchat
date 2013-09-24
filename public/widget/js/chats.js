@@ -618,7 +618,7 @@ Chats = {
       type: "GET",
       url: Offerchat.src.history + "/convo/create/" + Offerchat.params.secret_token,
       dataType: "jsonp",
-      data: {url: Offerchat.params.current_url, aid: agent.id, vname: this.visitor.name, agent: agent.name, vid: this.visitor.id},
+      data: {url: Offerchat.params.current_url, aid: agent.id, vname: this.visitor.name, agent: agent.name, vid: this.visitor.id, webid: Offerchat.website.id},
       success: function(){
         Offerchat.agent({website_id: Offerchat.website.id}).update({new_convo: true});
         _this.agent = Offerchat.agent({website_id: Offerchat.website.id}).first();
@@ -639,7 +639,7 @@ Chats = {
           type: "GET",
           url: Offerchat.src.history + "/chats/create/" + Offerchat.params.secret_token,
           dataType: "jsonp",
-          data: { sender: name, msg: message, agent: _this.agent.name, vid: _this.visitor.id, aid: _this.agent.id, vname: _this.visitor.name, url: Offerchat.params.current_url }
+          data: { sender: name, msg: message, agent: _this.agent.name, vid: _this.visitor.id, aid: _this.agent.id, vname: _this.visitor.name, url: Offerchat.params.current_url, webid: Offerchat.website.id }
         });
       } else {
         _this.createChatHistory(sender, message);

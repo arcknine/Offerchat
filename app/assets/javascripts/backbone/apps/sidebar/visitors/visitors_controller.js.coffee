@@ -51,6 +51,9 @@
       App.reqres.setHandler "detect:url:from:string", (str) =>
         @detectURL str
 
+      App.commands.setHandler "subtract:unread", (type, model) =>
+        @subtractCounter type, model
+
       if App.xmpp.status is Strophe.Status.CONNECTED
         @connection = App.xmpp.connection
         @connected()
@@ -127,8 +130,6 @@
       visitorsView = @getVisitorsView(visitors)
 
       @listenTo visitorsView, "childview:click:visitor:tab", (visitor) =>
-        @subtractCounter "visitor", visitor.model
-
         unless Backbone.history.fragment.indexOf(visitor.model.get("token")) != -1
           App.navigate Routes.root_path(), trigger: true
           setTimeout(->
@@ -150,8 +151,6 @@
       agentsView = @getAgentsView @siteAgents
 
       @listenTo agentsView, "childview:click:agent:tab", (agent) =>
-        @subtractCounter "agent", agent.model
-
         unless Backbone.history.fragment.indexOf(agent.model.get("token")) != -1
           App.navigate Routes.root_path(), trigger: true
           setTimeout(->
@@ -368,7 +367,7 @@
 
         # add condition if window is active or not
         # desktop notification here
-        @desktopNotify info.name, body
+        @desktopNotify info.name, body, token, 'visitor'
 
       else if agent# and body
 
@@ -447,11 +446,11 @@
 
             # add condition if window is active or not
             # desktop notification here
-            @desktopNotify name, body
+            @desktopNotify name, body, token, 'agent'
 
       true
 
-    desktopNotify: (from, msg) ->
+    desktopNotify: (from, msg, token, type) ->
       unless App.request "is:active:tab"
         permission = localStorage.getItem("notification")
 
@@ -463,6 +462,8 @@
             content = from + ": " + msg
             notification = window.webkitNotifications.createNotification(icon, title, content)
             notification.onclick = ->
+              window.focus()
+              App.navigate "chats/#{type}/#{token}", trigger: true
               notification.close()
 
             setTimeout(->
