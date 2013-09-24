@@ -4,5 +4,5 @@
   .block.large
     %i.icon.icon-agent-large
   .block
-    %a.btn.action.btn-large.close
-      Back to Dashboard
+    %a.btn.action.btn-large.back-to-checkout
+      Back to Checkout

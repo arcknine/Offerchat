@@ -102,9 +102,10 @@
       new List.ModalPaymentSuccess
         model: @profile
 
-    getPaymentFailModal: ->
+    getPaymentFailModal: (plan) ->
       new List.ModalPaymentFail
         model: @profile
+        plan: plan
 
     showModal: (plan, agents=null) =>
       modalView = @getPlanModal(plan)
@@ -146,7 +147,7 @@
   
                 @paymentSuccess()
             else
-              @paymentFail()
+              @paymentFail(plan)
   
           Stripe.createToken(card, handleStripeResponse)
 
@@ -223,12 +224,15 @@
 
       App.modalRegion.show formView
 
-    paymentFail: =>
-      modalView = @getPaymentFailModal()
+    paymentFail: (plan) =>
+      modalView = @getPaymentFailModal(plan)
       formView  = App.request "modal:wrapper", modalView
 
       @listenTo formView, "modal:cancel", (item) ->
         formView.close()
+        
+      @listenTo modalView, "back:to:checkout", (e) ->
+        console.log e
 
       App.modalRegion.show formView
 
