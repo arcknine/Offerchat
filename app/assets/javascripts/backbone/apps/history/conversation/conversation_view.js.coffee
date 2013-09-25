@@ -215,16 +215,17 @@
       console.log @$(".forwarding-recipient").val()
 
     delete_convo: (evt)->
-      console.log "Process deleting of this conversation"
-      self = @
-      conversations = @collection
-      ids = [@model.get("_id")]
-      self.trigger "close:chats:modal"
-      $.ajax
-        url: "#{gon.history_url}/convo/remove"
-        data: {ids: ids}
-        dataType : "jsonp"
-        processData: true
-        success: ->
-          self.trigger "close:chats:modal"
-          self.model.destroy()
+      r = confirm "Are you sure you want to delete this conversation?"
+      if r is true
+        self = @
+        conversations = @collection
+        ids = [@model.get("_id")]
+        self.trigger "close:chats:modal"
+        $.ajax
+          url: "#{gon.history_url}/convo/remove"
+          data: {ids: ids}
+          dataType : "jsonp"
+          processData: true
+          success: ->
+            self.trigger "close:chats:modal"
+            self.model.destroy()
