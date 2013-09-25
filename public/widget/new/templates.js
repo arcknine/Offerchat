@@ -82,7 +82,8 @@ Templates = {
         "keyup input.widget-input-text" : "isTyping",
         "click a[data-type=sound]"      : "toggleSound",
         "click a[data-type=transcript]" : "downloadTranscript",
-        "click div.footer-credits a"    : "togglePoweredBy"
+        "click div.footer-credits a"    : "togglePoweredBy",
+        "click ul.rating-options a > i" : "clickRating"
       },
       toggleSettings: function() {
         tooltip = $(".settings-options");
@@ -92,13 +93,6 @@ Templates = {
           $(".tooltip-options").removeClass("open");
           tooltip.addClass("open");
         }
-
-        /*var msg = "";
-        $.each(Chats.messages, function(key, value){
-          msg += "(" + value.time + ") "  + value.sender + ": " + value.message + "\n";
-        });
-
-        $('a[data-type=transcript]').attr('href', "data:text/octet-stream," + escape(msg));*/
       },
       toggleRating: function() {
         tooltip = $(".rating-options");
@@ -136,6 +130,26 @@ Templates = {
       },
       togglePoweredBy: function() {
         window.open('//www.offerchat.com/?utm_medium=Widget_banner&utm_campaign=offerchat_widget&utm_source=www.offerchat.com', '_blank');
+        return true;
+      },
+      clickRating: function(e) {
+        var a, rating, widget;
+        a = $(e.target).find("i");
+        if ( !a.hasClass("icon") )
+          a = $(e.target);
+
+        if ( a.hasClass("icon-thumbs-up-green") ) {
+          $("a.chat-rating > i").attr("class", "widget icon icon-thumbs-up-green");
+          rating = "up";
+        } else if ( a.hasClass("icon-thumbs-down-red") ) {
+          $("a.chat-rating > i").attr("class", "widget icon icon-thumbs-down-red");
+          rating = "down";
+        }
+
+        _this.details.rating = rating;
+        Offerchat.storeData("ofc-details", _this.details, localStorage);
+
+        $(".rating-options").removeClass("open");
         return true;
       }
     });
@@ -403,7 +417,7 @@ Templates = {
   },
 
   getWidgetInputs: function(data) {
-    var inputs;
+    var inputs, rating;
     data   = data || { placeholder: "Type your question and hit enter" };
     inputs = '<ul class="tooltip-options settings-options">' +
              '  <li><a data-type="transcript">Download Transcript</a></li>';
@@ -417,6 +431,13 @@ Templates = {
     else
       inputs += '  <li><a data-type="sound" data-sound="off">Turn on sound</a></li>';
 
+    if (this.details.rating == "up")
+      rating = "icon-thumbs-up-green";
+    else if (this.details.rating == "down")
+      rating = "icon-thumbs-down-red";
+    else
+      rating = "icon-thumbs-up";
+
     inputs += '  <div class="footer-credits">powered by <a>Offerchat</a></div>' +
              '  <div class="caret"></div>' +
              '</ul>' +
@@ -427,8 +448,8 @@ Templates = {
              '</ul>' +
              '<i class="widget icon icon-chat"></i>' +
              '<input class="widget-input-text" placeholder="' + data.placeholder + '" type="text">' +
-             '<a class="chat-settings"><i class="widget icon icon-gear"></i></a>';
-             // '<a class="chat-rating"><i class="widget icon icon-thumbs-up"></i></a>';
+             '<a class="chat-settings"><i class="widget icon icon-gear"></i></a>' +
+             '<a class="chat-rating"><i class="widget icon ' + rating + '"></i></a>';
 
     return inputs;
   },

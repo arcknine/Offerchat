@@ -336,7 +336,6 @@ Chats = {
 
     } else if (body.length > 0) {
       var a = Chats.agent;
-      console.log(a);
       if (!a || a.jabber_user != agent) {
         var agents = Offerchat.website.agents;
         $.each(agents, function(key, value){
