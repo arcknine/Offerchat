@@ -14,18 +14,27 @@
       @height      = App.request "get:chat:window:height"
       @messages    = App.request "get:chats:messages"
       @transcript  = App.request "transcript:entity"
-      @currentMsgs = App.request "messeges:entities"
-      @agentMsgs   = App.request "get:agent:chats:messages"
-      @scroll      = false
-      @layout      = @getLayout()
       @transcript.url = Routes.email_export_transcript_index_path
+      @scroll      = false
       @last_agent_msg = ""
+
+      @layout      = @getLayout()
+      # console.log "layout", @visitor
+
+      @visitor.setActiveChat() if @visitor
+
+      @agentMsgs   = App.request "get:agent:chats:messages"
+      if typeof visitor isnt "undefined" and @visitor.get("history") isnt true
+        @parseChatHistory()
+      else
+        @currentMsgs = App.request "messeges:entities"
+        @currentMsgs.add @messages.where({token: @token})
 
       @listenTo visitors, "add", =>
         if @visitor.get("token") isnt @token
           visitor = visitors.findWhere token: @token
           unless typeof visitor is "undefined"
-            # visitor.setActiveChat()
+            visitor.setActiveChat()
             visitor.set history: true
             @visitor.set visitor.attributes
             @parseChatHistory()
@@ -43,14 +52,6 @@
         @visitorInfoView()
         @chatsView()
         App.execute "subtract:unread", 'visitor', @visitor
-
-        # @visitor.setActiveChat() if @visitor
-
-        if typeof visitor isnt "undefined" and @visitor.get("history") isnt true
-          @parseChatHistory()
-        else
-          @currentMsgs.add @messages.where({token: @token})
-
 
       @resizeChatWrapper()
       @show @layout
