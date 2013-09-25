@@ -10,7 +10,7 @@
           /     Chat
           /   %a.btn#notesTabBtn
           /     Notes
-        
+
       .modal-body
         // CHAT HISTORY
         .chat-viewer-content.bordered#historyTabSection
@@ -21,7 +21,4 @@
             #chat-modal-body-region
               Fetching Conversation...
       .modal-footer.bordered#chat-modal-footer-region
-        
-
-        
-
+    .close-modal-backdrop
