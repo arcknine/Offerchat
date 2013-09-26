@@ -1,0 +1,44 @@
+.block.large
+  %h2 Reports
+  .calendar-picker-wrapper
+    %a.btn.btn-large.calendar-picker-btn
+      %i.icon.icon-calendar
+      Today
+      %i.icon.icon-arrow-down
+
+    .history-date-wrapper.hide
+      #reports-date
+      .date-control
+        %div{ style: "float: left" }
+          .btn-group
+            %a.btn.small{ data: { type: "today"} } Today
+            %a.btn.small.active{ data: { type: "week"} } This week
+            %a.btn.small{ data: { type: "month"} } This month
+
+        %button.btn.action{ style: "margin-right: 20px", type: "submit" } Apply
+        %a Cancel
+
+  #websites-region.btn-selector-wrapper
+
+.block.large
+  %h4 All agents
+  .toggle-list
+    %a.btn-toggle-all.all-agents.bordered.active
+      .chat-agent-name All Agents
+    %div{ style: "display: inline" }
+      %a.btn-toggle-all.all-agents.bordered
+        .chat-agent-name All Agents
+      %a.btn-toggle-all.all-agents.bordered
+        .chat-agent-name All Agents
+      %a.btn-toggle-all.all-agents.bordered
+        .chat-agent-name All Agents
+      %a.btn-toggle-all.all-agents.bordered
+        .chat-agent-name All Agents
+      %a.btn-toggle-all.all-agents.bordered
+        .chat-agent-name All Agents
+      %a.btn-toggle-all.all-agents.bordered
+        .chat-agent-name All Agents
+      %a.btn-toggle-all.all-agents.bordered
+        .chat-agent-name All Agents
+      %a.btn-toggle-all.all-agents.bordered
+        .chat-agent-name All Agents

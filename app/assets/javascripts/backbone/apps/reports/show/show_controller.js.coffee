@@ -2,10 +2,52 @@
 
   class Show.Controller extends App.Controllers.Base
     initialize: ->
-      reportsView = @getReports()
-      console.log reportsView
-      App.mainRegion.show reportsView
-      NProgress.inc()
+      @manageSites = App.request "manage:sites:entities"
+      @layout      = @getLayout()
 
-    getReports: ->
-      new Show.Reports
+      @listenTo @layout, "show", =>
+        @initLayoutEvents()
+        @initDatePicker "week"
+        @showWebsites()
+
+      @show @layout
+
+    initLayoutEvents: ->
+      @listenTo @layout, "quick:date:select", (type) =>
+        $("#reports-date > .datepicker").remove()
+        @initDatePicker type
+
+    initDatePicker: (type) ->
+      if type is "today"
+        from = moment().format("YYYY-MM-DD")
+        to   = moment().format("YYYY-MM-DD")
+      else if type is "month"
+        from = moment().startOf('month').format("YYYY-MM-DD")
+        to   = moment().format("YYYY-MM-DD")
+      else
+        from = moment().startOf('week').format("YYYY-MM-DD")
+        to   = moment().format("YYYY-MM-DD")
+
+      current = moment().format("YYYY-MM-DD")
+
+      $("#reports-date").DatePicker
+        flat: true
+        date: [from, to]
+        current: current
+        calendars: 3
+        mode: "range"
+        starts: 1
+        onChange: (formated, dates) ->
+          from = formated[0]
+          to   = formated[1]
+
+    showWebsites: ->
+      websitesView = @getWebsites()
+      @layout.websitesRegion.show websitesView
+
+    getLayout: ->
+      new Show.Layout
+
+    getWebsites: ->
+      new Show.Websites
+        collection: @manageSites

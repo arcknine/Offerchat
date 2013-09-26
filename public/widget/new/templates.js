@@ -95,10 +95,12 @@ Templates = {
         }
       },
       toggleRating: function() {
-        tooltip = $(".rating-options");
+        var tooltip = $(".rating-options");
+        var agent   = Offerchat.loadData("ofc-agent", localStorage);
+
         if (tooltip.hasClass("open"))
           tooltip.removeClass("open");
-        else {
+        else if (agent) {
           $(".tooltip-options").removeClass("open");
           tooltip.addClass("open");
         }
@@ -133,21 +135,24 @@ Templates = {
         return true;
       },
       clickRating: function(e) {
-        var a, rating, widget;
+        var a, rating, agentt;
         a = $(e.target).find("i");
         if ( !a.hasClass("icon") )
           a = $(e.target);
 
-        if ( a.hasClass("icon-thumbs-up-green") ) {
+        agent = Offerchat.loadData("ofc-agent", localStorage);
+        if ( agent && a.hasClass("icon-thumbs-up-green") ) {
           $("a.chat-rating > i").attr("class", "widget icon icon-thumbs-up-green");
           rating = "up";
-        } else if ( a.hasClass("icon-thumbs-down-red") ) {
+        } else if ( agent && a.hasClass("icon-thumbs-down-red") ) {
           $("a.chat-rating > i").attr("class", "widget icon icon-thumbs-down-red");
           rating = "down";
         }
 
-        _this.details.rating = rating;
-        Offerchat.storeData("ofc-details", _this.details, localStorage);
+        if ( agent ) {
+          agent.rating = rating;
+          Offerchat.storeData("ofc-agent", agent, localStorage);
+        }
 
         $(".rating-options").removeClass("open");
         return true;
@@ -431,9 +436,9 @@ Templates = {
     else
       inputs += '  <li><a data-type="sound" data-sound="off">Turn on sound</a></li>';
 
-    if (this.details.rating == "up")
+    if (this.agent && this.agent.rating == "up")
       rating = "icon-thumbs-up-green";
-    else if (this.details.rating == "down")
+    else if (this.agent && this.agent.rating == "down")
       rating = "icon-thumbs-down-red";
     else
       rating = "icon-thumbs-up";
