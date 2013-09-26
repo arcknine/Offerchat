@@ -471,6 +471,8 @@
             , 5000)
 
             notification.show()
+          else
+            @showNotification("Please re-enable desktop notifications in the Account menu", "warning")
 
     addCounter: (type, model) ->
       if type is "agent"

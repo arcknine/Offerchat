@@ -44,6 +44,7 @@
       @layout.accountRegion.show notificationsView
 
     getNotificationsView: ->
-      if localStorage.getItem("notification") is "true" then allowed = "checked" else allowed = ""
+      havePermission = window.webkitNotifications.checkPermission()
+      if localStorage.getItem("notification") is "true" and havePermission is 0 then allowed = "checked" else allowed = ""
       new Notifications.View
         allowed: allowed
