@@ -33,11 +33,16 @@
   class Show.Website extends App.Views.ItemView
     template: "reports/show/website"
     tagName:  "li"
+    triggers:
+      "click" : "select:current:website"
 
   class Show.Websites extends App.Views.CompositeView
     template:  "reports/show/websites"
     itemView:  Show.Website
     itemViewContainer: "ul"
+    modelEvents:
+      "change" : "render"
+
     collectionEvents:
       "change" : "render"
 
@@ -56,10 +61,33 @@
         parent.addClass("open")
         $(e.currentTarget).addClass("active")
 
-  class Show.Reports extends App.Views.ItemView
-    template: "reports/show/show"
-    className: "block large"
+  class Show.Agent extends App.Views.ItemView
+    template:  "reports/show/agent"
+    tagName:   "a"
+    className: "btn-toggle bordered"
+
     events:
-      "click a.agent-inline-block": "toggleAgent"
+      "click" : "toggleAgent"
+
     toggleAgent: (e) ->
-      $(e.currentTarget).addClass "selected"
+      $(".toggle-list a").removeClass("active")
+      $(e.currentTarget).addClass("active")
+
+      @trigger "toggle:selected:agent", this
+
+  class Show.Agents extends App.Views.CompositeView
+    template:  "reports/show/agents"
+    itemView:  Show.Agent
+    className: "toggle-list"
+    itemViewContainer: "div#agents-wrapper"
+    collectionEvents:
+      "change" : "render"
+
+    events:
+      "click a.btn-toggle-all.all-agents" : "toggleAllAgents"
+
+    toggleAllAgents: (e) ->
+      $(".toggle-list a").removeClass("active")
+      $(e.currentTarget).addClass("active")
+
+      @trigger "toggle:all:agents", "all"

@@ -1,7 +1,7 @@
 .btn-selector
   .btn.btn-action-selector.btn-large
     .icon.icon-arrow-down
-    %span.current-selection All Websites
+    %span.current-selection {{name}}
 
   .dropdown-options.dark
     %ul
