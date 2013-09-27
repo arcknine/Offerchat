@@ -12,7 +12,8 @@ Offerchat = {
     this.details = this.loadData("ofc-details", localStorage) || undefined;
     this.roster  = this.loadData("ofc-roster", localStorage) || undefined;
     this.visitor = this.loadData("ofc-visitor", localStorage) || undefined;
-    this.agent  = this.loadData("ofc-agent", localStorage) || undefined;
+    this.agent   = this.loadData("ofc-agent", localStorage) || undefined;
+    this.agents  = this.loadData("ofc-agents", sessionStorage) || undefined;
 
     if (this.params.api_key && this.params.secret_token) {
       this.loadAllAssets(function(){
@@ -120,6 +121,11 @@ Offerchat = {
           }
         }
       });
+    } else if (this.agents && _this.agents.length > 0) {
+      this.website = data.website;
+
+      this.any_agents_online = true;
+      callback();
     } else {
       $.ajax({
         type: "GET",

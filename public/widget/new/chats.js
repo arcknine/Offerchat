@@ -66,6 +66,9 @@ Chats = {
     _this.connection = new Strophe.Connection(bosh_url);
     _this.connection.connect(jid, password, function(status) {
       if (status === Strophe.Status.CONNECTED) {
+        Offerchat.removeData("ofc-agents", sessionStorage);
+        Offerchat.removeData("offerchat-credential", sessionStorage);
+
         _this.reconnect = true;
         _this.connected();
       }
@@ -333,7 +336,6 @@ Chats = {
 
     } else if (body.length > 0) {
       var a = Chats.agent;
-      console.log(a);
       if (!a || a.jabber_user != agent) {
         var agents = Offerchat.website.agents;
         $.each(agents, function(key, value){
@@ -423,11 +425,11 @@ Chats = {
 
     classTag = sender != "You" ? " agent-message" : "";
 
-    if(cur!==0){
-      if(sender!="You" && typeof options != "undefined" && options.edit == true){
+    if (cur !== 0) {
+      if (sender != "You" && typeof options != "undefined" && options.edit === true) {
         ctr = cur;
         found = false;
-        while(found == false){
+        while(found === false){
           if(this.messages[ctr -1].sender != "You"){
             this.messages[ctr - 1].message = message;
             this.messages[ctr - 1].time = moment().format('hh:mma');
@@ -519,7 +521,7 @@ Chats = {
           type: "GET",
           url: Offerchat.src.history + "/chats/create/" + Offerchat.params.secret_token,
           dataType: "jsonp",
-          data: { sender: name, msg: message, agent: _this.agent.name, vid: _this.visitor.id, aid: _this.agent.id, vname: _this.visitor.name, url: Offerchat.params.current_url }
+          data: { sender: name, msg: message, agent: _this.agent.name, vid: _this.visitor.id, aid: _this.agent.id, vname: _this.visitor.name, url: Offerchat.params.current_url, wid: Offerchat.website.id }
         });
       } else {
         _this.createChatHistory(sender, message);
