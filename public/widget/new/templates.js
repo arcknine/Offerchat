@@ -135,23 +135,42 @@ Templates = {
         return true;
       },
       clickRating: function(e) {
-        var a, rating, agentt;
+        var a, rating, agentt, data, classTag;
         a = $(e.target).find("i");
         if ( !a.hasClass("icon") )
           a = $(e.target);
 
         agent = Offerchat.loadData("ofc-agent", localStorage);
         if ( agent && a.hasClass("icon-thumbs-up-green") ) {
-          $("a.chat-rating > i").attr("class", "widget icon icon-thumbs-up-green");
+          classTag = "widget icon icon-thumbs-up-green";
           rating = "up";
         } else if ( agent && a.hasClass("icon-thumbs-down-red") ) {
-          $("a.chat-rating > i").attr("class", "widget icon icon-thumbs-down-red");
+          classTag = "widget icon icon-thumbs-down-red";
           rating = "down";
         }
 
         if ( agent ) {
           agent.rating = rating;
+          agent.rating_token = agent.rating_token ? agent.rating_token : (Math.random() + '').replace('0.', '');
           Offerchat.storeData("ofc-agent", agent, localStorage);
+
+          if ( rating == "up" )
+            data = { aid: agent.id, up: 1, token: agent.rating_token };
+          else if ( rating == "down" )
+            data = { aid: agent.id, down: 1, token: agent.rating_token };
+
+          $.ajax({
+            type: "GET",
+            url:  Offerchat.src.api_url + "ratings/" + Offerchat.params.api_key + ".jsonp",
+            data: data,
+            dataType: "jsonp",
+            success: function(data) {
+              if ( data.status == "success" ) {
+                $("a.chat-rating > i").attr("class", classTag);
+              }
+            }
+          });
+
         }
 
         $(".rating-options").removeClass("open");
