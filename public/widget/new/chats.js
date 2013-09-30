@@ -151,12 +151,14 @@ Chats = {
   },
 
   connected: function() {
+    var _this = this;
     this.connection.roster.init(this.connection);
     this.connection.vcard.init(this.connection);
     this.connection.addHandler(this.onPresence, null, "presence");
     this.connection.addHandler(this.onPrivateMessage, null, "message", "chat");
 
     this.hideLoader();
+    this.checkCurrentAgent();
     this.sendPresence();
     this.loadChats();
     this.initTriggers();
@@ -176,6 +178,21 @@ Chats = {
       Offerchat.removeData("offerchat-credential", sessionStorage);
     }
     catch (e) {}
+  },
+
+  checkCurrentAgent: function(callback) {
+    var _this = this;
+    var agent = this.agent;
+    if (agent) {
+      setTimeout(function(){
+        var agents = _this.agents;
+        if ( agents.indexOf(agent.jabber_user) === -1 ) {
+          Offerchat.removeData("ofc-agent", localStorage);
+          _this.agent = undefined;
+          _this.sendPresence();
+        }
+      }, 5000);
+    }
   },
 
   sendPresence: function() {
