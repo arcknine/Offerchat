@@ -6,6 +6,7 @@ describe User do
     @user = Fabricate(:user)
   end
 
+  it { should have_many :ratings }
   it { should have_many :accounts }
   it { should have_many :websites }
   it { should validate_attachment_size(:avatar).less_than(1.megabytes) }
