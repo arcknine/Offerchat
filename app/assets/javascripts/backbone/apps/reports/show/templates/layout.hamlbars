@@ -1,0 +1,78 @@
+.block.large
+  %h2 Reports
+  .calendar-picker-wrapper
+    %a.btn.btn-large.calendar-picker-btn
+      %i.icon.icon-calendar
+      Today
+      %i.icon.icon-arrow-down
+
+    .history-date-wrapper.hide
+      #reports-date
+      .date-control
+        %div{ style: "float: left" }
+          .btn-group
+            %a.btn.small{ data: { type: "today"} } Today
+            %a.btn.small.active{ data: { type: "week"} } This week
+            %a.btn.small{ data: { type: "month"} } This month
+
+        %button.btn.action{ style: "margin-right: 20px", type: "submit" } Apply
+        %a Cancel
+
+  #websites-region.btn-selector-wrapper
+
+.block.large
+  %h4 Assigned agents
+  #agents-region
+
+  .stats-container
+    .stats-panel
+      %h3 3,423
+      %label Chat Opportunities
+
+    .stats-panel
+      %h3
+        3
+        %span.suffix minutes
+      %label Average Handling Time
+
+    .stats-panel
+      %h3
+        4
+        %span.suffix seconds
+      %label Average Response Time
+
+    .stats-panel.rating-panel
+      .group
+        .go-left
+          %i.icon.icon-thumbs-up-green
+          73
+        .go-right
+          %i.icon.icon-thumbs-up-red
+          27
+
+      .rating-bar
+        .progress-bar.green{ style: "width: 73%" }
+        .progress-bar.red{ style: "width: 27%" }
+
+  .graph-container#reports-graph{ style: "position: relative" }
+
+  .stats-panel
+    %h3 10,330
+    %label
+      %span.stats-indicator.blue
+        .stats-stick
+      Active Chats
+
+  .stats-panel
+    %h3 4,402
+    %label
+      %span.stats-indicator.green
+        .stats-stick
+      Proactive Chats
+
+  .stats-panel
+    %h3 384
+    %label
+      %span.stats-indicator.red
+        .stats-stick
+      Missed Chats

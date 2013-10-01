@@ -1,3 +1,8 @@
+.block-message.chat-actions-notifications{ :style => "display:none;" }
+  %a.close
+    &times;
+  %span
+
 {{#if is_chatting}}
 .block-message.chat-actions-notifications.warning
   %strong {{agent_name}}
@@ -5,8 +10,4 @@
 {{/if}}
 
 #visitor-info-region
-.block-message{ :style => "display:none;" }
-  %a.close
-    &times;
-  %span
 #chats-region

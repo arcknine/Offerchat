@@ -13,6 +13,7 @@ class Website < ActiveRecord::Base
   has_many :rosters
   has_many :triggers
   has_many :visitors
+  has_many :ratings
   belongs_to :owner, :foreign_key => "owner_id", :class_name => "User"
 
   validates_presence_of :name

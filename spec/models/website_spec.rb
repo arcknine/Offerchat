@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Website do
 
+  it { should have_many(:ratings) }
   it { should have_many(:accounts) }
   it { should have_many(:rosters) }
   it { should belong_to(:owner) }

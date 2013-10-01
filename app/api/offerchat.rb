@@ -199,6 +199,40 @@ module Offerchat
       end
     end
 
+    resource :ratings do
+      params do
+        requires :apikey, type: String, desc: "Api key."
+      end
+      route_param :apikey do
+        get do
+          website = Website.find_by_api_key(params[:apikey])
+          rating  = Rating.find_by_token(params[:token])
+          user    = User.find(params[:aid])
+
+          if rating.blank?
+            if params[:up]
+              rating = Rating.new(user: user, website: website, up: 1, token: params[:token])
+            else
+              rating = Rating.new(user: user, website: website, down: 1, token: params[:token])
+            end
+          else
+            if params[:up]
+              rating.up = 1
+              rating.down = nil
+            else
+              rating.up = nil
+              rating.down = 1
+            end
+          end
+
+          if website && rating.save
+            { status: "success" }
+          else
+            { status: "Invalid API key." }
+          end
+        end
+      end
+    end
 
   end
 end

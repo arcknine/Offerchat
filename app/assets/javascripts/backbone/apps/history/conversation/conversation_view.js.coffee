@@ -24,7 +24,7 @@
 
     triggers:
       "click .trash-btn"    : "remove:conversations:clicked"
-    
+
     events:
       "click .calendar-picker-btn" : "toggle_date_picker"
       "click #apply-date"          : "filter_conversations"
@@ -81,7 +81,7 @@
       evt.stopPropagation()
       evt.preventDefault()
       checkbox = @$("label.checkbox")
-      if checkbox.hasClass("checked") 
+      if checkbox.hasClass("checked")
         $(".table-row").removeAttr("data-checked")
         $("label.checkbox").removeClass("checked")
       else
@@ -106,7 +106,7 @@
     modelEvents:
       "change" : "render"
       "destroy": "remove"
-      
+
     events:
       "click"                 : "open_conversation"
       "click label.checkbox"  : "select_conversation"
@@ -172,7 +172,7 @@
       footerRegion:   "#chat-modal-footer-region"
     triggers:
       "click a.close" : "close:chats:modal"
-      "click div.modal-backdrop" : "close:chats:modal"
+      "click div.close-modal-backdrop" : "close:chats:modal"
 
   class Conversations.ChatModalHeader extends App.Views.ItemView
     template: "history/conversation/chats_modal_header"
@@ -215,16 +215,17 @@
       console.log @$(".forwarding-recipient").val()
 
     delete_convo: (evt)->
-      console.log "Process deleting of this conversation"
-      self = @
-      conversations = @collection
-      ids = [@model.get("_id")]
-      self.trigger "close:chats:modal"
-      $.ajax
-        url: "#{gon.history_url}/convo/remove"
-        data: {ids: ids}
-        dataType : "jsonp"
-        processData: true
-        success: ->
-          self.trigger "close:chats:modal"
-          self.model.destroy()
+      r = confirm "Are you sure you want to delete this conversation?"
+      if r is true
+        self = @
+        conversations = @collection
+        ids = [@model.get("_id")]
+        self.trigger "close:chats:modal"
+        $.ajax
+          url: "#{gon.history_url}/convo/remove"
+          data: {ids: ids}
+          dataType : "jsonp"
+          processData: true
+          success: ->
+            self.trigger "close:chats:modal"
+            self.model.destroy()

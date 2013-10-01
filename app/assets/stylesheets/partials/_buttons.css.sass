@@ -255,3 +255,33 @@ button.trash-btn
     display: block
     @include icon(16px, 13px, -73px, -103px)
 
+.toggle-list
+  .chat-agent-name
+    vertical-align: top
+    display: inline-block
+    font-size: 12px
+    top: 10px
+a.btn-toggle,
+a.btn-toggle-all
+  display: inline-block
+  cursor: pointer
+  padding: 5px
+  border-radius: 3px
+  height: 37px
+  color: $text-color
+  margin: 0 5px 5px 0
+  @include transition(.2s)
+  &:hover
+    background-color: #e8e8e8
+  &.bordered
+    border: 1px solid #e8e8e8
+  &.active
+    background-color: $link-color
+    color: #fff
+    border: 1px solid transparent
+a.btn-toggle-all
+  font-size: 12px
+  &.all-agents
+    width: 100px
+    text-align: center
+    vertical-align: top
