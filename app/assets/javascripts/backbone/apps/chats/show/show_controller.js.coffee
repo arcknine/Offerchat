@@ -217,7 +217,7 @@
       if ev.keyCode is 13 and message isnt ""
 
         if @last_agent_msg isnt ""
-          @last_agent_msg.set message: message, time: new Date()
+          @last_agent_msg.set message: message, time: new Date(), edited: true
           @last_agent_msg = ""
 
           to  = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
@@ -242,6 +242,7 @@
             message:    message
             time:       new Date()
             timesimple: moment().format('hh:mma')
+            edited:     false
 
           if @currentMsgs.last() and @currentMsgs.last().get("sender") is "agent"
             currentMsg.child      = true

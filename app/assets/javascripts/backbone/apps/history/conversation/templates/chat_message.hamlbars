@@ -4,6 +4,11 @@
       {{sender}}
 
   .chat-table.chat-container-table
-    %p {{{msg}}}
+    %p
+      {{{msg}}}
+
+      {{#if edited}}
+      %i.icon.icon-pencil
+      {{/if}}
 
   .chat-time {{sent}}
