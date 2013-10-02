@@ -1,0 +1,11 @@
+.group
+  .go-left
+    %i.icon.icon-thumbs-up-green
+    {{up}}
+  .go-right
+    %i.icon.icon-thumbs-up-red
+    {{down}}
+
+.rating-bar
+  .progress-bar.green{ style: "width: {{up_percent}}%" }
+  .progress-bar.red{ style: "width: {{down_percent}}%" }

@@ -10,6 +10,13 @@ Dashboard::Application.routes.draw do
       get "only"
     end
   end
+
+  resources :reports, :only => [:index]  do
+    collection do
+      post "ratings"
+    end
+  end
+
   resource :settings
   resources :triggers
   resources :visitors

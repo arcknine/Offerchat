@@ -41,18 +41,7 @@
         %span.suffix seconds
       %label Average Response Time
 
-    .stats-panel.rating-panel
-      .group
-        .go-left
-          %i.icon.icon-thumbs-up-green
-          73
-        .go-right
-          %i.icon.icon-thumbs-up-red
-          27
-
-      .rating-bar
-        .progress-bar.green{ style: "width: 73%" }
-        .progress-bar.red{ style: "width: 27%" }
+    #ratings-region.stats-panel.rating-panel
 
   .graph-container#reports-graph{ style: "position: relative" }
 

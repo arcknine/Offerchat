@@ -5,21 +5,31 @@
       @manageSites = App.request "manage:sites:entities"
       @agents      = App.request "agents:entities"
       @curWebsite  = App.request "reports:current:website"
+      @curAgent    = App.request "reports:current:agent"
+      @curDate     = App.request "reports:current:date"
       @asgnAgents  = App.request "reports:assigned:agents"
       currentUser  = App.request "get:current:user:json"
+      @ratings     = App.request "reports:get:ratings"
 
       @layout      = @getLayout()
 
-      App.execute "when:fetched", @manageSites, =>
-        @manageSites.add { name: "All Websites", all: true }
+      console.log @curDate
 
       App.execute "when:fetched", @agents, =>
         @asgnAgents.set @agents.models
         @currentUser = @agents.findWhere id: currentUser.id
 
+      App.execute "when:fetched", @manageSites, =>
+        @all_sites_ids = @manageSites.pluck("id")
+        @manageSites.add { name: "All Websites", all: true }
+
+        ratings = App.request "reports:get:ratings", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()
+        @ratingPercentage(ratings)
+
       @listenTo @layout, "show", =>
         @showWebsites()
         @showAgents()
+        @showRatings()
 
         @initLayoutEvents()
         @initMorrisGrap()
@@ -31,6 +41,15 @@
       @listenTo @layout, "quick:date:select", (type) =>
         $("#reports-date > .datepicker").remove()
         @initDatePicker type
+
+      @listenTo @layout, "apply:selected:date", =>
+        if @from == @to
+          @from = "#{@from} 00:00:00"
+          @to   = "#{@to} 23:59:59"
+
+        @curDate.set from: @from, to: @to
+        ratings = App.request "reports:get:ratings", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()
+        @ratingPercentage(ratings)
 
     initMorrisGrap: ->
       data = [
@@ -63,27 +82,27 @@
 
     initDatePicker: (type) ->
       if type is "today"
-        from = moment().format("YYYY-MM-DD")
-        to   = moment().format("YYYY-MM-DD")
+        @from = moment().format("YYYY-MM-DD")
+        @to   = moment().format("YYYY-MM-DD")
       else if type is "month"
-        from = moment().startOf('month').format("YYYY-MM-DD")
-        to   = moment().format("YYYY-MM-DD")
+        @from = moment().startOf('month').format("YYYY-MM-DD")
+        @to   = moment().format("YYYY-MM-DD")
       else
-        from = moment().startOf('week').format("YYYY-MM-DD")
-        to   = moment().format("YYYY-MM-DD")
+        @from = moment().startOf('week').format("YYYY-MM-DD")
+        @to   = moment().format("YYYY-MM-DD")
 
       current = moment().format("YYYY-MM-DD")
 
       $("#reports-date").DatePicker
         flat: true
-        date: [from, to]
+        date: [@from, @to]
         current: current
         calendars: 3
         mode: "range"
         starts: 1
-        onChange: (formated, dates) ->
-          from = formated[0]
-          to   = formated[1]
+        onChange: (formated, dates) =>
+          @from = formated[0]
+          @to   = formated[1]
 
     showWebsites: ->
       websitesView = @getWebsites()
@@ -94,6 +113,9 @@
         @curWebsite.set site.model.attributes
         @curWebsite.set all: false unless site.model.get("name") is "All Websites"
 
+        ratings = App.request "reports:get:ratings", @getCurrentSiteIds(), @getCurrrentAgentIds(), @getCurrentDate()
+        @ratingPercentage(ratings)
+
         @filterAgents site.model
 
       @layout.websitesRegion.show websitesView
@@ -102,12 +124,22 @@
       agentsView = @getAgents()
 
       @listenTo agentsView, "toggle:all:agents", =>
-        console.log "all agent"
+        @curAgent.set all: true
+        ratings = App.request "reports:get:ratings", @getCurrentSiteIds(), @getCurrrentAgentIds(), @getCurrentDate()
+        @ratingPercentage(ratings)
 
       @listenTo agentsView, "childview:toggle:selected:agent", (agent) =>
-        console.log agent
+        @curAgent.set all: false
+        @curAgent.set agent.model.attributes
+
+        ratings = App.request "reports:get:ratings", @getCurrentSiteIds(), @getCurrrentAgentIds(), @getCurrentDate()
+        @ratingPercentage(ratings)
 
       @layout.agentsRegion.show agentsView
+
+    showRatings: ->
+      ratingsView = @getRatings()
+      @layout.ratingsRegion.show ratingsView
 
     filterAgents: (model) ->
       if model.get("name") is "All Websites"
@@ -121,6 +153,40 @@
 
         @asgnAgents.set agents
 
+    getCurrentSiteIds: ->
+      if @curWebsite.get("all") is true
+        id = @all_sites_ids
+      else
+        id = [@curWebsite.get("id")]
+
+      id
+
+    getCurrrentAgentIds: ->
+      if @curAgent.get("all") is true
+        id = ""
+      else
+        id = [@curAgent.get("id")]
+
+      id
+
+    getCurrentDate: ->
+      from: @curDate.get("from")
+      to:   @curDate.get("to")
+
+    ratingPercentage: (model) ->
+      App.execute "when:fetched", model, =>
+        up     = model.get("up") || 0
+        down   = model.get("down") || 0
+        total  = up + down
+        up_p   = (up / total) * 100
+        down_p = (down / total) * 100
+
+        @ratings.set
+          up: up
+          down: down
+          up_percent: Math.round(up_p)
+          down_percent: Math.round(down_p)
+
     getLayout: ->
       new Show.Layout
 
@@ -132,3 +198,7 @@
     getAgents: ->
       new Show.Agents
         collection: @asgnAgents
+
+    getRatings: ->
+      new Show.Ratings
+        model: @ratings
