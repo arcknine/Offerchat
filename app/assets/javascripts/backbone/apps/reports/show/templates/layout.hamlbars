@@ -3,7 +3,7 @@
   .calendar-picker-wrapper
     %a.btn.btn-large.calendar-picker-btn
       %i.icon.icon-calendar
-      Today
+      %span Today
       %i.icon.icon-arrow-down
 
     .history-date-wrapper.hide
@@ -11,8 +11,8 @@
       .date-control
         %div{ style: "float: left" }
           .btn-group
-            %a.btn.small{ data: { type: "today"} } Today
-            %a.btn.small.active{ data: { type: "week"} } This week
+            %a.btn.small.active{ data: { type: "today"} } Today
+            %a.btn.small{ data: { type: "week"} } This week
             %a.btn.small{ data: { type: "month"} } This month
 
         %button.btn.action{ style: "margin-right: 20px", type: "submit" } Apply

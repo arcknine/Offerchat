@@ -43,6 +43,12 @@
         @initDatePicker type
 
       @listenTo @layout, "apply:selected:date", =>
+        type   = @curDate.get("type")
+        from   = moment(@from).format("MMM D, YYYY")
+        to     = moment(@to).format("MMM D, YYYY")
+        arType = { today: "Today", week: "This week", month: "This month",  custom: "#{from}  -  #{to}"}
+        $(".calendar-picker-btn > span").text(arType[type])
+
         if @from == @to
           @from = "#{@from} 00:00:00"
           @to   = "#{@to} 23:59:59"
@@ -91,6 +97,7 @@
         @from = moment().startOf('week').format("YYYY-MM-DD")
         @to   = moment().format("YYYY-MM-DD")
 
+      @curDate.set type: type
       current = moment().format("YYYY-MM-DD")
 
       $("#reports-date").DatePicker
@@ -103,6 +110,7 @@
         onChange: (formated, dates) =>
           @from = formated[0]
           @to   = formated[1]
+          @curDate.set type: "custom"
 
     showWebsites: ->
       websitesView = @getWebsites()
