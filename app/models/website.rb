@@ -14,6 +14,7 @@ class Website < ActiveRecord::Base
   has_many :triggers
   has_many :visitors
   has_many :ratings
+  has_many :stats
   belongs_to :owner, :foreign_key => "owner_id", :class_name => "User"
 
   validates_presence_of :name
