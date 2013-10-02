@@ -18,7 +18,7 @@ module Stats
         authenticate(params[:key])
         stats = params[:stats]
         stats.each do |s|
-          Stats.create({ website_id: s[:website_id], user_id: s[:user_id], s[:active], s[:missed], s[:proactive] })
+          Stats.create({ website_id: s[:website_id], user_id: s[:user_id], active: s[:active], missed: s[:missed], proactive: s[:proactive] })
         end
       end
     end
