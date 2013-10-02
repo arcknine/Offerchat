@@ -11,7 +11,6 @@
             %span.current-selection
               Change Photo
           .dropdown-options.dark
-            .caret.caret-dark
             %ul
               %li
                 %a Upload Photo
