@@ -13,13 +13,12 @@ class Rating < ActiveRecord::Base
       rating = rating.where(created_at: from..to)
     end
 
-    puts rating.inspect
-
     if params[:user_id]
       rating = rating.where(:website_id => params[:website_id], :user_id => params[:user_id])
     else
-      rating = rating.where(:website_id => params[:website_id]).group("website_id")
+      rating = rating.where(:website_id => params[:website_id])
     end
+    rating = rating.group("website_id")
 
     rating.last
   end

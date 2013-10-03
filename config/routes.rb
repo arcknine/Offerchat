@@ -14,6 +14,7 @@ Dashboard::Application.routes.draw do
   resources :reports, :only => [:index]  do
     collection do
       post "ratings"
+      post "stats"
     end
   end
 
