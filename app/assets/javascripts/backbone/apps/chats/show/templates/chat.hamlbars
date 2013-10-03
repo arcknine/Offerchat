@@ -44,7 +44,11 @@
       {{/if}}
 
   .chat-table.chat-container-table
-    %p {{{message}}}
+    %p
+      {{{message}}}
+      {{#if edited}}
+      %i.icon.icon-pencil
+      {{/if}}
 
   .chat-time {{timesimple}}
 {{/if}}
