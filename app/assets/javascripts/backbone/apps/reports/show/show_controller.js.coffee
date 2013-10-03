@@ -13,8 +13,6 @@
       @stats       = App.request "reports:get:stat"
       @layout      = @getLayout()
 
-      console.log @stats
-
       App.execute "when:fetched", @agents, =>
         @asgnAgents.set @agents.models
         @currentUser = @agents.findWhere id: currentUser.id
