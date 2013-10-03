@@ -4,7 +4,7 @@
   %span
 
 {{#if is_chatting}}
-.block-message.chat-actions-notifications.warning
+.block-message.chat-actions-notifications.warning.active-warning
   %strong {{agent_name}}
   is actively chatting. Engaging a chat might cause interruptions.
 {{/if}}
