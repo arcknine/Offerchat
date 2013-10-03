@@ -227,7 +227,7 @@
         else
 
           @visitor.set("yours", 1)
-          $(".chat-actions-notifications").remove()
+          $(".active-warning").remove()
 
           to  = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
           msg = $msg({to: to, type: "chat"}).c('body').t($.trim(message))
@@ -332,6 +332,7 @@
 
       @listenTo @transcript, "created", (model) =>
         formView.close()
+        console.log "hello worldddddd", model
         @showNotification("Transcript has been successfully sent!")
 
     parseChatHistory: ->
