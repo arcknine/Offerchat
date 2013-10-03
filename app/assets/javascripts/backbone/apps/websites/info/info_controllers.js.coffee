@@ -29,6 +29,7 @@
       if sites.length is 0
         $('#preview-checklist').addClass('checked')
         $('#preview-checklist').find('span').hide()
+        $('#second-check').removeClass('hide')
         $('#second-check').show()
 
 
