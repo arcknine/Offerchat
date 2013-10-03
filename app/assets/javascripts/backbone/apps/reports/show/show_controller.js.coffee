@@ -10,10 +10,8 @@
       @asgnAgents  = App.request "reports:assigned:agents"
       currentUser  = App.request "get:current:user:json"
       @ratings     = App.request "reports:get:ratings"
-
+      @stats       = App.request "reports:get:stat"
       @layout      = @getLayout()
-
-      console.log @curDate
 
       App.execute "when:fetched", @agents, =>
         @asgnAgents.set @agents.models
@@ -24,15 +22,19 @@
         @manageSites.add { name: "All Websites", all: true }
 
         ratings = App.request "reports:get:ratings", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()
-        @ratingPercentage(ratings)
+        @ratingPercentage ratings
+
+        stats = App.request "reports:get:stats", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()
+        @setStats stats
 
       @listenTo @layout, "show", =>
         @showWebsites()
         @showAgents()
         @showRatings()
+        @showStats()
 
-        @initLayoutEvents()
         @initMorrisGrap()
+        @initLayoutEvents()
         @initDatePicker "week"
 
       @show @layout
@@ -57,25 +59,18 @@
         ratings = App.request "reports:get:ratings", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()
         @ratingPercentage(ratings)
 
+        stats = App.request "reports:get:stats", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()
+        @setStats stats
+
     initMorrisGrap: ->
       data = [
-          period: "2013-01-01"
-          active: 0
-          proactive: 0
-          missed: 0
-        ,
-          period: "2013-01-02"
-          active: 53
-          proactive: 12
-          missed: 4
-        ,
-          period: "2013-01-03"
-          active: 78
-          proactive: 32
-          missed: 2
+        period: moment().format("YYYY-MM-DD")
+        active: 0
+        proactive: 0
+        missed: 0
       ]
 
-      Morris.Line
+      @morrisGraph = Morris.Line
         element: "reports-graph"
         data: data
         xkey: "period"
@@ -84,17 +79,17 @@
         lineColors: ["#3cb2e9", "#4ec192", "#f06767"]
         lineWidth: 2
         pointSize: 4
-        smooth: false
+        smooth: true
 
     initDatePicker: (type) ->
-      if type is "today"
-        @from = moment().format("YYYY-MM-DD")
-        @to   = moment().format("YYYY-MM-DD")
-      else if type is "month"
+      if type is "month"
         @from = moment().startOf('month').format("YYYY-MM-DD")
         @to   = moment().format("YYYY-MM-DD")
-      else
+      else if type is "week"
         @from = moment().startOf('week').format("YYYY-MM-DD")
+        @to   = moment().format("YYYY-MM-DD")
+      else
+        @from = moment().format("YYYY-MM-DD")
         @to   = moment().format("YYYY-MM-DD")
 
       @curDate.set type: type
@@ -122,7 +117,10 @@
         @curWebsite.set all: false unless site.model.get("name") is "All Websites"
 
         ratings = App.request "reports:get:ratings", @getCurrentSiteIds(), @getCurrrentAgentIds(), @getCurrentDate()
-        @ratingPercentage(ratings)
+        @ratingPercentage ratings
+
+        stats = App.request "reports:get:stats", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()
+        @setStats stats
 
         @filterAgents site.model
 
@@ -134,20 +132,30 @@
       @listenTo agentsView, "toggle:all:agents", =>
         @curAgent.set all: true
         ratings = App.request "reports:get:ratings", @getCurrentSiteIds(), @getCurrrentAgentIds(), @getCurrentDate()
-        @ratingPercentage(ratings)
+        @ratingPercentage ratings
+
+        stats = App.request "reports:get:stats", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()
+        @setStats stats
 
       @listenTo agentsView, "childview:toggle:selected:agent", (agent) =>
         @curAgent.set all: false
         @curAgent.set agent.model.attributes
 
         ratings = App.request "reports:get:ratings", @getCurrentSiteIds(), @getCurrrentAgentIds(), @getCurrentDate()
-        @ratingPercentage(ratings)
+        @ratingPercentage ratings
+
+        stats = App.request "reports:get:stats", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()
+        @setStats stats
 
       @layout.agentsRegion.show agentsView
 
     showRatings: ->
       ratingsView = @getRatings()
       @layout.ratingsRegion.show ratingsView
+
+    showStats: ->
+      statsView = @getStats()
+      @layout.statsRegion.show statsView
 
     filterAgents: (model) ->
       if model.get("name") is "All Websites"
@@ -195,6 +203,47 @@
           up_percent: Math.round(up_p)
           down_percent: Math.round(down_p)
 
+    setStats: (collection) ->
+      App.execute "when:fetched", collection, =>
+        data = []
+        total = { missed: 0, active: 0, proactive: 0 }
+
+        $.each collection.models, (key, value) =>
+          total =
+            active: value.get("active") + total.active
+            missed: value.get("missed") + total.missed
+            proactive: value.get("proactive") + total.proactive
+
+          data.push
+            period: value.get("period")
+            active: value.get("active")
+            proactive: value.get("proactive")
+            missed: value.get("missed")
+
+        data = [
+          period: moment().format("YYYY-MM-DD")
+          active: 0
+          proactive: 0
+          missed: 0
+        ] if data.length is 0
+
+        @stats.set
+          active: @addCommaSeparator(total.active)
+          missed: @addCommaSeparator(total.missed)
+          proactive: @addCommaSeparator(total.proactive)
+
+        @morrisGraph.setData data
+
+    addCommaSeparator: (input) ->
+      output = input
+      if parseFloat(input)
+        input = new String(input)
+        parts = input.split(".")
+        parts[0] = parts[0].split("").reverse().join("").replace(/(\d{3})(?!$)/g, "$1,").split("").reverse().join("")
+        output = parts.join(".")
+
+      output
+
     getLayout: ->
       new Show.Layout
 
@@ -210,3 +259,7 @@
     getRatings: ->
       new Show.Ratings
         model: @ratings
+
+    getStats: ->
+      new Show.Stats
+        model: @stats

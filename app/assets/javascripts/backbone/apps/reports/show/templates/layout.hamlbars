@@ -3,7 +3,7 @@
   .calendar-picker-wrapper
     %a.btn.btn-large.calendar-picker-btn
       %i.icon.icon-calendar
-      %span Today
+      %span This week
       %i.icon.icon-arrow-down
 
     .history-date-wrapper.hide
@@ -11,8 +11,8 @@
       .date-control
         %div{ style: "float: left" }
           .btn-group
-            %a.btn.small.active{ data: { type: "today"} } Today
-            %a.btn.small{ data: { type: "week"} } This week
+            %a.btn.small{ data: { type: "today"} } Today
+            %a.btn.small.active{ data: { type: "week"} } This week
             %a.btn.small{ data: { type: "month"} } This month
 
         %button.btn.action{ style: "margin-right: 20px", type: "submit" } Apply
@@ -45,23 +45,4 @@
 
   .graph-container#reports-graph{ style: "position: relative" }
 
-  .stats-panel
-    %h3 10,330
-    %label
-      %span.stats-indicator.blue
-        .stats-stick
-      Active Chats
-
-  .stats-panel
-    %h3 4,402
-    %label
-      %span.stats-indicator.green
-        .stats-stick
-      Proactive Chats
-
-  .stats-panel
-    %h3 384
-    %label
-      %span.stats-indicator.red
-        .stats-stick
-      Missed Chats
+  #stats-region

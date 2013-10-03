@@ -1,1 +1,0 @@
-extends "reports/_attributes"

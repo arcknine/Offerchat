@@ -5,6 +5,10 @@ class ReportsController < ApplicationController
   def index
   end
 
+  def stats
+    @stats = Stat.filter(params)
+  end
+
   def ratings
     @ratings = Rating.filter(params)
   end
