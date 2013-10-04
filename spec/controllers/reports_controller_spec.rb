@@ -22,6 +22,11 @@ describe ReportsController do
     describe "current user has website" do
       generate_website
 
+      before(:each) do
+        Fabricate(:rating, :user => @user, :website => @website)
+        Fabricate(:stat,   :user => @user, :website => @website)
+      end
+
       it "GET 'index' should return ratings" do
         xhr :post, :index, format: :json
         response.code.should eq "200"
@@ -33,7 +38,7 @@ describe ReportsController do
         assigns(:ratings).should_not be_nil
       end
 
-      it "GET 'index' should return ratings" do
+      it "GET 'index' should return stats" do
         xhr :post, :stats, website_id: [@website.id], user_id: [@user.id], format: :json
         response.code.should eq "200"
         assigns(:stats).should_not be_nil
