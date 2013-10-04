@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :websites, :foreign_key => "owner_id"
   has_many :agent_accounts, :foreign_key => "owner_id", :class_name => "Account"
   has_many :stats
+  has_many :quick_responses
   belongs_to :plan, :foreign_key => "plan_identifier", :class_name => "Plan"
 
   attr_accessor :avatar_remove

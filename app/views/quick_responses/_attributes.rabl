@@ -1,0 +1,1 @@
+attributes :id, :website_id, :user_id, :message, :shortcut

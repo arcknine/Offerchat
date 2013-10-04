@@ -1,9 +1,12 @@
-%ul.quick-answers-list
-  %li
-    %a.new-response + New Response
-    .form.form-small.hide{ :style => "display: block;" }
-      %fieldset
-        %textarea.full{ :placeholder => "Enter your /command then message (ex. /response message" }
-      %fieldset
-        %button.btn.action{ :type => "submit" } Save
-        %a.warning.right{ :style => "margin-top: 7px;" } Cancel
+.block.small
+  %a.new-response + New Response
+  .form.form-small.new-response-form.hide{ :style => "display: block;" }
+    %fieldset
+      %textarea.full.new-response-text{ :placeholder => "Enter your /command then message (ex. /response message" }
+      .block-text-message.hide.response-error
+        Your quick response cannot be saved. Please check your inputs.
+    %fieldset
+      %button.new-response-create.btn.action{ :type => "submit" } Save
+      %a.warning.right.new-response-cancel{ :style => "margin-top: 7px;" } Cancel
+
+#quick-responses-list

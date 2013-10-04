@@ -59,19 +59,85 @@
     visitorInfoView: ->
       @visitor.generateGravatarSource()
       visitorView = @getVisitorInfoView()
+      
       @listenTo visitorView, "show:quick_responses", =>
-        console.log("quick")
         @qrSidebarView()
+
       @layout.visitorRegion.show visitorView
       
     qrSidebarView: ->
-      sidebarView = @getSidebarView()
-      formView  = App.request "sidebar:wrapper", sidebarView
-      App.sidebarRegion.show formView
+      qr  = App.request "new:qr"
+      qrs = App.request "get:qrs"
       
-    getSidebarView: ->
+      App.execute "when:fetched", qrs, =>
+        sidebarView = @getSidebarView(qr)
+        formView = App.request "sidebar:wrapper", sidebarView
+        
+        qrsView = @getQRList(qrs)
+        
+        @listenTo formView, "show", =>
+          sidebarView.qrRegion.show qrsView
+        
+        @listenTo sidebarView, "new:response", =>
+          @showQuickResponse()
+          
+        @listenTo sidebarView, "cancel:new:response", =>
+          @hideQuickResponse()
+          
+        @listenTo sidebarView, "create:new:response", =>
+          quick_response = $(".new-response-text").val()
+          arr = quick_response.split(" ")
+          shortcut = arr[0]
+          arr.splice(0,1)
+          message = arr.join(" ")
+          
+          if quick_response == ""
+            @showQuickResponseError()
+            return false
+          
+          if arr.length < 1
+            @showQuickResponseError()
+            return false
+          
+          qr.set message: message, shortcut: shortcut
+          qr.url = "/quick_responses"
+          qr.type = "POST"
+          qr.save {},
+            success: (data) =>
+              console.log data
+              @hideQuickResponse()
+              
+        @listenTo formView, "show", =>
+          console.log "test"
+          console.log "qrsView"
+          sidebarView.qrRegion.show qrsView
+            
+        App.sidebarRegion.show formView
+      
+    getSidebarView: (qr) ->
       new Show.ModalQuickResponses
-        model: @visitor
+        model: qr
+        
+    getQRList: (qrs) ->
+      new Show.QuickResponses
+        collection: qrs
+        
+    showQuickResponse: ->
+      $(".new-response-text").parent().removeClass("field-error")
+      $(".response-error").addClass("hide")
+      $(".new-response-form").removeClass("hide")
+      $(".new-response").addClass("hide")
+    
+    hideQuickResponse: ->
+      $(".new-response-text").parent().removeClass("field-error")
+      $(".response-error").addClass("hide")
+      $(".new-response-form").addClass("hide")
+      $(".new-response").removeClass("hide")
+      $(".new-response-text").val("")
+      
+    showQuickResponseError: ->
+      $(".new-response-text").parent().addClass("field-error")
+      $(".response-error").removeClass("hide")
 
     chatsView: ->
       chatsView = @getChatsView()
