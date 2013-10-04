@@ -164,6 +164,40 @@
     className: "table-history-viewer-content"
     id: "historyTableViewer"
 
+    App.commands.setHandler "bounce:element", (element) ->
+      element.animate({ marginTop: '-=' + '5px'}, 50 ).animate({ marginTop: '+=' + '5px' }, 50)
+
+    onShow: ->
+      console.log 'height: ', $(window).height()
+      $(".main-content-view").css('overflow-y','hidden')
+      w_height = $(window).height() - 203
+      $("#historyTableViewer").css('height', w_height + 'px')
+      $(".history-table-heading").first().removeClass("relative").addClass("fixed")
+
+      lastScrollTop = 0
+      $(".table-history-viewer-content").scroll (event) ->
+        currentScrollTop = $(this).scrollTop()
+        if currentScrollTop > lastScrollTop
+          $(".history-table-heading").each ->
+            if $(this).hasClass("fixed")
+              _next_header = $(this).parent("div").next("div").find(".history-table-heading")
+              if $(_next_header).length > 0
+                if ($(this).offset().top + $(this).height()) >= $(_next_header).offset().top
+                  App.execute "bounce:element", _next_header
+                  $(this).removeClass("fixed").addClass "relative"
+                  $(_next_header).removeClass("relative").addClass "fixed"
+        else
+          $(".history-table-heading").each ->
+            if $(this).hasClass("fixed")
+              _prev_header = $(this).parent("div").prev("div").find(".history-table-heading")
+              if $(_prev_header).length > 0
+                if $(this).offset().top <= ($("#" + $(_prev_header).attr("id") + "_content").offset().top + $(this).height())
+                  App.execute "bounce:element", _prev_header
+                  $(this).removeClass("fixed").addClass "relative"
+                  $(_prev_header).removeClass("relative").addClass "fixed"
+
+        lastScrollTop = currentScrollTop
+
   class Conversations.ChatsModalRegion extends App.Views.Layout
     template: "history/conversation/chats_modal"
     regions:
