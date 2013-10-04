@@ -25,21 +25,7 @@
   #agents-region
 
   .stats-container
-    .stats-panel
-      %h3 3,423
-      %label Chat Opportunities
-
-    .stats-panel
-      %h3
-        3
-        %span.suffix minutes
-      %label Average Handling Time
-
-    .stats-panel
-      %h3
-        4
-        %span.suffix seconds
-      %label Average Response Time
+    %span#stats-2-region
 
     #ratings-region.stats-panel.rating-panel
 
