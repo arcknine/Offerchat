@@ -1,0 +1,3 @@
+%a
+  %strong.status-item {{shortcut}}
+  {{message}}
