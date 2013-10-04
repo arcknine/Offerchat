@@ -51,9 +51,9 @@
         arType = { today: "Today", week: "This week", month: "This month",  custom: "#{from}  -  #{to}"}
         $(".calendar-picker-btn > span").text(arType[type])
 
-        if @from == @to
-          @from = "#{@from} 00:00:00"
-          @to   = "#{@to} 23:59:59"
+        # if @from == @to
+        #   @from = "#{@from} 00:00:00"
+        #   @to   = "#{@to} 23:59:59"
 
         @curDate.set from: @from, to: @to
         ratings = App.request "reports:get:ratings", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()

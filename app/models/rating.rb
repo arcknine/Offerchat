@@ -10,15 +10,15 @@ class Rating < ActiveRecord::Base
     if params[:from] && params[:to]
       from = params[:from]
       to   = params[:to]
-      rating = rating.where(created_at: from..to)
+      # rating = rating.where(created_at: from..to)
+      rating = rating.where("DATE(created_at) BETWEEN DATE(?) AND DATE(?)", from, to)
     end
 
     if params[:user_id]
       rating = rating.where(:website_id => params[:website_id], :user_id => params[:user_id])
     else
-      rating = rating.where(:website_id => params[:website_id])
+      rating = rating.where(:website_id => params[:website_id]).group("website_id")
     end
-    rating = rating.group("website_id")
 
     rating.last
   end
