@@ -19,7 +19,6 @@
       @last_agent_msg = ""
 
       @layout      = @getLayout()
-      # console.log "layout", @visitor
 
       @visitor.setActiveChat() if @visitor
 
@@ -104,12 +103,9 @@
           qr.type = "POST"
           qr.save {},
             success: (data) =>
-              console.log data
               @hideQuickResponse()
               
         @listenTo formView, "show", =>
-          console.log "test"
-          console.log "qrsView"
           sidebarView.qrRegion.show qrsView
             
         App.sidebarRegion.show formView
@@ -370,7 +366,7 @@
 
     getLayout: ->
       visitor_info = @visitor.get("info")
-      # console.log visitor_info
+
       unless typeof visitor_info is "undefined"
         chatting = visitor_info.chatting
 
@@ -410,7 +406,6 @@
 
       @listenTo @transcript, "created", (model) =>
         formView.close()
-        console.log "hello worldddddd", model
         @showNotification("Transcript has been successfully sent!")
 
     parseChatHistory: ->
