@@ -40,6 +40,9 @@
       "click a.end_chat"        : "end:chat"
       "click div.btn-selector"  : "actions:menu:clicked"
 
+    onRender: ->
+      $("textarea").focus()
+
     serializeData: ->
       height: @options.model.toJSON()
 
