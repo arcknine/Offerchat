@@ -73,4 +73,6 @@ Dashboard::Application.routes.draw do
   mount Offerchat::API => '/api/v1/widget/'
 
   mount Dashmigrate::API => '/api/v1/migration/'
+
+  mount Stats::API => '/api/v1/stats/'
 end
