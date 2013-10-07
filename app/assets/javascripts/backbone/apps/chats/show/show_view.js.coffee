@@ -16,7 +16,7 @@
     className: "block chat-header"
     modelEvents:
       "change" : "render"
-      
+
     triggers:
       "click a.btn.show-responses" : "show:quick_responses"
 
@@ -101,7 +101,7 @@
         nosubmit: false
         cancel:  false
       title: "Export Transcript"
-      
+
   class Show.ModalQuickResponses extends App.Views.Layout
     template: "chats/show/quick_responses"
     className: "form form-inline"
@@ -118,14 +118,24 @@
         nosubmit: false
         primary: false
         cancel: false
-        
+
   class Show.QuickResponse extends App.Views.ItemView
     template:  "chats/show/quick_response"
     tagName: "li"
+
+    triggers:
+      "click a" : "qrs:clicked"
+
     modelEvents:
       "change" : "render"
-        
+
   class Show.QuickResponses extends App.Views.CompositeView
     template:  "chats/show/quick_responses_list"
     itemView: Show.QuickResponse
     itemViewContainer: "#qr-list"
+
+    collectionEvents:
+      "all" : "render"
+
+
+
