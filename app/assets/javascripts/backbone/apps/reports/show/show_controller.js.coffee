@@ -157,6 +157,9 @@
       statsView = @getStats()
       @layout.statsRegion.show statsView
 
+      statsView2 = @getStats2()
+      @layout.stats2Region.show statsView2
+
     filterAgents: (model) ->
       if model.get("name") is "All Websites"
         @asgnAgents.set @agents.models
@@ -206,19 +209,22 @@
     setStats: (collection) ->
       App.execute "when:fetched", collection, =>
         data = []
-        total = { missed: 0, active: 0, proactive: 0 }
+        total = { missed: 0, active: 0, proactive: 0, opportunities: 0 }
 
         $.each collection.models, (key, value) =>
+          opportunities = value.get("active") + value.get("missed") + value.get("proactive")
           total =
             active: value.get("active") + total.active
             missed: value.get("missed") + total.missed
             proactive: value.get("proactive") + total.proactive
+            opportunities: opportunities + total.opportunities
 
           data.push
             period: value.get("period")
             active: value.get("active")
             proactive: value.get("proactive")
             missed: value.get("missed")
+            opportunities: opportunities
 
         data = [
           period: moment().format("YYYY-MM-DD")
@@ -231,6 +237,7 @@
           active: @addCommaSeparator(total.active)
           missed: @addCommaSeparator(total.missed)
           proactive: @addCommaSeparator(total.proactive)
+          opportunities: @addCommaSeparator(total.opportunities)
 
         @morrisGraph.setData data
 
@@ -262,4 +269,8 @@
 
     getStats: ->
       new Show.Stats
+        model: @stats
+
+    getStats2: ->
+      new Show.Stats2
         model: @stats

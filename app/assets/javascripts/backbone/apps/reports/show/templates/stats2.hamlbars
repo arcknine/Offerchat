@@ -1,0 +1,15 @@
+.stats-panel
+  %h3 {{opportunities}}
+  %label Chat Opportunities
+
+/ .stats-panel
+/   %h3
+/     3
+/     %span.suffix minutes
+/   %label Average Handling Time
+
+/ .stats-panel
+/   %h3
+/     4
+/     %span.suffix seconds
+/   %label Average Response Time

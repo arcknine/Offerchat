@@ -9,6 +9,7 @@
       agentsRegion:   "#agents-region"
       ratingsRegion:  "#ratings-region"
       statsRegion:    "#stats-region"
+      stats2Region:   "#stats-2-region"
 
     events:
       "click a.calendar-picker-btn"              : "toggleDatePicker"
@@ -109,5 +110,11 @@
 
   class Show.Stats extends App.Views.ItemView
     template: "reports/show/stats"
+    modelEvents:
+      "change" : "render"
+
+  class Show.Stats2 extends App.Views.ItemView
+    template: "reports/show/stats2"
+    tagName:  "span"
     modelEvents:
       "change" : "render"
