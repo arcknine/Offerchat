@@ -10,6 +10,9 @@
       @listenTo @sidebarLayout, "sidebar:submit", @sidebarSubmit
       @listenTo @sidebarLayout, "sidebar:cancel", @sidebarCancel
 
+      App.commands.setHandler "close:quick:responses", =>
+        @sidebarCancel()
+
     sidebarCancel: ->
       $(".sidebar-modal-fixed").remove()
       @contentView.triggerMethod "sidebar:cancel"
