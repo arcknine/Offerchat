@@ -99,11 +99,15 @@
           message = arr.join(" ")
 
           if quick_response == ""
-            @showQuickResponseError()
+            @showQuickResponseError("Quick response can't be blank")
             return false
 
           if arr.length < 1
-            @showQuickResponseError()
+            @showQuickResponseError("Invalid formatting. Format should be '/shortcut message'")
+            return false
+          
+          if quick_response.charAt(0) != "/"
+            @showQuickResponseError("Invalid formatting. Format should be '/shortcut message'")
             return false
 
           qr.set message: message, shortcut: shortcut
@@ -141,9 +145,10 @@
       $(".new-response").removeClass("hide")
       $(".new-response-text").val("")
 
-    showQuickResponseError: ->
+    showQuickResponseError: (message) ->
       $(".new-response-text").parent().addClass("field-error")
       $(".response-error").removeClass("hide")
+      $(".response-error").text(message)
 
     chatsView: ->
       chatsView = @getChatsView()
