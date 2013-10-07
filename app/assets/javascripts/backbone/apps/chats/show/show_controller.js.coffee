@@ -5,18 +5,19 @@
     composing: null
 
     initialize: (options ={}) ->
-      { @token }   = options
-      @connection  = App.xmpp.connection
-      visitors     = App.request "get:chats:visitors"
-      @visitor     = visitors.findWhere token: @token
-      visitor      = @visitor
-      @visitor     = App.request "visitor:entity" if typeof @visitor is "undefined"
-      @height      = App.request "get:chat:window:height"
-      @messages    = App.request "get:chats:messages"
-      @transcript  = App.request "transcript:entity"
+      { @token }      = options
+      @connection     = App.xmpp.connection
+      visitors        = App.request "get:chats:visitors"
+      @visitor        = visitors.findWhere token: @token
+      visitor         = @visitor
+      @visitor        = App.request "visitor:entity" if typeof @visitor is "undefined"
+      @height         = App.request "get:chat:window:height"
+      @messages       = App.request "get:chats:messages"
+      @transcript     = App.request "transcript:entity"
       @transcript.url = Routes.email_export_transcript_index_path
-      @scroll      = false
+      @scroll         = false
       @last_agent_msg = ""
+      @qrs            = ""
 
       @layout      = @getLayout()
 
@@ -66,13 +67,17 @@
 
     qrSidebarView: ->
       qr  = App.request "new:qr"
-      qrs = App.request "get:qrs"
+      @qrs = App.request "get:qrs"
 
-      App.execute "when:fetched", qrs, =>
+      App.execute "when:fetched", @qrs, =>
+
+        App.reqres.setHandler "get:qrs", =>
+          @qrs
+
         sidebarView = @getSidebarView(qr)
         formView = App.request "sidebar:wrapper", sidebarView
 
-        qrsView = @getQRList(qrs)
+        qrsView = @getQRList(@qrs)
 
         @listenTo qrsView, "childview:qrs:clicked", (e) =>
           $(".chat-response").find("textarea").focus().val(e.model.get("message") + " ")
@@ -111,7 +116,7 @@
               new_qrs =
                 message: message
                 shortcut: shortcut
-              qrs.add new_qrs
+              @qrs.add new_qrs
 
         App.sidebarRegion.show formView
 
@@ -290,12 +295,24 @@
       message = $.trim(input_elem.val())
       clearInterval(@interval)
 
+      if message.charAt(0) is "/"
+        if @qrs is ""
+          @qrs = App.request "get:qrs"
+          @listenTo @qrs, "when:fetched", =>
+            App.reqres.setHandler "get:qrs", =>
+              @qrs
+
       if message is ""
         @last_agent_msg = ""
 
       if ev.keyCode is 13 and message isnt ""
 
         App.execute "close:quick:responses"
+
+        if message.charAt(0) is "/"
+          res = @qrs.findWhere shortcut: message
+          if res
+            message = res.get("message")
 
         if @last_agent_msg isnt ""
           @last_agent_msg.set message: message, time: new Date(), edited: true
