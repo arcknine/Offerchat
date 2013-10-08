@@ -634,7 +634,7 @@ Chats = {
     _this.agent = Offerchat.agent({website_id: Offerchat.website.id}).first();
     setTimeout(function(){
       console.log("Sending chat");
-      if (_this.agent.new_convo == true) {
+      if (_this.agent.new_convo === true) {
         $.ajax({
           type: "GET",
           url: Offerchat.src.history + "/chats/create/" + Offerchat.params.secret_token,

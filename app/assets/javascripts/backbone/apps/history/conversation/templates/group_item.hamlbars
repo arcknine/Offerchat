@@ -1,3 +1,3 @@
-%h3.table-heading.history-table-heading{id: "tablehead{{id}}"}
+%h3.table-heading.history-table-heading.relative{id: "tablehead{{id}}"}
   {{momentary}}
 .table-row-wrapper{id: "tablehead{{id}}_content"}

@@ -7,11 +7,15 @@
     regions:
       websitesRegion: "#websites-region"
       agentsRegion:   "#agents-region"
-      reportsRegion:  "#reports-region"
+      ratingsRegion:  "#ratings-region"
+      statsRegion:    "#stats-region"
+      stats2Region:   "#stats-2-region"
 
     events:
-      "click a.calendar-picker-btn"        : "toggleDatePicker"
-      "click div.date-control a.btn.small" : "quickDateSelect"
+      "click a.calendar-picker-btn"              : "toggleDatePicker"
+      "click div.date-control a.btn.small"       : "quickDateSelect"
+      "click div.date-control button.btn.action" : "applyDate"
+      "click div.date-control > a"               : "cancelDateSelect"
 
     toggleDatePicker: (e) ->
       $("#websites-region .btn-selector").removeClass("open") if $("#websites-region .btn-selector").hasClass("open")
@@ -29,6 +33,13 @@
       $("div.date-control a.btn.small").removeClass "active"
       $(e.target).addClass "active"
       @trigger "quick:date:select", $(e.target).data("type")
+
+    applyDate: ->
+      $(".history-date-wrapper").addClass("hide")
+      @trigger "apply:selected:date", true
+
+    cancelDateSelect: ->
+      $(".history-date-wrapper").addClass("hide")
 
   class Show.Website extends App.Views.ItemView
     template: "reports/show/website"
@@ -91,3 +102,19 @@
       $(e.currentTarget).addClass("active")
 
       @trigger "toggle:all:agents", "all"
+
+  class Show.Ratings extends App.Views.ItemView
+    template: "reports/show/ratings"
+    modelEvents:
+      "change" : "render"
+
+  class Show.Stats extends App.Views.ItemView
+    template: "reports/show/stats"
+    modelEvents:
+      "change" : "render"
+
+  class Show.Stats2 extends App.Views.ItemView
+    template: "reports/show/stats2"
+    tagName:  "span"
+    modelEvents:
+      "change" : "render"

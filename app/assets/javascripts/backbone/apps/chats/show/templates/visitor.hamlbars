@@ -11,3 +11,7 @@
     {{info.location}}
   %li
     {{info.OS}} &middot; {{info.browser}}
+    
+.chat-right-sidebar
+  .link-list
+    %a.btn.show-responses Responses

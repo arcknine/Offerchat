@@ -23,6 +23,21 @@
       App.commands.setHandler "remove:is:typing", =>
         $("#chats-collection").find(".is-typing").remove()
 
+      # param:
+      # notify - object which consist of the following attributes:
+      #          content  - content of the notification
+      #          title    - title of the notification
+      #          callback - function to execute when the notification is clicked
+      # ex:
+      # notify =
+      #   content: "this is the content"
+      #   title: "New Message Received"
+      #   callback: ->
+      #     console.log "execute this"
+      # App.execute "desktop:notify", notify
+      App.commands.setHandler "desktop:notify", (notify) =>
+        @desktopNotify notify
+
       App.commands.setHandler "set:new:chat:title", =>
         # change title here
         title = $('title')
@@ -367,7 +382,12 @@
 
         # add condition if window is active or not
         # desktop notification here
-        @desktopNotify info.name, body, token, 'visitor'
+        notify =
+          content: info.name + ": " + body
+          title: "New Message Received"
+          callback: ->
+            App.navigate "chats/visitor/#{token}", trigger: true
+        @desktopNotify notify
 
       else if agent# and body
 
@@ -446,24 +466,25 @@
 
             # add condition if window is active or not
             # desktop notification here
-            @desktopNotify name, body, token, 'agent'
+            notify =
+              content: name + ": " + body
+              title: "New Message Received"
+              callback: ->
+                App.navigate "chats/agent/#{token}", trigger: true
+            @desktopNotify notify
 
       true
 
-    desktopNotify: (from, msg, token, type) ->
+    desktopNotify: (options = {}) ->
       unless App.request "is:active:tab"
         permission = localStorage.getItem("notification")
-
         if permission is "true"
           havePermission = window.webkitNotifications.checkPermission()
           if havePermission is 0    # allowed
-            icon    = '/assets/desktop_notify_logo.png'
-            title   = 'New Message Received'
-            content = from + ": " + msg
-            notification = window.webkitNotifications.createNotification(icon, title, content)
+            notification = window.webkitNotifications.createNotification('/assets/desktop_notify_logo.png', options.title, options.content)
             notification.onclick = ->
               window.focus()
-              App.navigate "chats/#{type}/#{token}", trigger: true
+              options.callback()
               notification.close()
 
             setTimeout(->

@@ -22,6 +22,7 @@
     tourSidebarRegion:      "#tour-sidebar-region"
     mainRegion:             "#main-region"
     modalRegion:            "#modal-region"
+    sidebarRegion:          "#sidebar-region"
     previewRegion:          ModalRegion
 
   App.addInitializer ->
@@ -50,6 +51,8 @@
   # event can be found in 'config/marionette/application.js.coffee'
   # event will execute every change of url
   Backbone.on 'execute:route:change:events', ->
+
+    App.execute "close:quick:responses"
 
     if Backbone.history.fragment.indexOf("chats") is -1
       App.execute "set:no:active:chat"

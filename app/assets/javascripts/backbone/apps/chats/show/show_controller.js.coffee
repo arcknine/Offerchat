@@ -5,21 +5,21 @@
     composing: null
 
     initialize: (options ={}) ->
-      { @token }   = options
-      @connection  = App.xmpp.connection
-      visitors     = App.request "get:chats:visitors"
-      @visitor     = visitors.findWhere token: @token
-      visitor      = @visitor
-      @visitor     = App.request "visitor:entity" if typeof @visitor is "undefined"
-      @height      = App.request "get:chat:window:height"
-      @messages    = App.request "get:chats:messages"
-      @transcript  = App.request "transcript:entity"
+      { @token }      = options
+      @connection     = App.xmpp.connection
+      visitors        = App.request "get:chats:visitors"
+      @visitor        = visitors.findWhere token: @token
+      visitor         = @visitor
+      @visitor        = App.request "visitor:entity" if typeof @visitor is "undefined"
+      @height         = App.request "get:chat:window:height"
+      @messages       = App.request "get:chats:messages"
+      @transcript     = App.request "transcript:entity"
       @transcript.url = Routes.email_export_transcript_index_path
-      @scroll      = false
+      @scroll         = false
       @last_agent_msg = ""
+      @qrs            = ""
 
       @layout      = @getLayout()
-      # console.log "layout", @visitor
 
       @visitor.setActiveChat() if @visitor
 
@@ -59,7 +59,96 @@
     visitorInfoView: ->
       @visitor.generateGravatarSource()
       visitorView = @getVisitorInfoView()
+
+      @listenTo visitorView, "show:quick_responses", =>
+        @qrSidebarView()
+
       @layout.visitorRegion.show visitorView
+
+    qrSidebarView: ->
+      qr  = App.request "new:qr"
+      @qrs = App.request "get:qrs"
+
+      App.execute "when:fetched", @qrs, =>
+
+        App.reqres.setHandler "get:qrs", =>
+          @qrs
+
+        sidebarView = @getSidebarView(qr)
+        formView = App.request "sidebar:wrapper", sidebarView
+
+        qrsView = @getQRList(@qrs)
+
+        @listenTo qrsView, "childview:qrs:clicked", (e) =>
+          $(".chat-response").find("textarea").focus().val(e.model.get("message") + " ")
+
+        @listenTo formView, "show", =>
+          sidebarView.qrRegion.show qrsView
+
+        @listenTo sidebarView, "new:response", =>
+          @showQuickResponse()
+
+        @listenTo sidebarView, "cancel:new:response", =>
+          @hideQuickResponse()
+
+        @listenTo sidebarView, "create:new:response", =>
+          quick_response = $(".new-response-text").val()
+          arr = quick_response.split(" ")
+          shortcut = arr[0]
+          arr.splice(0,1)
+          message = arr.join(" ")
+
+          if quick_response == ""
+            @showQuickResponseError("Quick response can't be blank")
+            return false
+
+          if arr.length < 1
+            @showQuickResponseError("Invalid formatting. Format should be '/shortcut message'")
+            return false
+          
+          if quick_response.charAt(0) != "/"
+            @showQuickResponseError("Invalid formatting. Format should be '/shortcut message'")
+            return false
+
+          qr.set message: message, shortcut: shortcut
+          qr.url = "/quick_responses"
+          qr.type = "POST"
+          qr.save {},
+            success: (data) =>
+              @hideQuickResponse()
+              # add qrs
+              new_qrs =
+                message: message
+                shortcut: shortcut
+              @qrs.add new_qrs
+
+        App.sidebarRegion.show formView
+
+    getSidebarView: (qr) ->
+      new Show.ModalQuickResponses
+        model: qr
+
+    getQRList: (qrs) ->
+      new Show.QuickResponses
+        collection: qrs
+
+    showQuickResponse: ->
+      $(".new-response-text").parent().removeClass("field-error")
+      $(".response-error").addClass("hide")
+      $(".new-response-form").removeClass("hide")
+      $(".new-response").addClass("hide")
+
+    hideQuickResponse: ->
+      $(".new-response-text").parent().removeClass("field-error")
+      $(".response-error").addClass("hide")
+      $(".new-response-form").addClass("hide")
+      $(".new-response").removeClass("hide")
+      $(".new-response-text").val("")
+
+    showQuickResponseError: (message) ->
+      $(".new-response-text").parent().addClass("field-error")
+      $(".response-error").removeClass("hide")
+      $(".response-error").text(message)
 
     chatsView: ->
       chatsView = @getChatsView()
@@ -211,13 +300,27 @@
       message = $.trim(input_elem.val())
       clearInterval(@interval)
 
+      if message.charAt(0) is "/"
+        if @qrs is ""
+          @qrs = App.request "get:qrs"
+          @listenTo @qrs, "when:fetched", =>
+            App.reqres.setHandler "get:qrs", =>
+              @qrs
+
       if message is ""
         @last_agent_msg = ""
 
       if ev.keyCode is 13 and message isnt ""
 
+        App.execute "close:quick:responses"
+
+        if message.charAt(0) is "/"
+          res = @qrs.findWhere shortcut: message
+          if res
+            message = res.get("message")
+
         if @last_agent_msg isnt ""
-          @last_agent_msg.set message: message, time: new Date()
+          @last_agent_msg.set message: message, time: new Date(), edited: true
           @last_agent_msg = ""
 
           to  = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
@@ -227,7 +330,7 @@
         else
 
           @visitor.set("yours", 1)
-          $(".chat-actions-notifications").remove()
+          $(".active-warning").remove()
 
           to  = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
           msg = $msg({to: to, type: "chat"}).c('body').t($.trim(message))
@@ -242,6 +345,7 @@
             message:    message
             time:       new Date()
             timesimple: moment().format('hh:mma')
+            edited:     false
 
           if @currentMsgs.last() and @currentMsgs.last().get("sender") is "agent"
             currentMsg.child      = true
@@ -291,7 +395,7 @@
 
     getLayout: ->
       visitor_info = @visitor.get("info")
-      # console.log visitor_info
+
       unless typeof visitor_info is "undefined"
         chatting = visitor_info.chatting
 

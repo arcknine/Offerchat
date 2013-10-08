@@ -1,0 +1,5 @@
+.sidebar-modal-fixed.quick-responses-sidebar.show.responses-modal
+  .block
+    %a.close ×
+  %h2 Canned Responses
+  group.modal-sidebar-viewer{ :style => "height: 922px;" }

@@ -542,12 +542,16 @@ Templates = {
 
   getMessageView: function(data) {
     data = data || {};
+    var edited = "";
+    if(data.edited == true){
+      edited = "<i class='widget icon icon-pencil'></i>";
+    }
     var message =  '  <div class="group">' +
                    '    <div class="message-author">' + data.sender + '</div>' +
                    '  </dvi>' +
-                   '  <div class="message">' +
+                   '  <div class="message" data-mid="' + data.msg_id + '">' +
                    '    <div class="message-date">' + data.time + '</div>' +
-                        data.message +
+                        data.message + edited +
                    '  </div>';
 
     return message;

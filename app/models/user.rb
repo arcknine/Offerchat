@@ -8,7 +8,10 @@ class User < ActiveRecord::Base
   has_many :accounts
   has_many :websites, :foreign_key => "owner_id"
   has_many :agent_accounts, :foreign_key => "owner_id", :class_name => "Account"
+  has_many :stats
+  has_many :quick_responses
   belongs_to :plan, :foreign_key => "plan_identifier", :class_name => "Plan"
+
   attr_accessor :avatar_remove
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :display_name, :jabber_user, :jabber_password, :avatar, :plan_identifier, :billing_start_date, :stripe_customer_token, :avatar_remove, :trial_days_left
 

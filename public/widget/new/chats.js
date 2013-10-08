@@ -446,17 +446,23 @@ Chats = {
       if (sender != "You" && typeof options != "undefined" && options.edit === true) {
         ctr = cur;
         found = false;
+        var _this = this;
         while(found === false){
-          if(this.messages[ctr -1].sender != "You"){
-            this.messages[ctr - 1].message = message;
-            this.messages[ctr - 1].time = moment().format('hh:mma');
+          if(_this.messages[ctr -1].sender != "You"){
+            _this.messages[ctr - 1].message = message;
+            _this.messages[ctr - 1].time = moment().format('hh:mma');
+            _this.messages[ctr - 1].edited = true;
+
             // update view in widget here
             // look for the last agent message
-            var last_elem = $(".widget-chat-viewer").find(".agent-message").last();
-            var msg_content = "<div class='message-date'>"+moment().format('hh:mma')+"</div>"+message;
+            var last_elem   = $(".widget-chat-viewer").find(".agent-message").last();
+            var msg_id      = last_elem.find(".message").data("mid");
+            var msg_content = "<div class='message-date'>"+moment().format('hh:mma')+"</div>"+message+"<i class='widget icon icon-pencil'></i>";
             last_elem.find(".message").html(msg_content);
 
-            Offerchat.storeData("ofc-messages", this.messages, localStorage);
+            _this.editChatHistoryMsg(msg_id, message);
+
+            Offerchat.storeData("ofc-messages", _this.messages, localStorage);
 
             found = true;
           } else{
@@ -468,26 +474,25 @@ Chats = {
       }
     }
 
+    // generate unique id here
+    var msg_id = this.connection.getUniqueId(sender + "-" + d.getTime());
+
+    msg = {
+      web_id:     Offerchat.website.id,
+      message:    message,
+      sender:     sender,
+      time:       moment().format('hh:mma'),
+      created_at: d.getTime(),
+      msg_id:     msg_id,
+      edited:     false
+    };
+
     if (cur !== 0 && this.messages[cur - 1].sender == sender) {
-      msg = {
-        web_id:     Offerchat.website.id,
-        message:    message,
-        sender:     sender,
-        child:      true,
-        class:      " group-author-item" + classTag,
-        time:       moment().format('hh:mma'),
-        created_at: d.getTime()
-      };
+      msg.child = true;
+      msg.class = " group-author-item" + classTag;
     } else {
-      msg = {
-        web_id:     Offerchat.website.id,
-        message:    message,
-        sender:     sender,
-        child:      false,
-        class:      "" + classTag,
-        time:       moment().format('hh:mma'),
-        created_at: d.getTime()
-      };
+      msg.child = false;
+      msg.class = "" + classTag;
     }
 
     this.messages.push(msg);
@@ -506,9 +511,17 @@ Chats = {
     msg.message = message;
 
     $(".widget-chat-viewer").animate({ scrollTop: $('.widget-chat-viewer')[0].scrollHeight}, 300);
-    this.createChatHistory(sender, message);
+    this.createChatHistory(sender, message, msg_id);
 
     return msg;
+  },
+
+  editChatHistoryMsg: function(msg_id, message){
+    $.ajax({
+      type: "GET",
+      url: Offerchat.src.history + "/chats/" + msg_id + "/edit/" + message,
+      dataType: "jsonp"
+    });
   },
 
   createChatHistoryConversation: function(agent){
@@ -526,7 +539,7 @@ Chats = {
     });
   },
 
-  createChatHistory: function(sender, message) {
+  createChatHistory: function(sender, message, msg_id) {
     var _this = this;
     var a_name = this.agent.name ? this.agent.name : this.agent.display_name;
     var name   = sender == "You" ? this.visitor.name : a_name;
@@ -538,10 +551,10 @@ Chats = {
           type: "GET",
           url: Offerchat.src.history + "/chats/create/" + Offerchat.params.secret_token,
           dataType: "jsonp",
-          data: { sender: name, msg: message, agent: _this.agent.name, vid: _this.visitor.id, aid: _this.agent.id, vname: _this.visitor.name, url: Offerchat.params.current_url, wid: Offerchat.website.id }
+          data: { sender: name, msg: message, agent: _this.agent.name, vid: _this.visitor.id, aid: _this.agent.id, vname: _this.visitor.name, url: Offerchat.params.current_url, wid: Offerchat.website.id, msgid: msg_id }
         });
       } else {
-        _this.createChatHistory(sender, message);
+        _this.createChatHistory(sender, message, msg_id);
       }
     }, 100);
   },

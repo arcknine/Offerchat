@@ -54,4 +54,5 @@
       if sites.length is 0
         $('#install-checklist').addClass('checked')
         $('#install-checklist').find('span').hide()
+        $('#third-check').removeClass('hide')
         $('#third-check').show()

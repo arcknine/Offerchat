@@ -10,6 +10,14 @@ Dashboard::Application.routes.draw do
       get "only"
     end
   end
+
+  resources :reports, :only => [:index]  do
+    collection do
+      post "ratings"
+      post "stats"
+    end
+  end
+
   resource :settings
   resources :triggers
   resources :visitors
@@ -65,4 +73,6 @@ Dashboard::Application.routes.draw do
   mount Offerchat::API => '/api/v1/widget/'
 
   mount Dashmigrate::API => '/api/v1/migration/'
+
+  mount Stats::API => '/api/v1/stats/'
 end
