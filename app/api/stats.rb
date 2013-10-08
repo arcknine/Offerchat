@@ -14,11 +14,12 @@ module Stats
       params do
         requires :key, type: String, desc: "API Key"
       end
+
       post do
         authenticate(params[:key])
-        stats = params[:stats]
+        stats = JSON.parse(params[:stats])
         stats.each do |s|
-          Stats.create({ website_id: s[:website_id], user_id: s[:user_id], active: s[:active], missed: s[:missed], proactive: s[:proactive] })
+          Stat.create({ website_id: s['website_id'], user_id: s['user_id'], active: s['active'], missed: s['missed'], proactive: s['proactive'] })
         end
       end
     end
