@@ -1,5 +1,5 @@
 class Stat < ActiveRecord::Base
-  attr_accessible :active, :missed, :proactive, :user, :website
+  attr_accessible :active, :missed, :proactive, :user_id, :website_id
 
   belongs_to :user
   belongs_to :website
