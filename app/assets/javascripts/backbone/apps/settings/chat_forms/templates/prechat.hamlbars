@@ -1,10 +1,8 @@
-%p.section-desc
 .toggle.group#prechat-toggle
   %label.toggle-radio ON
   %label.toggle-radio OFF
-
-If you want to get to know your visitors first for a more personalized chat session.
-%p/
+%label.label-top-fix.block-label-adjust
+  If you want to get to know your visitors first for a more personalized chat session.
 
 .group
   .widget-preview-sample

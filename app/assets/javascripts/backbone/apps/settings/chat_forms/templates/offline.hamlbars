@@ -1,11 +1,9 @@
-%p.section-desc
 .toggle.group#offline-toggle
   %label.toggle-radio ON
   %label.toggle-radio OFF
-
-Enable the offline form so your visitors can easily reach you when you're not online.
-%p/
-
+%label.label-top-fix.block-label-adjust
+  Enable the offline form so your visitors can easily reach you when you're not online.
+  
 .group
   .widget-preview-sample
     .widget-box.widget-theme{class: "theme-{{site.settings.style.theme}}"}
