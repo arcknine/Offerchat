@@ -1,10 +1,8 @@
-%p.section-desc
 .toggle.group#postchat-toggle
   %label.toggle-radio ON
   %label.toggle-radio OFF
-
-Gather additional feedback from customers after the chat has ended.
-%p/
+%label.label-top-fix.block-label-adjust
+  Gather additional feedback from customers after the chat has ended.
 
 .group
   .widget-preview-sample
