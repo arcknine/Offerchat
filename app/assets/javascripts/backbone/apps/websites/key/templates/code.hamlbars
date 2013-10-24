@@ -32,18 +32,7 @@
         %br
           \&nbsp; &nbsp;
           %em //body of your website
-
-.block.large.bordered-top
-  %h2
-    For plugins, extensions and modules
-  %p
-    Use this api key only when configuring plugins
-    %small.disabled
-      (e.g. Magento, Prestashop, Joomla, etc)
-  %strong
-    API Key:
-  {{api_key}}
-.block.large.bordered-top
+.block.large.bordered-top.group
   %button.btn.action{:type => "button"}
     Finish
   .go-right
@@ -53,3 +42,40 @@
     %p
       %a.install-guide{ :href => "http://support.offerchat.com/getting-started-with-offerchat-live-chat-widget/", :target => "blank" }
         Offerchat Install Guide
+.block.large.bordered-top
+  %h2
+    For plugins, extensions and modules
+  %p
+    Use this api key only when configuring plugins
+  %strong
+    API Key:
+  {{api_key}}
+.block.large
+  %ul.image-list
+    %li
+      %a{ :href => "https://github.com/Offerchat/ofc_drupal", :target => "_blank" }
+        = image_tag 'icon-drupal.png'
+        %label
+          Drupal
+    %li
+      %a{ :href => "https://github.com/Offerchat/offerchat-joomla", :target => "_blank" }
+        = image_tag 'icon-joomla.png'
+        %label
+          Joomla
+    %li 
+      %a{ :href => "https://github.com/Offerchat/offerchat-opencart", :target => "_blank" }
+        = image_tag 'icon-opencart.png'
+        %label
+          Opencart
+    %li
+      %a{ :href => "http://www.prestatoolbox.com/free-modules/265-free-offerchat-prestashop.html", :target => "_blank" }
+        = image_tag 'icon-prestashop.png'
+        %label
+          Prestashop
+    %li
+      %a{ :href => "https://github.com/Offerchat/wordpress", :target => "_blank" }
+        = image_tag 'icon-wordpress.png'
+        %label
+          Wordpress
+
+

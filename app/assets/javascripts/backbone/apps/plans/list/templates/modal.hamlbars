@@ -13,13 +13,13 @@
       = image_tag "credit-card-discover-32.png"
       = image_tag "credit-card-american-32.png"
 %fieldset
-  %label
+  %label.label-top-fix
     CVV Code
   .input-container
     %input.short{ :type => "text", :name => "cvv", :placeholder => "XXX", :value => "", :maxlength => 3 }
     .block-text-message.hide Your CVV code is invalid
 %fieldset
-  %label
+  %label.label-top-fix
     Expiry
   .input-container
     %input.short{ :type => "text", :name => "month", :placeholder => "MM", :value => "", :maxlength => 2 }
