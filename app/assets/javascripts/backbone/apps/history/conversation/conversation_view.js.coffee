@@ -170,7 +170,7 @@
     onShow: ->
       console.log 'height: ', $(window).height()
       $(".main-content-view").css('overflow-y','hidden')
-      w_height = $(window).height() - 203
+      w_height = $(window).height() - 148
       $("#historyTableViewer").css('height', w_height + 'px')
       $(".history-table-heading").first().removeClass("relative").addClass("fixed")
 
