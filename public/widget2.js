@@ -42,7 +42,8 @@
       referrer: document.referrer,
       position: "right",
       footer:   true,
-      token:    null
+      token:    null,
+      version:  defaults.version
     },
 
     init: function() {
@@ -101,8 +102,7 @@
 
     loadStorage: function() {
       var info = JSON.parse(localStorage.getItem("ofc-widget-info"));
-      if (info) {
-        // console.log(info);
+      if (info && (!info.version || info.version != defaults.version)) {
         this.info = {
           token:    info.token ? info.token : null,
           referrer: info.referrer ? info.referrer : document.referrer,
