@@ -33,6 +33,12 @@
           @showDowngradeModal(plan)
         else
           @showModal(plan)
+          
+        # track upgrage click
+        mixpanel.track("Click Upgrade Button")
+          
+      # track viewing Plans
+      mixpanel.track("View Plans Page")
 
     isDowngrade: (plan) ->
       current_plan = @profile.get("plan_identifier")
