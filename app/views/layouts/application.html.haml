@@ -16,6 +16,10 @@
       = mixpanel_dev_js
         
   %body
+    .block-message.success
+      %a.close ×
+      We're still setting up your account. You may not receive chats just yet.
+        
     = yield
 
     - if Rails.env.production?
