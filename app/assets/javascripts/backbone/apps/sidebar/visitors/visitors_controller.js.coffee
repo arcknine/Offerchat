@@ -318,7 +318,7 @@
       if body
         urlMatch = new RegExp("<a href=\"([^\"]*)\" target=\"_blank\">(.*)<\/a>")
         matches  = body.match(urlMatch)
-        body     = body.replace urlMatch, matches[2]
+        # body     = body.replace urlMatch, matches[2]
         body     = App.request "detect:url:from:string", body
 
       if comp.length or paused.length
