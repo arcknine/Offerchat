@@ -119,14 +119,7 @@
 
       @listenTo modalView, "authorize:payment", (e) =>
         coupon_code = $.trim($(e.view.el).find("input[name=coupon]").val())
-        # res = @coupons.findWhere id: coupon_code
 
-        # @validCoupon coupon_code, e
-
-        # unless res
-        #   $(e.view.el).find("input[name=coupon]").parent().parent().addClass("field-error")
-        #   $(e.view.el).find("input[name=coupon]").next().removeClass("hide")
-        # else
         if @validCoupon(coupon_code, e)
 
           Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
@@ -152,7 +145,6 @@
                   coupon: coupon_code unless coupon_code is ""
                   agents: agent_params unless agents is null
                 , (data) =>
-                  console.log data
                   @profile.set { plan_identifier: plan }
 
                   App.reqres.setHandler "get:current:user", =>
