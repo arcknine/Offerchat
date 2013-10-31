@@ -27,6 +27,13 @@
     .block-text-message.hide Your card expiry date is invalid
 
 %fieldset
+  %label.label-top-fix
+    Coupon Code
+  .input-container
+    %input{ :type => "text", :name => "coupon", :style => "width: 100px;" }
+    .block-text-message.hide Your Coupon code is invalid
+
+%fieldset
   .terms-text
     Please read the <a>terms and conditions</a> before proceeding
   %button.btn.action.go-right.authorize-payment{ :type => "submit" }

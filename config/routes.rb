@@ -27,6 +27,12 @@ Dashboard::Application.routes.draw do
     end
   end
 
+  resources :coupons do
+    collection do
+      get "retrieve"
+    end
+  end
+
   resources :subscriptions
 
   resources :quick_responses
