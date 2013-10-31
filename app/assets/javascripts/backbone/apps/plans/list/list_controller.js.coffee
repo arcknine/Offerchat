@@ -35,7 +35,7 @@
           @showModal(plan)
           
         # track upgrage click
-        mixpanel.track("Click Upgrade Button")
+        mixpanel.track("Click #{plan} Plan")
           
       # track viewing Plans
       mixpanel.track("View Plans Page")
@@ -122,8 +122,14 @@
 
       @listenTo formView, "modal:cancel", (item)->
         formView.close()
+        
+        # track upgrade cancellation
+        mixpanel.track("Cancel #{plan} Plan")
 
       @listenTo modalView, "authorize:payment", (e) =>
+        # track payment authorize
+        mixpanel.track("Authorizing Payment")
+        
         coupon_code = $.trim($(e.view.el).find("input[name=coupon]").val())
 
         if @validCoupon(coupon_code, e)
@@ -161,7 +167,7 @@
                 @paymentFail(plan)
 
             Stripe.createToken(card, handleStripeResponse)
-
+        
     validCoupon: (coupon, e) ->
       if coupon isnt ""
         res = @coupons.findWhere id: coupon
@@ -233,6 +239,9 @@
         formView.close()
 
       App.modalRegion.show formView
+      
+      # track Payment processing
+      mixpanel.track("Processing Payment")
 
     paymentSuccess: =>
       modalView = @getPaymentSuccessModal()
@@ -246,6 +255,9 @@
         App.navigate Routes.agents_path(), trigger: true
 
       App.modalRegion.show formView
+      
+      # track Payment processing
+      mixpanel.track("Payment Successful")
 
     paymentFail: (plan) =>
       modalView = @getPaymentFailModal()
