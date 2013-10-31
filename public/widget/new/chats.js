@@ -201,12 +201,13 @@ Chats = {
     roster  = this.roster;
     visitor = this.visitor;
     agent   = this.agent;
+    page_title = decodeURI(Offerchat.params.page_title);
 
     details = {
       api_key:  Offerchat.params.api_key,
       url:      Offerchat.params.current_url,
       token:    Offerchat.params.secret_token,
-      title:    (Offerchat.params.page_title).replace(/\+/g," "),
+      title:    (page_title).replace(/\+/g," "),
       referrer: Offerchat.params.referrer,
       location: [widget.city, widget.location].join(", "),
       ccode:    widget.code,

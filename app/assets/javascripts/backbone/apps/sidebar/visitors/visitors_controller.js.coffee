@@ -272,7 +272,6 @@
         ), jid
 
       else if typeof visitor is "undefined" && info && info.api_key
-
         # @displayCurrentUrl(token, node, info.url)
         @visitors.add
           jid:       node
@@ -316,9 +315,10 @@
       paused    = $(message).find("paused")
 
       if body
-        urlMatch = new RegExp("<a href=\"([^\"]*)\" target=\"_blank\">(.*)<\/a>")
-        matches  = body.match(urlMatch)
-        # body     = body.replace urlMatch, matches[2]
+        try
+          urlMatch = new RegExp("<a href=\"([^\"]*)\" target=\"_blank\">(.*)<\/a>")
+          matches  = body.match urlMatch
+          body     = body.replace urlMatch, matches[2]
         body     = App.request "detect:url:from:string", body
 
       if comp.length or paused.length
