@@ -33,6 +33,12 @@
           @showDowngradeModal(plan)
         else
           @showModal(plan)
+          
+        # track upgrage click
+        mixpanel.track("Click Upgrade Button")
+          
+      # track viewing Plans
+      mixpanel.track("View Plans Page")
 
       @coupons = App.request "get:coupons"
 

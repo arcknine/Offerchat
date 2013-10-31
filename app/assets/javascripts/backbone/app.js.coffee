@@ -14,6 +14,10 @@
 
     $(window).blur ->
       App.tab_active = false
+    
+    user = JSON.parse options.currentUser
+    # Identify users on Mixpanel
+    mixpanel.identify(user.email)
 
   App.addRegions
     navigationRegion:       "#header-region"
