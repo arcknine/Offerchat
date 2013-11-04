@@ -29,6 +29,10 @@
     model: Entities.Agent
     url: Routes.only_agents_path()
 
+  class Entities.ManageAgentsCollection extends App.Entities.Collection
+    model: Entities.Agent
+    url:   Routes.manage_agents_agents_path()
+
   API =
     newAgent: ->
       new Entities.Agent
@@ -61,11 +65,25 @@
           App.request "hide:preloader"
       agents
 
+    manageAgents: (hide_loader) ->
+      agents = new Entities.ManageAgentsCollection
+      App.request "show:preloader"
+      agents.fetch
+        reset: true
+        success: ->
+          App.request "hide:preloader"
+        error: ->
+          App.request "hide:preloader"
+      agents
+
   App.reqres.setHandler "agents:entities", (hide_loader = true) ->
     API.getAgents hide_loader
 
   App.reqres.setHandler "agents:only:entities", ->
     API.getAgentsOnly()
+
+  App.reqres.setHandler "agents:manage:entities", (hide_loader = true) ->
+    API.manageAgents hide_loader
 
   App.reqres.setHandler "new:agent:entity", ->
     API.newAgent()
