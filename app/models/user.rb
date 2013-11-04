@@ -75,6 +75,12 @@ class User < ActiveRecord::Base
     User.where(:id => ids.push(self.id).push(uids).uniq)
   end
 
+  def manage_agents
+    wids = owned_sites.collect(&:id)
+    uids = Account.where(website_id: wids).where("user_id IS NOT NULL").collect(&:user_id)
+    User.where(id: uids)
+  end
+
   def find_managed_sites(website_id)
     site = self.accounts.keep_if do |e|
       (e.role == Account::OWNER || e.role == Account::ADMIN) && (e.website_id == website_id.to_i)
@@ -88,6 +94,11 @@ class User < ActiveRecord::Base
 
   def all_sites
     website_id = accounts.where("role != ?", 0).collect(&:website_id)
+    Website.where(:id => website_id)
+  end
+
+  def owned_sites
+    website_id = accounts.where(role: Account::OWNER).collect(&:website_id)
     Website.where(:id => website_id)
   end
 

@@ -5,7 +5,7 @@
     initialize: ->
       @layout = @getLayoutView()
       @currentUser = App.request("get:current:user:json")
-      agents = App.request "agents:entities"
+      agents = App.request "agents:manage:entities"
       @websites = App.request "owned:sites:entities"
 
       online_agents = App.request "get:online:agents"
