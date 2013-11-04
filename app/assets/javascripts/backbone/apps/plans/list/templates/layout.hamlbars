@@ -23,7 +23,7 @@
 .block.large.text-center.pricing-header
   %h1
     Pay only for agent seats, enjoy all features
-  %h3
+  %p
     Offerchat live chat offers flexible pricing plans to let you chat instantly with shoppers right on your site.
 
 .block.large

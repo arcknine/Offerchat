@@ -13,5 +13,8 @@
     {{info.OS}} &middot; {{info.browser}}
     
 .chat-right-sidebar
-  .link-list
-    %a.btn.show-responses Responses
+  .link-list.link-list-labeled
+    %a.show-responses 
+      %i.icon.icon-chat-response 
+      %span
+        Responses

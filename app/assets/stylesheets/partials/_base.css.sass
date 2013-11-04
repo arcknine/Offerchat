@@ -1,9 +1,7 @@
 // @import "http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic"
-@import "//fonts.googleapis.com/css?family=Roboto:400,400italic,700,300"
 @import "../modules/all"
 
-$base-font-family: "Roboto", "Helvetica Neue", "Helvetica", Arial, sans-serif
-// $base-font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif
+$base-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
 $base-font-weight: 400
 $base-font-size: 14px
 $base-line-height: 1.5
@@ -187,6 +185,8 @@ a.agent-selection-item
   height: 55px
   background-image: image-url("logo-single.png")
   background-repeat: no-repeat
+h1,h2,h3,h4
+  font-weight: 700
 h1
   font-size: 30px
 
@@ -477,6 +477,18 @@ label
 .link-list
   a
     display: inline-block
+  &.link-list-labeled
+    a
+      padding: 5px 10px
+      text-align: center
+      &:hover
+        .icon-chat-response
+          background-position: -50px -257px
+        .icon-chat-note
+          background-position: -91px -257px
+    span
+      display: block
+      margin-top: 5px
 
 ::-webkit-scrollbar
   width: 8px
@@ -873,19 +885,6 @@ a.block-list-item, .block-list-item
     &:hover
       opacity: 1
 
-.notes-section
-  .agent-inline-block
-    position: absolute
-    padding: 15px
-    .nickname
-      margin-top: 5px
-      font-size: 12px
-  .note
-    padding-left: 100px
-    font-size: 12px
-  .profile-image-container
-    cursor: default
-    text-align: left
 
 .modal-sidebar-viewer
   margin-top: 5px
