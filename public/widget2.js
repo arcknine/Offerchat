@@ -102,15 +102,17 @@
 
     loadStorage: function() {
       var info = JSON.parse(localStorage.getItem("ofc-widget-info"));
-      if (info && (!info.version || info.version != defaults.version)) {
+      if (info && info.version == defaults.version) {
         this.info = {
           token:    info.token ? info.token : null,
           referrer: info.referrer ? info.referrer : document.referrer,
           position: info.position ? info.position : "right",
           footer:   info.footer === false ? info.footer : true,
           state:    info.state ? info.state : "show",
+          version:  defaults.version,
           api_key:  ofc_key
         };
+        localStorage.setItem("ofc-widget-info", JSON.stringify(this.info));
       } else {
         localStorage.setItem("ofc-widget-info", JSON.stringify(this.info));
       }
@@ -175,7 +177,7 @@
       $ofc('body').append(build);
 
       path = src.widget;
-      title = $ofc("head > title").text();
+      title = encodeURI($ofc("head > title").text());
       // path = "http://10.10.1.22:3000/widget"
 
       $ofc("<form action='" + path + "' method='GET' target='offerchat_frame'></form>")
