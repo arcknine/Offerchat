@@ -1,9 +1,7 @@
 // @import "http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic"
-@import "//fonts.googleapis.com/css?family=Roboto:400,400italic,700,300"
 @import "../modules/all"
 
-$base-font-family: "Roboto", "Helvetica Neue", "Helvetica", Arial, sans-serif
-// $base-font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif
+$base-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
 $base-font-weight: 400
 $base-font-size: 14px
 $base-line-height: 1.5
@@ -26,9 +24,7 @@ body
   color: $text-color
   background-color: #fff
   overflow: hidden
-  -webkit-font-smoothing: antialiased
   -webkit-text-size-adjust: 100%
-  text-rendering: optimizeLegibility
   &.body-dark
     background-color: $sidebar-color
 p
@@ -187,6 +183,9 @@ a.agent-selection-item
   height: 55px
   background-image: image-url("logo-single.png")
   background-repeat: no-repeat
+h1,h2,h3,h4
+  font-weight: 700
+  color: darken($text-color, 20%)
 h1
   font-size: 30px
 
@@ -197,7 +196,6 @@ h2
 
 h4
   font-size: 10px
-  font-weight: bold
   text-transform: uppercase
   &.label
     color: $light-text-color
@@ -477,6 +475,18 @@ label
 .link-list
   a
     display: inline-block
+  &.link-list-labeled
+    a
+      padding: 5px 10px
+      text-align: center
+      &:hover
+        .icon-chat-response
+          background-position: -50px -257px
+        .icon-chat-note
+          background-position: -91px -257px
+    span
+      display: block
+      margin-top: 5px
 
 ::-webkit-scrollbar
   width: 8px
@@ -748,7 +758,7 @@ a.block-list-item, .block-list-item
     text-align: left
     margin-bottom: 20px
   h3
-    font-weight: 700
+    
     margin: 0 0 10px
 .plans
   .plan-features
@@ -788,7 +798,7 @@ a.block-list-item, .block-list-item
       color: #fff
       background-color: $sidebar-color
       margin-bottom: 20px
-      font-weight: bold
+      
     .plan-description
       font-size: 12px
       font-weight: normal
@@ -804,7 +814,7 @@ a.block-list-item, .block-list-item
       vertical-align: top
 
   .plan-value
-    font-weight: 300
+    
     font-size: 38px
     letter-spacing: -1px
     display: block
@@ -873,19 +883,6 @@ a.block-list-item, .block-list-item
     &:hover
       opacity: 1
 
-.notes-section
-  .agent-inline-block
-    position: absolute
-    padding: 15px
-    .nickname
-      margin-top: 5px
-      font-size: 12px
-  .note
-    padding-left: 100px
-    font-size: 12px
-  .profile-image-container
-    cursor: default
-    text-align: left
 
 .modal-sidebar-viewer
   margin-top: 5px
@@ -974,7 +971,7 @@ span.dot-seperator
     top: 50%
     margin-top: -88px
     text-align: center
-    font-size: 12px
+    font-size: 13px
     color: #999
 .authorize-payment-overlay
   h4
