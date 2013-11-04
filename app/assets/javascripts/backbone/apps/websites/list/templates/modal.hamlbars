@@ -18,3 +18,36 @@
   %label.label-top-fix API Key
   .input-container
     %input.large.apikey{ :name => "api_key", :readonly => "" , :type => "text", :value => "{{api_key}}"}
+
+
+%ul.image-list.well
+  %li
+    %a{ :href => "https://github.com/Offerchat/ofc_drupal", :target => "_blank" }
+      = image_tag 'icon-drupal.png', :class => "small"
+      %span
+        Drupal
+  %li
+    %a{ :href => "https://github.com/Offerchat/offerchat-joomla", :target => "_blank" }
+      = image_tag 'icon-joomla.png', :class => "small"
+      %span
+        Joomla
+  %li 
+    %a{ :href => "https://github.com/Offerchat/offerchat-opencart", :target => "_blank" }
+      = image_tag 'icon-opencart.png', :class => "small"
+      %span
+        Opencart
+  %li
+    %a{ :href => "http://www.prestatoolbox.com/free-modules/265-free-offerchat-prestashop.html", :target => "_blank" }
+      = image_tag 'icon-prestashop.png', :class => "small"
+      %span
+        Prestashop
+  %li
+    %a{ :href => "https://github.com/Offerchat/wordpress", :target => "_blank" }
+      = image_tag 'icon-wordpress.png', :class => "small"
+      %span
+        Wordpress
+  %li
+    %a{ :href => "http://www.savethemage.com/magento-extensions/free-extensions/offerchat-free-live-chat.html", :target => "_blank" }
+      = image_tag 'icon-magento.png', :class => "small"
+      %span
+        Magento

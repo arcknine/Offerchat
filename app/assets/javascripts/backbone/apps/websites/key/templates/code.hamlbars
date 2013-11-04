@@ -55,27 +55,32 @@
     %li
       %a{ :href => "https://github.com/Offerchat/ofc_drupal", :target => "_blank" }
         = image_tag 'icon-drupal.png'
-        %label
+        %span
           Drupal
     %li
       %a{ :href => "https://github.com/Offerchat/offerchat-joomla", :target => "_blank" }
         = image_tag 'icon-joomla.png'
-        %label
+        %span
           Joomla
     %li 
       %a{ :href => "https://github.com/Offerchat/offerchat-opencart", :target => "_blank" }
         = image_tag 'icon-opencart.png'
-        %label
+        %span
           Opencart
     %li
       %a{ :href => "http://www.prestatoolbox.com/free-modules/265-free-offerchat-prestashop.html", :target => "_blank" }
         = image_tag 'icon-prestashop.png'
-        %label
+        %span
           Prestashop
     %li
       %a{ :href => "https://github.com/Offerchat/wordpress", :target => "_blank" }
         = image_tag 'icon-wordpress.png'
-        %label
+        %span
           Wordpress
+    %li
+      %a{ :href => "http://www.savethemage.com/magento-extensions/free-extensions/offerchat-free-live-chat.html", :target => "_blank" }
+        = image_tag 'icon-magento.png'
+        %span
+          Magento
 
 
