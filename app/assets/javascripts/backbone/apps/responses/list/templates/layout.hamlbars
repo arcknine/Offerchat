@@ -2,13 +2,13 @@
   .block.large.bordered-bottom
     %h2
       Quick Responses
-    %div{ :style => "margin-top: 20px;" }
-      .section-actions.hide
+    %div{ :style => "margin-top: 15px;" }
+      .section-actions
         %a.btn.action
           New Response
         %a.btn.trash-btn.warning
           %i.icon.icon-trash
-      .form.form-half
+      .form.form-half.hide
         %h3
           New Quick Response
         %fieldset
@@ -82,6 +82,8 @@
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
         .table-row.group
           %form.form.form-half
+            %h3
+              Edit Quick Response
             %fieldset
               %textarea.full{ :placeholder => "Enter your /command then message (e.g. /response message)" }
                 \/whatislorem blah blah blah
