@@ -3,11 +3,12 @@
     %h2
       Quick Responses
     %div{ :style => "margin-top: 20px;" }
-      %a.btn.action
-        New Response
-      %a.btn.trash-btn.warning
-        %i.icon.icon-trash
-      .form.form-half.hide
+      .section-actions.hide
+        %a.btn.action
+          New Response
+        %a.btn.trash-btn.warning
+          %i.icon.icon-trash
+      .form.form-half
         %h3
           New Quick Response
         %fieldset
@@ -17,11 +18,16 @@
             Save
           %button.btn
             Cancel
+          .item
+            %h3.disabled.inline
+              Tip:
+            %a
+              How to create a Quick Response?
           
     
   .table-data-wrapper
     .table-data.quick-answers-list
-      .table-viewer-content{ :style => "height: 470px;" }
+      .table-viewer-content{ :style => "height: 450px;" }
         .table-row.linkable.group
           .td-container.td-small
             .td-content

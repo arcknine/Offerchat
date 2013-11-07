@@ -24,7 +24,7 @@ body
   color: $text-color
   background-color: #fff
   overflow: hidden
-  -webkit-text-size-adjust: 100%
+  
   &.body-dark
     background-color: $sidebar-color
 p
@@ -186,6 +186,10 @@ a.agent-selection-item
 h1,h2,h3,h4
   font-weight: 700
   color: darken($text-color, 20%)
+  &.disabled
+    color: $light-text-color
+  &.inline
+    display: inline-block
 h1
   font-size: 30px
 
@@ -552,6 +556,8 @@ label
   float: none
   height: 100%
   overflow-y: auto
+  &.for-fixed-header
+    overflow-y: hidden
 
 
 .column-50
