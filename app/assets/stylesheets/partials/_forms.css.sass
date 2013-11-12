@@ -8,6 +8,7 @@ textarea
   margin: 0
   font-size: 14px
   outline: none
+  color: darken($text-color, 20%)
   border: 2px solid lighten($border-color,5%)
   font-family: $base-font-family
   border-radius: 3px
@@ -161,20 +162,18 @@ label
     font-weight: bold
     .inline-label-message
       font-weight: 400
-    
-
   &.invite-user-form
     margin-bottom: 15px
-
   &.form-inline
     .input-container,
     label
       display: inline-block
       min-width: 140px
-
       &.block
         display: block
         padding: 0
+  &.form-half
+    width: 50%
   &.form-small
     textarea, input, button, a
       font-size: 12px
@@ -182,9 +181,6 @@ label
       margin: 5px 0
   &.form-input-head
     margin-bottom: 15px
-
-
-
   &.hero-form
     padding: 20px 0
 .checklist-admin

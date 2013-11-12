@@ -1,8 +1,6 @@
 .table-data-wrapper
   position: relative
 .table-data
-  margin-top: 20px
-
   .table-row
     display: block
     padding: 10px 20px
@@ -33,6 +31,8 @@
       width: 210px
     &.td-status-item
       width: 80px
+    &.td-full
+      width: 92%
   .td-content-message
     text-overflow: ellipsis
     white-space: nowrap
@@ -40,7 +40,8 @@
 .td-content
   position: relative
   
-.table-history-viewer-content
+.table-history-viewer-content,
+.table-viewer-content
   height: 100%
   overflow-y: auto
   position: relative
@@ -53,19 +54,22 @@
       color: #999
       font-weight: normal
       margin-left: -1px
+.table-viewer-content
+  padding-top: 0
 .table-history-viewer
   h3.table-heading
     padding: 6px 20px
     background-color: #e9e9e9
     text-shadow: 0 1px 0 #fff
     width: 100%
-    z-index: 10
-    top: 223px
+    
     box-sizing: border-box
     border-bottom: 1px solid #e1e1e1
     font-weight: bold
     &.fixed
       position: fixed
+      z-index: 10
+      top: 207px
 
     &.relative
       

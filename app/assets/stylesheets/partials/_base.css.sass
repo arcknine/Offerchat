@@ -1,7 +1,6 @@
-// @import "http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic"
 @import "../modules/all"
 
-$base-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
+$base-font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif
 $base-font-weight: 400
 $base-font-size: 14px
 $base-line-height: 1.5
@@ -24,7 +23,7 @@ body
   color: $text-color
   background-color: #fff
   overflow: hidden
-  -webkit-text-size-adjust: 100%
+  
   &.body-dark
     background-color: $sidebar-color
 p
@@ -183,9 +182,6 @@ a.agent-selection-item
   height: 55px
   background-image: image-url("logo-single.png")
   background-repeat: no-repeat
-h1,h2,h3,h4
-  font-weight: 700
-  color: darken($text-color, 20%)
 h1
   font-size: 30px
 
@@ -193,9 +189,12 @@ h2
   font-size: 18px
   &.sub
     color: $light-text-color
-
+h1,h2,h3,h4
+  font-weight: 700
+  color: darken($text-color, 20%)
 h4
   font-size: 10px
+  font-weight: bold
   text-transform: uppercase
   &.label
     color: $light-text-color
@@ -253,11 +252,13 @@ label
     display: inline-block
   &.bordered-top
     border-top: 1px solid #e1e1e1
+  &.bordered-bottom
+    border-bottom: 1px solid #e1e1e1
 
 .alert-block-message
   padding: 10px 0
   font-size: 12px
-
+  
   .btn
     padding: 3px 7px
   &.warning
@@ -350,7 +351,7 @@ label
     visibility: hidden
 
     @include transition(.2s)
-.caret
+.caret  
   border-width: 7px
   border-style: solid
   position: absolute
@@ -550,6 +551,8 @@ label
   float: none
   height: 100%
   overflow-y: auto
+  &.for-fixed-header
+    overflow-y: hidden
 
 
 .column-50
@@ -697,6 +700,11 @@ label
       font-size: 24px
       line-height: 18px
       opacity: .7
+      width: 19px
+      height: 19px
+      border-radius: 3px
+      line-height: 19px
+      text-align: center
       z-index: 100
       @include transition(.2s)
       &:hover
@@ -758,7 +766,6 @@ a.block-list-item, .block-list-item
     text-align: left
     margin-bottom: 20px
   h3
-    
     margin: 0 0 10px
 .plans
   .plan-features
@@ -798,7 +805,6 @@ a.block-list-item, .block-list-item
       color: #fff
       background-color: $sidebar-color
       margin-bottom: 20px
-      
     .plan-description
       font-size: 12px
       font-weight: normal
@@ -814,7 +820,6 @@ a.block-list-item, .block-list-item
       vertical-align: top
 
   .plan-value
-    
     font-size: 38px
     letter-spacing: -1px
     display: block
@@ -854,6 +859,8 @@ a.block-list-item, .block-list-item
 
 
 
+
+
 .sidebar-modal-fixed
   position: absolute
 
@@ -883,6 +890,19 @@ a.block-list-item, .block-list-item
     &:hover
       opacity: 1
 
+.notes-section
+  .agent-inline-block
+    position: absolute
+    padding: 15px
+    .nickname
+      margin-top: 5px
+      font-size: 12px
+  .note
+    padding-left: 100px
+    font-size: 12px
+  .profile-image-container
+    cursor: default
+    text-align: left
 
 .modal-sidebar-viewer
   margin-top: 5px
@@ -948,9 +968,6 @@ span.dot-seperator
   display: inline-block
   vertical-align: middle
 .settings-widget-selector
-  padding: 10px
-  border-radius: 5px
-  border: 1px solid $border-color
   width: 192px
   float: left
   margin: 0 !important
@@ -971,7 +988,7 @@ span.dot-seperator
     top: 50%
     margin-top: -88px
     text-align: center
-    font-size: 13px
+    font-size: 12px
     color: #999
 .authorize-payment-overlay
   h4
@@ -986,12 +1003,12 @@ span.dot-seperator
 
 .toggle-list
   margin: 5px 0 20px 0
+
 .stats-panel
   display: inline-block
   text-align: right
   padding: 0 20px
   h3
-    font-size: 28px
     color: #3bb7d6
     .suffix
       font-size: 12px
@@ -1037,7 +1054,7 @@ span.dot-seperator
     background-color: #f06767
     .stats-stick
       @extend .stats-indicator.red
-
+ 
 
   .stats-stick
     width: 7px
@@ -1047,7 +1064,6 @@ span.dot-seperator
     right: -5px
     top: 3px
     float: left
-
 
 .notice-overlay
   float: left
@@ -1091,7 +1107,7 @@ span.dot-seperator
       width: 95px
       margin: 5px
       height: 95px
-
+ 
 .tag-new
   position: relative
   font-size: 10px
@@ -1109,4 +1125,5 @@ span.dot-seperator
   display: inline-block
   margin: 0 10px
   font-size: 12px
+  
   position: relative
