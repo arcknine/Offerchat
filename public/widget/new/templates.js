@@ -543,7 +543,7 @@ Templates = {
   getMessageView: function(data) {
     data = data || {};
     var edited = "";
-    if(data.edited == true){
+    if(data.edited === true){
       edited = "<i class='widget icon icon-pencil'></i>";
     }
     var message =  '  <div class="group">' +
