@@ -4,8 +4,8 @@ Chats = {
   is_attach:  false,
   reload_app: null,
   has_conversation: false,
-  // time_diff: 1200,
-  time_diff: 300,
+  time_diff: 1200,
+  // time_diff: 300,
 
   composing: false,
   paused_interval: null,
