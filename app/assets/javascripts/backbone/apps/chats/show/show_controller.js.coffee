@@ -17,7 +17,11 @@
       @transcript.url = Routes.email_export_transcript_index_path
       @scroll         = false
       @last_agent_msg = ""
-      @qrs            = ""
+
+      @qrs = App.request "get:qrs"
+      App.execute "when:fetched", @qrs, =>
+        App.reqres.setHandler "get:qrs", =>
+          @qrs
 
       @layout      = @getLayout()
 
@@ -67,62 +71,56 @@
 
     qrSidebarView: ->
       qr  = App.request "new:qr"
-      @qrs = App.request "get:qrs"
 
-      App.execute "when:fetched", @qrs, =>
+      sidebarView = @getSidebarView(qr)
+      formView = App.request "sidebar:wrapper", sidebarView
 
-        App.reqres.setHandler "get:qrs", =>
-          @qrs
+      qrsView = @getQRList(@qrs)
 
-        sidebarView = @getSidebarView(qr)
-        formView = App.request "sidebar:wrapper", sidebarView
+      @listenTo qrsView, "childview:qrs:clicked", (e) =>
+        $(".chat-response").find("textarea").focus().val(e.model.get("message") + " ")
 
-        qrsView = @getQRList(@qrs)
+      @listenTo formView, "show", =>
+        sidebarView.qrRegion.show qrsView
 
-        @listenTo qrsView, "childview:qrs:clicked", (e) =>
-          $(".chat-response").find("textarea").focus().val(e.model.get("message") + " ")
+      @listenTo sidebarView, "new:response", =>
+        @showQuickResponse()
 
-        @listenTo formView, "show", =>
-          sidebarView.qrRegion.show qrsView
+      @listenTo sidebarView, "cancel:new:response", =>
+        @hideQuickResponse()
 
-        @listenTo sidebarView, "new:response", =>
-          @showQuickResponse()
+      @listenTo sidebarView, "create:new:response", =>
+        quick_response = $(".new-response-text").val()
+        arr = quick_response.split(" ")
+        shortcut = arr[0]
+        arr.splice(0,1)
+        message = arr.join(" ")
 
-        @listenTo sidebarView, "cancel:new:response", =>
-          @hideQuickResponse()
+        if quick_response == ""
+          @showQuickResponseError("Quick response can't be blank")
+          return false
 
-        @listenTo sidebarView, "create:new:response", =>
-          quick_response = $(".new-response-text").val()
-          arr = quick_response.split(" ")
-          shortcut = arr[0]
-          arr.splice(0,1)
-          message = arr.join(" ")
+        if arr.length < 1
+          @showQuickResponseError("Invalid formatting. Format should be '/shortcut message'")
+          return false
 
-          if quick_response == ""
-            @showQuickResponseError("Quick response can't be blank")
-            return false
+        if quick_response.charAt(0) != "/"
+          @showQuickResponseError("Invalid formatting. Format should be '/shortcut message'")
+          return false
 
-          if arr.length < 1
-            @showQuickResponseError("Invalid formatting. Format should be '/shortcut message'")
-            return false
-          
-          if quick_response.charAt(0) != "/"
-            @showQuickResponseError("Invalid formatting. Format should be '/shortcut message'")
-            return false
+        qr.set message: message, shortcut: shortcut
+        qr.url = "/quick_responses"
+        qr.type = "POST"
+        qr.save {},
+          success: (data) =>
+            @hideQuickResponse()
+            # add qrs
+            new_qrs =
+              message: message
+              shortcut: shortcut
+            @qrs.add new_qrs
 
-          qr.set message: message, shortcut: shortcut
-          qr.url = "/quick_responses"
-          qr.type = "POST"
-          qr.save {},
-            success: (data) =>
-              @hideQuickResponse()
-              # add qrs
-              new_qrs =
-                message: message
-                shortcut: shortcut
-              @qrs.add new_qrs
-
-        App.sidebarRegion.show formView
+      App.sidebarRegion.show formView
 
     getSidebarView: (qr) ->
       new Show.ModalQuickResponses

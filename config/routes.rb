@@ -8,6 +8,7 @@ Dashboard::Application.routes.draw do
   resources :agents do
     collection do
       get "only"
+      get "manage_agents"
     end
   end
 

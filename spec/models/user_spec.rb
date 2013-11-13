@@ -336,5 +336,9 @@ describe User do
 
       @owner.my_agents_accounts.should be_blank
     end
+
+    it "should return current user's owned sites" do
+      @owner.owned_sites.should_not be_blank
+    end
   end
 end

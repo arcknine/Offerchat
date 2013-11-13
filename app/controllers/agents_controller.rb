@@ -19,6 +19,13 @@ class AgentsController < ApplicationController
     @agents = current_user.my_agents
   end
 
+  def manage_agents
+    @owner  = current_user
+    @agents = current_user.my_agents
+    @agents = [@owner] << @agents
+    @agents = @agents.flatten
+  end
+
   def create
     @owner = current_user
     accounts = []

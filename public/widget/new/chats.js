@@ -5,6 +5,7 @@ Chats = {
   reload_app: null,
   has_conversation: false,
   time_diff: 1200,
+  // time_diff: 300,
 
   composing: false,
   paused_interval: null,
@@ -362,6 +363,7 @@ Chats = {
             a.website_id = Offerchat.website.id;
             a.new_convo = false;
 
+            Offerchat.storeData("ofc-last-agent", a, localStorage);
             Offerchat.storeData("ofc-agent", a, localStorage);
             Chats.agent = a;
 
@@ -626,24 +628,31 @@ Chats = {
   getAgent: function(callback) {
     var _this = this;
     var agent = this.agent;
+
     if (!Chats.agents || Chats.agents.length === 0) {
       setTimeout(function(){
         _this.getAgent(callback);
       }, 200);
     } else if (!agent && this.agents.length > 0) {
+      var last_agent = Offerchat.loadData("ofc-last-agent", localStorage);
 
-      selected_agent = this.agents[Math.floor(Math.random() * this.agents.length)];
-      $.each(Offerchat.website.agents, function(key, value){
-        if (value.jabber_user == selected_agent) {
-          agent = value;
-          agent.new_convo = false;
-          Offerchat.storeData("ofc-agent", agent, localStorage);
+      if (last_agent && _this.agents.indexOf(last_agent.jabber_user) != -1) {
+        Offerchat.storeData("ofc-agent", last_agent, localStorage);
+        agent = last_agent;
+      } else {
+        selected_agent = this.agents[Math.floor(Math.random() * this.agents.length)];
+        $.each(Offerchat.website.agents, function(key, value){
+          if (value.jabber_user == selected_agent) {
+            agent = value;
+            agent.new_convo = false;
+            Offerchat.storeData("ofc-agent", agent, localStorage);
 
-          _this.agent = agent;
-          _this.createChatHistoryConversation(agent);
-          _this.sendPresence();
-        }
-      });
+            _this.agent = agent;
+            _this.createChatHistoryConversation(agent);
+            _this.sendPresence();
+          }
+        });
+      }
 
       $(".widget-input-text").attr("disabled", "disabled");
       Templates.loader.replace();
@@ -663,6 +672,7 @@ Chats = {
 
         _this.loadChats();
         _this.agent = agent;
+        Offerchat.storeData("ofc-last-agent", agent, localStorage);
 
         callback(agent);
       }, 2000);

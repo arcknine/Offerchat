@@ -62,16 +62,21 @@
   color: black
   height: 220px
   overflow-y: scroll
+.notes-section
+  .agent-inline-block
+    position: absolute
+    padding: 15px
+  .profile-image-container
+    cursor: default
+    text-align: left
 .note
-  padding: 5px 10px
+  padding: 5px 10px 5px 65px
   float: left
-  &.fixed
-    width: 545px
-    min-height: 65px
   .date
     font-size: 12px
-    margin-top: 5px
     color: $light-text-color
+.note-author
+  font-weight: bold
 .chat-header
   border-bottom: 1px solid $default-border-color
   height: 127px
@@ -84,7 +89,7 @@
     margin-top: 20px
 .chat-right-sidebar
   float: right
-  margin-top: 35px
+  margin-top: 20px
 .chat-pane-container
   max-width: 750px
   margin: 0 auto
