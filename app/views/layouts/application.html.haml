@@ -9,17 +9,18 @@
     %meta{ :name=>"stripe-key", :content => STRIPE_PUBLIC_KEY }
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     %link{rel: "icon", type: "image/x-icon", href: "/favicon.ico"}
-    
+
     - if Rails.env.production?
       = mixpanel_js
     - else
       = mixpanel_dev_js
-        
+
   %body
-    .block-message.success
+    .setup-tooltip
       %a.close ×
-      We're still setting up your account. You may not receive chats just yet.
-        
+      %h3 Setting up your account
+      Please wait whil we setup your account. You may not receive chats just yet.
+
     = yield
 
     - if Rails.env.production?
