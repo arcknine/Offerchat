@@ -16,10 +16,13 @@
       = mixpanel_dev_js
 
   %body
-    .setup-tooltip
-      %a.close ×
-      %h3 Setting up your account
-      Please wait whil we setup your account. You may not receive chats just yet.
+    - if current_user.sign_in_count < 2
+      .setup-tooltip#first-time-user
+        %a.close#first-time-user-close ×
+        %h3 Setting Up Your Account
+        Please wait while we create your account. You may not receive chats just yet.
+        In the mean time, get to know the
+        %a{ :href => "https://www.offerchat.com/blog/surprise-treat-for-new-offerchat-users-2/", :target => "_blank" }perks of your Premium trial.
 
     = yield
 
