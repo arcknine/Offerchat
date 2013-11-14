@@ -9,13 +9,21 @@
     %meta{ :name=>"stripe-key", :content => STRIPE_PUBLIC_KEY }
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     %link{rel: "icon", type: "image/x-icon", href: "/favicon.ico"}
-    
+
     - if Rails.env.production?
       = mixpanel_js
     - else
       = mixpanel_dev_js
-        
+
   %body
+    - if current_user.sign_in_count < 2
+      .setup-tooltip#first-time-user
+        %a.close#first-time-user-close ×
+        %h3 Setting Up Your Account
+        Please wait while we create your account. You may not receive chats just yet.
+        In the mean time, get to know the
+        %a{ :href => "https://www.offerchat.com/blog/surprise-treat-for-new-offerchat-users-2/", :target => "_blank" }perks of your Premium trial.
+
     = yield
 
     - if Rails.env.production?

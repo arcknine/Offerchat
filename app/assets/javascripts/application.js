@@ -34,3 +34,12 @@
 //= require_tree ./backbone/apps
 //= require jquery-fileupload/basic
 //= require backbone/init_app
+
+$(document).ready(function(){
+  $("#first-time-user").delay(300000).fadeOut();
+
+  $("#first-time-user-close").click(function(e){
+    e.preventDefault();
+    $("#first-time-user").hide();
+  });
+});
