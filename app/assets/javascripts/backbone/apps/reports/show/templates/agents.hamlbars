@@ -1,4 +1,4 @@
 %a.btn-toggle-all.all-agents.bordered.active
-  .chat-agent-name All agents
+  .select-all-agents All agents
 
 %div#agents-wrapper{ style: "display: inline" }

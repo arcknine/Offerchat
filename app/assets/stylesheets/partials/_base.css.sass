@@ -23,7 +23,7 @@ body
   color: $text-color
   background-color: #fff
   overflow: hidden
-  
+  -webkit-font-smoothing: antialiased
   &.body-dark
     background-color: $sidebar-color
 p
@@ -114,6 +114,7 @@ a
       font-size: 22px
       left: -1px
       font-weight: 400
+
 
 
 
@@ -264,7 +265,15 @@ label
   &.warning
     span.message
       color: $button-bg-warning-color
-
+.setup-tooltip
+  @extend .block-message
+  position: absolute
+  top: 55px
+  left: 10px
+  border-radius: 5px
+  z-index: 110
+  width: 300px
+  box-shadow: 0 1px 10px rgba(0,0,0,.3)
 .block-message
   a.close
     float: right
@@ -1003,12 +1012,16 @@ span.dot-seperator
 
 .toggle-list
   margin: 5px 0 20px 0
-
+  .select-all-agents
+    top: 10px
+    position: relative
 .stats-panel
   display: inline-block
   text-align: right
   padding: 0 20px
   h3
+    font-size: 28px
+    font-weight: normal
     color: #3bb7d6
     .suffix
       font-size: 12px
