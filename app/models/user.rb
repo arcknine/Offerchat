@@ -249,6 +249,11 @@ class User < ActiveRecord::Base
         e.my_agents_accounts.each do |a|
           a.destroy
         end
+
+        e.websites.each do |w|
+          w.settings(:footer).enabled = false
+          w.save
+        end
       end
       expired_trials.update_all(:plan_identifier => "FREE")
     end
