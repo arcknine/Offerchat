@@ -30,3 +30,27 @@
       = user_report_js
       / = ofc_js
       = analytics_init
+
+    - if current_user.trial_days_left < 0
+      .modal-backdrop
+        .modal-window.trial-window
+          .modal
+            .modal-header
+              %a.close.close-trial-end
+                ×
+              %h2
+                Oops! Your 60-Day Premium Trial has ended
+            .modal-body
+              %p
+                The default 60-day period to try Offerchat premium has wrapped up. Continue using it by upgrading your account to enjoy more features like:
+              %ul.list.styled
+                %li Assign at least 4 agents
+                %li No Offerchat logo - use it like it's your own
+                %li Dedicated support
+                %li SSL security
+                %li Quick responses
+            .modal-footer.bordered
+              %a.btn.trial-pricing{href: "#plans"}
+                View Plans and Pricing
+              %a.right.hovered.trial-free{style: "margin-top: 7px"}
+                Continue using the free plan.

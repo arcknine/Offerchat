@@ -42,4 +42,22 @@ $(document).ready(function(){
     e.preventDefault();
     $("#first-time-user").hide();
   });
+  
+  $(".close-trial-end").click(function(e){
+    e.preventDefault();
+    $(".trial-window").remove();
+    $(".modal-backdrop").hide();
+  });
+  
+  $(".trial-free").click(function(e){
+    e.preventDefault();
+    $(".trial-window").remove();
+    $(".modal-backdrop").hide();
+  });
+  
+  $(".trial-pricing").click(function(e){
+    e.preventDefault();
+    $(".trial-window").remove();
+    $(".modal-backdrop").hide();
+  });
 });
