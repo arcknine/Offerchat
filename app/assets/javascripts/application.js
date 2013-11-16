@@ -42,22 +42,23 @@ $(document).ready(function(){
     e.preventDefault();
     $("#first-time-user").hide();
   });
-  
+
   $(".close-trial-end").click(function(e){
     e.preventDefault();
     $(".trial-window").remove();
     $(".modal-backdrop").hide();
   });
-  
+
   $(".trial-free").click(function(e){
     e.preventDefault();
     $(".trial-window").remove();
     $(".modal-backdrop").hide();
+    mixpanel.track("Continue Using Free Version")
   });
-  
+
   $(".trial-pricing").click(function(e){
-    e.preventDefault();
     $(".trial-window").remove();
     $(".modal-backdrop").hide();
+    mixpanel.track("Click Plans and Pricing From Trial Over Modal")
   });
 });
