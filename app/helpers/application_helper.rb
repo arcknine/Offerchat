@@ -59,12 +59,14 @@ mixpanel.init("e4b9256e5d40beb875e772611927adb1");
         function MixPanelMock(){
           this.track = track;
           this.identify = identify;
+          this.people = new Object();
           function track(eventString){
             console.log(eventString);
           }
           function identify(params){
             console.log(params);
           }
+          this.people.set = function(){};
         }
         window.mixpanel = new MixPanelMock();
       </script>
