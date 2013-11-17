@@ -47,18 +47,19 @@ $(document).ready(function(){
     e.preventDefault();
     $(".trial-window").remove();
     $(".modal-backdrop").hide();
+    mixpanel.track("Close Trial Over Modal");
   });
 
   $(".trial-free").click(function(e){
     e.preventDefault();
     $(".trial-window").remove();
     $(".modal-backdrop").hide();
-    mixpanel.track("Continue Using Free Version")
+    mixpanel.track("Continue Using Free Version");
   });
 
   $(".trial-pricing").click(function(e){
     $(".trial-window").remove();
     $(".modal-backdrop").hide();
-    mixpanel.track("Click Plans and Pricing From Trial Over Modal")
+    mixpanel.track("Click Plans and Pricing From Trial Over Modal");
   });
 });
