@@ -1,9 +1,7 @@
 .block.large
   %h2
-    / Languange and Labels
     Labels
-  / Customize the widget language and label
-  Customize the widget label
+  Set a greeting to appear on the widget header.
 
 .block-message#setting-notification{:style => "display: none"}
   %a.close ×

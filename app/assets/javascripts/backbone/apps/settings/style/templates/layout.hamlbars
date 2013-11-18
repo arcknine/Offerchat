@@ -1,7 +1,7 @@
 .block.large
   %h2
     Style and Color
-  Have the widget match your site's look and feel.
+  Choose a widget color to match your site's look and feel.
 
 .block-message#setting-notification{:style => "display: none"}
   %a.close ×
