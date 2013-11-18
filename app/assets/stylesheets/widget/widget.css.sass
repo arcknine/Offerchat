@@ -53,6 +53,10 @@ i.widget
       top: 11px
       left: 5px
       z-index: 110
+    &.icon-chat-2
+      width: 19px
+      height: 16px
+      background-position: -59px -40px
     &.icon-thumbs-up
       width: 16px
       height: 16px
@@ -116,22 +120,35 @@ table
   border-spacing: 0
 
 .widget-preview-sample
+  overflow: hidden
   margin: 0 20px 5px 0
-  padding: 0
+  padding: 20px 15px 0 15px
   float: left
-  background-color: transparent
+  background-color: #2599dc
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #2bbfa2), color-stop(1, #2599dc))
+  background-image: -webkit-linear-gradient(top, #2bbfa2, #2599dc)
+  background-image: -moz-linear-gradient(top, #2bbfa2, #2599dc)
+  background-image: -ms-linear-gradient(top, #2bbfa2, #2599dc)
+  background-image: -o-linear-gradient(top, #2bbfa2, #2599dc)
+  background-image: linear-gradient(top, bottom, #2bbfa2, #2599dc)
   // z-index: 9999999999
-  width: 318px
+  width: 306px
   height: 425px
   position: relative
+  border-radius: 10px
   &:hover
     .widget-unlock-tooltip
       opacity: 1
       visibility: visible
 
   .widget-box
+    width: 90%
     a
       cursor: default
+    &.widget-head-min
+      top: 32px
+      &.widget-premium
+        top: 60px
   .widget-footer, .widget-head
     cursor: default
     z-index: 99
@@ -184,16 +201,31 @@ table
 
 body .widget-box, .widget-box
   font-family: "lucida sans", "lucida grande",tahoma,verdana,arial,sans-serif
-  font-size: 11px
+  font-size: 12px
   line-height: 1.4
   color: #434343
   overflow: hidden
   a
     cursor: pointer
+.widget-welcome-msg
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
 .widget-box
   position: absolute
   height: 100%
   width: 100%
+  &.widget-head-min
+    .widget-head
+      height: auto
+      padding: 10px 10px 7px 10px
+    .widget-chat-viewer
+      height: 349px
+    .widget-min-message
+      font-weight: bold
+      text-overflow: ellipsis
+      overflow: hidden
+      white-space: nowrap
 
 .widget-head
   position: relative
@@ -211,33 +243,11 @@ body .widget-box, .widget-box
     width: 45px
     height: 45px
     float: left
-
     margin-right: 10px
   .widget-agent-name
     margin-top: 6px
     font-size: 12px
     font-weight: bold
-.widget-msg-count
-  background: -webkit-gradient(linear, left top, left bottom, from(#fc5858), to(#de3838))
-  background: -moz-linear-gradient(top, #fc5858, #de3838)
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fc5858',endColorstr='#de3838')
-  width: 8px
-  height: 8px
-  border-radius: 30px
-  position: absolute
-  display: inline-block
-  text-align: center
-  left: 3px
-  bottom: 3px
-  padding: 4px
-  box-shadow: 0 1px 3px rgba(0,0,0,.3)
-  text-shadow: 0 -1px 0 rgba(0,0,0,.2)
-  span
-    font-size: 9px
-    font-weight: bold
-    color: #fff
-    position: relative
-    top: -1px
 
 .widget-overlay
   position: absolute
@@ -266,6 +276,12 @@ body .widget-box, .widget-box
       font-weight: bold
       margin-top: 10px
       font-size: 12px
+
+.widget-premium
+  .widget-chat-viewer
+    height: 343px !important
+  .widget-footer
+    display: none
 .widget-body
   position: relative
   background-color: #ededed
@@ -426,7 +442,7 @@ body .widget-box, .widget-box
       width: 100%
       border: 1px solid #e1e1e1
       font-family: "lucida sans", "lucida grande",tahoma,verdana,arial,sans-serif
-      font-size: 11px
+      font-size: 12px
       padding: 7px
       outline: none
       resize: none
@@ -446,7 +462,7 @@ button.widget-button
   color: #fff
   font:
     family: "lucida sans", "lucida grande",tahoma,verdana,arial,sans-serif
-    size: 11px
+    size: 12px
   border-radius: 3px
   padding: 7px 10px
   display: block
@@ -469,7 +485,7 @@ button.widget-button
     left: 0
     outline: none
     font-family: "lucida sans", "lucida grande",tahoma,verdana,arial,sans-serif
-    font-size: 11px
+    font-size: 12px
   i.icon.icon-chat
     position: absolute
     left: 7px
@@ -488,7 +504,7 @@ input[type='text'].widget-input-text
   left: 0
   outline: none
   font-family: "lucida sans", "lucida grande",tahoma,verdana,arial,sans-serif
-  font-size: 11px
+  font-size: 12px
 
 
 a.widget-head-control
@@ -564,10 +580,6 @@ a.chat-settings
   width: 0
   height: 0
 
-
-
-
-
 .widget-theme
   &.theme-saddlebrown
     .widget-head
@@ -580,6 +592,8 @@ a.chat-settings
       &.widget-gradient
         @include themePaletteGradient($darkslategrey)
   &.theme-gold
+    i.widget.icon-chat-2
+      background-position: -59px -24px
     .widget-head
       @include themePaletteHead($gold,#262626)
       &.widget-gradient
@@ -590,6 +604,8 @@ a.chat-settings
       &.widget-gradient
         @include themePaletteGradient($black)
   &.theme-keylime
+    i.widget.icon-chat-2
+      background-position: -59px -24px
     .widget-head
       @include themePaletteHead($keylime,#262626)
       &.widget-gradient
@@ -695,6 +711,8 @@ a.chat-settings
       &.widget-gradient
         @include themePaletteGradient($picassoblue)
   &.theme-aqua
+    i.widget.icon-chat-2
+      background-position: -59px -24px
     .widget-head
       @include themePaletteHead($aqua,#262626)
       &.widget-gradient
@@ -740,28 +758,32 @@ a.chat-settings
       &.widget-gradient
         @include themePaletteGradient($gray34)
   &.theme-gray77
+    i.widget.icon-chat-2
+      background-position: -59px -24px
     .widget-head
       @include themePaletteHead($gray77,#343434)
       &.widget-gradient
         @include themePaletteGradient($gray77)
   &.theme-gray93
+    i.widget.icon-chat-2
+      background-position: -59px -24px
     .widget-head
       @include themePaletteHead($gray93,#343434)
-      border: 1px solid #e5e5e5
-      border-bottom: none
       box-sizing: border-box
       -moz-box-sizing: border-box
       &.widget-gradient
         @include themePaletteGradient($gray93)
   &.theme-white
+    i.widget.icon-chat-2
+      background-position: -59px -24px
     .widget-head
       @include themePaletteHead($white,#343434)
-      border: 1px solid #e5e5e5
-      border-bottom: none
       box-sizing: border-box
       -moz-box-sizing: border-box
 
   &.theme-brightgray
+    i.widget.icon-chat-2
+      background-position: -59px -24px
     .widget-head
       @include themePaletteHead($brightgray,#262626)
       &.widget-gradient
@@ -797,6 +819,8 @@ a.chat-settings
       &.widget-gradient
         @include themePaletteGradient($maroon)
   &.theme-rosypink
+    i.widget.icon-chat-2
+      background-position: -59px -24px
     .widget-head
       @include themePaletteHead($rosypink,#262626)
       &.widget-gradient
@@ -822,16 +846,22 @@ a.chat-settings
       &.widget-gradient
         @include themePaletteGradient($seashell4)
   &.theme-navajowhite2
+    i.widget.icon-chat-2
+      background-position: -59px -24px
     .widget-head
       @include themePaletteHead($navajowhite2,#262626)
       &.widget-gradient
         @include themePaletteGradient($navajowhite2)
   &.theme-brightyellow
+    i.widget.icon-chat-2
+      background-position: -59px -24px
     .widget-head
       @include themePaletteHead($brightyellow,#262626)
       &.widget-gradient
         @include themePaletteGradient($brightyellow)
   &.theme-lightgoldenrod2
+    i.widget.icon-chat-2
+      background-position: -59px -24px
     .widget-head
       @include themePaletteHead($lightgoldenrod2,#262626)
       &.widget-gradient
@@ -847,11 +877,15 @@ a.chat-settings
       &.widget-gradient
         @include themePaletteGradient($green4)
   &.theme-springgreen
+    i.widget.icon-chat-2
+      background-position: -59px -24px
     .widget-head
       @include themePaletteHead($springgreen,#262626)
       &.widget-gradient
         @include themePaletteGradient($springgreen)
   &.theme-aquamarine
+    i.widget.icon-chat-2
+      background-position: -59px -24px
     .widget-head
       @include themePaletteHead($aquamarine,#262626)
       &.widget-gradient
@@ -862,6 +896,8 @@ a.chat-settings
       &.widget-gradient
         @include themePaletteGradient($manganesegreen)
   &.theme-cyan
+    i.widget.icon-chat-2
+      background-position: -59px -24px
     .widget-head
       @include themePaletteHead($cyan,#262626)
       &.widget-gradient
@@ -872,6 +908,8 @@ a.chat-settings
       &.widget-gradient
         @include themePaletteGradient($peacock)
   &.theme-steelblue
+    i.widget.icon-chat-2
+      background-position: -59px -24px
     .widget-head
       @include themePaletteHead($steelblue,#262626)
       &.widget-gradient
@@ -902,14 +940,12 @@ a.chat-settings
       &.widget-gradient
         @include themePaletteGradient($deeppink)
   &.theme-pink3
+    i.widget.icon-chat-2
+      background-position: -59px -24px
     .widget-head
       @include themePaletteHead($pink3,#262626)
       &.widget-gradient
         @include themePaletteGradient($pink3)
-
-
-
-
 
 
 
