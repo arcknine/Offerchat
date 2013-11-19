@@ -77,9 +77,14 @@
 
     toggleWidget: function(has_agent) {
       if (this.info.state == "show") {
+<<<<<<< HEAD
         hide_height = has_agent == "true" ? "45px" : "33px";
         // $ofc('#offerchatbox').animate({height: '45px'}, 100);
         $ofc('#offerchatbox').css("height", hide_height);
+=======
+        // $ofc('#offerchatbox').animate({height: '45px'}, 100);
+        $ofc('#offerchatbox').css("height", "45px");
+>>>>>>> started with dashboard settings changes
         this.info.state = 'hide';
       } else {
         height = this.info.footer ? '421px' : '400px';
