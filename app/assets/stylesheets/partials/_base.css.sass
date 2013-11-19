@@ -769,7 +769,19 @@ a.block-list-item, .block-list-item
   font-size: 12px
   &.full
     display: block
-
+.language-selector
+  a
+    width: 90px
+    height: 90px
+    padding: 5px
+    border: 2px solid transparent
+    border-radius: 3px
+    display: inline-block
+    text-align: center
+    label
+      cursor: pointer
+    &.selected
+      border-color: $default-border-color
 .plan-faq-list
   li
     display: inline-block
