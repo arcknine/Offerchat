@@ -1,3 +1,4 @@
-%div{ :style => "margin-bottom: 20px" }
-  %a.btn#addTriggerBtn
-    Add Trigger
+%div{ :style => "margin-top: 15px;" }
+  .section-actions
+    %a.btn#addTriggerBtn{ :style => "margin-left: 20px" }
+      Add Trigger    
