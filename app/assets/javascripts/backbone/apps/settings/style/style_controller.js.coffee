@@ -86,8 +86,12 @@
         model: website
         user:  @currentUser
         checked: if website.get("settings").footer.enabled then "" else "checked"
+<<<<<<< HEAD
         classname: if website.get("settings").footer.enabled then "" else "widget-premium"
 
+=======
+        classname: if website.get("settings").footer.enabled then "" else "no-branding"
+>>>>>>> Started with modification on settings
         paid: if @currentUser.get("plan_identifier") == "FREE" then false else true
 
     changeColor: (e) ->
