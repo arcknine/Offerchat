@@ -15,7 +15,8 @@
         pid = @profile.get("plan_identifier")
         @initPlans(pid)
         @profile.set trial: pid == "PREMIUM" ? true : false
-        $("#premium-trial").addClass("hide")
+        if pid != "PREMIUM"
+          $("#premium-trial").addClass("hide")
 
       @listenTo @plansView, "hide:notification", =>
         $(".payment-notify").fadeOut()
