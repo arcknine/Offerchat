@@ -25,7 +25,7 @@
       @trigger "label:value:update", e
 
     toggleFooter: (e) ->
-      console.log e
+      @trigger "toggle:widget:footer", e
 
     serializeData: ->
       user: @options.user.toJSON()

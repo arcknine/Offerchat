@@ -41,6 +41,16 @@
           settings.footer.enabled = true
           options.currentSite.set settings: settings
 
+        @listenTo layout, "toggle:widget:footer", (e) =>
+          target = (if $(e.target).attr("class") is "icon-check" then $(e.target).parent().parent() else $(e.target))
+          if target.hasClass("checked")
+            target.removeClass("checked")
+          else
+            target.addClass("checked")
+
+          # console.log settings
+          # options.currentSite.set settings: settings
+
         @listenTo options.currentSite, "updated", (site) =>
           @showSettingsNotification("Your changes have been saved!")
 
@@ -53,7 +63,6 @@
         formView = App.request "form:wrapper", layout
         layout.url = Routes.websites_path()
         @show formView
-
 
         # Get the widget's settings from the DB
         @initWidget(options.currentSite)
@@ -73,7 +82,7 @@
       new Style.Layout
         model: website
         user:  @currentUser
-        checked: if website.get("settings").footer.enabled then "checked" else ""
+        checked: if website.get("settings").footer.enabled then "" else "checked"
         classname: if website.get("settings").footer.enabled then "" else "no-branding"
         paid: if @currentUser.get("plan_identifier") == "FREE" then false else true
 
