@@ -136,6 +136,11 @@ table
   height: 425px
   position: relative
   border-radius: 10px
+  &.min
+    .widget-box.widget-head-min
+      top: 412px
+  .widget-premium
+    top: 60px
   &:hover
     .widget-unlock-tooltip
       opacity: 1
@@ -147,8 +152,7 @@ table
       cursor: default
     &.widget-head-min
       top: 32px
-      &.widget-premium
-        top: 60px
+      
   .widget-footer, .widget-head
     cursor: default
     z-index: 99
