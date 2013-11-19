@@ -6,8 +6,8 @@
       "settings/style/:id"               : "editStyle"
       "settings/position/:id"            : "editPosition"
       "settings/labels/:id"              : "editLabels"
-      "settings/chat-forms/:id"          : "chatForms"
-      "settings/chat-forms/:id/prechat"  : "prechatForm"
+      "settings/chat-forms/:id/offline"  : "chatForms"
+      "settings/chat-forms/:id"          : "prechatForm"
       "settings/chat-forms/:id/postchat" : "postChatForm"
       "settings/triggers/:id"            : "editTriggers"
 

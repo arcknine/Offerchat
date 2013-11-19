@@ -11,15 +11,15 @@
   .group
     .widget-preview-sample{ :class => "{{classname}}" }
       {{#if paid}}
-      .widget-unlock-tooltip
-        .caret
-        .message
-          %strong
-            You can hide or show the footer.
-        %a.btn.small.action.hide-footer
-          Hide
-        %a.btn.small.show-footer
-          Show
+      / .widget-unlock-tooltip
+      /   .caret
+      /   .message
+      /     %strong
+      /       You can hide or show the footer.
+      /   %a.btn.small.action.hide-footer
+      /     Hide
+      /   %a.btn.small.show-footer
+      /     Show
       {{/if}}
 
       .widget-box.widget-theme.theme-pink3#widget-header
@@ -65,6 +65,11 @@
                   Offerchat
 
     .form.widget-label-form
+      %fieldset
+        %label Widget Label (Online)
+        .input-container
+          %input{ :type => "text", :id => "widget-label", :value => "{{website.settings.online.agent_label}}", :name => "widget_label" }
+
       .widget-color-selector.settings-widget-selector
         %label
           Widget Color
@@ -148,6 +153,14 @@
                 %span.icon
                   .icon-check
                 Gradient
+
+{{#if paid}}
+.block-message.small
+  %label.checkbox.toggle-footer{ :class => "{{checked}}" }
+    %span.icon
+      .icon-check
+    Hide Offerchat branding on the widget footer
+{{/if}}
 
 {{#unless paid}}
 .block-message.small

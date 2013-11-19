@@ -67,7 +67,8 @@
         } else if (data.new_msg == 'true') {
           if(_this.info.state == 'hide'){
             height = _this.info.footer ? '421px' : '400px';
-            $ofc('#offerchatbox').animate({height: height}, 100);
+            // $ofc('#offerchatbox').animate({height: height}, 100);
+            $ofc('#offerchatbox').css("height", height);
             _this.info.state = 'show';
           }
         }
@@ -76,11 +77,13 @@
 
     toggleWidget: function() {
       if (this.info.state == "show") {
-        $ofc('#offerchatbox').animate({height: '45px'}, 100);
+        // $ofc('#offerchatbox').animate({height: '45px'}, 100);
+        $ofc('#offerchatbox').css("height", "45px");
         this.info.state = 'hide';
       } else {
         height = this.info.footer ? '421px' : '400px';
-        $ofc('#offerchatbox').animate({height: height}, 100);
+        // $ofc('#offerchatbox').animate({height: height}, 100);
+        $ofc('#offerchatbox').css("height", height);
         this.info.state = 'show';
       }
 

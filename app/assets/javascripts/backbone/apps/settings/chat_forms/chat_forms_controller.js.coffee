@@ -15,7 +15,7 @@
           $(@layout.el).find("a[data-section='#{section}']").addClass("active")
 
           @listenTo @layout, "navigate:sub:forms", (section) =>
-            section = (if section is 'offline' then '' else "/#{section}")
+            section = (if section is 'prechat' then '' else "/#{section}")
             App.navigate "settings/chat-forms/#{@currentSite.get("id")}#{section}", trigger: true
 
           @text_counter "textarea[name=description]", ".text-limit-counter", 140
@@ -27,8 +27,6 @@
           $("#setting-notification").fadeOut()
 
         @show @layout
-      
-
 
     getLayout: ->
       new ChatForms.Layout
@@ -42,7 +40,7 @@
         @listenTo showForms, "get:toggle:offline", (enabled) =>
           @settings.offline.enabled = enabled
           @currentUser.set settings: @settings
-          
+
       else if section is 'prechat'
         showForms = @getPreChatFormView()
 

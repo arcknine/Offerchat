@@ -26,6 +26,14 @@
         $(".block-message").fadeOut()
       , 3000
 
+    showSettingsNotification: (message, type="success") ->
+      $("#setting-notification").find("span").html(message)
+      $("#setting-notification").addClass(type).fadeIn()
+
+      setTimeout ->
+        $("#setting-notification").fadeOut()
+      , 3000
+
     connectionSend: (stanza, to) ->
       connection = App.xmpp.connection
       connection.send stanza
