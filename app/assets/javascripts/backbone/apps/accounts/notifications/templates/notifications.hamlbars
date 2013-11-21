@@ -1,10 +1,10 @@
 .column-content-container
-  .block.large.group.bordered-top
+  .block.large.group.bordered-bottom
     %h2
       Desktop Notifications
-    .section-desc.child-desc Receive notifications right on your desktop screen
+    Receive notifications right on your desktop screen
 
-    .form
+    .section-container.form
       %fieldset
         %label.checkbox.inline.desktop-notification{ :class => "{{allowed}}" }
           %span.icon
