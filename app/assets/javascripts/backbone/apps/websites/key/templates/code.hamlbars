@@ -33,9 +33,9 @@
           \&nbsp; &nbsp;
           %em //body of your website
 .block.large.bordered-top.group
-  %button.btn.action{:type => "button"}
+  %button.btn.action{:type => "button", :style => "vertical-align: top"}
     Finish
-  .go-right
+  .signup-help-links
     %p
       %a.webmaster-code
         Send this code to your webmaster
