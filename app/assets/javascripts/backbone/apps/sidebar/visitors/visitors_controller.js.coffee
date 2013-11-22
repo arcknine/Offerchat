@@ -381,7 +381,7 @@
         @visitors.sort()
 
         # chat sound here
-        App.execute "chat:sound:notify"
+        App.execute "chat:sound:notify" unless visitor_msg.trigger
 
         # add condition if window is active or not
         # desktop notification here
