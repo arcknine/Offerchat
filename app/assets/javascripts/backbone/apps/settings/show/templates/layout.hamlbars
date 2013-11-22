@@ -2,11 +2,11 @@
   #settings-websites
   %ul.nav-sidebar-block
     %li
-      %a{data: {section: 'style'}} Style and Color
+      %a{data: {section: 'style'}} Color and Label
     %li
       %a{data: {section: 'position'}} Widget Position
-    %li
-      %a{data: {section: 'labels'}} Labels
+    / %li
+    /   %a{data: {section: 'labels'}} Labels
     / %li
     /   %a{data: {section: 'attention-grabbers'}} Attention Grabbers
     %li

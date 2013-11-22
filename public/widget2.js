@@ -39,6 +39,7 @@
   Widget = {
     info: {
       state:    "hide",
+      hasAgent: false,
       referrer: document.referrer,
       position: "right",
       footer:   true,
@@ -59,11 +60,10 @@
       var _this = this;
       $ofc.receiveMessage( function(e) {
         var data = _this.unserialize(e.data);
-
         if (data.show == 'true') {
           $ofc("#offerchatbox").show();
         } else if (data.slide == 'true') {
-          _this.toggleWidget();
+          _this.toggleWidget(data.has_agent);
         } else if (data.new_msg == 'true') {
           if(_this.info.state == 'hide'){
             height = _this.info.footer ? '421px' : '400px';
@@ -75,10 +75,11 @@
       }, src.assets);
     },
 
-    toggleWidget: function() {
+    toggleWidget: function(has_agent) {
       if (this.info.state == "show") {
+        hide_height = has_agent == "true" ? "45px" : "33px";
         // $ofc('#offerchatbox').animate({height: '45px'}, 100);
-        $ofc('#offerchatbox').css("height", "45px");
+        $ofc('#offerchatbox').css("height", hide_height);
         this.info.state = 'hide';
       } else {
         height = this.info.footer ? '421px' : '400px';
@@ -87,6 +88,7 @@
         this.info.state = 'show';
       }
 
+      this.info.hasAgent = has_agent;
       localStorage.setItem("ofc-widget-info", JSON.stringify(this.info));
     },
 
@@ -112,6 +114,7 @@
           position: info.position ? info.position : "right",
           footer:   info.footer === false ? info.footer : true,
           state:    info.state ? info.state : "show",
+          hasAgent: info.hasAgent ? info.hasAgent : false,
           version:  defaults.version,
           api_key:  ofc_key
         };
@@ -167,12 +170,13 @@
     },
 
     generateIframeWrapper: function() {
-      var build, height, path, title;
+      var build, height, path, title, closeHeight;
+      closeHeight = this.info.hasAgent == "true" ? "45px" : "33px";
 
       if (this.info.footer)
-        height = this.info.state == "show" ? "421px" : "45px";
+        height = this.info.state == "show" ? "421px" : closeHeight;
       else
-        height = this.info.state == "show" ? "400px" : "45px";
+        height = this.info.state == "show" ? "400px" : closeHeight;
 
       build = '<div id="offerchatbox" style="position: fixed; bottom: 0; ' + this.info.position + ': 20px; margin: 0;  padding: 0; background-color: transparent; overflow: hidden; z-index: 99999999; height: ' + height + '; width: 306px; display: none">' +
               ' <iframe scrolling="0" name="offerchat_frame" frameBorder="0" id="offerchatFrameContainer" src="" style="background-color: transparent;vertical-align: text-bottom; overflow: hidden; position: relative;width: 100%;height: 100%;margin: 0px; z-index: 999999;"></iframe>' +

@@ -28,12 +28,17 @@
 
     events:
       "blur .widget-label-form textarea"         : "getMessage"
+      "blur input#offline-widget-label"          : "getWidgetLabel"
       "blur .widget-label-form input[type=text]" : "getMessage"
       "click #offline-toggle"                    : "toggleSlider"
       "input .widget-label-form textarea"        : "updateWidgetMessage"
+      "input input#offline-widget-label"         : "updateWidgetHeader"
 
     getMessage: (ev) ->
       @trigger "get:offline:form:event", ev
+
+    getWidgetLabel: (ev) ->
+      @trigger "get:offline:header", ev
 
     toggleSlider: (ev) ->
       unless $(ev.currentTarget).hasClass("toggle-off")
@@ -48,6 +53,9 @@
     updateWidgetMessage: (ev) ->
       $(".widget-pre-message").html($(ev.currentTarget).val())
 
+    updateWidgetHeader: (ev) ->
+      $(".widget-min-message span").text($(ev.target).val())
+
   class ChatForms.PreChat extends App.Views.ItemView
     template:  "settings/chat_forms/prechat"
     className: "block large"
@@ -61,13 +69,18 @@
 
     events:
       "blur .widget-label-form textarea"         : "getMessage"
+      "blur input#prechat-widget-label"          : "getWidgetLabel"
       "click #prechat-message-checkbox"          : "checkMessage"
       "click #prechat-email-checkbox"            : "checkEmail"
       "click #prechat-toggle"                    : "toggleSlider"
       "input .widget-label-form textarea"        : "updateWidgetMessage"
+      "input input#prechat-widget-label"         : "updateWidgetLabel"
 
     getMessage: (ev) ->
       @trigger "get:prechat:form:event", ev
+
+    getWidgetLabel: (ev) ->
+      @trigger "get:prechat:header", ev
 
     checkMessage: (ev) ->
       unless $(ev.currentTarget).hasClass("checked")
@@ -101,6 +114,9 @@
 
     updateWidgetMessage: (ev) ->
       $(".widget-pre-message").html($(ev.currentTarget).val())
+
+    updateWidgetLabel: (ev) ->
+      $(".widget-min-message span").text($(ev.target).val())
 
   class ChatForms.PostChat extends App.Views.ItemView
     template:  "settings/chat_forms/postchat"

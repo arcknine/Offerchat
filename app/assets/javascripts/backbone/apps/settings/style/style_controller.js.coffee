@@ -45,11 +45,14 @@
           target = (if $(e.target).attr("class") is "icon-check" then $(e.target).parent().parent() else $(e.target))
           if target.hasClass("checked")
             target.removeClass("checked")
+            $(".widget-preview-sample").removeClass("widget-premium")
+            settings.footer.enabled = true
           else
             target.addClass("checked")
+            $(".widget-preview-sample").addClass("widget-premium")
+            settings.footer.enabled = false
 
-          # console.log settings
-          # options.currentSite.set settings: settings
+          options.currentSite.set settings: settings
 
         @listenTo options.currentSite, "updated", (site) =>
           @showSettingsNotification("Your changes have been saved!")
@@ -78,12 +81,11 @@
         $(".checkbox.inline").addClass("checked")
 
     getLayoutView: (website) ->
-      console.log website
       new Style.Layout
         model: website
         user:  @currentUser
         checked: if website.get("settings").footer.enabled then "" else "checked"
-        classname: if website.get("settings").footer.enabled then "" else "no-branding"
+        classname: if website.get("settings").footer.enabled then "" else "widget-premium"
         paid: if @currentUser.get("plan_identifier") == "FREE" then false else true
 
     changeColor: (e) ->

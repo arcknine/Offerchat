@@ -13,7 +13,7 @@
         / .widget-welcome-msg {{site.settings.online.agent_label}}
         .widget-min-message
           %i.widget.icon.icon-chat-2
-          {{site.settings.online.agent_label}}
+          %span {{site.settings.pre_chat.header}}
 
       .widget-body
         .widget-chat-viewer
@@ -40,6 +40,11 @@
 
   .block.inline
     .form.widget-label-form
+      %fieldset
+        %label Widget Label
+        .input-container
+          %input#prechat-widget-label{ name: "header", type: "text", value: "{{site.settings.pre_chat.header}}" }
+
       %fieldset
         %label Message
         .input-container

@@ -41,6 +41,10 @@
           @settings.offline.enabled = enabled
           @currentUser.set settings: @settings
 
+        @listenTo showForms, "get:offline:header", (ev) =>
+          @settings.offline.header = $(ev.target).val()
+          @currentUser.set settings: @settings
+
       else if section is 'prechat'
         showForms = @getPreChatFormView()
 
@@ -48,12 +52,23 @@
         @listenTo showForms, "get:prechat:message:check", (checked) =>
           @settings.pre_chat.message_required = checked
           @currentUser.set settings: @settings
+
         @listenTo showForms, "get:prechat:email:check", (checked) =>
           @settings.pre_chat.email_required = checked
           @currentUser.set settings: @settings
+
         @listenTo showForms, "get:toggle:prechat", (enabled) =>
           @settings.pre_chat.enabled = enabled
           @currentUser.set settings: @settings
+
+        @listenTo showForms, "get:prechat:header", (e) =>
+          label = $(e.target).val()
+          @settings.pre_chat.header = label
+          @currentUser.set settings: @settings
+          console.log @currentUser
+          # $(".widget-min-message span").text(label)
+          # console.log $(e.target).val()
+
       else
         showForms = @getPostChatFormView()
 

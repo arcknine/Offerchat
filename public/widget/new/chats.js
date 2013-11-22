@@ -312,7 +312,7 @@ Chats = {
     trnsfr = $(message).find("transfer");
     body   = $(message).find("body").text();
     html   = $(message).find("html > body").html();
-    body   = html || body;
+    body   = html.replace(/<\/?(span|img...)\b[^<>]*>/g, "") || body;
     agent  = Strophe.getNodeFromJid(from);
 
     Templates.paused();
@@ -328,18 +328,18 @@ Chats = {
       // transfer chat codes
     } else if (ended.length || body == "!endchat") {
       // chat ened code
-      if (Chats.settings.post_chat.enabled) {
-        Templates.postchat.replace();
-        Templates.inputs.hidden();
-      } else {
+      // if (Chats.settings.post_chat.enabled) {
+      //   Templates.postchat.replace();
+      //   Templates.inputs.hidden();
+      // } else {
 
-        var reconnect = Templates.reconnect;
-        reconnect.options.template = Templates.getReconnect({
-          message: "Your chat session has ended",
-          button:  "Connect"
-        });
-        reconnect.replace();
-      }
+      var reconnect = Templates.reconnect;
+      reconnect.options.template = Templates.getReconnect({
+        message: "Your chat session has ended",
+        button:  "Connect"
+      });
+      reconnect.replace();
+      // }
 
       Offerchat.storeData("ofc-disconnect", true, sessionStorage);
 
@@ -374,6 +374,7 @@ Chats = {
               agent_label: Offerchat.website.settings.online.agent_label
             });
 
+            $(".widget-box").removeClass("widget-head-min");
             header.replace();
 
             //create chat history conversation
@@ -668,6 +669,7 @@ Chats = {
           agent_label: Offerchat.website.settings.online.agent_label
         });
 
+        $(".widget-box").removeClass("widget-head-min");
         header.replace();
 
         _this.loadChats();

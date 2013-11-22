@@ -105,6 +105,7 @@ Offerchat = {
     var _this = this, settings;
     // data = JSON.parse(sessionStorage.getItem("ofc-settings"));
     data = this.loadData("ofc-settings", sessionStorage);
+    // console.log("this.details.chatend", JSON.parse(this.details.chatend));
     if (data === null) {
       $.ajax({
         type: "GET",
@@ -121,7 +122,7 @@ Offerchat = {
           }
         }
       });
-    } else if (this.agents && _this.agents.length > 0) {
+    } else if (this.agents && _this.agents.length > 0 && this.details.chatend !== true) {
       this.website = data.website;
 
       this.any_agents_online = true;
