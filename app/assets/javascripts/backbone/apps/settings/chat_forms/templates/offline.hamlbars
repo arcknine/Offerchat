@@ -2,7 +2,7 @@
   %label.toggle-radio ON
   %label.toggle-radio OFF
 %label.label-top-fix.block-label-adjust
-  Enable the offline form so your visitors can easily reach you when you're not online.
+  Let your visitors leave a message when you're not online on chat.
   
 .group
   .widget-preview-sample

@@ -2,7 +2,7 @@
   %label.toggle-radio ON
   %label.toggle-radio OFF
 %label.label-top-fix.block-label-adjust
-  If you want to get to know your visitors first for a more personalized chat session.
+  Require visitors fill out an info form before connecting to chat. You can choose required fields.
 
 .group
   .widget-preview-sample

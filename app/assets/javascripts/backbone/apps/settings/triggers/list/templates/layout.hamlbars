@@ -2,7 +2,7 @@
   .block.large.bordered-bottom
     %h2
       Chat Triggers
-    Set triggers to automatically open the widget once a condition is met
+    Set triggers for the widget to proactively start a chat with a visitor when a condition is met.
     
   #empty-triggers
    
