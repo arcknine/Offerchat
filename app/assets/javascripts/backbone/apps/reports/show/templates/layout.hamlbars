@@ -1,24 +1,25 @@
-.block.large
+.block.large.bordered-bottom
   %h2 Reports
-  .calendar-picker-wrapper
-    %a.btn.btn-large.calendar-picker-btn
-      %i.icon.icon-calendar
-      %span This week
-      %i.icon.icon-arrow-down
+  .section-actions
+    .calendar-picker-wrapper
+      %a.btn.btn-large.calendar-picker-btn
+        %i.icon.icon-calendar
+        %span This week
+        %i.icon.icon-arrow-down
 
-    .history-date-wrapper.hide
-      #reports-date
-      .date-control
-        %div{ style: "float: left" }
-          .btn-group
-            %a.btn.small{ data: { type: "today"} } Today
-            %a.btn.small.active{ data: { type: "week"} } This week
-            %a.btn.small{ data: { type: "month"} } This month
+      .history-date-wrapper.hide
+        #reports-date
+        .date-control
+          %div{ style: "float: left" }
+            .btn-group
+              %a.btn.small{ data: { type: "today"} } Today
+              %a.btn.small.active{ data: { type: "week"} } This week
+              %a.btn.small{ data: { type: "month"} } This month
 
-        %button.btn.action{ style: "margin-right: 20px", type: "submit" } Apply
-        %a Cancel
+          %button.btn.action{ style: "margin-right: 20px", type: "submit" } Apply
+          %a Cancel
 
-  #websites-region.btn-selector-wrapper
+    #websites-region.btn-selector-wrapper
 
 .block.large
   %h4 Assigned agents

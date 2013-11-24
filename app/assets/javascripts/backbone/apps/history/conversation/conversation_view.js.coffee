@@ -70,7 +70,7 @@
 
   class Conversations.Filter extends App.Views.Layout
     template: "history/conversation/filter"
-    className: "table-row table-head shadow group"
+    className: "table-row table-head group"
     regions:
       agentsFilterRegion:   "#agents-filter-region"
 
