@@ -21,6 +21,9 @@
       "click a.show-responses" : "show:quick_responses"
       "click a.show-notes"     : "show:notes"
 
+    serializeData: ->
+      ofc_act: @options.model.get("api_key") is "d797224b4535d5943c6b5f83941e7374"    # offerchat api key
+
   class Show.Chat extends App.Views.ItemView
     template:  "chats/show/chat"
     # className: "block chat-header"
