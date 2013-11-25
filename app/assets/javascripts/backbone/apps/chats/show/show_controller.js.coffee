@@ -17,11 +17,18 @@
       @transcript.url = Routes.email_export_transcript_index_path
       @scroll         = false
       @last_agent_msg = ""
+      @diff           = 0
 
       @qrs = App.request "get:qrs"
       App.execute "when:fetched", @qrs, =>
         App.reqres.setHandler "get:qrs", =>
           @qrs
+
+      @visitor_notes_list = App.request "get:visitor_notes", @visitor.get("token")
+      App.execute "when:fetched", @visitor_notes_list, =>
+        @visitor_notes_list.forEach (model, index) ->
+          model.set
+            created_at: moment(model.get("created_at")).format('MMMM D, YYYY - h:mm a')
 
       @layout      = @getLayout()
 
@@ -57,6 +64,12 @@
         @chatsView()
         App.execute "subtract:unread", 'visitor', @visitor
 
+
+      App.commands.setHandler "set:sidebar:modal:height", =>
+        container_height = $(window).height() - @diff
+        $(".modal-viewer").attr("style","height:#{container_height}px")
+
+
       @resizeChatWrapper()
       @show @layout
 
@@ -67,9 +80,108 @@
       @listenTo visitorView, "show:quick_responses", =>
         @qrSidebarView()
 
+      @listenTo visitorView, "show:notes", =>
+        @notesSidebarView()
+
       @layout.visitorRegion.show visitorView
 
+    getNewVisitorNotesView: (model) ->
+      new Show.ModalVisitorNotesForm
+        model: model
+
+    notesSidebarView: ->
+
+      visitor_note = App.request "new:visitor_note"
+      newVisitorNotesView = @getNewVisitorNotesView visitor_note
+
+      @listenTo newVisitorNotesView, "save:visitor:note", (e, model) =>
+        text_area = $(e.currentTarget)
+        note = text_area.val()
+
+        obj = new Object()
+        obj =
+          message: note
+          vtoken: @visitor.get("token")
+        model.save obj
+
+        # add to current collection
+        new_note =
+          message: note
+          avatar: gon.current_user.avatar
+          user_id: gon.current_user.id
+          name: gon.current_user.display_name
+          created_at: moment().format('MMMM D, YYYY - h:mm a')
+        @visitor_notes_list.add new_note
+
+        text_area.val("").focus()
+
+      sidebarView = @getNotesSidebarView visitor_note
+      formView = App.request "sidebar:wrapper", sidebarView
+
+      notesView = @getVisitorNotesList()
+
+      @listenTo formView, "show", =>
+        sidebarView.notesRegion.show notesView
+        sidebarView.newNotesRegion.show newVisitorNotesView
+        @diff = 50
+        App.execute "set:sidebar:modal:height"
+
+      @listenTo sidebarView, "edit:visitor:info", (e) =>
+        @editVisitorView e, "show"
+
+      @listenTo sidebarView, "save:visitor:info", (e) =>
+
+        vname = $(e.view.el).find("#visitor-name").val()
+        vemail = $(e.view.el).find("#visitor-email").val()
+        vphone = $(e.view.el).find("#visitor-phone").val()
+
+        info = @visitor.get("info")
+
+        info.email = vemail
+        info.name = vname
+        info.phone = vphone
+
+        @visitor.set
+          info: info
+        @visitor.url = Routes.update_info_visitor_path info.token
+        @visitor.save()
+
+        to   = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
+        pres = $pres({to: to}).c('change').c('name').t(vname).up().c('email').t(vemail).up().c('phone').t(vphone)
+        @connectionSend pres
+
+        $(e.view.el).find(".vname").html(vname)
+        $(e.view.el).find(".vemail").html(vemail)
+        $(e.view.el).find(".vphone").html(vphone)
+
+        @editVisitorView e, "hide"
+
+      App.sidebarRegion.show formView
+
+    getVisitorNotesList: ->
+      new Show.VisitorNotes
+        collection: @visitor_notes_list
+
+    editVisitorView: (e, action) ->
+      dom = $(e.view.el)
+      edit_visitor_info = dom.find(".edit-visitor-info")
+      visitor_info = dom.find(".visitor-info")
+
+      if action is "show"
+        edit_visitor_info.removeClass("hide")
+        visitor_info.addClass("hide")
+        dom.find("#visitor-name").focus()
+      else
+        edit_visitor_info.addClass("hide")
+        visitor_info.removeClass("hide")
+
+    getNotesSidebarView: (note) ->
+      new Show.ModalVisitorNotes
+        model: @visitor
+        # visitor: @visitor
+
     qrSidebarView: ->
+
       qr  = App.request "new:qr"
 
       sidebarView = @getSidebarView(qr)
@@ -82,6 +194,8 @@
 
       @listenTo formView, "show", =>
         sidebarView.qrRegion.show qrsView
+        @diff = 57
+        App.execute "set:sidebar:modal:height"
 
       @listenTo sidebarView, "new:response", =>
         @showQuickResponse()
@@ -119,6 +233,7 @@
               message: message
               shortcut: shortcut
             @qrs.add new_qrs
+
 
       App.sidebarRegion.show formView
 
@@ -390,6 +505,8 @@
         @height.set
           height:        $(window).height()
           visitor_chats: ($(window).height() - 296) + "px"
+        App.execute "set:sidebar:modal:height"
+
 
     getLayout: ->
       visitor_info = @visitor.get("info")

@@ -1,8 +1,9 @@
 class Visitor < ActiveRecord::Base
-  attr_accessible :token , :browser, :ipaddress, :location, :name, :email, :operating_system, :country_code
+  attr_accessible :token , :browser, :ipaddress, :location, :name, :email, :operating_system, :country_code, :phone
 
   belongs_to :website
   has_many :chat_sessions
+  has_many :notes
 
   before_create :generate_token
   before_create :generate_name

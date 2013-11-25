@@ -2,5 +2,5 @@
   .block
     %a.close &times;
     %h2 {{title}}
-    
-  .group.modal-sidebar-viewer{ :style => "height: 922px;" }
+
+  .group.modal-sidebar-viewer

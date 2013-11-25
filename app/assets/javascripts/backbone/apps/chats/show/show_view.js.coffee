@@ -19,6 +19,7 @@
 
     triggers:
       "click a.show-responses" : "show:quick_responses"
+      "click a.show-notes"     : "show:notes"
 
   class Show.Chat extends App.Views.ItemView
     template:  "chats/show/chat"
@@ -104,7 +105,8 @@
 
   class Show.ModalQuickResponses extends App.Views.Layout
     template: "chats/show/quick_responses"
-    className: "form form-inline"
+    # className: "form form-inline"
+    className: "modal-viewer"
     regions:
       qrRegion: "#quick-responses-list"
     triggers:
@@ -118,6 +120,48 @@
         nosubmit: false
         primary: false
         cancel: false
+
+  class Show.ModalVisitorNotes extends App.Views.Layout
+    template: "chats/show/visitor_notes"
+    className: "modal-viewer"
+    regions:
+      notesRegion: "#visitor-notes-list"
+      newNotesRegion: "#new-visitor-notes-form"
+    triggers:
+      "click a.edit-visitor-info-btn"   : "edit:visitor:info"
+      "click button.save-visitor-info" : "save:visitor:info"
+
+    form:
+      title: "Notes for this visitor"
+      footer: false
+      buttons:
+        nosubmit: false
+        primary: false
+        cancel: false
+
+  class Show.ModalVisitorNotesForm extends App.Views.ItemView
+    template: "chats/show/visitor_notes_form"
+    className: "block"
+
+    events:
+      "keyup textarea.visitor-note"   : "saveVisitorNote"
+
+    saveVisitorNote: (ev) ->
+      note = $(ev.currentTarget).val()
+      if ev.keyCode is 13 and note isnt ""
+        @trigger "save:visitor:note", ev, @model
+
+  class Show.VisitorNote extends App.Views.ItemView
+    template:  "chats/show/visitor_note"
+    className: "chat-item group"
+
+  class Show.VisitorNotes extends App.Views.CompositeView
+    template:  "chats/show/visitor_notes_list"
+    itemView: Show.VisitorNote
+    itemViewContainer: "#visitor-notes-listing"
+
+    collectionEvents:
+      "all" : "render"
 
   class Show.QuickResponse extends App.Views.ItemView
     template:  "chats/show/quick_response"
@@ -136,6 +180,4 @@
 
     collectionEvents:
       "all" : "render"
-
-
 

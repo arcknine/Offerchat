@@ -6,6 +6,8 @@ describe "after create" do
     @visitor = Fabricate(:visitor, :website_id => @website.id)
   end
 
+  it { should have_many :notes }
+
   it "should generate a token" do
     @visitor.token.should_not be_blank
   end

@@ -11,10 +11,13 @@
     {{info.location}}
   %li
     {{info.OS}} &middot; {{info.browser}}
-    
+
 .chat-right-sidebar
   .link-list.link-list-labeled
-    %a.show-responses 
-      %i.icon.icon-chat-response 
-      %span
-        Responses
+    %a.show-notes
+      %i.icon.icon-chat-note
+      %span Notes
+
+    %a.show-responses
+      %i.icon.icon-chat-response
+      %span Responses

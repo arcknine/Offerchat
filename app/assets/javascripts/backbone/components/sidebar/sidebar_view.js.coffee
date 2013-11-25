@@ -12,7 +12,7 @@
 
     ui:
       buttonContainer: "ul.inline-list"
-      
+
     triggers:
       "click [data-form-button='nosubmit']"   : "sidebar:unsubmit"
       "click [data-form-button='primary']"    : "sidebar:submit"
