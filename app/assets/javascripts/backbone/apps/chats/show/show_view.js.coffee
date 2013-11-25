@@ -121,6 +121,24 @@
         primary: false
         cancel: false
 
+  class Show.ModalVisitorNotesFree extends App.Views.Layout
+    template: "chats/show/visitor_notes_free"
+    className: "notes-locked-feature"
+
+    events:
+      "click a.upgrade-btn" : "upgradeClicked"
+
+    upgradeClicked: ->
+      App.navigate Routes.plans_path(), trigger: true
+
+    form:
+      title: "Notes for this visitor"
+      footer: false
+      buttons:
+        nosubmit: false
+        primary: false
+        cancel: false
+
   class Show.ModalVisitorNotes extends App.Views.Layout
     template: "chats/show/visitor_notes"
     className: "modal-viewer"

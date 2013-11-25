@@ -24,11 +24,18 @@
         App.reqres.setHandler "get:qrs", =>
           @qrs
 
-      @visitor_notes_list = App.request "get:visitor_notes", @visitor.get("token")
-      App.execute "when:fetched", @visitor_notes_list, =>
-        @visitor_notes_list.forEach (model, index) ->
-          model.set
-            created_at: moment(model.get("created_at")).format('MMMM D, YYYY - h:mm a')
+      @profile = App.request "get:current:profile"
+      App.execute "when:fetched", @profile, =>
+        @pid = @profile.get("plan_identifier")
+
+        if @pid isnt "FREE"
+          @visitor_notes_list = App.request "get:visitor_notes", @visitor.get("token")
+          App.execute "when:fetched", @visitor_notes_list, =>
+            @visitor_notes_list.forEach (model, index) ->
+              model.set
+                created_at: moment(model.get("created_at")).format('MMMM D, YYYY - h:mm a')
+
+
 
       @layout      = @getLayout()
 
@@ -91,72 +98,81 @@
 
     notesSidebarView: ->
 
-      visitor_note = App.request "new:visitor_note"
-      newVisitorNotesView = @getNewVisitorNotesView visitor_note
+      if @pid isnt "FREE"
+        visitor_note = App.request "new:visitor_note"
+        newVisitorNotesView = @getNewVisitorNotesView visitor_note
 
-      @listenTo newVisitorNotesView, "save:visitor:note", (e, model) =>
-        text_area = $(e.currentTarget)
-        note = text_area.val()
+        @listenTo newVisitorNotesView, "save:visitor:note", (e, model) =>
+          text_area = $(e.currentTarget)
+          note = text_area.val()
 
-        obj = new Object()
-        obj =
-          message: note
-          vtoken: @visitor.get("token")
-        model.save obj
+          obj = new Object()
+          obj =
+            message: note
+            vtoken: @visitor.get("token")
+          model.save obj
 
-        # add to current collection
-        new_note =
-          message: note
-          avatar: gon.current_user.avatar
-          user_id: gon.current_user.id
-          name: gon.current_user.display_name
-          created_at: moment().format('MMMM D, YYYY - h:mm a')
-        @visitor_notes_list.add new_note
+          # add to current collection
+          new_note =
+            message: note
+            avatar: gon.current_user.avatar
+            user_id: gon.current_user.id
+            name: gon.current_user.display_name
+            created_at: moment().format('MMMM D, YYYY - h:mm a')
+          @visitor_notes_list.add new_note
 
-        text_area.val("").focus()
+          text_area.val("").focus()
 
-      sidebarView = @getNotesSidebarView visitor_note
-      formView = App.request "sidebar:wrapper", sidebarView
+        sidebarView = @getNotesSidebarView()
+        formView = App.request "sidebar:wrapper", sidebarView
 
-      notesView = @getVisitorNotesList()
+        notesView = @getVisitorNotesList()
 
-      @listenTo formView, "show", =>
-        sidebarView.notesRegion.show notesView
-        sidebarView.newNotesRegion.show newVisitorNotesView
-        @diff = 50
-        App.execute "set:sidebar:modal:height"
+        @listenTo formView, "show", =>
+          sidebarView.notesRegion.show notesView
+          sidebarView.newNotesRegion.show newVisitorNotesView
+          @diff = 50
+          App.execute "set:sidebar:modal:height"
 
-      @listenTo sidebarView, "edit:visitor:info", (e) =>
-        @editVisitorView e, "show"
+        @listenTo sidebarView, "edit:visitor:info", (e) =>
+          @editVisitorView e, "show"
 
-      @listenTo sidebarView, "save:visitor:info", (e) =>
+        @listenTo sidebarView, "save:visitor:info", (e) =>
 
-        vname = $(e.view.el).find("#visitor-name").val()
-        vemail = $(e.view.el).find("#visitor-email").val()
-        vphone = $(e.view.el).find("#visitor-phone").val()
+          vname = $(e.view.el).find("#visitor-name").val()
+          vemail = $(e.view.el).find("#visitor-email").val()
+          vphone = $(e.view.el).find("#visitor-phone").val()
 
-        info = @visitor.get("info")
+          info = @visitor.get("info")
 
-        info.email = vemail
-        info.name = vname
-        info.phone = vphone
+          info.email = vemail
+          info.name = vname
+          info.phone = vphone
 
-        @visitor.set
-          info: info
-        @visitor.url = Routes.update_info_visitor_path info.token
-        @visitor.save()
+          @visitor.set
+            info: info
+          @visitor.url = Routes.update_info_visitor_path info.token
+          @visitor.save()
 
-        to   = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
-        pres = $pres({to: to}).c('change').c('name').t(vname).up().c('email').t(vemail).up().c('phone').t(vphone)
-        @connectionSend pres
+          to   = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
+          pres = $pres({to: to}).c('change').c('name').t(vname).up().c('email').t(vemail).up().c('phone').t(vphone)
+          @connectionSend pres
 
-        $(e.view.el).find(".vname").html(vname)
-        $(e.view.el).find(".vemail").html(vemail)
-        $(e.view.el).find(".vphone").html(vphone)
+          $(e.view.el).find(".vname").html(vname)
+          $(e.view.el).find(".vemail").html(vemail)
+          $(e.view.el).find(".vphone").html(vphone)
 
-        @editVisitorView e, "hide"
+          @editVisitorView e, "hide"
+
+      else # free accounts
+        sidebarView = @getNotesViewFree()
+        formView = App.request "sidebar:wrapper", sidebarView
 
       App.sidebarRegion.show formView
+
+    getNotesViewFree: ->
+      new Show.ModalVisitorNotesFree
+        model: @visitor
 
     getVisitorNotesList: ->
       new Show.VisitorNotes
@@ -175,7 +191,7 @@
         edit_visitor_info.addClass("hide")
         visitor_info.removeClass("hide")
 
-    getNotesSidebarView: (note) ->
+    getNotesSidebarView: ->
       new Show.ModalVisitorNotes
         model: @visitor
         # visitor: @visitor
