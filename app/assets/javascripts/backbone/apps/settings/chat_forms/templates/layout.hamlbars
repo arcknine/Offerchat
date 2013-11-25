@@ -1,10 +1,10 @@
 %ul.section-sub-menu.group
   %li
-    %a{data: {section: 'offline'}} Offline form
-  %li
     %a{data: {section: 'prechat'}} Pre chat form
   %li
-    %a{data: {section: 'postchat'}} Post chat form
+    %a{data: {section: 'offline'}} Offline form
+  / %li
+  /   %a{data: {section: 'postchat'}} Post chat form
 
 .block-message#setting-notification{:style => "display: none"}
   %a.close ×

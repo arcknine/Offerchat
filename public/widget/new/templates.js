@@ -9,13 +9,16 @@ Templates = {
     this.agent    = Offerchat.agent;
     this.details  = Offerchat.details;
 
+    this.hasAgent = Offerchat.loadData("ofc-agent", localStorage);
+
     this.loadTemplates(function(){
       _this.layout.append();
-      _this.header.append();
+      _this.hasAgent ? _this.header.append() : _this.no_agent_header.append();
       _this.inputs.append();
       _this.footer.append();
 
       if (Offerchat.any_agents_online === false) {
+        _this.offline_header.replace();
         _this.offline.replace();
         _this.inputs.hidden();
         // Chats.disconnect();
@@ -24,6 +27,7 @@ Templates = {
           $.postMessage({show: true}, Offerchat.params.current_url, parent);
 
       } else if (_this.settings.pre_chat.enabled && !_this.details.prechat) {
+        _this.prechat_header.replace();
         _this.prechat.replace();
         _this.inputs.hidden();
 
@@ -36,17 +40,17 @@ Templates = {
   },
 
   loadTemplates: function(callback) {
-    var _this = this, agent;
+    var _this = this, agent, style;
+    agent     = this.agent ? this.agent : this.agents[0];
+    style     = this.hasAgent ? "" : " widget-head-min";
 
     this.layout = this.generateTemplate({
       section:   "body",
       template:  this.getLayout({
         gradient: this.settings.style.gradient ? "widget-gradient" : ""
       }),
-      className: "widget-box widget-theme theme-" + this.settings.style.theme
+      className: "widget-box widget-theme theme-" + this.settings.style.theme + style
     });
-
-    agent = this.agent ? this.agent : this.agents[0];
 
     this.header = this.generateTemplate({
       section:   "div.widget-head",
@@ -60,7 +64,8 @@ Templates = {
         "click div.widget-head" : "toggleWidget"
       },
       toggleWidget: function() {
-        $.postMessage({slide: true}, _this.params.current_url, parent);
+        has_agent = Offerchat.loadData("ofc-agent", localStorage) ? true : false;
+        $.postMessage({slide: true, has_agent: has_agent}, _this.params.current_url, parent);
         $(".tooltip-options").removeClass("open");
 
         // if (Chats.connection === null)
@@ -68,6 +73,30 @@ Templates = {
 
         return false;
       }
+    });
+
+    this.no_agent_header = this.generateTemplate({
+      section:  "div.widget-head",
+      template: this.getNoAgentHeader({
+        header: this.settings.online.agent_label
+      }),
+      tagName: 'span'
+    });
+
+    this.prechat_header = this.generateTemplate({
+      section:  "div.widget-head",
+      template: this.getNoAgentHeader({
+        header: this.settings.pre_chat.header
+      }),
+      tagName: 'span'
+    });
+
+    this.offline_header = this.generateTemplate({
+      section:  "div.widget-head",
+      template: this.getNoAgentHeader({
+        header: this.settings.offline.header
+      }),
+      tagName: 'span'
     });
 
     this.inputs = this.generateTemplate({
@@ -440,6 +469,15 @@ Templates = {
     return header;
   },
 
+  getNoAgentHeader: function(data) {
+    data = data || { header: "Let me get to know you!" };
+    var header  = '<div class="widget-min-message">' +
+                  ' <i class="widget icon icon-chat-2"></i>' +
+                  ' <span>' + data.header + '</span>' +
+                  '</div>';
+    return header;
+  },
+
   getWidgetInputs: function(data) {
     var inputs, rating;
     data   = data || { placeholder: "Type your question and hit enter" };
@@ -592,6 +630,7 @@ Templates = {
     offlineLoader.replace();
 
     setTimeout(function(){
+      _this.offline_header.replace();
       _this.offline.replace();
       _this.inputs.hidden();
       Chats.disconnect();

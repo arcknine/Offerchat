@@ -6,6 +6,8 @@
     events:
       "click #controlColorContent a" : "changeColor"
       "click .toggle-check"          : "toggleGradient"
+      "click .toggle-footer"         : "toggleFooter"
+      "blur #widget-label"           : "updateWidgetlabel"
 
     triggers:
       "click #setting-notification" : "hide:notification"
@@ -19,8 +21,15 @@
     toggleGradient: (e) ->
       @trigger "style:gradient:checked", e
 
+    updateWidgetlabel: (e) ->
+      @trigger "label:value:update", e
+
+    toggleFooter: (e) ->
+      @trigger "toggle:widget:footer", e
+
     serializeData: ->
       user: @options.user.toJSON()
       website: @options.model.toJSON()
       classname: @options.classname
+      checked: @options.checked
       paid: @options.paid

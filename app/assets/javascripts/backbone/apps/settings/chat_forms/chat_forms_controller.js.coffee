@@ -15,7 +15,7 @@
           $(@layout.el).find("a[data-section='#{section}']").addClass("active")
 
           @listenTo @layout, "navigate:sub:forms", (section) =>
-            section = (if section is 'offline' then '' else "/#{section}")
+            section = (if section is 'prechat' then '' else "/#{section}")
             App.navigate "settings/chat-forms/#{@currentSite.get("id")}#{section}", trigger: true
 
           @text_counter "textarea[name=description]", ".text-limit-counter", 140
@@ -27,8 +27,6 @@
           $("#setting-notification").fadeOut()
 
         @show @layout
-      
-
 
     getLayout: ->
       new ChatForms.Layout
@@ -42,7 +40,11 @@
         @listenTo showForms, "get:toggle:offline", (enabled) =>
           @settings.offline.enabled = enabled
           @currentUser.set settings: @settings
-          
+
+        @listenTo showForms, "get:offline:header", (ev) =>
+          @settings.offline.header = $(ev.target).val()
+          @currentUser.set settings: @settings
+
       else if section is 'prechat'
         showForms = @getPreChatFormView()
 
@@ -50,12 +52,23 @@
         @listenTo showForms, "get:prechat:message:check", (checked) =>
           @settings.pre_chat.message_required = checked
           @currentUser.set settings: @settings
+
         @listenTo showForms, "get:prechat:email:check", (checked) =>
           @settings.pre_chat.email_required = checked
           @currentUser.set settings: @settings
+
         @listenTo showForms, "get:toggle:prechat", (enabled) =>
           @settings.pre_chat.enabled = enabled
           @currentUser.set settings: @settings
+
+        @listenTo showForms, "get:prechat:header", (e) =>
+          label = $(e.target).val()
+          @settings.pre_chat.header = label
+          @currentUser.set settings: @settings
+          console.log @currentUser
+          # $(".widget-min-message span").text(label)
+          # console.log $(e.target).val()
+
       else
         showForms = @getPostChatFormView()
 

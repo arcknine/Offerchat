@@ -10,8 +10,6 @@
         options.currentSite.url = Routes.update_settings_website_path(options.currentSite.get("id"))
         settings = options.currentSite.get("settings")
 
-
-
         @listenTo layout, "style:color:clicked", (e) =>
           @changeColor(e)
           klass = $(e.currentTarget).attr('class')
@@ -27,6 +25,12 @@
             settings.style.gradient = false
             options.currentSite.set settings: settings
 
+        @listenTo layout, "label:value:update", (e) =>
+          label = $(e.target).val()
+          $(".widget-welcome-msg").text(label)
+          settings.online.agent_label = label
+          options.currentSite.set settings: settings
+
         @listenTo layout, "style:hide:footer", =>
           @hideFooter()
           settings.footer.enabled = false
@@ -37,8 +41,21 @@
           settings.footer.enabled = true
           options.currentSite.set settings: settings
 
+        @listenTo layout, "toggle:widget:footer", (e) =>
+          target = (if $(e.target).attr("class") is "icon-check" then $(e.target).parent().parent() else $(e.target))
+          if target.hasClass("checked")
+            target.removeClass("checked")
+            $(".widget-preview-sample").removeClass("widget-premium")
+            settings.footer.enabled = true
+          else
+            target.addClass("checked")
+            $(".widget-preview-sample").addClass("widget-premium")
+            settings.footer.enabled = false
+
+          options.currentSite.set settings: settings
+
         @listenTo options.currentSite, "updated", (site) =>
-          @showNotification("Your changes have been saved!")
+          @showSettingsNotification("Your changes have been saved!")
 
         @listenTo layout, "hide:notification", =>
           $("#setting-notification").fadeOut()
@@ -49,7 +66,6 @@
         formView = App.request "form:wrapper", layout
         layout.url = Routes.websites_path()
         @show formView
-
 
         # Get the widget's settings from the DB
         @initWidget(options.currentSite)
@@ -68,7 +84,8 @@
       new Style.Layout
         model: website
         user:  @currentUser
-        classname: if website.get("settings").footer.enabled then "" else "no-branding"
+        checked: if website.get("settings").footer.enabled then "" else "checked"
+        classname: if website.get("settings").footer.enabled then "" else "widget-premium"
         paid: if @currentUser.get("plan_identifier") == "FREE" then false else true
 
     changeColor: (e) ->
