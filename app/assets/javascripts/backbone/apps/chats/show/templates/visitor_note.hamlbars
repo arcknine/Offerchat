@@ -1,0 +1,8 @@
+.agent-inline-block
+  .profile-image-container
+    .profile-image
+      %img{ :alt => "Avatar-large", :src => "{{avatar}}" }
+.note
+  .note-author {{user_name}}
+  {{message}}
+  .date {{created_at}}

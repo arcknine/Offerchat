@@ -26,6 +26,12 @@ describe VisitorsController do
         xhr :get, :show, id: @visitor.id, format: :json
         response.code.should eq "200"
       end
+
+      it "GET 'notes' should return visitor notes" do
+        notes = Fabricate(:note, :visitor => @visitor)
+        xhr :get, :show, id: @visitor.id, format: :json
+        response.code.should eq "200"
+      end
     end
   end
 end

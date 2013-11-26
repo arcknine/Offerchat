@@ -21,7 +21,14 @@ Dashboard::Application.routes.draw do
 
   resource :settings
   resources :triggers
-  resources :visitors
+
+  resources :visitors do
+    member do
+      get "notes"
+      post "update_info"
+    end
+  end
+
   resources :plans do
     collection do
       get "by_name/:id", :action => "by_name"
@@ -37,6 +44,7 @@ Dashboard::Application.routes.draw do
   resources :subscriptions
 
   resources :quick_responses
+  resources :visitor_notes
 
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}, :controllers => {
     :registrations => "registrations"

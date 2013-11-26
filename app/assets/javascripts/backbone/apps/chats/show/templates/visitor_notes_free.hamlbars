@@ -1,0 +1,15 @@
+.block-message.small
+  This feature is only available for paid users only
+.block.large
+  %h2 Add notes to your visitor
+  %p Add important notes about this visitor and share it with other agents for better coordination.
+
+  %ul.styled
+    %li Record highlights during a chat conversation
+    %li Write down ugrent matters
+    %li Leave comments
+    %li Work well as a reminder tool
+    %li Facilitates collaborative chat support
+
+.block.large.bordered-top
+  %a.btn.upgrade-btn Upgrade

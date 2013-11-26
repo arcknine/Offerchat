@@ -1,0 +1,2 @@
+.form
+  %textarea.full.visitor-note{ :placeholder => "add your notes" }

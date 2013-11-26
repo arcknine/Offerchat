@@ -7,4 +7,5 @@ Fabricator(:visitor) do
   name              "visitor-026285"
   country_code      "PH"
   operating_system  "Mac"
+  phone             "0909090909"
 end
