@@ -312,7 +312,8 @@ Chats = {
     trnsfr = $(message).find("transfer");
     body   = $(message).find("body").text();
     html   = $(message).find("html > body").html();
-    body   = html.replace(/<\/?(span|img...)\b[^<>]*>/g, "") || body;
+    try { html = html.replace(/<\/?(span|img...)\b[^<>]*>/g, ""); } catch(e) {}
+    body   = html || body;
     agent  = Strophe.getNodeFromJid(from);
 
     Templates.paused();
@@ -338,6 +339,9 @@ Chats = {
         message: "Your chat session has ended",
         button:  "Connect"
       });
+
+      $(".widget-box").addClass("widget-head-min");
+      Templates.no_agent_header.replace();
       reconnect.replace();
       // }
 
@@ -777,6 +781,8 @@ Chats = {
         _this.agent  = null;
         _this.disconnect();
 
+        $(".widget-box").addClass("widget-head-min");
+        Templates.no_agent_header.replace();
         Templates.reconnect.replace();
         clearInterval(interval);
       } else if (_this.connection === null)
