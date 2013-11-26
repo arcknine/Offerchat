@@ -578,6 +578,9 @@ Chats = {
           clearInterval(_this.paused_interval);
           _this.composing = false;
         } else {
+          $(".widget-box").addClass("widget-head-min");
+          Templates.no_agent_header.replace();
+
           Templates.offline.replace();
           Templates.inputs.hidden();
           _this.disconnect();
@@ -699,6 +702,9 @@ Chats = {
 
           Offerchat.storeData("ofc-details", details, localStorage);
         } else {
+          $(".widget-box").addClass("widget-head-min");
+          Templates.no_agent_header.replace();
+
           Templates.offline.replace();
           Templates.inputs.hidden();
           _this.disconnect();
