@@ -2,28 +2,28 @@
   .block.large.bordered-bottom
     %h2
       Quick Responses
-    %div{ :style => "margin-top: 15px;" }
-      .section-actions
-        %a.btn.action
-          New Response
-        %a.btn.trash-btn.warning
-          %i.icon.icon-trash
-      .form.form-half.hide
-        %h3
-          New Quick Response
-        %fieldset
-          %textarea.full{ :placeholder => "Enter your /command then message (e.g. /response message)" }
-        %fieldset
-          %button.btn.action{ :type => "submit" }
-            Save
-          %button.btn
-            Cancel
-          .item
-            %h3.disabled.inline
-              Tip:
-            %a
-              How to create a Quick Response?
-          
+    
+    .section-actions
+      %a.btn.action
+        New Response
+      %a.btn.trash-btn.warning
+        %i.icon.icon-trash
+    .form.form-half.hide
+      %h3
+        New Quick Response
+      %fieldset
+        %textarea.full{ :placeholder => "Enter your /command then message (e.g. /response message)" }
+      %fieldset
+        %button.btn.action{ :type => "submit" }
+          Save
+        %button.btn
+          Cancel
+        .item
+          %h3.disabled.inline
+            Tip:
+          %a
+            How to create a Quick Response?
+        
     
   .table-data-wrapper
     .table-data.quick-answers-list

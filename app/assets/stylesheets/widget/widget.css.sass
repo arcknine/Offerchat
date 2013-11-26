@@ -1,5 +1,6 @@
 @import "modules/theme_mixin"
 // custom scrollbar
+
 .widget-body::-webkit-scrollbar
   width: 6px
   background-color: transparent
@@ -90,9 +91,9 @@ i.widget
       background-position: -42px 0
     &.icon-check-large
       width: 32px
-      height: 23px
+      height: 32px
       background-position: -52px 0
-      margin-bottom: 20px
+
 
 // RESET
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
@@ -121,47 +122,48 @@ q
 table
   border-collapse: collapse
   border-spacing: 0
+strong
+  font-weight: 700
+em
+  font-style: italic
 
+// CSS FOR WIDGET PREVIEW ON SETTINGS
 .widget-preview-sample
   overflow: hidden
   margin: 0 20px 5px 0
-  padding: 20px 15px 0 15px
+  padding: 15px 15px 0 15px
   float: left
-  background-color: #fff
   box-shadow: 0 1px 6px rgba(0,0,0,.2) inset
   // z-index: 9999999999
   width: 306px
   height: 425px
   position: relative
   border-radius: 10px
-  &.min
-    .widget-box.widget-head-min
-      top: 412px
-  .widget-premium
-    top: 60px
+  a
+    cursor: default
+  
+
   &:hover
     .widget-unlock-tooltip
       opacity: 1
       visibility: visible
-
   .widget-box
     width: 90%
     a
       cursor: default
     &.widget-head-min
-      top: 32px
-      
+      top: 27px  
   .widget-footer, .widget-head
     cursor: default
     z-index: 99
-  &.no-branding
-    height: 401px
-    bottom: -25px
-    .widget-footer
-      display: none
-    .widget-unlock-tooltip
-      bottom: 6px
+.widget-premium
+  .widget-chat-viewer
+    height: 343px !important
+  .widget-footer
+    display: none
 
+  
+    
 .widget-unlock-tooltip
   -webkit-transition: all .2s
   -moz-transition: all .2s
@@ -194,12 +196,12 @@ table
 
   a.btn
     padding: 3px 7px
-    font-size: 11px
+    font-size: 12px
   .message
     display: block
     margin-bottom: 10px
 
-
+// CSS FOR ACTUAL WIDGET
 
 body .widget-box, .widget-box
   font-family: "lucida sans", "lucida grande",tahoma,verdana,arial,sans-serif
@@ -209,6 +211,10 @@ body .widget-box, .widget-box
   overflow: hidden
   a
     cursor: pointer
+.widget-attention-grabber
+  position: absolute
+  bottom: 34px
+  height: 302px
 .widget-welcome-msg
   overflow: hidden
   text-overflow: ellipsis
@@ -221,13 +227,14 @@ body .widget-box, .widget-box
     .widget-head
       height: auto
       padding: 10px 10px 7px 10px
-    .widget-chat-viewer
-      height: 349px
+    
     .widget-min-message
       font-weight: bold
       text-overflow: ellipsis
       overflow: hidden
       white-space: nowrap
+    .widget-chat-viewer
+      height: 315px
 
 .widget-head
   position: relative
@@ -245,6 +252,7 @@ body .widget-box, .widget-box
     width: 45px
     height: 45px
     float: left
+
     margin-right: 10px
   .widget-agent-name
     margin-top: 6px
@@ -279,15 +287,11 @@ body .widget-box, .widget-box
       margin-top: 10px
       font-size: 12px
 
-.widget-premium
-  .widget-chat-viewer
-    height: 343px !important
-  .widget-footer
-    display: none
+
 .widget-body
   position: relative
   background-color: #ededed
-  height: 379px
+  height: 380px
   border-right: 1px solid #e1e1e1
   border-left: 1px solid #e1e1e1
   .widget-chat-viewer
@@ -582,6 +586,20 @@ a.chat-settings
   width: 0
   height: 0
 
+
+.widget-status-message
+  font-size: 12px
+  color: #999
+  border: 1px dashed #c1c1c1
+  padding: 10px
+  text-align: center
+  border-radius: 3px
+
+.status-typing
+  color: #999
+  font-style: italic
+  font-weight: normal
+  font-size: 12px
 .widget-theme
   &.theme-saddlebrown
     .widget-head
@@ -771,6 +789,8 @@ a.chat-settings
       background-position: -59px -24px
     .widget-head
       @include themePaletteHead($gray93,#343434)
+      border: 1px solid #e5e5e5
+      border-bottom: none
       box-sizing: border-box
       -moz-box-sizing: border-box
       &.widget-gradient
@@ -948,6 +968,10 @@ a.chat-settings
       @include themePaletteHead($pink3,#262626)
       &.widget-gradient
         @include themePaletteGradient($pink3)
+
+
+
+
 
 
 
