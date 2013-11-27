@@ -72,13 +72,6 @@
 
       @layout.accountRegion.show notificationsView
 
-    getNotificationsView: ->
-      havePermission = window.webkitNotifications.checkPermission()
-      if localStorage.getItem("notification") is "true" and havePermission is 0 then allowed = "checked" else allowed = ""
-
-      new Notifications.View
-        allowed: allowed
-
     getSound: =>
       new Notifications.Sound
         model: @profile

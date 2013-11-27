@@ -2,19 +2,3 @@
 
   #sound-notification
   #desktop-notification
-
-  /.block.large.group.bordered-bottom
-  /  %h2
-  /    Desktop Notifications
-  /  Receive notifications right on your desktop screen/
-
-  /  .section-container.form
-  /    %fieldset
-  /      %label.checkbox.inline.desktop-notification{ :class => "{{allowed}}" }
-  /        %span.icon
-  /          .icon-check
-  /        Enable Desktop Notifications
-  /        %div
-  /          %small.disabled
-  /            (Works with Google Chrome and Apple Safari browsers)
-
