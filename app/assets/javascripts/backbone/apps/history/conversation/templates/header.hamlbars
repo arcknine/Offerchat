@@ -26,5 +26,5 @@
           Apply
         %a#close-datepicker
           Cancel
-  %a.btn.trash-btn.warning
+  %a.btn.trash-btn
     %i.icon.icon-trash

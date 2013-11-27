@@ -6,7 +6,7 @@
     .section-actions
       %a.btn.action
         New Response
-      %a.btn.trash-btn.warning
+      %a.btn.trash-btn
         %i.icon.icon-trash
     .form.form-half.hide
       %h3
