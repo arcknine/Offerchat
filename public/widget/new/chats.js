@@ -157,6 +157,7 @@ Chats = {
     this.connection.vcard.init(this.connection);
     this.connection.addHandler(this.onPresence, null, "presence");
     this.connection.addHandler(this.onPrivateMessage, null, "message", "chat");
+    this.connection.addHandler(this.onMessage, null, "message");
 
     this.hideLoader();
     this.checkCurrentAgent();
@@ -246,6 +247,7 @@ Chats = {
     from = pres.attr('from');
     type = pres.attr('type');
     show = pres.find('show').text();
+    edit = pres.find('change');
     jid  = Strophe.getBareJidFromJid(from);
     node = Strophe.getNodeFromJid(from);
     res  = Strophe.getResourceFromJid(from);
@@ -301,6 +303,27 @@ Chats = {
     return true;
   },
 
+  onMessage: function(message) {
+    var edit, name, email;
+
+    edit = $(message).find("change");
+
+    if (edit.length > 0) {
+      name  = edit.find("name").text();
+      email = edit.find("email").text();
+      phone = edit.find("phone").text();
+
+      Chats.visitor.name  = name;
+      Chats.visitor.email = email;
+      Chats.visitor.phone = phone;
+
+      Offerchat.storeData("ofc-visitor", Chats.visitor, localStorage);
+      Chats.sendPresence();
+    }
+
+    return true;
+  },
+
   onPrivateMessage: function(message) {
     var agent, body, comp, ended, from, html, paused, trnsfr;
 
@@ -312,7 +335,8 @@ Chats = {
     trnsfr = $(message).find("transfer");
     body   = $(message).find("body").text();
     html   = $(message).find("html > body").html();
-    body   = html.replace(/<\/?(span|img...)\b[^<>]*>/g, "") || body;
+    try { html = html.replace(/<\/?(span|img...)\b[^<>]*>/g, ""); } catch(e) {}
+    body   = html || body;
     agent  = Strophe.getNodeFromJid(from);
 
     Templates.paused();
@@ -338,6 +362,9 @@ Chats = {
         message: "Your chat session has ended",
         button:  "Connect"
       });
+
+      $(".widget-box").addClass("widget-head-min");
+      Templates.no_agent_header.replace();
       reconnect.replace();
       // }
 
@@ -574,6 +601,9 @@ Chats = {
           clearInterval(_this.paused_interval);
           _this.composing = false;
         } else {
+          $(".widget-box").addClass("widget-head-min");
+          Templates.no_agent_header.replace();
+
           Templates.offline.replace();
           Templates.inputs.hidden();
           _this.disconnect();
@@ -695,6 +725,9 @@ Chats = {
 
           Offerchat.storeData("ofc-details", details, localStorage);
         } else {
+          $(".widget-box").addClass("widget-head-min");
+          Templates.no_agent_header.replace();
+
           Templates.offline.replace();
           Templates.inputs.hidden();
           _this.disconnect();
@@ -777,6 +810,8 @@ Chats = {
         _this.agent  = null;
         _this.disconnect();
 
+        $(".widget-box").addClass("widget-head-min");
+        Templates.no_agent_header.replace();
         Templates.reconnect.replace();
         clearInterval(interval);
       } else if (_this.connection === null)

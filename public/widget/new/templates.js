@@ -630,6 +630,9 @@ Templates = {
     offlineLoader.replace();
 
     setTimeout(function(){
+      $(".widget-box").addClass("widget-head-min");
+      _this.no_agent_header.replace();
+
       _this.offline_header.replace();
       _this.offline.replace();
       _this.inputs.hidden();

@@ -155,7 +155,7 @@
           @visitor.save()
 
           to   = "#{@visitor.get("jid")}@#{gon.chat_info.server_name}"
-          pres = $pres({to: to}).c('change').c('name').t(vname).up().c('email').t(vemail).up().c('phone').t(vphone)
+          pres = $msg({to: to}).c('change').c('name').t(vname).up().c('email').t(vemail).up().c('phone').t(vphone)
           @connectionSend pres
 
           $(e.view.el).find(".vname").html(vname)
