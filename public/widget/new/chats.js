@@ -157,6 +157,7 @@ Chats = {
     this.connection.vcard.init(this.connection);
     this.connection.addHandler(this.onPresence, null, "presence");
     this.connection.addHandler(this.onPrivateMessage, null, "message", "chat");
+    this.connection.addHandler(this.onMessage, null, "message");
 
     this.hideLoader();
     this.checkCurrentAgent();
@@ -246,6 +247,7 @@ Chats = {
     from = pres.attr('from');
     type = pres.attr('type');
     show = pres.find('show').text();
+    edit = pres.find('change');
     jid  = Strophe.getBareJidFromJid(from);
     node = Strophe.getNodeFromJid(from);
     res  = Strophe.getResourceFromJid(from);
@@ -296,6 +298,27 @@ Chats = {
 
       Offerchat.storeData("ofc-agents", Chats.agents, sessionStorage);
       // sessionStorage.setItem("offerchat_agents", JSON.stringify(Chats.agents));
+    }
+
+    return true;
+  },
+
+  onMessage: function(message) {
+    var edit, name, email;
+
+    edit = $(message).find("change");
+
+    if (edit.length > 0) {
+      name  = edit.find("name").text();
+      email = edit.find("email").text();
+      phone = edit.find("phone").text();
+
+      Chats.visitor.name  = name;
+      Chats.visitor.email = email;
+      Chats.visitor.phone = phone;
+
+      Offerchat.storeData("ofc-visitor", Chats.visitor, localStorage);
+      Chats.sendPresence();
     }
 
     return true;

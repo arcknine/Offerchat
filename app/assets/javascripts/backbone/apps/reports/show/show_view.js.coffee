@@ -18,16 +18,17 @@
       "click div.date-control > a"               : "cancelDateSelect"
 
     toggleDatePicker: (e) ->
-      $("#websites-region .btn-selector").removeClass("open") if $("#websites-region .btn-selector").hasClass("open")
-      $("#websites-region .btn-action-selector").removeClass("active")
+      unless gon.current_user.plan_identifier is "ENTERPRISE"
+        $("#websites-region .btn-selector").removeClass("open") if $("#websites-region .btn-selector").hasClass("open")
+        $("#websites-region .btn-action-selector").removeClass("active")
 
-      wrapper = $(e.currentTarget).next()
-      if wrapper.hasClass("hide") is true
-        wrapper.removeClass("hide")
-        $(e.currentTarget).addClass("active")
-      else
-        wrapper.addClass("hide")
-        $(e.currentTarget).removeClass("active")
+        wrapper = $(e.currentTarget).next()
+        if wrapper.hasClass("hide") is true
+          wrapper.removeClass("hide")
+          $(e.currentTarget).addClass("active")
+        else
+          wrapper.addClass("hide")
+          $(e.currentTarget).removeClass("active")
 
     quickDateSelect: (e) ->
       $("div.date-control a.btn.small").removeClass "active"
