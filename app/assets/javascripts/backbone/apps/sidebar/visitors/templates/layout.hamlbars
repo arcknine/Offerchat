@@ -1,4 +1,6 @@
-%audio#beep-notify{ :src => "//d3ocj2fkvch1xi.cloudfront.net/widget/images/sound.ogg" }
+%audio#beep-notify{ :src => "/assets/sound/sound.ogg" }
+%audio#new-visitor-beep-notify{ :src => "/assets/sound/plop.ogg" }
+
 .chats-sidebar
   #agents-region
   #visitors-region

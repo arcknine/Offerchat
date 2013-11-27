@@ -19,6 +19,8 @@
       @last_agent_msg = ""
       @diff           = 0
 
+      all_sites = App.request "get:all:sites"
+
       @qrs = App.request "get:qrs"
       App.execute "when:fetched", @qrs, =>
         App.reqres.setHandler "get:qrs", =>
@@ -26,7 +28,9 @@
 
       @profile = App.request "get:current:profile"
       App.execute "when:fetched", @profile, =>
-        @pid = @profile.get("plan_identifier")
+
+        res = all_sites.findWhere api_key: @visitor.get("api_key")
+        @pid = res.get("plan")
 
         if @pid isnt "FREE"
           @visitor_notes_list = App.request "get:visitor_notes", @visitor.get("token")

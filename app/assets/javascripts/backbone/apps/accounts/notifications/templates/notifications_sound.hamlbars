@@ -1,0 +1,16 @@
+%h2
+  Sound Notifications
+Get sound alerts when
+
+.section-container.form
+  %fieldset
+    %label.checkbox.inline.sound-notification.new_message{ :class => "{{new_message}}" }
+      %span.icon
+        .icon-check
+      Visitor sends a message
+
+  %fieldset
+    %label.checkbox.inline.sound-notification.new_visitor{ :class => "{{new_visitor}}" }
+      %span.icon
+        .icon-check
+      Incoming visitor

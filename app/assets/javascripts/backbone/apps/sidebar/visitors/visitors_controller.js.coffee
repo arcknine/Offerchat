@@ -58,9 +58,13 @@
         @visitors.updateModels('active', null)
         @agents.updateModels('active', null)
 
-      App.commands.setHandler "chat:sound:notify", =>
+      App.commands.setHandler "chat:sound:notify", (type='message') =>
         try
-          sound = document.getElementById("beep-notify")
+          if type is "message"
+            sound = document.getElementById("beep-notify")
+          else
+            sound = document.getElementById("new-visitor-beep-notify")
+
           sound.play() if sound
 
       App.reqres.setHandler "detect:url:from:string", (str) =>
@@ -115,7 +119,14 @@
       App.reqres.setHandler "get:online:agents", =>
         @agents
 
-      @show @layout
+      @profile = App.request "get:current:profile"
+      App.execute "when:fetched", @profile, =>
+        @notifications = @profile.get("notifications")
+
+        App.commands.setHandler "change:user:notification", (notifications) =>
+          @notifications = notifications
+
+        @show @layout
 
       $(window).resize ->
         if ( $("#chat-sidebar-region").hasClass("chats-sidebar-container") )
@@ -289,6 +300,9 @@
           title:     title
           yours:     yours
 
+        if typeof @notifications isnt "undefined" and @notifications.new_visitor
+          App.execute "chat:sound:notify", "visitor"
+
       else
         unless agent
           # @displayCurrentUrl(token, node, info.url)
@@ -386,7 +400,8 @@
 
         unless visitor_msg.trigger
           # chat sound here
-          App.execute "chat:sound:notify"
+          if @notifications.new_message
+            App.execute "chat:sound:notify"
 
           # execute mixpanel code
           mixpanel.track("Receive Message")
@@ -476,7 +491,8 @@
               App.execute "remove:is:typing"
 
             # chat sound here
-            App.execute "chat:sound:notify"
+            if @notifications.new_message
+              App.execute "chat:sound:notify"
 
             # add condition if window is active or not
             # desktop notification here
