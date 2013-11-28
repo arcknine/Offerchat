@@ -78,8 +78,12 @@
     setMessage: (message) ->
       new Entities.Message message
 
-    messages: ->
-      new Entities.MessagesCollection
+    messages: (loadArchive) ->
+      messages = new Entities.MessagesCollection
+      if loadArchive
+        archMsgs = JSON.parse(sessionStorage.getItem("archived-messages"))
+        messages.add archMsgs
+      messages
 
     windowHeight: ->
       new Entities.WindowHeight
@@ -123,8 +127,8 @@
   App.reqres.setHandler "message:entity", (message) ->
     API.setMessage message
 
-  App.reqres.setHandler "messeges:entities", ->
-    API.messages()
+  App.reqres.setHandler "messeges:entities", (loadArchive = false) ->
+    API.messages loadArchive
 
   App.reqres.setHandler "get:chat:window:height", ->
     API.windowHeight()

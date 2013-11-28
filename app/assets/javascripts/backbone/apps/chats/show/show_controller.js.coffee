@@ -42,11 +42,12 @@
       @visitor.setActiveChat() if @visitor
 
       @agentMsgs   = App.request "get:agent:chats:messages"
-      if typeof visitor isnt "undefined" and @visitor.get("history") isnt true
-        @parseChatHistory()
-      else
-        @currentMsgs = App.request "messeges:entities"
-        @currentMsgs.add @messages.where({token: @token})
+      # if typeof visitor isnt "undefined" and @visitor.get("history") isnt true
+      #   @parseChatHistory()
+      # else
+
+      @currentMsgs = App.request "messeges:entities"
+      @currentMsgs.add @messages.where({token: @token})
 
       @listenTo visitors, "add", =>
         if @visitor.get("token") isnt @token
@@ -55,7 +56,7 @@
             visitor.setActiveChat()
             visitor.set history: true
             @visitor.set visitor.attributes
-            @parseChatHistory()
+            # @parseChatHistory()
             @layout = @getLayout()
 
       @listenTo @visitor, "all", =>
@@ -484,6 +485,9 @@
 
           # exec mixpanel code
           mixpanel.track("Send Message")
+
+          # archivedMessages = JSON.stringify(@messages.toJSON())
+          # sessionStorage.setItem("archived-messages", archivedMessages)
           # localStorage.setItem("ofc-chatlog-"+@token, JSON.stringify(@messages))
 
         $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500)
