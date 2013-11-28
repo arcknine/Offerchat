@@ -168,8 +168,9 @@ module Offerchat
           from    = params[:email]
           message = params[:message]
           name    = params[:name]
+          url     = website.url
           if website
-            WidgetMailer.delay.offline_form(to, name, from, message)
+            WidgetMailer.delay.offline_form(to, name, from, message, url)
             {status: "success"}
           else
             {status: "Api key not found!"}
