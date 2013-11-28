@@ -90,6 +90,10 @@
         # @agents.remove agents
         @agentsList()
 
+      # @listenTo @messages, "add", (message) =>
+      #   if message.get("jid")
+      #     console.log(message.get("jid"))
+
       @listenTo @unreadMsgs, "all", (type) =>
         unreads = []
         $.each @sites.models, (key, value) =>
@@ -382,6 +386,9 @@
 
         # chat sound here
         App.execute "chat:sound:notify" unless visitor_msg.trigger
+
+        # execute mixpanel code
+        mixpanel.track("Receive Message") unless visitor_msg.trigger
 
         # add condition if window is active or not
         # desktop notification here
