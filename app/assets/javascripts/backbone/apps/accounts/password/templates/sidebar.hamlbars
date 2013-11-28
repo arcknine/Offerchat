@@ -10,7 +10,6 @@
   %li
     %a.notifications{href: ""}
       Notifications
-      %span.tag-new new
   %li
     %a.instructions{href: ""}
       IM Instructions
