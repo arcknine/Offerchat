@@ -486,8 +486,8 @@
           # exec mixpanel code
           mixpanel.track("Send Message")
 
-          # archivedMessages = JSON.stringify(@messages.toJSON())
-          # sessionStorage.setItem("archived-messages", archivedMessages)
+          archivedMessages = JSON.stringify(@messages.toJSON())
+          sessionStorage.setItem("archived-messages", archivedMessages)
           # localStorage.setItem("ofc-chatlog-"+@token, JSON.stringify(@messages))
 
         $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500)
