@@ -7,7 +7,7 @@
       @currentUser = App.request "set:current:user", App.request "get:current:user:json"
       @visitors    = App.request "visitors:entities"
       @agents      = App.request "online:agents:entities"
-      @messages    = App.request "messeges:entities"
+      @messages    = App.request "messeges:entities", true
       @agentMsgs   = App.request "messeges:entities"
       @currentSite = App.request "get:sidebar:selected:site"
       @sites       = App.request "get:all:sites"
@@ -89,6 +89,10 @@
         # agents = @agents.where token: "41376457245"
         # @agents.remove agents
         @agentsList()
+
+      # @listenTo @messages, "add", (message) =>
+      #   if message.get("jid")
+      #     console.log(message.get("jid"))
 
       @listenTo @unreadMsgs, "all", (type) =>
         unreads = []
@@ -380,8 +384,15 @@
 
         @visitors.sort()
 
-        # chat sound here
-        App.execute "chat:sound:notify" unless visitor_msg.trigger
+        unless visitor_msg.trigger
+          # chat sound here
+          App.execute "chat:sound:notify"
+
+          # execute mixpanel code
+          mixpanel.track("Receive Message")
+
+          archivedMessages = JSON.stringify(@messages.toJSON())
+          sessionStorage.setItem("archived-messages", archivedMessages)
 
         # add condition if window is active or not
         # desktop notification here
