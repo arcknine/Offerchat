@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
   #validates_attachment_content_type
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
 
+  has_settings do |s|
+    s.key :notifications, :defaults => { :new_message => false, :new_visitor => false }
+  end
+
   def generate_random_avatar
     "//d2rbi2fqode2pf.cloudfront.net/users/avatars/avatar#{id % 5}.jpg"
   end

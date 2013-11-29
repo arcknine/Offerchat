@@ -8,18 +8,31 @@
       accountSidebarRegion:                       "#accounts-sidebar-region"
       accountRegion:                              "#accounts-main-region"
 
-  class Notifications.Navs extends App.Views.ItemView
-    template: "accounts/notifications/sidebar"
-    triggers:
-      "click a" :                                 "nav:clicked"
-      "click a.profile" :                         "nav:accounts:clicked"
-      "click a.password" :                        "nav:password:clicked"
-      "click a.notifications":                    "nav:notifications:clicked"
-      "click a.invoices" :                        "nav:invoices:clicked"
-      "click a.instructions" :                    "nav:instructions:clicked"
+  class Notifications.Regions extends App.Views.Layout
+    template: "accounts/notifications/notifications_layout"
 
-  class Notifications.View extends App.Views.ItemView
-    template: "accounts/notifications/notifications"
+    regions:
+      desktopNotificationRegion:  "#desktop-notification"
+      soundNotificationRegion: "#sound-notification"
+
+  class Notifications.Sound extends App.Views.ItemView
+    template: "accounts/notifications/notifications_sound"
+    className: "block large group bordered-bottom"
+
+    events:
+      "click label.sound-notification"    : "toggleSound"
+
+    toggleSound: (e) ->
+      @trigger "sound:notification:toggle", e
+
+    serializeData: ->
+      notifications = @options.model.get("notifications")
+      new_message: (if notifications.new_message is true then "checked" else "")
+      new_visitor: (if notifications.new_visitor is true then "checked" else "")
+
+  class Notifications.Desktop extends App.Views.ItemView
+    template: "accounts/notifications/notifications_desktop"
+    className: "block large group bordered-bottom"
 
     serializeData: ->
       allowed: @options.allowed
@@ -48,3 +61,14 @@
               localStorage.setItem("notification", false)
               alert "Please check your browser settings to allow notifications."
           )
+
+
+  class Notifications.Navs extends App.Views.ItemView
+    template: "accounts/notifications/sidebar"
+    triggers:
+      "click a" :                                 "nav:clicked"
+      "click a.profile" :                         "nav:accounts:clicked"
+      "click a.password" :                        "nav:password:clicked"
+      "click a.notifications":                    "nav:notifications:clicked"
+      "click a.invoices" :                        "nav:invoices:clicked"
+      "click a.instructions" :                    "nav:instructions:clicked"

@@ -5,13 +5,14 @@
     initialize: (options)->
       @layout = @getLayoutView()
 
-      @listenTo @layout, "show", =>
-        console.log 'layout shown'
-        @sidebarRegion()
-        @getNotificationsRegion()
+      @profile = App.request "get:current:profile"
 
-      @show @layout
+      App.execute "when:fetched", @profile, =>
+        @listenTo @layout, "show", =>
+          @sidebarRegion()
+          @getNotificationsRegion()
 
+        @show @layout
 
     getLayoutView: ->
       new Notifications.Layout
@@ -40,11 +41,47 @@
       new Notifications.Navs
 
     getNotificationsRegion: ->
-      notificationsView = @getNotificationsView()
+      notificationsView = @getNotificationRegions()
+
+      @listenTo notificationsView, "show", =>
+        notificationsView.desktopNotificationRegion.show @getDesktop()
+
+        soundNotificationView = @getSound()
+        @listenTo soundNotificationView, "sound:notification:toggle", (e) =>
+          target = $(e.currentTarget)
+          if target.hasClass("checked")
+            target.removeClass("checked")
+          else
+            target.addClass("checked")
+
+          parent = target.parents(".section-container")
+
+          notif_settings =
+            new_message: parent.find(".new_message").hasClass("checked")
+            new_visitor: parent.find(".new_visitor").hasClass("checked")
+
+          @profile.url = Routes.profiles_path()
+          @profile.set
+            update_settings: true
+            notifications: notif_settings
+          @profile.save {},
+            success: (data) ->
+              App.execute "change:user:notification", notif_settings
+
+        notificationsView.soundNotificationRegion.show soundNotificationView
+
       @layout.accountRegion.show notificationsView
 
-    getNotificationsView: ->
+    getSound: =>
+      new Notifications.Sound
+        model: @profile
+
+    getDesktop: ->
       havePermission = window.webkitNotifications.checkPermission()
       if localStorage.getItem("notification") is "true" and havePermission is 0 then allowed = "checked" else allowed = ""
-      new Notifications.View
+
+      new Notifications.Desktop
         allowed: allowed
+
+    getNotificationRegions: ->
+      new Notifications.Regions

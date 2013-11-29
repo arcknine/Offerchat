@@ -13,6 +13,12 @@ describe User do
   it { should validate_attachment_size(:avatar).less_than(1.megabytes) }
   it { should validate_attachment_content_type(:avatar).allowing("image/jpg", "image/jpeg", "image/png").rejecting('text/plain', 'text/xml') }
 
+  it "should have default notifications settings" do
+    @user.settings(:notifications).should_not be_blank
+    @user.settings(:notifications).new_message.should be_false
+    @user.settings(:notifications).new_visitor.should be_false
+  end
+
   describe "when creating a new user" do
     it "should have a jabber_user and jabber_password ready" do
       @user.jabber_user.should_not eq(nil)

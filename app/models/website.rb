@@ -1,6 +1,6 @@
 class Website < ActiveRecord::Base
   include ActiveModel::Validations
-  attr_accessible :api_key, :name, :url, :owner
+  attr_accessible :api_key, :name, :url, :owner, :plan
 
   before_create :generate_api_key
   after_create :generate_account
@@ -99,6 +99,10 @@ class Website < ActiveRecord::Base
     accounts = Account.joins("LEFT JOIN websites ON websites.id = accounts.website_id").where("website_id = ?", self.id)
     ids = accounts.collect(&:user_id)
     User.where(:id => ids).select("id, jabber_user, name, display_name, avatar, avatar_content_type, avatar_file_name, avatar_file_size, avatar_updated_at, plan_id")
+  end
+
+  def plan
+    owner.plan_identifier
   end
 
   private
