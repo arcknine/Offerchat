@@ -40,7 +40,6 @@
           %li
             %a#account-menu-link
               Account
-              %span.tag-new new
           %li.bordered
             %a#changeStatus{data: {status: "away"}}
               %span.status
