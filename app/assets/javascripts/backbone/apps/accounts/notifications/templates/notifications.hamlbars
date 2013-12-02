@@ -4,7 +4,7 @@
       Desktop Notifications
     Receive notifications right on your desktop screen
 
-    .section-container.form
+    .section-container.form.form-small
       %fieldset
         %label.checkbox.inline.desktop-notification{ :class => "{{allowed}}" }
           %span.icon

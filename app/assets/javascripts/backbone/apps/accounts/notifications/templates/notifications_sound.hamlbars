@@ -2,7 +2,7 @@
   Sound Notifications
 Get sound alerts when
 
-.section-container.form
+.section-container.form.form-small
   %fieldset
     %label.checkbox.inline.sound-notification.new_message{ :class => "{{new_message}}" }
       %span.icon
