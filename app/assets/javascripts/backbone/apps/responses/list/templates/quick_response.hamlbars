@@ -1,7 +1,7 @@
 .table-row.linkable.group.qr-item
   .td-container.td-small
     .td-content
-      %label.checkbox{ :for => "checkbox1" }
+      %label.checkbox{ :for => "checkbox1", :qid => "{{id}}" }
         %span.icon
           .icon-check
   .td-container.td-full

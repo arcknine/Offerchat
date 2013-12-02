@@ -7,7 +7,7 @@
       .section-actions.new-qr-actions
         %a.btn.action.new-qr
           New Response
-        %a.btn.trash-btn
+        %a.btn.trash-btn.delete-selected-qrs
           %i.icon.icon-trash
       .form.form-half.hide.new-qr-form
         %h3

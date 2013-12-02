@@ -7,6 +7,7 @@
 
     triggers:
       "click .cancel-new-qr"  : "cancel:new:qr"
+      "click .delete-selected-qrs" : "delete:selected:qrs"
 
     events:
       "click .new-qr"     : "showNewQRForm"

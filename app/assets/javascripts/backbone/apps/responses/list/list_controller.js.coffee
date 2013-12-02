@@ -72,6 +72,14 @@
             shortcut: shortcut
           qr.save()
 
+      @listenTo @layout, "delete:selected:qrs", (e) =>
+        if confirm("Are you sure you want to delete the selected quick responses?")
+          $.each $(".checked"), (key, value) =>
+            qr = @qrs.findWhere id: parseInt($(value).attr("qid"))
+            qr.destroy()
+
+          App.execute "set:window:height"
+
       @listenTo @layout, "cancel:new:qr", (e) ->
         $(".new-qr-actions").removeClass("hide")
         $(".new-qr-form").addClass("hide")
