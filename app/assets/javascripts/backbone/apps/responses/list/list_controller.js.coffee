@@ -43,7 +43,7 @@
         @showError elem, "You cant leave this blank."
         return false
 
-      if arr.length < 1 or content.charAt(0) isnt "/"
+      if arr.length < 1 or content.charAt(0) isnt "/" or shortcut.length <= 1
         @showError elem, "Invalid formatting. Format should be '/shortcut message'"
         return false
 
