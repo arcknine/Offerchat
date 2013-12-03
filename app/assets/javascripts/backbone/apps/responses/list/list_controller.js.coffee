@@ -104,6 +104,7 @@
           qr.save {},
             success: (data) =>
               new_qrs =
+                id: data.get("id")
                 message: message
                 shortcut: shortcut
               @qrs.add new_qrs
