@@ -62,6 +62,7 @@
   color: black
   height: 220px
   overflow-y: scroll
+
 .notes-section
   .agent-inline-block
     position: absolute
@@ -70,6 +71,14 @@
   .profile-image-container
     cursor: default
     text-align: left
+.note
+  padding: 5px 10px 5px 65px
+  float: left
+  .date
+    font-size: 12px
+    color: $light-text-color
+.note-author
+  font-weight: bold
 .notes-locked-feature
   background:
     color: #fff
@@ -79,14 +88,7 @@
   position: absolute
   height: 100%
   width: 100%
-.note
-  padding: 5px 10px 5px 65px
-  float: left
-  .date
-    font-size: 12px
-    color: $light-text-color
-.note-author
-  font-weight: bold
+
 .chat-header
   border-bottom: 1px solid $default-border-color
   height: 127px
