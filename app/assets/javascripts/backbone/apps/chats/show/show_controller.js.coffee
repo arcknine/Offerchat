@@ -39,8 +39,6 @@
               model.set
                 created_at: moment(model.get("created_at")).format('MMMM D, YYYY - h:mm a')
 
-
-
       @layout      = @getLayout()
 
       @visitor.setActiveChat() if @visitor
@@ -199,7 +197,6 @@
     getNotesSidebarView: ->
       new Show.ModalVisitorNotes
         model: @visitor
-        # visitor: @visitor
 
     qrSidebarView: ->
 

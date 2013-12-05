@@ -2,203 +2,31 @@
   .block.large.bordered-bottom
     %h2
       Quick Responses
-    
-    .section-actions
-      %a.btn.action
-        New Response
-      %a.btn.trash-btn
-        %i.icon.icon-trash
-    .form.form-half.hide
-      %h3
-        New Quick Response
-      %fieldset
-        %textarea.full{ :placeholder => "Enter your /command then message (e.g. /response message)" }
-      %fieldset
-        %button.btn.action{ :type => "submit" }
-          Save
-        %button.btn
-          Cancel
-        .item
-          %h3.disabled.inline
-            Tip:
-          %a
-            How to create a Quick Response?
-        
-    
+
+    %div{ :style => "margin-top: 15px;" }
+      .section-actions.new-qr-actions
+        %a.btn.action.new-qr
+          New Response
+        %a.btn.trash-btn.delete-selected-qrs
+          %i.icon.icon-trash
+      .form.form-half.hide.new-qr-form
+        %h3
+          New Quick Response
+        %fieldset
+          %textarea.full.new-qr-text{ :placeholder => "Enter your /command then message (e.g. /response message)" }
+        %fieldset
+          %button.btn.action.save-qr{ :type => "submit" }
+            Save
+          %button.btn.cancel-new-qr
+            Cancel
+          .item
+            %h3.disabled.inline
+              Tip:
+            %a
+              How to create a Quick Response?
+
   .table-data-wrapper
     .table-data.quick-answers-list
-      .table-viewer-content{ :style => "height: 450px;" }
-        .table-row.linkable.group
-          .td-container.td-small
-            .td-content
-              %label.checkbox{ :for => "checkbox1" }
-                %span.icon
-                  .icon-check
-          .td-container.td-full
-            .td-content
-              .td-content-message
-                %a.status-item
-                  %strong
-                    \/whatislorem
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-        .table-row.linkable.group
-          .td-container.td-small
-            .td-content
-              %label.checkbox{ :for => "checkbox1" }
-                %span.icon
-                  .icon-check
-          .td-container.td-full
-            .td-content
-              .td-content-message
-                %a.status-item
-                  %strong
-                    \/whatislorem
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-        .table-row.linkable.group
-          .td-container.td-small
-            .td-content
-              %label.checkbox{ :for => "checkbox1" }
-                %span.icon
-                  .icon-check
-          .td-container.td-full
-            .td-content
-              .td-content-message
-                %a.status-item
-                  %strong
-                    \/whatislorem
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-        .table-row.linkable.group
-          .td-container.td-small
-            .td-content
-              %label.checkbox{ :for => "checkbox1" }
-                %span.icon
-                  .icon-check
-          .td-container.td-full
-            .td-content
-              .td-content-message
-                %a.status-item
-                  %strong
-                    \/whatislorem
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-        .table-row.group
-          %form.form.form-half
-            %h3
-              Edit Quick Response
-            %fieldset
-              %textarea.full{ :placeholder => "Enter your /command then message (e.g. /response message)" }
-                \/whatislorem blah blah blah
-            %fieldset
-              %button.btn.action{ :type => "submit" }
-                Save
-              %button.btn
-                Cancel
-              %a.warning.right{ :style => "margin-top: 7px" }
-                Remove
+      .table-viewer-content.responses-content
 
-        .table-row.linkable.group
-          .td-container.td-small
-            .td-content
-              %label.checkbox{ :for => "checkbox1" }
-                %span.icon
-                  .icon-check
-          .td-container.td-full
-            .td-content
-              .td-content-message
-                %a.status-item
-                  %strong
-                    \/helloworld
-                HELLO WORLD!!!
-        .table-row.linkable.group
-          .td-container.td-small
-            .td-content
-              %label.checkbox{ :for => "checkbox1" }
-                %span.icon
-                  .icon-check
-          .td-container.td-full
-            .td-content
-              .td-content-message
-                %a.status-item
-                  %strong
-                    \/helloworld
-                HELLO WORLD!!!
-        .table-row.linkable.group
-          .td-container.td-small
-            .td-content
-              %label.checkbox{ :for => "checkbox1" }
-                %span.icon
-                  .icon-check
-          .td-container.td-full
-            .td-content
-              .td-content-message
-                %a.status-item
-                  %strong
-                    \/helloworld
-                HELLO WORLD!!!
-        .table-row.linkable.group
-          .td-container.td-small
-            .td-content
-              %label.checkbox{ :for => "checkbox1" }
-                %span.icon
-                  .icon-check
-          .td-container.td-full
-            .td-content
-              .td-content-message
-                %a.status-item
-                  %strong
-                    \/helloworld
-                HELLO WORLD!!!
-        .table-row.linkable.group
-          .td-container.td-small
-            .td-content
-              %label.checkbox{ :for => "checkbox1" }
-                %span.icon
-                  .icon-check
-          .td-container.td-full
-            .td-content
-              .td-content-message
-                %a.status-item
-                  %strong
-                    \/helloworld
-                HELLO WORLD!!!
-        .table-row.linkable.group
-          .td-container.td-small
-            .td-content
-              %label.checkbox{ :for => "checkbox1" }
-                %span.icon
-                  .icon-check
-          .td-container.td-full
-            .td-content
-              .td-content-message
-                %a.status-item
-                  %strong
-                    \/helloworld
-                HELLO WORLD!!!
-        .table-row.linkable.group
-          .td-container.td-small
-            .td-content
-              %label.checkbox{ :for => "checkbox1" }
-                %span.icon
-                  .icon-check
-          .td-container.td-full
-            .td-content
-              .td-content-message
-                %a.status-item
-                  %strong
-                    \/helloworld
-                HELLO WORLD!!!
-        .table-row.linkable.group
-          .td-container.td-small
-            .td-content
-              %label.checkbox{ :for => "checkbox1" }
-                %span.icon
-                  .icon-check
-          .td-container.td-full
-            .td-content
-              .td-content-message
-                %a.status-item
-                  %strong
-                    \/helloworld
-                HELLO WORLD!!!
-
-
-
+        #quick-responses

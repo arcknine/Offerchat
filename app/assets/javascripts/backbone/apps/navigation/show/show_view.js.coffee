@@ -17,6 +17,7 @@
       "click a#websites-menu-link"       : "websites:menu:clicked"
       "click a#account-menu-link"        : "account:menu:clicked"
       "click a#agent-menu-link"          : "agent:menu:clicked"
+      "click li.responses-menu-link"     : "responses:menu:clicked"
 
     events:
       "click a[data-status=logout]"      : "logout"
@@ -39,8 +40,7 @@
 
     changeStatus: (e) ->
       @trigger "change:user:status", e
-      
+
     #serializeData: ->
     #  days_left: @options.days_left
     #  model: @options.model.toJSON()
-      

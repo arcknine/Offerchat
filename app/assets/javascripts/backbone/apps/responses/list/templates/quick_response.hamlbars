@@ -1,0 +1,29 @@
+.table-row.linkable.group.qr-item
+  .td-container.td-small
+    .td-content
+      %label.checkbox{ :for => "checkbox1", :qid => "{{id}}" }
+        %span.icon
+          .icon-check
+  .td-container.td-full
+    .td-content
+      .td-content-message
+        %a.status-item
+          %strong
+            \{{shortcut}}
+        {{message}}
+
+
+.table-row.group.hide.edit-qr
+  .form.form-half
+    %h3
+      Edit Quick Response
+    %fieldset
+      %textarea.full.edit-qr-textarea{ :placeholder => "Enter your /command then message (e.g. /response message)" }
+        \{{shortcut}} {{message}}
+    %fieldset
+      %button.btn.action.save-edit-qr{ :type => "submit" }
+        Save
+      %button.btn.cancel-edit-qr
+        Cancel
+      %a.warning.right.remove-qr{ :style => "margin-top: 7px" }
+        Remove
