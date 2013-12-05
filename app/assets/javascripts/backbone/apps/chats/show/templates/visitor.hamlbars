@@ -15,11 +15,9 @@
 .chat-right-sidebar
   .link-list.link-list-labeled
 
-    {{#if ofc_act}}
     %a.show-notes
       %i.icon.icon-chat-note
       %span Notes
-    {{/if}}
 
     %a.show-responses
       %i.icon.icon-chat-response
