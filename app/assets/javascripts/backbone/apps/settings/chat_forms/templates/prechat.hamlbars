@@ -16,18 +16,35 @@
           %span {{site.settings.pre_chat.header}}
 
       .widget-body
-        .widget-chat-viewer
-          .widget-form
-            .widget-block
-              .widget-pre-message {{site.settings.pre_chat.description}}
-              .widget-input-container
-                %input{ placeholder: "Name", type: "text" }
-              .widget-input-container
-                %input.prechat-email{ placeholder: "Email", type: "text" }
-              .widget-input-container
-                %textarea{ placeholder: "Message" }
-              .widget-input-container
-                %button.widget-button Submit
+        .widget-overlay
+          .widget-prechat-form
+            %p {{site.settings.pre_chat.description}}
+            .widget-form
+              .widget-row
+                .widget-input-container
+                  %input{ placeholder: "Name", type: "text" }
+              .widget-row
+                .widget-input-container
+                  %input.prechat-email{ placeholder: "Email", type: "text" }
+              .widget-row
+                .widget-input-container
+                  %textarea{ placeholder: "Message" }
+              .widget-row
+                .widget-input-container
+                  %button.widget-button Submit
+
+        .widget-chat-viewer{ style: "height: 354px" }
+          / .widget-form
+          /   .widget-block
+          /     .widget-pre-message {{site.settings.pre_chat.description}}
+          /     .widget-input-container
+          /       %input{ placeholder: "Name", type: "text" }
+          /     .widget-input-container
+          /       %input.prechat-email{ placeholder: "Email", type: "text" }
+          /     .widget-input-container
+          /       %textarea{ placeholder: "Message" }
+          /     .widget-input-container
+          /       %button.widget-button Submit
 
         {{#if site.settings.footer.enabled}}
         .widget-footer
