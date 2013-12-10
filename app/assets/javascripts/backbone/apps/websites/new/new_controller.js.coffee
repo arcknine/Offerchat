@@ -29,6 +29,8 @@
 
       App.mainRegion.show formView
 
+      mixpanel.track("Add New Website")
+
     getNewWebsiteView: (site, currentUser) ->
       new New.Website
         model: site

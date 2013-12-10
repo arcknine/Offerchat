@@ -19,6 +19,8 @@
 
         App.previewRegion.show @layout
 
+        mixpanel.track("Preview Website")
+
 
     iframeRegion: (website) ->
       iframeView = @getIframeView website
