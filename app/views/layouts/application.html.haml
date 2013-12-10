@@ -16,7 +16,7 @@
       = mixpanel_dev_js
 
   %body
-    - if current_user.sign_in_count < 2
+    - if current_user.sign_in_count < 2 && !request.fullpath.includes?("#websites/new")
       .setup-tooltip#first-time-user
         %a.close#first-time-user-close ×
         %h3 Setting Up Your Account
