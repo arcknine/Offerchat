@@ -1,0 +1,9 @@
+%h2 Step Five
+%p copy and paste of the code
+%p API: #{@website.api_key}
+%div
+  = link_to "All done", root_path
+
+
+:javascript
+  mixpanel.track("Step Five: Copy Code")

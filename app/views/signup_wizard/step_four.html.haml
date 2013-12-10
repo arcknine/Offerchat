@@ -1,0 +1,22 @@
+%h2 Step Four
+
+%p Preview of the site
+
+= form_for(@website, url: wizard_path, :method => "put") do |f| %>
+  %div
+    = label_tag "Position"
+    %br/
+    = text_field_tag "settings[position]", @website.settings(:style).position
+
+  %div
+    = label_tag "Theme"
+    %br/
+    = text_field_tag "settings[theme]", @website.settings(:style).theme
+  %div
+    = f.submit "Continue"
+
+%div
+  = link_to 'skip', next_wizard_path
+
+:javascript
+  mixpanel.track("Step Four: Preview Website")
