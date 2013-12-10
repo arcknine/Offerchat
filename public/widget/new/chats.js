@@ -717,8 +717,7 @@ Chats = {
 
   sendPreChatMsg: function() {
     var _this = this;
-
-    var details = this.details;
+    var details  = Offerchat.loadData("ofc-details", localStorage);
     if (details.prechat === true && details.message) {
       this.getAgent(function(agent) {
         if (agent) {

@@ -306,7 +306,9 @@ Templates = {
           _this.details.message = data.message ? data.message : null;
 
           Offerchat.storeData("ofc-details", _this.details, localStorage);
-          location.reload();
+          Chats.sendPresence();
+          Chats.sendPreChatMsg();
+          // location.reload();
         }
         return false;
       }
