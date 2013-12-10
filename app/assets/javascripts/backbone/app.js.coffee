@@ -22,6 +22,7 @@
       "Name": user.name,
       "Jabber user": user.jabber_user,
       "Plan": user.plan_identifier,
+      "Created": user.created_at,
       "$email": user.email
     })
 
