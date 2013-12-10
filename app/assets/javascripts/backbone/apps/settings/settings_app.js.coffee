@@ -10,6 +10,7 @@
       "settings/chat-forms/:id"          : "prechatForm"
       "settings/chat-forms/:id/postchat" : "postChatForm"
       "settings/triggers/:id"            : "editTriggers"
+      "settings/attention-grabbers/:id"  : "attentionGrabbers"
 
     API =
       show: (id, section, sub_form) ->
@@ -68,6 +69,13 @@
         show = API.show(id, 'triggers')
         show.listenTo show.layout, "show", =>
           new SettingsApp.TriggersList.Controller
+            region: show.layout.settingsRegion
+            currentSite: show.currentSite
+
+      attentionGrabbers: (id) ->
+        show = API.show(id, 'attention-grabbers')
+        show.listenTo show.layout, "show", =>
+          new SettingsApp.AttentionGrabbers.Controller
             region: show.layout.settingsRegion
             currentSite: show.currentSite
 

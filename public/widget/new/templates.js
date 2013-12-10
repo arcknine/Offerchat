@@ -29,7 +29,8 @@ Templates = {
       } else if (_this.settings.pre_chat.enabled && !_this.details.prechat) {
         _this.prechat_header.replace();
         _this.prechat.replace();
-        _this.inputs.hidden();
+        Chats.init();
+        // _this.inputs.hidden();
 
         $.postMessage({show: true}, Offerchat.params.current_url, parent);
       } else {
@@ -279,16 +280,16 @@ Templates = {
     });
 
     this.prechat = this.generateTemplate({
-      section:   "div.widget-chat-viewer",
-      template:  this.getChatForms({
+      section:   "div#widget-overlay",
+      template:  this.getPreChatForm({
         description: this.settings.pre_chat.description,
         message_required: this.settings.pre_chat.message_required,
         email_required: this.settings.pre_chat.email_required
       }),
-      className: "widget-block prechat",
+      className: "prechat",
       tagName:   "form",
       events: {
-        "submit form.widget-block.prechat" : "submitPreChat"
+        "submit form.prechat" : "submitPreChat"
       },
       submitPreChat: function(e) {
         var form = _this.validateForms(this);
@@ -305,8 +306,7 @@ Templates = {
           _this.details.message = data.message ? data.message : null;
 
           Offerchat.storeData("ofc-details", _this.details, localStorage);
-
-          Chats.init();
+          location.reload();
         }
         return false;
       }
@@ -336,6 +336,9 @@ Templates = {
         Offerchat.details.connect = true;
         Offerchat.storeData("ofc-details", Offerchat.details, localStorage);
         Chats.init();
+
+        console.log(Offerchat.details);
+
         _this.reconnect.destroy();
         _this.loader.replace();
         $(".widget-input-text").attr("disabled", "disabled");
@@ -564,6 +567,46 @@ Templates = {
                    '</div>';
 
     return forms;
+  },
+
+  getPreChatForm: function(data) {
+    data = data || {};
+    var form = '<div class="widget-overlay">' +
+               '  <div class="widget-prechat-form">' +
+               '    <p>' + data.description + '</p>' +
+               '    <div class="widget-form">' +
+               '      <div class="widget-row">' +
+               '        <div class="widget-input-container">' +
+               '          <input placeholder="Name" name="name" type="text">' +
+               '        </div>' +
+               '      </div>';
+
+    if (typeof data.email_required == "undefined" || data.email_required === true) {
+      form  += '      <div class="widget-row">' +
+               '        <div class="widget-input-container">' +
+               '          <input placeholder="Email" name="email" type="text">' +
+               '        </div>' +
+               '      </div>';
+    }
+
+    if (typeof data.message_required == "undefined" || data.message_required === true) {
+      form  += '      <div class="widget-row">' +
+               '        <div class="widget-input-container">' +
+               '          <textarea name="message" placeholder="Message"></textarea>' +
+               '        </div>' +
+               '      </div>';
+    }
+
+    form    += '      <div class="widget-row">' +
+               '        <div class="widget-input-container">' +
+               '          <button class="widget-button">Submit</button>' +
+               '        </div>' +
+               '      </div>' +
+               '    <div>' +
+               '  </div>' +
+               '<div>';
+
+    return form;
   },
 
   getFormsSuccess: function(data) {

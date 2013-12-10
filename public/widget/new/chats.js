@@ -198,12 +198,14 @@ Chats = {
   },
 
   sendPresence: function() {
-    var details, widget, roster, visitor, client_details;
+    var details, widget, roster, visitor, client_details, prechat_details;
     widget  = this.details;
     roster  = this.roster;
     visitor = this.visitor;
     agent   = this.agent;
     page_title = decodeURI(Offerchat.params.page_title);
+
+    prechat = Offerchat.loadData("ofc-details", localStorage);
 
     details = {
       api_key:  Offerchat.params.api_key,
@@ -217,8 +219,8 @@ Chats = {
       version:  widget.version,
       OS:       widget.OS,
       IP:       visitor.ipaddress,
-      name:     visitor.name,
-      email:    visitor.email,
+      name:     prechat.name ? prechat.name : visitor.name,
+      email:    prechat.email ? prechat.email : visitor.email,
       chatting: {
         status: agent ? true : agent,
         agent:  agent ? agent.jabber_user : "",
