@@ -51,7 +51,7 @@
         $(ev.currentTarget).closest("form").submit()
 
     updateWidgetMessage: (ev) ->
-      $(".widget-pre-message").html($(ev.currentTarget).val())
+      $("#widget-pre-message").html($(ev.currentTarget).val())
 
     updateWidgetHeader: (ev) ->
       $(".widget-min-message span").text($(ev.target).val())
@@ -113,7 +113,7 @@
         $(ev.currentTarget).closest("form").submit()
 
     updateWidgetMessage: (ev) ->
-      $(".widget-pre-message").html($(ev.currentTarget).val())
+      $("#widget-pre-message").html($(ev.currentTarget).val())
 
     updateWidgetLabel: (ev) ->
       $(".widget-min-message span").text($(ev.target).val())
@@ -149,5 +149,5 @@
         $(ev.currentTarget).closest("form").submit()
 
     updateWidgetMessage: (ev) ->
-      $(".widget-pre-message").html($(ev.currentTarget).val())
+      $("#widget-pre-message").html($(ev.currentTarget).val())
 
