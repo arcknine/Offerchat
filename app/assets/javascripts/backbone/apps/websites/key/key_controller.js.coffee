@@ -20,6 +20,8 @@
       @listenTo newSiteView, "click:send:code", (item) =>
         @showModal @newWebsite
 
+      mixpanel.track("Install Widget")
+
     getWebsiteKeyView: (site) ->
       new Key.Code
         model: site

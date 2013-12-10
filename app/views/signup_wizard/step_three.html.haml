@@ -1,0 +1,13 @@
+<h2>Step Three</h2>
+
+%h2 Step Three
+
+= form_for(@website, url: wizard_path, :method => "put") do |f|
+  %div
+    = f.label :url
+    = f.text_field :url, :autofocus => true
+  %div
+    = f.submit "Continue"
+
+:javascript
+  mixpanel.track("Step Three: Website")

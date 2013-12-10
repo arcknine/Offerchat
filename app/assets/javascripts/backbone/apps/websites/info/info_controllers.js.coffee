@@ -19,6 +19,8 @@
 
       @initInfoView sites
 
+      mixpanel.track("Add Website Info")
+
     getWebsiteInfoView: (site) ->
       new Info.Website
         model: site
