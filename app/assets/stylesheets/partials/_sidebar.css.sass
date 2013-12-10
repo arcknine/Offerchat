@@ -51,8 +51,7 @@ a.site-selector
   @include transition(.1s)
   position: absolute
   width: 100%
-  background: #f1f1f1
-
+  background: #f5f5f5
   z-index: 90
   opacity: 0
   visibility: hidden
@@ -64,7 +63,7 @@ a.site-selector
   a
     border-bottom: 1px solid #e1e1e1
     display: block
-    padding: 10px 15px
+    padding: 10px 15px 10px 30px
     color: $text-color
     text-overflow: ellipsis
     overflow: hidden
@@ -73,6 +72,10 @@ a.site-selector
     &.new
       font-weight: $bold
       color: darken($text-color, 30%)
+    .icon-crown
+      position: absolute
+      left: 10px
+      top: 17px
 
   a.new-website-link
     color: $link-color
