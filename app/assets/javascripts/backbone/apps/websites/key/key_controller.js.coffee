@@ -17,6 +17,8 @@
         App.navigate "#", trigger: true
         App.request "new:site:created"
 
+        $("#first-time-user").removeClass("hide")
+
       @listenTo newSiteView, "click:send:code", (item) =>
         @showModal @newWebsite
 
