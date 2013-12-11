@@ -17,7 +17,7 @@
 
   %body
     - if current_user.sign_in_count < 2
-      .setup-tooltip#first-time-user
+      .setup-tooltip.hide#first-time-user
         %a.close#first-time-user-close ×
         %h3 Setting Up Your Account
         Please wait while we create your account. You may not receive chats just yet.
