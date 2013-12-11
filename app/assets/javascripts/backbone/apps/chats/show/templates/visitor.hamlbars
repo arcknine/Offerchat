@@ -17,7 +17,9 @@
 
     %a.show-notes
       %i.icon.icon-chat-note
-      %span Notes
+      %span
+        Notes
+        %label.notes-count
 
     %a.show-responses
       %i.icon.icon-chat-response

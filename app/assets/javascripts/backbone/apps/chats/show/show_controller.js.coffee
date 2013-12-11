@@ -35,6 +35,10 @@
         if @pid isnt "FREE"
           @visitor_notes_list = App.request "get:visitor_notes", @visitor.get("token")
           App.execute "when:fetched", @visitor_notes_list, =>
+            if @visitor_notes_list.length > 0
+              notes_count = "(#{@visitor_notes_list.length})"
+              $(".notes-count").html notes_count
+
             @visitor_notes_list.forEach (model, index) ->
               model.set
                 created_at: moment(model.get("created_at")).format('MMMM D, YYYY - h:mm a')
@@ -120,9 +124,12 @@
             message: note
             avatar: gon.current_user.avatar
             user_id: gon.current_user.id
-            name: gon.current_user.display_name
+            user_name: gon.current_user.display_name
             created_at: moment().format('MMMM D, YYYY - h:mm a')
           @visitor_notes_list.add new_note
+
+          notes_count = "(#{@visitor_notes_list.length})"
+          $(".notes-count").html notes_count
 
           text_area.val("").focus()
 
