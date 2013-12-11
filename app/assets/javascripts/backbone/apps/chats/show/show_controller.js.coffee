@@ -110,6 +110,7 @@
         newVisitorNotesView = @getNewVisitorNotesView visitor_note
 
         @listenTo newVisitorNotesView, "save:visitor:note", (e, model) =>
+
           text_area = $(e.currentTarget)
           note = text_area.val()
 
@@ -117,6 +118,7 @@
           obj =
             message: note
             vtoken: @visitor.get("token")
+          model.url = Routes.visitor_notes_path()
           model.save obj
 
           # add to current collection
