@@ -18,7 +18,7 @@
       .widget-body
         .widget-overlay
           .widget-prechat-form
-            %p {{site.settings.pre_chat.description}}
+            %p#widget-pre-message {{site.settings.pre_chat.description}}
             .widget-form
               .widget-row
                 .widget-input-container

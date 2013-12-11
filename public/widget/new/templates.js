@@ -339,8 +339,6 @@ Templates = {
         Offerchat.storeData("ofc-details", Offerchat.details, localStorage);
         Chats.init();
 
-        console.log(Offerchat.details);
-
         _this.reconnect.destroy();
         _this.loader.replace();
         $(".widget-input-text").attr("disabled", "disabled");
