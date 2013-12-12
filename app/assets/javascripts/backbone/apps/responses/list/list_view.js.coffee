@@ -33,17 +33,24 @@
       "click .cancel-edit-qr"  : "cancelEdit"
 
     cancelEdit: (e) ->
-      $(e.target).closest("div.edit-qr").addClass("hide")
+      edit_qr = $(e.target).closest("div.edit-qr")
+      edit_qr.addClass "hide"
+      edit_qr.parent().find(".qr-item").removeClass "hide"
 
     qrClicked: (e) ->
       target = $(e.target)
       if !target.hasClass("icon-check")
-        qr_item = target.closest("div.qr-item").next(".edit-qr")
-        if qr_item.hasClass("hide")
+        qr_item = target.closest("div.qr-item")
+        edit_qr = qr_item.next(".edit-qr")
+        if edit_qr.hasClass("hide")
           $(".edit-qr").addClass "hide"
-          qr_item.removeClass "hide"
-        else
+          edit_qr.removeClass "hide"
+
+          $(".qr-item").removeClass "hide"
           qr_item.addClass "hide"
+        else
+          edit_qr.addClass "hide"
+          qr_item.removeClass "hide"
 
     toggleCheckbox: (e) ->
       target = $(e.currentTarget)
