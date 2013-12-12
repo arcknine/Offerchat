@@ -147,7 +147,7 @@
         @listenTo formView, "show", =>
           sidebarView.notesRegion.show notesView
           sidebarView.newNotesRegion.show newVisitorNotesView
-          @diff = 50
+          @diff = 150
           App.execute "set:sidebar:modal:height"
 
         @listenTo sidebarView, "edit:visitor:info", (e) =>

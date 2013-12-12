@@ -1,30 +1,31 @@
-.notes-section
-  .block
-    .form.form-small.form-inline.hide.edit-visitor-info
-      %fieldset
-        .input-container
-          %input.full.bold#visitor-name{ :placeholder =>"Name", :type => "text", :value => "{{info.name}}" }
+.modal-viewer
+  .notes-section
+    .block
+      .form.form-small.form-inline.hide.edit-visitor-info
+        %fieldset
+          .input-container
+            %input.full.bold#visitor-name{ :placeholder =>"Name", :type => "text", :value => "{{info.name}}" }
 
-      %fieldset
-        .input-container
-          %input.full.bold#visitor-email{ :placeholder =>"Email", :type => "text", :value => "{{info.email}}" }
+        %fieldset
+          .input-container
+            %input.full.bold#visitor-email{ :placeholder =>"Email", :type => "text", :value => "{{info.email}}" }
 
-      %fieldset
-        .input-container
-          %input.full.bold#visitor-phone{ :placeholder =>"Phone number", :type => "text", :value => "{{info.phone}}" }
+        %fieldset
+          .input-container
+            %input.full.bold#visitor-phone{ :placeholder =>"Phone number", :type => "text", :value => "{{info.phone}}" }
 
-      %fieldset
-        %button.btn.action.save-visitor-info{ :type => "submit" } Save
+        %fieldset
+          %button.btn.action.save-visitor-info{ :type => "submit" } Save
 
-    .form.form-small.visitor-info
-      %fieldset
-        %strong.vname {{info.name}}
-        %a.hovered.edit-visitor-info-btn{ :style => "margin-left:5px;" } edit
-      %fieldset
-        .small.vemail {{info.email}}
-      %fieldset
-        .small.vphone {{info.phone}}
+      .form.form-small.visitor-info
+        %fieldset
+          %strong.vname {{info.name}}
+          %a.hovered.edit-visitor-info-btn{ :style => "margin-left:5px;" } edit
+        %fieldset
+          .small.vemail {{info.email}}
+        %fieldset
+          .small.vphone {{info.phone}}
 
-  #visitor-notes-list
+    #visitor-notes-list
 
 #new-visitor-notes-form
