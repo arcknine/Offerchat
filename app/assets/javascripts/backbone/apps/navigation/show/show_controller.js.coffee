@@ -20,23 +20,11 @@
           @changeStatus elem
 
         @listenTo navView, "profile:status:toggled", (child) ->
-          params =
-            element: child
-            openClass: "profile-status"
-            activeClass: false
-
-          navView.toggleDropDown(params)
+          @toggleActiveMenu(navView, child, "profile-status")
 
         @listenTo navView, "responses:menu:clicked", (child) ->
+          @toggleActiveMenu(navView, child, "responses-menu-link")
           App.navigate "quick-responses", trigger: true
-
-        @listenTo navView, "profile:settings:toggled", (child) ->
-          params =
-            element: child
-            openClass: "profile-settings"
-            activeClass: false
-
-          navView.toggleDropDown(params)
 
         @listenTo navView, "root:path:clicked", (child) ->
           App.navigate Routes.root_path(), trigger: true
@@ -55,19 +43,11 @@
           @hideDropdowns child
 
         @listenTo navView, "history:menu:clicked", (child) ->
-          params =
-            element: child
-            openClass: "history-menu-link"
-            activeClass: false
-          navView.toggleDropDown(params)
+          @toggleActiveMenu(navView, child, "history-menu-link")
           App.navigate "history", trigger: true
 
         @listenTo navView, "reports:menu:clicked", (child) ->
-          params =
-            element: child
-            openClass: "reports-menu-link"
-            activeClass: false
-          navView.toggleDropDown(params)
+          @toggleActiveMenu(navView, child, "reports-menu-link")
 
         @listenTo navView, "agent:menu:clicked", (child) ->
           navView.closeDropDown()
@@ -95,6 +75,13 @@
           App.request "hide:preloader"
 
         App.navigationRegion.show navView
+
+    toggleActiveMenu: (view, elem, class_elem) ->
+      params =
+        element: elem
+        openClass: class_elem
+        activeClass: false
+      view.toggleDropDown(params)
 
     changeStatus: (elem) ->
       status_elem = $(elem.currentTarget).find("#current-status")
