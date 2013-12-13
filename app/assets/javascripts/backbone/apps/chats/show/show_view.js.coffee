@@ -142,7 +142,7 @@
 
   class Show.ModalVisitorNotes extends App.Views.Layout
     template: "chats/show/visitor_notes"
-    className: "modal-viewer"
+    # className: "modal-viewer"
     regions:
       notesRegion: "#visitor-notes-list"
       newNotesRegion: "#new-visitor-notes-form"

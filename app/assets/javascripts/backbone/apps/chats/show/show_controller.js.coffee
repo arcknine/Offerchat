@@ -35,9 +35,7 @@
         if @pid isnt "FREE"
           @visitor_notes_list = App.request "get:visitor_notes", @visitor.get("token")
           App.execute "when:fetched", @visitor_notes_list, =>
-            if @visitor_notes_list.length > 0
-              notes_count = "(#{@visitor_notes_list.length})"
-              $(".notes-count").html notes_count
+            @showNotesCount()
 
             @visitor_notes_list.forEach (model, index) ->
               model.set
@@ -67,6 +65,7 @@
 
       @listenTo @visitor, "all", =>
         visitors.sort()
+        @showNotesCount()
 
       @listenTo @messages, "add", (message) =>
         if message.get("token") is @token
@@ -83,9 +82,13 @@
         container_height = $(window).height() - @diff
         $(".modal-viewer").attr("style","height:#{container_height}px")
 
-
       @resizeChatWrapper()
       @show @layout
+
+    showNotesCount: ->
+      if @visitor_notes_list and @visitor_notes_list.length > 0
+        notes_count = "(#{@visitor_notes_list.length})"
+        $(".notes-count").html notes_count
 
     visitorInfoView: ->
       @visitor.generateGravatarSource()
@@ -110,6 +113,7 @@
         newVisitorNotesView = @getNewVisitorNotesView visitor_note
 
         @listenTo newVisitorNotesView, "save:visitor:note", (e, model) =>
+
           text_area = $(e.currentTarget)
           note = text_area.val()
 
@@ -117,6 +121,9 @@
           obj =
             message: note
             vtoken: @visitor.get("token")
+
+          model.unset("id", "silent") if model.has("id")
+          model.url = Routes.visitor_notes_path()
           model.save obj
 
           # add to current collection
@@ -128,8 +135,7 @@
             created_at: moment().format('MMMM D, YYYY - h:mm a')
           @visitor_notes_list.add new_note
 
-          notes_count = "(#{@visitor_notes_list.length})"
-          $(".notes-count").html notes_count
+          @showNotesCount()
 
           text_area.val("").focus()
 
@@ -141,7 +147,7 @@
         @listenTo formView, "show", =>
           sidebarView.notesRegion.show notesView
           sidebarView.newNotesRegion.show newVisitorNotesView
-          @diff = 50
+          @diff = 150
           App.execute "set:sidebar:modal:height"
 
         @listenTo sidebarView, "edit:visitor:info", (e) =>
@@ -158,6 +164,8 @@
           info.email = vemail
           info.name = vname
           info.phone = vphone
+
+          @visitor.unset("id", "silent") if @visitor.has("id")
 
           @visitor.set
             info: info
