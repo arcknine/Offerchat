@@ -13,7 +13,7 @@
 
       %li.responses-menu-link
         %a
-          Quick Responses
+          Responses
 
       / %li.reports-menu-link
       /   %a
