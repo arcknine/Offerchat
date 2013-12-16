@@ -72,6 +72,7 @@
 
         App.commands.setHandler "avatar:change", (avatar) ->
           user.set avatar: avatar
+          $(".profile-image").find("img").attr("src", avatar)
           App.request "hide:preloader"
 
         App.navigationRegion.show navView
