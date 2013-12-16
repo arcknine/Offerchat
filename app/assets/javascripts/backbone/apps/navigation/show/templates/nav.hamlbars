@@ -11,9 +11,9 @@
     #canvas-loader
     %ul.header-inline-list.primary-user-nav
 
-      / %li.responses-menu-link
-      /   %a
-      /     Quick Responses
+      %li.responses-menu-link
+        %a
+          Quick Responses
 
       / %li.reports-menu-link
       /   %a
