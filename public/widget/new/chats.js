@@ -564,7 +564,7 @@ Chats = {
       type: "GET",
       url: Offerchat.src.history + "/convo/create/" + Offerchat.params.secret_token,
       dataType: "jsonp",
-      data: {url: Offerchat.params.current_url, aid: agent.id, vname: this.visitor.name, agent: agent.name, vid: this.visitor.id},
+      data: {url: Offerchat.params.current_url, aid: agent.id, vname: this.visitor.name, agent: agent.name, vid: this.visitor.id, wid: Offerchat.website.id},
       success: function(){
         // Offerchat.agent({website_id: Offerchat.website.id}).update({new_convo: true});
         _this.agent.new_convo = true;

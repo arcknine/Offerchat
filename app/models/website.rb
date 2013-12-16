@@ -24,7 +24,7 @@ class Website < ActiveRecord::Base
 
 
   has_settings(:class_name => "WebsiteSettings") do |s|
-    s.key :style, :defaults => { :theme => "greengrass", :position => "right", :rounded => false, :gradient => false }
+    s.key :style, :defaults => { :theme => "greengrass", :position => "right", :rounded => false, :gradient => false, :language => "english" }
     s.key :online, :defaults => { :header => "Chat with us", :agent_label => "Got a question? We can help.", :greeting => "Hi, I am", :placeholder => "Type your message and hit enter" }
     s.key :pre_chat, :defaults => { :enabled => false, :message_required => false, :header => "Let me get to know you!", :description => "Fill out the form to start the chat." }
     s.key :post_chat, :defaults => { :enabled => true, :header => "Chat with me, I'm here to help", :description => "Please take a moment to rate this chat session", :email => "" }
