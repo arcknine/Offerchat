@@ -221,7 +221,7 @@ Chats = {
       IP:       visitor.ipaddress,
       name:     prechat.name ? prechat.name : visitor.name,
       email:    prechat.email ? prechat.email : visitor.email,
-      phone:    visitor.phone,
+      phone:    prechat.phone ? prechat.phone : visitor.phone,
       chatting: {
         status: agent ? true : agent,
         agent:  agent ? agent.jabber_user : "",

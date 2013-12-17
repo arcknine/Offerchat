@@ -90,7 +90,8 @@ class Website < ActiveRecord::Base
       response = Nokogiri::XML(open("#{ENV["CHAT_SERVER_URL"]}plugins/presence/status?jid=#{r.jabber_user}@#{ENV["CHAT_SERVER_NAME"]}&type=xml"))
       presence = response.xpath("presence")
       status = presence.xpath("status").inner_text
-      vacant_agent = status.to_s == "Unavailable" ? false : true
+      show   = presence.xpath("show").inner_text
+      vacant_agent = status.to_s == "Unavailable" || show.to_s == "away" || show.to_s == "Away" ? false : true
       break vacant_agent if vacant_agent == true
       break false if vacant_agent == false && accounts.last.id == r.id
     end
