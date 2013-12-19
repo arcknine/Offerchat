@@ -9,6 +9,9 @@ Templates = {
     this.agent    = Offerchat.agent;
     this.details  = Offerchat.details;
 
+    // this.settings.style.language = "french";
+    this.language = Language[this.settings.style.language];
+
     this.hasAgent = Offerchat.loadData("ofc-agent", localStorage);
 
     this.loadTemplates(function(){
@@ -143,13 +146,13 @@ Templates = {
       },
       toggleSound: function(e) {
         if ($(e.target).data("sound") == "on") {
-          $(e.target).text("Turn on sound");
+          $(e.target).text(_this.language.sound_on);
           $(e.target).data("sound", "off");
           Offerchat.details.sound = false;
           Offerchat.storeData("ofc-details", Offerchat.details, localStorage);
           $("#beep-notify").remove();
         } else {
-          $(e.target).text("Turn off sound");
+          $(e.target).text(_this.language.sound_off);
           $(e.target).data("sound", "on");
           $(e.target).parent().append('<audio id="beep-notify" src="//d3ocj2fkvch1xi.cloudfront.net/widget/images/sound.ogg"></audio>');
           Offerchat.details.sound = true;
@@ -482,19 +485,19 @@ Templates = {
   },
 
   getWidgetInputs: function(data) {
-    var inputs, rating;
-    data   = data || { placeholder: "Type your question and hit enter" };
+    var inputs, rating, language;
+    data   = data || { placeholder: this.language.chat_box };
     inputs = '<ul class="tooltip-options settings-options">' +
-             '  <li><a data-type="transcript">Download Transcript</a></li>';
+             '  <li><a data-type="transcript">' + this.language.transcript + '</a></li>';
 
     if (this.details.sound) {
       inputs += '<li>' +
-                '  <a data-type="sound" data-sound="on">Turn off sound</a>' +
+                '  <a data-type="sound" data-sound="on">' +  this.language.sound_off + '</a>' +
                 '  <audio id="beep-notify" src="//d3ocj2fkvch1xi.cloudfront.net/widget/images/sound.ogg"></audio>' +
                 '</li>';
     }
     else
-      inputs += '  <li><a data-type="sound" data-sound="off">Turn on sound</a></li>';
+      inputs += '  <li><a data-type="sound" data-sound="off">' + this.language.sound_on + '</a></li>';
 
     if (this.agent && this.agent.rating == "up")
       rating = "icon-thumbs-up-green";
@@ -548,22 +551,22 @@ Templates = {
                       data.description +
                    '</div>' +
                    '<div class="widget-input-container">' +
-                   '  <input placeholder="Name" name="name" type="text">' +
+                   '  <input placeholder="' + this.language.name + '" name="name" type="text">' +
                    '</div>';
     if (typeof data.email_required == "undefined" || data.email_required === true) {
       forms     += '<div class="widget-input-container">' +
-                   '  <input placeholder="Email" name="email" type="text">' +
+                   '  <input placeholder="' + this.language.email + '" name="email" type="text">' +
                    '</div>';
     }
 
     if (typeof data.message_required == "undefined" || data.message_required === true) {
       forms     += '<div class="widget-input-container">' +
-                   '  <textarea name="message" placeholder="Message"></textarea>' +
+                   '  <textarea name="' + this.language.message + '" placeholder="Message"></textarea>' +
                    '</div>';
     }
 
     forms       += '<div class="widget-input-container">' +
-                   '  <button class="widget-button">Submit</button>' +
+                   '  <button class="widget-button">' + this.language.submit + '</button>' +
                    '</div>';
 
     return forms;
@@ -577,14 +580,14 @@ Templates = {
                '    <div class="widget-form">' +
                '      <div class="widget-row">' +
                '        <div class="widget-input-container">' +
-               '          <input placeholder="Name" name="name" type="text">' +
+               '          <input placeholder="' + this.language.name + '" name="name" type="text">' +
                '        </div>' +
                '      </div>';
 
     if (typeof data.email_required == "undefined" || data.email_required === true) {
       form  += '      <div class="widget-row">' +
                '        <div class="widget-input-container">' +
-               '          <input placeholder="Email" name="email" type="text">' +
+               '          <input placeholder="' + this.language.email + '" name="email" type="text">' +
                '        </div>' +
                '      </div>';
     }
@@ -592,14 +595,14 @@ Templates = {
     if (typeof data.message_required == "undefined" || data.message_required === true) {
       form  += '      <div class="widget-row">' +
                '        <div class="widget-input-container">' +
-               '          <textarea name="message" placeholder="Message"></textarea>' +
+               '          <textarea name="' + this.language.message + '" placeholder="Message"></textarea>' +
                '        </div>' +
                '      </div>';
     }
 
     form    += '      <div class="widget-row">' +
                '        <div class="widget-input-container">' +
-               '          <button class="widget-button">Submit</button>' +
+               '          <button class="widget-button">' + this.language.submit + '</button>' +
                '        </div>' +
                '      </div>' +
                '    <div>' +

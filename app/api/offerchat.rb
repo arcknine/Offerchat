@@ -58,7 +58,7 @@ module Offerchat
             anyAgents = website.available_agent
 
             style = website.settings(:style)
-            style = { gradient: style.gradient, position: style.position, rounded: style.rounded, theme: style.theme }
+            style = { gradient: style.gradient, position: style.position, rounded: style.rounded, theme: style.theme, language: style.language }
 
             online = website.settings(:online)
             online = { agent_label: online.agent_label, greeting: online.greeting, header: online.header, placeholder: online.placeholder }

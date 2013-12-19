@@ -24,7 +24,7 @@ class Website < ActiveRecord::Base
 
 
   has_settings(:class_name => "WebsiteSettings") do |s|
-    s.key :style, :defaults => { :theme => "greengrass", :position => "right", :rounded => false, :gradient => false }
+    s.key :style, :defaults => { :theme => "greengrass", :position => "right", :rounded => false, :gradient => false, :language => "english" }
     s.key :online, :defaults => { :header => "Chat with us", :agent_label => "Got a question? We can help.", :greeting => "Hi, I am", :placeholder => "Type your message and hit enter" }
     s.key :pre_chat, :defaults => { :enabled => false, :message_required => false, :header => "Let me get to know you!", :description => "Fill out the form to start the chat." }
     s.key :post_chat, :defaults => { :enabled => true, :header => "Chat with me, I'm here to help", :description => "Please take a moment to rate this chat session", :email => "" }
@@ -90,7 +90,8 @@ class Website < ActiveRecord::Base
       response = Nokogiri::XML(open("#{ENV["CHAT_SERVER_URL"]}plugins/presence/status?jid=#{r.jabber_user}@#{ENV["CHAT_SERVER_NAME"]}&type=xml"))
       presence = response.xpath("presence")
       status = presence.xpath("status").inner_text
-      vacant_agent = status.to_s == "Unavailable" ? false : true
+      show   = presence.xpath("show").inner_text
+      vacant_agent = status.to_s == "Unavailable" || show.to_s == "away" || show.to_s == "Away" ? false : true
       break vacant_agent if vacant_agent == true
       break false if vacant_agent == false && accounts.last.id == r.id
     end

@@ -7,7 +7,8 @@ node do |website|
         :theme    => website.settings(:style).theme,
         :position => website.settings(:style).position,
         :rounded  => website.settings(:style).rounded,
-        :gradient => website.settings(:style).gradient
+        :gradient => website.settings(:style).gradient,
+        :language => website.settings(:style).language
       },
       :online => {
         :header      => website.settings(:online).header,
