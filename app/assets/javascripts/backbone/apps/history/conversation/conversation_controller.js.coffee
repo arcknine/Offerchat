@@ -10,6 +10,9 @@
       self = @
 
       @listenTo @layout.conversationsRegion, "show", =>
+        this_agent = agents.findWhere id: currentUser.get("id")
+        @agent_websites = this_agent.get("websites")
+
         App.request "hide:preloader"
 
       App.request "show:preloader"
@@ -86,6 +89,14 @@
 
       App.execute "when:fetched", visitor, (item) =>
 
+        website_id = visitor.get("website_id")
+
+        is_agent = true
+        @agent_websites.map( (item) ->
+          if item.id is website_id
+            is_agent = if item.role isnt 1 then true else false
+        )
+
         modalRegionHeader = new Conversations.ChatModalHeader
           model: visitor
 
@@ -104,6 +115,7 @@
 
         modalRegionFooter = new Conversations.ChatModalFooter
           model: model
+          is_agent: is_agent
 
         @listenTo modalRegionFooter, "close:chats:modal", ->
           modalViewRegion.close()

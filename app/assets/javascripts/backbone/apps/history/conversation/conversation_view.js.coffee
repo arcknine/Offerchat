@@ -231,6 +231,9 @@
       "click .delete-conversation"      : "delete_convo"
       "click #downloadTranscript"       : "download_transcript"
 
+    serializeData: ->
+      is_agent: @options.is_agent
+
     download_transcript: (evt)->
       evt.preventDefault()
       window.location.href = "#{gon.history_url}/transcript/agent/#{@model.get('token')}"

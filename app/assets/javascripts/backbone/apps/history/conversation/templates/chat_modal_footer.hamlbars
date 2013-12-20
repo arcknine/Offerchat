@@ -1,12 +1,17 @@
+{{#if is_agent}}
+
+{{else}}
 %a.btn.warning.right.delete-conversation
   Delete Conversation
+{{/if}}
+
 .transcript-actions-form
   .transcript-actions
     %a.btn#downloadTranscript
       Download
     %a.btn#forwardToEmailBtn.hide
       Forward to email
-    
+
   .transcript-email-form.hide
     %input.forwarding-recipient{ :type => "text", :placeholder => "email address" }
     %button.btn.action.forward-to-email-btn
