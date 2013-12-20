@@ -5,7 +5,7 @@ set :bundle_cmd, "/home/ubuntu/.rvm/gems/ruby-1.9.3-p484@global/bin/bundle"
 
 set :user, "ubuntu"
 set :use_sudo, false
-set :branch, "master"
-set :rails_env, "production"
+set :branch, "staging"
+set :rails_env, "staging"
 
-server "54.211.168.91", :app, :web, :db, :primary => true
+server "23.20.21.172", :app, :web, :db, :primary => true
