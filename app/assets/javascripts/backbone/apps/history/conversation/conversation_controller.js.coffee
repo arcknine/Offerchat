@@ -33,6 +33,9 @@
 
         App.execute "when:fetched", conversations, (item)=>
           @listenTo @layout, "show", =>
+
+            @changeOnResize()
+
             convos = @organizeConversations(conversations)
             headerRegion = @getHeaderRegion(conversations)
             ids = []
@@ -63,6 +66,11 @@
 
         App.commands.setHandler "open:conversation:modal", (item)=>
           @getConversationModal(item)
+
+    changeOnResize: ->
+      $(window).resize =>
+        h = $(window).height() - 246
+        $(".table-history-viewer-content").attr("style","height:#{h}px")
 
     getLayout: ->
       new Conversations.Layout

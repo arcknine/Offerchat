@@ -168,9 +168,8 @@
       element.animate({ marginTop: '-=' + '5px'}, 50 ).animate({ marginTop: '+=' + '5px' }, 50)
 
     onShow: ->
-      console.log 'height: ', $(window).height()
       $(".main-content-view").css('overflow-y','hidden')
-      w_height = $(window).height() - 148
+      w_height = $(window).height() - 246
       $("#historyTableViewer").css('height', w_height + 'px')
       $(".history-table-heading").first().removeClass("relative").addClass("fixed")
 
