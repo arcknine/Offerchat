@@ -5,25 +5,24 @@
   %h1
     Your current plan:
     %a
-      Trial
+      {{profile.plan_identifier}}
 
-  .block
-    2 agents
-    %a (view all)
+  .block.agents-info
+    %span.agent-count
+    agent(s)
+    %a.view-all-agents (view all)
 
   .block.bordered-top-dashed.group
     .go-right
       .plan-sub-total
-        $34.00
+        $
+        %span.price-plan
+          34.00
     %strong
       Monthly sub-total
     %div
       %small.disabled
         Changes to your subscription will be reflected on you next billing statement.
-
-  .block
-    %a.hovered
-      Update billing info
 
 .block.large.section-pricing
   .pricing-container
@@ -36,22 +35,22 @@
       .form.form-inline
         %fieldset
           .package-selector.group
-            .basic.plan
+            .basic.plan.basic-plan
               %h3
-                Basic
+                {{basic.name}}
               .plan-price
                 %span.sup
                   $
                 %span.val
-                  9
+                  {{basic.price}}
                 %span.per
-                  / agent
+                  \/ agent
               %ul.list
                 %li
                   1 Website
-                  .tooltip
-                    .caret
-                    You can only add 1 website to your account
+                  /.tooltip
+                  /  .caret
+                  /  You can only add 1 website to your account
                 %li
                   Unlimited Chats
                 %li
@@ -71,20 +70,19 @@
                   %strike.disabled
                     Unbranded Widget
                 %li.plan-action
-                  %a.btn.action.btn-full
+                  %a.btn.action.btn-full{ id: "{{basic.plan_identifier}}" }
                     Choose Plan
 
-            .pro.plan.active
+            .pro.plan.pro-plan
               %h3
-                Pro
-
+                {{pro.name}}
               .plan-price
                 %span.sup
                   $
                 %span.val
-                  17
+                  {{pro.price}}
                 %span.per
-                  / agent
+                  \/ agent
               %ul.list
                 %li
                   Unlimited Websites
@@ -103,41 +101,38 @@
                 %li
                   Unbranded Widget
                 %li.plan-action
-                  %span.icon-round-check
-                    %i.icon.icon-check-large
-                  This is your current plan
+                  %a.btn.action.btn-full{ id: "{{pro.plan_identifier}}" }
+                    Choose Plan
 
     .group
-
-      .group.block.large.text-center
-        %h1
+      .block-large
+        %h2
           Frequently Asked Questions
-
-      .column-50
-        .faq-block
-          %h2
-            Do I have to go through free trial?
-          %p
-            We strongly suggest to go through the 30 day free trial so you can understand the features of the tool and later decide to upgrade depending on your needs.
-
-        .faq-block
-          %h2
-            What happens after the 30 day free trial
-          %p
-            Once the 30 days full featured trial is over, we will then prompt you to enter your credit card to continue using Offerchat.
-
-      .column-50
-        .faq-block
-          %h2
-            What modes of payment do you accept?
-          %p
-            Currently we accept all major credit cards - Visa, Mastercard, American Express. Paypal is not included.
-
-        .faq-block
-          %h2
-            Can I remove agents anytime?
-          %p
-            Once the 30 days full featured trial is over, we will then prompt you to enter your credit card to continue using Offerchat.
-
-
-
+        .plan-faq-list.group
+          %ul
+            %li
+              %h3
+                Do I have to go through free trial?
+              %p
+                We strongly suggest to go through the 30 day free trial so you can understand the features of the tool and later decide to upgrade depending on your needs.
+            %li
+              %h3
+                What happens after the 30 day free trial?
+              %p
+                Once the 30 days full featured trial is over, we will then prompt you to enter your credit card to continue using Offerchat.
+            %li
+              %h3
+                What modes of payment do you accept?
+              %p
+                Currently we accept all major credit cards - Visa, Mastercard, American Express. Paypal is not included.
+            .group
+            %li
+              %h3
+                Do you have lock-in contracts?
+              %p
+                No, our billing system offers flexibility. Changes made to your plan / agents will automatically reflect on your billing.
+            %li
+              %h3
+                Can I remove agents anytime?
+              %p
+                Once the 30 days full featured trial is over, we will then prompt you to enter your credit card to continue using Offerchat.
