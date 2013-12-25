@@ -7,18 +7,11 @@ class SignupWizardController < ApplicationController
   def show
     case step
     when :step_one
-      # email
+      # email name and password
       @user = User.new
       render_wizard
     when :step_two
-      # name and password
-      session[:user] ||= {:email => nil}
-      unless session[:user][:email].nil?
-        @user = User.new
-        render_wizard
-      else
-        redirect_to signup_wizard_path('step_one')
-      end
+      render_wizard
     when :step_three
       # website url
       @website = Website.new
@@ -73,9 +66,6 @@ class SignupWizardController < ApplicationController
       else
         head :no_content
       end
-
-
-
 
     when :step_four
       # @website = Website.where(:owner_id => current_user.id).last
