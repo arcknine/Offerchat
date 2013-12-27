@@ -6,11 +6,18 @@
       Hey, you’re almost done. Complete the next
       steps to start using Offerchat.
     %ul.tour-steps-list
-      %li
-        .checklist
-          %span.value
-            1
-        Profile
+      - if request.fullpath == "/signup_wizard/step_two"
+        %li.checked
+          .checklist
+            %span.value
+              %i.icon.icon-check-large
+          Profile
+      - else
+        %li
+          .checklist
+            %span.value
+              1
+          Profile
       %li
         .checklist
           %span.value

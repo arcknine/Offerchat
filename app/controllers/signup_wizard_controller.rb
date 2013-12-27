@@ -11,6 +11,7 @@ class SignupWizardController < ApplicationController
       @user = User.new
       render_wizard
     when :step_two
+      @website = current_user.websites.first
       render_wizard
     when :step_three
       # website url
@@ -40,21 +41,6 @@ class SignupWizardController < ApplicationController
 
   def update
     case step
-    when :step_one
-      unless is_a_valid_email?(params[:user]['email'])
-        flash[:alert] = 'Email should be valid'
-
-        redirect_to signup_wizard_path('step_one')
-      else
-        @user = User.find_by_email(params[:user]['email'])
-        if @user.nil?
-          session[:user] = {:email => params[:user]['email'] }
-          redirect_to signup_wizard_path('step_two')
-        else
-          redirect_to signup_wizard_path('step_one'), :alert => 'Email already exist'
-        end
-      end
-
     when :step_three
       @website = Website.new
       @website.url = params['url']
@@ -92,11 +78,11 @@ class SignupWizardController < ApplicationController
 
   def check_restrictions
     case step
-    when :step_one, :step_two
+    when :step_one
       if user_signed_in?
         redirect_to root_path()
       end
-    when :step_three, :step_four, :step_five
+    when :step_two, :step_three, :step_four, :step_five
       authenticate_user!
     end
   end

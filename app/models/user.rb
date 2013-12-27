@@ -16,8 +16,8 @@ class User < ActiveRecord::Base
   attr_accessor :avatar_remove
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :display_name, :jabber_user, :jabber_password, :avatar, :plan_identifier, :billing_start_date, :stripe_customer_token, :avatar_remove, :trial_days_left
 
-  validates_presence_of :name
-  validates_presence_of :display_name
+  validates_presence_of :email, :name, :display_name
+  validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
 
   after_create :create_jabber_account
 
@@ -35,8 +35,6 @@ class User < ActiveRecord::Base
 
   validates_attachment_content_type :avatar, :content_type => [ "image/jpg", "image/jpeg", "image/png" ], :message => "Only image files are allowed."
   validates_attachment_size :avatar, :less_than => 1.megabytes, :unless=> Proc.new { |image| image.avatar.nil? }
-  #validates_attachment_content_type
-  validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
 
   has_settings do |s|
     s.key :notifications, :defaults => { :new_message => false, :new_visitor => false }

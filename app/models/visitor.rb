@@ -20,6 +20,4 @@ class Visitor < ActiveRecord::Base
       self.name = 'visitor-%06d' % rand(6 ** 6)
     end
   end
-
-
 end
