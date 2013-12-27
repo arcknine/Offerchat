@@ -45,8 +45,9 @@ Dashboard::Application.routes.draw do
 
   resources :quick_responses
   resources :visitor_notes
-  
+
   resources :getting_started
+  resources :widget_codes
 
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}, :controllers => {
     :registrations => "registrations"

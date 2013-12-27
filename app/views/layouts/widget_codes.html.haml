@@ -1,0 +1,17 @@
+!!!
+%html
+  %head
+    %title Get Your Widget Code - Offerchat.com
+    = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag "//fonts.googleapis.com/css?family=Open+Sans:400,300"
+    = csrf_meta_tags
+    - if Rails.env.production?
+      = analytics_init
+      = mixpanel_js
+    - else
+      = mixpanel_dev_js
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  %body
+    = yield
+
