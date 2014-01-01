@@ -121,7 +121,6 @@ class Website < ActiveRecord::Base
     account.role  = Account::OWNER
     account.owner = self.owner
     account.save
-    DripWorker.perform_async self.owner.id
   end
 
   def generate_rosters
