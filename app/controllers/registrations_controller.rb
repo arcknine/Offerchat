@@ -2,6 +2,8 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     params[:user][:display_name] = params[:user][:name].split(" ").first
+    params[:user][:plan_identifier] = "PROTRIAL"
+
     build_resource
 
     if resource.save
