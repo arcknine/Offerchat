@@ -30,4 +30,10 @@ class UserMailer < ActionMailer::Base
     @message = message
     mail(:to => email, :subject => "Offerchat Transcript Export")
   end
+
+  def welcome_code(user_id)
+    @user = User.find(user_id)
+    @website = @user.websites.first
+    mail(:to => @user.email, :subject => "Welcome to Offerchat!")
+  end
 end
