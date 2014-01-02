@@ -10,7 +10,6 @@ require 'whenever/capistrano'
 # Basic
 set :stages, %w(staging production)
 set :application, "Offerchat"
-set :repository,  "set your repository location here"
 set :keep_releases, 5
 
 # SSH Options

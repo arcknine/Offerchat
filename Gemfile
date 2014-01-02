@@ -100,7 +100,7 @@ group :development do
   gem 'rvm-capistrano'
 end
 
-group :production do
+group :production, :staging do
   gem 'asset_sync'
   gem 'newrelic_rpm'
 end
