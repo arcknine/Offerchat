@@ -255,7 +255,7 @@ class User < ActiveRecord::Base
 
   def self.expiring_in(days)
     if created_at > DateTime.parse("Nov 27, 2013")
-      where("plan_identifier = 'PREMIUM' and date(created_at) = :fifty_five_days_ago", :fifty_five_days_ago => Date.today - (30 - days).days).limit(50)
+      where("plan_identifier = 'PREMIUM' or plan_identifier = 'PROTRIAL' and date(created_at) = :fifty_five_days_ago", :fifty_five_days_ago => Date.today - (30 - days).days).limit(50)
     else
       where("plan_identifier = 'PREMIUM' and date(created_at) = :fifty_five_days_ago", :fifty_five_days_ago => Date.today - (60 - days).days).limit(50)
     end
