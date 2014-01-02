@@ -1,13 +1,13 @@
 staging:
-  host: offerchatstaging.cl880wgyx5p7.us-east-1.rds.amazonaws.com
+  host: localhost
   adapter: mysql2
   encoding: utf8
   collation: utf8_general_ci
   reconnect: true
-  database: offerchat_staging
+  database: dashboard_staging
   pool: 5
-  username: offerchatstaging
-  password: offerchat123
+  username: root
+  password: 0ff3rch@t
   socket: /var/run/mysqld/mysqld.sock
 
 production:
