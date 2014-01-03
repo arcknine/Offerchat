@@ -45,3 +45,5 @@
     .container.footer
       %p © 2014 Offerchat. All rights reserved.
       %p Unit 333, UP CebuInIT, Gorordo Avenue, Lahug, Cebu City, Philippines 6000
+
+    = image_tag MIXPANEL.tracking_pixel("Opened Three Days Remaining Email", { :distinct_id => @user.email })
