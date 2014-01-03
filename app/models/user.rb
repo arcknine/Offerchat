@@ -288,11 +288,23 @@ class User < ActiveRecord::Base
   def self.notify_expiring(days)
     expiring_in(days).each do |e|
       if days == 5
-        TrialMailer.delay.five_days_remaining(e)
+        if e.plan_identifier == "PROTRIAL"
+          ProTrialMailer.delay.five_days_remaining(e)
+        elsif e.plan_identifier == "PREMIUM"
+          TrialMailer.delay.five_days_remaining(e)
+        end
       elsif days == 3
-        TrialMailer.delay.three_days_remaining(e)
+        if e.plan_identifier == "PROTRIAL"
+          ProTrialMailer.delay.three_days_remaining(e)
+        elsif e.plan_identifier == "PREMIUM"
+          TrialMailer.delay.three_days_remaining(e)
+        end
       elsif days == 1
-        TrialMailer.delay.one_day_remaining(e)
+        if e.plan_identifier == "PROTRIAL"
+          ProTrialMailer.delay.one_day_remaining(e)
+        elsif e.plan_identifier == "PREMIUM"
+          TrialMailer.delay.one_day_remaining(e)
+        end
       end
     end
   end

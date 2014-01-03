@@ -1,0 +1,46 @@
+!!!
+%html{xmlns: "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{content: "width=device-width", name: "viewport"}/
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Offerchat
+    %link{href: "https://s3.amazonaws.com/offerchat-emails/email.css", rel: "stylesheet", type: "text/css"}/
+  %body{bgcolor: "#FFFFFF"}
+    %table.head-wrap
+      %tr
+        %td
+        %td.header
+          .content
+            %table
+              %tr
+                %td{align: "center"}
+                  %a.logo{href: "https://www.offerchat.com"}
+                    %img{alt: "Offerchat logo", src: "https://s3.amazonaws.com/offerchat-emails/logo.png"}/
+        %td
+    %table.body-wrap
+      %tr
+        %td
+        %td.container{bgcolor: "#FFFFFF"}
+          .content
+            %table
+              %tr
+                %td
+                  %h3 Hi #{@user.first_name},
+                  %h4.lead Thanks for using Offerchat live chat. We hope it helped you make customers happy!
+                  %p
+                    When you signed up for the Offerchat live chat tool, you were given the Pro
+                    Trial account wherein you can add unlimited agents and enjoy all premium features.
+                  %p
+                    You have 5 days remaining on your premium trial after which you can choose to
+                    upgrade to Basic or Pro.
+                    %a{ :href => "https://www.offerchat.com/pricing" } See what’s in it for you.
+                  %p.center
+                    %a{ :href => "https://app.offerchat.com/#upgrade", :class => "btn" } Upgrade Now
+                  %p
+                    Let us know if you have any questions, we'll be glad to chat with you.
+                  %p Best Regards,
+                  %p The Offerchat Team
+        %td
+    .container.footer
+      %p © 2014 Offerchat. All rights reserved.
+      %p Unit 333, UP CebuInIT, Gorordo Avenue, Lahug, Cebu City, Philippines 6000

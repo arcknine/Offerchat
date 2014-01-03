@@ -1,0 +1,50 @@
+!!!
+%html{xmlns: "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{content: "width=device-width", name: "viewport"}/
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Offerchat
+    %link{href: "https://s3.amazonaws.com/offerchat-emails/email.css", rel: "stylesheet", type: "text/css"}/
+  %body{bgcolor: "#FFFFFF"}
+    %table.head-wrap
+      %tr
+        %td
+        %td.header
+          .content
+            %table
+              %tr
+                %td{align: "center"}
+                  %a.logo{href: "https://www.offerchat.com"}
+                    %img{alt: "Offerchat logo", src: "https://s3.amazonaws.com/offerchat-emails/logo.png"}/
+        %td
+    %table.body-wrap
+      %tr
+        %td
+        %td.container{bgcolor: "#FFFFFF"}
+          .content
+            %table
+              %tr
+                %td
+                  %h3 Hi #{@user.first_name},
+                  %h4.lead Just dropping by to remind you that you have 1 day left before your Pro Trial expires.
+                  %p
+                    As we stated in our previous emails, you will have the option to upgrade to a paid plan of your choice and continue
+                    to enjoy the best of what Offerchat has to offer now and in the future.
+                  %p
+                    Upgrade now to unlock these 2 features only available in our paid plans:
+                    %br/
+                    * Add multiple agents
+                    %br/
+                    * No Offerchat branding on your chat widget
+                    %br/
+                    * More exclusive features in every plan
+                  %p.center
+                    %a{ :href => "https://app.offerchat.com/#upgrade", :class => "btn" } Upgrade Now
+                  %p
+                    Drop me an email if you have any questions about upgrading!
+                  %p Best Regards,
+                  %p Vince
+        %td
+    .container.footer
+      %p © 2014 Offerchat. All rights reserved.
+      %p Unit 333, UP CebuInIT, Gorordo Avenue, Lahug, Cebu City, Philippines 6000
