@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.class.name == "User"
-      if resource.trial_days_left == 0 && resource.plan_identifier == "PROTRIAL"
+      if resource.trial_days_left <= 0 && resource.plan_identifier == "PROTRIAL"
         "#upgrade"
       else
         root_url
