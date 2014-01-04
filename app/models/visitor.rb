@@ -7,7 +7,7 @@ class Visitor < ActiveRecord::Base
 
   before_create :generate_token
   before_create :generate_name
-  after_create  :activate_funnel
+  # after_create  :activate_funnel
 
   def generate_token
     self.token = loop do
