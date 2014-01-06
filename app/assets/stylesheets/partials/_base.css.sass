@@ -258,9 +258,11 @@ label
   &.inline
     display: inline-block
   &.bordered-top
-    border-top: 1px solid #e1e1e1
+    border-top: 1px solid $border-color
   &.bordered-bottom
-    border-bottom: 1px solid #e1e1e1
+    border-bottom: 1px solid $border-color
+  &.bordered-top-dashed
+    border-top: 1px dashed $border-color
 
 .alert-block-message
   padding: 10px 0
@@ -771,6 +773,10 @@ a.block-list-item, .block-list-item
   font-size: 12px
   &.full
     display: block
+.plan-sub-total
+  color: #66bdcd
+  font-size: 28px
+  letter-spacing: -0.03em
 .language-selector
   a
     width: 90px
@@ -1147,45 +1153,49 @@ span.dot-seperator
 
   position: relative
 
-.feature-trial
-  display: inline-block
-  border-radius: 10px
-  background-color: #B8DAF5
-  position: relative
-  p
-    color: #485056
-.feature-trial-content
-  padding: 20px
-  text-shadow: 0 1px 0 lighten(#adcfeb, 10%)
-.bookmark-circle
-  margin: 10px
-  position: absolute
-  top: 5px
-  right: 5px
-  width: 10px
-  height: 10px
-  background: #fff
-  border: 3px solid darken(#adcfeb, 10%)
-  border-radius: 50%
-img.badge-30days
-  float: left
-  height: 58px
-  width: 62px
-  padding: 20px 20px 20px 20px
-  margin-bottom: 50px
 
-#reliefPh
-  background: #000
-  padding: 10px 15px
-  color: #fff
+.faq-block
+  padding: 10px
+.package-selector
+  text-align: center
+  margin: 0 0 40px 0
   h3
-    color: #fff
-    font-size: 20px
-    margin-bottom: 10px
-  span.relief-coupon
-    font-weight: bold
-    color: #406AF1
-  .image-ph
-    float: left
-    height: 170px
-    margin-right: 20px
+    border-bottom: 2px solid #dfe8ec
+    display: block
+    font-size: 18px
+    padding: 15px
+  .plan
+    display: inline-block
+    min-width: 350px
+    border: 2px solid #dfe8ec
+    margin: 0 5px
+    color: $text-color
+    border-radius: 5px
+    vertical-align: top
+    position: relative
+    &.active
+      border-color: #6ee0a4
+      .plan-action, h3
+        border-color: #6ee0a4
+    @include transition(.2s)
+  .plan-action
+    border-top: 2px solid #dfe8ec
+    padding: 15px 15px 0 15px
+    font-size: 16px
+  .plan-price
+    font-size: 40px
+    padding: 20px 10px
+    .val
+      font-size: 56px
+      letter-spacing: -0.06em
+      margin: 0 5px 0 0
+      color: #65c3d4
+    .val,.sup
+      color: #65c3d4
+    .sup,
+    .per
+      display: inline-block
+      vertical-align: middle
+      position: relative
+      top: -20px
+      font-size: 20px
