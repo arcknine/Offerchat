@@ -36,7 +36,7 @@
 
       @listenTo sitesView, "childview:set:current:website", (child) =>
         @currentSite = child.model
-        subForm      = (if @subForm then "/#{@subForm}" else "")
+        subForm      = (if @subForm and @subForm != "prechat" then "/#{@subForm}" else "")
         App.navigate "settings/#{@section}/#{@currentSite.get('id')}#{subForm}", trigger: true
 
       @layout.sitesRegion.show sitesView
