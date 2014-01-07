@@ -19,24 +19,6 @@
   %strong Starter
   plan.
   Upgrade your account to add more agents.
-#reliefPh.group
-  = image_tag "philippines.png", :class => "image-ph"
-  %h3
-    What we can do for Typhoon Haiyan victims
-  %p
-    Use coupon code
-    %span.relief-coupon
-      RELIEFPH
-    for every plan upgrade to get a 15% discount.
-    The entire proceeds of your first month will go to relief and rebuiliding operations to the victims of typhoon Haiyan.
-  %p
-    Proceeds will be donated to the
-    %strong
-      Philippine Red Cross
-  %p
-    Let’s do this together. Let’s Help Now!
-    %a{ :href => "https://www.offerchat.com/blog/help-typhoon-victims-and-get-live-chat-lifetime-discount/", :target => "_blank", :style => "margin-left: 5px" }
-      more information
 
 
 .block.large.text-center.pricing-header
