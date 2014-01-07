@@ -22,7 +22,7 @@
           .item
             %h3.disabled.inline
               Tip:
-            %a
+            %a{ :href => "https://www.offerchat.com/support/creating-adding-quick-response/", :target => "_blank" }
               How to create a Quick Response?
 
   .table-data-wrapper
