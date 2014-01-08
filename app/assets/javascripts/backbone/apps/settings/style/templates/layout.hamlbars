@@ -1,7 +1,7 @@
 .block.large
   %h2
-    Style and Color
-  Choose a widget color to match your site's look and feel.
+    Color and Label
+  Add a short widget message and choose a color for your widget.
 
 .block-message#setting-notification{:style => "display: none"}
   %a.close ×
