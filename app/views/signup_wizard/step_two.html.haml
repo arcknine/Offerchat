@@ -1,56 +1,87 @@
-- if Rails.env.production?
-  :javascript
-    _gaq.push(['_trackEvent', 'Join', 'Sign Up']);
-
 .main-content-view.tour-content-view
   .tour-content-inner
 
-    = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+    .block-message{ :style => "display:none;" }
+      %a.close
+        &times;
+      %span
+    .tour-content-inner
       .block
-        %h2 Let's get you started
+        %h2
+          Install widget code
         %p
-          Create your account by entering your display name and your new password
+          Copy and paste the code right before the closing head
+          %strong
+            \&lt;/head&gt;
+          of your website
+        %textarea.large.widget-code-text{:readonly => "readonly"}
+          <!--start of Offerchat js code--><script type='text/javascript'>var ofc_key = '#{@website.api_key}';(function(){  var oc = document.createElement('script'); oc.type = 'text/javascript'; oc.async = true;  oc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'd1cpaygqxflr8n.cloudfront.net/p/js/widget.min.js?r=1';  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(oc, s);}());</script><!--end of Offerchat js code-->
 
-        .form.form-inline
-          %fieldset{:class => (flash[:name].present? ? "field-error" : "")}
-            %label.label-top-fix
-              Full name
-            .input-container
-              = f.text_field :name, :autofocus => true, :class => "large", :maxlength => "50"
-              - if flash[:name].present?
-                .block-text-message
-                  = flash[:name][0]
-          %fieldset{:class => (flash[:display_name].present? ? "field-error" : "")}
-            %label.label-top-fix
-              Display name
-            .input-container
-              = f.text_field :display_name, :class => "large", :maxlength => "32"
-              - if flash[:display_name].present?
-                .block-text-message
-                  = flash[:display_name][0]
-
-          %fieldset{:class => (flash[:password].present? ? "field-error" : "")}
-            %label.label-top-fix
-              New password
-            .input-container
-              = f.password_field :password, :class => "large", :maxlength => "50"
-              - if flash[:password].present?
-                .block-text-message
-                  = flash[:password][0]
-
-      .block.large.bordered-top
-        %button.btn.action{:type => "submit"} Next
-      .block.large
-        .feature-trial.group
-          .bookmark-circle
-          = image_tag "calendar.png", :class => "badge-30days"
-          .feature-trial-content
-            %h2 We'll include a FREE 30-day Premium Trial
-            %p
-              Enjoy Offerchat & its premium features like unlimited agents & reports for 30 days.
-              You can upgrade anytime within the trial or let your account turn back to Basic Free once the trial has ended.
-            %p
-              No need to re-register or pay any fees.
-
-:javascript
-  mixpanel.track("Enter User Information")
+        .preview-code
+          %p
+            \&lt;html&gt;
+          %p
+            \&nbsp;
+            \&lt;head&gt;
+          %p.red
+            \&nbsp; &nbsp;
+            paste your offerchat script here
+          %p
+            \&nbsp;
+            \&lt;/head&gt;
+          %p
+            \&nbsp;
+            \&lt;body&gt;
+            %br
+              \&nbsp; &nbsp;
+              %em //body of your website
+    .block.large.bordered-top.group
+      %a.btn.action.mixpanel-finish{:type => "button", :style => "vertical-align: top", :href => "/#getting_started"}
+        Finish
+      .signup-help-links
+        %p
+          %a.webmaster-code
+            Send this code to your webmaster
+        %p
+          %a.install-guide{ :href => "http://support.offerchat.com/getting-started-with-offerchat-live-chat-widget/", :target => "blank" }
+            Offerchat Install Guide
+    .block.large.bordered-top
+      %h2
+        For plugins, extensions and modules
+      %p
+        Use this api key only when configuring plugins
+      %strong
+        API Key:
+      = @website.api_key
+    .block.large
+      %ul.image-list
+        %li
+          %a{ :href => "https://github.com/Offerchat/ofc_drupal", :target => "_blank" }
+            = image_tag 'icon-drupal.png'
+            %span
+              Drupal
+        %li
+          %a{ :href => "https://github.com/Offerchat/offerchat-joomla", :target => "_blank" }
+            = image_tag 'icon-joomla.png'
+            %span
+              Joomla
+        %li
+          %a{ :href => "https://github.com/Offerchat/offerchat-opencart", :target => "_blank" }
+            = image_tag 'icon-opencart.png'
+            %span
+              Opencart
+        %li
+          %a{ :href => "http://www.prestatoolbox.com/free-modules/265-free-offerchat-prestashop.html", :target => "_blank" }
+            = image_tag 'icon-prestashop.png'
+            %span
+              Prestashop
+        %li
+          %a{ :href => "https://github.com/Offerchat/wordpress", :target => "_blank" }
+            = image_tag 'icon-wordpress.png'
+            %span
+              Wordpress
+        %li
+          %a{ :href => "http://www.savethemage.com/magento-extensions/free-extensions/offerchat-free-live-chat.html", :target => "_blank" }
+            = image_tag 'icon-magento.png'
+            %span
+              Magento

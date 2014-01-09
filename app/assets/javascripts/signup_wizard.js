@@ -11,3 +11,18 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+
+$(document).ready(function(){
+  $(".large.widget-code-text").click(function(){
+    $(this).select();
+    mixpanel.track("Install Widget");
+  });
+  
+  $(".mixpanel-user-info").click(function(){
+    mixpanel.track("Enter User Info");
+  });
+  
+  $(".mixpanel-finish").click(function(){
+    mixpanel.track("Finish Signup");
+  });
+});

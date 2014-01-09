@@ -1,0 +1,22 @@
+.modal-window.modal-get-started
+  .modal
+    .modal-header
+      %h1 Get Started On Your Dashboard
+      Great! You are now up and running. Here are a couple of things you can do:
+    .modal-body.bordered
+      %ul.list.styled
+        %li
+          %a Update Website Settings
+        %li
+          %a Add an Agent
+        %li
+          %a Setup an Offline Form
+        %li
+          %a Change Your Widget Color
+        %li
+          %a Add a Chat Trigger
+    .modal-footer.align-right.bordered
+      %a.remove-msg
+        %span.icon-rounded-countainer
+          %i.icon.icon-x
+        remove this message

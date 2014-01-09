@@ -1,32 +1,33 @@
 .main-content-view.tour-content-view
-  .tour-content-inner
-    .block
-      %h2 Let's get you started
-      %p
-        Create your account by entering email
+  = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+    .tour-content-inner
+      .block
+        %h2 Let's Get You Started
+        %p
+          Create your account by entering your email, name and password.
 
-
-      = form_for(resource, :as => resource_name, url: wizard_path, :method => "put") do |f|
         .form.form-inline
-          %fieldset{:class => (flash[:alert] ? "field-error" : "")}
+          %fieldset{:class => (flash[:email] ? "field-error" : "")}
             %label.label-top-fix
               Email
             .input-container
               = f.email_field :email, :type => "text", :autofocus => true, :class => "large"
-              %button.btn.action{:type => "submit"} Continue
-              .block-text-message
-                = flash[:alert]
-    .block.large
-      .feature-trial.group
-        .bookmark-circle
-        = image_tag "calendar.png", :class => "badge-30days"
-        .feature-trial-content
-          %h2 We'll include a FREE 30-day Premium Trial
-          %p
-            Enjoy Offerchat & its premium features like unlimited agents & reports for 30 days.
-            You can upgrade anytime within the trial or let your account turn back to Basic Free once the trial has ended.
-          %p
-            No need to re-register or pay any fees.
+              .block-text-message= flash[:email][0] if flash[:email].present?
 
-:javascript
-  mixpanel.track("Signup With Email");
+          %fieldset{:class => (flash[:name].present? ? "field-error" : "")}
+            %label.label-top-fix
+              Name
+            .input-container
+              = f.text_field :name, :class => "large", :maxlength => "50"
+              .block-text-message= flash[:name][0] if flash[:name].present?
+
+          %fieldset{:class => (flash[:password].present? ? "field-error" : "")}
+            %label.label-top-fix
+              Password
+            .input-container
+              = f.password_field :password, :class => "large", :maxlength => "50"
+              .block-text-message= flash[:password][0] if flash[:password].present?
+
+    .block.large.bordered-top
+      %button.btn.action.mixpanel-user-info{:type => "submit"} Next
+
