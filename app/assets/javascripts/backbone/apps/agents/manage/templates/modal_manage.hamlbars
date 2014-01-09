@@ -1,0 +1,16 @@
+.form.form-inline.invite-user-form
+  .block
+    .agent-inline-block.full
+      .profile-image-container.large{ :style => 'cursor: default' }
+        .profile-image
+          %img{:src => "{{avatar}}"}
+        %span.status.online
+          %i.icon.icon-check-small
+      {{#unless is_admin}}
+      %a.text-message.error.go-right.remove-agent
+        Remove User
+      {{/unless}}
+      %label.profile-label-name.for-large
+        {{name}}
+
+#new-agent-sites-region

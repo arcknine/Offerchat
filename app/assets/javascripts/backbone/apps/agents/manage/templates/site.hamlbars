@@ -1,0 +1,5 @@
+%label.inline.checkbox
+  %span.icon
+    .icon-check
+  %strong {{name}}
+  %span.url-desc {{url}}
