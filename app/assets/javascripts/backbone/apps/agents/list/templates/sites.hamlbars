@@ -1,4 +1,2 @@
-%li.list-head.small.align-right
-  Agent
-  .checklist-admin
-    Admin
+%li.list-head.small
+  %strong Assign Website

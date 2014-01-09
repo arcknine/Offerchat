@@ -43,12 +43,13 @@
 
   class List.New extends App.Views.ItemView
     template: "agents/list/new"
-    tagName: "fieldset"
+    # tagName: "fieldset"
+    className: "form form-inline invite-user-form"
     events:
       "blur input[name=email]" : "update_email_field"
 
-    initialize: ->
-      console.log @model
+    # initialize: ->
+    #   console.log @model
 
     update_email_field: (e)->
       @model.set
@@ -61,11 +62,11 @@
       sitesRegion: "#new-agent-sites-region"
     form:
       buttons:
-        nosubmit: "Send Invite"
+        nosubmit: "Next →"
         primary: false
         cancel: false
         placement: "right"
-      title: "Invite a user to be an agent"
+      title: "Add a new agent"
 
   class List.ShowLayout extends App.Views.Layout
     template:  "agents/list/new_layout"
@@ -90,9 +91,9 @@
 
     initialize: ->
       @listenTo @, "show", ->
-        console.log @model
+        # console.log @model
         if @model.get('role') is 2
-          console.log $("label.admin")
+          # console.log $("label.admin")
           @$("label.admin").addClass "adminchecked"
           @$("label.agent").addClass "agentchecked"
         else if @model.get('role') is 3
