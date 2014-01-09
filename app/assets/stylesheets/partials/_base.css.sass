@@ -64,6 +64,10 @@ a
     color: $button-bg-warning-color
   &.right
     float: right
+  &.remove-msg
+    color: $text-color
+    vertical-align: middle
+    line-height: 36px
 .list
   li
     margin: 0 0 15px 0
@@ -688,6 +692,24 @@ label
     margin-left: -378px
     .chat-table.chat-container-table
       width: 490px
+  &.modal-get-started
+    top: 20%
+    .modal
+      background-color: #fff
+      border-radius: 10px
+      border: 2px solid $border-color
+      box-shadow: none
+    .modal-header,
+    .modal-footer,
+      padding: 15px 20px
+    .modal-body
+      padding: 20px 35px
+    .modal-footer
+      &.bordered
+        border-top: 2px solid $border-color
+    .modal-body
+      &.bordered
+        border-top: 2px solid $border-color
 .modal
   position: relative
   width: 100%
