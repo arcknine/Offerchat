@@ -31,10 +31,13 @@ p
 
 strong
   font-weight: bold
-small
+small,
+.small
   font-size: 12px
   &.disabled
     color: $light-text-color
+.disabled
+  color: $light-text-color
 a
   color: $link-color
   text-decoration: none
@@ -189,11 +192,12 @@ a.agent-selection-item
   background-repeat: no-repeat
 h1
   font-size: 30px
-
 h2
   font-size: 18px
   &.sub
     color: $light-text-color
+h1,h2
+  letter-spacing: -.03em
 h1,h2,h3,h4
   font-weight: 700
   color: darken($text-color, 20%)
@@ -283,6 +287,7 @@ label
   width: 400px
   box-shadow: 0 1px 10px rgba(0,0,0,.3)
 .block-message
+  color: #797656
   a.close
     float: right
     font-size: 20px
@@ -791,89 +796,17 @@ a.block-list-item, .block-list-item
     &.selected
       border-color: $default-border-color
 .plan-faq-list
+  margin: 20px 0
   li
     display: inline-block
-    padding: 10px
     width: 30.333%
     float: left
-    text-align: left
+    margin-right: 20px
     margin-bottom: 20px
+
   h3
-    margin: 0 0 10px
-.plans
-  .plan-features
-    margin-top: 15px
-    font-size: 12px
-    li
-      padding: 10px
-  .plan-grid
-    display: inline-block
-    margin: 0 20px 20px 0
-  .plan
-    width: 220px
-    border-radius: 10px
-    box-sizing: border-box
-    -moz-box-sizing: border-box
-    vertical-align: top
-    min-height: 295px
-    overflow: hidden
-    text-align: center
-    background-color: #f1f1f1
-    position: relative
-
-    small
-      font-size: 12px
-      color: #999
-    &.plan-regular
-
-    &.plan-best
-      width: 260px
-      min-height: 310px
-
-      h2
-        font-size: 28px
-
-    h2
-      padding: 7px
-      color: #fff
-      background-color: $sidebar-color
-      margin-bottom: 20px
-
-    .plan-description
-      font-size: 12px
-      font-weight: normal
-    .plan-action
-      height: 45px
-      padding-top: 15px
-
-  .plan-price
-    .sign
-      position: relative
-      top: 3px
-      font-size: 24px
-      vertical-align: top
-
-  .plan-value
-    font-size: 38px
-    letter-spacing: -1px
-    display: block
-    line-height: 1
-    margin-top: 10px
-
-  .small
-    font-size: 12px
-  .agent-count
     font-weight: 700
-    font-size: 16px
-.features-icon-list
-  li
-    display: inline-block
-    margin: 0 30px 20px 30px
-    text-align: center
-    & > span
-      font-size: 12px
-      display: block
-      margin-top: 10px
+    margin: 0 0 10px
 
 
 .login-wrapper
@@ -1181,7 +1114,7 @@ span.dot-seperator
   .plan-action
     border-top: 2px solid #dfe8ec
     padding: 15px 15px 0 15px
-    font-size: 16px
+    
   .plan-price
     font-size: 40px
     padding: 20px 10px
