@@ -7,10 +7,11 @@ class SubscriptionsController < ApplicationController
 
     plan       = params[:plan_id]
     card_token = params[:card_token]
-    agents     = params[:agents]
+    # agents     = params[:agents]s
     coupon     = params[:coupon]
+    qty        = params[:qty]
 
-    stripe = CreateStripeCustomerService.new(@user, plan, card_token, coupon)
+    stripe = CreateStripeCustomerService.new(@user, plan, card_token, coupon, qty)
     if @user.stripe_customer_token.blank?
       stripe.create
     else
@@ -18,9 +19,9 @@ class SubscriptionsController < ApplicationController
       stripe.upgrade
     end
 
-    unless agents.blank?
-      agent_list = UnassignAgentsService.new(agents, @user)
-      agent_list.unassign
-    end
+    # unless agents.blank?
+    #   agent_list = UnassignAgentsService.new(agents, @user)
+    #   agent_list.unassign
+    # end
   end
 end

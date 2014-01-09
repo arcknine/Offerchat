@@ -1,0 +1,138 @@
+.block-message.hide
+  /You have 18 days left in your trial. Enter your payment information to keep your plan.
+
+.block.large.bordered-bottom.section-current-plan
+  %h1
+    Your current plan:
+    %a
+      {{profile.plan_identifier}}
+
+  .block.agents-info
+    %span.agent-count
+    agent(s)
+    %a.view-all-agents (view all)
+
+  .block.bordered-top-dashed.group
+    .go-right
+      .plan-sub-total
+        $
+        %span.price-plan
+          34.00
+    %strong
+      Monthly sub-total
+    %div
+      %small.disabled
+        Changes to your subscription will be reflected on you next billing statement.
+
+.block.large.section-pricing
+  .pricing-container
+    %h1
+      Choose Your Plan
+    %p
+      Monthly Pricing, No Hidden Fees, Cancel Anytime
+
+    .block.large
+      .form.form-inline
+        %fieldset
+          .package-selector.group
+            .basic.plan.basic-plan
+              %h3
+                {{basic.name}}
+              .plan-price
+                %span.sup
+                  $
+                %span.val
+                  {{basic.price}}
+                %span.per
+                  \/ agent
+              %ul.list
+                %li
+                  1 Website
+                  /.tooltip
+                  /  .caret
+                  /  You can only add 1 website to your account
+                %li
+                  Unlimited Chats
+                %li
+                  Quick Responses
+                %li
+                  Visitor Notes
+                %li
+                  %strike.disabled
+                    Chat Triggers
+                %li
+                  %strike.disabled
+                    Agent Analytics
+                %li
+                  %strike.disabled
+                    Chat History
+                %li
+                  %strike.disabled
+                    Unbranded Widget
+                %li.plan-action
+                  %a.btn.action.btn-full{ id: "{{basic.plan_identifier}}" }
+                    Choose Plan
+
+            .pro.plan.pro-plan
+              %h3
+                {{pro.name}}
+              .plan-price
+                %span.sup
+                  $
+                %span.val
+                  {{pro.price}}
+                %span.per
+                  \/ agent
+              %ul.list
+                %li
+                  Unlimited Websites
+                %li
+                  Unlimited Chats
+                %li
+                  Quick Responses
+                %li
+                  Visitor Notes
+                %li
+                  Chat Triggers
+                %li
+                  Agent Analytics
+                %li
+                  Chat History
+                %li
+                  Unbranded Widget
+                %li.plan-action
+                  %a.btn.action.btn-full{ id: "{{pro.plan_identifier}}" }
+                    Choose Plan
+
+    .group
+      .block-large
+        %h2
+          Frequently Asked Questions
+        .plan-faq-list.group
+          %ul
+            %li
+              %h3
+                Do I have to go through free trial?
+              %p
+                We strongly suggest to go through the 30 day free trial so you can understand the features of the tool and later decide to upgrade depending on your needs.
+            %li
+              %h3
+                What happens after the 30 day free trial?
+              %p
+                Once the 30 days full featured trial is over, we will then prompt you to enter your credit card to continue using Offerchat.
+            %li
+              %h3
+                What modes of payment do you accept?
+              %p
+                Currently we accept all major credit cards - Visa, Mastercard, American Express. Paypal is not included.
+            .group
+            %li
+              %h3
+                Do you have lock-in contracts?
+              %p
+                No, our billing system offers flexibility. Changes made to your plan / agents will automatically reflect on your billing.
+            %li
+              %h3
+                Can I remove agents anytime?
+              %p
+                Once the 30 days full featured trial is over, we will then prompt you to enter your credit card to continue using Offerchat.
