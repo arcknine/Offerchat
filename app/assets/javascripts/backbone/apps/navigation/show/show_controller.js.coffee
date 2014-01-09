@@ -57,7 +57,8 @@
           navView.closeDropDown()
 
         @listenTo navView, "upgrade:menu:clicked", (child) ->
-          App.navigate Routes.plans_path(), trigger: true
+          # App.navigate Routes.plans_path(), trigger: true
+          App.navigate "upgrade", trigger: true
 
         @listenTo navView, "show", ->
           @initPreLoader()

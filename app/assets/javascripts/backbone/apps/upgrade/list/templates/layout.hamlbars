@@ -4,7 +4,7 @@
 .block.large.bordered-bottom.section-current-plan
   %h1
     Your current plan:
-    %a
+    %a.plan-name
       {{profile.plan_identifier}}
 
   .block.agents-info
