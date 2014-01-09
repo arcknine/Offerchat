@@ -21,6 +21,7 @@
 
           @listenTo @layout, "show", =>
             @activeCurrentPlan(current_plan)
+            @informTrialPeriod()
 
           @listenTo @layout, "change:plan", (e) =>
             @showModal(e, agents)
@@ -33,15 +34,27 @@
 
           App.mainRegion.show @layout
 
+    informTrialPeriod: =>
+      current_plan = @profile.get('plan_identifier')
+      if current_plan is "PROTRIAL"
+        days_left = @profile.get('trial_days_left')
+        if days_left > 0
+          notice = "You have #{days_left} days left in your trial. Select one of our plans below to continue using our service."
+          $(".block-message").removeClass("hide").html(notice)
+
     setAgentCount: (all_agents, all_plans) =>
       current_plan = @profile.get("plan_identifier")
 
       cplan = all_plans.findWhere plan_identifier: current_plan
       plan_price = cplan.get("price")
-      plan_price = 0 if current_plan is "TRIAL"
+      plan_price = 0 if current_plan is "PROTRIAL"
 
       if all_agents.length > 0
         res = all_agents.length * plan_price
+
+        # get plan price if not pro or basic
+        res = plan_price if current_plan isnt "PROTRIAL" and current_plan isnt "PRO" and current_plan isnt "BASIC"
+
         $(".agent-count").html(all_agents.length)
         $(".price-plan").html(res.toFixed(2))
       else
@@ -49,10 +62,13 @@
 
     activeCurrentPlan: (current_plan) =>
       current_plan_html = "<span class='icon-round-check'><i class='icon icon-check-large'></i></span>This is your current plan"
-      if current_plan is "PRO" or current_plan is "TRIAL" or current_plan is "ENTERPRISE"
+      if current_plan is "PRO" or current_plan is "PROTRIAL"
         elem = $(".pro-plan")
       else if current_plan is "BASIC"
         elem = $(".basic-plan")
+      else
+        notice = "Your current plan is part of our legacy pricing model. Once you upgrade to our <strong>Basic / Pro plan</strong> you cannot undo this."
+        $(".block-message").removeClass("hide").html(notice)
 
       if elem
         elem.addClass("active")

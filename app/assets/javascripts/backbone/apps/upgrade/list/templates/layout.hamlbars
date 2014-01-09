@@ -1,5 +1,5 @@
-.block-message
-  You have 18 days left in your trial. Enter your payment information to keep your plan.
+.block-message.hide
+  /You have 18 days left in your trial. Enter your payment information to keep your plan.
 
 .block.large.bordered-bottom.section-current-plan
   %h1
