@@ -35,7 +35,7 @@
             currentSite: show.currentSite
 
       chatForms: (id) ->
-        show = API.show(id, 'chat-forms')
+        show = API.show(id, 'chat-forms', 'offline')
         show.listenTo show.layout, "show", =>
           new SettingsApp.ChatForms.Controller
             region: show.layout.settingsRegion
