@@ -174,6 +174,18 @@
     template:  "chats/show/visitor_note"
     className: "chat-item group"
 
+    triggers:
+      "click a.delete-note" : "click:delete:note"
+
+  class Show.VisitorNoteConfirm extends App.Views.ItemView
+    template: "chats/show/visitor_notes_confirm"
+    className: "modal-backdrop"
+
+    triggers:
+      "click button.confirm-delete"  : "click:confirm:delete"
+      "click button.cancel-delete"  : "click:cancel:delete"
+      "click a.close" : "click:cancel:delete"
+
   class Show.VisitorNotes extends App.Views.CompositeView
     template:  "chats/show/visitor_notes_list"
     itemView: Show.VisitorNote

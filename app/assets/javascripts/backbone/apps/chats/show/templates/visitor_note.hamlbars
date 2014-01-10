@@ -3,6 +3,10 @@
     .profile-image
       %img{ :alt => "Avatar-large", :src => "{{avatar}}" }
 .note
-  .note-author {{user_name}}
+  .note-author
+    {{user_name}}
+
+    %a.small.warning.delete-note remove
+
   {{message}}
   .date {{created_at}}

@@ -1,0 +1,24 @@
+.modal-window
+  .modal
+    .modal-header
+      %a.close &times;
+      %h2 Are you sure you want to delete this note?
+
+    .modal-body.bordered
+      .notes-section
+        .block.group
+          .agent-inline-block
+            .profile-image-container
+              .profile-image
+                %img{ :src => "{{avatar}}", :alt => "Avatar-large" }
+
+          .note
+            .note-author {{user_name}}
+
+            {{message}}
+
+            .date {{created_at}}
+
+    .modal-footer.bordered.align-right
+      %button.btn.cancel-delete Cancel
+      %button.btn.warning.confirm-delete Delete

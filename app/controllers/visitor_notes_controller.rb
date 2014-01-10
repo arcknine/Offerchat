@@ -9,4 +9,12 @@ class VisitorNotesController < ApplicationController
       respond_with @visitor_notes
     end
   end
+
+  def destroy
+    @visitor_notes = Note.find_by_id(params[:id])
+    if @visitor_notes.destroy
+      head :no_content
+    end
+  end
+
 end
