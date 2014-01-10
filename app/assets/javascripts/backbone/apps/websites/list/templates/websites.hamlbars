@@ -1,7 +1,7 @@
 .block.large
   %a.btn.action.go-right#new-website New website
   %h2 Websites
-  
+
   All your websites with the Offerchat widget
 
 .block-message{ :style => "display:none;" }

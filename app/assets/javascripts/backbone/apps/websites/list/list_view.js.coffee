@@ -9,8 +9,6 @@
       "click button.trash-btn"  : "click:delete:website"
       "click a.block-list-item" : "click:edit:website"
 
-
-
   class List.Websites extends App.Views.CompositeView
     template: "websites/list/websites"
     itemView: List.Website

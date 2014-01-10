@@ -3,15 +3,23 @@
   class Show.Controller extends App.Controllers.Base
 
     initialize: (options = {}) ->
-      { id, @section, @subForm } = options
-      sites    = App.request "manage:sites:entities"
-      @layout  = @getLayoutView()
+      @profile = App.request "get:current:profile"
 
-      unless App.myWebsites
-        App.execute "when:fetched", sites, =>
-          @loadShow sites, id
-      else
-        @loadShow sites, id
+      App.execute "when:fetched", @profile, =>
+        plan = @profile.get("plan_identifier")
+        if plan is null or plan is ""
+          App.navigate "/"
+        else
+
+          { id, @section, @subForm } = options
+          sites    = App.request "manage:sites:entities"
+          @layout  = @getLayoutView()
+
+          unless App.myWebsites
+            App.execute "when:fetched", sites, =>
+              @loadShow sites, id
+          else
+            @loadShow sites, id
 
     loadShow: (sites, id) ->
       @currentSite = sites.get(id) or sites.first()
