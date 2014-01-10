@@ -85,25 +85,41 @@
 
       # change caps of the plan name
       plan_elem = $(".plan-name")
-      plan = $.trim(plan_elem.html().toLowerCase())
-      plan_converted = plan.charAt(0).toUpperCase() + plan.slice(1)
-      plan_elem.html(plan_converted)
+      plan_name = @normalizeString(plan_elem.html())
+      plan_elem.html(plan_name)
+
+
+    normalizeString: (str) =>
+      res = $.trim(str.toLowerCase())
+      res = res.charAt(0).toUpperCase() + res.slice(1)
+      res
 
     showModal: (elem, agents) =>
-      target_plan = $(elem.currentTarget).attr("id")
-      modal = @getModalView target_plan
+      target_plan = $(elem.currentTarget)
+      target_id = target_plan.attr("id")
+      target_price = target_plan.data("price")
+
+      agents_qty = agents.length
+
+      modal = @getModalView target_id, target_price, agents_qty
 
       formView  = App.request "modal:wrapper", modal
+
+      @listenTo formView, "show", =>
+        res = target_price * agents_qty
+        $(".monthly-due").html(res.toFixed(2))
+
+        plan_name = @normalizeString target_id
+        $(".plan-name-in-modal").html(plan_name)
+
 
       @listenTo formView, "modal:cancel", (item) ->
         formView.close()
 
         # track upgrade cancellation
-        mixpanel.track("Cancel #{target_plan} Plan")
+        mixpanel.track("Cancel #{target_id} Plan")
 
       @listenTo modal, "authorize:payment", (e) =>
-
-        agents_qty = agents.length
 
         mixpanel.track("Authorizing Payment")
 
@@ -125,15 +141,15 @@
               if status == 200
 
                 $.post "/subscriptions",
-                  plan_id: target_plan
+                  plan_id: target_id
                   card_token: response.id
                   coupon: coupon_code unless coupon_code is ""
                   qty: agents_qty
                   # agents: agent_params unless agents is null
                 , (data) =>
-                  @profile.set { plan_identifier: target_plan }
+                  @profile.set { plan_identifier: target_id }
 
-                  @activeCurrentPlan(target_plan)
+                  @activeCurrentPlan(target_id)
                   @setAgentCount(agents, @plans)
 
                   App.reqres.setHandler "get:current:user", =>
@@ -141,7 +157,7 @@
 
                   @paymentSuccess()
               else
-                @paymentFail(target_plan)
+                @paymentFail(target_id)
 
             Stripe.createToken(card, handleStripeResponse)
 
@@ -194,10 +210,11 @@
         model: @profile
         plans: plans
 
-    getModalView: (plan) ->
+    getModalView: (plan, price, qty) ->
       new List.ModalPlan
         model: @profile
         plan: plan
+        qty: qty
 
     getProcessPaymentModal: ->
       new List.ModalProcessPayment

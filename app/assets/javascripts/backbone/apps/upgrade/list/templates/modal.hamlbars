@@ -33,6 +33,20 @@
     %input{ :type => "text", :name => "coupon", :style => "width: 100px;" }
     .block-text-message.hide Your Coupon code is invalid
 
+.block.well.large.group
+  .go-right.align-right{ :style => "vertical: top" }
+    %h4.disabled
+      Monthly total
+    %h2
+      $
+      %span.monthly-due
+
+  %span.plan-name-in-modal
+  Plan
+
+  %h3
+    x {{qty}} agents
+
 %fieldset
   .terms-text
     Please read the <a>terms and conditions</a> before proceeding

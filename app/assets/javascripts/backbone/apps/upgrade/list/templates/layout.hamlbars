@@ -70,7 +70,7 @@
                   %strike.disabled
                     Unbranded Widget
                 %li.plan-action
-                  %a.btn.action.btn-full{ id: "{{basic.plan_identifier}}" }
+                  %a.btn.action.btn-full{ id: "{{basic.plan_identifier}}", data: { price: "{{basic.price}}" } }
                     Choose Plan
 
             .pro.plan.pro-plan
@@ -101,7 +101,7 @@
                 %li
                   Unbranded Widget
                 %li.plan-action
-                  %a.btn.action.btn-full{ id: "{{pro.plan_identifier}}" }
+                  %a.btn.action.btn-full{ id: "{{pro.plan_identifier}}", data: { price: "{{pro.price}}" } }
                     Choose Plan
 
     .group
