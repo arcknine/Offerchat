@@ -15,6 +15,25 @@
       @layout      = @getLayout()
       @unreadMsgs  = App.request "unread:messages:entities"
 
+      agents = App.request "agents:entities", false
+
+      App.execute "when:fetched", agents, =>
+        App.reqres.setHandler "is:current:user:agent", (website_id) =>
+
+          if website_id
+            this_agent = agents.findWhere id: @currentUser.get("id")
+            @agent_websites = this_agent.get("websites")
+
+            is_agent = true
+            @agent_websites.map( (item) ->
+              if item.id is website_id
+                is_agent = if item.role isnt 1 then true else false
+            )
+
+            is_agent
+          else
+            true
+
       App.commands.setHandler "add:is:typing", (vname) =>
         isTyping = @getTypingView vname
         $('#chats-collection').append(isTyping.render().$el)

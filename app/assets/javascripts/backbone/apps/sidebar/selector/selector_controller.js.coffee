@@ -8,6 +8,15 @@
       @unreadMsgs  = App.request "unread:messages:entities"
       @layout      = @getLayoutView()
 
+      @currentUser = App.request "get:current:user"
+
+      @listenTo @layout, "all", (ev) =>
+        if ev is "render" or ev is "show"
+          plan = @currentUser.get("plan_identifier")
+          if plan is null or plan is ""
+            $(".new-website-link").remove()
+
+
       App.execute "when:fetched", sites, =>
         @currentSite.set { all: true, name: "All websites" }
 
@@ -58,8 +67,12 @@
         # $(item.view.el).find(".site-selector > span").html("All websites")
 
       @listenTo @layout, "selector:new:website", (item) =>
-        @toggleSiteSelector item.view
-        App.navigate Routes.new_website_path(), trigger: true
+        plan = @currentUser.get("plan_identifier")
+        if plan is null or plan is ""
+          alert "You are not allowed to create new websites."
+        else
+          @toggleSiteSelector item.view
+          App.navigate Routes.new_website_path(), trigger: true
 
     getLayoutView: ->
       new Selector.Layout
