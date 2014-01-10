@@ -13,7 +13,7 @@
       @listenTo @layout, "all", (ev) =>
         if ev is "render" or ev is "show"
           plan = @currentUser.get("plan_identifier")
-          if plan is null or plan is ""
+          if plan is null or plan is "" or plan is "PROTRIAL"
             $(".new-website-link").remove()
 
 
@@ -68,7 +68,7 @@
 
       @listenTo @layout, "selector:new:website", (item) =>
         plan = @currentUser.get("plan_identifier")
-        if plan is null or plan is ""
+        if plan is null or plan is "" or plan is "PROTRIAL"
           alert "You are not allowed to create new websites."
         else
           @toggleSiteSelector item.view
