@@ -15,24 +15,25 @@
         %a
           Responses
 
-      / %li.reports-menu-link
-      /   %a
-      /     Reports
-
+      {{#if is_pro_acct}}
+      %li.reports-menu-link
+        %a
+          Reports
       %li.history-menu-link
         %a
           History
+      {{/if}}
 
       %li.profile-status
         %a
           .profile-image-container
             .profile-image
-              %img{src: '{{avatar}}'}
-            %span.status{class: "{{status}}"}
+              %img{src: '{{profile.avatar}}'}
+            %span.status{class: "{{profile.status}}"}
               %i.icon.icon-check-small
         %ul.settings-dropdown
 
-          {{#if plan_identifier}}
+          {{#if profile.plan_identifier}}
           %li
             %a#settings-menu-link
               Settings
@@ -60,9 +61,9 @@
               Signout
           .caret.caret-top.caret-pull-right
 
-    {{#if plan_identifier}}
+    {{#if profile.plan_identifier}}
     .upgrade-header-section
-      {{#if trial}}
+      {{#if profile.trial}}
       #premium-trial.tag-small
         .tooltip.tooltip-large{ :style => "left: -10px" }
           .caret.caret-top.caret-pull-left
@@ -73,7 +74,7 @@
         %a.icon-help
           %span ?
         %strong Premium Trial:
-        {{trial_days_left}} days left
+        {{profile.trial_days_left}} days left
       {{/if}}
       %a.add-more-btn.btn Upgrade
     {{/if}}
