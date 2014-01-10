@@ -1,4 +1,4 @@
-%label.inline.checkbox
+%label.inline.checkbox{ class: "{{agentChecked}}", data: { website: "{{id}}", role: "3" } }
   %span.icon
     .icon-check
   %strong {{name}}

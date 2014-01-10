@@ -32,7 +32,7 @@
       sitesRegion: "#new-agent-sites-region"
     form:
       buttons:
-        nosubmit: "Next →"
+        nosubmit: (if ["PRO", "BASIC", "PRO-TRIAL"].indexOf(gon.current_user.plan_identifier) is -1 then "Invite Agent" else "Next →")
         primary: false
         cancel: false
         placement: "right"
@@ -54,6 +54,22 @@
     template:  "agents/manage/site"
     tagName:   "li"
     className: "group"
+    modelEvents:
+      "updated" : "render"
+    events:
+      "click label.inline.checkbox" : "toggleCheckbox"
+
+    toggleCheckbox: (e) ->
+      checkbox = $(e.currentTarget)
+
+      if checkbox.hasClass("checked")
+        checkbox.removeClass("checked")
+        role = 0
+      else
+        checkbox.addClass("checked")
+        role = 3
+
+      @trigger "modal:check:site", { id: checkbox.data("website"), role: role }
 
   class Manage.Sites extends App.Views.CompositeView
     template:  "agents/manage/sites"

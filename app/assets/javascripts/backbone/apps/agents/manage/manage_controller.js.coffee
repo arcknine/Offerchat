@@ -4,7 +4,7 @@
 
     initialize: ->
       @layout       = @getLayoutView()
-      @currentUser  = App.request "set:current:user", App.request "get:current:user:json"
+      @current_user = App.request "set:current:user", App.request "get:current:user:json"
       @agents       = App.request "agents:only:entities"
       @websites     = App.request "owned:sites:entities"
       online_agents = App.request "get:online:agents"
@@ -32,16 +32,27 @@
     showAgents: ->
       agentsView = @getAgentsView()
 
-      @listenTo agentsView, "new:agent:clicked", (item) ->
+      @listenTo agentsView, "new:agent:clicked", (item) =>
+        console.log @websites
         agent        = App.request "new:agent:entity"
         addAgentView = @getAddAgentLayout agent
-        modalSites   = @getModalSites()
+        modalSites   = @getModalSites @websites
         modalLayout  = App.request "modal:wrapper", addAgentView
 
         App.modalRegion.show modalLayout
         addAgentView.sitesRegion.show modalSites
 
+        @listenTo modalSites, "childview:modal:check:site", (obj, result) =>
+          console.log result
+          # $.each agent_sites, (index, site) =>
+          #   if site.id is result.id
+          #     site.role = result.role
+
         @listenTo modalLayout, "modal:cancel", (item)->
+          modalLayout.close()
+
+        @listenTo modalLayout, "modal:unsubmit", (ob)->
+          console.log ob
           modalLayout.close()
 
       @listenTo agentsView, "show:owner:modal", (item) ->
@@ -54,23 +65,39 @@
         @listenTo modalLayout, "modal:cancel", (item)->
           modalLayout.close()
 
-      @listenTo agentsView, "childview:agent:selection:clicked", (item) ->
-        console.log item.model
+        @listenTo modalLayout, "modal:unsubmit", (ob)->
+          modalLayout.close()
+
+      @listenTo agentsView, "childview:agent:selection:clicked", (item) =>
+        agent_sites = item.model.get("websites")
+
+        $.each agent_sites, (index, site) =>
+          website = @websites.findWhere { id: site.id }
+          unless site.role is 0
+            website.set "agentChecked", "checked"
+          else
+            website.set "agentChecked", ""
+
         manageAgentView = @getManageAgentLayout item.model
-        modalSites   = @getModalSites()
-        modalLayout  = App.request "modal:wrapper", manageAgentView
+        modalSites      = @getModalSites @websites
+        modalLayout     = App.request "modal:wrapper", manageAgentView
 
         App.modalRegion.show modalLayout
         manageAgentView.sitesRegion.show modalSites
+
+        @listenTo modalSites, "childview:modal:check:site", (obj, result) =>
+          $.each agent_sites, (index, site) =>
+            if site.id is result.id
+              site.role = result.role
 
         @listenTo modalLayout, "modal:cancel", (item)->
           modalLayout.close()
 
       @layout.agentsRegion.show agentsView
 
-    getModalSites: ->
+    getModalSites: (website) ->
       new Manage.Sites
-        collection: @websites
+        collection: website
 
     getManageAgentLayout: (model) ->
       new Manage.UpdateLayout
@@ -85,5 +112,5 @@
 
     getAgentsView: ->
       new Manage.Agents
-        model:      @currentUser
+        model:      @current_user
         collection: @agents
