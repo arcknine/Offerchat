@@ -8,7 +8,7 @@
       App.execute "when:fetched", @profile, =>
         plan = @profile.get("plan_identifier")
         if plan is null or plan is ""
-          App.navigate "/"
+          App.navigate "/", trigger: true
         else
 
           @manageSites   = App.request "manage:sites:entities"
@@ -19,14 +19,14 @@
 
           sitesView = @getWebsitesView @sites
 
-          @listenTo sitesView, "show", =>
-            if plan is "PROTRIAL"
-              $("a#new-website").remove()
-
           App.mainRegion.show sitesView
 
           @listenTo sitesView, "click:new:website", =>
-             App.navigate Routes.new_website_path(), trigger: true
+            if plan is "PROTRIAL" or plan is "BASIC"
+              alert "You need to upgrade to PRO plan to be able to add new website."
+              App.navigate "upgrade", trigger: true
+            else
+              App.navigate Routes.new_website_path(), trigger: true
 
           @listenTo sitesView, "childview:click:delete:website", @deleteSite
 

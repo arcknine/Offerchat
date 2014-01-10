@@ -5,6 +5,8 @@
     initialize: ->
       @layout = @getLayoutView()
 
+      App.request "show:preloader"
+
       @listenTo @layout, "show", =>
         App.execute "set:window:height"
 
@@ -12,6 +14,8 @@
           App.execute "set:window:height"
 
         @showQuickResponses()
+
+        App.request "hide:preloader"
 
       @qrs = App.request "get:qrs"
       App.execute "when:fetched", @qrs, =>
