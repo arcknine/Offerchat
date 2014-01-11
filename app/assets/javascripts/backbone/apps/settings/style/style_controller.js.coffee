@@ -86,7 +86,7 @@
         user:  @currentUser
         checked: if website.get("settings").footer.enabled then "" else "checked"
         classname: if website.get("settings").footer.enabled then "" else "widget-premium"
-        paid: if ["FREE", "BASIC"].indexOf(@currentUser.get("plan_identifier")) is -1 then true else false
+        paid: if ["FREE", "BASIC", "PROTRIAL"].indexOf(@currentUser.get("plan_identifier")) is -1 then true else false
 
     changeColor: (e) ->
       $("#controlColorContent a").removeClass("active")
