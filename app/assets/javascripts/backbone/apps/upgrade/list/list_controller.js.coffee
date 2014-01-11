@@ -162,6 +162,10 @@
                   App.reqres.setHandler "get:current:user", =>
                     @profile
 
+                  App.execute "plan:changed", target_id
+
+
+
                   @paymentSuccess()
               else
                 @paymentFail(target_id)
