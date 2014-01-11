@@ -74,7 +74,13 @@
       footer: false
       buttons:
         nosubmit: true
-    triggers:
-      "click .back-to-checkout" : "back:to:checkout"
+
+    events:
+      "click a.back-to-checkout" : "backToCheckout"
+
     backToCheckout: (e) ->
       @trigger "back:to:checkout", e
+
+    serializeData: ->
+      plan: @options.plan
+      price: @options.price
