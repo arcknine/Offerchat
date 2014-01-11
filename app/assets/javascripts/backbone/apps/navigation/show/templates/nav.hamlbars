@@ -78,8 +78,11 @@
               More information
         %a.icon-help
           %span ?
-        %strong Pro Trial:
+        %strong Premium Trial
+        {{#if trial_days_valid}}
         {{profile.trial_days_left}} days left
+        {{/if}}
+
       {{/if}}
 
       {{#if profile.protrial}}
@@ -89,8 +92,10 @@
           You're in a Pro Trial by default as a special gift for signing up. Add unlimited agents plus other perks for FREE! Enjoy it for 30 days then upgrade to continue using Offerchat.
         %a.icon-help
           %span ?
-        %strong Pro Trial:
+        %strong Pro Trial
+        {{#if trial_days_valid}}
         {{profile.trial_days_left}} days left
+        {{/if}}
       {{/if}}
 
       {{#if profile.protrial}}

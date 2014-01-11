@@ -45,3 +45,4 @@
       profile: @options.model.toJSON()
       is_pro_acct: if ["PRO", "PROTRIAL"].indexOf(@options.model.get("plan_identifier")) is -1 then false else true
       not_basic: @options.model.get("plan_identifier") isnt "BASIC"
+      trial_days_valid: @options.model.get("trial_days_left") >= 0
