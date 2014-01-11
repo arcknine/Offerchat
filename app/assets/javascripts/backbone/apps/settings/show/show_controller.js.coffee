@@ -3,38 +3,39 @@
   class Show.Controller extends App.Controllers.Base
 
     initialize: (options = {}) ->
+      { id, @section, @subForm } = options
+
       @profile = App.request "get:current:profile"
 
-      App.execute "when:fetched", @profile, =>
-        plan = @profile.get("plan_identifier")
-        if plan is null or plan is ""
-          App.navigate "/"
-        else
+      sites    = App.request "manage:sites:entities"
+      @layout  = @getLayoutView()
 
-          { id, @section, @subForm } = options
-          sites    = App.request "manage:sites:entities"
-          @layout  = @getLayoutView()
+      unless App.myWebsites
+        App.execute "when:fetched", sites, =>
+          @loadShow sites, id
+      else
+        @loadShow sites, id
 
-          unless App.myWebsites
-            App.execute "when:fetched", sites, =>
-              @loadShow sites, id
-          else
-            @loadShow sites, id
+    loadShow: (sites, id) =>
 
-    loadShow: (sites, id) ->
-      @currentSite = sites.get(id) or sites.first()
+      plan = @profile.get("plan_identifier")
+      if plan is null or plan is ""
+        App.navigate "/", trigger: true
+      else
 
-      App.navigate "settings/style/#{@currentSite.get("id")}", trigger: true unless id
+        @currentSite = sites.get(id) or sites.first()
 
-      @listenTo @layout, "show", =>
-        @sitesView sites, id
+        App.navigate "settings/style/#{@currentSite.get("id")}", trigger: true unless id
 
-      @show @layout
+        @listenTo @layout, "show", =>
+          @sitesView sites, id
 
-      @listenTo @layout, "navigate:settings", (section) =>
-        App.navigate "settings/#{section}/#{@currentSite.get('id')}", trigger: true
+        @show @layout
 
-      $(@layout.el).find("a[data-section='#{@section}']").addClass("selected")
+        @listenTo @layout, "navigate:settings", (section) =>
+          App.navigate "settings/#{section}/#{@currentSite.get('id')}", trigger: true
+
+        $(@layout.el).find("a[data-section='#{@section}']").addClass("selected")
 
 
     sitesView: (sites, id) ->
