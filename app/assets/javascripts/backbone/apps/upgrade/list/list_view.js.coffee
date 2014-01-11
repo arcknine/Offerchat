@@ -68,7 +68,7 @@
 
   class List.ModalPaymentFail extends App.Views.ItemView
     template: "upgrade/list/payment_fail"
-    className: "authorize-payment-overlay text-center"
+    className: "block large text-center"
     form:
       title: "Payment Failed"
       footer: false
@@ -84,3 +84,4 @@
     serializeData: ->
       plan: @options.plan
       price: @options.price
+      error: @options.error
