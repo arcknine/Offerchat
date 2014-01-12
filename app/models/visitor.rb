@@ -25,7 +25,7 @@ class Visitor < ActiveRecord::Base
   end
 
   def activate_funnel
-    if website.visitors.count >= 1
+    if website.visitors.count < 1
       MIXPANEL.track "Install Widget", { :distinct_id => website.owner.email }
       vero.events.track!({ :event_name => "Install Widget", :identity => { :email => website.owner.email } })
       vero.users.edit_user!({ :email => website.owner.email, :changes => { :widget_installed => true } })
