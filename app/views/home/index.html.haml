@@ -7,8 +7,9 @@
         %a{ :href => "#upgrade" } Choose a plan now.
 
   - if !current_user.widget_installed
-    .global-notification.show
+    .global-notification.show.no-widget
       .notice
+        %a.close{ :onClick => "$('.no-widget').fadeOut();" } &times;
         Oops, looks like your chat widget is not yet installed, you can get the code
         %a{ :href => "#websites" }
           here
