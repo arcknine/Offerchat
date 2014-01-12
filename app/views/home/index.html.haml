@@ -5,6 +5,14 @@
       .alert
         Your PRO Trial has just expired. Upgrade your account to continue using Offerchat.
         %a{ :href => "#upgrade" } Choose a plan now.
+
+  - if !current_user.widget_installed
+    .global-notification.open
+      .alert
+        Oops, looks like your chat widget is not yet installed, you can get the code
+        %a{ :href => "#websites" }
+          here
+
   .content-container
     #site-selector-region
     #chat-sidebar-region.chats-sidebar-container
