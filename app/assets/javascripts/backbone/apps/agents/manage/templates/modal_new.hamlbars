@@ -3,7 +3,7 @@
     %fieldset
       %label Name
       .input-container
-        %input.large-2{ :type => "text", name: "name", value: "{{name}}" }
+        %input.large-2{ :type => "text", name: "display_name", value: "{{display_name}}" }
 
     %fieldset
       %label Email

@@ -33,27 +33,36 @@
       agentsView = @getAgentsView()
 
       @listenTo agentsView, "new:agent:clicked", (item) =>
-        console.log @websites
         agent        = App.request "new:agent:entity"
+        console.log agent
         addAgentView = @getAddAgentLayout agent
         modalSites   = @getModalSites @websites
         modalLayout  = App.request "modal:wrapper", addAgentView
+        websites     = []
+        self         = @
+
+        @websites.each (site, key) ->
+          websites.push
+            website_id: site.get("id")
+            url:        site.get("url")
+            name:       site.get("name")
+            role:       0
 
         App.modalRegion.show modalLayout
         addAgentView.sitesRegion.show modalSites
 
         @listenTo modalSites, "childview:modal:check:site", (obj, result) =>
-          console.log result
-          # $.each agent_sites, (index, site) =>
-          #   if site.id is result.id
-          #     site.role = result.role
+          $.each websites, (index, site) ->
+            if site.website_id is result.id
+              site.role = result.role
 
-        @listenTo modalLayout, "modal:cancel", (item)->
+        @listenTo modalLayout, "modal:cancel", (item) ->
           modalLayout.close()
 
-        @listenTo modalLayout, "modal:unsubmit", (ob)->
-          console.log ob
-          modalLayout.close()
+        @listenTo modalLayout, "modal:unsubmit", (obj) ->
+          # ob.model.set websites: websites
+          console.log obj
+          console.log agent
 
       @listenTo agentsView, "show:owner:modal", (item) ->
         item.model.set "is_admin", true
@@ -90,7 +99,11 @@
             if site.id is result.id
               site.role = result.role
 
-        @listenTo modalLayout, "modal:cancel", (item)->
+        @listenTo modalLayout, "modal:cancel", (item) ->
+          modalLayout.close()
+
+        @listenTo modalLayout, "modal:unsubmit", (obj) ->
+          console.log obj
           modalLayout.close()
 
       @layout.agentsRegion.show agentsView
