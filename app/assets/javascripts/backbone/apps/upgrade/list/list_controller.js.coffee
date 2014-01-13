@@ -74,6 +74,12 @@
         elem.addClass("active")
         elem.find(".plan-action").html(current_plan_html)
 
+      # change caps of the plan name
+      plan_elem = $(".plan-name")
+      plan = $.trim(plan_elem.html().toLowerCase())
+      plan_converted = plan.charAt(0).toUpperCase() + plan.slice(1)
+      plan_elem.html(plan_converted)
+
     showModal: (elem, agents) =>
       target_plan = $(elem.currentTarget).attr("id")
       modal = @getModalView target_plan
