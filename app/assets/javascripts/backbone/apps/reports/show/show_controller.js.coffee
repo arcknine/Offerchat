@@ -2,6 +2,10 @@
 
   class Show.Controller extends App.Controllers.Base
     initialize: ->
+      plan = gon.current_user.plan_identifier
+      if ["FREE", "STARTER", "BASIC"].indexOf(plan) != -1
+        App.navigate Routes.root_path(), trigger: true
+
       @manageSites = App.request "manage:sites:entities"
       @agents      = App.request "agents:entities"
       @curWebsite  = App.request "reports:current:website"
