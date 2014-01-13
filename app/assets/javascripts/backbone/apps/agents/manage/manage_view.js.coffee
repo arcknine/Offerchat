@@ -32,7 +32,7 @@
       sitesRegion: "#new-agent-sites-region"
     form:
       buttons:
-        nosubmit: (if ["PRO", "BASIC", "PRO-TRIAL"].indexOf(gon.current_user.plan_identifier) is -1 then "Invite Agent" else "Next →")
+        nosubmit: (if ["PRO", "BASIC", "PROTRIAL"].indexOf(gon.current_user.plan_identifier) is -1 then "Invite Agent" else "Next →")
         primary: false
         cancel: false
         placement: "right"
