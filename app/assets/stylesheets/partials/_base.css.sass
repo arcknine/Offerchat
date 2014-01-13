@@ -50,8 +50,18 @@ a
     width: 123px
     height: 27px
     background-image: image-url("logo.png")
+    background-repeat: no-repeat
     position: relative
     margin: 10px
+  &.logo-1
+    background-image: image-url("site-logo.png")
+    background-size: 100%
+    width: 150px
+    height: 40px
+    display: block
+    margin: 40px auto 0 auto
+    
+
   &.item-block
     padding: 10px
     display: block
@@ -545,21 +555,20 @@ label
 .tour-content-inner
   .block
     padding: 20px
-  .preview-code
-    display: inline-block
-    margin-left: 30px
-    font-family: 'Courier New', courier
-    font-size: 12px
-
-    width: 270px
-    p
-      margin: 0 0 2px 0
-    em
-      font-style: italic
-      color: #999
-    .red
-      color: red
-      font-weight: bold
+.preview-code
+  display: inline-block
+  margin-left: 30pxx
+  font-family: 'Courier New', courier
+  font-size: 12px
+  width: 270px
+  p
+    margin: 0 0 2px 0
+  em
+    font-style: italic
+    color: #999
+  .red
+    color: red
+    font-weight: bold
 
 .widget-preview-form
   margin: 20px 0
@@ -693,7 +702,7 @@ label
     .chat-table.chat-container-table
       width: 490px
   &.modal-get-started
-    top: 20%
+    top: 12%
     .modal
       background-color: #fff
       border-radius: 10px
