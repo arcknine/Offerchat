@@ -51,8 +51,9 @@ gem 'stripe_event'
 # Airbrake
 gem 'airbrake'
 
-# GA
+# Analytics
 gem 'google-analytics-rails'
+gem 'mixpanel'
 
 # Cron Jobs
 gem 'whenever', :require => false

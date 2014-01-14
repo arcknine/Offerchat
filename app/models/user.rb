@@ -109,6 +109,10 @@ class User < ActiveRecord::Base
     plan.max_agent_seats - self.agents.count
   end
 
+  def first_name
+    name.split(" ").first
+  end
+
   def self.create_or_invite_agents(owner, user, account_array)
     user = User.find_or_initialize_by_email(user[:email])
     user_is_new = false

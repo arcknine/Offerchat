@@ -7,6 +7,7 @@ class Visitor < ActiveRecord::Base
 
   before_create :generate_token
   before_create :generate_name
+  after_create  :activate_funnel
 
   def generate_token
     self.token = loop do
@@ -18,6 +19,14 @@ class Visitor < ActiveRecord::Base
   def generate_name
     if self.name.nil?
       self.name = 'visitor-%06d' % rand(6 ** 6)
+    end
+  end
+
+  def activate_funnel
+    if website.visitors.count <= 1
+      if Rails.env.staging?
+        MIXPANEL.track "Install Widget", { :distinct_id => website.owner.email }
+      end
     end
   end
 end

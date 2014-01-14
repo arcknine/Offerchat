@@ -15,7 +15,6 @@
 $(document).ready(function(){
   $(".large.widget-code-text").click(function(){
     $(this).select();
-    mixpanel.track("Install Widget");
   });
   
   $(".mixpanel-user-info").click(function(){
