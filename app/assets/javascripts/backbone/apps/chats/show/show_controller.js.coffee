@@ -34,8 +34,11 @@
 
         if @pid isnt "FREE"
           @visitor_notes_list = App.request "get:visitor_notes", @visitor.get("token")
-          App.execute "when:fetched", @visitor_notes_list, =>
+
+          @listenTo @visitor_notes_list, "all", (event) =>
             @showNotesCount()
+
+          App.execute "when:fetched", @visitor_notes_list, =>
 
             @visitor_notes_list.forEach (model, index) ->
               model.set
@@ -89,6 +92,8 @@
       if @visitor_notes_list and @visitor_notes_list.length > 0
         notes_count = "(#{@visitor_notes_list.length})"
         $(".notes-count").html notes_count
+      else
+        $(".notes-count").html("")
 
     visitorInfoView: ->
       @visitor.generateGravatarSource()
@@ -135,14 +140,27 @@
             created_at: moment().format('MMMM D, YYYY - h:mm a')
           @visitor_notes_list.add new_note
 
-          @showNotesCount()
-
           text_area.val("").focus()
 
         sidebarView = @getNotesSidebarView()
         formView = App.request "sidebar:wrapper", sidebarView
 
         notesView = @getVisitorNotesList()
+
+        @listenTo notesView, "childview:click:delete:note", (item) =>
+          $(".sidebar-modal-fixed").find("a.close").trigger("click")
+          confirmView = @getConfirmDelete item.model
+
+          @listenTo confirmView, "click:cancel:delete", (e) =>
+            $(".modal-backdrop").remove()
+
+          @listenTo confirmView, "click:confirm:delete", (e) =>
+            res = @visitor_notes_list.findWhere id: e.model.get("id")
+            res.destroy()
+            $(".modal-backdrop").remove()
+
+
+          $("body").append(confirmView.render().$el)
 
         @listenTo formView, "show", =>
           sidebarView.notesRegion.show notesView
@@ -187,6 +205,10 @@
         formView = App.request "sidebar:wrapper", sidebarView
 
       App.sidebarRegion.show formView
+
+    getConfirmDelete: (note) ->
+      new Show.VisitorNoteConfirm
+        model: note
 
     getNotesViewFree: ->
       new Show.ModalVisitorNotesFree
