@@ -8,6 +8,7 @@
       @agents       = App.request "agents:only:entities"
       @websites     = App.request "owned:sites:entities"
       online_agents = App.request "get:online:agents"
+      plans        = App.request "get:plans"
 
       App.execute "when:fetched", @websites , =>
         if @websites.length is 0
@@ -18,6 +19,9 @@
 
         @listenTo online_agents, "all", =>
           @setAgentStatus online_agents, @agents
+
+      App.execute "when:fetched", plans, =>
+        @plan = plans.findWhere plan_identifier: @current_user.get("plan_identifier")
 
       @listenTo @layout, "show", =>
         @showAgents()
@@ -63,12 +67,10 @@
           agent.set websites: websites
           # check if user what plan is being used
           if ["PRO", "BASIC", "PROTRIAL"].indexOf(plan) isnt -1
-            console.log "open new modal"
-            @updatePlanQty()
-          else
             modalLayout.close()
-            @updatePlanQty()
-            # @addAgent agent, modalLayout
+            @addPlanQty agent
+          else
+            @addAgent agent, modalLayout
 
       @listenTo agentsView, "show:owner:modal", (item) ->
         item.model.set "is_admin", true
@@ -131,15 +133,31 @@
           @showNotification("Invitation sent!")
           modal.close()
 
-    updatePlanQty: (type = "add") ->
-      console.log @agents
-      if type is "add"
+    addPlanQty: (agent) ->
+      total = @plan.get("price") * @agents.length
 
-      else
-        console.log "remove agent"
+      # add to for owner and new agent
+      @plan.set
+        agents: @agents.length + 2
+        total:  (if total is 0 then "Free" else "$" + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'))
 
-    getModalUpdatePlan: ->
+      updatePlanView = @getModalUpdatePlan @plan
+      modalLayout    = App.request "modal:wrapper", updatePlanView
+
+      App.modalRegion.show modalLayout
+
+      @listenTo modalLayout, "modal:cancel", (item) ->
+        modalLayout.close()
+
+      @listenTo modalLayout, "modal:unsubmit", (obj) =>
+        if @plan.get("plan_identifier") is "PROTRIAL"
+          @addAgent agent, modalLayout
+        else
+          # dri ang bayad2x
+
+    getModalUpdatePlan: (plan) ->
       new Manage.UpdatePlan
+        model: plan
 
     getModalSites: (website) ->
       new Manage.Sites

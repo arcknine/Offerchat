@@ -87,3 +87,14 @@
     tagName:   "ul"
     className: "block-list manage-agent-modal-list"
     itemView:  Manage.Site
+
+  class Manage.UpdatePlan extends App.Views.ItemView
+    template:  "agents/manage/update_plan"
+    className: "block large"
+    form:
+      buttons:
+        nosubmit: (if gon.current_user.plan_identifier is "PROTRIAL" then "Add" else "Purchase")
+        primary: false
+        cancel: "Cancel"
+        placement: "right"
+      title: "Add a new agent"
