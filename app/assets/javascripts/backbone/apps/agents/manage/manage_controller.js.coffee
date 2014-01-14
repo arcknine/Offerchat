@@ -31,10 +31,10 @@
 
     showAgents: ->
       agentsView = @getAgentsView()
+      plan       = @current_user.get "plan_identifier"
 
       @listenTo agentsView, "new:agent:clicked", (item) =>
         agent        = App.request "new:agent:entity"
-        console.log agent
         addAgentView = @getAddAgentLayout agent
         modalSites   = @getModalSites @websites
         modalLayout  = App.request "modal:wrapper", addAgentView
@@ -59,10 +59,16 @@
         @listenTo modalLayout, "modal:cancel", (item) ->
           modalLayout.close()
 
-        @listenTo modalLayout, "modal:unsubmit", (obj) ->
-          # ob.model.set websites: websites
-          console.log obj
-          console.log agent
+        @listenTo modalLayout, "modal:unsubmit", (obj) =>
+          agent.set websites: websites
+          # check if user what plan is being used
+          if ["PRO", "BASIC", "PROTRIAL"].indexOf(plan) isnt -1
+            console.log "open new modal"
+            @updatePlanQty()
+          else
+            modalLayout.close()
+            @updatePlanQty()
+            # @addAgent agent, modalLayout
 
       @listenTo agentsView, "show:owner:modal", (item) ->
         item.model.set "is_admin", true
@@ -78,7 +84,8 @@
           modalLayout.close()
 
       @listenTo agentsView, "childview:agent:selection:clicked", (item) =>
-        agent_sites = item.model.get("websites")
+        agent       = item.model
+        agent_sites = agent.get("websites")
 
         $.each agent_sites, (index, site) =>
           website = @websites.findWhere { id: site.id }
@@ -94,6 +101,15 @@
         App.modalRegion.show modalLayout
         manageAgentView.sitesRegion.show modalSites
 
+        @listenTo manageAgentView, "remove:agent:clicked", (item) =>
+          if confirm "Are you sure you want to remove this agent?"
+            if ["PRO", "BASIC", "PROTRIAL"].indexOf(plan) isnt -1
+
+            else
+              agent.destroy()
+              @showNotification("Your changes have been saved!")
+              modalLayout.close()
+
         @listenTo modalSites, "childview:modal:check:site", (obj, result) =>
           $.each agent_sites, (index, site) =>
             if site.id is result.id
@@ -107,6 +123,23 @@
           modalLayout.close()
 
       @layout.agentsRegion.show agentsView
+
+    addAgent: (agent, modal) ->
+      agent.save agent.attributes,
+        success: (model) =>
+          @agents.add model
+          @showNotification("Invitation sent!")
+          modal.close()
+
+    updatePlanQty: (type = "add") ->
+      console.log @agents
+      if type is "add"
+
+      else
+        console.log "remove agent"
+
+    getModalUpdatePlan: ->
+      new Manage.UpdatePlan
 
     getModalSites: (website) ->
       new Manage.Sites

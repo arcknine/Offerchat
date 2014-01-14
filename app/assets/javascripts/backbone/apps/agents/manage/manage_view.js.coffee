@@ -37,6 +37,15 @@
         cancel: false
         placement: "right"
       title: "Add a new agent"
+    events:
+      "blur input" : "updateInputField"
+
+    updateInputField: (ev) ->
+      val  = $(ev.currentTarget).val()
+      attr = $(ev.currentTarget).attr("name")
+      obj  = {}
+      obj[attr] = val
+      @model.set obj
 
   class Manage.UpdateLayout extends App.Views.Layout
     template: "agents/manage/modal_manage"
@@ -49,6 +58,8 @@
         cancel: false
         placement: "right"
       title: "Manage Agent"
+    triggers:
+      "click .remove-agent" : "remove:agent:clicked"
 
   class Manage.Site extends App.Views.ItemView
     template:  "agents/manage/site"
