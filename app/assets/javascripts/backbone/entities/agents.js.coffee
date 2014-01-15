@@ -3,6 +3,7 @@
   class Entities.Agent extends App.Entities.Model
     urlRoot: Routes.agents_path()
     defaults:
+      display_name: ""
       email: ""
       status: null
 

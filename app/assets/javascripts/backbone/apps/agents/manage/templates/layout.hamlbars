@@ -1,0 +1,11 @@
+.block.large
+
+  %h2 Agent Management
+  Add agents and assign them to your websites.
+
+.block-message{ :style => "display:none;" }
+  %a.close
+    &times;
+  %span
+
+#agents-region

@@ -54,6 +54,7 @@
             sites.add
               role: 0
               url: site.get("url")
+              name: site.get("name")
               website_id: site.id
               adminchecked: ""
               agentchecked: ""
@@ -120,8 +121,8 @@
 
             showAgentViewLayout.sitesRegion.show sitesView
 
-          App.commands.setHandler "check:selected:sites", (item) =>
-            console.log item
+          # App.commands.setHandler "check:selected:sites", (item) =>
+          #   console.log item
 
         @listenTo modalAgentView, "modal:cancel", (item)->
           modalAgentView.close()
@@ -157,10 +158,11 @@
     getNewAgentView: (model)->
       agentView = new List.New
         model: model
-      @listenTo agentView, "toggle:checkbox", (item) ->
-        console.log item
+      # @listenTo agentView, "toggle:checkbox", (item) ->
+      #   console.log item
       agentView
 
     getSitesView: (collection) ->
+      # console.log collection
       new List.Sites
         collection: collection

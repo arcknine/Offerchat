@@ -2,6 +2,10 @@
 
   class Show.Controller extends App.Controllers.Base
     initialize: ->
+      plan = gon.current_user.plan_identifier
+      if ["FREE", "STARTER", "BASIC"].indexOf(plan) != -1
+        App.navigate Routes.root_path(), trigger: true
+
       @manageSites = App.request "manage:sites:entities"
       @agents      = App.request "agents:entities"
       @curWebsite  = App.request "reports:current:website"
@@ -119,7 +123,7 @@
         ratings = App.request "reports:get:ratings", @getCurrentSiteIds(), @getCurrrentAgentIds(), @getCurrentDate()
         @ratingPercentage ratings
 
-        stats = App.request "reports:get:stats", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()
+        stats = App.request "reports:get:stats", @getCurrentSiteIds(), @getCurrrentAgentIds(), @getCurrentDate()
         @setStats stats
 
         @filterAgents site.model
@@ -134,7 +138,7 @@
         ratings = App.request "reports:get:ratings", @getCurrentSiteIds(), @getCurrrentAgentIds(), @getCurrentDate()
         @ratingPercentage ratings
 
-        stats = App.request "reports:get:stats", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()
+        stats = App.request "reports:get:stats", @getCurrentSiteIds(), @getCurrrentAgentIds(), @getCurrentDate()
         @setStats stats
 
       @listenTo agentsView, "childview:toggle:selected:agent", (agent) =>
@@ -144,7 +148,7 @@
         ratings = App.request "reports:get:ratings", @getCurrentSiteIds(), @getCurrrentAgentIds(), @getCurrentDate()
         @ratingPercentage ratings
 
-        stats = App.request "reports:get:stats", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()
+        stats = App.request "reports:get:stats", @getCurrentSiteIds(), @getCurrrentAgentIds(), @getCurrentDate()
         @setStats stats
 
       @layout.agentsRegion.show agentsView
@@ -226,12 +230,25 @@
             missed: value.get("missed")
             opportunities: opportunities
 
-        data = [
-          period: moment().format("YYYY-MM-DD")
-          active: 0
-          proactive: 0
-          missed: 0
-        ] if data.length is 0
+        start = new Date @from
+        end   = new Date @to
+
+        while start < end
+          data.push
+            period: moment(start).format("YYYY-MM-DD")
+            active: 0
+            proactive: 0
+            missed: 0
+
+          newDate = start.setDate(start.getDate() + 1)
+          start   = new Date(newDate)
+
+        # data = [
+        #   period: moment().format("YYYY-MM-DD")
+        #   active: 0
+        #   proactive: 0
+        #   missed: 0
+        # ] if data.length is 0
 
         @stats.set
           active: @addCommaSeparator(total.active)

@@ -7,6 +7,9 @@
     url: Routes.plans_path()
 
   API =
+    getPlan: ->
+      new Entities.Plan
+
     getPlans: ->
       plans = new Entities.PlansCollection
       App.request "show:preloader"
@@ -29,6 +32,9 @@
         error: ->
           App.request "hide:preloader"
       plans
+
+  App.reqres.setHandler "get:new:plan", ->
+    API.getPlan()
 
   App.reqres.setHandler "get:plans", ->
     API.getPlans()

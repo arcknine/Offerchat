@@ -1,0 +1,13 @@
+.form.form-inline.invite-user-form
+  .block
+    %fieldset
+      %label Name
+      .input-container
+        %input.large-2{ :type => "text", name: "display_name", value: "{{display_name}}" }
+
+    %fieldset
+      %label Email
+      .input-container
+        %input.large-2{ :type => "text", name: "email", value: "{{email}}" }
+
+#new-agent-sites-region

@@ -1,0 +1,10 @@
+.profile-image-container.large
+  .profile-image
+    %img{:src => "{{avatar}}"}
+  %span.status{:class => "{{status}}"}
+    %i.icon.icon-check-small
+%h3
+  {{name}}
+.nickname
+  {{#unless pending}}{{display_name}}{{/unless}}
+  {{#if pending}}Waiting{{/if}}

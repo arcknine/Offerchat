@@ -18,7 +18,7 @@
       "click div.date-control > a"               : "cancelDateSelect"
 
     toggleDatePicker: (e) ->
-      unless gon.current_user.plan_identifier is "ENTERPRISE"
+      unless gon.current_user.plan_identifier is "TRIAL"
         $("#websites-region .btn-selector").removeClass("open") if $("#websites-region .btn-selector").hasClass("open")
         $("#websites-region .btn-action-selector").removeClass("active")
 

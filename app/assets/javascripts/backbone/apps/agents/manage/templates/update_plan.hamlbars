@@ -1,0 +1,8 @@
+.go-right
+  %h1.lite
+    {{total}}
+%h3 {{description}}
+x {{agents}} agent(s)
+
+%div
+  %a.small (change plan)

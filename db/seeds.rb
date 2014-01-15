@@ -6,8 +6,9 @@ Plan.create(:name => "Personal", :description => "for your small personal busine
 Plan.create(:name => "Business", :description => "for e-commerce websites", :price => 87, :max_agent_seats => 10, :features => ['up to 10 agent seats', 'white labeled widget'], :plan_identifier => "BUSINESS")
 Plan.create(:name => "Enterprise", :description => "for large sales companies", :price => 197, :max_agent_seats => 30, :features => ['unlimited agent seats', 'white labeled widget'], :plan_identifier => "ENTERPRISE")
 # Plan.create(:name => "Premium", :description => "hidden", :price => 197, :max_agent_seats => 30, :features => ['unlimited agent seats'], :plan_identifier => "PREMIUM")
-Plan.create(:name => "Basic", :description => "Basic Plan", :price => 9, :plan_identifier => "BASIC")
-Plan.create(:name => "Pro", :description => "Pro Plan", :price => 17, :plan_identifier => "PRO")
+Plan.create(:name => "Basic", :description => "Basic Plan", :price => 9, :max_agent_seats => 50, :plan_identifier => "BASIC")
+Plan.create(:name => "Pro", :description => "Pro Plan", :price => 17, :max_agent_seats => 50, :plan_identifier => "PRO")
+Plan.create(:name => "Pro(Trial)", :description => "Pro(Trial) Plan", :price => 0, :max_agent_seats => 50, :plan_identifier => "PROTRIAL")
 
 # Admin User
 Admin.where(:email => "admin@offerchat.com").delete_all
