@@ -22,6 +22,8 @@
     collectionEvents:
       "change" : "render"
       "add"    : "render"
+    # modelEvents:
+    #   "change" : "render"
     triggers:
       "click .agent-selection-new" : "new:agent:clicked"
       "click #account-owner"       : "show:owner:modal"

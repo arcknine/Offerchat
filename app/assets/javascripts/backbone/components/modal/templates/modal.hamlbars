@@ -6,6 +6,7 @@
           &times;
         %h2
           {{title}}
+      .block-message.hide
       .modal-body
         #modal-content-region
       {{#if footer}}

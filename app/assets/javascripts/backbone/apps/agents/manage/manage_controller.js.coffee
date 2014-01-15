@@ -4,7 +4,7 @@
 
     initialize: ->
       @layout       = @getLayoutView()
-      @current_user = App.request "set:current:user", App.request "get:current:user:json"
+      @current_user = App.request "get:current:profile"
       @agents       = App.request "agents:only:entities"
       @websites     = App.request "owned:sites:entities"
       online_agents = App.request "get:online:agents"
@@ -20,11 +20,11 @@
         @listenTo online_agents, "all", =>
           @setAgentStatus online_agents, @agents
 
-      App.execute "when:fetched", plans, =>
-        @plan = plans.findWhere plan_identifier: @current_user.get("plan_identifier")
-
       @listenTo @layout, "show", =>
-        @showAgents()
+        App.execute "when:fetched", @current_user, =>
+          App.execute "when:fetched", plans, =>
+            @plan = plans.findWhere plan_identifier: @current_user.get("plan_identifier")
+            @showAgents()
 
       @show @layout
 
@@ -38,6 +38,9 @@
       plan       = @current_user.get "plan_identifier"
 
       @listenTo agentsView, "new:agent:clicked", (item) =>
+        @websites.each (site, index) ->
+          site.set "agentChecked", ""
+
         agent        = App.request "new:agent:entity"
         addAgentView = @getAddAgentLayout agent
         modalSites   = @getModalSites @websites
@@ -47,10 +50,11 @@
 
         @websites.each (site, key) ->
           websites.push
-            website_id: site.get("id")
-            url:        site.get("url")
-            name:       site.get("name")
-            role:       0
+            website_id:   site.get("id")
+            url:          site.get("url")
+            name:         site.get("name")
+            role:         0
+            agentChecked: ""
 
         App.modalRegion.show modalLayout
         addAgentView.sitesRegion.show modalSites
@@ -67,8 +71,26 @@
           agent.set websites: websites
           # check if user what plan is being used
           if ["PRO", "BASIC", "PROTRIAL"].indexOf(plan) isnt -1
-            modalLayout.close()
-            @addPlanQty agent
+            errors = @getErrors agent
+            modalLayout.$el.find(".field-error").removeClass("field-error")
+            modalLayout.$el.find(".block-text-message").remove()
+            App.request "modal:hide:message"
+
+            errCount = 0
+            $.each errors, (key, error) ->
+              errCount++
+              el = modalLayout.$el.find("input[name='#{key}']")
+              sm = $("<div>", class: 'block-text-message').text(error)
+              el.closest("fieldset").addClass("field-error")
+              el.parent().append(sm)
+
+              if key is "websites"
+                App.request "modal:error:message", error
+
+            # if no error is found
+            if errCount is 0
+              modalLayout.close()
+              @addPlanQty agent
           else
             @addAgent agent, modalLayout
 
@@ -126,17 +148,35 @@
 
       @layout.agentsRegion.show agentsView
 
+    getErrors: (model) ->
+      errors   = {}
+      site_err = 0
+      name     = model.get("display_name")
+      email    = model.get("email")
+      regex    = /\S+@\S+\.\S+/
+
+      errors['display_name'] = "should not be blank" unless name
+      errors['email']        = "invalid email" if email and !regex.test(email)
+      errors['email']        = "should not be blank" unless email
+
+      $.each model.get("websites"), (index, site) ->
+        if site.role isnt 0
+          site_err++
+      errors['websites'] = "Please select website" if site_err is 0
+
+      errors
+
     addAgent: (agent, modal) ->
       agent.save agent.attributes,
         success: (model) =>
+          console.log model
           @agents.add model
           @showNotification("Invitation sent!")
           modal.close()
 
     addPlanQty: (agent) ->
-      total = @plan.get("price") * @agents.length
-
-      # add to for owner and new agent
+      # add 2 for owner and new agent
+      total = @plan.get("price") * (@agents.length + 2)
       @plan.set
         agents: @agents.length + 2
         total:  (if total is 0 then "Free" else "$" + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'))
@@ -150,9 +190,10 @@
         modalLayout.close()
 
       @listenTo modalLayout, "modal:unsubmit", (obj) =>
-        if @plan.get("plan_identifier") is "PROTRIAL"
-          @addAgent agent, modalLayout
-        else
+        @addAgent agent, modalLayout
+        # if @plan.get("plan_identifier") is "PROTRIAL"
+        #   @addAgent agent, modalLayout
+        # else
           # dri ang bayad2x
 
     getModalUpdatePlan: (plan) ->

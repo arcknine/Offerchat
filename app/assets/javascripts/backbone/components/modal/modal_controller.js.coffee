@@ -32,6 +32,20 @@
       $("#wrapper").removeClass("blur")
 
     modalContentRegion: ->
+      modalBody = @modalLayout.$el.find(".block-message")
+
+      App.reqres.setHandler "modal:show:message", (message) ->
+        modalBody.removeClass("hide")
+        modalBody.text message
+
+      App.reqres.setHandler "modal:error:message", (message) ->
+        modalBody.addClass("warning").removeClass("hide")
+        modalBody.text message
+
+      App.reqres.setHandler "modal:hide:message", ->
+        modalBody.removeClass("warning").addClass("hide")
+        modalBody.text ""
+
       @region = @modalLayout.modalContentRegion
       @show @contentView
 
