@@ -127,12 +127,10 @@
 
         @listenTo manageAgentView, "remove:agent:clicked", (item) =>
           if confirm "Are you sure you want to remove this agent?"
-            if ["PRO", "BASIC", "PROTRIAL"].indexOf(plan) isnt -1
-
-            else
-              agent.destroy()
-              @showNotification("Your changes have been saved!")
-              modalLayout.close()
+            agent.destroy agent.attributes,
+              success: =>
+                @showNotification("Your changes have been saved!")
+                modalLayout.close()
 
         @listenTo modalSites, "childview:modal:check:site", (obj, result) =>
           $.each agent_sites, (index, site) =>
@@ -201,14 +199,17 @@
       @listenTo modalLayout, "modal:unsubmit", (obj) =>
         modalLayout.close()
 
-        processView   = @getProcessModal @plan
-        processLayout = App.request "modal:wrapper", processView
-        App.modalRegion.show processLayout
+        if @plan.get("plan_identifier") isnt "PROTRIAL"
+          processView   = @getProcessModal @plan
+          processLayout = App.request "modal:wrapper", processView
+          App.modalRegion.show processLayout
 
-        processLayout.$el.find(".modal-footer").remove()
-        processLayout.$el.find(".close").remove()
+          processLayout.$el.find(".modal-footer").remove()
+          processLayout.$el.find(".close").remove()
 
-        # @addAgent agent, processLayout
+          @addAgent agent, processLayout
+        else
+          @addAgent agent, modalLayout
 
     getProcessModal: (plan) ->
       new Manage.ProcessPayment
