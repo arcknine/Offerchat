@@ -3,25 +3,34 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: ->
+      @profile = App.request "get:current:profile"
 
-      @manageSites   = App.request "manage:sites:entities"
-      @sites         = App.request "owned:sites:entities"
+      App.execute "when:fetched", @profile, =>
+        plan = @profile.get("plan_identifier")
+        if plan is null or plan is ""
+          App.navigate "/"
+        else
 
-      App.execute "when:fetched", @manageSites, =>
-        @totalSites    = @manageSites.length + @sites.length
+          @manageSites   = App.request "manage:sites:entities"
+          @sites         = App.request "owned:sites:entities"
 
-      sitesView = @getWebsitesView @sites
+          App.execute "when:fetched", @manageSites, =>
+            @totalSites    = @manageSites.length + @sites.length
 
-      App.mainRegion.show sitesView
+          sitesView = @getWebsitesView @sites
 
+          @listenTo sitesView, "show", =>
+            if plan is "PROTRIAL"
+              $("a#new-website").remove()
 
-      @listenTo sitesView, "click:new:website", =>
-         App.navigate Routes.new_website_path(), trigger: true
+          App.mainRegion.show sitesView
 
-      @listenTo sitesView, "childview:click:delete:website", @deleteSite
+          @listenTo sitesView, "click:new:website", =>
+             App.navigate Routes.new_website_path(), trigger: true
 
+          @listenTo sitesView, "childview:click:delete:website", @deleteSite
 
-      @listenTo sitesView, "childview:click:edit:website", @showModal
+          @listenTo sitesView, "childview:click:edit:website", @showModal
 
 
     getWebsitesView: (sites) ->
@@ -33,12 +42,9 @@
         model: site.model
 
     deleteSite: (site) ->
-
       @showModalDelete site
 
-
     showModal: (site) ->
-
       modalView = @getEditWebsiteModalView site
 
       @listenTo site.model, "updated", (site) =>

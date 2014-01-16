@@ -3,33 +3,41 @@
   class New.Controller extends App.Controllers.Base
 
     initialize: (options = {}) ->
-      App.previewRegion.close()
-      sessionStorage.clear()
+      @profile = App.request "get:current:profile"
 
-      currentUser = App.request "set:current:user", App.request "get:current:user:json"
-      newSite     = App.request "new:site:entity"
-      newSite.url = Routes.signup_wizard_path('step_three')
-      newSite.set id:'step_three'
+      App.execute "when:fetched", @profile, =>
+        plan = @profile.get("plan_identifier")
+        if plan is null or plan is "" or plan is "PROTRIAL"
+          App.navigate "/"
+        else
 
-      @listenTo newSite, "updated", (model) =>
+          App.previewRegion.close()
+          sessionStorage.clear()
 
-        currentUrl    = model.get("url")
-        newUrl        = @cleanWebsiteUrl currentUrl
-        model.set url = newUrl
-        storage       = JSON.parse(sessionStorage.getItem("newSite")) || {}
-        storage.url   = newUrl
+          currentUser = App.request "set:current:user", App.request "get:current:user:json"
+          newSite     = App.request "new:site:entity"
+          newSite.url = Routes.signup_wizard_path('step_three')
+          newSite.set id:'step_three'
 
-        sessionStorage.setItem("newSite", JSON.stringify(storage))
+          @listenTo newSite, "updated", (model) =>
 
-        App.navigate "websites/preview", trigger: true
+            currentUrl    = model.get("url")
+            newUrl        = @cleanWebsiteUrl currentUrl
+            model.set url = newUrl
+            storage       = JSON.parse(sessionStorage.getItem("newSite")) || {}
+            storage.url   = newUrl
 
-      newSiteView = @getNewWebsiteView newSite, currentUser
+            sessionStorage.setItem("newSite", JSON.stringify(storage))
 
-      formView  = App.request "form:wrapper", newSiteView
+            App.navigate "websites/preview", trigger: true
 
-      App.mainRegion.show formView
+          newSiteView = @getNewWebsiteView newSite, currentUser
 
-      mixpanel.track("Add New Website")
+          formView  = App.request "form:wrapper", newSiteView
+
+          App.mainRegion.show formView
+
+          mixpanel.track("Add New Website")
 
     getNewWebsiteView: (site, currentUser) ->
       new New.Website

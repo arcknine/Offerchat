@@ -32,6 +32,7 @@
               %i.icon.icon-check-small
         %ul.settings-dropdown
 
+          {{#if plan_identifier}}
           %li
             %a#settings-menu-link
               Settings
@@ -41,6 +42,8 @@
           %li
             %a#agent-menu-link
               Agent Management
+          {{/if}}
+
           %li
             %a#account-menu-link
               Account
