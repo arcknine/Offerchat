@@ -191,6 +191,10 @@
 
       App.modalRegion.show modalLayout
 
+      @listenTo updatePlanView, "click:change:plan", ->
+        modalLayout.close()
+        App.navigate "upgrade", trigger: true
+
       @listenTo modalLayout, "modal:cancel", (item) ->
         modalLayout.close()
 

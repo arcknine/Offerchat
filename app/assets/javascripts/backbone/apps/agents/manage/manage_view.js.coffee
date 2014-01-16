@@ -100,6 +100,8 @@
         cancel: "Cancel"
         placement: "right"
       title: "Add a new agent"
+    triggers:
+      "click a.small" : "click:change:plan"
 
   class Manage.ProcessPayment extends App.Views.ItemView
     template: "agents/manage/process_payment"
