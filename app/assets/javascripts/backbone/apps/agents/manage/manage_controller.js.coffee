@@ -177,9 +177,14 @@
     addPlanQty: (agent) ->
       # add 2 for owner and new agent
       total = @plan.get("price") * (@agents.length + 2)
+      # @plan.set
+      #   agents: @agents.length + 2
+      #   total:  (if total is 0 then "Free" else "$" + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'))
       @plan.set
         agents: @agents.length + 2
-        total:  (if total is 0 then "Free" else "$" + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'))
+        total:  "$#{@plan.get("price").toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}"
+
+      agent.set(total_agents: @agents.length + 2)
 
       updatePlanView = @getModalUpdatePlan @plan
       modalLayout    = App.request "modal:wrapper", updatePlanView
@@ -190,11 +195,20 @@
         modalLayout.close()
 
       @listenTo modalLayout, "modal:unsubmit", (obj) =>
-        @addAgent agent, modalLayout
-        # if @plan.get("plan_identifier") is "PROTRIAL"
-        #   @addAgent agent, modalLayout
-        # else
-          # dri ang bayad2x
+        modalLayout.close()
+
+        processView   = @getProcessModal @plan
+        processLayout = App.request "modal:wrapper", processView
+        App.modalRegion.show processLayout
+
+        processLayout.$el.find(".modal-footer").remove()
+        processLayout.$el.find(".close").remove()
+
+        # @addAgent agent, processLayout
+
+    getProcessModal: (plan) ->
+      new Manage.ProcessPayment
+        model: plan
 
     getModalUpdatePlan: (plan) ->
       new Manage.UpdatePlan

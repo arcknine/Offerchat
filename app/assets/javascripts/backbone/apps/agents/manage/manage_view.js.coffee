@@ -100,3 +100,14 @@
         cancel: "Cancel"
         placement: "right"
       title: "Add a new agent"
+
+  class Manage.ProcessPayment extends App.Views.ItemView
+    template: "agents/manage/process_payment"
+    className: "block large"
+    form:
+      buttons:
+        nosubmit: false
+        primary: false
+        cancel: false
+        placement: "right"
+      title: "Add a new agent"

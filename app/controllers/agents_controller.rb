@@ -37,8 +37,15 @@ class AgentsController < ApplicationController
       )
     end
     @user = User.create_or_invite_agents(current_user, params[:agent], accounts)
+    puts current_user.inspect
     if @user.errors.any?
       respond_with @user
+    else
+      plans = ["BASIC", "PRO"]
+      unless current_user.stripe_customer_token.blank? && plans.include?(current_user.plan_identifier)
+        stripe = CreateStripeCustomerService.new(current_user, current_user.plan_identifier, current_user.stripe_customer_token, nil, params[:total_agents])
+        stripe.upgrade
+      end
     end
   rescue Exceptions::AgentLimitReachedError
     user = User.new
