@@ -965,17 +965,15 @@ span.dot-seperator
   width: 100%
   height: 100%
   overflow: hidden
-  background-color: #fff
+  background-color: #445362
   z-index: 9999
-
   .main-overlay-in
     position: absolute
     width: 100%
     top: 50%
     margin-top: -88px
     text-align: center
-    font-size: 12px
-    color: #999
+    color: #fff
 .authorize-payment-overlay
   h4
     color: #999
@@ -1165,3 +1163,41 @@ span.dot-seperator
       position: relative
       top: -20px
       font-size: 20px
+
+// PRE-LOADER
+#loader
+  cursor: wait
+  background-color: #0088cc
+  opacity: .8
+  border-radius: 50px
+  margin: 20px auto
+  animation: loading .8s infinite linear
+  -moz-animation: loading .8s infinite linear
+  -webkit-animation: loading .8s infinite linear
+#loader.spinner
+  border: 5px solid #fff
+  opacity: .8
+  border-top: 5px solid rgba(0, 0, 0, 0)
+  border-left: 5px solid rgba(0, 0, 0, 0)
+  width: 30px
+  height: 30px
+
+@keyframes loading
+  0%
+    -moz-transform: rotate(0deg)
+  100%
+    -moz-transform: rotate(360deg)
+
+
+@-moz-keyframes loading
+  0%
+    -moz-transform: rotate(0deg)
+  100%
+    -moz-transform: rotate(360deg)
+
+
+@-webkit-keyframes loading
+  0%
+    -webkit-transform: rotate(0deg)
+  100%
+    -webkit-transform: rotate(360deg)
