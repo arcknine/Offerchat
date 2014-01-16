@@ -113,6 +113,14 @@ class User < ActiveRecord::Base
     name.split(" ").first
   end
 
+  def role
+    if owned_sites.count < 0
+      "AGENT"
+    else
+      "OWNER"
+    end
+  end
+
   def self.create_or_invite_agents(owner, user, account_array)
     user = User.find_or_initialize_by_email(user[:email])
     user_is_new = false
