@@ -1,0 +1,49 @@
+!!!
+%html{xmlns: "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{content: "width=device-width", name: "viewport"}/
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Offerchat
+    %link{href: "https://s3.amazonaws.com/offerchat-emails/email.css", rel: "stylesheet", type: "text/css"}/
+  %body{bgcolor: "#FFFFFF"}
+    %table.head-wrap
+      %tr
+        %td
+        %td.header
+          .content
+            %table
+              %tr
+                %td{align: "center"}
+                  %a.logo{href: "https://www.offerchat.com"}
+                    %img{alt: "Offerchat logo", src: "https://s3.amazonaws.com/offerchat-emails/logo.png"}/
+        %td
+    %table.body-wrap
+      %tr
+        %td
+        %td.container{bgcolor: "#FFFFFF"}
+          .content
+            %table
+              %tr
+                %td
+                  %h3 Hi #{@user.first_name},
+                  %h4.lead
+                    You have 3 days left to enjoy your Pro Trial and the multiple live chat agent
+                    accounts you’ve added under your account.
+                  %p
+                    Due to server costs, we have to limit the number of agents and access to premium
+                    features.
+                  %p
+                    3 days from now, you’ll be given the option to upgrade to a paid plan of your choice.
+                    %a{ :href => "https://www.offerchat.com/pricing" } See plans here.
+                  %p.center
+                    %a{ :href => "https://app.offerchat.com/#upgrade", :class => "btn" } Upgrade Now
+                  %p
+                    If you have questions, we're online 24/7 for a quick chat.
+                  %p Best Regards,
+                  %p The Offerchat Team
+        %td
+    .container.footer
+      %p © 2014 Offerchat. All rights reserved.
+      %p Unit 333, UP CebuInIT, Gorordo Avenue, Lahug, Cebu City, Philippines 6000
+
+    = image_tag MIXPANEL.tracking_pixel("Opened Three Days Remaining Email", { :distinct_id => @user.email })

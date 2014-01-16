@@ -20,11 +20,11 @@
                 %p &nbsp;
                 %p
                   1. Add the chat widget to your website by inserting the code snippet before your site's </head> tag.
-                  %a{ :href => "https://app.offerchat.com/widget_codes/#{@website.id}" } Get Your Widget Code Here
+                  %a{ :href => "#{root_url}widget_codes/#{@website.id}", :target => "_blank" } Get Your Widget Code Here
                 %p &nbsp;
                 %p
                   2. Login to the Offerchat dashboard at
-                  %a{ :href => "https://app.offerchat.com/login" } https://app.offerchat.com/login
+                  %a{ :href => "#{root_url}login" } https://app.offerchat.com/login
                 %p &nbsp;
                 %p 3. Start chatting!
                 %p &nbsp;

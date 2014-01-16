@@ -113,6 +113,14 @@ class User < ActiveRecord::Base
     name.split(" ").first
   end
 
+  def role
+    if owned_sites.count < 0
+      "AGENT"
+    else
+      "OWNER"
+    end
+  end
+
   def self.create_or_invite_agents(owner, user, account_array)
     user = User.find_or_initialize_by_email(user[:email])
     user_is_new = false
@@ -255,7 +263,7 @@ class User < ActiveRecord::Base
 
   def self.expiring_in(days)
     if created_at > DateTime.parse("Nov 27, 2013")
-      where("plan_identifier = 'PREMIUM' and date(created_at) = :fifty_five_days_ago", :fifty_five_days_ago => Date.today - (30 - days).days).limit(50)
+      where("plan_identifier = 'PREMIUM' or plan_identifier = 'PROTRIAL' and date(created_at) = :fifty_five_days_ago", :fifty_five_days_ago => Date.today - (30 - days).days).limit(50)
     else
       where("plan_identifier = 'PREMIUM' and date(created_at) = :fifty_five_days_ago", :fifty_five_days_ago => Date.today - (60 - days).days).limit(50)
     end
@@ -280,11 +288,23 @@ class User < ActiveRecord::Base
   def self.notify_expiring(days)
     expiring_in(days).each do |e|
       if days == 5
-        TrialMailer.delay.five_days_remaining(e)
+        if e.plan_identifier == "PROTRIAL"
+          ProTrialMailer.delay.five_days_remaining(e)
+        elsif e.plan_identifier == "PREMIUM"
+          TrialMailer.delay.five_days_remaining(e)
+        end
       elsif days == 3
-        TrialMailer.delay.three_days_remaining(e)
+        if e.plan_identifier == "PROTRIAL"
+          ProTrialMailer.delay.three_days_remaining(e)
+        elsif e.plan_identifier == "PREMIUM"
+          TrialMailer.delay.three_days_remaining(e)
+        end
       elsif days == 1
-        TrialMailer.delay.one_day_remaining(e)
+        if e.plan_identifier == "PROTRIAL"
+          ProTrialMailer.delay.one_day_remaining(e)
+        elsif e.plan_identifier == "PREMIUM"
+          TrialMailer.delay.one_day_remaining(e)
+        end
       end
     end
   end
