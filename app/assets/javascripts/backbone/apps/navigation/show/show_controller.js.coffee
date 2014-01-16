@@ -48,6 +48,7 @@
 
         @listenTo navView, "reports:menu:clicked", (child) ->
           @toggleActiveMenu(navView, child, "reports-menu-link")
+          App.navigate "reports", trigger: true
 
         @listenTo navView, "agent:menu:clicked", (child) ->
           navView.closeDropDown()

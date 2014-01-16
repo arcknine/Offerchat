@@ -41,6 +41,8 @@
     changeStatus: (e) ->
       @trigger "change:user:status", e
 
-    #serializeData: ->
+    serializeData: ->
+      profile: @options.model.toJSON()
+      is_pro_acct: @options.model.get("plan_identifier") is "PRO"
     #  days_left: @options.days_left
-    #  model: @options.model.toJSON()
+      # model: @options.model.toJSON()
