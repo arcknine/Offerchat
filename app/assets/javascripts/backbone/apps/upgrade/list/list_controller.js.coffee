@@ -8,11 +8,13 @@
 
       @coupons = App.request "get:coupons"
 
+      App.request "show:preloader"
+
       App.execute "when:fetched", @profile, =>
 
         # check if user has plan
         unless @profile.get("plan_identifier")
-          App.navigate "/"
+          App.navigate "/", trigger: true
         else
 
           @plans = App.request "get:plans"
@@ -38,6 +40,8 @@
               @setAgentCount(agents, @plans)
 
             App.mainRegion.show @layout
+
+        App.request "hide:preloader"
 
     informTrialPeriod: =>
       current_plan = @profile.get('plan_identifier')

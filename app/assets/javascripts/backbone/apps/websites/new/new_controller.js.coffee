@@ -7,8 +7,8 @@
 
       App.execute "when:fetched", @profile, =>
         plan = @profile.get("plan_identifier")
-        if plan is null or plan is "" or plan is "PROTRIAL"
-          App.navigate "/"
+        if plan is null or plan is "" or plan is "PROTRIAL" or plan is "BASIC"
+          App.navigate "/", trigger: true
         else
 
           App.previewRegion.close()
