@@ -10,29 +10,34 @@
 
       App.execute "when:fetched", @profile, =>
 
-        @plans = App.request "get:plans"
+        # check if user has plan
+        unless @profile.get("plan_identifier")
+          App.navigate "/"
+        else
 
-        App.execute "when:fetched", @plans, =>
+          @plans = App.request "get:plans"
 
-          agents = App.request "agents:entities", true
+          App.execute "when:fetched", @plans, =>
 
-          current_plan = @profile.get("plan_identifier")
-          @layout = @getLayout @plans
+            agents = App.request "agents:entities", true
 
-          @listenTo @layout, "show", =>
-            @activeCurrentPlan(current_plan)
-            @informTrialPeriod()
+            current_plan = @profile.get("plan_identifier")
+            @layout = @getLayout @plans
 
-          @listenTo @layout, "change:plan", (e) =>
-            @showModal(e, agents)
+            @listenTo @layout, "show", =>
+              @activeCurrentPlan(current_plan)
+              @informTrialPeriod()
 
-          @listenTo @layout, "goto:agent:management", =>
-            App.navigate Routes.agents_path(), trigger: true
+            @listenTo @layout, "change:plan", (e) =>
+              @showModal(e, agents)
 
-          App.execute "when:fetched", agents, =>
-            @setAgentCount(agents, @plans)
+            @listenTo @layout, "goto:agent:management", =>
+              App.navigate Routes.agents_path(), trigger: true
 
-          App.mainRegion.show @layout
+            App.execute "when:fetched", agents, =>
+              @setAgentCount(agents, @plans)
+
+            App.mainRegion.show @layout
 
     informTrialPeriod: =>
       current_plan = @profile.get('plan_identifier')
