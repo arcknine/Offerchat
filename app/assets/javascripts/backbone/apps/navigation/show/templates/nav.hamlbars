@@ -68,7 +68,6 @@
         .tooltip.tooltip-large{ :style => "left: -10px" }
           .caret.caret-top.caret-pull-left
           Enjoy a Pro trial for 30 days! Add multiple live chat agents and enjoy exclusive Pro features. Take Offerchat for a full spin.
-          
         %a.icon-help
           %span ?
         %strong Pro Trial:
