@@ -17,6 +17,6 @@
           %a Add a Chat Trigger
     .modal-footer.align-right.bordered
       %a.remove-msg
-        %span.icon-rounded-countainer
+        %span.icon-rounded-container
           %i.icon.icon-x
         remove this message

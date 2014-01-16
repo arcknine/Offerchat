@@ -67,10 +67,8 @@
       #premium-trial.tag-small
         .tooltip.tooltip-large{ :style => "left: -10px" }
           .caret.caret-top.caret-pull-left
-          You're in a Premium Trial by default as a special gift for signing up. Add unlimited agents plus other perks for FREE! Enjoy it for 60 days then upgrade or automatically go back to the regular free account.
-          %div
-            %a{ :href => "https://www.offerchat.com/blog/surprise-treat-for-new-offerchat-users-2/",  :target => "_blank" }
-              More information
+          Enjoy a Pro trial for 30 days! Add multiple live chat agents and enjoy exclusive Pro features. Take Offerchat for a full spin.
+          
         %a.icon-help
           %span ?
         %strong Pro Trial:
