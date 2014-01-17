@@ -75,7 +75,7 @@ class AgentsController < ApplicationController
 
     if ["BASIC", "PRO", "PROTRIAL"].include?(current_user.plan_identifier)
       user = User.find(params[:id])
-      user.destroy unless user.plan_identifier.nil?
+      user.destroy if user.plan_identifier.nil?
 
       if user && ["BASIC", "PRO"].include?(current_user.plan_identifier)
         stripe = CreateStripeCustomerService.new(current_user, current_user.plan_identifier, current_user.stripe_customer_token, nil, current_user.agents.count)
