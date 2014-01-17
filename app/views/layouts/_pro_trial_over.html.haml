@@ -1,0 +1,23 @@
+.modal-backdrop
+  .modal-window.trial-window
+    .modal
+      .modal-header
+        %a.close.close-trial-end
+          ×
+        %h2
+          Oops! Your 30-Day Pro Trial has ended
+      .modal-body
+        %p
+          The 30-day period to try out Offerchat PRO has wrapped up. Continue using it by upgrading your account to enjoy more features like:
+        %ul.list.styled
+          %li Add agents
+          %li No Offerchat logo - use it like it's your own
+          %li Unlimited chat history
+          %li Chat reports and analytics
+          %li Attach notes to visitors
+      .modal-footer.bordered
+        %a.btn.trial-pricing{href: "#upgrade"}
+          View Plans and Pricing
+
+:javascript
+  mixpanel.track("Show Pro Trial Over Modal")
