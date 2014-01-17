@@ -108,7 +108,7 @@ class Website < ActiveRecord::Base
   end
 
   def expired?
-    if owner.trial_days_left <= 0
+    if owner.trial_days_left <= 0 && owner.plan_identifier == "PROTRIAL"
       true
     else
       false

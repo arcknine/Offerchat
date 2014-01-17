@@ -56,6 +56,7 @@ module Offerchat
             agents    = website.widget_owner_agents
             triggers  = website.triggers
             anyAgents = website.available_agent
+            anyAgents = false if website.expired?
 
             style = website.settings(:style)
             style = { gradient: style.gradient, position: style.position, rounded: style.rounded, theme: style.theme, language: style.language }
@@ -92,6 +93,7 @@ module Offerchat
           website   = Website.find_by_api_key(params[:apikey])
           if website
             anyAgents = website.available_agent
+            anyAgents = false if website.expired?
 
             { any_agents_online: anyAgents, website_id: website.id }
           else
