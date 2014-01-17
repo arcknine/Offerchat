@@ -162,12 +162,12 @@
     Hide Offerchat branding on the widget footer
 {{/if}}
 
-{{#unless paid}}
-.block-message.small
-  %strong Tip:
-  You can remove the Offerchat footer by
-  %a.upgrade-tip upgrading your free plan
-{{/unless}}
+/ {{#unless paid}}
+/ .block-message.small
+/   %strong Tip:
+/   You can remove the Offerchat footer by
+/   %a.upgrade-tip upgrading your free plan
+/ {{/unless}}
 
 .column-footer-actions.bordered
   .block.large
