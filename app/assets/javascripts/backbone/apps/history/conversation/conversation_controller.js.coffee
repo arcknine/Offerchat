@@ -3,69 +3,81 @@
   class Conversations.Controller extends App.Controllers.Base
 
     initialize: ->
-      @layout = @getLayout()
-      agents = App.request "agents:entities", false
-
-      currentUser = App.request "get:current:user"
-      self = @
-
-      @listenTo @layout.conversationsRegion, "show", =>
-        App.request "hide:preloader"
 
       App.request "show:preloader"
-      App.execute "when:fetched", agents, (item)=>
-        if agents.length > 1
-          all_agent = App.request "new:agent:entity"
-          all_agent.set name: "All Agents"
-          agents.unshift(all_agent)
-        conversations = App.request "get:conversations:entitites", null, agents.pluck("id")
 
-        App.commands.setHandler "conversations:fetch", (aids)=>
-          conversations.fetch
-            data: {aids: aids}
-            dataType : "jsonp"
-            processData: true
-            reset: true
-            success: ->
-              convos = self.organizeConversations(conversations)
-              self.layout.conversationsRegion.show self.getConversationsRegion(convos)
-              App.request "hide:preloader"
+      currentUser = App.request "get:current:user"
 
-        App.execute "when:fetched", conversations, (item)=>
-          @listenTo @layout, "show", =>
+      App.execute "when:fetched", currentUser, =>
+        plan = currentUser.get("plan_identifier")
+        if plan is null or plan is "" or plan is "BASIC"
+          App.navigate "/", trigger: true
+        else
 
-            @changeOnResize()
+          @layout = @getLayout()
+          agents = App.request "agents:entities", false
 
-            convos = @organizeConversations(conversations)
-            headerRegion = @getHeaderRegion(conversations)
-            ids = []
-            items = []
+          self = @
 
-            @listenTo headerRegion, "remove:conversations:clicked", (item)->
-              r = confirm "Are you sure you want to delete the selected conversations?"
-              if r is true
-                _.each $(".table-row[data-checked='true']"), (item)->
-                  ids.push $(item).data("id")
+          @listenTo @layout.conversationsRegion, "show", =>
+            App.request "hide:preloader"
 
-                $.ajax
-                  url: "#{gon.history_url}/convo/remove"
-                  data: {ids: ids}
-                  dataType : "jsonp"
-                  processData: true
-                  success: ->
-                    conversations.each (item)->
-                      if ($.inArray(item.get("_id"), ids) isnt -1)
-                        item.trigger "destroy"
-                  error: ->
-                    App.request "hide:preloader"
 
-            @layout.headerRegion.show headerRegion
-            @layout.filterRegion.show @getFilterRegion(agents)
-            @layout.conversationsRegion.show @getConversationsRegion(convos)
-          @show @layout
+          App.execute "when:fetched", agents, (item)=>
+            if agents.length > 1
+              all_agent = App.request "new:agent:entity"
+              all_agent.set name: "All Agents"
+              agents.unshift(all_agent)
+            conversations = App.request "get:conversations:entitites", null, agents.pluck("id")
 
-        App.commands.setHandler "open:conversation:modal", (item)=>
-          @getConversationModal(item)
+            App.commands.setHandler "conversations:fetch", (aids)=>
+              conversations.fetch
+                data: {aids: aids}
+                dataType : "jsonp"
+                processData: true
+                reset: true
+                success: ->
+                  convos = self.organizeConversations(conversations)
+                  self.layout.conversationsRegion.show self.getConversationsRegion(convos)
+                  App.request "hide:preloader"
+
+            App.execute "when:fetched", conversations, (item)=>
+              @listenTo @layout, "show", =>
+
+                @changeOnResize()
+
+                convos = @organizeConversations(conversations)
+                headerRegion = @getHeaderRegion(conversations)
+                ids = []
+                items = []
+
+                @listenTo headerRegion, "remove:conversations:clicked", (item)->
+                  r = confirm "Are you sure you want to delete the selected conversations?"
+                  if r is true
+                    _.each $(".table-row[data-checked='true']"), (item)->
+                      ids.push $(item).data("id")
+
+                    $.ajax
+                      url: "#{gon.history_url}/convo/remove"
+                      data: {ids: ids}
+                      dataType : "jsonp"
+                      processData: true
+                      success: ->
+                        conversations.each (item)->
+                          if ($.inArray(item.get("_id"), ids) isnt -1)
+                            item.trigger "destroy"
+                      error: ->
+                        App.request "hide:preloader"
+
+                @layout.headerRegion.show headerRegion
+                @layout.filterRegion.show @getFilterRegion(agents)
+                @layout.conversationsRegion.show @getConversationsRegion(convos)
+              @show @layout
+
+            App.commands.setHandler "open:conversation:modal", (item)=>
+              @getConversationModal(item)
+
+        App.request "hide:preloader"
 
     changeOnResize: ->
       $(window).resize =>

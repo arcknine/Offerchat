@@ -15,6 +15,10 @@
           pro   = @profile.get("plan_identifier") == "PROTRIAL" ? true : false
           @profile.set trial: trial, pro: pro, status: user.get("status")
 
+          App.commands.setHandler "plan:changed", (new_plan) =>
+            trial = if new_plan isnt "PROTRIAL" then false else true
+            @profile.set { plan_identifier: new_plan, trial: trial }
+
         navView = @getNavView @profile
 
         @listenTo navView, "change:user:status", (elem) ->

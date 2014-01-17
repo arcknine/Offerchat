@@ -19,9 +19,14 @@
       %li.reports-menu-link
         %a
           Reports
+      {{/if}}
+
+      {{#if profile.plan_identifier}}
+      {{#if not_basic}}
       %li.history-menu-link
         %a
           History
+      {{/if}}
       {{/if}}
 
       %li.profile-status

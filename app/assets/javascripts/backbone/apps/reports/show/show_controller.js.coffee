@@ -2,48 +2,53 @@
 
   class Show.Controller extends App.Controllers.Base
     initialize: ->
-      plan = gon.current_user.plan_identifier
-      # if ["FREE", "STARTER", "BASIC"].indexOf(plan) != -1
-      unless plan is "PRO"
-        App.navigate Routes.root_path(), trigger: true
-      else
+      profile = App.request "get:current:profile"
 
-        @manageSites = App.request "manage:sites:entities"
-        @agents      = App.request "agents:entities"
-        @curWebsite  = App.request "reports:current:website"
-        @curAgent    = App.request "reports:current:agent"
-        @curDate     = App.request "reports:current:date"
-        @asgnAgents  = App.request "reports:assigned:agents"
-        currentUser  = App.request "get:current:user:json"
-        @ratings     = App.request "reports:get:ratings"
-        @stats       = App.request "reports:get:stat"
-        @layout      = @getLayout()
+      App.execute "when:fetched", profile, =>
 
-        App.execute "when:fetched", @agents, =>
-          @asgnAgents.set @agents.models
-          @currentUser = @agents.findWhere id: currentUser.id
+        plan = profile.get("plan_identifier")
 
-        App.execute "when:fetched", @manageSites, =>
-          @all_sites_ids = @manageSites.pluck("id")
-          @manageSites.add { name: "All Websites", all: true }
+        if ["PRO", "PROTRIAL"].indexOf(plan) isnt -1
 
-          ratings = App.request "reports:get:ratings", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()
-          @ratingPercentage ratings
+          @manageSites = App.request "manage:sites:entities"
+          @agents      = App.request "agents:entities"
+          @curWebsite  = App.request "reports:current:website"
+          @curAgent    = App.request "reports:current:agent"
+          @curDate     = App.request "reports:current:date"
+          @asgnAgents  = App.request "reports:assigned:agents"
+          currentUser  = App.request "get:current:user:json"
+          @ratings     = App.request "reports:get:ratings"
+          @stats       = App.request "reports:get:stat"
+          @layout      = @getLayout()
 
-          stats = App.request "reports:get:stats", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()
-          @setStats stats
+          App.execute "when:fetched", @agents, =>
+            @asgnAgents.set @agents.models
+            @currentUser = @agents.findWhere id: currentUser.id
 
-        @listenTo @layout, "show", =>
-          @showWebsites()
-          @showAgents()
-          @showRatings()
-          @showStats()
+          App.execute "when:fetched", @manageSites, =>
+            @all_sites_ids = @manageSites.pluck("id")
+            @manageSites.add { name: "All Websites", all: true }
 
-          @initMorrisGrap()
-          @initLayoutEvents()
-          @initDatePicker "week"
+            ratings = App.request "reports:get:ratings", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()
+            @ratingPercentage ratings
 
-        @show @layout
+            stats = App.request "reports:get:stats", @all_sites_ids, @getCurrrentAgentIds(), @getCurrentDate()
+            @setStats stats
+
+          @listenTo @layout, "show", =>
+            @showWebsites()
+            @showAgents()
+            @showRatings()
+            @showStats()
+
+            @initMorrisGrap()
+            @initLayoutEvents()
+            @initDatePicker "week"
+
+          @show @layout
+
+        else
+          App.navigate Routes.root_path(), trigger: true
 
     initLayoutEvents: ->
       @listenTo @layout, "quick:date:select", (type) =>
