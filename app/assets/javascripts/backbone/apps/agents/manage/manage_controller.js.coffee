@@ -127,10 +127,19 @@
 
         @listenTo manageAgentView, "remove:agent:clicked", (item) =>
           if confirm "Are you sure you want to remove this agent?"
-            agent.destroy agent.attributes,
-              success: =>
+            modalLayout.close()
+
+            processView   = @getDeleteProcessModal @plan
+            processLayout = App.request "modal:wrapper", processView
+            App.modalRegion.show processLayout
+
+            processLayout.$el.find(".modal-footer").remove()
+            processLayout.$el.find(".close").remove()
+
+            agent.destroy
+              success: (model, response) =>
                 @showNotification("Your changes have been saved!")
-                modalLayout.close()
+                processLayout.close()
 
         @listenTo modalSites, "childview:modal:check:site", (obj, result) =>
           $.each agent_sites, (index, site) =>
@@ -140,9 +149,28 @@
         @listenTo modalLayout, "modal:cancel", (item) ->
           modalLayout.close()
 
-        @listenTo modalLayout, "modal:unsubmit", (obj) ->
-          console.log obj
-          modalLayout.close()
+        @listenTo modalLayout, "modal:unsubmit", (obj) =>
+          errors = @getErrors agent
+          modalLayout.$el.find(".field-error").removeClass("field-error")
+          modalLayout.$el.find(".block-text-message").remove()
+          App.request "modal:hide:message"
+
+          errCount = 0
+          $.each errors, (key, error) ->
+            errCount++
+            if key is "websites"
+              App.request "modal:error:message", error
+
+          if errCount is 0
+            agent.save
+              success: (model, response) =>
+                @showNotification("Your changes have been saved!")
+                modalLayout.close()
+              error: ->
+                console.log "error"
+
+            @showNotification("Your changes have been saved!")
+            modalLayout.close()
 
       @layout.agentsRegion.show agentsView
 
@@ -167,9 +195,20 @@
     addAgent: (agent, modal) ->
       agent.save agent.attributes,
         success: (model) =>
-          console.log model
           @agents.add model
           @showNotification("Invitation sent!")
+          modal.close()
+        error: (data, response) =>
+          if response.status == 422
+            errs = []
+            errors  = $.parseJSON(response.responseText).errors
+            for attribute, messages of errors
+              if attribute isnt "base"
+                errs.push "#{attribute.charAt(0).toUpperCase()}#{attribute.slice(1)} #{message}" for message in messages
+              else
+                errs.push "#{message}" for message in messages
+            @showNotification _.first(errs), 'warning'
+
           modal.close()
 
     addPlanQty: (agent) ->
@@ -213,6 +252,10 @@
 
     getProcessModal: (plan) ->
       new Manage.ProcessPayment
+        model: plan
+
+    getDeleteProcessModal: (plan) ->
+      new Manage.ProcessDelete
         model: plan
 
     getModalUpdatePlan: (plan) ->

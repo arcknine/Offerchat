@@ -37,7 +37,6 @@ class AgentsController < ApplicationController
       )
     end
     @user = User.create_or_invite_agents(current_user, params[:agent], accounts)
-    puts current_user.inspect
     if @user.errors.any?
       respond_with @user
     elsif current_user.stripe_customer_token && ["BASIC", "PRO"].include?(current_user.plan_identifier)
@@ -75,7 +74,8 @@ class AgentsController < ApplicationController
     end
 
     if ["BASIC", "PRO", "PROTRIAL"].include?(current_user.plan_identifier)
-      user = User.destroy(params[:id])
+      user = User.find(params[:id])
+      user.destroy unless user.plan_identifier.nil?
 
       if user && ["BASIC", "PRO"].include?(current_user.plan_identifier)
         stripe = CreateStripeCustomerService.new(current_user, current_user.plan_identifier, current_user.stripe_customer_token, nil, current_user.agents.count)

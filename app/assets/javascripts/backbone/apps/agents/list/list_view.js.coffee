@@ -1,4 +1,4 @@
-@Offerchat.module "AgentsApp.List", (List, App, Backbone, Marionette, $, _) ->
+###@Offerchat.module "AgentsApp.List", (List, App, Backbone, Marionette, $, _) ->
 
   class List.Layout extends App.Views.Layout
     template: "agents/list/layout"
@@ -127,3 +127,4 @@
     itemView: List.Site
     className: "block-list manage-agent-modal-list"
     tagName: "ul"
+###
