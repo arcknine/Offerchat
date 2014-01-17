@@ -2,14 +2,9 @@
 
   class AgentsApp.Router extends Marionette.AppRouter
     appRoutes:
-      "agents/old" : "list"
       "agents"     : "manage"
 
   API =
-    list: ->
-      new AgentsApp.List.Controller
-        region: App.mainRegion
-
     manage: ->
       new AgentsApp.Manage.Controller
         region: App.mainRegion
