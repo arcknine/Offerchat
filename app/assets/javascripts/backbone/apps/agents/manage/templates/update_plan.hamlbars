@@ -4,7 +4,7 @@
   .small.text-center
     per month
 %h3 {{description}}
-x {{agents}} agent(s)
+x 1 agent
 
 %div
   %a.small (change plan)
