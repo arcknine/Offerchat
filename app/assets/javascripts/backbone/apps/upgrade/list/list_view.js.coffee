@@ -40,6 +40,7 @@
     serializeData: ->
       user: @options.model.toJSON()
       plan: @options.plan
+      qty: @options.qty
 
   class List.ModalProcessPayment extends App.Views.ItemView
     template: "upgrade/list/process_payment"
