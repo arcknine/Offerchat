@@ -107,6 +107,14 @@ class Website < ActiveRecord::Base
     owner.plan_identifier
   end
 
+  def expired?
+    if owner.trial_days_left <= 0
+      true
+    else
+      false
+    end
+  end
+
   private
 
   def generate_api_key
