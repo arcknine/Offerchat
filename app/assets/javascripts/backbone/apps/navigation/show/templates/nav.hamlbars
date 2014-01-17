@@ -73,7 +73,7 @@
               More information
         %a.icon-help
           %span ?
-        %strong Premium Trial:
+        %strong Pro Trial:
         {{profile.trial_days_left}} days left
       {{/if}}
       %a.add-more-btn.btn Upgrade

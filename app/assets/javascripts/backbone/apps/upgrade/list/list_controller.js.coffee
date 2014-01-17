@@ -55,8 +55,10 @@
       current_plan = @profile.get("plan_identifier")
 
       cplan = all_plans.findWhere plan_identifier: current_plan
-      plan_price = cplan.get("price")
-      plan_price = 0 if current_plan is "PROTRIAL"
+      if current_plan is "PROTRIAL"
+        plan_price = 0
+      else
+        plan_price = cplan.get("price")
 
       if all_agents.length > 0
         res = all_agents.length * plan_price
@@ -71,10 +73,12 @@
 
     activeCurrentPlan: (current_plan) =>
       current_plan_html = "<span class='icon-round-check'><i class='icon icon-check-large'></i></span>This is your current plan"
-      if current_plan is "PRO" or current_plan is "PROTRIAL"
+      if current_plan is "PRO"
         elem = $(".pro-plan")
       else if current_plan is "BASIC"
         elem = $(".basic-plan")
+      else if current_plan is "PROTRIAL"
+        # do nothing
       else
         notice = "Your current plan is part of our legacy pricing model. Once you upgrade to our <strong>Basic / Pro plan</strong> you cannot undo this."
         $(".block-message").removeClass("hide").html(notice)
@@ -91,7 +95,10 @@
 
     normalizeString: (str) =>
       res = $.trim(str.toLowerCase())
-      res = res.charAt(0).toUpperCase() + res.slice(1)
+      if res is "protrial"
+        res = "Pro Trial"
+      else
+        res = res.charAt(0).toUpperCase() + res.slice(1)
       res
 
     showModal: (elem, agents) =>
@@ -101,7 +108,7 @@
 
       agents_qty = agents.length
 
-      modal = @getModalView target_id, target_price, agents_qty
+      modal = @getModalView target_id, agents_qty
 
       formView  = App.request "modal:wrapper", modal
 
@@ -210,7 +217,7 @@
         model: @profile
         plans: plans
 
-    getModalView: (plan, price, qty) ->
+    getModalView: (plan, qty) ->
       new List.ModalPlan
         model: @profile
         plan: plan
