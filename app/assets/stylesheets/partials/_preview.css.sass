@@ -72,14 +72,15 @@
     display: inline-block
     margin: 0 10px 0 0
     color: $text-color
+    border: 2px solid transparent
     @include transition(.2s)
     label
       display: block
       margin-top: 5px
       text-align: center
     &.active
-      background-color: #60cba1
-      color: #fff
+      border-color: $link-color
+      
       
   .widget-screen
     width: 120px
