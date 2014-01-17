@@ -122,6 +122,7 @@ class User < ActiveRecord::Base
   end
 
   def self.create_or_invite_agents(owner, user, account_array)
+    name = user[:display_name]
     user = User.find_or_initialize_by_email(user[:email])
     user_is_new = false
 
@@ -134,40 +135,47 @@ class User < ActiveRecord::Base
     end
 
     if user.new_record?
+      user_is_new                = true
       password                   = Devise.friendly_token[0,8]
       user.password              = password
       user.password_confirmation = password
-      user.name                  = user.email.split('@').first
-      user.display_name          = "Support"
+      user.name                  = name
+      user.display_name          = name.split(' ').first
+      user.plan_identifier       = nil
       user.save
-      user_is_new = true
     end
 
-    has_checked_website = false
-    account_array.each do |p|
-      unless p[:website_id].blank? && p[:website_id].nil?
-        unless p[:role] == 0
-          role            = p[:is_admin] ? Account::ADMIN : Account::AGENT
-          account         = Account.new(:role => role)
-          account.user    = user
-          account.owner   = owner
-          account.website = Website.find(p[:website_id])
-          if account.save
-            account.add_rosters
-            has_checked_website = true
-            if user_is_new
-              UserMailer.delay.new_agent_welcome(account, user, password) unless user.errors.any?
+    if user_is_new == true
+      has_checked_website = false
+      account_array.each do |p|
+        unless p[:website_id].blank? && p[:website_id].nil?
+          unless p[:role] == 0
+            # role            = p[:is_admin] ? Account::ADMIN : Account::AGENT
+            role            = Account::AGENT
+            account         = Account.new(:role => role)
+            account.user    = user
+            account.owner   = owner
+            account.website = Website.find(p[:website_id])
+            if account.save
+              account.add_rosters
+              has_checked_website = true
+              if user_is_new
+                UserMailer.delay.new_agent_welcome(account, user, password) unless user.errors.any?
+              else
+                UserMailer.delay.old_agent_welcome(account, user) unless user.errors.any?
+              end
             else
-              UserMailer.delay.old_agent_welcome(account, user) unless user.errors.any?
+              puts account.errors
             end
-          else
-            puts account.errors
           end
         end
-      end
-    end unless user[:email].empty?
+      end unless user[:email].empty?
+
+      user.errors[:base] << "Agent must be assigned to at least 1 site." unless has_checked_website
+    end
+
+    user.errors[:base] << "Invalid email address" unless user_is_new
     user.errors[:base] << "Please provide an email for that agent." if user[:email].empty?
-    user.errors[:base] << "Agent must be assigned to at least 1 site." unless has_checked_website
     user
   end
 

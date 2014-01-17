@@ -1,12 +1,12 @@
 .form.form-inline.invite-user-form
   .block
     %fieldset
-      %label Name
+      %label.label-top-fix Name
       .input-container
         %input.large-2{ :type => "text", name: "display_name", value: "{{display_name}}" }
 
     %fieldset
-      %label Email
+      %label.label-top-fix Email
       .input-container
         %input.large-2{ :type => "text", name: "email", value: "{{email}}" }
 

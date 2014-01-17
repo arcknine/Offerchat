@@ -19,6 +19,7 @@
       @region.show view
 
     showNotification: (message, type="success") ->
+      $(".block-message").removeClass("success").removeClass("warning")
       $(".block-message").find("span").html(message)
       $(".block-message").addClass(type).fadeIn()
 

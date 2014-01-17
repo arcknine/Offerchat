@@ -21,7 +21,8 @@
     itemViewContainer: "div#agent-list"
     collectionEvents:
       "change" : "render"
-      "add"    : "render"
+    modelEvents:
+      "change" : "render"
     triggers:
       "click .agent-selection-new" : "new:agent:clicked"
       "click #account-owner"       : "show:owner:modal"
@@ -98,3 +99,27 @@
         cancel: "Cancel"
         placement: "right"
       title: "Add a new agent"
+    triggers:
+      "click a.small" : "click:change:plan"
+
+  class Manage.ProcessPayment extends App.Views.ItemView
+    template: "agents/manage/process_payment"
+    className: "block large"
+    form:
+      buttons:
+        nosubmit: false
+        primary: false
+        cancel: false
+        placement: "right"
+      title: "Add a new agent"
+
+  class Manage.ProcessDelete extends App.Views.ItemView
+    template: "agents/manage/process_delete"
+    className: "block large"
+    form:
+      buttons:
+        nosubmit: false
+        primary: false
+        cancel: false
+        placement: "right"
+      title: "Manage agent"

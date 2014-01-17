@@ -39,6 +39,9 @@ class AgentsController < ApplicationController
     @user = User.create_or_invite_agents(current_user, params[:agent], accounts)
     if @user.errors.any?
       respond_with @user
+    elsif current_user.stripe_customer_token && ["BASIC", "PRO"].include?(current_user.plan_identifier)
+        stripe = CreateStripeCustomerService.new(current_user, current_user.plan_identifier, current_user.stripe_customer_token, nil, current_user.agents.count)
+        stripe.upgrade
     end
   rescue Exceptions::AgentLimitReachedError
     user = User.new
@@ -68,6 +71,16 @@ class AgentsController < ApplicationController
   def destroy
     current_user.websites.each do |website|
       Account.where(user_id: params[:id], website_id: website.id).destroy_all
+    end
+
+    if ["BASIC", "PRO", "PROTRIAL"].include?(current_user.plan_identifier)
+      user = User.find(params[:id])
+      user.destroy unless user.plan_identifier.nil?
+
+      if user && ["BASIC", "PRO"].include?(current_user.plan_identifier)
+        stripe = CreateStripeCustomerService.new(current_user, current_user.plan_identifier, current_user.stripe_customer_token, nil, current_user.agents.count)
+        stripe.upgrade
+      end
     end
 
     respond_to do |format|

@@ -1,8 +1,15 @@
 .go-right
   %h1.lite
     {{total}}
+  .small.text-center
+    per month
 %h3 {{description}}
 x {{agents}} agent(s)
 
 %div
   %a.small (change plan)
+
+.block
+  %em.small
+    %strong *
+    You will be charged with the prorated amount for this month.
