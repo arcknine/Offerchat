@@ -3,16 +3,16 @@
   Great! You are now up and running. Here are a couple of things you can do:
 .block.large
   %ul.list.styled
-    %li
-      %a Update Website Settings
-    %li
-      %a Add an Agent
-    %li
-      %a Setup an Offline Form
-    %li
-      %a Change Your Widget Color
-    %li
-      %a Add a Chat Trigger
+   %li
+    %a{ :href => "#settings" } Update Website Settings
+  %li
+    %a{ :href => "#agents" } Add an Agent
+  %li
+    %a{ :href => "#settings"  } Setup an Offline Form
+  %li
+    %a{ :href => "#settings" } Change Your Widget Color
+  %li
+    %a{ :href => "#settings" } Add a Chat Trigger
 .block.large.bordered-top
   %a.remove-msg
     %span.icon-rounded-container

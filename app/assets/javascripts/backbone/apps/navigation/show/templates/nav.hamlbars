@@ -67,11 +67,26 @@
       #premium-trial.tag-small
         .tooltip.tooltip-large{ :style => "left: -10px" }
           .caret.caret-top.caret-pull-left
-          Enjoy a Pro trial for 30 days! Add multiple live chat agents and enjoy exclusive Pro features. Take Offerchat for a full spin.
+          You're in a Premium Trial by default as a special gift for signing up. Add unlimited agents plus other perks for FREE! Enjoy it for 30 days then upgrade or automatically go back to the regular free account.
+          %div
+            %a{ :href => "https://www.offerchat.com/blog/surprise-treat-for-new-offerchat-users-2/",  :target => "_blank" }
+              More information
         %a.icon-help
           %span ?
         %strong Pro Trial:
         {{profile.trial_days_left}} days left
       {{/if}}
+      
+      {{#if profile.pro}}
+      #premium-trial.tag-small
+        .tooltip.tooltip-large{ :style => "left: -10px" }
+          .caret.caret-top.caret-pull-left
+          You're in a Pro Trial by default as a special gift for signing up. Add unlimited agents plus other perks for FREE! Enjoy it for 30 days then upgrade to continue using Offerchat.
+        %a.icon-help
+          %span ?
+        %strong Pro Trial:
+        {{profile.trial_days_left}} days left
+      {{/if}}
+      
       %a.add-more-btn.btn Change Plan
     {{/if}}

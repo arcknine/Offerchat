@@ -11,8 +11,9 @@
 
       App.execute "when:fetched", user, =>
         App.execute "when:fetched", @profile, =>
-          trial = if ["PROTRIAL"].indexOf(@profile.get("plan_identifier")) isnt -1 then true else false
-          @profile.set trial: trial, status: user.get("status")
+          trial = @profile.get("plan_identifier") == "PREMIUM" ? true : false
+          pro   = @profile.get("plan_identifier") == "PROTRIAL" ? true : false
+          @profile.set trial: trial, pro: pro, status: user.get("status")
 
         navView = @getNavView @profile
 
