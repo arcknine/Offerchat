@@ -3,30 +3,34 @@
   class Manage.Controller extends App.Controllers.Base
 
     initialize: ->
-      @layout       = @getLayoutView()
-      @current_user = App.request "get:current:profile"
-      @agents       = App.request "agents:only:entities"
-      @websites     = App.request "owned:sites:entities"
-      online_agents = App.request "get:online:agents"
-      plans        = App.request "get:plans"
+      user = App.request "get:current:user"
+      unless user.get "plan_identifier"
+        App.navigate Routes.root_path(), trigger: true
+      else
+        @layout       = @getLayoutView()
+        @current_user = App.request "get:current:profile"
+        @agents       = App.request "agents:only:entities"
+        @websites     = App.request "owned:sites:entities"
+        online_agents = App.request "get:online:agents"
+        plans        = App.request "get:plans"
 
-      App.execute "when:fetched", @websites , =>
-        if @websites.length is 0
-          console.log "You are doom!!!"
+        App.execute "when:fetched", @websites , =>
+          if @websites.length is 0
+            console.log "You are doom!!!"
 
-      App.execute "when:fetched", @agents , =>
-        @setAgentStatus online_agents, @agents
-
-        @listenTo online_agents, "all", =>
+        App.execute "when:fetched", @agents , =>
           @setAgentStatus online_agents, @agents
 
-      @listenTo @layout, "show", =>
-        App.execute "when:fetched", @current_user, =>
-          App.execute "when:fetched", plans, =>
-            @plan = plans.findWhere plan_identifier: @current_user.get("plan_identifier")
-            @showAgents()
+          @listenTo online_agents, "all", =>
+            @setAgentStatus online_agents, @agents
 
-      @show @layout
+        @listenTo @layout, "show", =>
+          App.execute "when:fetched", @current_user, =>
+            App.execute "when:fetched", plans, =>
+              @plan = plans.findWhere plan_identifier: @current_user.get("plan_identifier")
+              @showAgents()
+
+        @show @layout
 
     setAgentStatus: (online_agents, agents) ->
       online_agents.each (agent, key) ->
