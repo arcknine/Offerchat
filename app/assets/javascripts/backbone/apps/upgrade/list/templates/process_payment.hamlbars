@@ -1,4 +1,5 @@
 #payment-process.authorize-payment-processing
-  %h4 Processing Payment. Please wait.
+  %p.text-center
+    Processing Payment. Please wait.
   .progress.full
     .progress-bar
