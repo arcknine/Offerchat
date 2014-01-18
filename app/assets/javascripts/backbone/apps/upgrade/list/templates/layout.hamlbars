@@ -58,8 +58,7 @@
                 %li
                   Visitor Notes
                 %li
-                  %strike.disabled
-                    Chat Triggers
+                  Chat Triggers
                 %li
                   %strike.disabled
                     Agent Analytics
