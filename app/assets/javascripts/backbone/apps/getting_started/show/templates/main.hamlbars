@@ -4,7 +4,7 @@
 .block.large
   %ul.list.styled
     %li
-      %a{ :href => "#settings" } Update Website Settings
+      %a{ :href => "#websites" } Update Website Settings
     %li
       %a{ :href => "#agents" } Add an Agent
     %li
