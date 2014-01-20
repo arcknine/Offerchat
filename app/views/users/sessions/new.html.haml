@@ -21,7 +21,10 @@
       %fieldset
         %button.btn.action{:type => "submit"}
           Login
+        
         = link_to "Forgot your password?", new_password_path(resource_name), :class => "go-right", :style => "margin-top: 9px"
-        %br
-        = link_to "Create an account", signup_wizard_path('step_one'), :class =>"go-right", :style => "margin-top: 9px"
+  .signup-box
+    Don't have an account yet?
+    %strong
+      = link_to "Create an account", signup_wizard_path('step_one'), :class => "hovered", :style => "margin-top: 9px"
 

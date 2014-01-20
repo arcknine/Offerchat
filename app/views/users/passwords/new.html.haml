@@ -1,4 +1,3 @@
-= render :partial => "users/sidebar"
 .login-wrapper
   .logo-large.centered
   .login-form.form
@@ -17,6 +16,10 @@
         = link_to "Login", new_session_path(resource_name), :class => "go-right", :style => "margin-top: 9px"
         %button.btn.action{:type => "submit"}
           Reset password
+  .signup-box
+    Don't have an account yet?
+    %strong
+      = link_to "Create an account", signup_wizard_path('step_one'), :class => "hovered", :style => "margin-top: 9px"
 
 
 
