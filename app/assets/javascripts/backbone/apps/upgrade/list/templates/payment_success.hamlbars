@@ -7,5 +7,5 @@
         {{user.plan_identifier}}
     %i.icon.icon-credit-card-success
   .block.large.text-center
-    %a.btn.action.btn-large.manage-agents
+    %a.btn.btn-large.manage-agents
       Manage Agents

@@ -48,7 +48,7 @@
       if current_plan is "PROTRIAL"
         days_left = @profile.get('trial_days_left')
         if days_left > 0
-          notice = "You have #{days_left} days left in your trial. Select one of our plans below to continue using our service."
+          notice = "You have <strong>#{days_left} days</strong> left in your trial. Select one of our plans below to continue using our service."
           $(".block-message").removeClass("hide").html(notice)
 
     setAgentCount: (all_agents, all_plans) =>
