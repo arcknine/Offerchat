@@ -24,9 +24,7 @@ class Visitor < ActiveRecord::Base
 
   def activate_funnel
     if website.visitors.count <= 1
-      if Rails.env.staging?
-        MIXPANEL.track "Install Widget", { :distinct_id => website.owner.email }
-      end
+      MIXPANEL.track "Install Widget", { :distinct_id => website.owner.email }
     end
   end
 end
