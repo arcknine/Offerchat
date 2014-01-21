@@ -1,0 +1,62 @@
+.modal-backdrop.hide
+  .modal-window
+    .modal.hide
+      %form.send-code#send-code{ name: "send-code" }
+        .modal-header
+          %a.close.close-trial-end
+            ×
+          %h2
+            Send to your web master
+        .modal-body
+          .form
+            %fieldset
+              %label Email
+              .input-container
+                %input.large{ type: "text", name: "email" }
+                %input{ type: "hidden", name: "api_key" }
+            %fieldset
+              %label Widget Code
+              .input-container
+                %textarea.large.widget-code-text{ name: "code", }
+        .modal-footer.bordered
+          %button.btn.action
+            Send
+
+:coffeescript
+  $(".webmaster-code").click ->
+    $(".modal-backdrop").removeClass("hide")
+    $(".modal-backdrop .modal").removeClass("hide")
+    code    = $(".tour-content-inner .widget-code-text").val()
+    api_key = $.trim $("span.api_key").text()
+    $(".modal input[name=api_key]").val(api_key)
+    $(".modal .widget-code-text").val(code)
+
+  $(".close.close-trial-end").click ->
+    $(".modal-backdrop").addClass("hide")
+    $(".modal-backdrop .modal").addClass("hide")
+
+  $("#send-code").submit (e) ->
+    api_key = $(".modal input[name=api_key]").val()
+    email   = $(".modal input[name=email]").val()
+
+    $(".modal fieldset.field-error").removeClass("field-error")
+    $(".modal .block-text-message").remove()
+    $.ajax
+      url: "#{webmaster_code_websites_path}"
+      type: "POST"
+      beforeSend: (xhr) ->
+        xhr.setRequestHeader "X-CSRF-Token", $("meta[name=\"csrf-token\"]").attr("content")
+      data:
+        email:   email
+        api_key: api_key
+      success: (data) ->
+        $(".modal-backdrop").addClass("hide")
+        $(".modal-backdrop .modal").addClass("hide")
+        $("#notification-wrapper").addClass("success").removeClass("hide").text("Widget code has been sent successfully to your webmaster.")
+      error: (data) ->
+        if data.status is 401
+          errors = JSON.parse data.responseText
+          $(".modal input[name=email]").parent().parent().addClass("field-error")
+          $(".modal input[name=email]").parent().append("<div class=\"block-text-message\">is blank or invalid</div>")
+
+    false

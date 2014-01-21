@@ -16,6 +16,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def send_to_webmaster(email, name, apikey)
+    @website = Website.find_by_api_key(apikey)
     @apikey = apikey
     @name = name
     mail(:to => email, :subject => "Offerchat Website Integration Code")

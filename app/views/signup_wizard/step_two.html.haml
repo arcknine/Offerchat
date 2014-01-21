@@ -1,4 +1,6 @@
 .main-content-view.tour-content-view
+  .block-message.hide#notification-wrapper
+
   .tour-content-inner
 
     .block-message{ :style => "display:none;" }
@@ -52,7 +54,8 @@
         Use this api key only when configuring plugins
       %strong
         API Key:
-      = @website.api_key
+      %span.api_key
+        = @website.api_key
     .block.large
       %ul.image-list
         %li
