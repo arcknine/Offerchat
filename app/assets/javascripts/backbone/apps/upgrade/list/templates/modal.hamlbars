@@ -49,6 +49,8 @@
 
 %fieldset
   .terms-text
-    Please read the <a>terms and conditions</a> before proceeding
+    Please read the
+    %a{ :href => "https://www.offerchat.com/terms-of-use/", :target => "_blank" } terms and conditions
+    before proceeding
   %button.btn.action.go-right.authorize-payment{ :type => "submit" }
     Authorize Payment
