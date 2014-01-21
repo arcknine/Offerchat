@@ -28,6 +28,7 @@ class Visitor < ActiveRecord::Base
     if website.visitors.count <= 1
       MIXPANEL.track "Install Widget", { :distinct_id => website.owner.email }
       vero.events.track!({ :event_name => "Install Widget", :identity => { :email => website.owner.email } })
+      website.owner.update_attribute(:widget_installed, true)
     end
   end
 end

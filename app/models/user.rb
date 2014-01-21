@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
   belongs_to :plan, :foreign_key => "plan_identifier", :class_name => "Plan"
 
   attr_accessor :avatar_remove
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :display_name, :jabber_user, :jabber_password, :avatar, :plan_identifier, :billing_start_date, :stripe_customer_token, :avatar_remove, :trial_days_left
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :display_name, :jabber_user,
+    :jabber_password, :avatar, :plan_identifier, :billing_start_date, :stripe_customer_token, :avatar_remove, :trial_days_left, :widget_installed
 
   validates_presence_of :email, :name, :display_name
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
@@ -41,7 +42,7 @@ class User < ActiveRecord::Base
   end
 
   include Vero::Trackable
-  trackable :email, :first_name, :name, :plan_identifier, :created_at, :trial_days_left, :first_website_id
+  trackable :email, :first_name, :name, :plan_identifier, :created_at, :trial_days_left, :first_website_id, :widget_installed
 
   def generate_random_avatar
     "//d2rbi2fqode2pf.cloudfront.net/users/avatars/avatar#{id % 5}.jpg"
