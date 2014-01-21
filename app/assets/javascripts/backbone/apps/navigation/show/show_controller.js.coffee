@@ -12,12 +12,12 @@
       App.execute "when:fetched", user, =>
         App.execute "when:fetched", @profile, =>
           trial = @profile.get("plan_identifier") == "PREMIUM" ? true : false
-          pro   = @profile.get("plan_identifier") == "PROTRIAL" ? true : false
-          @profile.set trial: trial, pro: pro, status: user.get("status")
+          protrial   = @profile.get("plan_identifier") == "PROTRIAL" ? true : false
+          @profile.set trial: trial, protrial: protrial, status: user.get("status")
 
           App.commands.setHandler "plan:changed", (new_plan) =>
-            pro = if new_plan isnt "PROTRIAL" then false else true
-            @profile.set { plan_identifier: new_plan, pro: pro }
+            protrial = if new_plan isnt "PROTRIAL" then false else true
+            @profile.set { plan_identifier: new_plan, protrial: protrial }
 
         navView = @getNavView @profile
 
