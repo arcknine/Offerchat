@@ -40,8 +40,15 @@ class User < ActiveRecord::Base
     s.key :notifications, :defaults => { :new_message => false, :new_visitor => false }
   end
 
+  include Vero::Trackable
+  trackable :email, :first_name, :name, :plan_identifier, :created_at, :trial_days_left, :first_website_id
+
   def generate_random_avatar
     "//d2rbi2fqode2pf.cloudfront.net/users/avatars/avatar#{id % 5}.jpg"
+  end
+
+  def first_website_id
+    websites.first.id
   end
 
   def group(owner_id)
