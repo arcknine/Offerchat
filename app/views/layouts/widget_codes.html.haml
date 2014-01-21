@@ -13,11 +13,8 @@
       = mixpanel_dev_js
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  %body
+  %body{ :style => "overflow: auto" }
+    %a.logo-1{:href => root_path}
 
-    #wrapper
-      %a.logo-1{:href => root_path}
-
-      .content-container
-        = yield
+    = yield
 
