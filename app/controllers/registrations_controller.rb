@@ -14,6 +14,8 @@ class RegistrationsController < Devise::RegistrationsController
         website.create
         # Sign in
         sign_in(resource_name, resource)
+        # Vero
+        current_user.track("Signup")
         redirect_to signup_wizard_path('step_two')
       end
     else

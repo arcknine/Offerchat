@@ -1,6 +1,6 @@
 .block.large
   %h1 Get Started On Your Dashboard
-  Great! You are now up and running. Here are a couple of things you can do:
+  We're still setting up your account. You'll be up and running in a few minutes. In the meantime, here are some things you can do:
 .block.large
   %ul.list.styled
     %li
