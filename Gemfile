@@ -55,6 +55,9 @@ gem 'airbrake'
 gem 'google-analytics-rails'
 gem 'mixpanel'
 
+# Email
+gem 'vero'
+
 # Cron Jobs
 gem 'whenever', :require => false
 
