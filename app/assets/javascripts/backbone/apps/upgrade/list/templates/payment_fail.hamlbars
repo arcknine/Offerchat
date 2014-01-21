@@ -1,9 +1,18 @@
-#payment-fail.authorize-payment-success
-  .block.large.text-center
-    %h2 Oops, something went wrong
-    %p
-      There was an error processing your payment. Make sure you have entered your credit card details correctly.
-    %i.icon.icon-credit-card-error
-  .block.block-large
-    %a.btn.action.btn-large.back-to-checkout{ :id => "{{plan}}", data: { price: "{{price}}" } }
-      &larr; Back to Checkout
+%h2 Oops, something went wrong
+%p {{error}}
+%p
+  %i.icon.icon-credit-card-error
+%p
+  %a.back-to-checkout{ :id => "{{plan}}", data: { price: "{{price}}" } }
+    &larr; Back to checkout
+
+
+
+/#payment-fail.authorize-payment-success
+/  %h3 Payment Error
+/  Something went wrong while processing your payment. Please try again later.
+/  .block.large
+/    %i.icon.icon-agent-large
+/  .block
+/    %a.btn.action.btn-large.back-to-checkout{ :id => "{{plan}}", data: { price: "{{price}}" } }
+/      Back to Checkout

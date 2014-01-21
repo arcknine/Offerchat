@@ -145,6 +145,7 @@
             @processPayment()
 
             handleStripeResponse = (status, response) =>
+
               if status == 200
 
                 $.post "/subscriptions",
@@ -164,11 +165,9 @@
 
                   App.execute "plan:changed", target_id
 
-
-
                   @paymentSuccess()
               else
-                @paymentFail(target_id, target_price, agents)
+                @paymentFail(target_id, target_price, agents, response.error.message)
 
             Stripe.createToken(card, handleStripeResponse)
 
@@ -192,8 +191,8 @@
       # track Payment processing
       mixpanel.track("Payment Successful")
 
-    paymentFail: (plan, price, agents) =>
-      modalView = @getPaymentFailModal(plan, price)
+    paymentFail: (plan, price, agents, err_msg) =>
+      modalView = @getPaymentFailModal(plan, price, err_msg)
       formView  = App.request "modal:wrapper", modalView
 
       @listenTo formView, "modal:cancel", (item) ->
@@ -235,11 +234,12 @@
       new List.ModalPaymentSuccess
         model: @profile
 
-    getPaymentFailModal: (plan, price) ->
+    getPaymentFailModal: (plan, price, err_msg) ->
       new List.ModalPaymentFail
         model: @profile
         plan: plan
         price: price
+        error: err_msg
 
 
     validCoupon: (coupon, e) ->
