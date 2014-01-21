@@ -45,6 +45,8 @@
             @initLayoutEvents()
             @initDatePicker "week"
 
+            @resizeReportsWrapper()
+
           @show @layout
 
         else
@@ -264,6 +266,15 @@
           opportunities: @addCommaSeparator(total.opportunities)
 
         @morrisGraph.setData data
+
+    resizeReportsWrapper: ->
+      @layout.$(".block.large.auto-resize").css
+        "height":   ($(window).height() - 198) + "px"
+        "overflow": "auto"
+
+      $(window).resize =>
+        @layout.$(".block.large.auto-resize").css
+          "height": ($(window).height() - 198) + "px"
 
     addCommaSeparator: (input) ->
       output = input
