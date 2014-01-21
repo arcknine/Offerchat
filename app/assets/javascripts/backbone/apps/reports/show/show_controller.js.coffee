@@ -269,8 +269,9 @@
 
     resizeReportsWrapper: ->
       @layout.$(".block.large.auto-resize").css
-        "height":   ($(window).height() - 198) + "px"
-        "overflow": "auto"
+        "height":     ($(window).height() - 198) + "px"
+        "overflow-y": "auto"
+        "overflow-x": "hidden"
 
       $(window).resize =>
         @layout.$(".block.large.auto-resize").css

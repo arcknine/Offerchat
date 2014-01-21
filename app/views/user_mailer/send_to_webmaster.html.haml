@@ -1,50 +1,47 @@
 !!!
-%html{:xmlns => "http://www.w3.org/1999/xhtml"}
-  %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title= @subject
-    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
-  %body{:style => "margin: 0; padding: 0;"}
-    %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
-      %tr
-        %td{:style => "padding: 10px 0 30px 0;"}
-          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "border: 1px solid #cccccc; border-collapse: collapse;", :width => "600"}
-            %tr
-              %td{:align => "center", :bgcolor => "#1d2532", :style => "color: #153643; font-size: 28px; font-weight: bold; font-family: Arial, sans-serif;"}
-                %img{:alt => "Offerchat", :height => "77", :src => "https://d1qsh505towr9b.cloudfront.net/wp-content/uploads/2013/07/h1.gif", :style => "display: block;", :width => "202"}/
-            %tr
-              %td{:bgcolor => "#ffffff", :style => "padding: 40px 30px 40px 30px; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;" }
-                %p
-                  Please copy and paste the Offerchat widget code on http://www.buyrealmarketing.com before the closing
-                  %strong &lt;/head&gt;
-                  of our site.
-                %p
-                  \&lt;!-- offerchat script begins here --&gt;
-                  %br
-                    %br
-                      = @apikey
-                      %br
-                        %br
-                          \&nbsp;
-                %p
-                  Thanks,
-                  %br
-                    = @name
-
-            %tr
-              %td{:bgcolor => "#1c2532", :style => "padding: 20px 30px 10px 30px;"}
-                %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
-                  %tr
-                    %td{:align => "center"}
-                      %a{:href => "https://twitter.com/offerchat", :style => "color: #1c2532;"}
-                        %img{:alt => "Twitter", :border => "0", :height => "33", :src => "https://d1qsh505towr9b.cloudfront.net/wp-content/uploads/2013/07/tw.gif", :width => "33"}/
-                      %a{:href => "https://www.facebook.com/Offerchat", :style => "color: #ffffff;padding-left: 10px;"}
-                        %img{:alt => "Facebook", :border => "0", :height => "33", :src => "https://d1qsh505towr9b.cloudfront.net/wp-content/uploads/2013/07/fb.gif", :width => "33"}/
-                  %tr
-                    %td{:style => "text-align: center; color: #ffffff; font-family: Arial, sans-serif; font-size: 12px;", :width => "100%"}
-                      %p
-                        \© 2013 Offerchat
-                        %br/
-                        Crown 7 Building, Juan Luna Ave, Cebu City, Philippines, 6000
-
-
+%html{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;", xmlns: "http://www.w3.org/1999/xhtml"}
+  %head{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;"}
+    / If you delete this meta tag, Half Life 3 will never be released.
+    %meta{content: "width=device-width", name: "viewport", style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;"}/
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type", style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;"}/
+    %title{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;"} Offerchat
+  %body{bgcolor: "#FFFFFF", style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;height: 100%;background-color: #f1f1f1;color: #565656;width: 100%;"}
+    / HEADER
+    %table.head-wrap{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;width: 100%;"}
+      %tr{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;"}
+        %td{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;"}
+        %td.header{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;"}
+          .content{style: "margin: 0 auto;padding: 35px;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;max-width: 600px;display: block;"}
+            %table{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;width: 100%;"}
+              %tr{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;"}
+                %td{align: "center", style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;"}
+                  %a.logo{href: "https://www.offerchat.com", style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;color: #2BA6CB;display: block;"}
+                    %img{alt: "Offerchat logo", src: "https://s3.amazonaws.com/offerchat-emails/logo.png", style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;max-width: 100%;"}/
+        %td{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;"}
+    / /HEADER
+    / BODY
+    %table.body-wrap{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;width: 100%;"}
+      %tr{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;"}
+        %td{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;"}
+        %td.container{bgcolor: "#FFFFFF", style: "margin: 0 auto 36px auto;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;border-radius: 5px;display: block;max-width: 600px;clear: both;"}
+          .content{style: "margin: 0 auto;padding: 35px;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;max-width: 600px;display: block;"}
+            %table{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;width: 100%;"}
+              %tr{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;"}
+                %td{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;"}
+                  %h4
+                    You have successfully signed up for
+                    %a{ :href => "https://www.offerchat.com" } Offerchat.
+                  %p To start live chats on your website, you need to install the chat widget.
+                  %p
+                    %a{ :href=> "https://app.offerchat.com/widget_codes/#{@website.id}" } Click here
+                    to get the installation instructions.
+                  %p
+                    Once you have installed the widget you can customize how it looks on your site, add agents and other cool stuff.
+                  %p If you have any questions, simply reply to this email. Remember, we're here to help.
+                  %p &nbsp;
+          / /content
+        %td{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;"}
+    / /BODY
+    .container.footer.content{style: "margin: 0 auto 36px auto;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;text-align: center;border-radius: 5px;display: block;max-width: 600px;clear: both;"}
+      %p{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;margin-bottom: 18px;font-weight: normal;font-size: 13px;line-height: 1.8;color: #767676;"} © 2013 Offerchat. All rights reserved.
+      %p{style: "margin: 0;padding: 0;font-family: \"Helvetica Neue\", \"Helvetica\", Helvetica, Arial, sans-serif;margin-bottom: 18px;font-weight: normal;font-size: 13px;line-height: 1.8;color: #767676;"} Room 333, AS Bldg., U.P. Lahug, Cebu City, Philippines 6000
