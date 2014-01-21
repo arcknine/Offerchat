@@ -9,6 +9,8 @@ class Visitor < ActiveRecord::Base
   before_create :generate_name
   after_create  :activate_funnel
 
+  include Vero::DSL
+
   def generate_token
     self.token = loop do
       random_token = SecureRandom.urlsafe_base64(nil, false)
@@ -25,6 +27,7 @@ class Visitor < ActiveRecord::Base
   def activate_funnel
     if website.visitors.count <= 1
       MIXPANEL.track "Install Widget", { :distinct_id => website.owner.email }
+      vero.events.track!({ :event_name => "Install Widget", :identity => { :email => website.owner.email } })
     end
   end
 end
