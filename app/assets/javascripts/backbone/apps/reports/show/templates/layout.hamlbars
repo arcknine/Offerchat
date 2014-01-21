@@ -21,7 +21,7 @@
 
     #websites-region.btn-selector-wrapper
 
-.block.large
+.block.large.auto-resize
   %h4 Assigned agents
   #agents-region
 
