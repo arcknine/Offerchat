@@ -221,7 +221,8 @@
 
     setStats: (collection) ->
       App.execute "when:fetched", collection, =>
-        data = []
+        data  = []
+        dates = []
         total = { missed: 0, active: 0, proactive: 0, opportunities: 0 }
 
         $.each collection.models, (key, value) =>
@@ -239,15 +240,19 @@
             missed: value.get("missed")
             opportunities: opportunities
 
+          dates.push value.get("period")
+
         start = new Date @from
         end   = new Date @to
 
         while start < end
-          data.push
-            period: moment(start).format("YYYY-MM-DD")
-            active: 0
-            proactive: 0
-            missed: 0
+          date = moment(start).format("YYYY-MM-DD")
+          if dates.indexOf(date) is -1
+            data.push
+              period: date
+              active: 0
+              proactive: 0
+              missed: 0
 
           newDate = start.setDate(start.getDate() + 1)
           start   = new Date(newDate)
