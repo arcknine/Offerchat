@@ -11,8 +11,8 @@
 
       App.execute "when:fetched", user, =>
         App.execute "when:fetched", @profile, =>
-          trial = @profile.get("plan_identifier") == "PREMIUM" ? true : false
-          protrial   = @profile.get("plan_identifier") == "PROTRIAL" ? true : false
+          trial = if @profile.get("plan_identifier") is "PREMIUM" then true else false
+          protrial   = if @profile.get("plan_identifier") is "PROTRIAL" then true else false
           @profile.set trial: trial, protrial: protrial, status: user.get("status")
 
           App.commands.setHandler "plan:changed", (new_plan) =>
