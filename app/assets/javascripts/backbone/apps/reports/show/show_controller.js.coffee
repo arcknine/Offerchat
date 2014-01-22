@@ -257,12 +257,12 @@
           newDate = start.setDate(start.getDate() + 1)
           start   = new Date(newDate)
 
-        data = [
-          period: moment().format("YYYY-MM-DD")
-          active: 0
-          proactive: 0
-          missed: 0
-        ] if data.length is 0
+        # data = [
+        #   period: moment().format("YYYY-MM-DD")
+        #   active: 0
+        #   proactive: 0
+        #   missed: 0
+        # ] if data.length is 0
 
         @stats.set
           active: @addCommaSeparator(total.active)
