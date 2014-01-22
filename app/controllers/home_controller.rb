@@ -10,7 +10,7 @@ class HomeController < ApplicationController
     gon.trial_days_left = current_user.trial_days_left
 
     # Update user on vero
-    vero.users.edit_user!({ :email => current_user.email, :changes => { :trial_days_left => current_user.trial_days_left })
+    vero.users.edit_user!({ :email => current_user.email, :changes => { :trial_days_left => current_user.trial_days_left }})
 
     redirect_to "/rails_admin" if current_admin
   end
