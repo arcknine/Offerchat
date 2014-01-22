@@ -266,7 +266,13 @@ class User < ActiveRecord::Base
     if created_at > DateTime.parse("Nov 27, 2013")
       expire_date = created_at + 30.days
     end
-    ((expire_date - DateTime.now)/86400).round
+    days = ((expire_date - DateTime.now)/86400).round
+
+    if days <= 0
+      0
+    else
+      days
+    end
   end
 
   def self.expired_trials
