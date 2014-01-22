@@ -16,15 +16,16 @@
       App.tab_active = false
 
     user = JSON.parse options.currentUser
+
     # Identify users on Mixpanel
-    mixpanel.identify(user.email)
-    mixpanel.people.set({
-      "Name": user.name,
-      "Jabber user": user.jabber_user,
-      "Plan": user.plan_identifier,
-      "Created": user.created_at,
-      "$email": user.email
-    })
+    # mixpanel.identify(user.email)
+    # mixpanel.people.set({
+    #  "Name": user.name,
+    #  "Jabber user": user.jabber_user,
+    #  "Plan": user.plan_identifier,
+    #  "Created": user.created_at,
+    #  "$email": user.email
+    # })
 
   App.addRegions
     navigationRegion:       "#header-region"
