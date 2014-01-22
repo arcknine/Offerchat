@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
-   before_filter :authenticate_user!
+  before_filter :authenticate_user!
+  include Vero::DSL
 
   def index
     @user         = current_user
@@ -7,6 +8,9 @@ class HomeController < ApplicationController
     gon.history_url = ENV["CHAT_HISTORY_URL"]
     gon.current_user = current_user
     gon.trial_days_left = current_user.trial_days_left
+
+    # Update user on vero
+    vero.users.edit_user!({ :email => current_user.email, :changes => { :trial_days_left => current_user.trial_days_left })
 
     redirect_to "/rails_admin" if current_admin
   end
