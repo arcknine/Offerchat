@@ -1,6 +1,6 @@
 .header-wrapper
   position: relative
-  z-index: 100
+  z-index: 214
 .upgrade-header-section
   float: right
   margin: 12px 10px 0 0
@@ -17,14 +17,14 @@
 
 .global-notification
   text-align: center
-  display: block
-  visibility: hidden
-  opacity: 0
+  display: none
   position: absolute
   width: 100%
   z-index: 110
   text-align: center
   font-size: 14px
+  &.show
+    display: block
   &.setting-up
     left: 50%
     margin-left: 250px
@@ -51,11 +51,6 @@
   a
     color: #fff
     text-decoration: underline
-  &.open
-    @include transition(.2s)
-    margin-top: 0
-    visibility: visible
-    opacity: 1
   a.close
     text-decoration: none
     float: right
