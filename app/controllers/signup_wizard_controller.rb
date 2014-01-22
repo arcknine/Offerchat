@@ -12,6 +12,7 @@ class SignupWizardController < ApplicationController
       render_wizard
     when :step_two
       @website = current_user.websites.first
+      MIXPANEL.track("Finish")
       render_wizard
     when :step_three
       # website url

@@ -16,12 +16,4 @@ $(document).ready(function(){
   $(".large.widget-code-text").click(function(){
     $(this).select();
   });
-
-  $(".mixpanel-user-info").click(function(){
-    mixpanel.track("Enter User Info");
-  });
-
-  $(".mixpanel-finish").click(function(){
-    mixpanel.track("Finish Signup");
-  });
 });
