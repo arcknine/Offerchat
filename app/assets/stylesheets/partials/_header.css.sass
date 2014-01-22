@@ -17,9 +17,7 @@
 
 .global-notification
   text-align: center
-  display: block
-  visibility: hidden
-  opacity: 0
+  display: none
   position: absolute
   width: 100%
   z-index: 110
@@ -51,11 +49,6 @@
   a
     color: #fff
     text-decoration: underline
-  &.open
-    @include transition(.2s)
-    margin-top: 0
-    visibility: visible
-    opacity: 1
   a.close
     text-decoration: none
     float: right
