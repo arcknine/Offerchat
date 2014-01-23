@@ -34,7 +34,7 @@
           .profile-image-container
             .profile-image
               %img{src: '{{profile.avatar}}'}
-            %span.status{class: "{{profile.status}}"}
+            %span.status{class: "{{profile.avatar_status}}"}
               %i.icon.icon-check-small
         %ul.settings-dropdown
 
@@ -55,10 +55,10 @@
               Account
           %li.bordered
             %a#changeStatus{data: {status: "away"}}
-              %span.status
+              %span.status{{class: "{{profile.menu_class}}"}}
                 %i.icon.icon-check-small
               %span#current-status
-                Away
+                {{profile.menu_status}}
           %li.logout.bordered
             %a{data: {status: "logout"}}
               %span.status.signout
