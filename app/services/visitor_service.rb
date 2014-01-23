@@ -2,8 +2,21 @@ class VisitorService
   include Vero::DSL
 
   def initialize(visitor)
-    @website = visitor.website
+    @visitor = visitor
+    @website = @visitor.website
     @owner   = @website.owner
+  end
+
+  def generate_token
+    begin
+      random_token = SecureRandom.urlsafe_base64(nil, false)
+    end while Visitor.where(token: random_token).exists?
+
+    random_token
+  end
+
+  def generate_name
+    'visitor-%06d' % rand(6 ** 6)
   end
 
   def track

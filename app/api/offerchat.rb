@@ -19,8 +19,14 @@ module Offerchat
           unless website.nil?
             ip = request.env['REMOTE_ADDR']
             dataInfo = { :ipaddress => ip}
-            visitor = website.visitors.new(dataInfo)
+
+            visitor         = website.visitors.new(dataInfo)
+            visitor_service = VisitorService.new(visitor)
+            visitor.name    = visitor_service.generate_name if visitor.name.blank?
+            visitor.token   = visitor_service.generate_token
             visitor.save
+            visitor_service.track
+
             {token: visitor.token}
           else
             {error: "Invalid API Key"}
