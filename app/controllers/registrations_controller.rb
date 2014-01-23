@@ -17,11 +17,14 @@ class RegistrationsController < Devise::RegistrationsController
         # Vero & Mixpanel
         current_user.track("Signup")
 
-        MIXPANEL.track "Enter User Info", {
-          :distinct_id => current_user.email
-        }
-        MIXPANEL.set current_user, { :name => current_user.name, :jabber_user => current_user.jabber_user,
-          :plan => current_user.plan_identifier, :created => current_user.created_at, :email => current_user.email }
+        MIXPANEL.people.set(current_user.email, {
+          '$email'           => current_user.email,
+          'Name'             => current_user.name,
+          'Plan'             => current_user.plan_identifier,
+          'Jabber user'      => current_user.jabber_user,
+          'Created'          => current_user.created_at,
+          'Trial days left', => current_user.trial_days_left
+        })
 
         redirect_to signup_wizard_path('step_two')
       end

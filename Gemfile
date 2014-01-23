@@ -53,7 +53,7 @@ gem 'airbrake'
 
 # Analytics
 gem 'google-analytics-rails'
-gem 'mixpanel'
+gem 'mixpanel-ruby'
 
 # Email
 gem 'vero'
