@@ -14,6 +14,7 @@
       @siteAgents  = App.request "online:agents:entities"
       @layout      = @getLayout()
       @unreadMsgs  = App.request "unread:messages:entities"
+      @status      = sessionStorage.getItem("status") || "Online"
 
       agents = App.request "agents:entities", false
 
@@ -238,7 +239,9 @@
         sessionStorage.setItem("vcard", true)
 
     sendPresence: ->
-      pres = $pres().c('priority').t('1').up().c('status').t("Online")
+      pres = $pres().c('show').t('away').up().c('priority').t('0').up().c('status').t("I'm away from my desk") if @status is "Away"
+      pres = $pres().c('priority').t('1').up().c('status').t("Online") if @status is "Online"
+
       @connection.send(pres)
 
     onPresence: (presence) =>

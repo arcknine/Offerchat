@@ -6,14 +6,28 @@
       @connection = App.xmpp.connection
 
       user_json = App.request "get:current:user:json"
-      user = App.request "set:current:user", user_json
-      @profile = App.request "get:current:profile"
+      user      = App.request "set:current:user", user_json
+      @profile  = App.request "get:current:profile"
+      status    = sessionStorage.getItem("status") || "Online"
 
       App.execute "when:fetched", user, =>
         App.execute "when:fetched", @profile, =>
           trial = if @profile.get("plan_identifier") is "PREMIUM" then true else false
           protrial   = if @profile.get("plan_identifier") is "PROTRIAL" then true else false
           @profile.set trial: trial, protrial: protrial, status: user.get("status")
+
+          if status is "Online"
+            stats =
+              avatar_status: "online"
+              menu_status:   "Away"
+              menu_class:    ""
+          else
+            stats =
+              avatar_status: ""
+              menu_status:   "Online"
+              menu_class:    "online"
+
+          @profile.set stats
 
           App.commands.setHandler "plan:changed", (new_plan) =>
             protrial = if new_plan isnt "PROTRIAL" then false else true
@@ -95,6 +109,7 @@
     changeStatus: (elem) ->
       status_elem = $(elem.currentTarget).find("#current-status")
       status = $.trim(status_elem.text())
+      sessionStorage.setItem "status", status
 
       if status is "Away"
         status_elem.text("Online")
