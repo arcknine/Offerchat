@@ -9,8 +9,12 @@ class HomeController < ApplicationController
     gon.current_user = current_user
     gon.trial_days_left = current_user.trial_days_left
 
-    # Update user on vero
+    # Update user on vero & mixpanel
     vero.users.edit_user!({ :email => current_user.email, :changes => { :trial_days_left => current_user.trial_days_left }})
+    MIXPANEL.people.set(current_user.email, {
+      'Plan'             => current_user.plan_identifier,
+      'Trial days left'  => current_user.trial_days_left
+    })
 
     redirect_to "/rails_admin" if current_admin
   end

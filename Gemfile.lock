@@ -119,7 +119,6 @@ GEM
       launchy (~> 2.1)
       mail (~> 2.2)
     erubis (2.7.0)
-    escape (0.0.4)
     eventmachine (1.0.3)
     excon (0.25.3)
     execjs (1.4.0)
@@ -238,10 +237,7 @@ GEM
     metaclass (0.0.1)
     method_source (0.8.1)
     mime-types (1.23)
-    mixpanel (4.1.1)
-      escape
-      json
-      rack
+    mixpanel-ruby (1.2.0)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
     multi_json (1.7.7)
@@ -479,7 +475,7 @@ DEPENDENCIES
   letter_opener
   meta_request (= 0.2.7)
   meta_search (>= 1.1.0.pre)
-  mixpanel
+  mixpanel-ruby
   mocha
   mysql2
   newrelic_rpm
