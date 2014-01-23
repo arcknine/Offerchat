@@ -9,8 +9,6 @@ class Visitor < ActiveRecord::Base
   before_create :generate_name
   after_create  :activate_funnel
 
-  include Vero::DSL
-
   def generate_token
     self.token = loop do
       random_token = SecureRandom.urlsafe_base64(nil, false)

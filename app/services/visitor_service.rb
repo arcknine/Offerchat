@@ -1,0 +1,17 @@
+class VisitorService
+  include Vero::DSL
+
+  def initialize(visitor)
+    @website = visitor.website
+    @owner   = @website.owner
+  end
+
+  def track
+    if @website.visitors.count < 1
+      MIXPANEL.track "Install Widget", { :distinct_id => @owner.email }
+      vero.events.track!({ :event_name => "Install Widget", :identity => { :email => @owner.email } })
+      vero.users.edit_user!({ :email => @owner.email, :changes => { :widget_installed => true } })
+      @owner.update_attribute(:widget_installed, true)
+    end
+  end
+end
