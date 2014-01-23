@@ -13,7 +13,7 @@ class HomeController < ApplicationController
     vero.users.edit_user!({ :email => current_user.email, :changes => { :trial_days_left => current_user.trial_days_left }})
     MIXPANEL.people.set(current_user.email, {
       'Plan'             => current_user.plan_identifier,
-      'Trial days left', => current_user.trial_days_left
+      'Trial days left'  => current_user.trial_days_left
     })
 
     redirect_to "/rails_admin" if current_admin

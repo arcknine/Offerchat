@@ -23,7 +23,7 @@ class RegistrationsController < Devise::RegistrationsController
           'Plan'             => current_user.plan_identifier,
           'Jabber user'      => current_user.jabber_user,
           'Created'          => current_user.created_at,
-          'Trial days left', => current_user.trial_days_left
+          'Trial days left'  => current_user.trial_days_left
         })
 
         redirect_to signup_wizard_path('step_two')
