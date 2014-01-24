@@ -20,7 +20,7 @@ class VisitorService
 
   def track
     if @website.visitors.count <= 1
-      MIXPANEL.track "Install Widget", { :distinct_id => @owner.email }
+      MIXPANEL.track(@owner.email, "Install Widget")
       vero.events.track!({ :event_name => "Install Widget", :identity => { :email => @owner.email } })
       vero.users.edit_user!({ :email => @owner.email, :changes => { :widget_installed => true } })
       @owner.update_attribute(:widget_installed, true)
