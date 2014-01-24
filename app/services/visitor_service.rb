@@ -1,8 +1,7 @@
 class VisitorService
   include Vero::DSL
 
-  def initialize(visitor, website)
-    @visitor = visitor
+  def initialize(website)
     @website = website
     @owner   = @website.owner
   end
