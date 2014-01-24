@@ -21,11 +21,11 @@ module Offerchat
             dataInfo = { :ipaddress => ip}
 
             visitor         = website.visitors.new(dataInfo)
-            visitor_service = VisitorService.new(visitor)
+            visitor_service = VisitorService.new(visitor, website)
             visitor.name    = visitor_service.generate_name if visitor.name.blank?
             visitor.token   = visitor_service.generate_token
-            visitor.save
             visitor_service.track
+            visitor.save
 
             {token: visitor.token}
           else
