@@ -37,6 +37,9 @@ node do |website|
       },
       :footer => {
         :enabled     => website.settings(:footer).enabled
+      },
+      :grabber => {
+        :enabled     => website.settings(:grabber).enabled
       }
     }
   }

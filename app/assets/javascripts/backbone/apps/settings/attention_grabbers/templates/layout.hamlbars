@@ -9,6 +9,10 @@
   %label.label-top-fix.block-label-adjust
     Make the chat widget easier to spot by your visitors by adding standout attention grabbers.
 
+  .block-message#setting-notification{:style => "display: none"}
+    %a.close ×
+    Your changes have been saved
+
   %p/
 
   .group
@@ -39,3 +43,8 @@
 
           .item-desc.hide
           %p.item-desc.small jpg, png and gif
+
+.column-footer-actions.bordered
+  .block.large
+    %button.btn.action.save-attention-grabber{ :type => "submit" }
+      Save Changes

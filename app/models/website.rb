@@ -31,6 +31,7 @@ class Website < ActiveRecord::Base
     s.key :offline, :defaults => { :enabled => true,  :header => "Contact Us", :description => "Leave a message and we will get back to you ASAP.", :email => "" }
     s.key :a_grabbers, :defaults => { :enabled => false, :width => "300px", :image => "/assets/grabber-2.png", :personal => false }
     s.key :footer, :defaults => { :enabled => true }
+    s.key :grabber, :defaults => { :enabled => false }
   end
 
   after_create :after_create_settings
