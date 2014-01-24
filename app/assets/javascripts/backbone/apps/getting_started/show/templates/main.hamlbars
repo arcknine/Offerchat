@@ -11,6 +11,7 @@
           Update your website settings
         %p
           Change the name of your website, get your widget code/API key key here.
+<<<<<<< HEAD
     %li
       %a{ :href => "#agents"}
         %i.icon.icon-add-agent-2
@@ -18,6 +19,7 @@
           Add your first chat agent
         %p
           Invite your own chat agents to help you on your live chat
+<<<<<<< HEAD
     %li
       %a{:href => "#quick-responses"}
         %i.icon.icon-add-notes
