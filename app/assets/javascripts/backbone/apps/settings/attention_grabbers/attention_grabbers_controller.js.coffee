@@ -14,6 +14,19 @@
 
         @layout   = @getLayout()
 
+        App.execute "when:fetched", grabbers, =>
+          if @settings.grabber.src is null or @settings.grabber.src is ""
+            first_grabber = grabbers.first()
+            @settings.grabber.name = first_grabber.get("name")
+            @settings.grabber.src = first_grabber.get("src")
+            @settings.grabber.height = first_grabber.get("height")
+            @settings.grabber.width = first_grabber.get("width")
+
+            @currentSite.set settings: @settings
+            @currentSite.save()
+
+            $(".current-attention-grabber").attr("src", first_grabber.get("src"))
+
         @listenTo @layout, "show", =>
           $("#attention-grabber-toggle").addClass("toggle-off") unless @settings.grabber.enabled
 
@@ -22,7 +35,7 @@
 
           @listenTo modal, "show", =>
             grabbers.forEach (model, index) ->
-              src = '//' + model.get("src")
+              src = model.get("src")
               name = model.get("name")
               w = model.get("width")
               h = model.get("height")
