@@ -13,3 +13,12 @@ Plan.create(:name => "Pro(Trial)", :description => "Pro(Trial) Plan", :price => 
 # Admin User
 Admin.where(:email => "admin@offerchat.com").delete_all
 Admin.create(:email => "admin@offerchat.com", :password => "passw0rd", :password_confirmation => "passw0rd")
+
+AttentionGrabber.delete_all
+AttentionGrabber.create(:name => "Grabber 1", :src => "d1cpaygqxflr8n.cloudfront.net/images/attention-grabbers/01.png", :height => 155, :width => 200)
+AttentionGrabber.create(:name => "Grabber 2", :src => "d1cpaygqxflr8n.cloudfront.net/images/attention-grabbers/02.png", :height => 155, :width => 200)
+AttentionGrabber.create(:name => "Grabber 3", :src => "d1cpaygqxflr8n.cloudfront.net/images/attention-grabbers/03.png", :height => 253, :width => 200)
+AttentionGrabber.create(:name => "Grabber 4", :src => "d1cpaygqxflr8n.cloudfront.net/images/attention-grabbers/04.png", :height => 122, :width => 306)
+AttentionGrabber.create(:name => "Grabber 5", :src => "d1cpaygqxflr8n.cloudfront.net/images/attention-grabbers/05.png", :height => 230, :width => 230)
+AttentionGrabber.create(:name => "Grabber 6", :src => "d1cpaygqxflr8n.cloudfront.net/images/attention-grabbers/06.png", :height => 240, :width => 240)
+AttentionGrabber.create(:name => "Grabber 7", :src => "d1cpaygqxflr8n.cloudfront.net/images/attention-grabbers/07.png", :height => 268, :width => 192)

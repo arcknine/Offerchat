@@ -41,6 +41,8 @@ Dashboard::Application.routes.draw do
     end
   end
 
+  resources :attention_grabbers
+
   resources :subscriptions
 
   resources :quick_responses

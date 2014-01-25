@@ -39,7 +39,11 @@ node do |website|
         :enabled     => website.settings(:footer).enabled
       },
       :grabber => {
-        :enabled     => website.settings(:grabber).enabled
+        :enabled     => website.settings(:grabber).enabled,
+        :name        => website.settings(:grabber).name,
+        :src         => website.settings(:grabber).src,
+        :height      => website.settings(:grabber).height,
+        :width       => website.settings(:grabber).width
       }
     }
   }
