@@ -26,7 +26,7 @@ class RegistrationsController < Devise::RegistrationsController
           'Trial days left'  => current_user.trial_days_left
         })
 
-        MIXPANEL.track("Enter User Info")
+        MIXPANEL.track(current_user.email, "Enter User Info")
 
         redirect_to signup_wizard_path('step_two')
       end
