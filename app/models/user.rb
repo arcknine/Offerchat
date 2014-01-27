@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :quick_responses
   has_many :notes
   belongs_to :plan, :foreign_key => "plan_identifier", :class_name => "Plan"
+  belongs_to :affiliate
 
   attr_accessor :avatar_remove
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :display_name, :jabber_user,
