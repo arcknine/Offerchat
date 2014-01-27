@@ -33,7 +33,7 @@
         %p
           Match the color of your widget for every website you have
     %li
-      %a{:href => "#settings/"}
+      %a{:href => "#settings"}
         %i.icon.icon-lightning-2
         %h3
           Create a chat trigger
