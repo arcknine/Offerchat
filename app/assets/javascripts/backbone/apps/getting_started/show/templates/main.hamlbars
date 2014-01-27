@@ -1,20 +1,47 @@
+.block.large.text-center{ :style => "margin-top: 40px" }
+  %h1.lite A couple things to do while we finish up...
+  %h2.lite  In the meantime, here are some things you can do to optimize your live chat support
+  
 .block.large
-  %h1 Get Started On Your Dashboard
-  We're still setting up your account. You'll be up and running in a few minutes. In the meantime, here are some things you can do:
-.block.large
-  %ul.list.styled
-    %li
-      %a{ :href => "#websites" } Update Website Settings
-    %li
-      %a{ :href => "#agents" } Add an Agent
-    %li
-      %a{ :href => "#settings"  } Setup an Offline Form
-    %li
-      %a{ :href => "#settings" } Change Your Widget Color
-    %li
-      %a{ :href => "#settings" } Add a Chat Trigger
-.block.large.bordered-top
-  %a.remove-msg
-    %span.icon-rounded-container
-      %i.icon.icon-x
-    remove this message
+  %ul#getting-started
+    %li 
+      %a{ :href => "#websites"}
+        %i.icon.icon-browser-check
+        %h3
+          Update your website settings
+        %p
+          Change the name of your website, get your widget code/API key key here.
+    %li 
+      %a{ :href => "#agents"}
+        %i.icon.icon-add-agent-2
+        %h3
+          Add your first chat agent
+        %p
+          Invite your own chat agents to help you on your live chat
+    %li 
+      %a{:href => "#quick-responses"} 
+        %i.icon.icon-add-notes
+        %h3 
+          Create your Quick Responses
+        %p 
+          Create shortcuts to your messages to quickly answer visitors
+    %li 
+      %a{:href => "#settings"} 
+        %i.icon.icon-magic-wand
+        %h3 
+          Change your widget color
+        %p 
+          Match the color of your widget for every website you have
+    %li 
+      %a{:href => "#settings/"} 
+        %i.icon.icon-lightning-2
+        %h3 
+          Create a chat trigger
+        %p 
+          Sends an automated proactive chat to your visitors when a condition is met
+    %li.upgrade
+      %a{:href => "#upgrade"} 
+        %i.icon.icon-credit-card
+        %h3 Upgrade your Plan
+        %p Enjoy all these features and choose the plan that’s right for you.
+  
