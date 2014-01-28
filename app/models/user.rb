@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :quick_responses
   has_many :notes
   belongs_to :plan, :foreign_key => "plan_identifier", :class_name => "Plan"
+  belongs_to :affiliate
 
   attr_accessor :avatar_remove
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :display_name, :jabber_user,
@@ -257,8 +258,6 @@ class User < ActiveRecord::Base
         end
       end
     end unless user[:email].empty?
-    # user.errors[:base] << "Please provide an email for that agent." if user[:email].empty?
-    # user.errors[:base] << "Agent must be assigned to at least 1 site." unless has_checked_website
   end
 
   def trial_days_left
@@ -285,7 +284,7 @@ class User < ActiveRecord::Base
 
   def self.expiring_in(days)
     if created_at > DateTime.parse("Nov 27, 2013")
-      where("plan_identifier = 'PREMIUM' or plan_identifier = 'PROTRIAL' and date(created_at) = :fifty_five_days_ago", :fifty_five_days_ago => Date.today - (30 - days).days).limit(50)
+      where("plan_identifier = 'PREMIUM' and date(created_at) = :fifty_five_days_ago", :fifty_five_days_ago => Date.today - (30 - days).days).limit(50)
     else
       where("plan_identifier = 'PREMIUM' and date(created_at) = :fifty_five_days_ago", :fifty_five_days_ago => Date.today - (60 - days).days).limit(50)
     end
@@ -310,23 +309,11 @@ class User < ActiveRecord::Base
   def self.notify_expiring(days)
     expiring_in(days).each do |e|
       if days == 5
-        if e.plan_identifier == "PROTRIAL"
-          ProTrialMailer.delay.five_days_remaining(e)
-        elsif e.plan_identifier == "PREMIUM"
-          TrialMailer.delay.five_days_remaining(e)
-        end
+        TrialMailer.delay.five_days_remaining(e)
       elsif days == 3
-        if e.plan_identifier == "PROTRIAL"
-          ProTrialMailer.delay.three_days_remaining(e)
-        elsif e.plan_identifier == "PREMIUM"
-          TrialMailer.delay.three_days_remaining(e)
-        end
+        TrialMailer.delay.three_days_remaining(e)
       elsif days == 1
-        if e.plan_identifier == "PROTRIAL"
-          ProTrialMailer.delay.one_day_remaining(e)
-        elsif e.plan_identifier == "PREMIUM"
-          TrialMailer.delay.one_day_remaining(e)
-        end
+        TrialMailer.delay.one_day_remaining(e)
       end
     end
   end
