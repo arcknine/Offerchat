@@ -12,16 +12,16 @@ class SubscriptionsController < ApplicationController
     qty        = params[:qty]
 
     stripe = CreateStripeCustomerService.new(@user, plan, card_token, coupon, qty)
+
+    MIXPANEL.track(@user.email, "Upgrade Plan", {
+      "Old Plan" => @user.plan_identifier,
+      "New Plan" => @user.plan
+    })
+
     if @user.stripe_customer_token.blank?
       stripe.create
     else
-      # stripe = CreateStripeCustomerService.new(@user, plan, card_token)
       stripe.upgrade
     end
-
-    # unless agents.blank?
-    #   agent_list = UnassignAgentsService.new(agents, @user)
-    #   agent_list.unassign
-    # end
   end
 end
