@@ -1,6 +1,6 @@
 class Website < ActiveRecord::Base
   include ActiveModel::Validations
-  attr_accessible :api_key, :name, :url, :owner, :plan
+  attr_accessible :api_key, :name, :url, :owner, :plan, :attention_grabber
 
   before_create :generate_api_key
   after_create :generate_account
@@ -22,6 +22,21 @@ class Website < ActiveRecord::Base
   # validates :url, :url => true, :format => /^(http(s?):\/\/)?(www\.)?+[a-zA-Z0-9\-\_][a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,3})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/
   validates :url, :presence => true, :url => true
 
+  has_attached_file :attention_grabber,
+    :storage => :s3,
+    :bucket => Rails.env.production? ? 'offerchat-dashboard' : 'offerchat-staging',
+    :s3_credentials => {
+      :access_key_id => 'AKIAI4KRAOR4GE6GES7Q',
+      :secret_access_key => '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'
+    },
+    :s3_protocol => 'https'
+    # :styles => { :small => "55x55>", :thumb => "40x40>" },
+    # :default_style => :small,
+    # :default_url => :generate_random_avatar
+
+  validates_attachment_content_type :attention_grabber, :content_type => [ "image/jpg", "image/jpeg", "image/png" ], :message => "Only image files are allowed."
+  validates_attachment_size :attention_grabber, :less_than => 1.megabytes
+
 
   has_settings(:class_name => "WebsiteSettings") do |s|
     s.key :style, :defaults => { :theme => "greengrass", :position => "right", :rounded => false, :gradient => false, :language => "english" }
@@ -31,6 +46,7 @@ class Website < ActiveRecord::Base
     s.key :offline, :defaults => { :enabled => true,  :header => "Contact Us", :description => "Leave a message and we will get back to you ASAP.", :email => "" }
     s.key :a_grabbers, :defaults => { :enabled => false, :width => "300px", :image => "/assets/grabber-2.png", :personal => false }
     s.key :footer, :defaults => { :enabled => true }
+    s.key :grabber, :defaults => { :enabled => false, :uploaded => false }
   end
 
   after_create :after_create_settings

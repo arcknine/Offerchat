@@ -1,0 +1,13 @@
+.modal-window.attention-grabber-modal.modal-window-large
+  .modal
+    .modal-header
+      %a.close &times;
+      %h2 Select Attention Grabber
+    .modal-body
+      .modal-inner-container
+        .graphic-selector.attention-grabber-container
+
+
+    .modal-footer.bordered
+      %button.btn.action.set-attention-grabber{ :type => "submit" } Set Attention Grabber
+      %button.btn.cancel-set-attention-grabber Cancel

@@ -41,6 +41,8 @@ Dashboard::Application.routes.draw do
     end
   end
 
+  resources :attention_grabbers
+
   resources :subscriptions
 
   resources :quick_responses
@@ -62,6 +64,7 @@ Dashboard::Application.routes.draw do
     member do
       put "update_settings"
       get "triggers"
+      post "update_attention_grabber"
     end
   end
 

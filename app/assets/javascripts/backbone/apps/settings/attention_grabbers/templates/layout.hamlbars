@@ -9,6 +9,10 @@
   %label.label-top-fix.block-label-adjust
     Make the chat widget easier to spot by your visitors by adding standout attention grabbers.
 
+  .block-message#setting-notification{:style => "display: none"}
+    %a.close ×
+    %span Your changes have been saved!
+
   %p/
 
   .group
@@ -16,7 +20,7 @@
       .widget-preview-sample.min
         .widget-attention-grabber
           %a
-            %img{ alt: "Grabber-2", src: "/assets/grabber-2.png" }
+            %img.current-attention-grabber{ alt: "{{grabber_name}}", src: "{{grabber_src}}" }
 
         .widget-box.widget-head-min.widget-theme.theme-steelblue
           .widget-head.widget-rounded-head.group
@@ -27,7 +31,7 @@
     .block.inline
       .form.widget-label-form.text-center
         %fieldset
-          %a.hovered Browse more attention grabbers
+          %a.hovered.browse-more Browse more attention grabbers
 
         %fieldset or
 
@@ -35,7 +39,12 @@
           %button.btn
             Upload your own
             .image-selector
-              %input.file-input{ type: "file" }
+              %input.file-input{ type: "file", name: 'attention_grabber' }
 
           .item-desc.hide
           %p.item-desc.small jpg, png and gif
+
+.column-footer-actions.bordered
+  .block.large
+    %button.btn.action.save-attention-grabber{ :type => "submit" }
+      Save Changes
