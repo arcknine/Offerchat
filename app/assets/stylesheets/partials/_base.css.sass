@@ -988,6 +988,21 @@ span.dot-seperator
     text-align: center
     color: #fff
 
+.section-overlay
+  background-color: rgba(255,255,255,.6)
+  position: absolute
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+  z-index: 120
+  .section-loader
+    left: 50%
+    top: 35%
+    margin-left: -15px
+    padding: 10px
+    position: absolute
+    display: inline-block
 
 .toggle-list
   margin: 5px 0 20px 0
@@ -1178,6 +1193,8 @@ span.dot-seperator
   animation: loading .8s infinite linear
   -moz-animation: loading .8s infinite linear
   -webkit-animation: loading .8s infinite linear
+  &.clear
+    background-color: transparent
 #loader.spinner
   border: 5px solid #fff
   opacity: .8
@@ -1185,6 +1202,14 @@ span.dot-seperator
   border-left: 5px solid rgba(0, 0, 0, 0)
   width: 30px
   height: 30px
+  &.small
+    width: 15px
+    height: 15px
+    border-width: 2px solid $link-color
+  &.colored
+    border-color: $link-color
+    border-top: 5px solid rgba(0, 0, 0, 0)
+    border-left: 5px solid rgba(0, 0, 0, 0)
 
 @keyframes loading
   0%
