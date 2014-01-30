@@ -7,7 +7,8 @@
       api_url: '//local.offerchat.com:3000/api/v1/widget/',
       assets:  'http://local.offerchat.com:3000',
       cdn:     '//local.offerchat.com:3000',
-      widget:  '//local.offerchat.com:3000/widget/widget-new.html'
+      widget:  '//local.offerchat.com:3000/widget/widget-new.html',
+      grabber: '//local.offerchat.com:3000/widget/attention-grabber.html'
     }
   };
 
@@ -29,7 +30,8 @@
       api_url: '//new.offerchat.com/api/v1/widget/',
       assets:  'https://new.offerchat.com',
       cdn:     '//d1cpaygqxflr8n.cloudfront.net',
-      widget:  'https://new.offerchat.com/widget/widget.html'
+      widget:  'https://app.offerchat.com/widget/widget.html',
+      grabber: 'https://app.offerchat.com/widget/attention-grabber.html'
     }
   };*/
 
@@ -60,6 +62,7 @@
       var _this = this;
       $ofc.receiveMessage( function(e) {
         var data = _this.unserialize(e.data);
+        console.log(data);
         if (data.show == 'true') {
           $ofc("#offerchatbox").show();
         } else if (data.slide == 'true') {
@@ -71,6 +74,8 @@
             $ofc('#offerchatbox').css("height", height);
             _this.info.state = 'show';
           }
+        } else if (data.has_agent == "true") {
+          $ofc("#ofc-attention-grabber").css("bottom", "45px");
         }
       }, src.assets);
     },
@@ -116,6 +121,7 @@
           state:    info.state ? info.state : "show",
           hasAgent: info.hasAgent ? info.hasAgent : false,
           version:  defaults.version,
+          attention_grabber: true,
           api_key:  ofc_key
         };
         localStorage.setItem("ofc-widget-info", JSON.stringify(this.info));
@@ -185,7 +191,6 @@
 
       path = src.widget;
       title = encodeURI($ofc("head > title").text());
-      // path = "http://10.10.1.22:3000/widget"
 
       $ofc("<form action='" + path + "' method='GET' target='offerchat_frame'></form>")
       .append($ofc("<input type='hidden' name='api_key' />").attr('value', ofc_key))
@@ -193,10 +198,43 @@
       .append($ofc("<input type='hidden' name='current_url' />").attr('value', document.location.href))
       .append($ofc("<input type='hidden' name='page_title' />").attr('value', title))
       .append($ofc("<input type='hidden' name='referrer' />").attr('value', this.info.referrer))
+      // .append($ofc("<input type='hidden' name='_r' />").attr('value', Math.random()))
+      .appendTo('body')
+      .submit()
+      .remove();
+
+      if (this.info.attention_grabber)
+        this.generateAttentionGrabber();
+
+    },
+
+    generateAttentionGrabber: function() {
+      var build, height, grabber, w_widget, bot_pos, position, _this = this;
+      grabber = '//d1cpaygqxflr8n.cloudfront.net/images/attention-grabbers/01.png';
+      height  = 155;
+      width   = 200;
+
+      w_width  = 306;
+      bot_pos  = this.info.hasAgent == "true" ? 45 : 33;
+      position = (w_width / 2) - (width / 2) + 20;
+
+      build = '<div id="ofc-attention-grabber" style="position: fixed; bottom: ' + bot_pos + 'px; ' + this.info.position + ': ' + position + 'px; margin: 0;  padding: 0; background-color: transparent; overflow: hidden; z-index: 9999999; height: ' + height + 'px; width: ' + width + 'px; display: block">' +
+              ' <iframe scrolling="0" name="ofc_attention_grabber" frameBorder="0" id="ofc-attention-grabber-iframe" src="" style="background-color: transparent;vertical-align: text-bottom; overflow: hidden; position: relative;width: 100%;height: 100%;margin: 0px; z-index: 9999;"></iframe>' +
+              ' <div id="ofc-click-me" style="background-color: transparent;vertical-align: text-bottom; overflow: hidden; position: absolute;width: 100%;height: 100%;margin: 0px; z-index: 999999; top: 0; cursor: pointer"></div>' +
+              '</div>';
+      $ofc('body').append(build);
+
+      path = src.grabber;
+      $ofc("<form action='" + path + "' method='GET' target='ofc_attention_grabber'></form>")
+      .append($ofc("<input type='hidden' name='attention_grabber' />").attr('value', grabber))
       .append($ofc("<input type='hidden' name='_r' />").attr('value', Math.random()))
       .appendTo('body')
       .submit()
       .remove();
+
+      $ofc(document).on("click", "#ofc-click-me", function() {
+        _this.toggleWidget(_this.info.hasAgent);
+      });
     }
 
   };

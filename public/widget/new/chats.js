@@ -404,6 +404,8 @@ Chats = {
               agent_label: Offerchat.website.settings.online.agent_label
             });
 
+            $.postMessage({has_agent: true}, Offerchat.params.current_url, parent);
+
             $(".widget-box").removeClass("widget-head-min");
             header.replace();
 
@@ -702,6 +704,7 @@ Chats = {
           agent_label: Offerchat.website.settings.online.agent_label
         });
 
+        $.postMessage({has_agent: true}, Offerchat.params.current_url, parent);
         $(".widget-box").removeClass("widget-head-min");
         header.replace();
 
