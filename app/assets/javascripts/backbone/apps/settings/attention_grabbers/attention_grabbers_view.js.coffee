@@ -20,9 +20,35 @@
 
     serializeData: ->
       settings = @options.model.get("settings")
-      console.log "name is: ", settings.grabber.name
       grabber_src: settings.grabber.src
       grabber_name: settings.grabber.name
+
+    onShow: ->
+      site_id = @options.model.get("id")
+      self = @
+      @$el.fileupload
+        url: Routes.update_attention_grabber_website_path(site_id)
+        formData: {authenticity_token: App.request("csrf-token")}
+        add: (e, data) ->
+          file_too_large_error = "File size is too large."
+          types = /(\.|\/)(jpe?g|png)$/i
+          file = data.files[0]
+          App.request "show:preloader"
+          if file.size < 1000000
+            if types.test(file.type) || types.test(file.name)
+              data.submit().done( (e, data) ->
+                $(".current-attention-grabber").attr("src", e.attention_grabber)
+                App.execute "save:uploaded:grabber:image", e.attention_grabber
+              ).fail (jqXHR, textStatus, errorThrown)->
+                App.execute "show:notification:message", "Something went wrong while trying to upload your file. Please try again later.", "warning"
+                App.request "hide:preloader"
+            else
+              App.execute "show:notification:message", "#{file.name} is not a jpeg, or png image file", "warning"
+              App.request "hide:preloader"
+
+          else
+            App.execute "show:notification:message", file_too_large_error, "warning"
+            App.request "hide:preloader"
 
   class AttentionGrabbers.Modal extends App.Views.ItemView
     template: "settings/attention_grabbers/modal"
@@ -38,8 +64,8 @@
       $(".modal-backdrop").remove()
 
     selectGrabber: (e) ->
-      $(".ag-select").removeClass("active")
-      $(e.currentTarget).addClass("active")
+      $(".ag-select").removeClass("selected")
+      $(e.currentTarget).addClass("selected")
 
     setGrabber: ->
       @trigger "set:attention:grabber"

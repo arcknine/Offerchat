@@ -82,8 +82,8 @@
   App.reqres.setHandler "new:site:entity", ->
     API.newSite()
 
-  App.reqres.setHandler "get:website:triggers", (website_id) ->
-    API.getWebsiteTriggers website_id
+  # App.reqres.setHandler "get:website:triggers", (website_id) ->
+  #   API.getWebsiteTriggers website_id
 
   App.reqres.setHandler "manage:sites:entities", ->
     API.getManageSites()

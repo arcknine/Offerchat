@@ -11,7 +11,7 @@
 
   .block-message#setting-notification{:style => "display: none"}
     %a.close ×
-    Your changes have been saved!
+    %span Your changes have been saved!
 
   %p/
 
@@ -33,16 +33,16 @@
         %fieldset
           %a.hovered.browse-more Browse more attention grabbers
 
-    /    %fieldset or
+        %fieldset or
 
-    /    %fieldset
-    /      %button.btn
-    /        Upload your own
-    /        .image-selector
-    /          %input.file-input{ type: "file" }
+        %fieldset
+          %button.btn
+            Upload your own
+            .image-selector
+              %input.file-input{ type: "file", name: 'attention_grabber' }
 
-    /      .item-desc.hide
-    /      %p.item-desc.small jpg, png and gif
+          .item-desc.hide
+          %p.item-desc.small jpg, png and gif
 
 .column-footer-actions.bordered
   .block.large

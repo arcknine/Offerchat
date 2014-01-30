@@ -1,4 +1,4 @@
-attributes :id, :api_key, :name, :url, :owner_id, :created_at, :updated_at, :unread, :new, :plan
+attributes :id, :api_key, :name, :url, :owner_id, :created_at, :updated_at, :unread, :new, :plan, :attention_grabber
 
 node do |website|
   {
@@ -40,6 +40,7 @@ node do |website|
       },
       :grabber => {
         :enabled     => website.settings(:grabber).enabled,
+        :uploaded    => website.settings(:grabber).uploaded,
         :name        => website.settings(:grabber).name,
         :src         => website.settings(:grabber).src,
         :height      => website.settings(:grabber).height,

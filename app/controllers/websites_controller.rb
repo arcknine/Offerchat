@@ -82,6 +82,18 @@ class WebsitesController < ApplicationController
     end
   end
 
+  def update_attention_grabber
+    @website = current_user.websites.find params[:id]
+    unless @website.update_attribute('attention_grabber', params[:attention_grabber])
+      respond_with @website
+    end
+
+    # @profile.avatar = params[:avatar]
+    # unless @profile.update_attribute('avatar', params[:avatar])
+    #   respond_with @profile
+    # end
+  end
+
   private
   def validate_email(email)
     email_regex = %r{
