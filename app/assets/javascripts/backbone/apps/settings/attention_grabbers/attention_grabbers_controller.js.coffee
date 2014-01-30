@@ -9,7 +9,7 @@
 
         plan = profile.get("plan_identifier")
 
-        if ["PRO", "PROTRIAL"].indexOf(plan) isnt -1
+        if ["PRO", "PROTRIAL", "AFFILIATE"].indexOf(plan) isnt -1
 
           App.request "show:preloader"
           { @currentSite, region, section } = options

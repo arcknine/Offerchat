@@ -55,7 +55,7 @@
       current_plan = @profile.get("plan_identifier")
 
       cplan = all_plans.findWhere plan_identifier: current_plan
-      if current_plan is "PROTRIAL"
+      if ["PROTRIAL", "AFFILIATE"].indexOf(current_plan) isnt -1
         plan_price = 0
       else
         plan_price = cplan.get("price")
@@ -64,7 +64,7 @@
         res = all_agents.length * plan_price
 
         # get plan price if not pro or basic
-        res = plan_price if current_plan isnt "PROTRIAL" and current_plan isnt "PRO" and current_plan isnt "BASIC"
+        res = plan_price if ["PRO", "BASIC"].indexOf(current_plan) is -1
 
         $(".agent-count").html(all_agents.length)
         $(".price-plan").html(res.toFixed(2))
@@ -77,7 +77,7 @@
         elem = $(".pro-plan")
       else if current_plan is "BASIC"
         elem = $(".basic-plan")
-      else if current_plan is "PROTRIAL"
+      else if ["PROTRIAL", "AFFILIATE"].indexOf(current_plan) isnt -1
         # do nothing
       else
         notice = "Your current plan is part of our legacy pricing model. Once you upgrade to our <strong>Basic / Pro plan</strong> you cannot undo this."

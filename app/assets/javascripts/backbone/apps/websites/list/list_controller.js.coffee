@@ -22,7 +22,7 @@
           App.mainRegion.show sitesView
 
           @listenTo sitesView, "click:new:website", =>
-            if plan is "PROTRIAL" or plan is "BASIC"
+            if ["PROTRIAL", "AFFILIATE", "BASIC"].indexOf(plan) isnt -1
               alert "You need to upgrade to PRO plan to be able to add new website."
               App.navigate "upgrade", trigger: true
             else

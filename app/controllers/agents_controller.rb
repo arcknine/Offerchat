@@ -73,7 +73,7 @@ class AgentsController < ApplicationController
       Account.where(user_id: params[:id], website_id: website.id).destroy_all
     end
 
-    if ["BASIC", "PRO", "PROTRIAL"].include?(current_user.plan_identifier)
+    if ["BASIC", "PRO", "PROTRIAL", "AFFILIATE"].include?(current_user.plan_identifier)
       user = User.find(params[:id])
       user.destroy if user.plan_identifier.nil?
 
