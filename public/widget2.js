@@ -51,9 +51,9 @@
 
     init: function() {
       var _this = this;
-      this.initPostMessage();
       this.loadStorage();
       this.getPosition(function(){
+        _this.initPostMessage();
         _this.register();
       });
     },
@@ -62,7 +62,6 @@
       var _this = this;
       $ofc.receiveMessage( function(e) {
         var data = _this.unserialize(e.data);
-        console.log(data);
         if (data.show == 'true') {
           $ofc("#offerchatbox").show();
         } else if (data.slide == 'true') {
@@ -76,6 +75,8 @@
           }
         } else if (data.has_agent == "true") {
           $ofc("#ofc-attention-grabber").css("bottom", "45px");
+        } else if (data.any_agents_online == "true" && _this.info.attention_grabber) {
+          _this.generateAttentionGrabber();
         }
       }, src.assets);
     },
@@ -198,14 +199,10 @@
       .append($ofc("<input type='hidden' name='current_url' />").attr('value', document.location.href))
       .append($ofc("<input type='hidden' name='page_title' />").attr('value', title))
       .append($ofc("<input type='hidden' name='referrer' />").attr('value', this.info.referrer))
-      // .append($ofc("<input type='hidden' name='_r' />").attr('value', Math.random()))
+      .append($ofc("<input type='hidden' name='_r' />").attr('value', Math.random()))
       .appendTo('body')
       .submit()
       .remove();
-
-      if (this.info.attention_grabber)
-        this.generateAttentionGrabber();
-
     },
 
     generateAttentionGrabber: function() {
