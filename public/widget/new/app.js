@@ -96,6 +96,10 @@ Offerchat = {
         callback();
       });
 
+      // post to parent ifram if any agent online
+      // $.postMessage({any_agents_online: data.any_agents_online}, _this.params.current_url, parent);
+      console.log(_this);
+
     });
 
     return true;
@@ -126,6 +130,7 @@ Offerchat = {
       this.website = data.website;
 
       this.any_agents_online = true;
+
       callback();
     } else {
       $.ajax({
