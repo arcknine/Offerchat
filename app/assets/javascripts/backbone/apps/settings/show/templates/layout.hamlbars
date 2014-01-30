@@ -7,8 +7,10 @@
       %a{data: {section: 'position'}} Widget Position
     / %li
     /   %a{data: {section: 'labels'}} Labels
+    {{#if is_pro_acct}}
     %li
       %a{data: {section: 'attention-grabbers'}} Attention Grabbers
+    {{/if}}
     %li
       %a{data: {section: 'chat-forms'}} Chat Forms
     %li
