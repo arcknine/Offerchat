@@ -53,7 +53,7 @@
     getLayoutView: ->
       new Show.Layout
         section: @section
-        plan: @profile.get("plan_identifier")
+        profile: @profile
 
     getStyleView: (website) ->
       new Show.Style

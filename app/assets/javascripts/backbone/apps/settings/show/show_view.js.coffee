@@ -16,7 +16,7 @@
 
     serializeData: ->
       section: @options.section
-      is_pro_acct: if ["PRO", "PROTRIAL"].indexOf(@options.plan) is -1 then false else true
+      is_pro_acct: if ["PRO", "PROTRIAL"].indexOf(@options.profile.get("plan_identifier")) is -1 then false else true
 
   class Show.Site extends App.Views.ItemView
     template: "settings/show/site"
