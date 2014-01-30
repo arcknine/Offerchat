@@ -24,15 +24,15 @@ class Website < ActiveRecord::Base
 
   has_attached_file :attention_grabber,
     :storage => :s3,
-    :bucket => Rails.env.production? ? 'offerchat-dashboard' : 'offerchat-staging',
     :s3_credentials => {
       :access_key_id => 'AKIAI4KRAOR4GE6GES7Q',
       :secret_access_key => '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'
     },
-    :s3_protocol => 'https'
-    # :styles => { :small => "55x55>", :thumb => "40x40>" },
-    # :default_style => :small,
-    # :default_url => :generate_random_avatar
+    :s3_protocol => 'https',
+    :url => ':s3_alias_url',
+    :s3_host_alias => Rails.env.production? ? 'd2rbi2fqode2pf.cloudfront.net' : 'd3ocj2fkvch1xi.cloudfront.net',
+    :bucket => Rails.env.production? ? 'offerchat-dashboard' : 'offerchat-staging',
+    :path => ":class/:attachment/:id_partition/:style/:filename"
 
   validates_attachment_content_type :attention_grabber, :content_type => [ "image/jpg", "image/jpeg", "image/png" ], :message => "Only image files are allowed."
   validates_attachment_size :attention_grabber, :less_than => 1.megabytes

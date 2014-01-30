@@ -46,7 +46,8 @@
       position: "right",
       footer:   true,
       token:    null,
-      version:  defaults.version
+      version:  defaults.version,
+      grabber:  false
     },
 
     init: function() {
@@ -75,7 +76,7 @@
           }
         } else if (data.has_agent == "true") {
           $ofc("#ofc-attention-grabber").css("bottom", "45px");
-        } else if (data.any_agents_online == "true" && _this.info.attention_grabber) {
+        } else if (data.any_agents_online == "true" && (_this.info.grabbers !== false && _this.info.grabbers.enabled)) {
           _this.generateAttentionGrabber();
         }
       }, src.assets);
@@ -86,11 +87,13 @@
         hide_height = has_agent == "true" ? "45px" : "33px";
         // $ofc('#offerchatbox').animate({height: '45px'}, 100);
         $ofc('#offerchatbox').css("height", hide_height);
+        $ofc('#ofc-attention-grabber').show();
         this.info.state = 'hide';
       } else {
         height = this.info.footer ? '421px' : '400px';
         // $ofc('#offerchatbox').animate({height: height}, 100);
         $ofc('#offerchatbox').css("height", height);
+        $ofc('#ofc-attention-grabber').hide();
         this.info.state = 'show';
       }
 
@@ -113,6 +116,7 @@
 
     loadStorage: function() {
       var info = JSON.parse(localStorage.getItem("ofc-widget-info"));
+      console.log(info);
       if (info && info.version == defaults.version) {
         this.info = {
           token:    info.token ? info.token : null,
@@ -122,7 +126,7 @@
           state:    info.state ? info.state : "show",
           hasAgent: info.hasAgent ? info.hasAgent : false,
           version:  defaults.version,
-          attention_grabber: true,
+          grabbers: info.grabbers !== false ? info.grabbers : false,
           api_key:  ofc_key
         };
         localStorage.setItem("ofc-widget-info", JSON.stringify(this.info));
@@ -143,6 +147,8 @@
             if (typeof data.error == "undefined") {
               _this.info.position = data.position;
               _this.info.footer   = data.footer;
+              _this.info.grabbers = data.grabber;
+
               localStorage.setItem("ofc-widget-info", JSON.stringify(_this.info));
               sessionStorage.setItem("ofc-widget-position", data.position);
               callback();
@@ -207,9 +213,9 @@
 
     generateAttentionGrabber: function() {
       var build, height, grabber, w_widget, bot_pos, position, _this = this;
-      grabber = '//d1cpaygqxflr8n.cloudfront.net/images/attention-grabbers/01.png';
-      height  = 155;
-      width   = 200;
+      grabber = this.info.grabbers.src;
+      height  = this.info.grabbers.height;
+      width   = this.info.grabbers.width;
 
       w_width  = 306;
       bot_pos  = this.info.hasAgent == "true" ? 45 : 33;
@@ -228,6 +234,8 @@
       .appendTo('body')
       .submit()
       .remove();
+
+      if (this.info.state == "show") $ofc('#ofc-attention-grabber').hide();
 
       $ofc(document).on("click", "#ofc-click-me", function() {
         _this.toggleWidget(_this.info.hasAgent);

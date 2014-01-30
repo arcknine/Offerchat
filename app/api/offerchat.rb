@@ -43,7 +43,17 @@ module Offerchat
         get do
           website = Website.find_by_api_key(params[:apikey])
           if website
-            { position: website.settings(:style).position, footer: website.settings(:footer).enabled }
+            grabber = false
+            grabber = {
+              enabled:  website.settings(:grabber).enabled,
+              uploaded: website.settings(:grabber).uploaded,
+              name:     website.settings(:grabber).name,
+              src:      website.settings(:grabber).src,
+              height:   website.settings(:grabber).height,
+              width:    website.settings(:grabber).width
+            } if  website.owner.plan_identifier == "PRO" && !website.expired?
+
+            { position: website.settings(:style).position, footer: website.settings(:footer).enabled, grabber: grabber }
           else
             {error: "Api key not found!"}
           end
