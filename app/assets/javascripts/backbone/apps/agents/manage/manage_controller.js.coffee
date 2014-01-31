@@ -7,6 +7,7 @@
       unless user.get "plan_identifier"
         App.navigate Routes.root_path(), trigger: true
       else
+
         @layout       = @getLayoutView()
         @current_user = App.request "get:current:profile"
         @agents       = App.request "agents:only:entities"
@@ -41,62 +42,70 @@
       agentsView = @getAgentsView()
       plan       = @current_user.get "plan_identifier"
 
+      @listenTo agentsView, "show", =>
+        if ["AFFILIATE"].indexOf(plan) isnt -1
+          $(".agent-selection-new").remove()
+
       @listenTo agentsView, "new:agent:clicked", (item) =>
-        @websites.each (site, index) ->
-          site.set "agentChecked", ""
+        if ["AFFILIATE"].indexOf(plan) isnt -1
+          @showNotification "You are not allowed to add any agent.", "warning"
+        else
 
-        agent        = App.request "new:agent:entity"
-        addAgentView = @getAddAgentLayout agent
-        modalSites   = @getModalSites @websites
-        modalLayout  = App.request "modal:wrapper", addAgentView
-        websites     = []
-        self         = @
+          @websites.each (site, index) ->
+            site.set "agentChecked", ""
 
-        @websites.each (site, key) ->
-          websites.push
-            website_id:   site.get("id")
-            url:          site.get("url")
-            name:         site.get("name")
-            role:         0
-            agentChecked: ""
+          agent        = App.request "new:agent:entity"
+          addAgentView = @getAddAgentLayout agent
+          modalSites   = @getModalSites @websites
+          modalLayout  = App.request "modal:wrapper", addAgentView
+          websites     = []
+          self         = @
 
-        App.modalRegion.show modalLayout
-        addAgentView.sitesRegion.show modalSites
+          @websites.each (site, key) ->
+            websites.push
+              website_id:   site.get("id")
+              url:          site.get("url")
+              name:         site.get("name")
+              role:         0
+              agentChecked: ""
 
-        @listenTo modalSites, "childview:modal:check:site", (obj, result) =>
-          $.each websites, (index, site) ->
-            if site.website_id is result.id
-              site.role = result.role
+          App.modalRegion.show modalLayout
+          addAgentView.sitesRegion.show modalSites
 
-        @listenTo modalLayout, "modal:cancel", (item) ->
-          modalLayout.close()
+          @listenTo modalSites, "childview:modal:check:site", (obj, result) =>
+            $.each websites, (index, site) ->
+              if site.website_id is result.id
+                site.role = result.role
 
-        @listenTo modalLayout, "modal:unsubmit", (obj) =>
-          agent.set websites: websites
-          # check if user what plan is being used
-          if ["PRO", "BASIC", "PROTRIAL"].indexOf(plan) isnt -1
-            errors = @getErrors agent
-            modalLayout.$el.find(".field-error").removeClass("field-error")
-            modalLayout.$el.find(".block-text-message").remove()
-            App.request "modal:hide:message"
+          @listenTo modalLayout, "modal:cancel", (item) ->
+            modalLayout.close()
 
-            errCount = 0
-            $.each errors, (key, error) ->
-              errCount++
-              el = modalLayout.$el.find("input[name='#{key}']")
-              sm = $("<div>", class: 'block-text-message').text(error)
-              el.closest("fieldset").addClass("field-error")
-              el.parent().append(sm)
+          @listenTo modalLayout, "modal:unsubmit", (obj) =>
+            agent.set websites: websites
+            # check if user what plan is being used
+            if ["PRO", "BASIC", "PROTRIAL"].indexOf(plan) isnt -1
+              errors = @getErrors agent
+              modalLayout.$el.find(".field-error").removeClass("field-error")
+              modalLayout.$el.find(".block-text-message").remove()
+              App.request "modal:hide:message"
 
-              if key is "websites"
-                App.request "modal:error:message", error
+              errCount = 0
+              $.each errors, (key, error) ->
+                errCount++
+                el = modalLayout.$el.find("input[name='#{key}']")
+                sm = $("<div>", class: 'block-text-message').text(error)
+                el.closest("fieldset").addClass("field-error")
+                el.parent().append(sm)
 
-            # if no error is found
-            if errCount is 0
-              modalLayout.close()
-              @addPlanQty agent
-          else
-            @addAgent agent, modalLayout
+                if key is "websites"
+                  App.request "modal:error:message", error
+
+              # if no error is found
+              if errCount is 0
+                modalLayout.close()
+                @addPlanQty agent
+            else
+              @addAgent agent, modalLayout
 
       @listenTo agentsView, "show:owner:modal", (item) ->
         item.model.set "is_admin", true

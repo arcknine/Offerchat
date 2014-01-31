@@ -13,9 +13,9 @@
       @listenTo @layout, "all", (ev) =>
         if ev is "render" or ev is "show"
           plan = @currentUser.get("plan_identifier")
-          if plan is null or plan is "" or plan is "PROTRIAL" or plan is "BASIC"
-            $(".new-website-link").remove()
 
+          if ["PROTRIAL", "BASIC", "AFFILIATE", null, ""].indexOf(plan) isnt -1
+            $(".new-website-link").remove()
 
       App.execute "when:fetched", sites, =>
         @currentSite.set { all: true, name: "All websites" }
@@ -68,8 +68,8 @@
 
       @listenTo @layout, "selector:new:website", (item) =>
         plan = @currentUser.get("plan_identifier")
-        if plan is null or plan is "" or plan is "PROTRIAL" or plan is "BASIC"
-          alert "You are not allowed to create new websites."
+        if ["PROTRIAL", "BASIC", "AFFILIATE", null, ""].indexOf(plan) isnt -1
+          @showNotification "You are not allowed to create new websites.", "warning"
         else
           @toggleSiteSelector item.view
           App.navigate Routes.new_website_path(), trigger: true

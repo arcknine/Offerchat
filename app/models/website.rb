@@ -44,9 +44,8 @@ class Website < ActiveRecord::Base
     s.key :pre_chat, :defaults => { :enabled => false, :message_required => false, :header => "Let me get to know you!", :description => "Fill out the form to start the chat." }
     s.key :post_chat, :defaults => { :enabled => true, :header => "Chat with me, I'm here to help", :description => "Please take a moment to rate this chat session", :email => "" }
     s.key :offline, :defaults => { :enabled => true,  :header => "Contact Us", :description => "Leave a message and we will get back to you ASAP.", :email => "" }
-    s.key :a_grabbers, :defaults => { :enabled => false, :width => "300px", :image => "/assets/grabber-2.png", :personal => false }
     s.key :footer, :defaults => { :enabled => true }
-    s.key :grabber, :defaults => { :enabled => false, :uploaded => false }
+    s.key :grabber, :defaults => { :enabled => false, :name => "", :src => "", :height => 0, :width => 0, :uploaded => false }
   end
 
   after_create :after_create_settings
