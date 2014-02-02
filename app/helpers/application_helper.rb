@@ -60,11 +60,15 @@ mixpanel.init("e4b9256e5d40beb875e772611927adb1");
           this.track = track;
           this.identify = identify;
           this.people = new Object();
+          this.get_distinct_id = get_distinct_id;
           function track(eventString){
             console.log(eventString);
           }
           function identify(params){
             console.log(params);
+          }
+          function get_distinct_id(){
+            console.log("distinct");
           }
           this.people.set = function(){};
         }
