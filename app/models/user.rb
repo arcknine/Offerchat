@@ -53,6 +53,10 @@ class User < ActiveRecord::Base
     websites.first.id
   end
 
+  def first_website_url
+    websites.first.url
+  end
+
   def group(owner_id)
     owner = User.find(owner_id)
     accs  = self.accounts.collect(&:website_id)
