@@ -138,7 +138,7 @@ class User < ActiveRecord::Base
   end
 
   def role
-    if owned_sites.count < 0
+    if owned_sites.count <= 0
       "AGENT"
     else
       "OWNER"
