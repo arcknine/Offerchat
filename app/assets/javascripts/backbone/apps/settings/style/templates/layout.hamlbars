@@ -51,7 +51,7 @@
 
           .widget-input
             %i.widget.icon.icon-chat
-            %input.widget-input-text{ :type => "text", :placeholder => "Type your question and hit enter" }
+            %input.widget-input-text{ :type => "text", :placeholder => "{{language.chat_box}}" }
             %a.chat-settings
               %i.widget.icon.icon-gear
             %a.chat-rating
