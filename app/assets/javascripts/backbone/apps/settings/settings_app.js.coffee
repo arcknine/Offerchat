@@ -5,12 +5,13 @@
       "settings"                         : "show"
       "settings/style/:id"               : "editStyle"
       "settings/position/:id"            : "editPosition"
-      "settings/labels/:id"              : "editLabels"
+      "settings/language/:id"            : "editLanguage"
       "settings/chat-forms/:id/offline"  : "chatForms"
       "settings/chat-forms/:id"          : "prechatForm"
       "settings/chat-forms/:id/postchat" : "postChatForm"
       "settings/triggers/:id"            : "editTriggers"
       "settings/attention-grabbers/:id"  : "attentionGrabbers"
+      "settings/language/:id"            : "editLanguage"
 
     API =
       show: (id, section, sub_form) ->
@@ -58,8 +59,8 @@
             currentSite: show.currentSite
             section: 'postchat'
 
-      editLabels: (id) ->
-        show = API.show(id, 'labels')
+      editLanguage: (id) ->
+        show = API.show(id, 'language')
         show.listenTo show.layout, "show", =>
           new SettingsApp.Language.Controller
             region: show.layout.settingsRegion
