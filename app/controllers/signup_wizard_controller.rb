@@ -8,6 +8,17 @@ class SignupWizardController < ApplicationController
     case step
     when :step_one
       # email name and password
+      affiliate = Affiliate.find_by_name(params[:a])
+      if affiliate.nil?
+        session[:affiliate_id] = nil
+      else
+        if affiliate.enabled?
+          session[:affiliate_id] = affiliate.id
+        else
+          session[:affiliate_id] = nil
+        end
+      end
+      puts session[:affiliate_id]
       @user = User.new
       render_wizard
     when :step_two
