@@ -9,6 +9,18 @@ module Offerchat
       { ping: "pong"}
     end
 
+    resource :mixpanel do
+      desc "update mixpanel id"
+      params do
+        requires :user_id, type: Integer, desc: "User ID"
+        requires :mixpanel_id, type: String, desc: "Mixpanel ID"
+      end
+      post do
+        user = User.find(params[:user_id])
+        user.update_attribute(:mixpanel_id, params[:mixpanel_id])
+      end
+    end
+
     resource :token do
       params do
         requires :apikey, type: String, desc: "Api key."

@@ -100,4 +100,8 @@
       "$email":          "#{current_user.email}"
     });
     mixpanel.track("Signup");
+
+    distinct_id = mixpanel.get_distinct_id();
+
+    $.post("https://app.offerchat.com/api/v1/widget/mixpanel", { user_id: "#{current_user.id}", mixpanel_id: distinct_id }, function(res){});
   });
