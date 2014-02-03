@@ -25,7 +25,10 @@ class User < ActiveRecord::Base
 
   has_attached_file :avatar,
     :storage => :s3,
+    :url => ':s3_alias_url',
+    :s3_host_alias => Rails.env.production? ? 'd2rbi2fqode2pf.cloudfront.net' : 'd3ocj2fkvch1xi.cloudfront.net',
     :bucket => Rails.env.production? ? 'offerchat-dashboard' : 'offerchat-staging',
+    :path => ":class/:attachment/:id_partition/:style/:filename",
     :s3_credentials => {
       :access_key_id => 'AKIAI4KRAOR4GE6GES7Q',
       :secret_access_key => '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'

@@ -46,7 +46,7 @@ var Language = {
     connect_agent: "Ansluter till kundtjänst",
     chat_box:      "Skriv här och tryck enter för att chatta",
     transcript:    "Ladda ner konversation",
-    sound_off:     "Stäng av ljud ",
+    sound_off:     "Stäng av ljud",
     sound_on:      "Slå på ljudet",
     name:          "Namn",
     email:         "E-postadress",
@@ -54,5 +54,19 @@ var Language = {
     submit:        "Skicka",
     idle:          "Din chatt har varit inaktiv för länge.",
     connect:       "Anslut"
+  },
+  sebria: {
+    connecting:    "Povezujemo chat...",
+    connect_agent: "Povezujemo Vas sa prvim slobodnim operaterom",
+    chat_box:      "Unesite Vaše inicijalno pitanje i pritisnite dugme enter",
+    transcript:    "Preuzmite kopiju transkripta",
+    sound_off:     "Isključi zvukove",
+    sound_on:      "Uključi zvukove",
+    name:          "Ime",
+    email:         "Email",
+    message:       "Poruka",
+    submit:        "Unesi",
+    idle:          "Čet je predugo vremena neaktivan.",
+    connect:       "Poveži se"
   }
 };

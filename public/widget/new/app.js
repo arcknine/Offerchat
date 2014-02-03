@@ -17,7 +17,6 @@ Offerchat = {
 
     if (this.params.api_key && this.params.secret_token) {
       this.loadAllAssets(function(){
-
         Templates.init({
           params:   _this.params,
           settings: _this.website.settings,
@@ -96,6 +95,8 @@ Offerchat = {
         callback();
       });
 
+      // post to parent ifram if any agent online
+      $.postMessage({any_agents_online: _this.any_agents_online}, _this.params.current_url, parent);
     });
 
     return true;
@@ -126,6 +127,7 @@ Offerchat = {
       this.website = data.website;
 
       this.any_agents_online = true;
+
       callback();
     } else {
       $.ajax({
