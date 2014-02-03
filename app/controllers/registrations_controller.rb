@@ -14,20 +14,8 @@ class RegistrationsController < Devise::RegistrationsController
         website.create
         # Sign in
         sign_in(resource_name, resource)
-        # Vero & Mixpanel
+        # Vero
         current_user.track("Signup")
-
-        MIXPANEL.people.set(current_user.email, {
-          '$email'           => current_user.email,
-          'Name'             => current_user.name,
-          'Plan'             => current_user.plan_identifier,
-          'Jabber user'      => current_user.jabber_user,
-          'Created'          => current_user.created_at,
-          'Trial days left'  => current_user.trial_days_left
-        })
-
-        MIXPANEL.track(current_user.email, "Enter User Info")
-
         redirect_to signup_wizard_path('step_two')
       end
     else

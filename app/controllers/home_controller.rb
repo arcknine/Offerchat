@@ -13,6 +13,7 @@ class HomeController < ApplicationController
     vero.users.edit_user!({ :email => current_user.email, :changes => { :trial_days_left => current_user.trial_days_left, :widget_installed => current_user.widget_installed }})
     MIXPANEL.people.set(current_user.email, {
       'Plan'             => current_user.plan_identifier,
+      'Website'          => current_user.first_website_url,
       'Trial days left'  => current_user.trial_days_left
     })
 

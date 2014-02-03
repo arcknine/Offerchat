@@ -88,3 +88,17 @@
             = image_tag 'icon-magento.png'
             %span
               Magento
+
+:javascript
+  $(document).ready(function(){
+    mixpanel.identify("#{current_user.email}");
+    mixpanel.people.set({
+      "Name":            "#{current_user.name}",
+      "Signup Date":     "#{current_user.created_at}",
+      "Website":         "#{current_user.first_website_url}",
+      "Plan":            "#{current_user.plan_identifier}",
+      "Trial Days Left": "#{current_user.trial_days_left}",
+      "$email":          "#{current_user.email}"
+    });
+    mixpanel.track("Signup");
+  });
