@@ -116,7 +116,6 @@
 
     loadStorage: function() {
       var info = JSON.parse(localStorage.getItem("ofc-widget-info"));
-      console.log(info);
       if (info && info.version == defaults.version) {
         this.info = {
           token:    info.token ? info.token : null,
@@ -205,7 +204,7 @@
       .append($ofc("<input type='hidden' name='current_url' />").attr('value', document.location.href))
       .append($ofc("<input type='hidden' name='page_title' />").attr('value', title))
       .append($ofc("<input type='hidden' name='referrer' />").attr('value', this.info.referrer))
-      .append($ofc("<input type='hidden' name='_r' />").attr('value', Math.random()))
+      // .append($ofc("<input type='hidden' name='_r' />").attr('value', Math.random()))
       .appendTo('body')
       .submit()
       .remove();
@@ -230,7 +229,7 @@
       path = src.grabber;
       $ofc("<form action='" + path + "' method='GET' target='ofc_attention_grabber'></form>")
       .append($ofc("<input type='hidden' name='attention_grabber' />").attr('value', grabber))
-      .append($ofc("<input type='hidden' name='_r' />").attr('value', Math.random()))
+      // .append($ofc("<input type='hidden' name='_r' />").attr('value', Math.random()))
       .appendTo('body')
       .submit()
       .remove();
