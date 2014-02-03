@@ -12,9 +12,9 @@
     %img{ :alt => "english", :src => "/assets/lang/english.png" }
     %label English
 
-  %a.set-language
-    %img{ :alt => "deutsch", :src => "assets/lang/deutsch.png" }
-    %label Deutsch
+  /%a.set-language
+  /  %img{ :alt => "deutsch", :src => "assets/lang/deutsch.png" }
+  /  %label Deutsch
 
   %a.set-language
     %img{ :alt => "french", :src => "/assets/lang/french.png" }
@@ -24,13 +24,13 @@
     %img{ :alt => "espanol", :src => "/assets/lang/espanol.png" }
     %label Espanol
 
-  %a.set-language
-    %img{ :alt => "portuguese", :src => "/assets/lang/portuguese.png" }
-    %label Portuguese
+  /%a.set-language
+  /  %img{ :alt => "portuguese", :src => "/assets/lang/portuguese.png" }
+  /  %label Portuguese
 
-  %a.set-language
-    %img{ :alt => "polish", :src => "/assets/lang/polish.png" }
-    %label Polish
+  /%a.set-language
+  /  %img{ :alt => "polish", :src => "/assets/lang/polish.png" }
+  /  %label Polish
 
   %a.set-language
     %img{ :alt => "serbia", :src => "/assets/lang/serbia.png" }
