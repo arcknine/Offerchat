@@ -1,3 +1,9 @@
+.section-overlay.hide
+  .section-loader
+    .clear.small.spinner.colored#loader
+    Uploading image
+
+
 .block.large
   %h2 Attention Grabbers
   %p.section-desc
