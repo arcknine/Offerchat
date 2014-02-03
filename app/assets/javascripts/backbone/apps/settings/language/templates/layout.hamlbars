@@ -18,7 +18,7 @@
 
   %a.set-language
     %img{ :alt => "french", :src => "/assets/lang/french.png" }
-    %label French
+    %label Français
 
   %a.set-language
     %img{ :alt => "spanish", :src => "/assets/lang/spanish.png" }
@@ -34,7 +34,11 @@
 
   %a.set-language
     %img{ :alt => "serbia", :src => "/assets/lang/serbia.png" }
-    %label Serbian
+    %label српски
+
+  %a.set-language
+    %img{ :alt => "swedish", :src => "/assets/lang/swedish.png" }
+    %label Svenska
 
 .block.large.bordered-top
   %fieldset
