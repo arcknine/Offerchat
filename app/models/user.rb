@@ -50,11 +50,19 @@ class User < ActiveRecord::Base
   end
 
   def first_website_id
-    websites.first.id
+    if role == "OWNER"
+      websites.first.id
+    else
+      nil
+    end
   end
 
   def first_website_url
-    websites.first.url
+    if role == "OWNER"
+      websites.first.url
+    else
+      nil
+    end
   end
 
   def group(owner_id)
