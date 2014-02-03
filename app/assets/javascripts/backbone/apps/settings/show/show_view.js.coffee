@@ -16,7 +16,11 @@
 
     serializeData: ->
       section: @options.section
-      is_pro_acct: if ["PRO", "PROTRIAL", "AFFILIATE"].indexOf(@options.profile.get("plan_identifier")) is -1 then false else true
+
+    onShow: ->
+      if ["PRO", "PROTRIAL", "AFFILIATE"].indexOf(@options.profile.get("plan_identifier")) is -1
+        $(@.$el).find("a[data-section='attention-grabbers']").parent("li").remove()
+
 
   class Show.Site extends App.Views.ItemView
     template: "settings/show/site"

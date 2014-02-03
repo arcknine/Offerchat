@@ -33,22 +33,23 @@
           file_too_large_error = "File size is too large."
           types = /(\.|\/)(jpe?g|png)$/i
           file = data.files[0]
-          App.request "show:preloader"
+          $(".section-overlay").removeClass("hide")
           if file.size < 1000000
             if types.test(file.type) || types.test(file.name)
               data.submit().done( (e, data) ->
                 $(".current-attention-grabber").attr("src", e.attention_grabber)
                 App.execute "save:uploaded:grabber:image", e.attention_grabber
+                $(".section-overlay").addClass("hide")
               ).fail (jqXHR, textStatus, errorThrown)->
                 App.execute "show:notification:message", "Something went wrong while trying to upload your file. Please try again later.", "warning"
-                App.request "hide:preloader"
+                $(".section-overlay").addClass("hide")
             else
               App.execute "show:notification:message", "#{file.name} is not a jpeg, or png image file", "warning"
-              App.request "hide:preloader"
+              $(".section-overlay").addClass("hide")
 
           else
             App.execute "show:notification:message", file_too_large_error, "warning"
-            App.request "hide:preloader"
+            $(".section-overlay").addClass("hide")
 
   class AttentionGrabbers.Modal extends App.Views.ItemView
     template: "settings/attention_grabbers/modal"
