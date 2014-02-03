@@ -21,13 +21,13 @@
             .widget-block
               .widget-pre-message {{site.settings.offline.description}}
               .widget-input-container
-                %input{ placeholder: "Name", type: "text" }
+                %input{ placeholder: "{{language.name}}", type: "text" }
               .widget-input-container
-                %input{ placeholder: "Email", type: "text" }
+                %input{ placeholder: "{{language.email}}", type: "text" }
               .widget-input-container
-                %textarea{ placeholder: "Message" }
+                %textarea{ placeholder: "{{language.message}}" }
               .widget-input-container
-                %button.widget-button Submit
+                %button.widget-button {{language.submit}}
 
         {{#if site.settings.footer.enabled}}
         .widget-footer

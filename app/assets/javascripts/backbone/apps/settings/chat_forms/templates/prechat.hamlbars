@@ -22,16 +22,16 @@
             .widget-form
               .widget-row
                 .widget-input-container
-                  %input{ placeholder: "Name", type: "text" }
+                  %input{ placeholder: "{{language.name}}", type: "text" }
               .widget-row
                 .widget-input-container
-                  %input.prechat-email{ placeholder: "Email", type: "text" }
+                  %input.prechat-email{ placeholder: "{{language.email}}", type: "text" }
               .widget-row
                 .widget-input-container
-                  %textarea{ placeholder: "Message" }
+                  %textarea{ placeholder: "{{language.message}}" }
               .widget-row
                 .widget-input-container
-                  %button.widget-button Submit
+                  %button.widget-button {{language.submit}}
 
         .widget-chat-viewer{ style: "height: 354px" }
           / .widget-form
