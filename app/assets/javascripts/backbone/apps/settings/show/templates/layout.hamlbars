@@ -5,8 +5,9 @@
       %a{data: {section: 'style'}} Color and Label
     %li
       %a{data: {section: 'position'}} Widget Position
-    / %li
-    /   %a{data: {section: 'labels'}} Labels
+
+    %li
+      %a{data: {section: 'language'}} Language
 
     %li
       %a{data: {section: 'attention-grabbers'}} Attention Grabbers

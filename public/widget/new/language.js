@@ -55,7 +55,7 @@ var Language = {
     idle:          "Din chatt har varit inaktiv för länge.",
     connect:       "Anslut"
   },
-  sebria: {
+  serbia: {
     connecting:    "Povezujemo chat...",
     connect_agent: "Povezujemo Vas sa prvim slobodnim operaterom",
     chat_box:      "Unesite Vaše inicijalno pitanje i pritisnite dugme enter",
