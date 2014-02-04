@@ -61,7 +61,7 @@ class WebsitesController < ApplicationController
     else
       @website = current_user.websites.find(params[:id])
 
-      unless @website.update_attributes(params[:website].except(:plan))
+      unless @website.update_attributes(params[:website].except(:plan).except(:attention_grabber))
         respond_with @website
       end
     end
