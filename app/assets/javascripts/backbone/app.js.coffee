@@ -16,6 +16,7 @@
       App.tab_active = false
 
     user = JSON.parse options.currentUser
+    mixpanel.identify(user.email)
 
   App.addRegions
     navigationRegion:       "#header-region"
