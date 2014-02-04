@@ -3,6 +3,9 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     params[:user][:display_name] = params[:user][:name].split(" ").first
     params[:user][:plan_identifier] = "PROTRIAL"
+    puts "FUCKKKKK"
+    puts session[:affiliate_id]
+    params[:user][:affiliate_id] = session[:affiliate_id]
 
     build_resource
 
@@ -15,7 +18,7 @@ class RegistrationsController < Devise::RegistrationsController
         # Sign in
         sign_in(resource_name, resource)
         # Vero
-        current_user.track("Signup")
+        current_user.track("Signup") if Rails.env.production?
         redirect_to signup_wizard_path('step_two')
       end
     else
