@@ -2,7 +2,6 @@
   var Widget, defaults, src, version;
 
   defaults = {
-    version: '2.0.0',
     src: {
       api_url: '//local.offerchat.com:3000/api/v1/widget/',
       assets:  'http://local.offerchat.com:3000',
@@ -14,7 +13,6 @@
 
   // staging
   /*defaults = {
-    version: '2.0.0',
     src: {
       api_url: '//staging.offerchat.com/api/v1/widget/',
       assets:  'https://staging.offerchat.com',
@@ -25,18 +23,16 @@
 
   // production
  /* defaults = {
-    version: '2.0.0',
     src: {
-      api_url: '//new.offerchat.com/api/v1/widget/',
-      assets:  'https://new.offerchat.com',
+      api_url: '//app.offerchat.com/api/v1/widget/',
+      assets:  'https://app.offerchat.com',
       cdn:     '//d1cpaygqxflr8n.cloudfront.net',
       widget:  'https://app.offerchat.com/widget/widget.html',
       grabber: 'https://app.offerchat.com/widget/attention-grabber.html'
     }
   };*/
-
   src     = defaults.src;
-  version = defaults.version;
+  version = defaults.version = '2.1.3';
 
   Widget = {
     info: {
@@ -47,7 +43,7 @@
       footer:   true,
       token:    null,
       version:  defaults.version,
-      grabber:  false
+      grabbers: false
     },
 
     init: function() {
@@ -87,13 +83,13 @@
         hide_height = has_agent == "true" ? "45px" : "33px";
         // $ofc('#offerchatbox').animate({height: '45px'}, 100);
         $ofc('#offerchatbox').css("height", hide_height);
-        $ofc('#ofc-attention-grabber').show();
+        if (this.info.grabbers.display != "none") $ofc('#ofc-attention-grabber').show();
         this.info.state = 'hide';
       } else {
         height = this.info.footer ? '421px' : '400px';
         // $ofc('#offerchatbox').animate({height: height}, 100);
         $ofc('#offerchatbox').css("height", height);
-        $ofc('#ofc-attention-grabber').hide();
+        if (this.info.grabbers.display != "none") $ofc('#ofc-attention-grabber').hide();
         this.info.state = 'show';
       }
 
@@ -130,6 +126,7 @@
         };
         localStorage.setItem("ofc-widget-info", JSON.stringify(this.info));
       } else {
+        sessionStorage.removeItem("ofc-widget-position");
         localStorage.setItem("ofc-widget-info", JSON.stringify(this.info));
       }
     },
@@ -211,18 +208,20 @@
     },
 
     generateAttentionGrabber: function() {
-      var build, height, grabber, w_widget, bot_pos, position, _this = this;
+      var build, height, display, grabber, w_widget, bot_pos, position, _this = this;
       grabber = this.info.grabbers.src;
       height  = this.info.grabbers.height;
       width   = this.info.grabbers.width;
+      display = this.info.grabbers.display ? this.info.grabbers.display : "block";
 
       w_width  = 306;
       bot_pos  = this.info.hasAgent == "true" ? 45 : 33;
       position = (w_width / 2) - (width / 2) + 20;
 
-      build = '<div id="ofc-attention-grabber" style="position: fixed; bottom: ' + bot_pos + 'px; ' + this.info.position + ': ' + position + 'px; margin: 0;  padding: 0; background-color: transparent; overflow: hidden; z-index: 9999999; height: ' + height + 'px; width: ' + width + 'px; display: block">' +
+      build = '<div id="ofc-attention-grabber" style="position: fixed; bottom: ' + bot_pos + 'px; ' + this.info.position + ': ' + position + 'px; margin: 0;  padding: 0; background-color: transparent; overflow: hidden; z-index: 9999999; height: ' + height + 'px; width: ' + width + 'px; display: ' + display + '">' +
               ' <iframe scrolling="0" name="ofc_attention_grabber" frameBorder="0" id="ofc-attention-grabber-iframe" src="" style="background-color: transparent;vertical-align: text-bottom; overflow: hidden; position: relative;width: 100%;height: 100%;margin: 0px; z-index: 9999;"></iframe>' +
               ' <div id="ofc-click-me" style="background-color: transparent;vertical-align: text-bottom; overflow: hidden; position: absolute;width: 100%;height: 100%;margin: 0px; z-index: 999999; top: 0; cursor: pointer"></div>' +
+              ' <strong title="close" id="ofc-ag-close" style="font-weight: strong; font-size: 20px; display: none; position: absolute; top: 0; right: 0; z-index: 999999; cursor: pointer">&times;</strong>'
               '</div>';
       $ofc('body').append(build);
 
@@ -238,6 +237,20 @@
 
       $ofc(document).on("click", "#ofc-click-me", function() {
         _this.toggleWidget(_this.info.hasAgent);
+      });
+
+      $ofc(document).on("mouseover", "#ofc-attention-grabber", function(){
+        $ofc("#ofc-ag-close").show();
+      });
+
+      $ofc(document).on("mouseout", "#ofc-attention-grabber", function(){
+        $ofc("#ofc-ag-close").hide();
+      });
+
+      $ofc(document).on("click", "#ofc-ag-close", function(){
+        $ofc("#ofc-attention-grabber").hide();
+        _this.info.grabbers.display = "none";
+        localStorage.setItem("ofc-widget-info", JSON.stringify(_this.info));
       });
     }
 
