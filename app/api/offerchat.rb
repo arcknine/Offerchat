@@ -196,7 +196,7 @@ module Offerchat
           website = Website.find_by_api_key(params[:apikey])
           to = website.settings(:offline).email
           from    = params[:email]
-          message = params[:message]
+          message = params[:Message] || params[:message]
           name    = params[:name]
           url     = website.url
           if website
