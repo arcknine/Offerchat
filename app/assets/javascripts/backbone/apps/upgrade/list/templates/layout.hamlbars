@@ -61,6 +61,9 @@
                   Chat Triggers
                 %li
                   %strike.disabled
+                    Attention Grabbers
+                %li
+                  %strike.disabled
                     Agent Analytics
                 %li
                   %strike.disabled
@@ -93,6 +96,12 @@
                   Visitor Notes
                 %li
                   Chat Triggers
+                %li
+
+                  %a{ :href => "https://www.offerchat.com/blog/increase-chat-visibility-attention-grabbers/", :target => "_blank" }
+                    Attention Grabbers
+                  %span.tag-new
+                    new
                 %li
                   Agent Analytics
                 %li
