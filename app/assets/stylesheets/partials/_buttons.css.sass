@@ -4,7 +4,7 @@
   border: 1px solid transparent
   font-family: $base-font-family
   font-size: $base-font-size
-  font-weight: $bold
+  font-weight: 500
   color: $text-color
   display: inline-block
   text-decoration: none
@@ -13,18 +13,14 @@
   outline: none
   padding: $button-padding
   cursor: pointer
-  text-shadow: 0 1px 0 lighten($button-bg-color, 10%)
   box-sizing: border-box
   -moz-box-sizing: border-box
   @include transition(.2s)
-  // box-shadow: 0 1px 0 darken($button-bg-color, 15%)
   &:active, &.active
     background-color: darken($button-bg-color, 5%)
-    // box-shadow: 0 1px 1px darken($button-bg-color, 15%) inset
     border-top: 1px solid darken($button-bg-color, 20%)
   &.success
     background-color: $button-bg-success-color
-    text-shadow: 0 1px 0 darken($button-bg-success-color, 20%)
     color: #fff
     &:active
       background-color: darken($button-bg-success-color, 5%)
@@ -32,8 +28,6 @@
       border-top: 1px solid darken($button-bg-success-color, 20%)
   &.action
     background-color: $button-bg-action-color
-    // box-shadow: 0 1px 0 darken($button-bg-action-color, 15%)
-    text-shadow: 0 1px 0 darken($button-bg-action-color, 20%)
     color: #fff
     &:active
       background-color: darken($button-bg-action-color, 5%)
@@ -41,8 +35,6 @@
       border-top: 1px solid darken($button-bg-action-color, 20%)
   &.warning
     background-color: $button-bg-warning-color
-    // box-shadow: 0 1px 0 darken($button-bg-warning-color, 15%)
-    text-shadow: 0 1px 0 darken($button-bg-warning-color, 20%)
     color: #fff
     &:active
       background-color: darken($button-bg-warning-color, 5%)
@@ -57,7 +49,7 @@
       opacity: .5
   &.add-more-btn
     font-size: 11px
-    font-weight: bold
+    font-weight: 500
     display: inline-block
     padding: 3px 5px
     background: #ec2972
@@ -67,14 +59,12 @@
     position: relative
     top: -2px
     margin-right: 5px
-    text-shadow: 0 -1px 0 darken(#ec2972, 10%)
     &.btn-large
       font-size: 14px
       padding: 7px
   &.upgrade-btn
     background: #ec2972
     color: #fff
-    text-shadow: 0 1px 0 darken(#ec2972, 20%)
     &:active
       background-color: darken(#ec2972, 5%)
       box-shadow: 0 1px 1px darken(#ec2972, 15%) inset
@@ -122,7 +112,7 @@
     display: inline-block
     font-size: 12px
 
-    font-weight: bold
+    font-weight: 500
     &.selected
 
       background-color: $sidebar-color
