@@ -33,3 +33,4 @@
       classname: @options.classname
       checked: @options.checked
       paid: @options.paid
+      language: @options.language

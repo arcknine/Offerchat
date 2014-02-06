@@ -7,8 +7,10 @@
       @currentSite.url = Routes.update_settings_website_path(@currentSite.get('id'))
 
       App.execute "when:fetched", @currentUser, =>
-        @layout   = @getLayout()
         @settings = @currentSite.get('settings')
+        @current_language = Language[@settings.style.language]
+
+        @layout   = @getLayout()
 
         @listenTo @layout, "show", =>
           @getSection section
@@ -65,7 +67,6 @@
           label = $(e.target).val()
           @settings.pre_chat.header = label
           @currentUser.set settings: @settings
-          console.log @currentUser
           # $(".widget-min-message span").text(label)
           # console.log $(e.target).val()
 
@@ -97,11 +98,13 @@
       new ChatForms.Offline
         model: @currentSite
         currentUser: @currentUser
+        language: @current_language
 
     getPreChatFormView: ->
       new ChatForms.PreChat
         model: @currentSite
         currentUser: @currentUser
+        language: @current_language
 
     getPostChatFormView: ->
       new ChatForms.PostChat

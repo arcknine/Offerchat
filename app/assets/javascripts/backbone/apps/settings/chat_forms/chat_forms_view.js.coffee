@@ -22,6 +22,7 @@
     serializeData: ->
       user: @options.currentUser.toJSON()
       site: @options.model.toJSON()
+      language: @options.language
 
     triggers:
       "click button.widget-button" : ""
@@ -63,6 +64,7 @@
     serializeData: ->
       user: @options.currentUser.toJSON()
       site: @options.model.toJSON()
+      language: @options.language
 
     triggers:
       "click button.widget-button" : ""

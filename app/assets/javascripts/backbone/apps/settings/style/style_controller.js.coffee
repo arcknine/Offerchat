@@ -5,10 +5,13 @@
       @currentUser = App.request "get:current:profile"
 
       App.execute "when:fetched", @currentUser, =>
+        settings = options.currentSite.get("settings")
+
+        @current_language = Language[settings.style.language]
+
         layout = @getLayoutView(options.currentSite)
 
         options.currentSite.url = Routes.update_settings_website_path(options.currentSite.get("id"))
-        settings = options.currentSite.get("settings")
 
         @listenTo layout, "style:color:clicked", (e) =>
           @changeColor(e)
@@ -87,6 +90,7 @@
         checked: if website.get("settings").footer.enabled then "" else "checked"
         classname: if website.get("settings").footer.enabled then "" else "widget-premium"
         paid: if ["FREE", "BASIC", "PROTRIAL"].indexOf(@currentUser.get("plan_identifier")) is -1 then true else false
+        language: @current_language
 
     changeColor: (e) ->
       $("#controlColorContent a").removeClass("active")
