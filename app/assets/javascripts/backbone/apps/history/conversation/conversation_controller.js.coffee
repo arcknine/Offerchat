@@ -28,7 +28,10 @@
               all_agent = App.request "new:agent:entity"
               all_agent.set name: "All Agents"
               agents.unshift(all_agent)
-            conversations = App.request "get:conversations:entitites", null, agents.pluck("id")
+
+            @aids = agents.pluck("id")
+
+            conversations = App.request "get:conversations:entitites", null, @aids
 
             App.commands.setHandler "conversations:fetch", (aids)=>
               conversations.fetch
@@ -69,8 +72,38 @@
                       error: ->
                         App.request "hide:preloader"
 
+
+                filter_view = @getFilterRegion(agents)
+
+                @listenTo filter_view, "show", =>
+                  $(".nav-link-inline").data("last", true) if conversations.length < 100
+                  to_count = conversations.length
+                  $(".history-scope").html("1 - #{to_count}")
+
+
+
+                @listenTo filter_view, "change:page:history", (page) =>
+                  $(".section-overlay").removeClass("hide")
+                  conversations.fetch
+                    data: {aids: @aids, page: page}
+                    dataType : "jsonp"
+                    processData: true
+                    reset: true
+                    success: ->
+                      convos = self.organizeConversations(conversations)
+                      self.layout.conversationsRegion.show self.getConversationsRegion(convos)
+
+                      if conversations.length < 100 then $(".nav-link-inline").data("last", true) else $(".nav-link-inline").data("last", false)
+
+                      frm_count = (page * 100) - 99
+                      to_count = (((page * 100) - 100) + conversations.length)
+
+                      $(".history-scope").html("#{frm_count} - #{to_count}")
+                      $(".section-overlay").addClass("hide")
+
+
                 @layout.headerRegion.show headerRegion
-                @layout.filterRegion.show @getFilterRegion(agents)
+                @layout.filterRegion.show filter_view
                 @layout.conversationsRegion.show @getConversationsRegion(convos)
               @show @layout
 
