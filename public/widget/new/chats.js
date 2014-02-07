@@ -21,6 +21,8 @@ Chats = {
     this.visitor  = Offerchat.loadData("ofc-visitor", localStorage);
     this.settings = Offerchat.website.settings;
 
+    this.language = Language[this.settings.style.language];
+
     if (this.details.connect !== false) {
       this.showLoader("Connecting to chat");
       this.getAvailableRoster(function(data) {
@@ -602,7 +604,7 @@ Chats = {
     if (ev.keyCode == 13 && $.trim(message).length > 0) {
       this.getAgent(function(agent) {
         if (agent) {
-          _this.xmppSendMsg(message, agent, "You");
+          _this.xmppSendMsg(message, agent, _this.language.you);
           clearInterval(_this.paused_interval);
           _this.composing = false;
         } else {
@@ -645,6 +647,7 @@ Chats = {
   },
 
   xmppSendMsg: function(message, agent, sender) {
+    console.log("sender", sender);
     var msg, to, active, conn;
     conn    = this.connection;
     msg     = this.generateMessage(message, sender);
@@ -725,7 +728,7 @@ Chats = {
     if (details.prechat === true && details.message) {
       this.getAgent(function(agent) {
         if (agent) {
-          _this.xmppSendMsg(details.message, agent, "You");
+          _this.xmppSendMsg(details.message, agent, _this.language.you);
           details.message = null;
 
           Offerchat.storeData("ofc-details", details, localStorage);

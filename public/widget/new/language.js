@@ -11,7 +11,10 @@ var Language = {
     message:       "Message",
     submit:        "Submit",
     idle:          "Your chat has been idle for too long.",
-    connect:       "Connect"
+    connect:       "Connect",
+    you:           "You",
+    success_msg:   "Your message has been sent",
+    success_desc:  "Thank you! We will get back to you as soon as we can."
   },
   french: {
     connecting:    "Connexion à discuter...",
@@ -25,7 +28,10 @@ var Language = {
     message:       "Message",
     submit:        "Soumettre",
     idle:          "Votre discussion a été inactif trop longtemps.",
-    connect:       "Relier"
+    connect:       "Relier",
+    you:           "Vous",
+    success_msg:   "Your message has been sent",
+    success_desc:  "Thank you! We will get back to you as soon as we can."
   },
   spanish: {
     connecting:    "Conexión a charlar...",
@@ -39,7 +45,10 @@ var Language = {
     message:       "Mensaje",
     submit:        "Presentar",
     idle:          "Su charla ha estado inactivo durante demasiado tiempo.",
-    connect:       "Conectar"
+    connect:       "Conectar",
+    you:           "Tu",
+    success_msg:   "Your message has been sent",
+    success_desc:  "Thank you! We will get back to you as soon as we can."
   },
   swedish: {
     connecting:    "Ansluter till chatt",
@@ -53,7 +62,10 @@ var Language = {
     message:       "Beskriv ditt ärende",
     submit:        "Skicka",
     idle:          "Din chatt har varit inaktiv för länge.",
-    connect:       "Anslut"
+    connect:       "Anslut",
+    you:           "Du",
+    success_msg:   "Your message has been sent",
+    success_desc:  "Your message has been sent"
   },
   serbia: {
     connecting:    "Povezujemo chat...",
@@ -67,6 +79,9 @@ var Language = {
     message:       "Poruka",
     submit:        "Unesi",
     idle:          "Čet je predugo vremena neaktivan.",
-    connect:       "Poveži se"
+    connect:       "Poveži se",
+    you:           "ви",
+    success_msg:   "Vaša poruka je poslata",
+    success_desc:  "Hvala Vam! Odgovorićemo Vam u najkraćem mogućem roku."
   }
 };
