@@ -198,7 +198,7 @@ class User < ActiveRecord::Base
       user.errors[:base] << "Agent must be assigned to at least 1 site." unless has_checked_website
     end
 
-    user.errors[:base] << "Invalid email address" unless user_is_new
+    user.errors[:base] << "This agent is already assigned to another account" unless user_is_new
     user.errors[:base] << "Please provide an email for that agent." if user[:email].empty?
     user
   end
