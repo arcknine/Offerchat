@@ -87,6 +87,13 @@ a
   li
     margin: 5px 0 5px 20px
     list-style: disc
+.active-agents-list
+  li
+    display: inline-block
+    min-width: 260px
+    margin-bottom: 20px
+    float: left
+    text-overflow: ellipsis
 .align-right
   text-align: right
 .item
@@ -372,6 +379,8 @@ label
   width: 37px
   height: 37px
   text-align: center
+  &.go-left
+    margin-right: 10px
   &:hover
     .profile-user-tooltip
       opacity: 1
