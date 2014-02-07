@@ -1,5 +1,10 @@
 #history-header-region.block.large.block.large
 .table-data-wrapper.history-table-wrapper
+
+  .section-overlay.hide
+    .section-loader
+      .clear.small.spinner.colored#loader
+
   .table-data
     #history-filter-region
     .table-history-viewer

@@ -76,6 +76,27 @@
 
     events:
       "click #checkboxGradient"   : "select_conversations"
+      "click a.nav-link"          : "changePage"
+
+    changePage: (e) ->
+      target = $(e.currentTarget)
+      page_elem = target.parent("div")
+      current_page = page_elem.data("page")
+      is_last = page_elem.data("last")
+
+      if current_page >= 1
+        get_page = 1
+        if target.hasClass("nav-prev")
+          get_page = current_page - 1 if current_page != 1
+        else
+          unless is_last
+            get_page = current_page + 1
+          else
+            get_page = current_page
+
+        page_elem.data("page", get_page)
+        @trigger "change:page:history", get_page
+
 
     select_conversations: (evt)->
       evt.stopPropagation()
@@ -90,6 +111,7 @@
 
     triggers:
       "click .agent-row-selector" : "agents:filter:clicked"
+
 
     serializeData: ->
       agents_count: @collection.length > 1
@@ -130,7 +152,6 @@
         $(evt.target).closest(".table-row").attr("data-checked", true)
 
     open_conversation: (evt)->
-      console.log evt
       App.execute "open:conversation:modal", @model
 
     initialize: ->
