@@ -33,19 +33,40 @@
 
             conversations = App.request "get:conversations:entitites", null, @aids
 
-            App.commands.setHandler "conversations:fetch", (aids)=>
+            App.commands.setHandler "get:conversations", (aids, page) =>
+
+              @aids = aids
+
+              $(".section-overlay").removeClass("hide")
               conversations.fetch
-                data: {aids: aids}
+                data: {aids: aids, page: page}
                 dataType : "jsonp"
                 processData: true
                 reset: true
-                success: ->
+                success: =>
+                  count = conversations.pop()
+                  @total_entries = count.get("total_entries")
+
                   convos = self.organizeConversations(conversations)
                   self.layout.conversationsRegion.show self.getConversationsRegion(convos)
-                  App.request "hide:preloader"
+
+                  if conversations.length < 100 then $(".nav-link-inline").data("last", true) else $(".nav-link-inline").data("last", false)
+
+                  frm_count = (page * 100) - 99
+                  to_count = (((page * 100) - 100) + conversations.length)
+
+                  $(".history-scope").html("#{frm_count} - #{to_count} of #{@total_entries}")
+                  $(".section-overlay").addClass("hide")
+
+            App.commands.setHandler "conversations:fetch", (aids)=>
+              $(".nav-link-inline").data("page", 1)
+              App.execute "get:conversations", aids, 1
 
             App.execute "when:fetched", conversations, (item)=>
               @listenTo @layout, "show", =>
+
+                count = conversations.pop()
+                @total_entries = count.get("total_entries")
 
                 @changeOnResize()
 
@@ -78,29 +99,10 @@
                 @listenTo filter_view, "show", =>
                   $(".nav-link-inline").data("last", true) if conversations.length < 100
                   to_count = conversations.length
-                  $(".history-scope").html("1 - #{to_count}")
-
-
+                  $(".history-scope").html("1 - #{to_count} of #{@total_entries}")
 
                 @listenTo filter_view, "change:page:history", (page) =>
-                  $(".section-overlay").removeClass("hide")
-                  conversations.fetch
-                    data: {aids: @aids, page: page}
-                    dataType : "jsonp"
-                    processData: true
-                    reset: true
-                    success: ->
-                      convos = self.organizeConversations(conversations)
-                      self.layout.conversationsRegion.show self.getConversationsRegion(convos)
-
-                      if conversations.length < 100 then $(".nav-link-inline").data("last", true) else $(".nav-link-inline").data("last", false)
-
-                      frm_count = (page * 100) - 99
-                      to_count = (((page * 100) - 100) + conversations.length)
-
-                      $(".history-scope").html("#{frm_count} - #{to_count}")
-                      $(".section-overlay").addClass("hide")
-
+                  App.execute "get:conversations", @aids, page
 
                 @layout.headerRegion.show headerRegion
                 @layout.filterRegion.show filter_view
@@ -197,6 +199,7 @@
             id.push item.get("id")
         else
           id = [item.model.get("id")]
+
         App.execute "conversations:fetch", id
         $("span.current-selection").html(item.model.get("name"))
         filters.closeDropDown()
