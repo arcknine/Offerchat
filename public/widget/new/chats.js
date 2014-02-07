@@ -647,7 +647,6 @@ Chats = {
   },
 
   xmppSendMsg: function(message, agent, sender) {
-    console.log("sender", sender);
     var msg, to, active, conn;
     conn    = this.connection;
     msg     = this.generateMessage(message, sender);

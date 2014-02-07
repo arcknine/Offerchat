@@ -30,8 +30,8 @@ var Language = {
     idle:          "Votre discussion a été inactif trop longtemps.",
     connect:       "Relier",
     you:           "Vous",
-    success_msg:   "Your message has been sent",
-    success_desc:  "Thank you! We will get back to you as soon as we can."
+    success_msg:   "Votre message a été envoyé",
+    success_desc:  "Merci! Nous reviendrons vers vous dès que nous le pouvons."
   },
   spanish: {
     connecting:    "Conexión a charlar...",
@@ -47,8 +47,8 @@ var Language = {
     idle:          "Su charla ha estado inactivo durante demasiado tiempo.",
     connect:       "Conectar",
     you:           "Tu",
-    success_msg:   "Your message has been sent",
-    success_desc:  "Thank you! We will get back to you as soon as we can."
+    success_msg:   "Tu mensaje ha sido enviado",
+    success_desc:  "¡Gracias! Nos pondremos en contacto con usted tan pronto como nos sea posible."
   },
   swedish: {
     connecting:    "Ansluter till chatt",
@@ -64,8 +64,8 @@ var Language = {
     idle:          "Din chatt har varit inaktiv för länge.",
     connect:       "Anslut",
     you:           "Du",
-    success_msg:   "Your message has been sent",
-    success_desc:  "Your message has been sent"
+    success_msg:   "Ditt meddelande har skickats",
+    success_desc:  "Tack! Vi återkommer till dig så snart vi kan."
   },
   serbia: {
     connecting:    "Povezujemo chat...",
@@ -83,5 +83,22 @@ var Language = {
     you:           "ви",
     success_msg:   "Vaša poruka je poslata",
     success_desc:  "Hvala Vam! Odgovorićemo Vam u najkraćem mogućem roku."
+  },
+  portuguese: {
+    connecting:    "Conectando ao chat…",
+    connect_agent: "Connecting you to an agent...",
+    chat_box:      "Digite suas perguntas e aperte enter",
+    transcript:    "Baixar uma cópia",
+    sound_off:     "Desligar som",
+    sound_on:      "Ligar som",
+    name:          "Nome",
+    email:         "Email",
+    message:       "Mensagem",
+    submit:        "Iniciar",
+    idle:          "O bate-papo foi inativo devido ao longo tempo de espera",
+    connect:       "Conectado",
+    you:           "Tu",
+    success_msg:   "Sua mensagem foi enviada",
+    success_desc:  "Obrigado! Nós entraremos em contato com você o mais breve possível."
   }
 };
