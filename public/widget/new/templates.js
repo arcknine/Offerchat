@@ -320,7 +320,10 @@ Templates = {
     // getFormsSuccess
     this.formSuccess = this.generateTemplate({
       section:   "div.widget-chat-viewer",
-      template: this.getFormsSuccess(),
+      template: this.getFormsSuccess({
+        message:     _this.language.success_msg,
+        description: _this.language.success_desc
+      }),
       className: "widget-block"
     });
 
@@ -616,7 +619,7 @@ Templates = {
     data = data || { message: "Your message has been sent", description: "Thank you! We will get back to you as soon as we can." };
     var success =  '<div class="widget-pre-message">' +
                    '  <h3>' +
-                   '    <i class="widget icon icon-check-large"></i>' + data.message +
+                   '    <i class="widget icon icon-check-large" style="height: 22px"></i>' + data.message +
                    '  </h3>' +
                       data.description +
                    '</div>';
