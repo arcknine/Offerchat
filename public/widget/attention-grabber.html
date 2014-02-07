@@ -4,17 +4,7 @@
     <title>Offerchat</title>
   </head>
   <script type="text/javascript">
-    window.onload = function() {
-      var get_params = {},
-      args = location.search.substr(1).split(/&/);
-      for (var i=0; i< args.length; ++i) {
-        var tmp = args[i].split(/=/);
-        if (tmp[0] != "") {
-          get_params[decodeURIComponent(tmp[0])] = decodeURIComponent(tmp.slice(1).join("").replace("+", " "));
-        }
-      }
-      document.body.innerHTML = "<img src=\"" + get_params.attention_grabber  + "\" style=\"margin: 0 auto; display: block\">";
-    }
+    window.onload=function(){for(var c={},d=location.search.substr(1).split(/&/),a=0;a<d.length;++a){var b=d[a].split(/=/);""!=b[0]&&(c[decodeURIComponent(b[0])]=decodeURIComponent(b.slice(1).join("").replace("+"," ")))}document.body.innerHTML='<img src="'+c.attention_grabber+'" style="margin: 0 auto; display: block">'};
   </script>
   <body style="overflow: hidden; padding: 0; margin: 0"></body>
 </html>
