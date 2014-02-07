@@ -11,11 +11,12 @@
 
       @initKeyView sites
 
-      @listenTo newSiteView, "click:finish:website", (item) ->
+      @listenTo newSiteView, "click:finish:website", (item) =>
         App.vent.trigger "show:chat:sidebar"
         $('#chat-sidebar-region').attr('class', 'chats-sidebar-container')
         App.navigate "#", trigger: true
-        App.request "new:site:created"
+        # App.request "new:site:created"
+        @showNotification("Your website has been added successfully!")
 
         $("#first-time-user").removeClass("hide")
 

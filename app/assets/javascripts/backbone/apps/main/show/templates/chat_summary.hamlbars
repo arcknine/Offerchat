@@ -1,0 +1,22 @@
+%h2 Today's Chat Summary
+.block.large.plr0
+  .stats-panel
+    %h3 {{active}}
+    %label
+      %span.stats-indicator.blue
+        %span.stats-stick
+      Active Chats
+
+  .stats-panel
+    %h3 {{proactive}}
+    %label
+      %span.stats-indicator.green
+        %span.stats-stick
+      Proactive Chats
+
+  .stats-panel
+    %h3 {{missed}}
+    %label
+      %span.stats-indicator.red
+        %span.stats-stick
+      Missed Chats
