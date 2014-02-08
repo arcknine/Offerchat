@@ -9,17 +9,17 @@
     .btn-selector
       .btn.btn-action-selector.btn-regular
         %i.icon.icon-arrow-down
-        %span.current-selection Question
+        %span.current-selection{ :data => { :selected => "question" } } Question
       .dropdown-options.dark
         %ul
-          %li
-            %a Question
-          %li
-            %a Incident
-          %li
-            %a Problem
-          %li
-            %a Task
+          %li.option
+            %a{ :data => { :name => "question" } } Question
+          %li.option
+            %a{ :data => { :name => "incident" } } Incident
+          %li.option
+            %a{ :data => { :name => "problem" } } Problem
+          %li.option
+            %a{ :data => { :name => "task" } } Task
 
 %fieldset
   %label Mark as
@@ -27,29 +27,31 @@
     .btn-selector
       .btn.btn-action-selector.btn-regular
         %i.icon.icon-arrow-down
-        %span.current-selection New
+        %span.current-selection{ :data => { :selected => "new" } } New
       .dropdown-options.dark
         %ul
-          %li
-            %a Open
-          %li
-            %a Pending
-          %li
-            %a Solved
+          %li.option
+            %a{ :data => { :name => "new" } } New
+          %li.option
+            %a{ :data => { :name => "open" } } Open
+          %li.option
+            %a{ :data => { :name => "pending" } } Pending
+          %li.option
+            %a{ :data => { :name => "solved" } } Solved
 
 %fieldset
   %label Priority
   .input-container
-    .pill-selector
-      %a.pill.low.active
+    .pill-selector{ :data => { :selected => "low" } }
+      %a.pill.low.active{ :data => { :name => "low" } }
         %span.status
         Low
-      %a.pill.normal.active
+      %a.pill.normal{ :data => { :name => "normal" } }
         %span.status
         Normal
-      %a.pill.high.active
+      %a.pill.high{ :data => { :name => "high" } }
         %span.status
         High
-      %a.pill.urgent.active
+      %a.pill.urgent{ :data => { :name => "urgent" } }
         %span.status
         Urgent

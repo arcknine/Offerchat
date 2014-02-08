@@ -108,7 +108,7 @@
 
   class Show.TicketModal extends App.Views.ItemView
     template: "chats/show/ticket_modal"
-    className: "form"
+    className: "form form-inline"
     form:
       buttons:
         primary: false
@@ -116,15 +116,33 @@
         cancel:  false
       title: "Create Ticket to Zendesk"
 
-    # triggers:
-    #   "click div.btn-selector"  : "ticket:modal:drop:down:toggle"
-
     events:
+      "click li.option"         : "selectOption"
       "click div.btn-selector"  : "dropDownButton"
+      "click a.pill"            : "selectPill"
+
+    selectPill: (e) ->
+      $("a.pill").removeClass("active")
+      selected = $(e.currentTarget).data("name")
+      $(e.currentTarget).addClass("active")
+      $(".pill-selector").data("selected", selected)
 
     dropDownButton: (e) ->
-      @trigger "ticket:modal:drop:down:toggle", e
+      target = $(e.currentTarget)
+      if target.hasClass("open")
+        target.removeClass("open")
+        target.find(".btn-action-selector").removeClass("active")
+      else
+        target.addClass("open")
+        target.find(".btn-action-selector").addClass("active")
 
+    selectOption: (e) ->
+      btn_selector = $(e.currentTarget).closest(".btn-selector")
+      selected = $(e.currentTarget).find("a")
+      selected_name = selected.data("name")
+      selected_label = selected.html()
+
+      btn_selector.find(".current-selection").data("selected",selected_name).html(selected_label)
 
   class Show.ModalQuickResponses extends App.Views.Layout
     template: "chats/show/quick_responses"

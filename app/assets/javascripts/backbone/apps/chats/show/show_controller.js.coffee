@@ -614,16 +614,6 @@
       modalView = @getCreateTicketView()
       formView = App.request "modal:wrapper", modalView
 
-      @listenTo modalView, "ticket:modal:drop:down:toggle", (elem) =>
-        target = $(elem.currentTarget)
-        selector =
-        if target.hasClass("open")
-          target.removeClass("open")
-          target.find(".btn-action-selector").removeClass("active")
-        else
-          target.addClass("open")
-          target.find(".btn-action-selector").addClass("active")
-
       @listenTo formView, "modal:cancel", (item)->
         formView.close()
 
@@ -634,7 +624,9 @@
     showTranscriptModalView: (messages)->
       modalView = @getTranscriptModalView messages
       formView  = App.request "modal:wrapper", modalView
-      App.modalRegion.show formView
+
+      @listenTo formView, "modal:unsubmit", (item) =>
+        console.log 'halaaaaaaaaaaaaaaaa ', item
 
       @listenTo formView, "modal:cancel", (item)->
         formView.close()
@@ -642,6 +634,8 @@
       @listenTo @transcript, "created", (model) =>
         formView.close()
         @showNotification("Transcript has been successfully sent!")
+
+      App.modalRegion.show formView
 
     parseChatHistory: ->
       history      = App.request "get:chats:history", @token
