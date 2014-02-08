@@ -87,11 +87,58 @@ class WebsitesController < ApplicationController
     unless @website.update_attribute('attention_grabber', params[:attention_grabber])
       respond_with @website
     end
+  end
 
-    # @profile.avatar = params[:avatar]
-    # unless @profile.update_attribute('avatar', params[:avatar])
-    #   respond_with @profile
+  def zendesk_auth
+    puts params
+
+    @website = Website.find_by_id(params[:id])
+    company = @website.settings(:zendesk).company
+    username = @website.settings(:zendesk).username
+    token = @website.settings(:zendesk).token
+
+    subject = params[:subject]
+    desc = params[:desc]
+    type = params[:type]
+    prio = params[:prio]
+
+    res = ZendeskService.new(subject, desc, prio, type)
+    res.create_ticket
+
+    # res = URI.encode('curl https://kageron.zendesk.com/api/v2/tickets.json -d \'{ "ticket": { "subject":"My OFFICE is on fire!", "comment": { "body":"The smoke is very colorful." }, "priority":"urgent", "type":"question" } }\' -H "Content-Type: application/json" -v -u eralphamodia@gmail.com/token:YNt53MuiHkdewWV50OpgxYYxmJhUiOXau9zC6lTW')
+    # response = HTTParty.post(res)
+    # puts response.body
+
+    # res = HTTParty.post("https://kageron.zendesk.com/api/v2/tickets.json", {
+    #   :body => [ { "ticket" => { "subject"=>"My OFFICE is on fire!", "comment" => { "body"=>"The smoke is very colorful." }, "priority"=>"urgent", "type"=>"question" } } ].to_json,
+    #   :basic_auth => { :user => "eralphamodia@gmail.com", :token => "YNt53MuiHkdewWV50OpgxYYxmJhUiOXau9zC6lTW" },
+    #   :headers => { 'Content-Type' => 'application/json' }
+    # })
+    # puts "RESPONSE"
+    # puts res.body
+
+    # subject = "First Offerchat Ticket"
+    # desc    = "This is the first offerchat official first ticket"
+    # type    = "question"
+    # prio    = "urgent"
+
+    # require 'zendesk_api'
+
+    # client = ZendeskAPI::Client.new do |config|
+    #   config.url = "https://kageron.zendesk.com/api/v2"
+    #   config.username = "eralphamodia@gmail.com"
+    #   config.token = "YNt53MuiHkdewWV50OpgxYYxmJhUiOXau9zC6lTW"
     # end
+
+    # puts 'RESPONSEEEEEEEEE'
+    # client.insert_callback do |env|
+    #   puts env[:response_headers]
+    # end
+
+    # client.tickets.create(:subject => "SUBJECT NI HAAAAAAAAA", :comment => { :value => desc }, :priority => prio, :type => type )
+    # zendesk_client.tickets.create(:subject => subject, :comment => { :value => desc }, :priority => prio, :type => type )
+    # ZendeskAPI::Ticket.create(:subject => subject, :comment => { :value => desc }, :priority => prio, :type => type )
+
   end
 
   private

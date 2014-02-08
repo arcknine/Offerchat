@@ -46,6 +46,7 @@ class Website < ActiveRecord::Base
     s.key :offline, :defaults => { :enabled => true,  :header => "Contact Us", :description => "Leave a message and we will get back to you ASAP.", :email => "" }
     s.key :footer, :defaults => { :enabled => true }
     s.key :grabber, :defaults => { :enabled => false, :name => "", :src => "", :height => 0, :width => 0, :uploaded => false }
+    s.key :zendesk, :defaults => { :company => "", :username => "", :token => "" }
   end
 
   after_create :after_create_settings

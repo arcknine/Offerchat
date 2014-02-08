@@ -65,6 +65,7 @@ Dashboard::Application.routes.draw do
       put "update_settings"
       get "triggers"
       post "update_attention_grabber"
+      post "zendesk_auth"
     end
   end
 

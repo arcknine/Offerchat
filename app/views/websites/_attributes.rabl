@@ -45,6 +45,11 @@ node do |website|
         :src         => website.settings(:grabber).src,
         :height      => website.settings(:grabber).height,
         :width       => website.settings(:grabber).width
+      },
+      :zendesk => {
+        :company     => website.settings(:zendesk).company,
+        :username    => website.settings(:zendesk).username,
+        :token       => website.settings(:zendesk).token
       }
     }
   }

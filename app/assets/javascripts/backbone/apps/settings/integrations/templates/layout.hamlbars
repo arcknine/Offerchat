@@ -1,0 +1,89 @@
+.block.large
+  %h2 Integrations
+  Add powerful functionalities to your chat from different CRM softwares.
+
+.block-message#setting-notification{:style => "display: none"}
+  %a.close ×
+  %span Your changes have been saved!
+
+.block
+  %ul.integrations-selector
+    %li.integrations.active{ :data => { :section => "zendesk" } }
+      %h3 Zendesk
+      %a
+        %img{ :src => "/assets/zendesk.png" }
+
+.block.large.bordered-top
+  .block-note.w200.go-right
+    %h2 Need help setting up?
+    %p Read our guide in setting up your Zendesk integration and how to use it with Offerchat
+    %a
+      %strong View how it works
+
+  #integrations-region
+
+    / %p Create tickets from Offerchat conversations into Zendesk.
+
+    / .form
+    /   %fieldset
+    /     %label Company Name
+    /     .input-container
+    /       %input.large{ :type => "text" }
+    /       %p.small.__web-inpspector-hide-shortcut__
+    /         http://
+    /         %strong
+    /           company
+    /         ".zendesk.com"
+
+    /   %fieldset
+    /     %label Email
+    /     .input-container
+    /       %input.large{ :type => "text" }
+
+    /   %fieldset
+    /     %label Token
+    /     .input-container
+    /       %input.large{ :type => "text" }
+
+    /   %fieldset
+    /     %label.checkbox.inline{ :for => "checkbox1" }
+    /       %span.icon
+    /         .icon-check
+    /       Automatically create tickets for offline messages
+
+    /   %fieldset
+    /     .block.large.bordered-top
+    /       %button.btn.action Save
+
+
+
+/   .block-message#setting-notification{:style => "display: none"}
+/     %a.close ×
+/     %span Your changes have been saved!
+
+
+/   %fieldset
+/     %label Company
+/     .input-container
+/       %input#zendesk-company{ :type => "text", :value => "", :name => "widget_label" }
+
+/   %fieldset
+/     %label Login Email
+/     .input-container
+/       %input#zendesk-username{ :type => "text", :value => "", :name => "widget_label" }
+
+/   %fieldset
+/     %label Token
+/     .input-container
+/       %input#zendesk-token{ :type => "text", :value => "", :name => "widget_label" }
+
+/ .column-footer-actions.bordered
+/   .block.large
+/     %button.btn.action.save-zendesk{ :type => "submit" }
+/       Save Changes
+
+
+/ .column-footer-actions.bordered
+/   .block.large
+/     %button.btn.action.create-ticket{ :type => "submit" }
+/       Create Ticket
