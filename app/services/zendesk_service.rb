@@ -1,6 +1,4 @@
 class ZendeskService
-  require 'httparty'
-
   def initialize(subject, desc, prio, type)
     @subject, @desc, @prio, @type = subject, desc, prio, type
   end

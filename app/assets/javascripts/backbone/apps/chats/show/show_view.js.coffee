@@ -105,6 +105,27 @@
         cancel:  false
       title: "Export Transcript"
 
+
+  class Show.TicketModal extends App.Views.ItemView
+    template: "chats/show/ticket_modal"
+    className: "form"
+    form:
+      buttons:
+        primary: false
+        nosubmit: "Create Ticket"
+        cancel:  false
+      title: "Create Ticket to Zendesk"
+
+    # triggers:
+    #   "click div.btn-selector"  : "ticket:modal:drop:down:toggle"
+
+    events:
+      "click div.btn-selector"  : "dropDownButton"
+
+    dropDownButton: (e) ->
+      @trigger "ticket:modal:drop:down:toggle", e
+
+
   class Show.ModalQuickResponses extends App.Views.Layout
     template: "chats/show/quick_responses"
     className: "modal-viewer"

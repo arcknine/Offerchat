@@ -1,0 +1,55 @@
+%fieldset
+  %label Subject
+  .input-container
+    %input.large{ :type => "text" }
+
+%fieldset
+  %label Type
+  .btn-selector-wrapper
+    .btn-selector
+      .btn.btn-action-selector.btn-regular
+        %i.icon.icon-arrow-down
+        %span.current-selection Question
+      .dropdown-options.dark
+        %ul
+          %li
+            %a Question
+          %li
+            %a Incident
+          %li
+            %a Problem
+          %li
+            %a Task
+
+%fieldset
+  %label Mark as
+  .btn-selector-wrapper
+    .btn-selector
+      .btn.btn-action-selector.btn-regular
+        %i.icon.icon-arrow-down
+        %span.current-selection New
+      .dropdown-options.dark
+        %ul
+          %li
+            %a Open
+          %li
+            %a Pending
+          %li
+            %a Solved
+
+%fieldset
+  %label Priority
+  .input-container
+    .pill-selector
+      %a.pill.low.active
+        %span.status
+        Low
+      %a.pill.normal.active
+        %span.status
+        Normal
+      %a.pill.high.active
+        %span.status
+        High
+      %a.pill.urgent.active
+        %span.status
+        Urgent

@@ -13,7 +13,11 @@
       "click li.integrations" : "selectIntegration"
 
     selectIntegration: (e) ->
-      selected = $(e.currentTarget).data("section")
+      target = $(e.currentTarget)
+      selected = target.data("section")
+      $("li.integrations").removeClass("active")
+      target.addClass("active")
+
       @trigger "select:integration", selected
 
   class Integrations.Zendesk extends App.Views.ItemView
