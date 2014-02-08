@@ -100,5 +100,22 @@ var Language = {
     you:           "Tu",
     success_msg:   "Sua mensagem foi enviada",
     success_desc:  "Obrigado! Nós entraremos em contato com você o mais breve possível."
+  },
+  polish: {
+    connecting:    "Uruchamianie połączenia...",
+    connect_agent: "Łączenie z konsultantem",
+    chat_box:      "Wpisz swoje pytanie i wciśnij enter",
+    transcript:    "Pobierz historię rozmowy",
+    sound_off:     "Wyłącz dźwięki",
+    sound_on:      "Uruchom dźwięki",
+    name:          "Nazwisko",
+    email:         "Adres e-mail",
+    message:       "Wiadomość",
+    submit:        "Wyślij wiadomość",
+    idle:          "Pozostałeś zbyt długo nieaktywny na czacie",
+    connect:       "Połącz",
+    you:           "Ty",
+    success_msg:   "Twoja wiadomość została wysłana",
+    success_desc:  "Dziękujemy za wiadomość. Odpowiemy tak szybko jak to będzie możliwe."
   }
 };

@@ -28,9 +28,9 @@
     %img{ :alt => "portuguese", :src => "/assets/lang/brazil.png" }
     %label Português
 
-  /%a.set-language
-  /  %img{ :alt => "polish", :src => "/assets/lang/polish.png" }
-  /  %label Polish
+  %a.set-language
+    %img{ :alt => "polish", :src => "/assets/lang/polish.png" }
+    %label Polszczyzna
 
   %a.set-language
     %img{ :alt => "serbia", :src => "/assets/lang/serbia.png" }
