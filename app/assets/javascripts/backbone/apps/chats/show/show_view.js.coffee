@@ -106,9 +106,10 @@
       title: "Export Transcript"
 
 
-  class Show.TicketModal extends App.Views.ItemView
+  class Show.TicketModal extends App.Views.Layout
     template: "chats/show/ticket_modal"
     className: "form form-inline"
+
     form:
       buttons:
         primary: false

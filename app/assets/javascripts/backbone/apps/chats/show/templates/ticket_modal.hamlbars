@@ -1,7 +1,7 @@
 %fieldset
   %label Subject
   .input-container
-    %input.large{ :type => "text" }
+    %input.large.ticket-subject{ :type => "text" }
 
 %fieldset
   %label Type
@@ -9,7 +9,7 @@
     .btn-selector
       .btn.btn-action-selector.btn-regular
         %i.icon.icon-arrow-down
-        %span.current-selection{ :data => { :selected => "question" } } Question
+        %span.current-selection.ticket-type{ :data => { :selected => "question" } } Question
       .dropdown-options.dark
         %ul
           %li.option
@@ -27,11 +27,9 @@
     .btn-selector
       .btn.btn-action-selector.btn-regular
         %i.icon.icon-arrow-down
-        %span.current-selection{ :data => { :selected => "new" } } New
+        %span.current-selection.ticket-mark{ :data => { :selected => "open" } } Open
       .dropdown-options.dark
         %ul
-          %li.option
-            %a{ :data => { :name => "new" } } New
           %li.option
             %a{ :data => { :name => "open" } } Open
           %li.option
@@ -42,7 +40,7 @@
 %fieldset
   %label Priority
   .input-container
-    .pill-selector{ :data => { :selected => "low" } }
+    .pill-selector.ticket-priority{ :data => { :selected => "low" } }
       %a.pill.low.active{ :data => { :name => "low" } }
         %span.status
         Low

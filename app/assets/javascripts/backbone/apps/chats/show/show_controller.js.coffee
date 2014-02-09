@@ -609,24 +609,61 @@
         model: @currentSite
 
     showCreateTicket: =>
-      console.log 'currentSite: ', @currentSite
+      v_info = @visitor.get("info")
 
       modalView = @getCreateTicketView()
       formView = App.request "modal:wrapper", modalView
+
+      @listenTo formView, "modal:unsubmit", (e) =>
+        parent = $(e.view.el)
+        subject = parent.find(".ticket-subject").val()
+
+        if subject is ""
+          parent.find(".ticket-subject").closest("fieldset").addClass("field-error")
+        else
+
+          type = parent.find(".ticket-type").data("selected")
+          mark = parent.find(".ticket-mark").data("selected")
+          prio = parent.find(".ticket-priority").data("selected")
+
+          description = "#{v_info.name}\n"
+          if v_info.email isnt ""
+            description = "#{description}#{v_info.email}\n"
+          description = description = "#{description}#{v_info.OS},#{v_info.browser}\n\n############\n\n"
+
+          conversations = ""
+          agent_name = @profile.get("display_name")
+          @currentMsgs.forEach (model, index) =>
+            sender = if model.get("sender") isnt "agent" then model.get("sender") else agent_name
+            conversations = "#{conversations}[#{model.get('timesimple')}] #{sender}: #{model.get('message')}\n"
+
+          description = "#{description}#{conversations}"
+
+          formView.close()
+          $(".section-overlay").removeClass("hide")
+
+          this_site = @currentSite
+          this_site.url = Routes.zendesk_auth_website_path(@currentSite.get("id"))
+          this_site.fetch
+            type: "POST"
+            data: { subject: "#{@profile.get('display_name')}: #{subject}", desc: description, type: type, prio: prio, status: mark }
+            success: (e) =>
+              @showNotification("Your zendesk ticket has been created.")
+              $(".section-overlay").addClass("hide")
+            error: (data, response) =>
+              @showNotification(response.responseText, "warning")
+              $(".section-overlay").addClass("hide")
 
       @listenTo formView, "modal:cancel", (item)->
         formView.close()
 
       App.modalRegion.show formView
 
-      @listenTo
 
     showTranscriptModalView: (messages)->
       modalView = @getTranscriptModalView messages
       formView  = App.request "modal:wrapper", modalView
-
-      @listenTo formView, "modal:unsubmit", (item) =>
-        console.log 'halaaaaaaaaaaaaaaaa ', item
+      App.modalRegion.show formView
 
       @listenTo formView, "modal:cancel", (item)->
         formView.close()
@@ -634,8 +671,6 @@
       @listenTo @transcript, "created", (model) =>
         formView.close()
         @showNotification("Transcript has been successfully sent!")
-
-      App.modalRegion.show formView
 
     parseChatHistory: ->
       history      = App.request "get:chats:history", @token
