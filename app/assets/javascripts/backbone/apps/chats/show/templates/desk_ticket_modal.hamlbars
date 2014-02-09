@@ -23,33 +23,33 @@
   %label.label-top-fix Priority
   .input-container{ :style => "width:379px;" }
     .pill-selector.ticket-priority{ :data => { :selected => "1" } }
-      %a.pill.s1.active
+      %a.pill.s1.active{ :data => { :name => "1" } }
         %span.status
-        1
-      %a.pill.s2
+        1 - Low
+      %a.pill.s2{ :data => { :name => "2" } }
         %span.status
         2
-      %a.pill.s3
+      %a.pill.s3{ :data => { :name => "3" } }
         %span.status
         3
-      %a.pill.s4
+      %a.pill.s4{ :data => { :name => "4" } }
         %span.status
         4
-      %a.pill.s5
+      %a.pill.s5{ :data => { :name => "5" } }
         %span.status
         5
-      %a.pill.s6
+      %a.pill.s6{ :data => { :name => "6" } }
         %span.status
         6
-      %a.pill.s7
+      %a.pill.s7{ :data => { :name => "7" } }
         %span.status
         7
-      %a.pill.s8
+      %a.pill.s8{ :data => { :name => "8" } }
         %span.status
         8
-      %a.pill.s9
+      %a.pill.s9{ :data => { :name => "9" } }
         %span.status
         9
-      %a.pill.s10
+      %a.pill.s10{ :data => { :name => "10" } }
         %span.status
-        10
+        10 - Critical
