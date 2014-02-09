@@ -31,3 +31,7 @@
     .block.large.bordered-top
       %button.btn.action.mixpanel-user-info{:type => "submit"} Next
 
+:javascript
+  $(document).ready(function(){
+    mixpanel.track("View Signup Page");
+  });
