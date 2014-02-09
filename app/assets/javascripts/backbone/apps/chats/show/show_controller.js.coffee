@@ -76,6 +76,8 @@
           $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500) if @scroll is true
 
       @listenTo @layout, "show", =>
+
+
         @visitorInfoView()
         @chatsView()
         App.execute "subtract:unread", 'visitor', @visitor
@@ -318,7 +320,7 @@
       $(".response-error").removeClass("hide")
       $(".response-error").text(message)
 
-    chatsView: ->
+    chatsView: =>
       chatsView = @getChatsView()
 
       @listenTo chatsView, "show", ->
@@ -339,7 +341,11 @@
           @showTranscriptModalView @visitor
           @transcript.set messages: $('#transcript-collection').html()
         else if option is "ticket"
-          @showCreateTicket()
+          plan = @profile.get("plan_identifier")
+          if ["PRO", "PROTRIAL", "AFFILIATE"].indexOf(plan) isnt -1
+            @showCreateTicket()
+          else
+            @showNotification("This feature is only available in PRO plan.", "warning", 5)
 
         # else if option is "ban"
 
