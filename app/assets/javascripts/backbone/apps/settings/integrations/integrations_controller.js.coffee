@@ -28,7 +28,7 @@
 
             $(window).resize =>
               h = $(window).height() - 45
-              $(".main-content-view").attr("style","height:#{h}px")
+              $(".column-content-container").attr("style","height:#{h}px")
 
             @show @layout
 
@@ -51,29 +51,6 @@
           @showZenDesk()
         when "desk"
           @showDesk()
-
-    # showZenDesk: ->
-    #   integrationView = @getZendeskView()
-
-    #   @listenTo integrationView, "save:zendesk:api", =>
-    #     z_company = $("#zendesk-company").val()
-    #     z_username = $("#zendesk-username").val()
-    #     z_token = $("#zendesk-token").val()
-
-    #     if z_company isnt "" and z_username isnt "" and z_token isnt ""
-    #       @settings.zendesk.company = z_company
-    #       @settings.zendesk.username = z_username
-    #       @settings.zendesk.token = z_token
-
-    #       @currentSite.url = Routes.update_settings_website_path(@currentSite.get('id'))
-    #       @currentSite.set settings: @settings
-    #       @currentSite.save {},
-    #         success: (data) =>
-    #           @showNotification("Your changes have been saved.")
-    #     else
-    #       @showNotification("All zendesk fields are required", "warning")
-
-    #   @layout.integrationsRegion.show integrationView
 
     showZenDesk: ->
       zenDeskView = @getZendeskView()

@@ -36,7 +36,6 @@
       @trigger "update:zendesk:data", { name: name, value: val }
 
     toggleCheckbox: (e) ->
-      console.log e
       target = $(e.currentTarget)
       if target.hasClass("checked")
         checked = ""

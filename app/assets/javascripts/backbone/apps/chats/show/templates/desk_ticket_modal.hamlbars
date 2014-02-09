@@ -1,0 +1,55 @@
+%fieldset
+  %label Subject
+  .input-container
+    %input.large.ticket-subject{ :type => "text" }
+
+%fieldset
+  %label Status
+  .btn-selector-wrapper
+    .btn-selector
+      .btn.btn-action-selector.btn-regular
+        %i.icon.icon-arrow-down
+        %span.current-selection.ticket-mark{ :data => { :selected => "open" } } Open
+      .dropdown-options.dark
+        %ul
+          %li.option
+            %a{ :data => { :name => "open" } } Open
+          %li.option
+            %a{ :data => { :name => "pending" } } Pending
+          %li.option
+            %a{ :data => { :name => "resolved" } } Resolved
+
+%fieldset
+  %label.label-top-fix Priority
+  .input-container{ :style => "width:379px;" }
+    .pill-selector.ticket-priority{ :data => { :selected => "1" } }
+      %a.pill.s1.active
+        %span.status
+        1
+      %a.pill.s2
+        %span.status
+        2
+      %a.pill.s3
+        %span.status
+        3
+      %a.pill.s4
+        %span.status
+        4
+      %a.pill.s5
+        %span.status
+        5
+      %a.pill.s6
+        %span.status
+        6
+      %a.pill.s7
+        %span.status
+        7
+      %a.pill.s8
+        %span.status
+        8
+      %a.pill.s9
+        %span.status
+        9
+      %a.pill.s10
+        %span.status
+        10

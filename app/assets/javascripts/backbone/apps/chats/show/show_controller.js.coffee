@@ -604,14 +604,53 @@
         collection: @currentMsgs
         model: @transcript
 
-    getCreateTicketView: =>
-      new Show.TicketModal
-        model: @currentSite
+    getCreateTicketView: (integration) =>
+      if integration is "zendesk"
+        new Show.TicketModalZendesk
+          model: @currentSite
+      else if integration is "desk"
+        new Show.TicketModalDesk
+          model: @currentSite
 
     showCreateTicket: =>
+      console.log 'currentSite', @currentSite
+      site_settings = @currentSite.get("settings")
+
+      int_name = site_settings.integrations.integration
+      int_data = site_settings.integrations.data
+
+      console.log 'name: ', int_name
+      console.log 'data: ', int_data
+
+
+      App.commands.setHandler "drop:button", (e) =>
+        target = $(e.currentTarget)
+        if target.hasClass("open")
+          target.removeClass("open")
+          target.find(".btn-action-selector").removeClass("active")
+        else
+          target.addClass("open")
+          target.find(".btn-action-selector").addClass("active")
+
+      App.commands.setHandler "select:option", (e) =>
+        btn_selector = $(e.currentTarget).closest(".btn-selector")
+        selected = $(e.currentTarget).find("a")
+        selected_name = selected.data("name")
+        selected_label = selected.html()
+        btn_selector.find(".current-selection").data("selected",selected_name).html(selected_label)
+
+      App.commands.setHandler "select:pill", (e) =>
+        $("a.pill").removeClass("active")
+        selected = $(e.currentTarget).data("name")
+        $(e.currentTarget).addClass("active")
+        $(".pill-selector").data("selected", selected)
+
+
+
       v_info = @visitor.get("info")
 
-      modalView = @getCreateTicketView()
+      modalView = @getCreateTicketView(int_name)
+
       formView = App.request "modal:wrapper", modalView
 
       @listenTo formView, "modal:unsubmit", (e) =>
@@ -621,10 +660,7 @@
         if subject is ""
           parent.find(".ticket-subject").closest("fieldset").addClass("field-error")
         else
-
-          type = parent.find(".ticket-type").data("selected")
-          mark = parent.find(".ticket-mark").data("selected")
-          prio = parent.find(".ticket-priority").data("selected")
+          subject = "#{@profile.get('display_name')}: #{subject}"
 
           description = "#{v_info.name}\n"
           if v_info.email isnt ""
@@ -642,11 +678,17 @@
           formView.close()
           $(".section-overlay").removeClass("hide")
 
+          mark = parent.find(".ticket-mark").data("selected")
+          prio = parent.find(".ticket-priority").data("selected")
+
+          # zendesk
+          type = parent.find(".ticket-type").data("selected")
+
           this_site = @currentSite
           this_site.url = Routes.zendesk_auth_website_path(@currentSite.get("id"))
           this_site.fetch
             type: "POST"
-            data: { subject: "#{@profile.get('display_name')}: #{subject}", desc: description, type: type, prio: prio, status: mark }
+            data: { subject: subject, desc: description, type: type, prio: prio, status: mark }
             success: (e) =>
               @showNotification("Your zendesk ticket has been created.")
               $(".section-overlay").addClass("hide")
