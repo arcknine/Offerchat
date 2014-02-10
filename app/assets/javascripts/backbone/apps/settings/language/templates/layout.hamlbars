@@ -25,8 +25,8 @@
     %label Español
 
   %a.set-language
-    %img{ :alt => "portuguese", :src => "/assets/lang/portuguese.png" }
-    %label Portuguese
+    %img{ :alt => "portuguese", :src => "/assets/lang/brazil.png" }
+    %label Português
 
   /%a.set-language
   /  %img{ :alt => "polish", :src => "/assets/lang/polish.png" }
