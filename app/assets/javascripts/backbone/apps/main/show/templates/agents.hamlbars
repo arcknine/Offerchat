@@ -1,0 +1,3 @@
+%h2 Agents last login
+.block.large
+  %ul.active-agents-list
