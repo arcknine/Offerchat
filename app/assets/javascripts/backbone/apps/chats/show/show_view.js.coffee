@@ -149,6 +149,10 @@
       "click li.option"         : "selectOption"
       "click div.btn-selector"  : "dropDownButton"
       "click a.pill"            : "selectPill"
+      "click .ui-collapse-link" : "slideVisitorInfo"
+
+    slideVisitorInfo: (e) ->
+      App.execute "slide:visitor:info"
 
     selectPill: (e) ->
       App.execute "select:pill", e

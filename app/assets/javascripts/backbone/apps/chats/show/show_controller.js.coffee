@@ -688,16 +688,22 @@
 
           description = "#{description}#{conversations}"
 
-          formView.close()
-          $(".section-overlay").removeClass("hide")
-
           mark = parent.find(".ticket-mark").data("selected")
           prio = parent.find(".ticket-priority").data("selected")
+
+          v_name = parent.find(".visitor-name").val()
+          v_email = parent.find(".visitor-email").val()
+          v_phone = parent.find(".visitor-phone").val()
 
           this_site = @currentSite
 
           if int_name is "zendesk"
             this_site.url = Routes.zendesk_auth_website_path(@currentSite.get("id"))
+
+            v_data =
+              name: v_name
+              email: v_email
+              phone: v_phone
 
             type = parent.find(".ticket-type").data("selected")
             post_data =
@@ -706,6 +712,7 @@
               type: type
               prio: prio
               status: mark
+              visitor: v_data
 
           else if int_name is "desk"
             this_site.url = Routes.desk_website_path(@currentSite.get("id"))
@@ -715,17 +722,21 @@
               message: description
               priority: prio
               status: mark
-              name: $(".visitor-name").val()
-              email: $(".visitor-email").val()
-              phone: $(".visitor-phone").val()
-              company: $(".visitor-company").val()
-              title: $(".visitor-title").val()
+              name: v_name
+              email: v_email
+              phone: v_phone
+              company: parent.find(".visitor-company").val()
+              title: parent.find(".visitor-title").val()
+
+
+          formView.close()
+          $(".section-overlay").removeClass("hide")
 
           this_site.fetch
             type: "POST"
             data: post_data
             success: (e) =>
-              @showNotification("Your zendesk ticket has been created.")
+              @showNotification("Your #{int_name} ticket has been created.")
               $(".section-overlay").addClass("hide")
             error: (data, response) =>
               @showNotification(response.responseText, "warning")
