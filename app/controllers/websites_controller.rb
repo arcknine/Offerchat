@@ -160,23 +160,14 @@ class WebsitesController < ApplicationController
   end
 
   def zoho
-    puts 'paramsssssssssssss'
-    puts params.inspect
-
     zoho = ZohoService.new(params[:id], params[:visitor], params[:task])
     contact_id = zoho.create_update_contact
 
-    puts 'contacccccccc'
-    puts contact_id
-
     unless contact_id.nil?
       result = zoho.create_task(contact_id)
-      puts 'resultttttttt'
-      puts result
+    else
+      render json: "Something went wrong while creating your Zoho ticket.", status: 401
     end
-
-
-
   end
 
   private

@@ -4,8 +4,7 @@ class ZohoService
     data     = @website.settings(:integrations).data
 
     RubyZoho.configure do |config|
-      # config.api_key = data["token"]
-      config.api_key = "7e626d0857ed92d3de257f5c8d246fa9__"
+      config.api_key = data["token"]
     end
 
     @visitor_name = visitor["name"]
@@ -30,31 +29,29 @@ class ZohoService
   end
 
   def create_update_contact
-    result = RubyZoho::Crm::Contact.find_by_last_name(@visitor_name)
-
-    options = {}
-    options[:email] = @visitor_email unless @visitor_email.blank?
-    options[:phone] = @visitor_phone unless @visitor_phone.blank?
-
     cid = nil
 
-    if result.nil?
-      options[:last_name] = @visitor_name
-      c = RubyZoho::Crm::Contact.new(options)
-      x = c.save
-      cid = x.id
-    else
-      options[:id] = result.first.id
-      c = RubyZoho::Crm::Contact.update(options)
-      cid = c.id
-    end
+    begin
+      result = RubyZoho::Crm::Contact.find_by_last_name(@visitor_name)
 
-    puts 'optionsssss'
-    puts options.inspect
+      options = {}
+      options[:email] = @visitor_email unless @visitor_email.blank?
+      options[:phone] = @visitor_phone unless @visitor_phone.blank?
+
+      if result.nil?
+        options[:last_name] = @visitor_name
+        c = RubyZoho::Crm::Contact.new(options)
+        x = c.save
+        cid = x.id
+      else
+        options[:id] = result.first.id
+        c = RubyZoho::Crm::Contact.update(options)
+        cid = c.id
+      end
+    rescue
+    end
 
     cid
 
-
-    # self.create_task(cid)
   end
 end

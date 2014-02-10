@@ -624,11 +624,7 @@
     showCreateTicket: =>
 
       site_settings = @currentSite.get("settings")
-
       int_name = site_settings.integrations.integration
-
-      console.log 'name: ', int_name
-
 
       App.commands.setHandler "drop:button", (e) =>
         target = $(e.currentTarget)
