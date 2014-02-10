@@ -25,7 +25,7 @@
     .pill-selector.ticket-priority{ :data => { :selected => "1" } }
       %a.pill.s1.active{ :data => { :name => "1" } }
         %span.status
-        1 - Low
+        1 - low
       %a.pill.s2{ :data => { :name => "2" } }
         %span.status
         2
@@ -52,4 +52,31 @@
         9
       %a.pill.s10{ :data => { :name => "10" } }
         %span.status
-        10 - Critical
+        10 - critical
+
+.block.bordered-top
+  .form.form-inline
+    %a.ui-collapse-link
+      %i.icon.icon-arrow-down
+      Add Visitor Information
+    %div.hide.visitor-info
+      %fieldset
+        %label Name
+        .input-container
+          %input.large.visitor-name{ :type => "text", :value => "{{info.name}}" }
+      %fieldset
+        %label Email
+        .input-container
+          %input.large.visitor-email{ :type => "text", :value => "{{info.email}}" }
+      %fieldset
+        %label Phone
+        .input-container
+          %input.large.visitor-phone{ :type => "text", :value => "{{info.phone}}" }
+      %fieldset
+        %label Company
+        .input-container
+          %input.large.visitor-company{ :type => "text" }
+      %fieldset
+        %label Title
+        .input-container
+          %input.large.visitor-title{ :type => "text" }

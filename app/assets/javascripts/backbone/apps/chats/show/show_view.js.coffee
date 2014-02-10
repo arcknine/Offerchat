@@ -120,6 +120,10 @@
       "click div.btn-selector"  : "dropDownButton"
       "click li.option"         : "selectOption"
       "click a.pill"            : "selectPill"
+      "click .ui-collapse-link" : "slideVisitorInfo"
+
+    slideVisitorInfo: (e) ->
+      App.execute "slide:visitor:info"
 
     dropDownButton: (e) ->
       App.execute "drop:button", e

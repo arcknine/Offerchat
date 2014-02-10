@@ -613,13 +613,13 @@
     getCreateTicketView: (integration) =>
       if integration is "zendesk"
         new Show.TicketModalZendesk
-          model: @currentSite
+          model: @visitor
       else if integration is "desk"
         new Show.TicketModalDesk
-          model: @currentSite
+          model: @visitor
 
     showCreateTicket: =>
-      console.log 'currentSite', @currentSite
+
       site_settings = @currentSite.get("settings")
 
       int_name = site_settings.integrations.integration
@@ -650,6 +650,13 @@
         selected = $(e.currentTarget).data("name")
         $(e.currentTarget).addClass("active")
         $(".pill-selector").data("selected", selected)
+
+      App.commands.setHandler "slide:visitor:info", =>
+        target = $(".visitor-info")
+        if target.hasClass("hide")
+          target.removeClass("hide").slideDown()
+        else
+          target.addClass("hide").slideUp()
 
 
 
@@ -687,14 +694,36 @@
           mark = parent.find(".ticket-mark").data("selected")
           prio = parent.find(".ticket-priority").data("selected")
 
-          # zendesk
-          type = parent.find(".ticket-type").data("selected")
-
           this_site = @currentSite
-          this_site.url = Routes.zendesk_auth_website_path(@currentSite.get("id"))
+
+          if int_name is "zendesk"
+            this_site.url = Routes.zendesk_auth_website_path(@currentSite.get("id"))
+
+            type = parent.find(".ticket-type").data("selected")
+            post_data =
+              subject: subject
+              desc: description
+              type: type
+              prio: prio
+              status: mark
+
+          else if int_name is "desk"
+            this_site.url = Routes.desk_website_path(@currentSite.get("id"))
+
+            post_data =
+              subject: subject
+              message: description
+              priority: prio
+              status: mark
+              name: $(".visitor-name").val()
+              email: $(".visitor-email").val()
+              phone: $(".visitor-phone").val()
+              company: $(".visitor-company").val()
+              title: $(".visitor-title").val()
+
           this_site.fetch
             type: "POST"
-            data: { subject: subject, desc: description, type: type, prio: prio, status: mark }
+            data: post_data
             success: (e) =>
               @showNotification("Your zendesk ticket has been created.")
               $(".section-overlay").addClass("hide")
