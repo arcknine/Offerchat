@@ -163,6 +163,36 @@
     selectOption: (e) ->
       App.execute "select:option", e
 
+  class Show.TicketModalZoho extends App.Views.Layout
+    template: "chats/show/zoho_ticket_modal"
+    className: "form form-inline"
+
+    form:
+      buttons:
+        primary: false
+        nosubmit: "Create Ticket"
+        cancel:  false
+      title: "Create Ticket to Zoho"
+
+    events:
+      "click li.option"         : "selectOption"
+      "click div.btn-selector"  : "dropDownButton"
+      "click a.pill"            : "selectPill"
+      "click .ui-collapse-link" : "slideVisitorInfo"
+
+    slideVisitorInfo: (e) ->
+      App.execute "slide:visitor:info"
+
+    selectPill: (e) ->
+      App.execute "select:pill", e
+
+    dropDownButton: (e) ->
+      App.execute "drop:button", e
+
+    selectOption: (e) ->
+      App.execute "select:option", e
+
+
   class Show.ModalQuickResponses extends App.Views.Layout
     template: "chats/show/quick_responses"
     className: "modal-viewer"

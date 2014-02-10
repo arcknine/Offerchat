@@ -159,6 +159,26 @@ class WebsitesController < ApplicationController
     end
   end
 
+  def zoho
+    puts 'paramsssssssssssss'
+    puts params.inspect
+
+    zoho = ZohoService.new(params[:id], params[:visitor], params[:task])
+    contact_id = zoho.create_update_contact
+
+    puts 'contacccccccc'
+    puts contact_id
+
+    unless contact_id.nil?
+      result = zoho.create_task(contact_id)
+      puts 'resultttttttt'
+      puts result
+    end
+
+
+
+  end
+
   private
   def validate_email(email)
     email_regex = %r{

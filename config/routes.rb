@@ -67,6 +67,7 @@ Dashboard::Application.routes.draw do
       post "update_attention_grabber"
       post "zendesk_auth"
       post "desk"
+      post "zoho"
     end
   end
 
