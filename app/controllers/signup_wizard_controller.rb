@@ -18,7 +18,7 @@ class SignupWizardController < ApplicationController
           session[:affiliate_id] = nil
         end
       end
-      puts session[:affiliate_id]
+
       @user = User.new
       render_wizard
     when :step_two

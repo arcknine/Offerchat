@@ -2,9 +2,11 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     params[:user][:display_name] = params[:user][:name].split(" ").first
-    params[:user][:plan_identifier] = "PROTRIAL"
-    puts "FUCKKKKK"
-    puts session[:affiliate_id]
+    if session[:affiliate_id].nil?
+      params[:user][:plan_identifier] = "PROTRIAL"
+    else
+      params[:user][:plan_identifier] = "AFFILIATE"
+    end
     params[:user][:affiliate_id] = session[:affiliate_id]
 
     build_resource
