@@ -51,6 +51,32 @@
           @showZenDesk()
         when "desk"
           @showDesk()
+        when "zoho"
+          @showZoho()
+
+    showZoho: ->
+      zohoView = @getZohoView()
+      formView = App.request "form:wrapper", zohoView
+      data     = {}
+
+      @listenTo zohoView, "update:zoho:data", (obj) =>
+        data[obj.name] = obj.value
+
+      @listenTo zohoView, "update:zoho:offline:message", (checked) =>
+        data.offline_messages = checked
+
+      @listenTo zohoView, "save:zoho:api", =>
+        @settings.integrations.integration = "zoho"
+        @settings.integrations.data = data
+
+        @currentSite.save {},
+          success: (data) =>
+            @showNotification("Your changes have been saved.")
+
+        return false
+
+      @layout.integrationsRegion.show formView
+
 
     showZenDesk: ->
       zenDeskView = @getZendeskView()
@@ -107,4 +133,8 @@
 
     getZendeskView: ->
       new Integrations.Zendesk
+        model: @currentSite
+
+    getZohoView: ->
+      new Integrations.Zoho
         model: @currentSite

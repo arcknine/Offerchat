@@ -73,3 +73,29 @@
 
       @trigger "update:desk:offline:message", checked
 
+  class Integrations.Zoho extends App.Views.ItemView
+    template: "settings/integrations/zoho"
+    triggers:
+      "click button.save-zoho"  : "save:zoho:api"
+
+    events:
+      "blur input.large[type=text]" : "setIntegrationData"
+      "click label.checkbox.inline" : "toggleCheckbox"
+
+    setIntegrationData: (e) ->
+      name = $(e.currentTarget).attr("name")
+      val  = $(e.currentTarget).val()
+
+      @trigger "update:zoho:data", { name: name, value: val }
+
+    toggleCheckbox: (e) ->
+      console.log e
+      target = $(e.currentTarget)
+      if target.hasClass("checked")
+        checked = ""
+        target.removeClass("checked")
+      else
+        checked = "checked"
+        target.addClass("checked")
+
+      @trigger "update:zoho:offline:message", checked
