@@ -107,9 +107,8 @@ class WebsitesController < ApplicationController
       options[:requester] = {}
       options[:requester][:name] = params[:visitor][:name]
 
-      unless params[:visitor][:email].blank?
-        options[:requester][:email] = params[:visitor][:email]
-      end
+      options[:requester][:email] = params[:visitor][:email] unless params[:visitor][:email].blank?
+      options[:requester][:phone] = params[:visitor][:phone] unless params[:visitor][:phone].blank?
     end
 
     res = client.tickets.create(options)
