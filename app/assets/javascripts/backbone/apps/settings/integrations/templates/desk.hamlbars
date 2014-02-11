@@ -43,5 +43,4 @@
       Automatically create tickets for offline messages
 
   %fieldset
-    .block.large.bordered-top
-      %button.btn.action.save Save
+    %button.btn.action.save Save
