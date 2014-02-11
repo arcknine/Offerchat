@@ -44,8 +44,13 @@
 
       App.execute "when:fetched", manageSites, =>
         all_sites_ids = manageSites.pluck("id")
+
+        date = new Date()
+        date.setDate(date.getDate() - 1)
+        from = "#{date.getFullYear()}-#{date.getMonth() + 1}-#{date.getDate()}"
+
         current_date =
-          from: curDate.get("from")
+          from: from
           to:   curDate.get("to")
 
         stats = App.request "reports:get:stats", all_sites_ids, "", current_date
