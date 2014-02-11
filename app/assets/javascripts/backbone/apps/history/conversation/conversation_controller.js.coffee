@@ -6,6 +6,11 @@
 
       App.request "show:preloader"
 
+      @curDate     = App.request "reports:current:date"
+
+      App.execute "when:fetched", @curDate, =>
+        @curDate.set type: "week"
+
       currentUser = App.request "get:current:user"
 
       App.execute "when:fetched", currentUser, =>
@@ -30,6 +35,7 @@
               agents.unshift(all_agent)
 
             @aids = agents.pluck("id")
+            @date_scope = ""
 
             conversations = App.request "get:conversations:entitites", null, @aids
 
@@ -39,7 +45,7 @@
 
               $(".section-overlay").removeClass("hide")
               conversations.fetch
-                data: {aids: aids, page: page}
+                data: {aids: aids, page: page, scope: @date_scope}
                 dataType : "jsonp"
                 processData: true
                 reset: true
@@ -52,8 +58,12 @@
 
                   if conversations.length < 100 then $(".nav-link-inline").data("last", true) else $(".nav-link-inline").data("last", false)
 
-                  frm_count = (page * 100) - 99
-                  to_count = (((page * 100) - 100) + conversations.length)
+                  if conversations.length is 0
+                    frm_count = 0
+                    to_count = 0
+                  else
+                    frm_count = (page * 100) - 99
+                    to_count = (((page * 100) - 100) + conversations.length)
 
                   $(".history-scope").html("#{frm_count} - #{to_count} of #{@total_entries}")
                   $(".section-overlay").addClass("hide")
@@ -63,8 +73,27 @@
               App.execute "get:conversations", aids, 1
 
             App.execute "when:fetched", conversations, (item)=>
-              @listenTo @layout, "show", =>
 
+              App.commands.setHandler "filter:conversations", (date) =>
+
+                $(".history-date-wrapper").toggleClass("hide")
+
+                type = $('#historyDate').data("type")
+                from   = moment(date[0]).format("MMM D, YYYY")
+                to     = moment(date[1]).format("MMM D, YYYY")
+                arType = { today: "Today", week: "This week", month: "This month",  custom: "#{from}  -  #{to}"}
+                $(".calendar-scope").html(arType[type])
+
+                @curDate.set
+                  type: type
+                  from: date[0]
+                  to: date[1]
+
+                @date_scope = date
+                App.execute "get:conversations", @aids, 1
+
+
+              @listenTo @layout, "show", =>
                 count = conversations.pop()
                 @total_entries = count.get("total_entries")
 
@@ -74,6 +103,12 @@
                 headerRegion = @getHeaderRegion(conversations)
                 ids = []
                 items = []
+
+                @listenTo headerRegion, "calendar:clicked", =>
+                  if $(".history-date-wrapper").hasClass("hide")
+                    @calendarClicked()
+
+                  $(".history-date-wrapper").toggleClass("hide")
 
                 @listenTo headerRegion, "remove:conversations:clicked", (item)->
                   r = confirm "Are you sure you want to delete the selected conversations?"
@@ -113,6 +148,35 @@
               @getConversationModal(item)
 
         App.request "hide:preloader"
+
+    calendarClicked: =>
+      current = moment().format("YYYY-MM-DD")
+      $('#historyDate').html('').children().off()
+
+      $(".current-scope").removeClass("active")
+
+      switch @curDate.get("type")
+        when "today"
+          $(".date-today").addClass("active")
+        when "week"
+          $(".date-this-week").addClass("active")
+        when "month"
+          $(".date-this-week").addClass("active")
+        else
+          $(".current-scope").removeClass("active")
+
+
+      $("#historyDate").DatePicker
+        flat: true
+        date: [@curDate.get("from"), @curDate.get("to")]
+        current: current
+        calendars: 3
+        mode: "range"
+        starts: 1
+        onChange: (formated, dates) =>
+          $(".current-scope").removeClass("active")
+          $('#historyDate').data("type","custom")
+
 
     changeOnResize: ->
       $(window).resize =>

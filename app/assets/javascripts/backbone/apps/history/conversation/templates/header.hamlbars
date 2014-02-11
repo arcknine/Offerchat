@@ -5,22 +5,21 @@
   /     %input.rounded{ :type => "text", :placeholder => "search a conversation" }
   /     %button.btn-search{ :type => "submit" }
   /       %i.icon.icon-search
-  .calendar-picker-wrapper.hide
+  .calendar-picker-wrapper
     %a.btn.btn-large.calendar-picker-btn
       %i.icon.icon-calendar
-      Today
+      %span.calendar-scope This week
       %i.icon.icon-arrow-down
     .history-date-wrapper.hide
       #historyDate
-        asdf
       .date-control
         %div{ :style => "float: left" }
           .btn-group
-            %a.btn.small.date-today
+            %a.btn.small.date-today.current-scope
               Today
-            %a.btn.small.date-this-week
+            %a.btn.small.date-this-week.current-scope
               This week
-            %a.btn.small.date-this-month
+            %a.btn.small.date-this-month.current-scope
               This month
         %button.btn.action#apply-date{ :type => "submit", :style => "margin-right: 20px" }
           Apply
