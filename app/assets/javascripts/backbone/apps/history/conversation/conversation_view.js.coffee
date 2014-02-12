@@ -8,6 +8,19 @@
       filterRegion:         "#history-filter-region"
       conversationsRegion:  "#history-conversation-region"
 
+  class Conversations.Website extends App.Views.ItemView
+    template: "history/conversation/website"
+    tagName: "li"
+    triggers:
+      "click":              "website:filter:selected"
+
+  class Conversations.Websites extends App.Views.CollectionView
+    template: "history/conversation/websites"
+    itemView: Conversations.Website
+    tagName: "ul"
+
+
+
   class Conversations.Agent extends App.Views.ItemView
     template: "history/conversation/agent"
     tagName: "li"
@@ -19,8 +32,10 @@
     itemView: Conversations.Agent
     tagName: "ul"
 
-  class Conversations.Header extends App.Views.CompositeView
+  class Conversations.Header extends App.Views.Layout
     template: "history/conversation/header"
+    regions:
+      websitesRegion: "#websites-filter-region"
 
     triggers:
       "click .trash-btn"    : "remove:conversations:clicked"
@@ -32,6 +47,17 @@
       "click .date-this-week"      : "set_date_this_week"
       "click .date-this-month"     : "set_date_this_month"
       "click #close-datepicker"    : "toggle_date_picker"
+      "click .btn-action-selector" : "websiteFilterClicked"
+
+    websiteFilterClicked: (e) ->
+      parent = $(e.currentTarget).parent()
+      if parent.hasClass("open")
+        parent.removeClass("open")
+        $(e.currentTarget).removeClass("active")
+      else
+        $(".btn-selector").removeClass("open").find(".active").removeClass("active")
+        parent.addClass("open")
+        $(e.currentTarget).addClass("active")
 
     filter_conversations: ->
       App.execute "filter:conversations", @get_dates()
@@ -106,9 +132,18 @@
         $("label.checkbox").addClass("checked")
         $(".table-row").attr("data-checked", true)
 
-    triggers:
-      "click .agent-row-selector" : "agents:filter:clicked"
+    events:
+      "click .agent-row-selector" : "agentsFilterClicked"
 
+    agentsFilterClicked: (e) ->
+      parent = $(e.currentTarget).parent()
+      if parent.hasClass("open")
+        parent.removeClass("open")
+        $(e.currentTarget).removeClass("active")
+      else
+        $(".btn-selector").removeClass("open").find(".active").removeClass("active")
+        parent.addClass("open")
+        $(e.currentTarget).addClass("active")
 
     serializeData: ->
       agents_count: @collection.length > 1

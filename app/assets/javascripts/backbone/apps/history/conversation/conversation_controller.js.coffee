@@ -19,6 +19,14 @@
           App.navigate "/", trigger: true
         else
 
+          sites = App.request "site:entities"
+
+          App.execute "when:fetched", sites, =>
+            @wids = sites.pluck("id")
+            all_sites = App.request "new:selector:site"
+            all_sites.set name: "All Websites"
+            sites.unshift(all_sites)
+
           @layout = @getLayout()
           agents = App.request "agents:entities", false
 
@@ -37,15 +45,16 @@
             @aids = agents.pluck("id")
             @date_scope = ""
 
-            conversations = App.request "get:conversations:entitites", null, @aids
+            conversations = App.request "get:conversations:entitites", null, @aids, @wids
 
-            App.commands.setHandler "get:conversations", (aids, page) =>
+            App.commands.setHandler "get:conversations", (aids, page, wids) =>
 
               @aids = aids
+              @wids = wids
 
               $(".section-overlay").removeClass("hide")
               conversations.fetch
-                data: {aids: aids, page: page, scope: @date_scope}
+                data: {aids: aids, wids: @wids, page: page, scope: @date_scope}
                 dataType : "jsonp"
                 processData: true
                 reset: true
@@ -70,7 +79,7 @@
 
             App.commands.setHandler "conversations:fetch", (aids)=>
               $(".nav-link-inline").data("page", 1)
-              App.execute "get:conversations", aids, 1
+              App.execute "get:conversations", aids, 1, @wids
 
             App.execute "when:fetched", conversations, (item)=>
 
@@ -90,7 +99,7 @@
                   to: date[1]
 
                 @date_scope = date
-                App.execute "get:conversations", @aids, 1
+                App.execute "get:conversations", @aids, 1, @wids
 
 
               @listenTo @layout, "show", =>
@@ -103,6 +112,9 @@
                 headerRegion = @getHeaderRegion(conversations)
                 ids = []
                 items = []
+
+                @listenTo headerRegion, "show", =>
+                  headerRegion.websitesRegion.show @getWebsitesFilter(sites)
 
                 @listenTo headerRegion, "calendar:clicked", =>
                   if $(".history-date-wrapper").hasClass("hide")
@@ -137,7 +149,7 @@
                   $(".history-scope").html("1 - #{to_count} of #{@total_entries}")
 
                 @listenTo filter_view, "change:page:history", (page) =>
-                  App.execute "get:conversations", @aids, page
+                  App.execute "get:conversations", @aids, page, @wids
 
                 @layout.headerRegion.show headerRegion
                 @layout.filterRegion.show filter_view
@@ -148,6 +160,24 @@
               @getConversationModal(item)
 
         App.request "hide:preloader"
+
+    getWebsitesFilter: (websites) =>
+      website_filters_view = new Conversations.Websites
+        collection: websites
+
+      @listenTo website_filters_view, "childview:website:filter:selected", (item) =>
+        btn_selector = $(item.el).closest(".btn-selector")
+        btn_selector.find("span.current-selection").html(item.model.get("name"))
+        btn_selector.removeClass("open").find(".active").removeClass("active")
+
+        if item.model.get("name") is "All Websites"
+          wids = websites.pluck("id")
+        else
+          wids = item.model.get("id")
+
+        App.execute "get:conversations", @aids, 1, wids
+
+      website_filters_view
 
     calendarClicked: =>
       current = moment().format("YYYY-MM-DD")
@@ -241,22 +271,16 @@
     getFilterRegion: (collection)->
       filterView = @getFilterView(collection)
 
-      @listenTo filterView, "agents:filter:clicked", (child)->
-        params =
-          element: child
-          openClass: "btn-selector"
-          activeClass: "agent-row-selector"
-        filterView.toggleDropDown(params)
-
       @listenTo filterView, "show", =>
         filterView.agentsFilterRegion.show @getAgentFilters(collection)
+
       filterView
 
     getAgentFilters: (collection)->
       filters = new Conversations.Agents
         collection: collection
+
       @listenTo filters, "childview:agent:filter:selected", (item)->
-        App.request "show:preloader"
         id = []
         if item.model.get("name") is "All Agents"
           collection.each (item)->
@@ -265,8 +289,9 @@
           id = [item.model.get("id")]
 
         App.execute "conversations:fetch", id
-        $("span.current-selection").html(item.model.get("name"))
-        filters.closeDropDown()
+        btn_selector = $(item.el).closest(".btn-selector")
+        btn_selector.find("span.current-selection").html(item.model.get("name"))
+        btn_selector.removeClass("open").find(".active").removeClass("active")
 
       filters
 
