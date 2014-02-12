@@ -16,7 +16,8 @@ class User < ActiveRecord::Base
 
   attr_accessor :avatar_remove
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :display_name, :jabber_user,
-    :jabber_password, :avatar, :plan_identifier, :billing_start_date, :stripe_customer_token, :avatar_remove, :trial_days_left, :widget_installed, :mixpanel_id, :affiliate_id
+    :jabber_password, :avatar, :plan_identifier, :billing_start_date, :stripe_customer_token, :avatar_remove,
+    :trial_days_left, :widget_installed, :mixpanel_id, :affiliate_id, :skype_username
 
   validates_presence_of :email, :name, :display_name
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
