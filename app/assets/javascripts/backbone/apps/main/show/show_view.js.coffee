@@ -16,6 +16,9 @@
     modelEvents:
       "change" : "render"
 
+  class Show.NoAgents extends App.Views.ItemView
+    template: "main/show/no_agents"
+
   class Show.Agent extends App.Views.ItemView
     template:  "main/show/agent"
     tagName:   "li"
@@ -26,6 +29,7 @@
     template:  "main/show/agents"
     className: "block large"
     itemView:  Show.Agent
+    emptyView: Show.NoAgents
     itemViewContainer: "ul.active-agents-list"
     collectionEvents:
       "change" : "render"
