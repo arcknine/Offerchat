@@ -85,7 +85,7 @@ var Language = {
     success_desc:  "Hvala Vam! Odgovorićemo Vam u najkraćem mogućem roku."
   },
   portuguese: {
-    connecting:    "Conectando ao chat…",
+    connecting:    "Conectando ao chat...",
     connect_agent: "Connecting you to an agent...",
     chat_box:      "Digite suas perguntas e aperte enter",
     transcript:    "Baixar uma cópia",
@@ -103,7 +103,7 @@ var Language = {
   },
   polish: {
     connecting:    "Uruchamianie połączenia...",
-    connect_agent: "Łączenie z konsultantem",
+    connect_agent: "Łączenie z konsultantem...",
     chat_box:      "Wpisz swoje pytanie i wciśnij enter",
     transcript:    "Pobierz historię rozmowy",
     sound_off:     "Wyłącz dźwięki",
