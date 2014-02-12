@@ -22,7 +22,7 @@
     showLastAgentLogin: ->
       @agents = App.request "agents:only:entities"
       @agents.comparator = "last_sign_in_at"
-      view    = @getLastAgentLogin()
+      view = @getLastAgentLogin()
 
       App.execute "when:fetched", @agents, =>
         @agents.each (agent, key) =>
