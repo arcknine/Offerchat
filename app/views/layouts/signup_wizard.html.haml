@@ -6,11 +6,6 @@
     = stylesheet_link_tag "//fonts.googleapis.com/css?family=Open+Sans:400,300"
     = javascript_include_tag "signup_wizard"
     = csrf_meta_tags
-    - if Rails.env.production?
-      = analytics_init
-      = mixpanel_js
-    - else
-      = mixpanel_dev_js
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   %body
@@ -22,4 +17,13 @@
         = yield
 
     = render 'layouts/send_webmaster'
+
+    - if Rails.env.production?
+      = analytics_init
+      = mixpanel_js
+      = perfect_audience_js
+    - else
+      = mixpanel_dev_js
+      = pa_dev_js
+
 

@@ -81,4 +81,33 @@ mixpanel.init("e4b9256e5d40beb875e772611927adb1");
     eos
     js.html_safe
   end
+
+  def pa_dev_js
+    js = <<-eos
+      <script type="text/javascript">
+        function PAMock(){
+          this.track = track;
+          function track(st){
+            console.log(st);
+          }
+        }
+        window._pa = new PAMock();
+      </script>
+    eos
+    js.html_safe
+  end
+
+  def perfect_audience_js
+    js = <<-eos
+      <script type="text/javascript">
+        (function() {
+          window._pa = window._pa || {};
+          var pa = document.createElement('script'); pa.type = 'text/javascript'; pa.async = true;
+          pa.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + "//tag.perfectaudience.com/serve/52f486bf187ff5fd6f000019.js";
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pa, s);
+        })();
+      </javascript>
+    eos
+    js.html_safe
+  end
 end
