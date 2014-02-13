@@ -374,6 +374,35 @@ label
     opacity: 0
     filter: alpha(opacity=0)
 
+a.pill
+  padding: 5px 13px
+  border-radius: 20px
+  display: inline-block
+  border: 2px solid $button-bg-color
+  color: $text-color
+  font-size: 13px
+  font-weight: 500
+  @include transition(.2s)
+  &.low
+    .status
+      background-color: #9ab3ba
+  &.normal
+    .status
+      background-color: #38acee
+  &.high
+    .status
+      background-color: #ec845b
+  &.urgent
+    .status
+      background-color: #f62f2f
+  span.status
+    width: 7px
+    height: 7px
+    vertical-align: middle
+    top: -1px
+  &.active
+    border-color: $link-color
+
 // Serving 2x images
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 2)
   .toggle

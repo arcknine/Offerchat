@@ -323,6 +323,13 @@ label
   &.well
     border-radius: 5px
     background: #fff
+.block-note
+  padding: 20px
+  position: relative
+  background-color: #f4efd1
+  border-radius: 5px
+  &.w200
+    width: 240px
 
 .alert-block-message
   padding: 10px 0
@@ -1191,6 +1198,30 @@ span.dot-seperator
       position: relative
       top: -20px
       font-size: 20px
+
+.integrations-selector
+  li
+    display: inline-block
+    margin: 5px
+    &.active
+      a
+        border-color: $link-color
+  h3
+    text-align: center
+    margin-bottom: 5px
+  a
+    width: 100px
+    height: 100px
+    background-color: #fff
+    display: inline-block
+    border: 2px solid transparent
+    border-radius: 5px
+    overflow: hidden
+    img
+      width: 100%
+    &:hover
+      border-color: #e1e1e1
+
 
 // PRE-LOADER
 #loader
