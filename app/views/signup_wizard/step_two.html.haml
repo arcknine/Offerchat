@@ -101,4 +101,6 @@
       "$email":          "#{current_user.email}"
     });
     mixpanel.track("Signup");
+
+    _pa.track("/signup_wizard/step_two");
   });
