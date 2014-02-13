@@ -1,7 +1,9 @@
-{{#if last_login}}
 .profile-image-container.go-left
   .profile-image
     %img{ alt: "{{display_name}}", src: "{{avatar}}" }
 %h3 {{name}}
+{{#if last_login}}
 %small {{last_login}}
+{{else}}
+%small Pending
 {{/if}}

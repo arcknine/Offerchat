@@ -59,6 +59,7 @@
           total = { missed: 0, active: 0, proactive: 0, opportunities: 0 }
 
           $.each stats.models, (key, value) =>
+            opportunities = value.get("active") + value.get("missed") + value.get("proactive")
             total =
               active: value.get("active") + total.active
               missed: value.get("missed") + total.missed
