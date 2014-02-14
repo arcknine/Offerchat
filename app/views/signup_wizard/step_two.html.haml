@@ -1,106 +1,105 @@
-.main-content-view.tour-content-view
+.signup-wrap.large
   .block-message.hide#notification-wrapper
 
-  .tour-content-inner
-
-    .block-message{ :style => "display:none;" }
-      %a.close
-        &times;
-      %span
-    .tour-content-inner
-      .block
-        %h2
-          Install widget code
-        %p
-          Copy and paste the code right before the closing head
-          %strong
-            \&lt;/head&gt;
-          of your website
-        %textarea.large.widget-code-text{:readonly => "readonly"}
-          <!--start of Offerchat js code--><script type='text/javascript'>var ofc_key = '#{@website.api_key}';(function(){  var oc = document.createElement('script'); oc.type = 'text/javascript'; oc.async = true;  oc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'd1cpaygqxflr8n.cloudfront.net/p/js/widget.min.js?r=1';  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(oc, s);}());</script><!--end of Offerchat js code-->
-
-        .preview-code
-          %p
-            \&lt;html&gt;
-          %p
-            \&nbsp;
-            \&lt;head&gt;
-          %p.red
-            \&nbsp; &nbsp;
-            paste your offerchat script here
-          %p
-            \&nbsp;
-            \&lt;/head&gt;
-          %p
-            \&nbsp;
-            \&lt;body&gt;
-            %br
-              \&nbsp; &nbsp;
-              %em //body of your website
-    .block.large.bordered-top.group
-      %a.btn.action.mixpanel-finish{:type => "button", :style => "vertical-align: top", :href => "/#getting_started"}
-        Finish
-      .signup-help-links
-        %p
-          %a.webmaster-code
-            Send this code to your webmaster
-        %p
-          %a.install-guide{ :href => "http://support.offerchat.com/getting-started-with-offerchat-live-chat-widget/", :target => "blank" }
-            Offerchat Install Guide
-    .block.large.bordered-top
-      %h2
-        For plugins, extensions and modules
-      %p
-        Use this api key only when configuring plugins
+  .block-message{ :style => "display:none;" }
+    %a.close
+      &times;
+    %span
+  
+  .signup-header
+    %h1.lite
+      Install widget code
+    %p
+      Copy and paste the code below right before the closing head 
       %strong
-        API Key:
-      %span.api_key
-        = @website.api_key
-    .block.large
-      %ul.image-list
-        %li
-          %a{ :href => "https://github.com/Offerchat/ofc_drupal", :target => "_blank" }
-            = image_tag 'icon-drupal.png'
-            %span
-              Drupal
-        %li
-          %a{ :href => "https://github.com/Offerchat/offerchat-joomla", :target => "_blank" }
-            = image_tag 'icon-joomla.png'
-            %span
-              Joomla
-        %li
-          %a{ :href => "https://github.com/Offerchat/offerchat-opencart", :target => "_blank" }
-            = image_tag 'icon-opencart.png'
-            %span
-              Opencart
-        %li
-          %a{ :href => "http://www.prestatoolbox.com/free-modules/265-free-offerchat-prestashop.html", :target => "_blank" }
-            = image_tag 'icon-prestashop.png'
-            %span
-              Prestashop
-        %li
-          %a{ :href => "https://github.com/Offerchat/wordpress", :target => "_blank" }
-            = image_tag 'icon-wordpress.png'
-            %span
-              Wordpress
-        %li
-          %a{ :href => "http://www.savethemage.com/magento-extensions/free-extensions/offerchat-free-live-chat.html", :target => "_blank" }
-            = image_tag 'icon-magento.png'
-            %span
-              Magento
+        \&lt;/head&gt;
+      of your website
+  .signup-body
+    %textarea.large.widget-code-text{:readonly => "readonly"}
+      <!--start of Offerchat js code--><script type='text/javascript'>var ofc_key = '#{@website.api_key}';(function(){  var oc = document.createElement('script'); oc.type = 'text/javascript'; oc.async = true;  oc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'd1cpaygqxflr8n.cloudfront.net/p/js/widget.min.js?r=1';  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(oc, s);}());</script><!--end of Offerchat js code-->
+
+    .preview-code
+      %p
+        \&lt;html&gt;
+      %p
+        \&nbsp;
+        \&lt;head&gt;
+      %p
+        \&nbsp; &nbsp;
+        %em // paste your offerchat script here
+      %p
+        \&nbsp;
+        \&lt;/head&gt;
+      %p
+        \&nbsp;
+        \&lt;body&gt;
+        %br
+          \&nbsp; &nbsp;
+          %em //body of your website
+  .signup-footer
+    %a.btn.action.btn-regular.mixpanel-finish{:type => "button", :style => "vertical-align: top", :href => "/#getting_started"}
+      Finish
+    .signup-help-links
+      %p
+        %a.webmaster-code
+          Send this code to your webmaster
+      %p
+        %a.install-guide{ :href => "http://support.offerchat.com/getting-started-with-offerchat-live-chat-widget/", :target => "blank" }
+          Offerchat Install Guide
+  .signup-body
+    %h1.lite
+      For plugins, extensions and modules
+    %p
+      Use the api key only when configuring plugins
+    %strong
+      API Key:
+    %span.api_key
+      = @website.api_key
+  .block.large
+    %ul.image-list.well
+      %li
+        %a{ :href => "https://github.com/Offerchat/ofc_drupal", :target => "_blank" }
+          = image_tag 'icon-drupal.png'
+          %span
+            Drupal
+      %li
+        %a{ :href => "https://github.com/Offerchat/offerchat-joomla", :target => "_blank" }
+          = image_tag 'icon-joomla.png'
+          %span
+            Joomla
+      %li
+        %a{ :href => "https://github.com/Offerchat/offerchat-opencart", :target => "_blank" }
+          = image_tag 'icon-opencart.png'
+          %span
+            Opencart
+      %li
+        %a{ :href => "http://www.prestatoolbox.com/free-modules/265-free-offerchat-prestashop.html", :target => "_blank" }
+          = image_tag 'icon-prestashop.png'
+          %span
+            Prestashop
+      %li
+        %a{ :href => "https://github.com/Offerchat/wordpress", :target => "_blank" }
+          = image_tag 'icon-wordpress.png'
+          %span
+            Wordpress
+      %li
+        %a{ :href => "http://www.savethemage.com/magento-extensions/free-extensions/offerchat-free-live-chat.html", :target => "_blank" }
+          = image_tag 'icon-magento.png'
+          %span
+            Magento
 
 :javascript
-  $(document).ready(function(){
-    mixpanel.alias("#{current_user.email}");
-    mixpanel.people.set({
-      "Name":            "#{current_user.name}",
-      "Signup Date":     "#{current_user.created_at}",
-      "Website":         "#{current_user.first_website_url}",
-      "Plan":            "#{current_user.plan_identifier}",
-      "Trial Days Left": "#{current_user.trial_days_left}",
-      "$email":          "#{current_user.email}"
-    });
-    mixpanel.track("Signup");
+$(document).ready(function(){
+mixpanel.alias("#{current_user.email}");
+mixpanel.people.set({
+  "Name":            "#{current_user.name}",
+  "Signup Date":     "#{current_user.created_at}",
+  "Website":         "#{current_user.first_website_url}",
+  "Plan":            "#{current_user.plan_identifier}",
+  "Trial Days Left": "#{current_user.trial_days_left}",
+  "$email":          "#{current_user.email}"
+});
+mixpanel.track("Signup");
 
-    _pa.track("/signup_wizard/step_two");
-  });
+_pa.track("/signup_wizard/step_two");
+});

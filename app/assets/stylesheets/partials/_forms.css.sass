@@ -12,6 +12,7 @@ textarea
   border: 2px solid lighten($border-color,5%)
   font-family: $base-font-family
   border-radius: 3px
+  -webkit-font-smoothing: antialiased
   @include transition(.25s)
   &:hover
     border-color: $border-color
@@ -39,10 +40,9 @@ textarea
   &.widget-code-text
     margin-bottom: 10px
     height: 130px
-    width: 500px
-    font-size: 12px
-    &.full
-      width: 100%
+    width: 100%
+    font-size: 13px
+    
   &.widget-text-format
     font-size: 12px
 select
@@ -163,7 +163,7 @@ label
     display: block
     font-weight: bold
     .inline-label-message
-      font-weight: 400
+      font-weight: 500
   &.invite-user-form
     margin-bottom: 15px
   &.form-inline
