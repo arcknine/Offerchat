@@ -1,0 +1,6 @@
+.block-message
+  Want to view more detailed analytics?
+  %a{ :href => "/#upgrade" }
+    Upgrade to 
+    %strong
+      Pro

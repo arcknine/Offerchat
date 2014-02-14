@@ -9,6 +9,7 @@
     regions:
       chatSummary:    "#chat-summary"
       latAgentActive: "#last-agent-active"
+      upgrade: "#summary-upgrade"
 
   class Show.ChatSummary extends App.Views.ItemView
     template:  "main/show/chat_summary"
@@ -18,6 +19,9 @@
 
   class Show.NoAgents extends App.Views.ItemView
     template: "main/show/no_agents"
+
+  class Show.SummaryUpgrade extends App.Views.ItemView
+    template: "main/show/upgrade"
 
   class Show.Agent extends App.Views.ItemView
     template:  "main/show/agent"
