@@ -8,13 +8,13 @@
 
     %li
       %a{data: {section: 'language'}} Language
-
     %li
       %a{data: {section: 'attention-grabbers'}} Attention Grabbers
-
     %li
       %a{data: {section: 'chat-forms'}} Chat Forms
     %li
       %a{data: {section: 'triggers'}} Chat Triggers
+    %li
+      %a{data: {section: 'integrations'}} Integrations
 
 #settings-main-region

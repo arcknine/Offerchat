@@ -29,8 +29,8 @@
       @profile = App.request "get:current:profile"
       App.execute "when:fetched", @profile, =>
 
-        res = all_sites.findWhere api_key: @visitor.get("api_key")
-        @pid = res.get("plan")
+        @currentSite = all_sites.findWhere api_key: @visitor.get("api_key")
+        @pid = @currentSite.get("plan")
 
         if @pid isnt "FREE"
           @visitor_notes_list = App.request "get:visitor_notes", @visitor.get("token")
@@ -338,6 +338,9 @@
         else if option is "export"
           @showTranscriptModalView @visitor
           @transcript.set messages: $('#transcript-collection').html()
+        else if option is "ticket"
+          @showCreateTicket()
+
         # else if option is "ban"
 
       @layout.chatsRegion.show chatsView
@@ -601,10 +604,29 @@
         collection: @currentMsgs
         model: @transcript
 
+    getCreateTicketView: =>
+      new Show.TicketModal
+        model: @currentSite
+
+    showCreateTicket: =>
+      console.log 'currentSite: ', @currentSite
+
+      modalView = @getCreateTicketView()
+      formView = App.request "modal:wrapper", modalView
+
+      @listenTo formView, "modal:cancel", (item)->
+        formView.close()
+
+      App.modalRegion.show formView
+
+      @listenTo
+
     showTranscriptModalView: (messages)->
       modalView = @getTranscriptModalView messages
       formView  = App.request "modal:wrapper", modalView
-      App.modalRegion.show formView
+
+      @listenTo formView, "modal:unsubmit", (item) =>
+        console.log 'halaaaaaaaaaaaaaaaa ', item
 
       @listenTo formView, "modal:cancel", (item)->
         formView.close()
@@ -612,6 +634,8 @@
       @listenTo @transcript, "created", (model) =>
         formView.close()
         @showNotification("Transcript has been successfully sent!")
+
+      App.modalRegion.show formView
 
     parseChatHistory: ->
       history      = App.request "get:chats:history", @token

@@ -1,0 +1,23 @@
+.block.large
+  %h2 Integrations
+  Add powerful functionalities to your chat from different CRM softwares.
+
+.block-message#setting-notification{:style => "display: none"}
+  %a.close ×
+  %span Your changes have been saved!
+
+.block
+  %ul.integrations-selector
+    %li.integrations.active{ :data => { :section => "zendesk" } }
+      %h3 Zendesk
+      %a
+        %img{ :src => "/assets/zendesk.png" }
+
+.block.large.bordered-top
+  .block-note.w200.go-right
+    %h2 Need help setting up?
+    %p Read our guide in setting up your Zendesk integration and how to use it with Offerchat
+    %a
+      %strong View how it works
+
+  #integrations-region

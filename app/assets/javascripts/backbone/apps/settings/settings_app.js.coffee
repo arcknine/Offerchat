@@ -12,6 +12,7 @@
       "settings/triggers/:id"            : "editTriggers"
       "settings/attention-grabbers/:id"  : "attentionGrabbers"
       "settings/language/:id"            : "editLanguage"
+      "settings/integrations/:id"        : "showIntegrations"
 
     API =
       show: (id, section, sub_form) ->
@@ -77,6 +78,13 @@
         show = API.show(id, 'attention-grabbers')
         show.listenTo show.layout, "show", =>
           new SettingsApp.AttentionGrabbers.Controller
+            region: show.layout.settingsRegion
+            currentSite: show.currentSite
+
+      showIntegrations: (id) ->
+        show = API.show(id, 'integrations')
+        show.listenTo show.layout, "show", =>
+          new SettingsApp.Integrations.Controller
             region: show.layout.settingsRegion
             currentSite: show.currentSite
 

@@ -1,0 +1,32 @@
+%p Create tickets from Offerchat conversations into Zendesk.
+
+.form
+  %fieldset
+    %label Company Name
+    .input-container
+      %input.large#zendesk-company{ :type => "text", :value => "{{zendesk.company}}" }
+      %p.small.__web-inpspector-hide-shortcut__
+        http://
+        %strong>
+          company
+        \.zendesk.com
+
+  %fieldset
+    %label Email
+    .input-container
+      %input.large#zendesk-username{ :type => "text", :value => "{{zendesk.username}}" }
+
+  %fieldset
+    %label Token
+    .input-container
+      %input.large#zendesk-token{ :type => "text", :value => "{{zendesk.token}}" }
+
+  %fieldset
+    %label.checkbox.inline{ :for => "checkbox1" }
+      %span.icon
+        .icon-check
+      Automatically create tickets for offline messages
+
+  %fieldset
+    .block.large.bordered-top
+      %button.btn.action.save-zendesk Save

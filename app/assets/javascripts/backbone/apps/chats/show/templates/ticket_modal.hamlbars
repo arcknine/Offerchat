@@ -1,0 +1,57 @@
+%fieldset
+  %label Subject
+  .input-container
+    %input.large{ :type => "text" }
+
+%fieldset
+  %label Type
+  .btn-selector-wrapper
+    .btn-selector
+      .btn.btn-action-selector.btn-regular
+        %i.icon.icon-arrow-down
+        %span.current-selection{ :data => { :selected => "question" } } Question
+      .dropdown-options.dark
+        %ul
+          %li.option
+            %a{ :data => { :name => "question" } } Question
+          %li.option
+            %a{ :data => { :name => "incident" } } Incident
+          %li.option
+            %a{ :data => { :name => "problem" } } Problem
+          %li.option
+            %a{ :data => { :name => "task" } } Task
+
+%fieldset
+  %label Mark as
+  .btn-selector-wrapper
+    .btn-selector
+      .btn.btn-action-selector.btn-regular
+        %i.icon.icon-arrow-down
+        %span.current-selection{ :data => { :selected => "new" } } New
+      .dropdown-options.dark
+        %ul
+          %li.option
+            %a{ :data => { :name => "new" } } New
+          %li.option
+            %a{ :data => { :name => "open" } } Open
+          %li.option
+            %a{ :data => { :name => "pending" } } Pending
+          %li.option
+            %a{ :data => { :name => "solved" } } Solved
+
+%fieldset
+  %label Priority
+  .input-container
+    .pill-selector{ :data => { :selected => "low" } }
+      %a.pill.low.active{ :data => { :name => "low" } }
+        %span.status
+        Low
+      %a.pill.normal{ :data => { :name => "normal" } }
+        %span.status
+        Normal
+      %a.pill.high{ :data => { :name => "high" } }
+        %span.status
+        High
+      %a.pill.urgent{ :data => { :name => "urgent" } }
+        %span.status
+        Urgent

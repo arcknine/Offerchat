@@ -25,8 +25,10 @@
               %a Transfer Chat
             %li{ data: {action: 'export'} }
               %a Export Transcript
+            %li{ data: {action: 'ticket'} }
+              %a Create Ticket
 
-          
+
 
     %a.btn.warning.end_chat
       End Chat

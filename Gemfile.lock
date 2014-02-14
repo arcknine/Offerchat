@@ -124,6 +124,10 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     fabrication (2.7.2)
+    faraday (0.8.9)
+      multipart-post (~> 1.2.0)
+    faraday_middleware (0.8.8)
+      faraday (>= 0.7.4, < 0.9)
     fastercsv (1.5.5)
     ffi (1.9.0)
     figaro (0.6.4)
@@ -191,7 +195,11 @@ GEM
     highline (1.6.19)
     hike (1.2.3)
     hirb (0.7.1)
+    httparty (0.11.0)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
     i18n (0.6.1)
+    inflection (1.0.0)
     inherited_resources (1.4.0)
       has_scope (~> 0.5.0)
       responders (~> 0.9)
@@ -242,6 +250,7 @@ GEM
       metaclass (~> 0.0.1)
     multi_json (1.7.7)
     multi_xml (0.5.4)
+    multipart-post (1.2.0)
     mysql2 (0.3.11)
     nested_form (0.3.2)
     net-scp (1.1.2)
@@ -437,6 +446,14 @@ GEM
     wicked (0.6.0)
       activesupport (>= 3.0.7)
       rails (>= 3.0.7)
+    zendesk_api (1.2.5)
+      faraday (~> 0.8.0)
+      faraday_middleware (~> 0.8.7)
+      hashie (>= 1.2)
+      inflection
+      mime-types (~> 1.0)
+      multi_json
+      multipart-post
 
 PLATFORMS
   ruby
@@ -468,6 +485,7 @@ DEPENDENCIES
   hamlbars (~> 2.0)
   handlebars_assets
   hirb
+  httparty
   jquery-fileupload-rails
   jquery-rails
   js-routes
@@ -506,3 +524,4 @@ DEPENDENCIES
   vero
   whenever
   wicked
+  zendesk_api
