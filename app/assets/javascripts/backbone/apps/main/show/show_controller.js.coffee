@@ -16,8 +16,14 @@
       @listenTo layout, "show", =>
         @showStats()
         @showLastAgentLogin()
+        @showSummaryUpgrade() if @currentUser.plan_identifier isnt "PRO"
 
       layout
+
+    showSummaryUpgrade: ->
+      view = @getSummaryUpgrade()
+
+      @layout.upgrade.show view
 
     showLastAgentLogin: ->
       @agents = App.request "agents:only:entities"
@@ -83,6 +89,9 @@
         output = parts.join(".")
 
       output
+
+    getSummaryUpgrade: ->
+      new Show.SummaryUpgrade
 
     getMainView: ->
       new Show.Main
