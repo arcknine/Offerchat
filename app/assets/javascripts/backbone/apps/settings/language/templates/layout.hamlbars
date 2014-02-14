@@ -30,7 +30,7 @@
 
   %a.set-language
     %img{ :alt => "polish", :src => "/assets/lang/polish.png" }
-    %label Polszczyzna
+    %label Polski
 
   %a.set-language
     %img{ :alt => "serbia", :src => "/assets/lang/serbia.png" }
