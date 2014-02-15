@@ -26,7 +26,7 @@
   $(".webmaster-code").click ->
     $(".modal-backdrop").removeClass("hide")
     $(".modal-backdrop .modal").removeClass("hide")
-    code    = $(".tour-content-inner .widget-code-text").val()
+    code    = $(".widget-code-text").val()
     api_key = $.trim $("span.api_key").text()
     $(".modal input[name=api_key]").val(api_key)
     $(".modal .widget-code-text").val(code)
