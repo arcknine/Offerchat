@@ -14,7 +14,7 @@
         %img{ :src => "/assets/zendesk.png" }
 
     %li.integrations{ :data => { :section => "desk" } }
-      %h3 Zendesk
+      %h3 Desk
       %a
         %img{ :src => "/assets/desk.png" }
 

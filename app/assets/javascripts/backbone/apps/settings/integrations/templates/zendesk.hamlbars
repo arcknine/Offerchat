@@ -10,7 +10,7 @@
   %fieldset
     %label Company Name
     .input-container
-      %input.large#zendesk-company{ :type => "text", :value => "{{zendesk.company}}" }
+      %input.large{ :type => "text", :name => "sub_domain", :value => "{{integrations.sub_domain}}" }
       %p.small.__web-inpspector-hide-shortcut__
         http://
         %strong>
@@ -20,12 +20,12 @@
   %fieldset
     %label Email
     .input-container
-      %input.large#zendesk-username{ :type => "text", :value => "{{zendesk.username}}" }
+      %input.large{ :type => "text", :name => "email", :value => "{{integrations.email}}" }
 
   %fieldset
     %label Token
     .input-container
-      %input.large#zendesk-token{ :type => "text", :value => "{{zendesk.token}}" }
+      %input.large{ :type => "text", :name => "token", :value => "{{integrations.token}}" }
 
   %fieldset
     %label.checkbox.inline{ :for => "checkbox1" }

@@ -37,7 +37,7 @@
 
       config = @getDefaultConfig _.result(@contentView, "form")
       _.extend config, options
-      
+
       if typeof config.btncontainercls isnt "undefined"
         btncontainercls = config.btncontainercls
 

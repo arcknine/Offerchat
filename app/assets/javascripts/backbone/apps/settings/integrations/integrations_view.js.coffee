@@ -22,23 +22,27 @@
 
   class Integrations.Zendesk extends App.Views.ItemView
     template: "settings/integrations/zendesk"
-    modelEvents:
-      "all"   : "render"
+    events:
+      "blur input.large[type=text]" : "setIntegrationData"
 
     triggers:
       "click button.save-zendesk"  : "save:zendesk:api"
-
-    serializeData: ->
-      settings = @options.model.get("settings")
-      zendesk: settings.zendesk
-
-  class Integrations.Desk extends App.Views.ItemView
-    template: "settings/integrations/desk"
-    events:
-      "blur input.large[type=text]" : "setIntegrationData"
 
     setIntegrationData: (e) ->
       name = $(e.currentTarget).attr("name")
       val  = $(e.currentTarget).val()
 
-      @trigger "update:integration:data", { name: name, value: val }
+      @trigger "update:zendesk:data", { name: name, value: val }
+
+  class Integrations.Desk extends App.Views.ItemView
+    template: "settings/integrations/desk"
+    events:
+      "blur input.large[type=text]" : "setIntegrationData"
+    triggers:
+      "click button.btn.action.save"  : "save:desk:api"
+
+    setIntegrationData: (e) ->
+      name = $(e.currentTarget).attr("name")
+      val  = $(e.currentTarget).val()
+
+      @trigger "update:desk:data", { name: name, value: val }

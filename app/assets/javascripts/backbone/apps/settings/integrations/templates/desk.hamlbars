@@ -10,32 +10,31 @@
   %fieldset
     %label Company Name
     .input-container
-      %input.large{ :type => "text", :name => "sub_domain", :value => "" }
+      %input.large{ :type => "text", :name => "sub_domain", :value => "{{integrations.sub_domain}}" }
       %p.small.__web-inpspector-hide-shortcut__
         http://
-        %strong>
-          company
-        \.zendesk.com
+        %strong company
+        \.desk.com
 
   %fieldset
     %label Key
     .input-container
-      %input.large{ :type => "text", :name => "key", :value => "" }
+      %input.large{ :type => "text", :name => "key", :value => "{{integrations.key}}" }
 
   %fieldset
     %label Secret
     .input-container
-      %input.large{ :type => "text", :name => "secret", :value => "" }
+      %input.large{ :type => "text", :name => "secret", :value => "{{integrations.secret}}" }
 
   %fieldset
     %label Token
     .input-container
-      %input.large{ :type => "text", :name => "token", :value => "" }
+      %input.large{ :type => "text", :name => "token", :value => "{{integrations.token}}" }
 
   %fieldset
     %label Token Secret
     .input-container
-      %input.large{ :type => "text", :name => "token_secret", :value => "" }
+      %input.large{ :type => "text", :name => "token_secret", :value => "{{integrations.token_secret}}" }
 
   %fieldset
     %label.checkbox.inline{ :for => "checkbox1" }
@@ -45,4 +44,4 @@
 
   %fieldset
     .block.large.bordered-top
-      %button.btn.action.save-zendesk Save
+      %button.btn.action.save Save
