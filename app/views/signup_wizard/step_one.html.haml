@@ -1,7 +1,7 @@
 .signup-wrap
   = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
     .signup-header
-      %h1.lite Signup for a 14 day free trial 
+      %h1.lite Signup for a 30 day free trial
       %p
         Get started in minutes, no credit card required
     .signup-body
@@ -12,7 +12,7 @@
             %span.inline-label-message= flash[:email][0] if flash[:email].present?
           .input-container
             = f.email_field :email, :type => "text", :autofocus => true, :class => "full"
-            
+
 
         %fieldset{:class => (flash[:name].present? ? "field-error" : "")}
           %label.label-top-fix
@@ -20,7 +20,7 @@
             %span.inline-label-message= flash[:name][0] if flash[:name].present?
           .input-container
             = f.text_field :name, :class => "full", :maxlength => "50"
-            
+
 
         %fieldset{:class => (flash[:password].present? ? "field-error" : "")}
           %label.label-top-fix
@@ -28,17 +28,17 @@
             %span.inline-label-message= flash[:password][0] if flash[:password].present?
           .input-container
             = f.password_field :password, :class => "full", :maxlength => "50"
-            
+
 
     .signup-footer
       %button.btn-regular.btn.action.mixpanel-user-info{:type => "submit"} Create my account
-.block.text-center  
+.block.text-center
   %p
     Already using Offerchat?
     %a.hovered{ :href => "/signup_wizard/step_one" }
       Login
 
 :javascript
-$(document).ready(function(){
-  mixpanel.track("View Signup Page");
-});
+  $(document).ready(function(){
+    mixpanel.track("View Signup Page");
+  });

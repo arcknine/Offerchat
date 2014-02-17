@@ -5,12 +5,12 @@
     %a.close
       &times;
     %span
-  
+
   .signup-header
     %h1.lite
       Install widget code
     %p
-      Copy and paste the code below right before the closing head 
+      Copy and paste the code below right before the closing head
       %strong
         \&lt;/head&gt;
       of your website
@@ -89,17 +89,17 @@
             Magento
 
 :javascript
-$(document).ready(function(){
-mixpanel.alias("#{current_user.email}");
-mixpanel.people.set({
-  "Name":            "#{current_user.name}",
-  "Signup Date":     "#{current_user.created_at}",
-  "Website":         "#{current_user.first_website_url}",
-  "Plan":            "#{current_user.plan_identifier}",
-  "Trial Days Left": "#{current_user.trial_days_left}",
-  "$email":          "#{current_user.email}"
-});
-mixpanel.track("Signup");
+  $(document).ready(function(){
+  mixpanel.alias("#{current_user.email}");
+  mixpanel.people.set({
+    "Name":            "#{current_user.name}",
+    "Signup Date":     "#{current_user.created_at}",
+    "Website":         "#{current_user.first_website_url}",
+    "Plan":            "#{current_user.plan_identifier}",
+    "Trial Days Left": "#{current_user.trial_days_left}",
+    "$email":          "#{current_user.email}"
+  });
+  mixpanel.track("Signup");
 
-_pa.track("/signup_wizard/step_two");
-});
+  _pa.track("/signup_wizard/step_two");
+  });
