@@ -34,15 +34,17 @@
         else
           App.navigate Routes.root_path(), trigger: true
 
-    getLayout: ->
-      new Integrations.Layout
-        model: @currentSite
+    getIntegrationView: (integration) =>
+      @settings = @currentSite.get "settings"
+      @layout.$el.find(".integrations[data-section=#{integration}]").addClass("active")
 
-    getZendeskView: ->
-      new Integrations.Zendesk
-        model: @currentSite
+      switch integration
+        when "zendesk"
+          @showZenDesk()
+        when "desk"
+          @showDesk()
 
-    zendeskIntegration: ->
+    showZenDesk: ->
       integrationView = @getZendeskView()
 
       @listenTo integrationView, "save:zendesk:api", =>
@@ -50,7 +52,7 @@
         z_username = $("#zendesk-username").val()
         z_token = $("#zendesk-token").val()
 
-        if (z_company isnt "" and z_username isnt "" and z_token isnt "") or (z_company is "" and z_username is "" and z_token is "")
+        if z_company isnt "" and z_username isnt "" and z_token isnt ""
           @settings.zendesk.company = z_company
           @settings.zendesk.username = z_username
           @settings.zendesk.token = z_token
@@ -63,11 +65,26 @@
         else
           @showNotification("All zendesk fields are required", "warning")
 
-      integrationView
-
-    getIntegrationView: (integration) =>
-      if integration is "zendesk"
-        integrationView = @zendeskIntegration()
-
-
       @layout.integrationsRegion.show integrationView
+
+    showDesk: ->
+      deskView = @getDeskView()
+      formView = App.request "form:wrapper", deskView
+      data     = {}
+
+      @listenTo deskView, "update:integration:data", (obj) =>
+        data[obj.name] = obj.value
+
+      @layout.integrationsRegion.show formView
+
+    getLayout: ->
+      new Integrations.Layout
+        model: @currentSite
+
+    getDeskView: ->
+      new Integrations.Desk
+        model: @currentSite
+
+    getZendeskView: ->
+      new Integrations.Zendesk
+        model: @currentSite

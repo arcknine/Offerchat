@@ -1,0 +1,48 @@
+.block-note.w200.go-right
+  %h2 Need help setting up?
+  %p Read our guide in setting up your Desk integration and how to use it with Offerchat
+  %a
+    %strong View how it works
+
+%p Create tickets from Offerchat conversations into Desk.
+
+.form
+  %fieldset
+    %label Company Name
+    .input-container
+      %input.large{ :type => "text", :name => "sub_domain", :value => "" }
+      %p.small.__web-inpspector-hide-shortcut__
+        http://
+        %strong>
+          company
+        \.zendesk.com
+
+  %fieldset
+    %label Key
+    .input-container
+      %input.large{ :type => "text", :name => "key", :value => "" }
+
+  %fieldset
+    %label Secret
+    .input-container
+      %input.large{ :type => "text", :name => "secret", :value => "" }
+
+  %fieldset
+    %label Token
+    .input-container
+      %input.large{ :type => "text", :name => "token", :value => "" }
+
+  %fieldset
+    %label Token Secret
+    .input-container
+      %input.large{ :type => "text", :name => "token_secret", :value => "" }
+
+  %fieldset
+    %label.checkbox.inline{ :for => "checkbox1" }
+      %span.icon
+        .icon-check
+      Automatically create tickets for offline messages
+
+  %fieldset
+    .block.large.bordered-top
+      %button.btn.action.save-zendesk Save

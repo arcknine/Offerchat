@@ -31,3 +31,14 @@
     serializeData: ->
       settings = @options.model.get("settings")
       zendesk: settings.zendesk
+
+  class Integrations.Desk extends App.Views.ItemView
+    template: "settings/integrations/desk"
+    events:
+      "blur input.large[type=text]" : "setIntegrationData"
+
+    setIntegrationData: (e) ->
+      name = $(e.currentTarget).attr("name")
+      val  = $(e.currentTarget).val()
+
+      @trigger "update:integration:data", { name: name, value: val }
