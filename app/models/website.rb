@@ -47,7 +47,7 @@ class Website < ActiveRecord::Base
     s.key :footer, :defaults => { :enabled => true }
     s.key :grabber, :defaults => { :enabled => false, :name => "", :src => "", :height => 0, :width => 0, :uploaded => false }
     s.key :zendesk, :defaults => { :company => "", :username => "", :token => "" }
-    s.key :integrations, :defaults => { :active => false, :integration => "zendesk", :data => {} }
+    s.key :integrations, :defaults => { :active => false, :integration => "zendesk", :data => { :offline_messages => "" } }
   end
 
   after_create :after_create_settings

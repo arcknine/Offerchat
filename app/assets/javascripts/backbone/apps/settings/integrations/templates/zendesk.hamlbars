@@ -28,7 +28,7 @@
       %input.large{ :type => "text", :name => "token", :value => "{{integrations.token}}" }
 
   %fieldset
-    %label.checkbox.inline{ :for => "checkbox1" }
+    %label.checkbox.inline{ :for => "checkbox1", :class => "{{integrations.offline_messages}}" }
       %span.icon
         .icon-check
       Automatically create tickets for offline messages

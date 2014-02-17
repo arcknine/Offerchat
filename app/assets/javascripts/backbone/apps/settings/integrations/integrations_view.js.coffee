@@ -24,6 +24,7 @@
     template: "settings/integrations/zendesk"
     events:
       "blur input.large[type=text]" : "setIntegrationData"
+      "click label.checkbox.inline" : "toggleCheckbox"
 
     triggers:
       "click button.save-zendesk"  : "save:zendesk:api"
@@ -34,10 +35,24 @@
 
       @trigger "update:zendesk:data", { name: name, value: val }
 
+    toggleCheckbox: (e) ->
+      console.log e
+      target = $(e.currentTarget)
+      if target.hasClass("checked")
+        checked = ""
+        target.removeClass("checked")
+      else
+        checked = "checked"
+        target.addClass("checked")
+
+      @trigger "update:zendesk:offline:message", checked
+
   class Integrations.Desk extends App.Views.ItemView
     template: "settings/integrations/desk"
     events:
       "blur input.large[type=text]" : "setIntegrationData"
+      "click label.checkbox.inline" : "toggleCheckbox"
+
     triggers:
       "click button.btn.action.save"  : "save:desk:api"
 
@@ -46,3 +61,16 @@
       val  = $(e.currentTarget).val()
 
       @trigger "update:desk:data", { name: name, value: val }
+
+    toggleCheckbox: (e) ->
+      console.log e
+      target = $(e.currentTarget)
+      if target.hasClass("checked")
+        checked = ""
+        target.removeClass("checked")
+      else
+        checked = "checked"
+        target.addClass("checked")
+
+      @trigger "update:desk:offline:message", checked
+

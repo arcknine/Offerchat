@@ -36,14 +36,13 @@
           App.navigate Routes.root_path(), trigger: true
 
     getIntegrationView: (integration) =>
-      @settings    = @currentSite.get "settings"
+      @settings = @currentSite.get "settings"
 
       if @settings.integrations.integration is integration
         data = { integrations: @settings.integrations.data }
       else
         data = { integrations: "" }
 
-      console.log data
       @currentSite.set data
       @layout.$el.find(".integrations[data-section=#{integration}]").addClass("active")
 
@@ -84,6 +83,9 @@
       @listenTo zenDeskView, "update:zendesk:data", (obj) =>
         data[obj.name] = obj.value
 
+      @listenTo zenDeskView, "update:zendesk:offline:message", (checked) =>
+        data.offline_messages = checked
+
       @listenTo zenDeskView, "save:zendesk:api", =>
         @settings.integrations.integration = "zendesk"
         @settings.integrations.data = data
@@ -103,6 +105,9 @@
 
       @listenTo deskView, "update:desk:data", (obj) =>
         data[obj.name] = obj.value
+
+      @listenTo deskView, "update:desk:offline:message", (checked) =>
+        data.offline_messages = checked
 
       @listenTo deskView, "save:desk:api", =>
         @settings.integrations.integration = "desk"
