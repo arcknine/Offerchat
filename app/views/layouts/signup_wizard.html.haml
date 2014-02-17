@@ -8,13 +8,13 @@
     = csrf_meta_tags
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  %body
+  %body{ :style => "overflow: auto" }
 
-    #wrapper
-      = render :partial => "signup_wizard/header"
-      .content-container
-        = render :partial => "signup_wizard/sidebar"
-        = yield
+    
+    = render :partial => "signup_wizard/header"
+    %div
+      = render :partial => "signup_wizard/sidebar"
+      = yield
 
     = render 'layouts/send_webmaster'
 

@@ -292,7 +292,27 @@ label
   background-color: #fff
   min-width: 830px
   overflow-x: auto
-
+.signup-wrap
+  background: #f1f1f1
+  width: 480px
+  margin: 0 auto
+  &.large
+    width: 680px
+  .bordered-bottom
+    border-bottom: 1px solid #e1e1e1
+  input[type=text],
+  input[type=password]
+    padding: 10px
+    font-size: 18px
+    font-weight: 500
+  
+.signup-body
+  border-top: 1px solid #e1e1e1
+  border-bottom: 1px solid #e1e1e1
+.signup-body,
+.signup-footer,
+.signup-header
+  padding: 20px 40px
 .signup-help-links
   display: inline-block 
   width: 420px
@@ -607,12 +627,14 @@ label
   .block
     padding: 20px
 .preview-code
-  display: inline-block
-  margin-left: 30px
+  border-radius: 3px
   vertical-align: top
   font-family: 'Courier New', courier
-  font-size: 12px
-  width: 270px
+  font-size: 14px
+  font-weight: 700
+  color: #fff
+  padding: 10px
+  background: #434343
   p
     margin: 0 0 2px 0
   em
@@ -1116,7 +1138,7 @@ span.dot-seperator
   li
     display: inline-block
     text-align: center
-    min-width: 125px
+    margin: 10px
     a,span
       display: block
       cursor: pointer
@@ -1126,11 +1148,7 @@ span.dot-seperator
     padding: 10px
     background-color: #fff
     border-radius: 5px
-    li
-      min-width: inherit
-      width: 95px
-      margin: 5px
-      height: 95px
+    
 
 .tag-new
   position: relative

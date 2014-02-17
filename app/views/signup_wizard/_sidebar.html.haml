@@ -1,30 +1,30 @@
-.tour-sidebar
-  .block
-    %h2
-      Get Started
-    %p
-      Hey, you’re almost done. Complete the next
-      steps to start using Offerchat.
-    %ul.tour-steps-list
-      - if request.fullpath == "/signup_wizard/step_two"
-        %li.checked
-          .checklist
-            %span.value
-              %i.icon.icon-check-large
-          Profile
-      - else
-        %li
-          .checklist
-            %span.value
-              1
-          Profile
-      %li
-        .checklist
-          %span.value
-            2
-        Install Widget
-      %li
-        .checklist
-          %span.value
-            3
-        Done!
+/ .tour-sidebar
+/   .block
+/     %h2
+/       Get Started
+/     %p
+/       Hey, you’re almost done. Complete the next
+/       steps to start using Offerchat.
+/     %ul.tour-steps-list
+/       - if request.fullpath == "/signup_wizard/step_two"
+/         %li.checked
+/           .checklist
+/             %span.value
+/               %i.icon.icon-check-large
+/           Profile
+/       - else
+/         %li
+/           .checklist
+/             %span.value
+/               1
+/           Profile
+/       %li
+/         .checklist
+/           %span.value
+/             2
+/         Install Widget
+/       %li
+/         .checklist
+/           %span.value
+/             3
+/         Done!
