@@ -98,6 +98,10 @@
                 success: (data) =>
                   @showNotification("Your changes have been saved.")
 
+            $(window).resize =>
+              h = $(window).height() - 45
+              $(".main-content-view").attr("style","height:#{h}px")
+
             @show @layout
 
         else

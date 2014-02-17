@@ -1,3 +1,7 @@
+.section-overlay.hide
+  .section-loader
+    #loader.clear.small.spinner.colored
+
 .block-message.chat-actions-notifications{ :style => "display:none;" }
   %a.close
     &times;

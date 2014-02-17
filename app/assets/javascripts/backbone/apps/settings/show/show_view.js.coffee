@@ -20,6 +20,7 @@
     onShow: ->
       if ["PRO", "PROTRIAL", "AFFILIATE"].indexOf(@options.profile.get("plan_identifier")) is -1
         $(@.$el).find("a[data-section='attention-grabbers']").parent("li").remove()
+        $(@.$el).find("a[data-section='integrations']").parent("li").remove()
 
 
   class Show.Site extends App.Views.ItemView
