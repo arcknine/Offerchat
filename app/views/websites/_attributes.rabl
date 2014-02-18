@@ -50,6 +50,11 @@ node do |website|
         :company     => website.settings(:zendesk).company,
         :username    => website.settings(:zendesk).username,
         :token       => website.settings(:zendesk).token
+      },
+      :integrations => {
+        :active      => website.settings(:integrations).active,
+        :integration => website.settings(:integrations).integration,
+        :data        => website.settings(:integrations).data
       }
     }
   }

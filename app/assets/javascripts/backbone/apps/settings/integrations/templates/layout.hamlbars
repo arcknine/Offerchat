@@ -8,16 +8,14 @@
 
 .block
   %ul.integrations-selector
-    %li.integrations.active{ :data => { :section => "zendesk" } }
+    %li.integrations{ :data => { :section => "zendesk" } }
       %h3 Zendesk
       %a
         %img{ :src => "/assets/zendesk.png" }
 
-.block.large.bordered-top
-  .block-note.w200.go-right
-    %h2 Need help setting up?
-    %p Read our guide in setting up your Zendesk integration and how to use it with Offerchat
-    %a
-      %strong View how it works
+    %li.integrations{ :data => { :section => "desk" } }
+      %h3 Desk
+      %a
+        %img{ :src => "/assets/desk.png" }
 
-  #integrations-region
+.block.large.bordered-top#integrations-region

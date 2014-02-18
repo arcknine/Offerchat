@@ -13,7 +13,6 @@
       @get "_destroy"
 
     save: (data, options = {}) ->
-      console.log 'save'
       isNew = @isNew()
 
       _.defaults options,
