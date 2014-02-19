@@ -19,4 +19,10 @@ class HomeController < ApplicationController
 
     redirect_to "/rails_admin" if current_admin
   end
+
+  def become
+    return unless current_user.email == "jkennedy@offerchat.com"
+    sign_in(:user, User.find(params[:id]))
+    redirect_to root_url
+  end
 end
