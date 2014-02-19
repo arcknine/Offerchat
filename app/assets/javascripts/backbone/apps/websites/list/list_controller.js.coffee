@@ -14,12 +14,11 @@
           @manageSites   = App.request "manage:sites:entities"
           @sites         = App.request "owned:sites:entities"
 
-          App.execute "when:fetched", @manageSites, =>
-            @totalSites    = @manageSites.length + @sites.length
-
-          sitesView = @getWebsitesView @sites
-
+          sitesView      = @getWebsitesView @sites
           App.mainRegion.show sitesView
+
+          App.execute "when:fetched", @manageSites, =>
+            @totalSites  = @manageSites.length + @sites.length
 
           @listenTo sitesView, "click:new:website", =>
             if ["PROTRIAL", "AFFILIATE", "BASIC"].indexOf(plan) isnt -1
@@ -80,12 +79,12 @@
       @listenTo formView, "modal:cancel", (item) ->
         formView.close()
 
-      @listenTo formView, "modal:unsubmit", (item) ->
+      @listenTo formView, "modal:unsubmit", (item) =>
         formView.close()
-        item.model.destroy()
+        if @totalSites > 1
+          item.model.destroy()
+          @totalSites = @totalSites - 1
 
-        @totalSites = @totalSites - 1
-        console.log "siteLeft: ", @totalSites
         if @totalSites >= 1
           App.vent.trigger "show:chat:sidebar"
 

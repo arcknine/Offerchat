@@ -46,7 +46,7 @@ gem 'grape'
 
 # Payments
 gem 'stripe'
-gem 'stripe_event'
+gem 'stripe_event', '~> 0.6.0'
 
 # Airbrake
 gem 'airbrake'
@@ -63,6 +63,7 @@ gem 'whenever', :require => false
 
 # Integrations
 gem 'zendesk_api'
+gem 'desk'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
