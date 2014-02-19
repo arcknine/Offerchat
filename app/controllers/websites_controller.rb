@@ -129,21 +129,15 @@ class WebsitesController < ApplicationController
       first_name = "Offerchat"
     end
 
-    desk.create_customer(
-      :first_name => first_name,
-      :last_name  => last_name,
-      :company    => params[:company],
-      :title      => params[:title],
-      :phone_numbers => [
-        params[:phone]
-      ],
-      :emails     => [
-        {
-          :type  => "work",
-          :value => params[:email]
-        }
-      ]
-    )
+    args = { :first_name => first_name, :last_name  => last_name }
+
+    # additional information
+    args[:company]       = params[:company] unless params[:company].blank?
+    args[:title]         = params[:title] unless params[:title].blank?
+    args[:phone_numbers] = [params[:phone]] unless params[:phone].blank?
+    args[:emails]        = [{ type: "workd", value: params[:email] }] unless params[:email].blank?
+
+    desk.create_customer(args)
 
     result = desk.create_ticket(
       :subject  => params[:subject],
