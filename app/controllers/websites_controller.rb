@@ -136,8 +136,13 @@ class WebsitesController < ApplicationController
 
     unless params[:name].empty?
       names      = params[:name].split(" ")
-      last_name  = names.pop
-      first_name = names.join(" ")
+      if names.length > 1
+        last_name  = names.pop
+        first_name = names.join(" ")
+      else
+        last_name  = params[:name]
+        first_name = ""
+      end
     else
       last_name  = "Visitor"
       first_name = "Offerchat"
