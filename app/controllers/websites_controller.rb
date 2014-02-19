@@ -117,6 +117,47 @@ class WebsitesController < ApplicationController
 
   end
 
+  def desk
+    desk = CreateDeskTicket.new(params[:id])
+
+    unless params[:name].empty?
+      names      = params[:name].split(" ")
+      last_name  = names.pop
+      first_name = names.join(" ")
+    else
+      last_name  = "Visitor"
+      first_name = "Offerchat"
+    end
+
+    desk.create_customer(
+      :first_name => first_name,
+      :last_name  => last_name,
+      :company    => params[:company],
+      :title      => params[:title],
+      :phone_numbers => [
+        params[:phone]
+      ],
+      :emails     => [
+        {
+          :type  => "work",
+          :value => params[:email]
+        }
+      ]
+    )
+
+    result = desk.create_ticket(
+      :subject  => params[:subject],
+      :priority => params[:priority],
+      :status   => [:status],
+      :email    => current_user.email,
+      :body     => [:message]
+    )
+
+    unless result[:raw][:message].blank?
+      render json: "Something went wrong while creating your Desk ticket.", status: 401
+    end
+  end
+
   private
   def validate_email(email)
     email_regex = %r{
