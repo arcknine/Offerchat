@@ -44,11 +44,11 @@
         %fieldset
           %button.btn
             Upload your own
-            .image-selector
-              %input.file-input{ type: "file", name: 'attention_grabber' }
+          .image-selector
+            %input.file-input{ type: "file", name: 'attention_grabber' }
 
           .item-desc.hide
-          %p.item-desc.small jpg, png and gif
+          .item-desc.small jpg, png and gif
 
 .column-footer-actions.bordered
   .block.large
