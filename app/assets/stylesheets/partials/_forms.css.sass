@@ -152,6 +152,7 @@ label
   fieldset
     margin: 5px 0 20px 0
     vertical-align: top
+    position: relative
     &:last-child
       margin-bottom: 5px
     &.smaller
@@ -383,9 +384,6 @@ a.pill
   font-size: 13px
   font-weight: 500
   @include transition(.2s)
-  &.low
-    .status
-      background-color: #9ab3ba
   &.normal
     .status
       background-color: #38acee
@@ -395,6 +393,21 @@ a.pill
   &.urgent
     .status
       background-color: #f62f2f
+  &.s6
+    .status
+      background-color: #f1c490
+  &.s7
+    .status
+      background-color: #f0aa3c
+  &.s8
+    .status
+      background-color: #f0913c
+  &.s9
+    .status
+      background-color: #fa6565
+  &.s10
+    .status
+      background-color: #ff0000
   span.status
     width: 7px
     height: 7px
