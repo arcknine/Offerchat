@@ -200,6 +200,7 @@ module Offerchat
           name    = params[:name]
           url     = website.url
           if website
+            website.send_ticket(name, from, message)
             WidgetMailer.delay.offline_form(to, name, from, message, url)
             {status: "success"}
           else

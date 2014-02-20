@@ -136,8 +136,13 @@ class WebsitesController < ApplicationController
 
     unless params[:name].empty?
       names      = params[:name].split(" ")
-      last_name  = names.pop
-      first_name = names.join(" ")
+      if names.length > 1
+        last_name  = names.pop
+        first_name = names.join(" ")
+      else
+        last_name  = params[:name]
+        first_name = ""
+      end
     else
       last_name  = "Visitor"
       first_name = "Offerchat"
@@ -149,7 +154,7 @@ class WebsitesController < ApplicationController
     args[:company]       = params[:company] unless params[:company].blank?
     args[:title]         = params[:title] unless params[:title].blank?
     args[:phone_numbers] = [params[:phone]] unless params[:phone].blank?
-    args[:emails]        = [{ type: "workd", value: params[:email] }] unless params[:email].blank?
+    args[:emails]        = [{ type: "work", value: params[:email] }] unless params[:email].blank?
 
     desk.create_customer(args)
 

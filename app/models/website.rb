@@ -132,6 +132,12 @@ class Website < ActiveRecord::Base
     end
   end
 
+  def send_ticket(name, email, message)
+    if self.settings(:integrations).data[:offline_messages] == "checked"
+      OfflineTicketWorker.perform_async(self.id, name, email, message)
+    end
+  end
+
   private
 
   def generate_api_key

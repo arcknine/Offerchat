@@ -97,7 +97,7 @@ var Language = {
     submit:        "Iniciar",
     idle:          "O bate-papo foi inativo devido ao longo tempo de espera",
     connect:       "Conectado",
-    you:           "Tu",
+    you:           "Você",
     success_msg:   "Sua mensagem foi enviada",
     success_desc:  "Obrigado! Nós entraremos em contato com você o mais breve possível."
   },
