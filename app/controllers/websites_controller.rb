@@ -154,7 +154,7 @@ class WebsitesController < ApplicationController
     args[:company]       = params[:company] unless params[:company].blank?
     args[:title]         = params[:title] unless params[:title].blank?
     args[:phone_numbers] = [params[:phone]] unless params[:phone].blank?
-    args[:emails]        = [{ type: "workd", value: params[:email] }] unless params[:email].blank?
+    args[:emails]        = [{ type: "work", value: params[:email] }] unless params[:email].blank?
 
     desk.create_customer(args)
 

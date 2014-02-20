@@ -133,14 +133,8 @@ class Website < ActiveRecord::Base
   end
 
   def send_ticket(name, email, message)
-    puts self.settings(:integrations).data[:offline_messages]
     if self.settings(:integrations).data[:offline_messages] == "checked"
-      puts "send ticket!! to: #{name} - #{email} - #{message}"
-      if self.settings(:integrations).integration == "desk"
-
-      elsif self.settings(:integrations).integration == "desk"
-      elsif self.settings(:integrations).integration == "salesforce"
-      end
+      OfflineTicketWorker.perform_async(self.id, name, email, message)
     end
   end
 
