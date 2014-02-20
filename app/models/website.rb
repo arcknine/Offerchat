@@ -132,6 +132,18 @@ class Website < ActiveRecord::Base
     end
   end
 
+  def send_ticket(name, email, message)
+    puts self.settings(:integrations).data[:offline_messages]
+    if self.settings(:integrations).data[:offline_messages] == "checked"
+      puts "send ticket!! to: #{name} - #{email} - #{message}"
+      if self.settings(:integrations).integration == "desk"
+
+      elsif self.settings(:integrations).integration == "desk"
+      elsif self.settings(:integrations).integration == "salesforce"
+      end
+    end
+  end
+
   private
 
   def generate_api_key
