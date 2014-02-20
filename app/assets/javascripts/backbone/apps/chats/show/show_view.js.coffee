@@ -105,9 +105,37 @@
         cancel:  false
       title: "Export Transcript"
 
+  class Show.TicketModalDesk extends App.Views.Layout
+    template: "chats/show/desk_ticket_modal"
+    className: "form form-inline"
 
-  class Show.TicketModal extends App.Views.Layout
-    template: "chats/show/ticket_modal"
+    form:
+      buttons:
+        primary: false
+        nosubmit: "Create Ticket"
+        cancel:  false
+      title: "Create Ticket to Desk"
+
+    events:
+      "click div.btn-selector"  : "dropDownButton"
+      "click li.option"         : "selectOption"
+      "click a.pill"            : "selectPill"
+      "click .ui-collapse-link" : "slideVisitorInfo"
+
+    slideVisitorInfo: (e) ->
+      App.execute "slide:visitor:info"
+
+    dropDownButton: (e) ->
+      App.execute "drop:button", e
+
+    selectOption: (e) ->
+      App.execute "select:option", e
+
+    selectPill: (e) ->
+      App.execute "select:pill", e
+
+  class Show.TicketModalZendesk extends App.Views.Layout
+    template: "chats/show/zendesk_ticket_modal"
     className: "form form-inline"
 
     form:
@@ -121,29 +149,19 @@
       "click li.option"         : "selectOption"
       "click div.btn-selector"  : "dropDownButton"
       "click a.pill"            : "selectPill"
+      "click .ui-collapse-link" : "slideVisitorInfo"
+
+    slideVisitorInfo: (e) ->
+      App.execute "slide:visitor:info"
 
     selectPill: (e) ->
-      $("a.pill").removeClass("active")
-      selected = $(e.currentTarget).data("name")
-      $(e.currentTarget).addClass("active")
-      $(".pill-selector").data("selected", selected)
+      App.execute "select:pill", e
 
     dropDownButton: (e) ->
-      target = $(e.currentTarget)
-      if target.hasClass("open")
-        target.removeClass("open")
-        target.find(".btn-action-selector").removeClass("active")
-      else
-        target.addClass("open")
-        target.find(".btn-action-selector").addClass("active")
+      App.execute "drop:button", e
 
     selectOption: (e) ->
-      btn_selector = $(e.currentTarget).closest(".btn-selector")
-      selected = $(e.currentTarget).find("a")
-      selected_name = selected.data("name")
-      selected_label = selected.html()
-
-      btn_selector.find(".current-selection").data("selected",selected_name).html(selected_label)
+      App.execute "select:option", e
 
   class Show.ModalQuickResponses extends App.Views.Layout
     template: "chats/show/quick_responses"

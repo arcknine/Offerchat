@@ -18,14 +18,14 @@
       @listenTo view, "close", @close
       @region.show view
 
-    showNotification: (message, type="success") ->
+    showNotification: (message, type="success", sec=3) ->
       $(".block-message").removeClass("success").removeClass("warning")
       $(".block-message").find("span").html(message)
       $(".block-message").addClass(type).fadeIn()
 
       setTimeout ->
         $(".block-message").fadeOut()
-      , 3000
+      , sec * 1000
 
     showSettingsNotification: (message, type="success") ->
       $("#setting-notification").find("span").html(message)

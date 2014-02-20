@@ -113,7 +113,21 @@ class WebsitesController < ApplicationController
       end
     end
 
-    client.tickets.create(:subject => subject, :comment => { :value => desc }, :priority => prio, :type => type, :status => stat )
+    options = {:subject => subject, :comment => { :value => desc }, :priority => prio, :type => type, :status => stat }
+
+    if params[:visitor][:name]
+      client.users.create(params[:visitor])
+
+      options[:requester] = {}
+      options[:requester][:name] = params[:visitor][:name]
+
+      if params[:visitor][:email]
+        options[:requester][:email] = params[:visitor][:email]
+      end
+
+    end
+
+    client.tickets.create(options)
 
   end
 
@@ -142,9 +156,9 @@ class WebsitesController < ApplicationController
     result = desk.create_ticket(
       :subject  => params[:subject],
       :priority => params[:priority],
-      :status   => [:status],
+      :status   => params[:status],
       :email    => current_user.email,
-      :body     => [:message]
+      :body     => params[:message]
     )
 
     unless result[:raw][:message].blank?

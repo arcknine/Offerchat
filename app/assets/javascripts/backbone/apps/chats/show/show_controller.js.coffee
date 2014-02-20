@@ -76,6 +76,8 @@
           $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500) if @scroll is true
 
       @listenTo @layout, "show", =>
+
+
         @visitorInfoView()
         @chatsView()
         App.execute "subtract:unread", 'visitor', @visitor
@@ -318,7 +320,7 @@
       $(".response-error").removeClass("hide")
       $(".response-error").text(message)
 
-    chatsView: ->
+    chatsView: =>
       chatsView = @getChatsView()
 
       @listenTo chatsView, "show", ->
@@ -339,7 +341,11 @@
           @showTranscriptModalView @visitor
           @transcript.set messages: $('#transcript-collection').html()
         else if option is "ticket"
-          @showCreateTicket()
+          plan = @profile.get("plan_identifier")
+          if ["PRO", "PROTRIAL", "AFFILIATE"].indexOf(plan) isnt -1
+            @showCreateTicket()
+          else
+            @showNotification("This feature is only available in PRO plan.", "warning", 5)
 
         # else if option is "ban"
 
@@ -604,14 +610,60 @@
         collection: @currentMsgs
         model: @transcript
 
-    getCreateTicketView: =>
-      new Show.TicketModal
-        model: @currentSite
+    getCreateTicketView: (integration) =>
+      if integration is "zendesk"
+        new Show.TicketModalZendesk
+          model: @visitor
+      else if integration is "desk"
+        new Show.TicketModalDesk
+          model: @visitor
 
     showCreateTicket: =>
+
+      site_settings = @currentSite.get("settings")
+
+      int_name = site_settings.integrations.integration
+      int_data = site_settings.integrations.data
+
+      console.log 'name: ', int_name
+      console.log 'data: ', int_data
+
+
+      App.commands.setHandler "drop:button", (e) =>
+        target = $(e.currentTarget)
+        if target.hasClass("open")
+          target.removeClass("open")
+          target.find(".btn-action-selector").removeClass("active")
+        else
+          target.addClass("open")
+          target.find(".btn-action-selector").addClass("active")
+
+      App.commands.setHandler "select:option", (e) =>
+        btn_selector = $(e.currentTarget).closest(".btn-selector")
+        selected = $(e.currentTarget).find("a")
+        selected_name = selected.data("name")
+        selected_label = selected.html()
+        btn_selector.find(".current-selection").data("selected",selected_name).html(selected_label)
+
+      App.commands.setHandler "select:pill", (e) =>
+        $("a.pill").removeClass("active")
+        selected = $(e.currentTarget).data("name")
+        $(e.currentTarget).addClass("active")
+        $(".pill-selector").data("selected", selected)
+
+      App.commands.setHandler "slide:visitor:info", =>
+        target = $(".visitor-info")
+        if target.hasClass("hide")
+          target.removeClass("hide").slideDown()
+        else
+          target.addClass("hide").slideUp()
+
+
+
       v_info = @visitor.get("info")
 
-      modalView = @getCreateTicketView()
+      modalView = @getCreateTicketView(int_name)
+
       formView = App.request "modal:wrapper", modalView
 
       @listenTo formView, "modal:unsubmit", (e) =>
@@ -621,10 +673,7 @@
         if subject is ""
           parent.find(".ticket-subject").closest("fieldset").addClass("field-error")
         else
-
-          type = parent.find(".ticket-type").data("selected")
-          mark = parent.find(".ticket-mark").data("selected")
-          prio = parent.find(".ticket-priority").data("selected")
+          subject = "#{@profile.get('display_name')}: #{subject}"
 
           description = "#{v_info.name}\n"
           if v_info.email isnt ""
@@ -639,16 +688,55 @@
 
           description = "#{description}#{conversations}"
 
+          mark = parent.find(".ticket-mark").data("selected")
+          prio = parent.find(".ticket-priority").data("selected")
+
+          v_name = parent.find(".visitor-name").val()
+          v_email = parent.find(".visitor-email").val()
+          v_phone = parent.find(".visitor-phone").val()
+
+          this_site = @currentSite
+
+          if int_name is "zendesk"
+            this_site.url = Routes.zendesk_auth_website_path(@currentSite.get("id"))
+
+            v_data =
+              name: v_name
+              email: v_email
+              phone: v_phone
+
+            type = parent.find(".ticket-type").data("selected")
+            post_data =
+              subject: subject
+              desc: description
+              type: type
+              prio: prio
+              status: mark
+              visitor: v_data
+
+          else if int_name is "desk"
+            this_site.url = Routes.desk_website_path(@currentSite.get("id"))
+
+            post_data =
+              subject: subject
+              message: description
+              priority: prio
+              status: mark
+              name: v_name
+              email: v_email
+              phone: v_phone
+              company: parent.find(".visitor-company").val()
+              title: parent.find(".visitor-title").val()
+
+
           formView.close()
           $(".section-overlay").removeClass("hide")
 
-          this_site = @currentSite
-          this_site.url = Routes.zendesk_auth_website_path(@currentSite.get("id"))
           this_site.fetch
             type: "POST"
-            data: { subject: "#{@profile.get('display_name')}: #{subject}", desc: description, type: type, prio: prio, status: mark }
+            data: post_data
             success: (e) =>
-              @showNotification("Your zendesk ticket has been created.")
+              @showNotification("Your #{int_name} ticket has been created.")
               $(".section-overlay").addClass("hide")
             error: (data, response) =>
               @showNotification(response.responseText, "warning")

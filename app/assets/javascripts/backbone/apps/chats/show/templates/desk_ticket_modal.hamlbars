@@ -1,0 +1,82 @@
+%fieldset
+  %label Subject
+  .input-container
+    %input.large.ticket-subject{ :type => "text" }
+
+%fieldset
+  %label Status
+  .btn-selector-wrapper
+    .btn-selector
+      .btn.btn-action-selector.btn-regular
+        %i.icon.icon-arrow-down
+        %span.current-selection.ticket-mark{ :data => { :selected => "open" } } Open
+      .dropdown-options.dark
+        %ul
+          %li.option
+            %a{ :data => { :name => "open" } } Open
+          %li.option
+            %a{ :data => { :name => "pending" } } Pending
+          %li.option
+            %a{ :data => { :name => "resolved" } } Resolved
+
+%fieldset
+  %label.label-top-fix Priority
+  .input-container{ :style => "width:379px;" }
+    .pill-selector.ticket-priority{ :data => { :selected => "1" } }
+      %a.pill.s1.active{ :data => { :name => "1" } }
+        %span.status
+        1 - low
+      %a.pill.s2{ :data => { :name => "2" } }
+        %span.status
+        2
+      %a.pill.s3{ :data => { :name => "3" } }
+        %span.status
+        3
+      %a.pill.s4{ :data => { :name => "4" } }
+        %span.status
+        4
+      %a.pill.s5{ :data => { :name => "5" } }
+        %span.status
+        5
+      %a.pill.s6{ :data => { :name => "6" } }
+        %span.status
+        6
+      %a.pill.s7{ :data => { :name => "7" } }
+        %span.status
+        7
+      %a.pill.s8{ :data => { :name => "8" } }
+        %span.status
+        8
+      %a.pill.s9{ :data => { :name => "9" } }
+        %span.status
+        9
+      %a.pill.s10{ :data => { :name => "10" } }
+        %span.status
+        10 - critical
+
+.block.bordered-top
+  .form.form-inline
+    %a.ui-collapse-link
+      %i.icon.icon-arrow-down
+      Add Visitor Information
+    %div.hide.visitor-info
+      %fieldset
+        %label Name
+        .input-container
+          %input.large.visitor-name{ :type => "text", :value => "{{info.name}}" }
+      %fieldset
+        %label Email
+        .input-container
+          %input.large.visitor-email{ :type => "text", :value => "{{info.email}}" }
+      %fieldset
+        %label Phone
+        .input-container
+          %input.large.visitor-phone{ :type => "text", :value => "{{info.phone}}" }
+      %fieldset
+        %label Company
+        .input-container
+          %input.large.visitor-company{ :type => "text" }
+      %fieldset
+        %label Title
+        .input-container
+          %input.large.visitor-title{ :type => "text" }
