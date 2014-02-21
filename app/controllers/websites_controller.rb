@@ -91,44 +91,32 @@ class WebsitesController < ApplicationController
 
   def zendesk_auth
     @website = Website.find_by_id(params[:id])
-    company = @website.settings(:zendesk).company
-    username = @website.settings(:zendesk).username
-    token = @website.settings(:zendesk).token
+    zendesk = @website.settings(:integrations).data
 
-    subject = params[:subject]
-    desc = params[:desc]
-    type = params[:type]
-    prio = params[:prio]
-    stat = params[:status]
+    company = zendesk[:sub_domain]
 
     client = ZendeskAPI::Client.new do |config|
       config.url = "https://#{company}.zendesk.com/api/v2"
-      config.username = username
-      config.token = token
+      config.username = zendesk[:email]
+      config.token = zendesk[:token]
     end
 
-    client.insert_callback do |env|
-      if env[:response_headers][:status] != "201 Created"
-        render json: "Something went wrong while creating your ZenDesk ticket.", status: 401
-      end
-    end
+    options = {:subject => params[:subject], :comment => { :value => params[:desc] }, :priority => params[:prio], :type => params[:type], :status => params[:status]}
 
-    options = {:subject => subject, :comment => { :value => desc }, :priority => prio, :type => type, :status => stat }
-
-    if params[:visitor][:name]
-      client.users.create(params[:visitor])
-
+    unless params[:visitor][:name].blank?
       options[:requester] = {}
       options[:requester][:name] = params[:visitor][:name]
 
-      if params[:visitor][:email]
+      unless params[:visitor][:email].blank?
         options[:requester][:email] = params[:visitor][:email]
       end
-
     end
 
-    client.tickets.create(options)
+    res = client.tickets.create(options)
 
+    if res.nil?
+      render json: "Something went wrong while creating your ZenDesk ticket.", status: 401
+    end
   end
 
   def desk
