@@ -6,9 +6,6 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
   config.mailer_sender = "hello@offerchat.com"
 
-  config.secret_key = 'd1faeb449043e08b82ed1ddc644cfdd44523f1eab3b6e1965d38bedbe24f284f84a74a75395233dde203253e325cc1422197422c9746d39eabc51ad237c98e2f'
-
-
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
 
