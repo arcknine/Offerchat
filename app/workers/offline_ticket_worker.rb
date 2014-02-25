@@ -7,6 +7,8 @@ class OfflineTicketWorker
       self.send_desk name, email, message
     elsif @website.settings(:integrations).integration == "zendesk"
       self.send_zendesk name, email, message
+    elsif @website.settings(:integrations).integration == "zoho"
+      self.send_zoho name, email, message
     end
   end
 
@@ -67,5 +69,21 @@ class OfflineTicketWorker
         :email => email
       }
     )
+  end
+
+  def send_zoho(name, email, message)
+    visitor = { :name => name, :email => email }
+    task    = {
+      :subject     => "Offline Message",
+      :description => message,
+      :priority    => "Normal",
+      :status      =>   "In Progress"
+    }
+    zoho = ZohoService.new(@website.id, visitor, task)
+    contact_id = zoho.create_update_contact
+
+    unless contact_id.nil?
+      result = zoho.create_task(contact_id)
+    end
   end
 end
