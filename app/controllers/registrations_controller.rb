@@ -11,6 +11,9 @@ class RegistrationsController < Devise::RegistrationsController
 
     build_resource
 
+    puts resource
+    puts resource.inspect.to_s
+
     if resource.save
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
