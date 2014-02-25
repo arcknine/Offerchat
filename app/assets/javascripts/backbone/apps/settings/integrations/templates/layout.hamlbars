@@ -18,4 +18,9 @@
       %a
         %img{ :src => "/assets/desk.png" }
 
+    %li.integrations{ :data => { :section => "zoho" } }
+      %h3 Zoho
+      %a
+        %img{ :src => "/assets/zoho.png" }
+
 .block.large.bordered-top#integrations-region

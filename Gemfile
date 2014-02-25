@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.13'
 gem 'mysql2'
 gem 'figaro'
-gem 'devise'
+gem 'devise', '2.2.4'
 gem 'rabl'
 gem 'ledermann-rails-settings', :require => 'rails-settings'
 gem 'paperclip', '~> 3.4.2'
@@ -64,6 +64,7 @@ gem 'whenever', :require => false
 # Integrations
 gem 'zendesk_api'
 gem 'desk'
+gem 'rubyzoho'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

@@ -39,10 +39,15 @@
             @showNotesCount()
 
           App.execute "when:fetched", @visitor_notes_list, =>
+            prof_id = @profile.get("id")
+            is_owner = if prof_id is @currentSite.get("owner_id") then true else false
 
             @visitor_notes_list.forEach (model, index) ->
+              can_remove = if model.get("user_id") is prof_id or is_owner then true else false
+
               model.set
                 created_at: moment(model.get("created_at")).format('MMMM D, YYYY - h:mm a')
+                can_remove: can_remove
 
       @layout      = @getLayout()
 
@@ -617,17 +622,14 @@
       else if integration is "desk"
         new Show.TicketModalDesk
           model: @visitor
+      else if integration is "zoho"
+        new Show.TicketModalZoho
+          model: @visitor
 
     showCreateTicket: =>
 
       site_settings = @currentSite.get("settings")
-
       int_name = site_settings.integrations.integration
-      int_data = site_settings.integrations.data
-
-      console.log 'name: ', int_name
-      console.log 'data: ', int_data
-
 
       App.commands.setHandler "drop:button", (e) =>
         target = $(e.currentTarget)
@@ -697,36 +699,51 @@
 
           this_site = @currentSite
 
-          if int_name is "zendesk"
-            this_site.url = Routes.zendesk_auth_website_path(@currentSite.get("id"))
+          v_data =
+            name: v_name
+            email: v_email
+            phone: v_phone
 
-            v_data =
-              name: v_name
-              email: v_email
-              phone: v_phone
+          switch int_name
+            when "zendesk"
+              this_site.url = Routes.zendesk_auth_website_path(@currentSite.get("id"))
 
-            type = parent.find(".ticket-type").data("selected")
-            post_data =
-              subject: subject
-              desc: description
-              type: type
-              prio: prio
-              status: mark
-              visitor: v_data
+              type = parent.find(".ticket-type").data("selected")
+              post_data =
+                subject: subject
+                desc: description
+                type: type
+                prio: prio
+                status: mark
+                visitor: v_data
 
-          else if int_name is "desk"
-            this_site.url = Routes.desk_website_path(@currentSite.get("id"))
+            when "desk"
+              this_site.url = Routes.desk_website_path(@currentSite.get("id"))
 
-            post_data =
-              subject: subject
-              message: description
-              priority: prio
-              status: mark
-              name: v_name
-              email: v_email
-              phone: v_phone
-              company: parent.find(".visitor-company").val()
-              title: parent.find(".visitor-title").val()
+              post_data =
+                subject: subject
+                message: description
+                priority: prio
+                status: mark
+                name: v_name
+                email: v_email
+                phone: v_phone
+                company: parent.find(".visitor-company").val()
+                title: parent.find(".visitor-title").val()
+
+            when "zoho"
+              this_site.url = Routes.zoho_website_path(@currentSite.get("id"))
+
+              task_data =
+                subject: subject
+                description: description
+                priority: prio
+                status: mark
+
+              post_data =
+                task: task_data
+                visitor: v_data
+
 
 
           formView.close()

@@ -1,0 +1,62 @@
+%fieldset
+  %label Subject
+  .input-container
+    %input.large.ticket-subject{ :type => "text" }
+
+%fieldset
+  %label Mark as
+  .btn-selector-wrapper
+    .btn-selector
+      .btn.btn-action-selector.btn-regular
+        %i.icon.icon-arrow-down
+        %span.current-selection.ticket-mark{ :data => { :selected => "Not Started" } } Not Started
+      .dropdown-options.dark
+        %ul
+          %li.option
+            %a{ :data => { :name => "Deffered" } } Deffered
+          %li.option
+            %a{ :data => { :name => "In Progress" } } In Progress
+          %li.option
+            %a{ :data => { :name => "Completed" } } Completed
+          %li.option
+            %a{ :data => { :name => "Waiting on someone else" } } Waiting on someone else
+
+%fieldset
+  %label.label-top-fix Priority
+  .input-container{ :style => "width:379px;" }
+    .pill-selector.ticket-priority{ :data => { :selected => "Normal" } }
+      %a.pill.normal.active{ :data => { :name => "Normal" } }
+        %span.status
+        Normal
+      %a.pill.low{ :data => { :name => "Low" } }
+        %span.status
+        Low
+      %a.pill.low{ :data => { :name => "Lowest" } }
+        %span.status
+        Lowest
+      %a.pill.high{ :data => { :name => "High" } }
+        %span.status
+        High
+      %a.pill.high{ :data => { :name => "Highest" } }
+        %span.status
+        Highest
+
+
+.block.bordered-top
+  .form.form-inline
+    %a.ui-collapse-link
+      %i.icon.icon-arrow-down
+      Add Visitor Information
+    %div.hide.visitor-info
+      %fieldset
+        %label Name
+        .input-container
+          %input.large.visitor-name{ :type => "text", :value => "{{info.name}}" }
+      %fieldset
+        %label Email
+        .input-container
+          %input.large.visitor-email{ :type => "text", :value => "{{info.email}}" }
+      %fieldset
+        %label Phone
+        .input-container
+          %input.large.visitor-phone{ :type => "text", :value => "{{info.phone}}" }
