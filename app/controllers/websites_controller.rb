@@ -159,6 +159,17 @@ class WebsitesController < ApplicationController
     end
   end
 
+  def zoho
+    zoho = ZohoService.new(params[:id], params[:visitor], params[:task])
+    contact_id = zoho.create_update_contact
+
+    unless contact_id.nil?
+      result = zoho.create_task(contact_id)
+    else
+      render json: "Something went wrong while creating your Zoho ticket.", status: 401
+    end
+  end
+
   private
   def validate_email(email)
     email_regex = %r{

@@ -64,6 +64,7 @@ gem 'whenever', :require => false
 # Integrations
 gem 'zendesk_api'
 gem 'desk'
+gem 'rubyzoho'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
