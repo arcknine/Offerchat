@@ -6,7 +6,9 @@
   .note-author
     {{user_name}}
 
+    {{#if can_remove}}
     %a.small.warning.delete-note remove
+    {{/if}}
 
   {{message}}
   .date {{created_at}}

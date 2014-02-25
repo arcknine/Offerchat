@@ -39,10 +39,15 @@
             @showNotesCount()
 
           App.execute "when:fetched", @visitor_notes_list, =>
+            prof_id = @profile.get("id")
+            is_owner = if prof_id is @currentSite.get("owner_id") then true else false
 
             @visitor_notes_list.forEach (model, index) ->
+              can_remove = if model.get("user_id") is prof_id or is_owner then true else false
+
               model.set
                 created_at: moment(model.get("created_at")).format('MMMM D, YYYY - h:mm a')
+                can_remove: can_remove
 
       @layout      = @getLayout()
 
