@@ -1,6 +1,12 @@
 (function() {
   var Widget, defaults, src, version;
 
+  this.Offerchat = {
+    toggleWidget: function() {
+      Widget.toggleWidget(Widget.info.hasAgent);
+    }
+  }
+
   defaults = {
     src: {
       api_url: '//local.offerchat.com:3000/api/v1/widget/',

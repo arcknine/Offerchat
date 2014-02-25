@@ -517,7 +517,6 @@ Templates = {
              '  <li><a><i class="widget icon icon-thumbs-down-red"></i></a></li>' +
              '  <div class="caret"></div>' +
              '</ul>' +
-             '<i class="widget icon icon-chat"></i>' +
              '<input class="widget-input-text" placeholder="' + data.placeholder + '" type="text">' +
              '<a class="chat-settings"><i class="widget icon icon-gear"></i></a>' +
              '<a class="chat-rating"><i class="widget icon ' + rating + '"></i></a>';
@@ -619,7 +618,7 @@ Templates = {
     data = data || { message: "Your message has been sent", description: "Thank you! We will get back to you as soon as we can." };
     var success =  '<div class="widget-pre-message">' +
                    '  <h3>' +
-                   '    <i class="widget icon icon-check-large" style="height: 22px"></i>' + data.message +
+                        data.message +
                    '  </h3>' +
                       data.description +
                    '</div>';
