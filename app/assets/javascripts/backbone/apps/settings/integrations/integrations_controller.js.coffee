@@ -67,7 +67,7 @@
 
       @listenTo zohoView, "save:zoho:api", =>
         @settings.integrations.integration = "zoho"
-        @settings.integrations.data = data
+        @settings.integrations.data = @serializeForm()
 
         @currentSite.save {},
           success: (data) =>
@@ -90,8 +90,9 @@
         data.offline_messages = checked
 
       @listenTo zenDeskView, "save:zendesk:api", =>
+        # console.log $("#form-content-region .form")
         @settings.integrations.integration = "zendesk"
-        @settings.integrations.data = data
+        @settings.integrations.data = @serializeForm()
 
         @currentSite.save {},
           success: (data) =>
@@ -114,7 +115,7 @@
 
       @listenTo deskView, "save:desk:api", =>
         @settings.integrations.integration = "desk"
-        @settings.integrations.data = data
+        @settings.integrations.data = @serializeForm()
 
         @currentSite.save {},
           success: (data) =>
@@ -123,6 +124,16 @@
         return false
 
       @layout.integrationsRegion.show formView
+
+    serializeForm: ->
+      form = $("#integrations-region form").serializeArray()
+      data = { offline_messages: "" }
+      $.each form, (key, value) ->
+        data[value.name] = value.value
+      if $("#integrations-region .checkbox.inline").hasClass("checked")
+        data.offline_messages = "checked"
+
+      data
 
     getLayout: ->
       new Integrations.Layout
