@@ -53,7 +53,6 @@
     getLayoutView: ->
       new Show.Layout
         section: @section
-        profile: @profile
 
     getStyleView: (website) ->
       new Show.Style

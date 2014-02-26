@@ -32,6 +32,14 @@
         @currentSite = all_sites.findWhere api_key: @visitor.get("api_key")
         @pid = @currentSite.get("plan")
 
+        App.execute "when:fetched", @currentSite, =>
+          site_settings = @currentSite.get("settings")
+          int_data = site_settings.integrations.data
+
+          if int_data.token is "" or int_data.token is null
+            $("li[data-action='ticket']").remove()
+
+
         if @pid isnt "FREE"
           @visitor_notes_list = App.request "get:visitor_notes", @visitor.get("token")
 
@@ -81,8 +89,6 @@
           $(".chat-viewer-content").animate({ scrollTop: $('.chat-viewer-inner')[0].scrollHeight}, 500) if @scroll is true
 
       @listenTo @layout, "show", =>
-
-
         @visitorInfoView()
         @chatsView()
         App.execute "subtract:unread", 'visitor', @visitor
