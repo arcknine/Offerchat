@@ -1,7 +1,7 @@
 .block-note.w200.go-right
   %h2 Need help setting up?
   %p Read our guide in setting up your Zendesk integration and how to use it with Offerchat
-  %a
+  %a{ :href => "https://www.offerchat.com/support/integrate-offerchat-zendesk/", :target => "_blank" }
     %strong View how it works
 
 %p Create tickets from Offerchat conversations into Zendesk.

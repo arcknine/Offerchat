@@ -18,7 +18,9 @@
       section: @options.section
 
     onShow: ->
-      if ["PRO", "PROTRIAL", "AFFILIATE"].indexOf(@options.profile.get("plan_identifier")) is -1
+      user = App.request "get:current:user:json"
+
+      if ["PRO", "PROTRIAL", "AFFILIATE"].indexOf(user.plan_identifier) is -1
         $(@.$el).find("a[data-section='attention-grabbers']").parent("li").remove()
         $(@.$el).find("a[data-section='integrations']").parent("li").remove()
 
