@@ -185,8 +185,8 @@
     className: "table-history-viewer-content"
     id: "historyTableViewer"
 
-    App.commands.setHandler "bounce:element", (element) ->
-      element.animate({ marginTop: '-=' + '5px'}, 50 ).animate({ marginTop: '+=' + '5px' }, 50)
+    # App.commands.setHandler "bounce:element", (element) ->
+    #   element.animate({ marginTop: '-=' + '5px'}, 10 ).animate({ marginTop: '+=' + '5px' }, 10)
 
     onShow: ->
       $(".main-content-view").css('overflow-y','hidden')

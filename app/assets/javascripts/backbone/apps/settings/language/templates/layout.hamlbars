@@ -40,6 +40,14 @@
     %img{ :alt => "swedish", :src => "/assets/lang/swedish.png" }
     %label Svenska
 
+  %a.set-language
+    %img{ :alt => "dutch", :src => "/assets/lang/netherlands.png" }
+    %label Dutch
+
+  %a.set-language
+    %img{ :alt => "lithuanian", :src => "/assets/lang/lithuania.png" }
+    %label Lietuvių
+
 .block.large.bordered-top
   %fieldset
     %button.btn.action.save-language{ :type => "submit" }
