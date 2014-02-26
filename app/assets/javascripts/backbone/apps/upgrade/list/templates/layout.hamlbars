@@ -70,6 +70,9 @@
                     Chat History
                 %li
                   %strike.disabled
+                    CRM Integration
+                %li
+                  %strike.disabled
                     Unbranded Widget
                 %li.plan-action
                   %a.btn.action.btn-full{ id: "{{basic.plan_identifier}}", data: { price: "{{basic.price}}" } }
@@ -97,15 +100,16 @@
                 %li
                   Chat Triggers
                 %li
-
-                  %a{ :href => "https://www.offerchat.com/blog/increase-chat-visibility-attention-grabbers/", :target => "_blank" }
-                    Attention Grabbers
-                  %span.tag-new
-                    new
+                  Attention Grabbers
+                  
                 %li
                   Agent Analytics
                 %li
                   Chat History
+                %li
+                  CRM Integration
+                  %span.tag-new
+                    new
                 %li
                   Unbranded Widget
                 %li.plan-action
