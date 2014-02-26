@@ -85,7 +85,7 @@ var Language = {
     success_desc:  "Hvala Vam! Odgovorićemo Vam u najkraćem mogućem roku."
   },
   portuguese: {
-    connecting:    "Conectando ao chat…",
+    connecting:    "Conectando ao chat...",
     connect_agent: "Connecting you to an agent...",
     chat_box:      "Digite suas perguntas e aperte enter",
     transcript:    "Baixar uma cópia",
@@ -97,13 +97,13 @@ var Language = {
     submit:        "Iniciar",
     idle:          "O bate-papo foi inativo devido ao longo tempo de espera",
     connect:       "Conectado",
-    you:           "Tu",
+    you:           "Você",
     success_msg:   "Sua mensagem foi enviada",
     success_desc:  "Obrigado! Nós entraremos em contato com você o mais breve possível."
   },
   polish: {
     connecting:    "Uruchamianie połączenia...",
-    connect_agent: "Łączenie z konsultantem",
+    connect_agent: "Łączenie z konsultantem...",
     chat_box:      "Wpisz swoje pytanie i wciśnij enter",
     transcript:    "Pobierz historię rozmowy",
     sound_off:     "Wyłącz dźwięki",
@@ -117,5 +117,39 @@ var Language = {
     you:           "Ty",
     success_msg:   "Twoja wiadomość została wysłana",
     success_desc:  "Dziękujemy za wiadomość. Odpowiemy tak szybko jak to będzie możliwe."
+  },
+  lithuanian: {
+    connecting:    "Jungiamasi prie sistemos...",
+    connect_agent: "Jungiame su konsultantu...",
+    chat_box:      "Rašykite savo klausimą ir spauskite enter",
+    transcript:    "Parsiųsti išklotinę",
+    sound_off:     "Išjungti garsą",
+    sound_on:      "Įjungti garsą",
+    name:          "Vardas",
+    email:         "El. paštas",
+    message:       "Žinutė",
+    submit:        "Pateikti",
+    idle:          "Pokalbis nevyko per ilgai",
+    connect:       "Jungtis",
+    you:           "Jūs",
+    success_msg:   "Jūsų žinutė buvo išsiųsta",
+    success_desc:  "Ačiū! Susisieksime kiek galima greičiau."
+  },
+  dutch: {
+    connecting:    "Verbinding maken...",
+    connect_agent: "Verbinden met medewerker...",
+    chat_box:      "Stel je vraag en druk op <enter>",
+    transcript:    "Dit gesprek downloaden",
+    sound_off:     "Geluid uit",
+    sound_on:      "Geluid aan",
+    name:          "Naam",
+    email:         "E-mail",
+    message:       "Bericht",
+    submit:        "Verzenden",
+    idle:          "Het gesprek is inactief.",
+    connect:       "Verbinden",
+    you:           "Jij",
+    success_msg:   "Je bericht is verzonden",
+    success_desc:  "Bedankt! Je krijgt binnenkort een antwoord."
   }
 };

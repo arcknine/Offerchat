@@ -117,5 +117,39 @@ var Language = {
     you:           "Ty",
     success_msg:   "Twoja wiadomość została wysłana",
     success_desc:  "Dziękujemy za wiadomość. Odpowiemy tak szybko jak to będzie możliwe."
+  },
+  lithuanian: {
+    connecting:    "Jungiamasi prie sistemos...",
+    connect_agent: "Jungiame su konsultantu...",
+    chat_box:      "Rašykite savo klausimą ir spauskite enter",
+    transcript:    "Parsiųsti išklotinę",
+    sound_off:     "Išjungti garsą",
+    sound_on:      "Įjungti garsą",
+    name:          "Vardas",
+    email:         "El. paštas",
+    message:       "Žinutė",
+    submit:        "Pateikti",
+    idle:          "Pokalbis nevyko per ilgai",
+    connect:       "Jungtis",
+    you:           "Jūs",
+    success_msg:   "Jūsų žinutė buvo išsiųsta",
+    success_desc:  "Ačiū! Susisieksime kiek galima greičiau."
+  },
+  dutch: {
+    connecting:    "Verbinding maken...",
+    connect_agent: "Verbinden met medewerker...",
+    chat_box:      "Stel je vraag en druk op <enter>",
+    transcript:    "Dit gesprek downloaden",
+    sound_off:     "Geluid uit",
+    sound_on:      "Geluid aan",
+    name:          "Naam",
+    email:         "E-mail",
+    message:       "Bericht",
+    submit:        "Verzenden",
+    idle:          "Het gesprek is inactief.",
+    connect:       "Verbinden",
+    you:           "Jij",
+    success_msg:   "Je bericht is verzonden",
+    success_desc:  "Bedankt! Je krijgt binnenkort een antwoord."
   }
 };
