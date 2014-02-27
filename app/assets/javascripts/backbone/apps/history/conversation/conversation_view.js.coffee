@@ -39,34 +39,31 @@
     get_dates: ->
       $('#historyDate').DatePickerGetDate(true)
 
-    set_date_today: ->
-      $('#historyDate').DatePickerSetDate(moment(new Date).format("YYYY-MM-DD"))
+    set_date_today: (e) ->
+      @set_active_scope e
+      $(e.currentTarget).addClass("active")
+      $('#historyDate').data("type","today").DatePickerSetDate(moment(new Date).format("YYYY-MM-DD"))
 
-    set_date_this_week: ->
+    set_date_this_week: (e) ->
+      @set_active_scope e
+      $(e.currentTarget).addClass("active")
       today = new Date
       d = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay())
-      $('#historyDate').DatePickerSetDate([moment(d).format("YYYY-MM-DD"),new Date])
+      $('#historyDate').data("type","week").DatePickerSetDate([moment(d).format("YYYY-MM-DD"),new Date])
 
-    set_date_this_month: ->
+    set_date_this_month: (e) ->
+      @set_active_scope e
       today = new Date
       d = new Date(today.getFullYear(), today.getMonth(), 1)
-      $('#historyDate').DatePickerSetDate([d,moment(new Date).format("YYYY-MM-DD")])
+      $('#historyDate').data("type","month").DatePickerSetDate([d,moment(new Date).format("YYYY-MM-DD")])
 
-    render_date_picker: ->
-      d = new Date()
-      $('#historyDate').html('').children().off()
-      $('#historyDate').DatePicker
-        flat: true,
-        date: moment(d).format("YYYY-MM-DD")
-        current: moment(d).format("YYYY-MM-DD")
-        calendars: 3
-        mode: 'range'
-        starts: 1
-      @
+    set_active_scope: (e) ->
+      $(".current-scope").removeClass("active")
+      $(e.currentTarget).addClass("active")
 
     toggle_date_picker: ->
-      @render_date_picker()
-      $(".history-date-wrapper").toggleClass("hide")
+      @trigger "calendar:clicked"
+      # $(".history-date-wrapper").toggleClass("hide")
 
   class Conversations.Filter extends App.Views.Layout
     template: "history/conversation/filter"

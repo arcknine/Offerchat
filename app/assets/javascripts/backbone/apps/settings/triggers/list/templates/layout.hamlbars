@@ -1,5 +1,5 @@
 .column-content-container.for-fixed-header
-  .block.large.bordered-bottom
+  .block.large
     %h2
       Chat Triggers
     Set triggers for the widget to proactively start a chat with a visitor when a condition is met.

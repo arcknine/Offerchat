@@ -1,4 +1,4 @@
 .block-message.small{style: "margin-bottom:2px;"}
   Setup your chat triggers effectively.
-  %a{ href: "http://support.offerchat.com/general-information/what-are-proactive-chat-triggers/", target: "_blank" }
+  %a{ href: "https://www.offerchat.com/support/how-to-setup-a-chat-trigger/", target: "_blank" }
     Learn more on how to effectively use chat triggers.

@@ -16,7 +16,7 @@
           %span {{site.settings.offline.header}}
 
       .widget-body
-        .widget-chat-viewer{ style: "height: 354px" }
+        .widget-chat-viewer
           .widget-form
             .widget-block
               .widget-pre-message {{site.settings.offline.description}}

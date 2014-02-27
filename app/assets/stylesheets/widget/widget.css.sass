@@ -60,6 +60,7 @@ i.widget
       background-position: -59px -40px
       float: left
       margin-right: 5px
+      top: 1px
     &.icon-thumbs-up
       width: 16px
       height: 16px
@@ -133,7 +134,7 @@ em
   margin: 0 20px 5px 0
   padding: 15px 15px 0 15px
   float: left
-  box-shadow: 0 1px 6px rgba(0,0,0,.2) inset
+  border: 1px solid #e1e1e1
   // z-index: 9999999999
   width: 306px
   height: 425px
@@ -141,18 +142,17 @@ em
   border-radius: 10px
   a
     cursor: default
-  
-
   &:hover
     .widget-unlock-tooltip
       opacity: 1
       visibility: visible
   .widget-box
-    width: 90%
+    // width: 90%
+    width: 306px
     a
       cursor: default
     &.widget-head-min
-      top: 27px  
+      top: 27px 
   .widget-footer, .widget-head
     cursor: default
     z-index: 99
@@ -204,11 +204,13 @@ em
 // CSS FOR ACTUAL WIDGET
 
 body .widget-box, .widget-box
-  font-family: "lucida sans", "lucida grande",tahoma,verdana,arial,sans-serif
-  font-size: 12px
+  font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif
+  font-size: 14px
   line-height: 1.4
   color: #434343
   overflow: hidden
+  -webkit-font-smoothing: antialiased
+  font-weight: 400
   a
     cursor: pointer
 .widget-attention-grabber
@@ -219,6 +221,7 @@ body .widget-box, .widget-box
   img
     max-width: 306px
     display: inline-block
+
 .widget-welcome-msg
   overflow: hidden
   text-overflow: ellipsis
@@ -231,14 +234,15 @@ body .widget-box, .widget-box
     .widget-head
       height: auto
       padding: 10px 10px 7px 10px
-    
     .widget-min-message
-      font-weight: bold
+      font-weight: 400
       text-overflow: ellipsis
       overflow: hidden
       white-space: nowrap
     .widget-chat-viewer
-      height: 315px
+      height: 331px
+    .widget-body
+      height: 400px
 
 .widget-head
   position: relative
@@ -259,10 +263,8 @@ body .widget-box, .widget-box
 
     margin-right: 10px
   .widget-agent-name
-    margin-top: 6px
-    font-size: 12px
-    font-weight: bold
-
+    margin-top: 3px
+    font-weight: 700
 .widget-overlay
   position: absolute
   width: 100%
@@ -275,19 +277,19 @@ body .widget-box, .widget-box
     z-index: 991
     padding: 20px
     background: #fff
-    width: 75%
     top: 20%
     margin: 0 auto
     text-align: center
     box-shadow: 0 1px 3px rgba(0,0,0,.2)
     border-radius: 5px
+    width: 75%
     a.widget-btn
       display: inline-block
       padding: 5px 15px
       border-radius: 3px
       background-color: #445362
       color: #fff
-      font-weight: bold
+      font-weight: 500
       margin-top: 10px
       font-size: 12px
   .widget-prechat-form
@@ -303,14 +305,14 @@ body .widget-box, .widget-box
   border-right: 1px solid #e1e1e1
   border-left: 1px solid #e1e1e1
   .widget-chat-viewer
-    height: 319px
+    height: 318px
     overflow-y: auto
 .widget-footer
   padding: 6px
   height: 19px
   position: relative
   z-index: 1000
-  font-size: 10px
+  font-size: 11px
   text-shadow: 0 1px 0 #fff
   cursor: pointer
   .widget-footer-desc
@@ -320,7 +322,7 @@ body .widget-box, .widget-box
     color: #1589e2
 
   strong
-    font-weight: bold
+    font-weight: 700
 
   .footer-logo
     background-image: image-url('//d1cpaygqxflr8n.cloudfront.net/images/widget-logo.png')
@@ -336,8 +338,8 @@ body .widget-box, .widget-box
   color: #000
   .message-author
 
-    font-weight: bold
-    font-size: 12px
+    font-weight: 700
+    font-size: 14px
     margin: 5px 0
     padding-top: 5px
     border-top: 1px solid #e1e1e1
@@ -356,7 +358,7 @@ body .widget-box, .widget-box
   .message-date
     color: #9f9f9f
     float: right
-    font-size: 9px
+    font-size: 11px
   &.message-inline-notification
     background: #a1a1a1
     color: #fff
@@ -368,8 +370,8 @@ body .widget-box, .widget-box
 .widget-pre-message
   margin: 5px 0 10px 0
   h3
-    font-size: 12px
-    font-weight: bold
+    font-weight: 700
+    margin-bottom: 5px
 
 
     .icon-check-large
@@ -457,7 +459,8 @@ body .widget-box, .widget-box
     display: block
     width: 100%
     border: 1px solid #e1e1e1
-    font-family: "lucida sans", "lucida grande",tahoma,verdana,arial,sans-serif
+    font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif
+    -webkit-font-smoothing: antialiased
     font-size: 12px
     padding: 7px
     outline: none
@@ -477,8 +480,10 @@ button.widget-button
   border: none
   color: #fff
   font:
-    family: "lucida sans", "lucida grande",tahoma,verdana,arial,sans-serif
-    size: 12px
+    family: "Helvetica Neue", "Helvetica", Arial, sans-serif
+    size: 13px
+  text-transform: uppercase
+  font-weight: 700
   border-radius: 3px
   padding: 7px 10px
   display: block
@@ -500,8 +505,8 @@ button.widget-button
     top: 0
     left: 0
     outline: none
-    font-family: "lucida sans", "lucida grande",tahoma,verdana,arial,sans-serif
-    font-size: 12px
+    font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif
+    font-size: 13px
   i.icon.icon-chat
     position: absolute
     left: 7px
@@ -513,14 +518,16 @@ button.widget-button
 input[type='text'].widget-input-text
   width: 100%
   height: 100%
-  padding: 0 45px  0 27px
+  padding: 0 45px  0 10px
+  font-weight: 500
   position: absolute
   border: none
   top: 0
   left: 0
   outline: none
-  font-family: "lucida sans", "lucida grande",tahoma,verdana,arial,sans-serif
-  font-size: 12px
+  font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif
+  -webkit-font-smoothing: antialiased
+  font-size: 13px
 
 
 a.widget-head-control
