@@ -50,7 +50,6 @@
                 Yes, do you offer free shipping?
 
           .widget-input
-            %i.widget.icon.icon-chat
             %input.widget-input-text{ :type => "text", :placeholder => "{{language.chat_box}}" }
             %a.chat-settings
               %i.widget.icon.icon-gear
@@ -154,13 +153,14 @@
                   .icon-check
                 Gradient
 
-{{#if paid}}
-.block-message.small
-  %label.checkbox.toggle-footer{ :class => "{{checked}}" }
-    %span.icon
-      .icon-check
-    Hide Offerchat branding on the widget footer
-{{/if}}
+  {{#if paid}}
+  %div{ :style => "margin-top: 20px" }
+    %label.checkbox.toggle-footer{ :class => "{{checked}}" }
+      %span.icon
+        .icon-check
+      Hide Offerchat branding on the widget footer
+  
+  {{/if}}
 
 / {{#unless paid}}
 / .block-message.small
