@@ -7,7 +7,8 @@
       "all" : "render"
 
     triggers:
-      "click a.view-all-agents" : "goto:agent:management"
+      "click a.view-all-agents"     : "goto:agent:management"
+      "click a.update-billing-info" : "open:update:billing:info"
 
     events:
       "click a.action" : "changePlan"
@@ -85,3 +86,26 @@
       plan: @options.plan
       price: @options.price
       error: @options.error
+
+  class List.BillingInfo extends App.Views.ItemView
+    template: "upgrade/list/billing_info"
+    className: "form form-inline"
+    form:
+      title: "Update Billing Info"
+      terms: true
+      footer: false
+      buttons:
+        nosubmit: false
+        primary: false
+        cancel: false
+    triggers:
+      "click .update-billing-info" : "update:billing:info"
+
+  class List.ProcessBillingInfo extends App.Views.ItemView
+    template: "upgrade/list/process_update_card"
+    className: "authorize-payment-overlay text-center"
+    form:
+      title: "Updating Billing Info"
+      footer: false
+      buttons:
+        nosubmit: true

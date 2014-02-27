@@ -1,3 +1,7 @@
+.block-message#setting-notification{:style => "display: none"}
+  %a.close ×
+  %span
+
 .block-message.hide
   /You have 18 days left in your trial. Enter your payment information to keep your plan.
 
@@ -23,6 +27,9 @@
     %div
       %small.disabled
         Changes to your subscription will be reflected on you next billing statement.
+
+  .block.small
+    %a.update-billing-info Update billing info
 
 .block.large.section-pricing
   .pricing-container

@@ -36,6 +36,9 @@
             @listenTo @layout, "goto:agent:management", =>
               App.navigate Routes.agents_path(), trigger: true
 
+            @listenTo @layout, "open:update:billing:info", =>
+              @showBillingInfoModal agents
+
             App.execute "when:fetched", agents, =>
               @setAgentCount(agents, @plans)
 
@@ -215,6 +218,73 @@
       # track Payment processing
       mixpanel.track("Processing Payment")
 
+    processCardUpdate: ->
+      modalView = @getProcessBillingInfo()
+      formView  = App.request "modal:wrapper", modalView
+
+      @listenTo formView, "modal:cancel", (item)->
+        formView.close()
+
+      App.reqres.setHandler "close:card:update:process", ->
+        formView.close()
+
+      App.modalRegion.show formView
+
+    showBillingInfoModal: (agents) ->
+      modalView = @getModalBillingInfo()
+      formView  = App.request "modal:wrapper", modalView
+
+      current_plan = @plans.findWhere plan_identifier: @profile.get("plan_identifier")
+      target_id    = current_plan.get("plan_identifier")
+      target_price = current_plan.get("price")
+
+      @listenTo formView, "modal:cancel", (item) ->
+        formView.close()
+
+      @listenTo modalView, "update:billing:info", (e) =>
+        Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
+        card =
+          number:   $(e.view.el).find("input[name=credit_card_number]").val()
+          cvc:      $(e.view.el).find("input[name=cvv]").val()
+          expMonth: $(e.view.el).find("input[name=month]").val()
+          expYear:  $(e.view.el).find("input[name=year]").val()
+
+        if @validateCard(card, e)
+          @processCardUpdate()
+
+          handleStripeResponse = (status, response) =>
+
+            if status == 200
+
+              $.post "/subscriptions/change_card",
+                plan_id: target_id
+                card_token: response.id
+                card_id: response.card.id
+                qty: agents.length
+              , (data) =>
+                @profile.set { plan_identifier: target_id }
+
+                @activeCurrentPlan(target_id)
+                @setAgentCount(agents, @plans)
+
+                App.reqres.setHandler "get:current:user", =>
+                  @profile
+
+                App.execute "plan:changed", target_id
+                App.request "close:card:update:process"
+                @showNotification("Your billing info has been updated.")
+            else
+              App.request "close:card:update:process"
+              # @paymentFail(target_id, target_price, agents, response.error.message)
+              @showNotification("Failed to update your billing info.")
+
+          Stripe.createToken(card, handleStripeResponse)
+
+        false
+
+      App.modalRegion.show formView
+
+
     getLayout: (plans) ->
       new List.Layout
         model: @profile
@@ -226,8 +296,16 @@
         plan: plan
         qty: qty
 
+    getModalBillingInfo: ->
+      new List.BillingInfo
+        model: @profile
+
     getProcessPaymentModal: ->
       new List.ModalProcessPayment
+        model: @profile
+
+    getProcessBillingInfo: ->
+      new List.ProcessBillingInfo
         model: @profile
 
     getPaymentSuccessModal: ->

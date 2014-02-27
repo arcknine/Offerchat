@@ -43,7 +43,11 @@ Dashboard::Application.routes.draw do
 
   resources :attention_grabbers
 
-  resources :subscriptions
+  resources :subscriptions do
+    collection do
+      post "change_card"
+    end
+  end
 
   resources :quick_responses
   resources :visitor_notes
