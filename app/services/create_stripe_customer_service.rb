@@ -16,4 +16,12 @@ class CreateStripeCustomerService
     stripe.update_subscription :plan => @plan, :prorate => true, :coupon => @coupon, :quantity => @qty
     @user.update_attribute(:plan_identifier, @plan)
   end
+
+  def update(card_id)
+    stripe = Stripe::Customer.retrieve @user.stripe_customer_token
+    stripe.cards.create(:card => @card)
+
+    stripe.default_card = card_id
+    stripe.save
+  end
 end

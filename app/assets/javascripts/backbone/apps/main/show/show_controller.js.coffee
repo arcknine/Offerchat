@@ -16,7 +16,7 @@
       @listenTo layout, "show", =>
         @showStats()
         @showLastAgentLogin()
-        @showSummaryUpgrade() if @currentUser.plan_identifier isnt "PRO"
+        @showSummaryUpgrade() if ["PRO", "PROTRIAL", "AFFILIATE"].indexOf(@currentUser.plan_identifier) == -1
 
       layout
 

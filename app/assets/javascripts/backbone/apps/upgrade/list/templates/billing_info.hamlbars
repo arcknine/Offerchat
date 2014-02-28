@@ -1,0 +1,35 @@
+%input{ :type => "hidden", :name => "plan_id", :value => "{{plan}}" }
+%p
+  Fill up the form to complete this transaction. Your credit card information will not be stored in any way.
+%fieldset
+  %label.label-top-fix
+    Credit Card #
+  .input-container
+    %input.large{ :type => "text", :name => "credit_card_number", :value => "", :maxlength => 16 }
+    .block-text-message.hide Your credit card number is invalid
+    %fieldset
+      = image_tag "credit-card-visa-32.png"
+      = image_tag "credit-card-mastercard-32.png"
+      = image_tag "credit-card-discover-32.png"
+      = image_tag "credit-card-american-32.png"
+%fieldset
+  %label.label-top-fix
+    CVV Code
+  .input-container
+    %input.short{ :type => "text", :name => "cvv", :placeholder => "XXX", :value => "", :maxlength => 3 }
+    .block-text-message.hide Your CVV code is invalid
+%fieldset
+  %label.label-top-fix
+    Expiry
+  .input-container
+    %input.short{ :type => "text", :name => "month", :placeholder => "MM", :value => "", :maxlength => 2 }
+    %input{ :type => "text", :name => "year", :placeholder => "YYYY", :style => "width: 60px;", :value => "", :maxlength => 4 }
+    .block-text-message.hide Your card expiry date is invalid
+
+%fieldset
+  .terms-text
+    Please read the
+    %a{ :href => "https://www.offerchat.com/terms-of-use/", :target => "_blank" } terms and conditions
+    before proceeding
+  %button.btn.action.go-right.update-billing-info{ :type => "submit" }
+    Update

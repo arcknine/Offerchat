@@ -1,0 +1,5 @@
+#payment-process.authorize-payment-processing
+  %p.text-center
+    Updating your billing info. Please wait.
+  .progress.full
+    .progress-bar
