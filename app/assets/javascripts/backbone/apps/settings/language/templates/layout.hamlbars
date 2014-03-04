@@ -48,6 +48,10 @@
     %img{ :alt => "lithuanian", :src => "/assets/lang/lithuania.png" }
     %label Lietuvių
 
+  %a.set-language
+    %img{ :alt => "italian", :src => "/assets/lang/italy.png" }
+    %label Italiano
+
 .block.large.bordered-top
   %fieldset
     %button.btn.action.save-language{ :type => "submit" }
