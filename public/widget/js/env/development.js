@@ -11,7 +11,7 @@ if (!DEBUG_MODE) {
 var global, Widget, App, Helpers, Chats;
 
 global = {
-  version: '2.1.1',
+  version: '2.2.1',
   src: {
     script:   '//local.offerchat.com:3000/',
     bosh_url: 'http://local.offerchat.com:7070/http-bind/',
