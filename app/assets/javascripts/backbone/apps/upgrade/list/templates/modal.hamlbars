@@ -33,10 +33,20 @@
     %input{ :type => "text", :name => "coupon", :style => "width: 100px;" }
     .block-text-message.hide Your Coupon code is invalid
 
+%fieldset
+  %label.label-top-fix
+    Payment options
+  .input-container
+    %select.payment-option{ :name => "options" }
+      %option{ :value => "month", :selected => "selected" }
+        Monthly
+      %option{ :value => "year" }
+        12 Months - 20% Off
+
 .block.well.large.group
   .go-right.align-right{ :style => "vertical: top" }
     %h4.disabled
-      Monthly total
+      Total
     %h2
       $
       %span.monthly-due

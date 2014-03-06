@@ -129,6 +129,15 @@
         # track upgrade cancellation
         mixpanel.track("Cancel #{target_id} Plan")
 
+      $(document).on "change", ".payment-option", =>
+        type      = $(modal.el).find("select[name=options]").val()
+        target_id = (if type is "month" then target_plan.attr("id") else "#{target_id}YEAR")
+        plan      = @plans.findWhere plan_identifier: target_id
+        price     = plan.get "price"
+        total     = parseFloat(agents_qty * price).toFixed(2)
+
+        $(".monthly-due").text(total)
+
       @listenTo modal, "authorize:payment", (e) =>
 
         mixpanel.track("Authorizing Payment")
