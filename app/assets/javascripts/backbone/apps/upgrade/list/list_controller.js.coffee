@@ -133,8 +133,14 @@
         type      = $(modal.el).find("select[name=options]").val()
         target_id = (if type is "month" then target_plan.attr("id") else "#{target_id}YEAR")
         plan      = @plans.findWhere plan_identifier: target_id
+        console.log plan
         price     = plan.get "price"
-        total     = parseFloat(agents_qty * price).toFixed(2)
+        if type is "month"
+          total = parseFloat(agents_qty * price).toFixed(2)
+        else
+          total    = agents_qty * price
+          discount = total * (20/100)
+          total    = parseFloat(total - discount).toFixed(2)
 
         $(".monthly-due").text(total)
 
