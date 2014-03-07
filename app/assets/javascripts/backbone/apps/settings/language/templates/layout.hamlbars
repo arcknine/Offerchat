@@ -51,6 +51,9 @@
   %a.set-language
     %img{ :alt => "italian", :src => "/assets/lang/italy.png" }
     %label Italiano
+  %a.set-language
+    %img{ :alt => "finnish", :src => "/assets/lang/finland.png" }
+    %label Finnish
 
 .block.large.bordered-top
   %fieldset
