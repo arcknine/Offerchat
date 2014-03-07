@@ -7,6 +7,10 @@
       @currentUser = App.request "get:current:user:json"
 
       App.execute "when:fetched", sites, =>
+
+        App.reqres.setHandler "site:entities", =>
+          sites
+
         site = sites.first()
         @layout = @getLayoutView()
 

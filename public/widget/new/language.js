@@ -151,5 +151,22 @@ var Language = {
     you:           "Jij",
     success_msg:   "Je bericht is verzonden",
     success_desc:  "Bedankt! Je krijgt binnenkort een antwoord."
+  },
+  italian: {
+    connecting:    "Collegandoti alla chat...",
+    connect_agent: "Collegandoti con un agente",
+    chat_box:      "Digita le tue domande e premi invio",
+    transcript:    "Scarica la conversazione completa",
+    sound_off:     "Disattiva audio",
+    sound_on:      "Attiva audio",
+    name:          "Nome",
+    email:         "Email",
+    message:       "Messaggio",
+    submit:        "Invia",
+    idle:          "La tua chat è rimasta inattiva per troppo tempo",
+    connect:       "Connetti",
+    you:           "Tu",
+    success_msg:   "Il tuo messaggio è stato inviato",
+    success_desc:  "Grazie! Vi risponderemo al più presto possibile."
   }
 };
