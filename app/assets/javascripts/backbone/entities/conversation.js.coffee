@@ -14,10 +14,10 @@
     url: "#{gon.history_url}/convo"
 
   API =
-    getConversations: (conversations, aids = [])->
+    getConversations: (conversations, aids = [], wids = [])->
       conversations = new Entities.Conversations if conversations is null
       conversations.fetch
-        data: {aids: aids}
+        data: {aids: aids, wids: wids}
         dataType : "jsonp"
         processData: true
       conversations
@@ -32,8 +32,8 @@
     newConversationGroups: ->
       new Entities.ConversationGroups
 
-  App.reqres.setHandler "get:conversations:entitites", (collection, aid)->
-    API.getConversations(collection, aid)
+  App.reqres.setHandler "get:conversations:entitites", (collection, aid, wid)->
+    API.getConversations(collection, aid, wid)
 
   App.reqres.setHandler "new:conversations:entitites", (collection)->
     API.newConversations(collection)

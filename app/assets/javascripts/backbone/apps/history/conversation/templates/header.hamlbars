@@ -10,6 +10,7 @@
       %i.icon.icon-calendar
       %span.calendar-scope This week
       %i.icon.icon-arrow-down
+
     .history-date-wrapper.hide
       #historyDate
       .date-control
@@ -25,5 +26,14 @@
           Apply
         %a#close-datepicker
           Cancel
+
+    .btn-selector-wrapper
+      .btn-selector
+        .btn.btn-action-selector.btn-large
+          .icon.icon-arrow-down
+          %span.current-selection All Websites
+
+        .dropdown-options.dark#websites-filter-region
+
   %a.btn.trash-btn
     %i.icon.icon-trash
