@@ -278,9 +278,14 @@ class User < ActiveRecord::Base
 
   def trial_days_left
     expire_date = created_at + 60.days
-    if created_at > DateTime.parse("Nov 27, 2013")
+    if created_at > DateTime.parse("Nov 27, 2013") || created_at < DateTime.parse("Mar 10, 2014")
       expire_date = created_at + 30.days
     end
+
+    if created_at > DateTime.parse("Mar 9, 2014")
+      expire_date = created_at + 14.days
+    end
+
     days = ((expire_date - DateTime.now)/86400).round
 
     if days <= 0
@@ -303,6 +308,14 @@ class User < ActiveRecord::Base
       where("plan_identifier = 'PREMIUM' and date(created_at) = :fifty_five_days_ago", :fifty_five_days_ago => Date.today - (30 - days).days).limit(50)
     else
       where("plan_identifier = 'PREMIUM' and date(created_at) = :fifty_five_days_ago", :fifty_five_days_ago => Date.today - (60 - days).days).limit(50)
+    end
+  end
+
+  def trial_type
+    if created_at > DateTime.parse("Mar 9, 2014")
+      14
+    else
+      30
     end
   end
 
