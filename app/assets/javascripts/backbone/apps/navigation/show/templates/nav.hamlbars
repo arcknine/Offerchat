@@ -89,7 +89,7 @@
       #premium-trial.tag-small
         .tooltip.tooltip-large{ :style => "left: -10px" }
           .caret.caret-top.caret-pull-left
-          You're in a Pro Trial by default as a special gift for signing up. Add unlimited agents plus other perks for FREE! Enjoy it for 30 days then upgrade to continue using Offerchat.
+          You're in a Pro Trial by default as a special gift for signing up. Add unlimited agents plus other perks for FREE! Enjoy it for 14 days then upgrade to continue using Offerchat.
         %a.icon-help
           %span ?
         %strong Pro Trial

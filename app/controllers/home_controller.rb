@@ -10,7 +10,8 @@ class HomeController < ApplicationController
     gon.trial_days_left = current_user.trial_days_left
 
     # Update user on vero & mixpanel
-    vero.users.edit_user!({ :email => current_user.email, :changes => { :trial_days_left => current_user.trial_days_left, :widget_installed => current_user.widget_installed }})
+    vero.users.edit_user!({ :email => current_user.email, :changes => { :trial_days_left => current_user.trial_days_left,
+                            :widget_installed => current_user.widget_installed, :trial_type => current_user.trial_type }})
     MIXPANEL.people.set(current_user.email, {
       'Plan'             => current_user.plan_identifier,
       'Website'          => current_user.first_website_url,
