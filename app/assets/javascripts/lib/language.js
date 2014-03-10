@@ -168,5 +168,22 @@ var Language = {
     you:           "Tu",
     success_msg:   "Il tuo messaggio è stato inviato",
     success_desc:  "Grazie! Vi risponderemo al più presto possibile."
+  },
+  finnish: {
+    connecting:    "Yhdistetään keskusteluun...",
+    chat_box:      "Kirjoita kysymyksesi ja paina enter",
+    transcript:    "Lataa keskustelu tietokoneellesi",
+    sound_off:     "Mykistä äänet",
+    sound_on:      "Palauta äänet",
+    connect_agent: "Yhdistetään asiakaspalvelijalle...",
+    name:          "Nimi",
+    email:         "Sähköposti",
+    message:       "Viesti",
+    submit:        "Lähetä",
+    idle:          "Keskusteluyhteytesi on ollut käyttämättä liian pitkään.",
+    connect:       "Yhdistä",
+    you:           "Sinä",
+    success_msg:   "Viestisi on lähetetty",
+    success_desc:  "Kiitos! Palaamme asiaan mahdollisimman pian. "
   }
 };

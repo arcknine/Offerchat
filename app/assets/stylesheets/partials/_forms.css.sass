@@ -51,7 +51,8 @@ select
   border: 2px solid lighten($border-color,5%)
   outline: none
   border-radius: 3px
-  @include transition(.25s)
+  &.payment-option
+    font-size: 14px
   &:hover
     border-color: $border-color
   &:focus

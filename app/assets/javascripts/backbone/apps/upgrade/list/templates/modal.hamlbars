@@ -27,14 +27,7 @@
     .block-text-message.hide Your card expiry date is invalid
 
 %fieldset
-  %label.label-top-fix
-    Coupon Code
-  .input-container
-    %input{ :type => "text", :name => "coupon", :style => "width: 100px;" }
-    .block-text-message.hide Your Coupon code is invalid
-
-%fieldset
-  %label.label-top-fix
+  %label
     Payment options
   .input-container
     %select.payment-option{ :name => "options" }
@@ -42,6 +35,15 @@
         Monthly
       %option{ :value => "year" }
         12 Months - 20% Off
+
+%fieldset
+  %label.label-top-fix
+    Coupon Code
+  .input-container
+    %input{ :type => "text", :name => "coupon", :style => "width: 100px;" }
+    .block-text-message.hide Your Coupon code is invalid
+
+
 
 .block.well.large.group
   .go-right.align-right{ :style => "vertical: top" }
