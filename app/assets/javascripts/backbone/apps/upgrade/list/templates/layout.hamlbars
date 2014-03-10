@@ -108,7 +108,7 @@
                   Chat Triggers
                 %li
                   Attention Grabbers
-                  
+
                 %li
                   Agent Analytics
                 %li
@@ -133,12 +133,12 @@
               %h3
                 Do I have to go through free trial?
               %p
-                We strongly suggest to go through the 30 day free trial so you can understand the features of the tool and later decide to upgrade depending on your needs.
+                We strongly suggest to go through the 14 day free trial so you can understand the features of the tool and later decide to upgrade depending on your needs.
             %li
               %h3
-                What happens after the 30 day free trial?
+                What happens after the 14 day free trial?
               %p
-                Once the 30 days full featured trial is over, we will then prompt you to enter your credit card to continue using Offerchat.
+                Once the 14 days full featured trial is over, we will then prompt you to enter your credit card to continue using Offerchat.
             %li
               %h3
                 What modes of payment do you accept?
@@ -154,4 +154,4 @@
               %h3
                 Can I remove agents anytime?
               %p
-                Once the 30 days full featured trial is over, we will then prompt you to enter your credit card to continue using Offerchat.
+                Once the 14 days full featured trial is over, we will then prompt you to enter your credit card to continue using Offerchat.
