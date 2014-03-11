@@ -10,13 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   %body{ :style => "overflow: auto" }
 
-    
     = render :partial => "signup_wizard/header"
     %div
       = render :partial => "signup_wizard/sidebar"
       = yield
 
     = render 'layouts/send_webmaster'
+
+    = visual_web_js
 
     - if Rails.env.production?
       = analytics_init
