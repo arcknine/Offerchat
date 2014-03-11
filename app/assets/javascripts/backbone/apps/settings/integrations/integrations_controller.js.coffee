@@ -8,7 +8,7 @@
       App.execute "when:fetched", profile, =>
         plan = profile.get("plan_identifier")
 
-        if ["PRO", "PROTRIAL", "AFFILIATE", "PROYEAR"].indexOf(plan) isnt -1
+        if ["PRO", "PROTRIAL", "AFFILIATE", "PROYEAR", "PRO6MONTHS"].indexOf(plan) isnt -1
 
           { @currentSite, region, section } = options
           @currentSite.url = Routes.update_settings_website_path(@currentSite.get('id'))
