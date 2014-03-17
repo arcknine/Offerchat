@@ -67,7 +67,7 @@
         res = all_agents.length * plan_price
 
         # get plan price if not pro or basic
-        res = plan_price if ["PRO", "BASIC"].indexOf(current_plan) is -1
+        res = plan_price if ["PRO", "BASIC", "PROYEAR", "BASICYEAR"].indexOf(current_plan) is -1
 
         $(".agent-count").html(all_agents.length)
         $(".price-plan").html(res.toFixed(2))
@@ -76,15 +76,16 @@
 
     activeCurrentPlan: (current_plan) =>
       current_plan_html = "<span class='icon-round-check'><i class='icon icon-check-large'></i></span>This is your current plan"
-      if current_plan is "PRO"
-        elem = $(".pro-plan")
-      else if current_plan is "BASIC"
-        elem = $(".basic-plan")
-      else if ["PROTRIAL", "AFFILIATE"].indexOf(current_plan) isnt -1
-        # do nothing
-      else
-        notice = "Your current plan is part of our legacy pricing model. Once you upgrade to our <strong>Basic / Pro plan</strong> you cannot undo this."
-        $(".block-message").removeClass("hide").html(notice)
+      switch current_plan
+        when "PRO", "PROYEAR"
+          elem = $(".pro-plan")
+        when "BASIC", "BASICYEAR"
+          elem = $(".basic-plan")
+        when "PROTRIAL", "AFFILIATE"
+          # do nothing
+        else
+          notice = "Your current plan is part of our legacy pricing model. Once you upgrade to our <strong>Basic / Pro plan</strong> you cannot undo this."
+          $(".block-message").removeClass("hide").html(notice)
 
       if elem
         elem.addClass("active")

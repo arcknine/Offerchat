@@ -14,7 +14,7 @@
         if ev is "render" or ev is "show"
           plan = @currentUser.get("plan_identifier")
 
-          if ["PROTRIAL", "BASIC", "AFFILIATE", null, ""].indexOf(plan) isnt -1
+          if ["PROTRIAL", "BASIC", "AFFILIATE", "BASICYEAR", null, ""].indexOf(plan) isnt -1
             $(".new-website-link").remove()
 
       App.execute "when:fetched", sites, =>
@@ -68,7 +68,7 @@
 
       @listenTo @layout, "selector:new:website", (item) =>
         plan = @currentUser.get("plan_identifier")
-        if ["PROTRIAL", "BASIC", "AFFILIATE", null, ""].indexOf(plan) isnt -1
+        if ["PROTRIAL", "BASIC", "AFFILIATE", "BASICYEAR", null, ""].indexOf(plan) isnt -1
           @showNotification "You are not allowed to create new websites.", "warning"
         else
           @toggleSiteSelector item.view
