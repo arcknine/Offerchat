@@ -33,6 +33,8 @@
     %select.payment-option{ :name => "options" }
       %option{ :value => "month", :selected => "selected" }
         Monthly
+      %option{ :value => "6months" }
+        6 Months - 10% Off
       %option{ :value => "year" }
         12 Months - 20% Off
 
