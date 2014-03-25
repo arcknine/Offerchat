@@ -20,7 +20,7 @@
     onShow: ->
       user = App.request "get:current:user:json"
 
-      if ["PRO", "PROTRIAL", "AFFILIATE", "PROYEAR"].indexOf(user.plan_identifier) is -1
+      if ["PRO", "PROTRIAL", "AFFILIATE", "PROYEAR", "PRO6MONTHS"].indexOf(user.plan_identifier) is -1
         $(@.$el).find("a[data-section='attention-grabbers']").parent("li").remove()
         $(@.$el).find("a[data-section='integrations']").parent("li").remove()
 

@@ -21,7 +21,7 @@
             @totalSites  = @manageSites.length + @sites.length
 
           @listenTo sitesView, "click:new:website", =>
-            if ["PROTRIAL", "AFFILIATE", "BASIC", "BASICYEAR"].indexOf(plan) isnt -1
+            if ["PROTRIAL", "AFFILIATE", "BASIC", "BASICYEAR", "BASIC6MONTHS"].indexOf(plan) isnt -1
               alert "You need to upgrade to PRO plan to be able to add new website."
               App.navigate "upgrade", trigger: true
             else

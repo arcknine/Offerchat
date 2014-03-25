@@ -67,7 +67,7 @@
         res = all_agents.length * plan_price
 
         # get plan price if not pro or basic
-        res = plan_price if ["PRO", "BASIC", "PROYEAR", "BASICYEAR"].indexOf(current_plan) is -1
+        res = plan_price if ["PRO", "BASIC", "PROYEAR", "PRO6MONTHS", "BASICYEAR", "BASIC6MONTHS"].indexOf(current_plan) is -1
 
         $(".agent-count").html(all_agents.length)
         $(".price-plan").html(res.toFixed(2))
@@ -77,9 +77,9 @@
     activeCurrentPlan: (current_plan) =>
       current_plan_html = "<span class='icon-round-check'><i class='icon icon-check-large'></i></span>This is your current plan"
       switch current_plan
-        when "PRO", "PROYEAR"
+        when "PRO", "PROYEAR", "PRO6MONTHS"
           elem = $(".pro-plan")
-        when "BASIC", "BASICYEAR"
+        when "BASIC", "BASICYEAR", "BASIC6MONTHS"
           elem = $(".basic-plan")
         when "PROTRIAL", "AFFILIATE"
           # do nothing

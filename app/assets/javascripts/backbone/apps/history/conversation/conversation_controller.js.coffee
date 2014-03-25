@@ -15,7 +15,7 @@
 
       App.execute "when:fetched", currentUser, =>
         plan = currentUser.get("plan_identifier")
-        if plan is null or plan is "" or plan is "BASIC" or plan is "BASICYEAR"
+        if plan is null or plan is "" or plan is "BASIC" or plan is "BASICYEAR" or plan is "BASIC6MONTHS"
           App.navigate "/", trigger: true
         else
 
