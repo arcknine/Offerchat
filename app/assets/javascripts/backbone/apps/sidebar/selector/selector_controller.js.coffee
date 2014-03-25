@@ -8,13 +8,31 @@
       @unreadMsgs  = App.request "unread:messages:entities"
       @layout      = @getLayoutView()
 
+      # pre-load info
       @currentUser = App.request "get:current:user"
+      profile      = App.request "get:current:profile"
+
+      App.execute "when:fetched", @currentUser, =>
+        App.reqres.setHandler "get:current:user", =>
+          @currentUser
+
+        App.commands.setHandler "update:current:user", (new_current_user) =>
+          @currentUser = new_current_user
+
+      App.execute "when:fetched", profile, =>
+        App.reqres.setHandler "get:current:profile", =>
+          profile
+
+        App.commands.setHandler "set:current:profile", (new_profile) =>
+          profile = new_profile
+      # end pre-load
+
 
       @listenTo @layout, "all", (ev) =>
         if ev is "render" or ev is "show"
           plan = @currentUser.get("plan_identifier")
 
-          if ["PROTRIAL", "BASIC", "AFFILIATE", null, ""].indexOf(plan) isnt -1
+          if ["PROTRIAL", "BASIC", "AFFILIATE", "BASICYEAR", null, ""].indexOf(plan) isnt -1
             $(".new-website-link").remove()
 
       App.execute "when:fetched", sites, =>
@@ -68,7 +86,7 @@
 
       @listenTo @layout, "selector:new:website", (item) =>
         plan = @currentUser.get("plan_identifier")
-        if ["PROTRIAL", "BASIC", "AFFILIATE", null, ""].indexOf(plan) isnt -1
+        if ["PROTRIAL", "BASIC", "AFFILIATE", "BASICYEAR", null, ""].indexOf(plan) isnt -1
           @showNotification "You are not allowed to create new websites.", "warning"
         else
           @toggleSiteSelector item.view

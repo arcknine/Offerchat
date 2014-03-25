@@ -353,7 +353,7 @@
           @transcript.set messages: $('#transcript-collection').html()
         else if option is "ticket"
           plan = @profile.get("plan_identifier")
-          if ["PRO", "PROTRIAL", "AFFILIATE"].indexOf(plan) isnt -1
+          if ["PRO", "PROTRIAL", "AFFILIATE", "PROYEAR", "PRO6MONTHS"].indexOf(plan) isnt -1
             @showCreateTicket()
           else
             @showNotification("This feature is only available in PRO plan.", "warning", 5)

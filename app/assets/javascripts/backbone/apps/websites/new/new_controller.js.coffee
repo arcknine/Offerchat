@@ -7,7 +7,7 @@
 
       App.execute "when:fetched", @profile, =>
         plan = @profile.get("plan_identifier")
-        if ["PROTRIAL", "AFFILIATE", "BASIC", "", null].indexOf(plan) isnt -1
+        if ["PROTRIAL", "AFFILIATE", "BASIC", "BASICYEAR", "BASIC6MONTHS","", null].indexOf(plan) isnt -1
           App.navigate "/", trigger: true
         else
 

@@ -8,7 +8,7 @@
 
         plan = profile.get("plan_identifier")
 
-        if ["PRO", "PROTRIAL", "AFFILIATE"].indexOf(plan) isnt -1
+        if ["PRO", "PROTRIAL", "AFFILIATE", "PROYEAR", "PRO6MONTHS"].indexOf(plan) isnt -1
 
           @manageSites = App.request "manage:sites:entities"
           @agents      = App.request "agents:entities"

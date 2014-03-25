@@ -83,7 +83,7 @@
           @listenTo modalLayout, "modal:unsubmit", (obj) =>
             agent.set websites: websites
             # check if user what plan is being used
-            if ["PRO", "BASIC", "PROTRIAL"].indexOf(plan) isnt -1
+            if ["PRO", "BASIC", "PROTRIAL", "PROYEAR", "PRO6MONTHS", "BASICYEAR", "BASIC6MONTHS"].indexOf(plan) isnt -1
               errors = @getErrors agent
               modalLayout.$el.find(".field-error").removeClass("field-error")
               modalLayout.$el.find(".block-text-message").remove()

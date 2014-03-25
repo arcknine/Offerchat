@@ -43,6 +43,6 @@
 
     serializeData: ->
       profile: @options.model.toJSON()
-      is_pro_acct: if ["PRO", "PROTRIAL", "AFFILIATE"].indexOf(@options.model.get("plan_identifier")) is -1 then false else true
-      not_basic: @options.model.get("plan_identifier") isnt "BASIC"
+      is_pro_acct: if ["PRO", "PROTRIAL", "AFFILIATE", "PROYEAR", "PRO6MONTHS"].indexOf(@options.model.get("plan_identifier")) is -1 then false else true
+      not_basic: @options.model.get("plan_identifier") isnt "BASIC" and @options.model.get("plan_identifier") isnt "BASICYEAR" and @options.model.get("plan_identifier") isnt "BASIC6MONTHS"
       trial_days_valid: @options.model.get("trial_days_left") >= 0

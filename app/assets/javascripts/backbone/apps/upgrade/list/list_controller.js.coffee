@@ -67,7 +67,7 @@
         res = all_agents.length * plan_price
 
         # get plan price if not pro or basic
-        res = plan_price if ["PRO", "BASIC"].indexOf(current_plan) is -1
+        res = plan_price if ["PRO", "BASIC", "PROYEAR", "PRO6MONTHS", "BASICYEAR", "BASIC6MONTHS"].indexOf(current_plan) is -1
 
         $(".agent-count").html(all_agents.length)
         $(".price-plan").html(res.toFixed(2))
@@ -76,15 +76,16 @@
 
     activeCurrentPlan: (current_plan) =>
       current_plan_html = "<span class='icon-round-check'><i class='icon icon-check-large'></i></span>This is your current plan"
-      if current_plan is "PRO"
-        elem = $(".pro-plan")
-      else if current_plan is "BASIC"
-        elem = $(".basic-plan")
-      else if ["PROTRIAL", "AFFILIATE"].indexOf(current_plan) isnt -1
-        # do nothing
-      else
-        notice = "Your current plan is part of our legacy pricing model. Once you upgrade to our <strong>Basic / Pro plan</strong> you cannot undo this."
-        $(".block-message").removeClass("hide").html(notice)
+      switch current_plan
+        when "PRO", "PROYEAR", "PRO6MONTHS"
+          elem = $(".pro-plan")
+        when "BASIC", "BASICYEAR", "BASIC6MONTHS"
+          elem = $(".basic-plan")
+        when "PROTRIAL", "AFFILIATE"
+          # do nothing
+        else
+          notice = "Your current plan is part of our legacy pricing model. Once you upgrade to our <strong>Basic / Pro plan</strong> you cannot undo this."
+          $(".block-message").removeClass("hide").html(notice)
 
       if elem
         elem.addClass("active")
@@ -131,16 +132,25 @@
 
       $(document).on "change", ".payment-option", =>
         type      = $(modal.el).find("select[name=options]").val()
-        target_id = (if type is "month" then target_plan.attr("id") else "#{target_id}YEAR")
+        switch type
+          when "month"
+            target_id = target_plan.attr("id")
+          when "6months"
+            target_id = "#{target_plan.attr("id")}6MONTHS"
+          when "year"
+            target_id = "#{target_plan.attr("id")}YEAR"
+
+        # target_id = (if type is "month" then target_plan.attr("id") else "#{target_id}YEAR")
         plan      = @plans.findWhere plan_identifier: target_id
-        console.log plan
         price     = plan.get "price"
-        if type is "month"
-          total = parseFloat(agents_qty * price).toFixed(2)
-        else
-          total    = agents_qty * price
-          discount = total * (20/100)
-          total    = parseFloat(total - discount).toFixed(2)
+        total     = parseFloat(agents_qty * price).toFixed(2)
+        # if type is "month"
+        #   total = parseFloat(agents_qty * price).toFixed(2)
+        # else
+        #   total    = agents_qty * price
+        #   # discount = total * (20/100)
+        #   discount = 0
+        #   total    = parseFloat(total - discount).toFixed(2)
 
         $(".monthly-due").text(total)
 
