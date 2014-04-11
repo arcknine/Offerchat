@@ -83,28 +83,48 @@
           @listenTo modalLayout, "modal:unsubmit", (obj) =>
             agent.set websites: websites
             # check if user what plan is being used
-            if ["PRO", "BASIC", "PROTRIAL", "PROYEAR", "PRO6MONTHS", "BASICYEAR", "BASIC6MONTHS"].indexOf(plan) isnt -1
-              errors = @getErrors agent
-              modalLayout.$el.find(".field-error").removeClass("field-error")
-              modalLayout.$el.find(".block-text-message").remove()
-              App.request "modal:hide:message"
+            # if ["PRO", "BASIC", "PROTRIAL", "PROYEAR", "PRO6MONTHS", "BASICYEAR", "BASIC6MONTHS"].indexOf(plan) isnt -1
+            #   errors = @getErrors agent
+            #   modalLayout.$el.find(".field-error").removeClass("field-error")
+            #   modalLayout.$el.find(".block-text-message").remove()
+            #   App.request "modal:hide:message"
 
-              errCount = 0
-              $.each errors, (key, error) ->
-                errCount++
-                el = modalLayout.$el.find("input[name='#{key}']")
-                sm = $("<div>", class: 'block-text-message').text(error)
-                el.closest("fieldset").addClass("field-error")
-                el.parent().append(sm)
+            #   errCount = 0
+            #   $.each errors, (key, error) ->
+            #     errCount++
+            #     el = modalLayout.$el.find("input[name='#{key}']")
+            #     sm = $("<div>", class: 'block-text-message').text(error)
+            #     el.closest("fieldset").addClass("field-error")
+            #     el.parent().append(sm)
 
-                if key is "websites"
-                  App.request "modal:error:message", error
+            #     if key is "websites"
+            #       App.request "modal:error:message", error
 
-              # if no error is found
-              if errCount is 0
-                modalLayout.close()
-                @addPlanQty agent
-            else
+            #   # if no error is found
+            #   if errCount is 0
+            #     modalLayout.close()
+            #     @addPlanQty agent
+            # else
+            #   @addAgent agent, modalLayout
+
+            errors = @getErrors agent
+            modalLayout.$el.find(".field-error").removeClass("field-error")
+            modalLayout.$el.find(".block-text-message").remove()
+            App.request "modal:hide:message"
+
+            errCount = 0
+            $.each errors, (key, error) ->
+              errCount++
+              el = modalLayout.$el.find("input[name='#{key}']")
+              sm = $("<div>", class: 'block-text-message').text(error)
+              el.closest("fieldset").addClass("field-error")
+              el.parent().append(sm)
+
+              if key is "websites"
+                App.request "modal:error:message", error
+
+            # if no error is found
+            if errCount is 0
               @addAgent agent, modalLayout
 
       @listenTo agentsView, "show:owner:modal", (item) ->
