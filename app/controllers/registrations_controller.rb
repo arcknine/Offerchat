@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     params[:user][:display_name] = params[:user][:name].split(" ").first
     if session[:affiliate_id].nil?
-      params[:user][:plan_identifier] = "PROTRIAL"
+      params[:user][:plan_identifier] = "OFFERFREE"
     else
       params[:user][:plan_identifier] = "AFFILIATE"
     end
