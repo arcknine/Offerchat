@@ -13,6 +13,7 @@ Plan.create(:name => "Pro(Yearly)", :description => "Pro Yearly Plan", :price =>
 Plan.create(:name => "Basic(Yearly)", :description => "Basic Yearly Plan", :price => 86.40, :max_agent_seats => 50, :plan_identifier => "BASICYEAR")
 Plan.create(:name => "Pro(6 Months)", :description => "Pro 6 Months Plan", :price => 91.80, :max_agent_seats => 50, :plan_identifier => "PRO6MONTHS")
 Plan.create(:name => "Basic(6 Months)", :description => "Basic 6 Months Plan", :price => 48.60, :max_agent_seats => 50, :plan_identifier => "BASIC6MONTHS")
+Plan.create(:name => "Free Forever", :description => "FREE", :price => 0, :max_agent_seats => 50, :plan_identifier => "OFFERFREE")
 
 # Admin User
 Admin.where(:email => "admin@offerchat.com").delete_all

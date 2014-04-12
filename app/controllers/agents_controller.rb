@@ -73,14 +73,22 @@ class AgentsController < ApplicationController
       Account.where(user_id: params[:id], website_id: website.id).destroy_all
     end
 
-    if ["BASIC", "PRO", "PROTRIAL", "AFFILIATE", "BASICYEAR", "PROYEAR", "BASIC6MONTHS", "PRO6MONTHS"].include?(current_user.plan_identifier)
-      user = User.find(params[:id])
-      user.destroy if user.plan_identifier.nil?
+    # if ["BASIC", "PRO", "PROTRIAL", "AFFILIATE", "BASICYEAR", "PROYEAR", "BASIC6MONTHS", "PRO6MONTHS"].include?(current_user.plan_identifier)
+    #   user = User.find(params[:id])
+    #   user.destroy if user.plan_identifier.nil?
 
-      if user && ["BASIC", "PRO", "BASICYEAR", "PROYEAR", "BASIC6MONTHS", "PRO6MONTHS"].include?(current_user.plan_identifier)
-        stripe = CreateStripeCustomerService.new(current_user, current_user.plan_identifier, current_user.stripe_customer_token, nil, current_user.agents.count)
-        stripe.upgrade
-      end
+    #   if user && ["BASIC", "PRO", "BASICYEAR", "PROYEAR", "BASIC6MONTHS", "PRO6MONTHS"].include?(current_user.plan_identifier)
+    #     stripe = CreateStripeCustomerService.new(current_user, current_user.plan_identifier, current_user.stripe_customer_token, nil, current_user.agents.count)
+    #     stripe.upgrade
+    #   end
+    # end
+
+    user = User.find(params[:id])
+    user.destroy if user.plan_identifier.nil?
+
+    if user && ["BASIC", "PRO", "BASICYEAR", "PROYEAR", "BASIC6MONTHS", "PRO6MONTHS"].include?(current_user.plan_identifier)
+      stripe = CreateStripeCustomerService.new(current_user, current_user.plan_identifier, current_user.stripe_customer_token, nil, current_user.agents.count)
+      stripe.upgrade
     end
 
     respond_to do |format|

@@ -12,4 +12,4 @@ x1 agent
 %div{ :style => "margin-top: 20px" }
   %em.small
     %strong *
-    You will be charged with the prorated amount for this month.}
+    You will be charged with the prorated amount for this month.

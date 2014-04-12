@@ -151,13 +151,13 @@ class User < ActiveRecord::Base
     user = User.find_or_initialize_by_email(user[:email])
     user_is_new = false
 
-    if owner.seats_available <= 0
-      raise Exceptions::AgentLimitReachedError
-    end
+    # if owner.seats_available <= 0
+    #   raise Exceptions::AgentLimitReachedError
+    # end
 
-    if owner.seats_available <= 0
-      raise Exceptions::AgentLimitReachedError
-    end
+    # if owner.seats_available <= 0
+    #   raise Exceptions::AgentLimitReachedError
+    # end
 
     if user.new_record?
       user_is_new                = true
